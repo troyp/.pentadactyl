@@ -1,17 +1,29 @@
 " EdX
+group edx -locations edx.org
+
 " TODO: work out how to change displayed speed on player (currently doesn't update)
 command! edxvidrate200   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(2)})()
 command! edxvidrate175   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.75)})()
 command! edxvidrate150   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.5)})()
 command! edxvidrate125   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.25)})()
 command! edxvidrate100   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1)})()
-command! edxtoggleplay   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; if (v.isPlaying()) v.pause(); else v.play(); } )();
+command! edxpause        :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.pause()})()
+command! edxplay         :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.play()})()
+"command! edxtoggleplay   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; if (v.isPlaying()) v.pause(); else v.play(); } )();
 command! edxvidforward   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( v.valueOf().currentTime+5 ) } )()
 command! edxvidbackward  :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( Math.max(0, v.valueOf().currentTime-5) ) } )()
-map xv :edxtoggleplay<CR>
+"map xv :edxtoggleplay<CR>
+map <F4> :edxpause<CR>
+map <F5> :edxplay<CR>
 map <C-left>  :edxvidbackward<CR>
 map <C-right> :edxvidforward<CR>
 
 " TODO: find a way to display a result onscreen (while also using JQuery - " jquery plugin not working) 
 " command! edxvidrate      :o javascript:( function() { return ( $('.video').data('video-player-state').videoPlayer.valueOf().player.getPlaybackRate() ); } )()
+
+command! r200 :edxvidrate200
+command! r175 :edxvidrate175
+command! r150 :edxvidrate150 
+command! r125 :edxvidrate125
+command! r100 :edxvidrate100
 

@@ -24,7 +24,7 @@ On this notice these rights rely.
 "use strict";
 var INFO =
 ["plugin", { name: "aardvark",
-             version: "0.1",
+             version: "0.2",
              href: "http://dactyl.sf.net/pentadactyl/plugins#aardvark-plugin",
              summary: "Aardvark page editor",
              xmlns: "dactyl" },
@@ -714,7 +714,7 @@ var Aardvark = Class("Aardvark", {
                       && this.leafElems[node.localName];
             var isTbody = node.localName == "tbody" && node.attributes.length == 0;
             if (isTbody) {
-                for (let node in array.iterValues(node.childNodes))
+                for (let node of node.childNodes)
                     res.push(this.getOuterHtmlFormatted(node, indent));
             }
             else {
@@ -748,7 +748,7 @@ var Aardvark = Class("Aardvark", {
                     inner = [["div", { class: "vsline" },
                                 inner]];
 
-                    for (let node in array.iterValues(node.childNodes))
+                    for (let node of node.childNodes)
                         inner.push(this.getOuterHtmlFormatted(node, indent + 1));
 
                     res.push(["div", { class: "vsline" },
@@ -822,7 +822,7 @@ var Aardvark = Class("Aardvark", {
                 if (value != null) {
                     switch (nodeName) {
                     case "style":
-                        for (let { name, value } in Styles.propertyIter(value))
+                        for (let { name, value } of Styles.propertyIter(value))
                             styles.push(["", FmtString(util.camelCase(name), "#060"), ":",
                                              FmtString(value.trim(), "#008")]);
                         break;
@@ -905,7 +905,7 @@ var Aardvark = Class("Aardvark", {
         }
 
         var s = ["table", { style: "margin:5px 10px 0 10px;" }];
-        for (let map in mappings.iterate(modes.AARDVARK))
+        for (let map of mappings.iterate(modes.AARDVARK))
             if (map.name != "<Esc>")
                 s.push(["tr", {},
                     ["td", { style: "padding: 3px 7px; border: 1px solid black; font-family: courier; font-weight: bold; background-color: #fff" },
@@ -956,7 +956,7 @@ var Aardvark = Class("Aardvark", {
     makeElems: function makeElems() {
         this.borderElems = {};
 
-        for each (let side in ["top", "bottom", "left", "right"]) {
+        for (let side of ["top", "bottom", "left", "right"]) {
             this.borderElems[side] = DOM(["div", { style: "display: none; border-width: 0; border-" + side + "-width: 2px;",
                                                    highlight: "AardvarkBorder" }],
                                          this.doc).appendTo(this.container);
@@ -1024,7 +1024,7 @@ var Aardvark = Class("Aardvark", {
     clearBox: function clearBox() {
         this.selectedElem = null;
         if (this.borderElems != null) {
-            for each (let elem in this.borderElems)
+            for (let elem of values(this.borderElems))
                 elem.hide();
             DOM(this.labelElem).hide();
         }
@@ -1151,13 +1151,13 @@ var Aardvark = Class("Aardvark", {
 // valid selectable element
     findValidElement: function findValidElement(elem) {
         for (; elem; elem = elem.parentNode) {
-            if (this.alwaysValidElements.has(elem.localName))
+            if (Set.has(this.alwaysValidElements, elem.localName))
                 break;
 
             let { display } = DOM(elem).style;
-            if (this.validIfBlockElements.has(elem.localName) && display == "block")
+            if (Set.has(this.validIfBlockElements, elem.localName) && display == "block")
                 break;
-            if (this.validIfNotInlineElements.has(elem.localName) && display != "inline")
+            if (Set.has(this.validIfNotInlineElements, elem.localName) && display != "inline")
                 break;
         }
         return elem;
@@ -1207,16 +1207,16 @@ var Aardvark = Class("Aardvark", {
 
     dBoxId: 0,
 
-    alwaysValidElements: RealSet(["applet", "blockquote", "div", "form",
-                                 "h1", "h2", "h3", "iframe", "img", "object",
-                                 "p", "table", "td", "th", "tr"]),
+    alwaysValidElements: Set(["applet", "blockquote", "div", "form",
+                              "h1", "h2", "h3", "iframe", "img", "object",
+                              "p", "table", "td", "th", "tr"]),
 
-    validIfBlockElements: RealSet(["a", "span"]),
+    validIfBlockElements: Set(["a", "span"]),
 
-    validIfNotInlineElements: RealSet(["code", "li", "ol", "pre", "ul"]),
+    validIfNotInlineElements: Set(["code", "li", "ol", "pre", "ul"]),
 
-    leafElems: RealSet(["area", "base", "basefont", "br", "col", "frame", "hr",
-                       "img", "input", "isindex", "link", "meta", "param"])
+    leafElems: Set(["area", "base", "basefont", "br", "col", "frame", "hr",
+                    "img", "input", "isindex", "link", "meta", "param"])
 });
 
 modes.addMode("AARDVARK", {
