@@ -1,0 +1,43 @@
+"  _____________________________ 
+" |                             |
+" | Set Development Preferences |
+" |_____________________________|
+" 
+" Sets the development preferences recommended by
+" https://developer.mozilla.org/en-US/Add-ons/Setting_up_extension_development_environment#Development_preferences
+" 
+set! javascript.options.showInConsole = true 
+" Logs errors in chrome files to the Error Console.
+
+set! nglayout.debug.disable_xul_cache = true
+" Disables the XUL cache.
+" Permits some GUI changes to occur immediately rather than requiring a restart.
+" Note. Restart still required for: extension using JARs, overlay changes
+
+set! browser.dom.window.dump.enabled = true
+" window.dump() prints to console. Priveleged script can use nsIConsoleService instead.
+
+set! javascript.options.strict = true
+" Enables strict warnings in the Error Console.
+" note: Console2 extension can be used to filter warnings from selected extensions.
+
+set! devtools.chrome.enabled = true
+" Provides a chrome context in the devtools Scratchpad.
+
+set! devtools.debugger.remote-enabled = true
+" Adds 'Browser Toolbox' to devtools menu and 'Debug' buttons to about:addons.
+" note: Also requires devtools.chrome.enabled=true
+
+set! extensions.logging.enabled = true
+" Enables logging of detailed information to the Error Console.
+" note: the extension manager may automatically restart the extension at startup,
+"       hiding earlier messages. To prevent set NO_EM_RESTART=1 before starting.
+
+set! nglayout.debug.disable_xul_fastload = true
+" pertains to the bug at https://bugzil.la/531886
+
+" dom.report_all_js_exceptions = true
+" Optional. Restores logging of *all* Javascript errors.
+" See https://developer.mozilla.org/en-US/docs/Exception_logging_in_JavaScript
+
+set! devtools.errorconsole.deprecation_warnings = true

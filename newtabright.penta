@@ -1,0 +1,17 @@
+" Pentadactyl ex file: add to .pentadactylrc or source with :source command
+" Defines commands to open new tab to right of current tab
+
+" Example keybinding: xt
+map -g user -ex xt :newtabright
+
+command! newtabright
+    \ -description "Open new tab to right of current tab"
+    \ -nargs=1
+    \ -js <<EOF
+    var origOrd = gBrowser.selectedTab.dactylOrdinal;
+    var numTabs = tabs.count;
+    dactyl.open(args[0], dactyl.NEW_TAB)
+    var newTab = tabs.getTab();
+    tabs.move(newTab, origOrd+1);
+EOF
+

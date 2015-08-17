@@ -1,0 +1,10 @@
+" ----------
+" Tab Groups
+" ----------
+
+source ~/.pentadactyl/TabGroupie.js
+source ~/.pentadactyl/tgroupmoveselected.penta
+
+command! -g TabGroupie tgroup-cycle :feedkeys <C-`>
+command! -g TabGroupie tgroup-cycle-backwards :feedkeys <C-~>
+

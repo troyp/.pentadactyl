@@ -1,0 +1,17 @@
+" Vimperator ex file: add to .vimperatorrc or source with :source command
+" Defines commands to open new tab to right of current tab
+
+" Example keybinding: xt
+nmap xt :newtabright<SPACE>
+
+command! newtabright -nargs=1 -description "Open new tab to right of current tab" :js newTabRight("<args>");
+
+:js <<EOF
+function newTabRight(args) {
+    var origOrd = gBrowser.selectedTab._tPos;
+    var numTabs = tabs.count;
+    liberator.open(args, liberator.NEW_TAB)
+    var newTab = tabs.getTab();
+    tabs.move(newTab, origOrd+1);
+}
+EOF
