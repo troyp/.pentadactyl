@@ -32,6 +32,14 @@ var utils = {
         var numToClose = N - targetIx;
         tabs.remove(target, numToClose);
     },
+
+    closeTabsFromTo: function (firstSpec, endSpec, spec='') {
+	var firstIx = tabs.indexFromSpec(firstSpec);
+	var endIx = tabs.indexFromSpec(endSpec);
+	var firstTab = tabs.getTab(firstIx);
+	var N = endIx - firstIx;
+	tabs.remove(firstTab, N);
+    },
     
     removeTab: function (ord) {
         var currT = gBrowser.selectedTab;

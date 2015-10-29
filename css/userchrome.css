@@ -1,0 +1,4 @@
+:visited { text-decoration: underline !important; }
+a:visited {
+    background-color: yellow;
+} 

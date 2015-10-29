@@ -1,0 +1,142 @@
+td.mw-enhanced-rc,.mw-enhanced-rc-time{
+    font-family:monospace,monospace
+}
+    table.filehistory th,table.filehistory td{
+	vertical-align:top
+    }
+    table.filehistory th{
+	text-align:left
+    }
+    table.filehistory td.mw-imagepage-filesize,table.filehistory th.mw-imagepage-filesize{
+	white-space:nowrap
+    }
+    table.filehistory td.filehistory-selected{
+	font-weight:bold
+    }
+    td.mw-label{
+	text-align:right
+    }
+    td.mw-input{
+	text-align:left
+    }
+    td.mw-submit{
+	text-align:left
+    }
+    td.mw-label{
+	vertical-align:middle
+    }
+    .prefsection td.mw-label{
+	width:20%
+    }
+    .prefsection table{
+	width:100%
+    }
+    .prefsection table.mw-htmlform-matrix{
+	width:auto
+    }
+    td.mw-submit{
+	white-space:nowrap
+    }
+    table.mw-htmlform-nolabel td.mw-label{
+	width:1px
+    }
+    tr.mw-htmlform-vertical-label td.mw-label{
+	text-align:left !important
+    }
+    .mw-htmlform-invalid-input td.mw-input input{
+	border-color:red
+    }
+    .mw-content-ltr .thumbcaption{
+	text-align:left
+    }
+    .mw-content-ltr .magnify{
+	float:right
+    }
+    td.mw-revdel-checkbox,th.mw-revdel-checkbox{
+	padding-right:10px;
+	text-align:center
+    }
+    table.wikitable{
+	margin:1em 0;
+	background-color:#f9f9f9;
+	border:1px solid #aaa;
+	border-collapse:collapse;
+	color:black
+    }
+    table.wikitable > tr > th,table.wikitable > tr > td,table.wikitable > * > tr > th,table.wikitable > * > tr > td{
+	border:1px solid #aaa;
+	padding:0.2em 0.4em
+    }
+    table.wikitable > tr > th,table.wikitable > * > tr > th{
+	background-color:#f2f2f2;
+	text-align:center
+    }
+    table.wikitable > caption{
+	font-weight:bold
+    }
+    table.mw_metadata{
+	font-size:0.8em;
+	margin-left:0.5em;
+	margin-bottom:0.5em;
+	width:400px
+    }
+    table.mw_metadata caption{
+	font-weight:bold
+    }
+    table.mw_metadata th{
+	font-weight:normal
+    }
+    table.mw_metadata td{
+	padding:0.1em
+    }
+    table.mw_metadata{
+	border:none;
+	border-collapse:collapse
+    }
+    table.mw_metadata td,table.mw_metadata th{
+	text-align:center;
+	border:1px solid #aaaaaa;
+	padding-left:5px;
+	padding-right:5px
+    }
+    table.mw_metadata th{
+	background-color:#f9f9f9
+    }
+    table.mw_metadata td{
+	background-color:#fcfcfc
+    }
+    table.mw_metadata ul.metadata-langlist{
+	list-style-type:none;
+	list-style-image:none;
+	padding-right:5px;
+	padding-left:5px;
+	margin:0
+    }
+    div.tright,div.floatright,table.floatright{
+	clear:right;
+	float:right
+    }
+    div.tleft,div.floatleft,table.floatleft{
+	float:left;
+	clear:left
+    }
+    div.floatright,table.floatright,div.floatleft,table.floatleft{
+	position:relative
+    }
+    table.small{
+	font-size:100%
+    }
+    table#toc,table.toc{
+	border-collapse:collapse
+    }
+    table#toc td,table.toc td{
+	padding:0
+    }
+    div.floatright,table.floatright{
+	margin:0 0 .5em .5em;
+	border:0
+    }
+    div.floatleft,table.floatleft{
+	margin:0 .5em .5em 0;
+	border:0
+    }

@@ -1,0 +1,28 @@
+
+.comment-text {
+    padding: 1em;
+}
+.votecell {
+    width: 20%;
+}
+.fw {
+    background-color: rgb(230,230,255);
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: grey;
+}
+.comment-user {
+    background-color: rgb(230,230,255);
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: grey;
+}
+.comment-date {
+    background-color: rgb(230,230,255);
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: grey;
+}
