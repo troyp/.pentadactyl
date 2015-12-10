@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Key Mappings</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" keyboard-shortcuts key-mapping mapping map macro :map-modes modes :map-commands :map :nm :nmap :vm :vmap :im :imap :tm :tmap :cm :cmap :map-overview :map-options :no :noremap :nno :nnoremap :vno :vnoremap :ino :inoremap :tno :tnoremap :cno :cnoremap :unm :unmap :nun :nunmap :vun :vunmap :iu :iunmap :tu :tunmap :cu :cunmap :map_l :nmap_l :vmap_l :imap_l :tmap_l :cmap_l :map-timeout map-timeout key-notation key-sequence :map-special-chars &lt;Nop&gt; &lt;Pass&gt; &lt;CR&gt; map_return &lt;Leader&gt; \ abbreviations :ab :abbreviate :ca :cabbreviate :ia :iabbreviate :una :unabbreviate :cuna :cunabbreviate :iuna :iunabbreviate user-commands :com :command :command-group E175 E176 :command-nargs E180 E181 :command-complete :command-complete-arg-list E467 E468 :command-completion-custom E177 E178 :command-count :command-bang :command-description :command-replacement-text :delc :delcommand command-examples "><div class="hl-HelpTags"><a id="map.xml" class="hl-HelpTag">map.xml</a></div>
+
+<h1><div class="hl-HelpTags"><a id="keyboard-shortcuts" class="hl-HelpTag">keyboard-shortcuts</a></div>Keyboard shortcuts and commands</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/map#key-mapping">Key mapping</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/map#:map-commands">Map commands</a></li><li><a href="dactyl://help/map#:map-options">Map options</a></li><li><a href="dactyl://help/map#:map-timeout">Mapping timeout</a></li><li><a href="dactyl://help/map#key-notation">Key sequences</a></li><li><a href="dactyl://help/map#:map-special-chars">Special characters</a></li></ol></li><li><a href="dactyl://help/map#abbreviations">Abbreviations</a></li><li><a href="dactyl://help/map#user-commands">User-defined commands</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/map#:command-group">Grouping</a></li><li><a href="dactyl://help/map#E175">Argument handling</a></li><li><a href="dactyl://help/map#E180">Argument completion</a></li><li><a href="dactyl://help/map#E467">Custom completion</a></li><li><a href="dactyl://help/map#E177">Count handling</a></li><li><a href="dactyl://help/map#:command-bang">Special cases</a></li><li><a href="dactyl://help/map#:command-description">Command description</a></li><li><a href="dactyl://help/map#:command-replacement-text">Replacement text</a></li></ol></li><li><a href="dactyl://help/map#command-examples">Examples</a></li></ol></div>
+
+<p>
+    Pentadactyl provides a number of commands to change the
+    behavior of key presses. This can mean anything from
+    automatically substituting one key for another or automatically
+    replacing one typed word for another, to launching a dialog or
+    running a command.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="key-mapping" class="hl-HelpTag">key-mapping</a><a id="mapping" class="hl-HelpTag">mapping</a><a id="map" class="hl-HelpTag">map</a><a id="macro" class="hl-HelpTag">macro</a></div>Key mapping</h2>
+
+<p>
+    Key mappings are the most basic means Pentadactyl provides
+    for altering the actions of key presses. Each key mapping is
+    associated with a mode, such as <a href="editing.xhtml#insert-mode" topic="insert-mode">Insert</a>,
+    <a>Normal</a>, or
+    <a href="cmdline.xhtml#command-line-mode" topic="command-line-mode">Command Line</a>, and only
+    has effect when that mode is active. Although each mode has a
+    full suite of internal mappings, they may be easily augmented,
+    altered, or removed with the <span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map</a></span> command and its
+    variants. These commands, in essence, allow the user to quickly
+    substitute one sequence of key presses for another.
+    For instance,
+</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map <span class="hl-HelpKey"><a style="color: inherit;">&lt;F2&gt;</a></span></a></span> <span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo Date()<span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CCR%3E">&lt;CR&gt;</a></span></a></span></pre>
+
+<p>
+    causes “<span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo Date()<span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CCR%3E">&lt;CR&gt;</a></span></a></span>” to be typed out
+    whenever <span class="hl-HelpKey"><a style="color: inherit;">&lt;F2&gt;</a></span> is pressed, thus echoing the full date
+    to the command line.
+</p>
+
+<p><div class="hl-HelpTags"><a id=":map-modes" class="hl-HelpTag">:map-modes</a></div><div style="clear: right"></div>
+    Standard key mapping commands are provided for the five most
+    common modes,
+</p>
+
+<dl><column style="width: 8em;"></column><column style=""></column><tr><dt>n</dt><dd>Normal mode: When browsing normally</dd></tr><tr><dt>v</dt><dd>Visual mode: When selecting text with the cursor keys</dd></tr><tr><dt>i</dt><dd>Insert mode: When interacting with text fields on a website</dd></tr><tr><dt>t</dt><dd>Text Edit mode: When editing text fields in Vim-like Normal mode</dd></tr><tr><dt>c</dt><dd>Command Line mode: When typing into the Pentadactyl command line</dd></tr></dl>
+
+<p>
+    The ordinary <span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map</a></span> and <span class="hl-HelpEx"><a href="dactyl://help/map#:noremap" style="color: inherit;">:noremap</a></span> commands
+    add mappings for Normal and Visual mode. In order to map key
+    bindings in a different mode, any of the mapping commands may be
+    prefixed with one of the above letters. For instance,
+    <span class="hl-HelpEx"><a href="dactyl://help/map#:imap" style="color: inherit;">:imap</a></span> creates a new key mapping in Insert mode, while
+    <span class="hl-HelpEx"><a href="dactyl://help/map#:cunmap" style="color: inherit;">:cunmap</a></span> removes a key mapping from Command Line mode.
+    Other modes can be specified using the -modes option described below.
+</p>
+
+<p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpWarning">Warning:</span> 
+    It is important to note that mappings are <em>not</em>
+    automatically saved between sessions. In order to preserve them,
+    they must either be added to your <tt><span class="hl-HelpTopic"><a style="color: inherit;" href="starting.xhtml#pentadactylrc">pentadactylrc</a></span></tt> or
+    saved via the <span class="hl-HelpEx"><a href="starting.xhtml#:mkpentadactylrc" style="color: inherit;">:mkpentadactylrc</a></span> command.
+</p>
+
+<p><div class="hl-HelpTags"><a id="modes" class="hl-HelpTag">modes</a></div><div style="clear: right"></div>
+    The following tree represents all of the modes understood by
+    dactyl. Mappings for a mode also apply to its children and
+    descendants. So a mapping in the Base mode, for instance, is
+    also active in Normal and Ex mode.
+</p>
+
+<ul class="hl-Dense"><li><em>Base</em>: The base mode for all other modes<ul class="hl-Dense"><li><em>Main</em>: The base mode for most other modes<ul class="hl-Dense"><li><em>Command</em>: The base mode for most modes which accept commands rather than input<ul class="hl-Dense"><li><em>Normal</em>: Active when nothing is focused<ul class="hl-Dense"><li><em>Caret</em>: Active when the caret is visible in the web content</li><li><em>Output Multiline</em>: Active when the multi-line output buffer is open</li></ul></li><li><em>Text Edit</em>: Vim-like editing of input elements</li><li><em>Visual</em>: Active when text is selected</li></ul></li><li><em>Input</em>: The base mode for input modes, including Insert and Command Line<ul class="hl-Dense"><li><em>Command Line</em>: Active when the command line is focused<ul class="hl-Dense"><li><em>Ex</em>: Ex command mode, active when the command line is open for Ex commands</li><li><em>File Input</em>: Active when selecting a file</li><li><em>Find</em>: Find mode, active when typing search input<ul class="hl-Dense"><li><em>Find Backward</em>: Backward Find mode, active when typing search input</li><li><em>Find Forward</em>: Forward Find mode, active when typing search input</li></ul></li><li><em>Hints</em>: Active when selecting elements with hints</li><li><em>Prompt</em>: Active when a prompt is open in the command line</li><li><em>REPL</em>: JavaScript Read Eval Print Loop</li></ul></li><li><em>Embed</em>: Active when an &lt;embed&gt; or &lt;object&gt; element is focused</li><li><em>Insert</em>: Active when an input element is focused<ul class="hl-Dense"><li><em>Autocomplete</em>: Active when an input autocomplete pop-up is active</li></ul></li><li><em>Menu</em>: Active when a menu or other pop-up is open</li></ul></li></ul></li><li><em>Pass Through</em>: All keys but &lt;C-v&gt; are ignored by Pentadactyl</li><li><em>Quote</em>: The next key sequence is ignored by Pentadactyl, unless in Pass Through mode</li></ul></li></ul>
+
+<h3><div class="hl-HelpTags"><a id=":map-commands" class="hl-HelpTag">:map-commands</a></div>Map commands</h3>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id=":map" class="hl-HelpTag">:map</a></div><div class="hl-HelpSpec">:map <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":nm" class="hl-HelpTag">:nm</a><a id=":nmap" class="hl-HelpTag">:nmap</a></div><div class="hl-HelpSpec">:nm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":vm" class="hl-HelpTag">:vm</a><a id=":vmap" class="hl-HelpTag">:vmap</a></div><div class="hl-HelpSpec">:vm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":im" class="hl-HelpTag">:im</a><a id=":imap" class="hl-HelpTag">:imap</a></div><div class="hl-HelpSpec">:im<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":tm" class="hl-HelpTag">:tm</a><a id=":tmap" class="hl-HelpTag">:tmap</a></div><div class="hl-HelpSpec">:tm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":cm" class="hl-HelpTag">:cm</a><a id=":cmap" class="hl-HelpTag">:cmap</a></div><div class="hl-HelpSpec">:cm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Map the <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/map#key-sequence">key-sequence</a></span> <span class="hl-HelpArg">{lhs}</span> to <span class="hl-HelpArg">{rhs}</span> for
+            the applicable mode(s). The keys of <span class="hl-HelpArg">{rhs}</span> respect
+            user-defined mappings, so the following will result in
+            an infinite loop,
+        </p>
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map a b</a></span>
+<span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map b a</a></span></pre>
+        <p>
+            In order to avoid this shortcoming, the <span class="hl-HelpEx"><a href="dactyl://help/map#:noremap" style="color: inherit;">:noremap</a></span> command
+            or the <em>-builtin</em> option may be used.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<p><div class="hl-HelpTags"><a id=":map-overview" class="hl-HelpTag">:map-overview</a></div><div style="clear: right"></div>
+    Below is an overview of which modes each map command applies to:
+</p>
+
+<dl><column style="width: 20em;"></column><column style=""></column><tr><dt>:map   :noremap   :unmap</dt><dd>Normal and Visual modes</dd></tr><tr><dt>:nmap  :nnoremap  :nunmap</dt><dd>Normal mode</dd></tr><tr><dt>:vmap  :vnoremap  :vunmap</dt><dd>Visual mode</dd></tr><tr><dt>:imap  :inoremap  :iunmap</dt><dd>Insert mode</dd></tr><tr><dt>:tmap  :tnoremap  :tunmap</dt><dd>Text Edit mode</dd></tr><tr><dt>:cmap  :cnoremap  :cunmap</dt><dd>Command Line mode</dd></tr></dl>
+
+<p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+    The <em>-modes</em> option, described below, provides a more flexible way
+    to specify the applicable modes.
+</p>
+
+<h3><div class="hl-HelpTags"><a id=":map-options" class="hl-HelpTag">:map-options</a></div>Map options</h3>
+<p>
+    Any of the map commands may be given the following options:
+</p>
+
+<dl><column style="width: 12em;"></column><column style=""></column><tr><dt></dt><dd></dd></tr><tr><dt>-arg</dt><dd>Accept an argument after the requisite key press. Sets the <tt>arg</tt> parameter to the result. (short name <em>-a</em>)</dd></tr><tr><dt>-builtin</dt><dd>Execute this mapping as if there were no user-defined mappings (short name <em>-b</em>)</dd></tr><tr><dt>-count</dt><dd>Accept a count before the requisite key press. Sets the <tt>count</tt> parameter to the result. (short name <em>-c</em>)</dd></tr><tr><dt>-description</dt><dd>A description of this mapping (short name <em>-d</em>)</dd></tr><tr><dt>-ex</dt><dd>Execute <span class="hl-HelpArg">{rhs}</span> as an Ex command rather than keys (short name <em>-e</em>)</dd></tr><tr><dt>-group=<span class="hl-HelpArg">{group}</span></dt><dd>Add this command to the given <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#group">group</a></span> (short name <em>-g</em>). When listing commands this limits the output to the specified group.</dd></tr><tr><dt>-javascript</dt><dd>Execute <span class="hl-HelpArg">{rhs}</span> as JavaScript rather than keys (short names <em>-js</em>, <em>-j</em>)</dd></tr><tr><dt>-literal=<span class="hl-HelpArg">{n}</span></dt><dd>Parse the <span class="hl-HelpArg">{n}</span>th argument without specially processing any quote or meta characters. (short name <em>-l</em>)</dd></tr><tr><dt>-modes=<span class="hl-HelpArg">{modes}</span></dt><dd>Create this mapping in the given modes (short names <em>-mode</em>, <em>-m</em>)</dd></tr><tr><dt>-nopersist</dt><dd>Do not save this mapping to an auto-generated rc file (short name <em>-n</em>)</dd></tr><tr><dt>-silent</dt><dd>Do not echo any generated keys to the command line (short name <em>-s</em>, also <em>&lt;silent&gt;</em> for Vim compatibility)</dd></tr></dl>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id=":no" class="hl-HelpTag">:no</a><a id=":noremap" class="hl-HelpTag">:noremap</a></div><div class="hl-HelpSpec">:no<span class="hl-HelpOptionalArg">[remap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":nno" class="hl-HelpTag">:nno</a><a id=":nnoremap" class="hl-HelpTag">:nnoremap</a></div><div class="hl-HelpSpec">:nno<span class="hl-HelpOptionalArg">[remap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":vno" class="hl-HelpTag">:vno</a><a id=":vnoremap" class="hl-HelpTag">:vnoremap</a></div><div class="hl-HelpSpec">:vno<span class="hl-HelpOptionalArg">[remap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":ino" class="hl-HelpTag">:ino</a><a id=":inoremap" class="hl-HelpTag">:inoremap</a></div><div class="hl-HelpSpec">:ino<span class="hl-HelpOptionalArg">[remap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpTags"><a id=":tno" class="hl-HelpTag">:tno</a><a id=":tnoremap" class="hl-HelpTag">:tnoremap</a></div><div class="hl-HelpSpec">:tno<span class="hl-HelpOptionalArg">[remap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":cno" class="hl-HelpTag">:cno</a><a id=":cnoremap" class="hl-HelpTag">:cnoremap</a></div><div class="hl-HelpSpec">:cno<span class="hl-HelpOptionalArg">[remap]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Map the <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/map#key-sequence">key-sequence</a></span> <span class="hl-HelpArg">{lhs}</span> to <span class="hl-HelpArg">{rhs}</span> for
+            the applicable mode(s). The keys in <span class="hl-HelpArg">{rhs}</span> do not
+            respect user-defined key mappings, so the following
+            effectively reverses the default meanings of the keys
+            <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#d">d</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#D">D</a></span>
+        </p>
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:noremap" style="color: inherit;">:noremap d D</a></span>
+<span class="hl-HelpEx"><a href="dactyl://help/map#:noremap" style="color: inherit;">:noremap D d</a></span></pre>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:unmap <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":unm" class="hl-HelpTag">:unm</a><a id=":unmap" class="hl-HelpTag">:unmap</a></div><div class="hl-HelpSpec">:unmap!</div><div class="hl-HelpSpec">:nun<span class="hl-HelpOptionalArg">[map]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":nun" class="hl-HelpTag">:nun</a><a id=":nunmap" class="hl-HelpTag">:nunmap</a></div><div class="hl-HelpSpec">:nun<span class="hl-HelpOptionalArg">[map]</span>!</div><div class="hl-HelpSpec">:vun<span class="hl-HelpOptionalArg">[map]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":vun" class="hl-HelpTag">:vun</a><a id=":vunmap" class="hl-HelpTag">:vunmap</a></div><div class="hl-HelpSpec">:vun<span class="hl-HelpOptionalArg">[map]</span>!</div><div class="hl-HelpSpec">:iu<span class="hl-HelpOptionalArg">[nmap]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":iu" class="hl-HelpTag">:iu</a><a id=":iunmap" class="hl-HelpTag">:iunmap</a></div><div class="hl-HelpSpec">:iu<span class="hl-HelpOptionalArg">[nmap]</span>!</div><div class="hl-HelpSpec">:tu<span class="hl-HelpOptionalArg">[nmap]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":tu" class="hl-HelpTag">:tu</a><a id=":tunmap" class="hl-HelpTag">:tunmap</a></div><div class="hl-HelpSpec">:tu<span class="hl-HelpOptionalArg">[nmap]</span>!</div><div class="hl-HelpSpec">:cu<span class="hl-HelpOptionalArg">[nmap]</span> <span class="hl-HelpArg">{lhs}</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":cu" class="hl-HelpTag">:cu</a><a id=":cunmap" class="hl-HelpTag">:cunmap</a></div><div class="hl-HelpSpec">:cu<span class="hl-HelpOptionalArg">[nmap]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Remove the mapping of <span class="hl-HelpArg">{lhs}</span> (or all mappings if <span class="hl-HelpOptionalArg">[!]</span> is
+            given) for the applicable mode(s).</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:map</div><div class="hl-HelpSpec">:nm<span class="hl-HelpOptionalArg">[ap]</span></div><div class="hl-HelpSpec">:vm<span class="hl-HelpOptionalArg">[ap]</span></div><div class="hl-HelpSpec">:im<span class="hl-HelpOptionalArg">[ap]</span></div><div class="hl-HelpSpec">:tm<span class="hl-HelpOptionalArg">[ap]</span></div><div class="hl-HelpSpec">:cm<span class="hl-HelpOptionalArg">[ap]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List all mappings for the applicable mode(s). Mappings are
+            partitioned into <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#groups">groups</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id=":map_l" class="hl-HelpTag">:map_l</a></div><div class="hl-HelpSpec">:map <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":nmap_l" class="hl-HelpTag">:nmap_l</a></div><div class="hl-HelpSpec">:nm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":vmap_l" class="hl-HelpTag">:vmap_l</a></div><div class="hl-HelpSpec">:vm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":imap_l" class="hl-HelpTag">:imap_l</a></div><div class="hl-HelpSpec">:im<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpTags"><a id=":tmap_l" class="hl-HelpTag">:tmap_l</a></div><div class="hl-HelpSpec">:tm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":cmap_l" class="hl-HelpTag">:cmap_l</a></div><div class="hl-HelpSpec">:cm<span class="hl-HelpOptionalArg">[ap]</span> <span class="hl-HelpArg">{lhs}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>List all mappings starting with <span class="hl-HelpArg">{lhs}</span> for the applicable mode(s).</p>
+    </div><div style="clear: both;"></div></div>
+
+<h3><div class="hl-HelpTags"><a id=":map-timeout" class="hl-HelpTag">:map-timeout</a><a id="map-timeout" class="hl-HelpTag">map-timeout</a></div>Mapping timeout</h3>
+<p>
+    When Pentadactyl receives a key event that has a separate binding and
+    at the same time is part of a key chain, values of the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27timeout%27">'timeout'</a></span> and
+    <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27timeoutlen%27">'timeoutlen'</a></span> options are used to decide what to do. See the
+    documentation of those options for more information.
+</p>
+
+<h3><div class="hl-HelpTags"><a id="key-notation" class="hl-HelpTag">key-notation</a><a id="key-sequence" class="hl-HelpTag">key-sequence</a></div>Key sequences</h3>
+
+<p>
+    Most keys in key sequences are represented simply by the
+    character that you see on the screen when you type them.
+    However, as a number of these characters have special meanings,
+    and a number of keys have no visual representation, a special
+    notation is required.
+</p>
+
+<ul>
+    <li>
+        The first argument to the <span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map</a></span> commands must be
+        <a href="cmdline.xhtml#quoting" topic="quoting">quoted</a> if it contains spaces,
+        quotation marks or back-slashes. A space may additionally be
+        typed as <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CSpace%3E">&lt;Space&gt;</a></span>.
+    </li>
+    <li key="&lt;lt&gt;">
+        As special key names start with the <em>&lt;</em> character,
+        a literal &lt; must be typed as <span class="hl-HelpKey"><a style="color: inherit;">&lt;lt&gt;</a></span>.
+    </li>
+    <li>
+        <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CLeft%3E">&lt;Left&gt;</a></span>, <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CRight%3E">&lt;Right&gt;</a></span>, <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CUp%3E">&lt;Up&gt;</a></span>,
+        and <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CDown%3E">&lt;Down&gt;</a></span> represent the standard arrow keys.
+    </li>
+    <li>
+        <span class="hl-HelpKey"><a style="color: inherit;">&lt;CapsLock&gt;</a></span>, <span class="hl-HelpKey"><a style="color: inherit;">&lt;NumLock&gt;</a></span>, <span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CInsert%3E">&lt;Insert&gt;</a></span>
+        <span class="hl-HelpKey"><a style="color: inherit;">&lt;Del&gt;</a></span>, <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span>, <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CPageUp%3E">&lt;PageUp&gt;</a></span>,
+        <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CPageDown%3E">&lt;PageDown&gt;</a></span>, and <span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span> work as
+        expected.
+   </li>
+    <li>
+        <span class="hl-HelpKey"><a style="color: inherit;">&lt;Return&gt;</a></span> or <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CCR%3E">&lt;CR&gt;</a></span> represent the carriage
+        return key.
+    </li>
+    <li><span class="hl-HelpKey"><a style="color: inherit;">&lt;BS&gt;</a></span> represents the backspace key.</li>
+    <li><span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CF1%3E">&lt;F1&gt;</a></span> through <span class="hl-HelpKey"><a style="color: inherit;">&lt;F12&gt;</a></span> work as expected.</li>
+    <li>
+        <span class="hl-HelpKey"><a style="color: inherit;">&lt;K0&gt;</a></span> through <span class="hl-HelpKey"><a style="color: inherit;">&lt;K9&gt;</a></span> represent keys on the
+        numeric keypad.
+    </li>
+    <li>
+        <span class="hl-HelpKey"><a style="color: inherit;">&lt;Uxxxx&gt;</a></span>, where <em>xxxx</em> is any 4 hexadecimal
+        digits, represents the character at that Unicode codepoint.
+        For instance, <span class="hl-HelpKey"><a style="color: inherit;">&lt;U263a&gt;</a></span> represents ☺.
+    </li>
+</ul>
+
+<p>
+    In order to represent key presses using the Control, Alt, Meta,
+    or Shift keys, the following prefixes may be used,
+</p>
+
+<ol>
+    <li><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-␣&gt;</a></span>: The control or ctrl key.</li>
+    <li><span class="hl-HelpKey"><a style="color: inherit;">&lt;A-␣&gt;</a></span>: The alt key.</li>
+    <li><span class="hl-HelpKey"><a style="color: inherit;">&lt;M-␣&gt;</a></span>: The meta key, windows key, or command key.</li>
+    <li><span class="hl-HelpKey"><a style="color: inherit;">&lt;⌘-␣&gt;</a></span>: Same as <span class="hl-HelpKey"><a style="color: inherit;">&lt;M-␣&gt;</a></span>.</li>
+    <li><span class="hl-HelpKey"><a style="color: inherit;">&lt;S-␣&gt;</a></span>: The shift key.</li>
+</ol>
+
+<p>
+    These prefixes can be combined however you see fit.
+</p>
+
+<p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+    Within angle brackets all alphabetic characters are read as lowercase.
+    Uppercase characters can only be specified with the <em>S-</em> modifier.
+</p>
+
+<p>
+    The following key sequences are interpreted as described:
+</p>
+
+<dl><column style="width: 10em;"></column><column style=""></column><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">xc</a></span></dt><dd>Press the ‘X’ key followed by the ‘C’ key.</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-x&gt;c</a></span></dt><dd>
+        Press the ‘X’ key while holding the ‘Control’ key, followed
+        by the ‘C’ key.
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-2&gt;</a></span></dt><dd>Type ‘2’ while holding the ‘Control’ key.</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-@&gt;</a></span></dt><dd>Press the ‘@’ key while holding the ‘Control’ key.</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;S-Space&gt;</a></span></dt><dd>Press the space bar while holding the ‘Shift’ key.</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-A-j&gt;</a></span></dt><dd>Press the ‘J’ key while holding both the ‘Control’ and ‘Alt’ keys.</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-A-J&gt;</a></span></dt><dd>Exactly the same as above.</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-A-S-j&gt;</a></span></dt><dd>Press the ‘J’ key while holding all of ‘Control’, ‘Alt’, and ‘Shift’ keys.</dd></tr></dl>
+
+<h3><div class="hl-HelpTags"><a id=":map-special-chars" class="hl-HelpTag">:map-special-chars</a></div>Special characters</h3>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;Nop&gt;" class="hl-HelpTag">&lt;Nop&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;Nop&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Do nothing. This pseudo-key is useful for disabling a
+            specific builtin mapping. For example,
+            <span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#%3CC-n%3E">&lt;C-n&gt;</a></span> <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CNop%3E">&lt;Nop&gt;</a></span></a></span> will prevent <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#%3CC-n%3E">&lt;C-n&gt;</a></span>
+            from doing anything.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;Pass&gt;" class="hl-HelpTag">&lt;Pass&gt;</a></div><div class="hl-HelpSpec">&lt;Pass&gt;</div><div class="hl-HelpDescription" short="true">
+        <p>
+            Pass the events consumed by the last executed mapping through to Firefox.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;CR&gt;" class="hl-HelpTag">&lt;CR&gt;</a><a id="map_return" class="hl-HelpTag">map_return</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;CR&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Expand to a line terminator in a key mapping. An Ex command in the <span class="hl-HelpArg">{rhs}</span> of a
+            mapping requires a line terminator after it so that it is executed when the
+            mapping is expanded. <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CCR%3E">&lt;CR&gt;</a></span> should be used for this purpose.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;Leader&gt;" class="hl-HelpTag">&lt;Leader&gt;</a><a id="\" class="hl-HelpTag">\</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;Leader&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            A pseudo-key which expands to the value of the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27mapleader%27">'mapleader'</a></span>
+            option. For example, by default,
+        </p>
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CLeader%3E">&lt;Leader&gt;</a></span>h</a></span> <span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo <span class="hl-HelpString">Hello</span><span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CCR%3E">&lt;CR&gt;</a></span></a></span></pre>
+        <p>works like</p>
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map \h</a></span> <span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo <span class="hl-HelpString">Hello</span><span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CCR%3E">&lt;CR&gt;</a></span></a></span></pre>
+        <p>but after</p>
+        <pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27mapleader%27" topic="'mapleader'"><span class="hl-HelpOpt" key="HelpOpt">mapleader</span></a>=<span class="hl-HelpString">,</span></span></pre>
+        <p>it works like</p>
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:map" style="color: inherit;">:map ,h</a></span> <span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo <span class="hl-HelpString">Hello</span><span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/map#%3CCR%3E">&lt;CR&gt;</a></span></a></span></pre>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="abbreviations" class="hl-HelpTag">abbreviations</a></div>Abbreviations</h2>
+
+<p>
+    In addition to basic mappings, Pentadactyl can also
+    automatically replace whole words after they've been typed.
+    These shortcuts are known as abbreviations, and are most often
+    useful for correcting spelling of commonly mistyped words, as
+    well as shortening the typing of oft-typed but long words or
+    phrases. There are three basic types of abbreviations, defined
+    by the types of characters they contain,
+</p>
+
+<ul>
+    <li>‘full-id’ abbreviations consist entirely of keyword characters (e.g., ‘teh’, ‘msoft’).</li>
+    <li>‘end-id’ abbreviations end in keyword character but otherwise contains all non-keyword characters (e.g., ‘'i’).</li>
+    <li>‘non-id’ abbreviations end in a non-keyword character but otherwise contains any non-whitespace character (e.g., ‘def'’).</li>
+    <li>Strings which fit none of the above patterns can not be defined as abbreviations (e.g., ‘a'b’ and ‘a b’).</li>
+</ul>
+
+<p>
+    For the purposes of abbreviations, keyword characters include
+    all non-whitespace characters except for single or double
+    quotation marks. Abbreviations are expanded as soon as any
+    non-keyword character, or the key <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CC-]%3E">c_&lt;C-]&gt;</a></span>, is typed.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ab" class="hl-HelpTag">:ab</a><a id=":abbreviate" class="hl-HelpTag">:abbreviate</a></div><div class="hl-HelpSpec">:ab<span class="hl-HelpOptionalArg">[breviate]</span> <span class="hl-HelpOptionalArg">[-group=<span class="hl-HelpArg">{group}</span>]</span> <span class="hl-HelpOptionalArg">[-js]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpSpec">:ab<span class="hl-HelpOptionalArg">[breviate]</span> <span class="hl-HelpOptionalArg">[-group=<span class="hl-HelpArg">{group}</span>]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpSpec">:ab<span class="hl-HelpOptionalArg">[breviate]</span> <span class="hl-HelpOptionalArg">[-group=<span class="hl-HelpArg">{group}</span>]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Abbreviate <span class="hl-HelpArg">{lhs}</span> to <span class="hl-HelpArg">{rhs}</span>. If only <span class="hl-HelpArg">{lhs}</span>
+            is given, list all abbreviations that start with
+            <span class="hl-HelpArg">{lhs}</span>. If no arguments are given, list all
+            abbreviations.
+        </p>
+
+        <p>
+            If the <em>-javascript</em> (short names <em>-js</em>,
+            <em>-j</em>) option is given, <span class="hl-HelpArg">{lhs}</span> is expanded to
+            the value <em>return</em>ed by the JavaScript code
+            <span class="hl-HelpArg">{rhs}</span>. The code is evaluated with the variable
+            <em>editor</em> set to the editable element that the
+            abbreviation is currently being expanded in. The code
+            should <em>not</em> make any changes to the contents of
+            the editor.
+        </p>
+
+        <p>
+            If <span class="hl-HelpArg">{group}</span> is specified then abbreviations are created or
+            listed for the given <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#group">group</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ca" class="hl-HelpTag">:ca</a><a id=":cabbreviate" class="hl-HelpTag">:cabbreviate</a></div><div class="hl-HelpSpec">:ca<span class="hl-HelpOptionalArg">[bbreviate]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpSpec">:ca<span class="hl-HelpOptionalArg">[bbreviate]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpSpec">:ca<span class="hl-HelpOptionalArg">[bbreviate]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Abbreviate a key sequence for Command Line mode. Same as
+            <span class="hl-HelpEx"><a href="dactyl://help/map#:ab" style="color: inherit;">:ab<span class="hl-HelpOptionalArg">[breviate]</span></a></span>, but for <a href="cmdline.xhtml#command-line-mode" topic="command-line-mode">Command Line</a> mode
+            only.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ia" class="hl-HelpTag">:ia</a><a id=":iabbreviate" class="hl-HelpTag">:iabbreviate</a></div><div class="hl-HelpSpec">:ia<span class="hl-HelpOptionalArg">[bbreviate]</span> <span class="hl-HelpArg">{lhs}</span> <span class="hl-HelpArg">{rhs}</span></div><div class="hl-HelpSpec">:ia<span class="hl-HelpOptionalArg">[bbreviate]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpSpec">:ia<span class="hl-HelpOptionalArg">[bbreviate]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Abbreviate a key sequence for Insert mode. Same as
+            <span class="hl-HelpEx"><a href="dactyl://help/map#:ab" style="color: inherit;">:ab<span class="hl-HelpOptionalArg">[breviate]</span></a></span>, but for Insert mode only.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":una" class="hl-HelpTag">:una</a><a id=":unabbreviate" class="hl-HelpTag">:unabbreviate</a></div><div class="hl-HelpSpec">:una<span class="hl-HelpOptionalArg">[bbreviate]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpSpec">:una<span class="hl-HelpOptionalArg">[bbreviate]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Remove an abbreviation. With <span class="hl-HelpOptionalArg">[!]</span>, remove all abbreviations.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":cuna" class="hl-HelpTag">:cuna</a><a id=":cunabbreviate" class="hl-HelpTag">:cunabbreviate</a></div><div class="hl-HelpSpec">:cuna<span class="hl-HelpOptionalArg">[bbreviate]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpSpec">:cuna<span class="hl-HelpOptionalArg">[bbreviate]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Remove abbreviation(s) for Command Line mode. Same as
+            <span class="hl-HelpEx"><a href="dactyl://help/map#:una" style="color: inherit;">:una<span class="hl-HelpOptionalArg">[bbreviate]</span></a></span>, but for <a href="cmdline.xhtml#command-line-mode" topic="command-line-mode">Command Line</a> mode
+            only.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":iuna" class="hl-HelpTag">:iuna</a><a id=":iunabbreviate" class="hl-HelpTag">:iunabbreviate</a></div><div class="hl-HelpSpec">:iuna<span class="hl-HelpOptionalArg">[bbreviate]</span> <span class="hl-HelpArg">{lhs}</span></div><div class="hl-HelpSpec">:iuna<span class="hl-HelpOptionalArg">[bbreviate]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Remove abbreviation(s) for Insert mode. Same as
+            <span class="hl-HelpEx"><a href="dactyl://help/map#:una" style="color: inherit;">:una<span class="hl-HelpOptionalArg">[bbreviate]</span></a></span> but for Insert mode
+            only.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="user-commands" class="hl-HelpTag">user-commands</a></div>User-defined commands</h2>
+
+<p>
+    Defining new commands is perhaps the most straightforward way of
+    repeating commonly used actions. User-defined commands may be
+    entered from the command line or scripts exactly like standard
+    commands, and may similarly accept arguments, options, counts,
+    and <span class="hl-HelpOptionalArg">[!]</span>s, as well as provide command-line completion.
+    These commands may be defined as either ordinary,
+    macro-interpolated Ex commands, or otherwise as plain
+    JavaScript statements.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":com" class="hl-HelpTag">:com</a><a id=":command" class="hl-HelpTag">:command</a></div><div class="hl-HelpSpec">:com<span class="hl-HelpOptionalArg">[mand]</span></div><div class="hl-HelpDescription" short="true">
+        <p>List all user-defined commands.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:com<span class="hl-HelpOptionalArg">[mand]</span> <span class="hl-HelpOptionalArg">[cmd]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List all user-defined commands that start with <span class="hl-HelpOptionalArg">[cmd]</span>. Commands
+            are partitioned into <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#groups">groups</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:com<span class="hl-HelpOptionalArg">[mand]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[<span class="hl-HelpArg">{options}</span>…]</span> <span class="hl-HelpArg">{cmd}</span> <span class="hl-HelpArg">{rep}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Define a new user command. The name of the command is
+            <span class="hl-HelpArg">{cmd}</span> and its replacement text is <span class="hl-HelpArg">{rep}</span>. If a
+            command with this name already exists, an error is
+            reported unless <span class="hl-HelpOptionalArg">[!]</span> is specified, in which case
+            the command is redefined. Unlike Vim, the command may
+            start with a lowercase letter. <span class="hl-HelpArg">{cmd}</span> may also be multiple
+            alternative command names separated by commas.
+        </p>
+
+        <p>
+            The new command is usually defined by a string to be
+            executed as an Ex command. In this case, before
+            execution, strings of the form
+            <span class="hl-HelpKey" key="HelpKey">&lt;<span class="hl-HelpArg">{var}</span>&gt;</span> are interpolated
+            as described below, in order to insert arguments,
+            options, and the like. If the <em>-javascript</em> (short
+            name <em>-js</em>) flag is present, the command is
+            executed as JavaScript, and the arguments are present as
+            variables in its scope instead, and no interpolation is
+            performed.
+        </p>
+
+        <p>
+            The command's behavior can be altered by providing
+            options when the command is defined.
+        </p>
+
+        <h3><div class="hl-HelpTags"><a id=":command-group" class="hl-HelpTag">:command-group</a></div>Grouping</h3>
+
+        <p>
+            The <em>-group</em> flag (short name: <em>-g</em>) can be used to
+            assign this command to a specific <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#group">group</a></span>.  When listing
+            commands this limits the output to the specified group.
+        </p>
+
+        <h3><div class="hl-HelpTags"><a id="E175" class="hl-HelpTag">E175</a><a id="E176" class="hl-HelpTag">E176</a><a id=":command-nargs" class="hl-HelpTag">:command-nargs</a></div>Argument handling</h3>
+
+        <p>
+            By default, user commands accept no arguments. This can be changed by specifying
+            the <tt>-nargs</tt> option.
+        </p>
+
+        <p>The valid values are:</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>-nargs=0</dt><dd>No arguments are allowed (default)</dd></tr><tr><dt>-nargs=1</dt><dd>One argument is allowed</dd></tr><tr><dt>-nargs=*</dt><dd>Zero or more arguments are allowed</dd></tr><tr><dt>-nargs=?</dt><dd>Zero or one argument is allowed</dd></tr><tr><dt>-nargs=+</dt><dd>One or more arguments are allowed</dd></tr></dl>
+
+        <h3><div class="hl-HelpTags"><a id="E180" class="hl-HelpTag">E180</a><a id="E181" class="hl-HelpTag">E181</a><a id=":command-complete" class="hl-HelpTag">:command-complete</a></div>Argument completion</h3>
+
+        <p>
+            Completion for arguments to user-defined commands is not available by default.
+            Completion can be enabled by specifying one of the following arguments to the
+            -complete option when defining the command.
+        </p>
+
+        <div class="hl-HelpTags"><a id=":command-complete-arg-list" class="hl-HelpTag">:command-complete-arg-list</a></div><dl><column style=""></column><column style=""></column><tr><dt>abbreviation</dt><dd>abbreviations</dd></tr><tr><dt>altstyle</dt><dd>alternate author style sheets</dd></tr><tr><dt>bookmark</dt><dd>bookmarks</dd></tr><tr><dt>buffer</dt><dd>buffers</dd></tr><tr><dt>charset</dt><dd>character sets</dd></tr><tr><dt>color</dt><dd>color schemes</dd></tr><tr><dt>command</dt><dd>Ex commands</dd></tr><tr><dt>dialog</dt><dd>Firefox dialogs</dd></tr><tr><dt>dir</dt><dd>directories</dd></tr><tr><dt>environment</dt><dd>environment variables</dd></tr><tr><dt>event</dt><dd>autocommand events</dd></tr><tr><dt>extension</dt><dd>installed extensions</dd></tr><tr><dt>file</dt><dd>files</dd></tr><tr><dt>help</dt><dd>help tags</dd></tr><tr><dt>highlight</dt><dd>highlight groups</dd></tr><tr><dt>history</dt><dd>browsing history</dd></tr><tr><dt>javascript</dt><dd>JavaScript expressions</dd></tr><tr><dt>macro</dt><dd>named macros</dd></tr><tr><dt>mapping</dt><dd>user mappings</dd></tr><tr><dt>mark</dt><dd>local page marks</dd></tr><tr><dt>menu</dt><dd>menu items</dd></tr><tr><dt>option</dt><dd>Pentadactyl options</dd></tr><tr><dt>preference</dt><dd>Firefox preferences</dd></tr><tr><dt>qmark</dt><dd>quick marks</dd></tr><tr><dt>runtime</dt><dd>runtime paths</dd></tr><tr><dt>search</dt><dd>search engines and keywords</dd></tr><tr><dt>shellcmd</dt><dd>shell commands</dd></tr><tr><dt>sidebar</dt><dd>sidebar panels</dd></tr><tr><dt>toolbar</dt><dd>toolbars</dd></tr><tr><dt>url</dt><dd>URLs</dd></tr><tr><dt>usercommand</dt><dd>user commands</dd></tr><tr><dt>window</dt><dd>windows</dd></tr><tr><dt>custom,<span class="hl-HelpArg">{thing}</span></dt><dd>custom completion, provided by <span class="hl-HelpArg">{thing}</span></dd></tr></dl>
+
+        <h3><div class="hl-HelpTags"><a id="E467" class="hl-HelpTag">E467</a><a id="E468" class="hl-HelpTag">E468</a><a id=":command-completion-custom" class="hl-HelpTag">:command-completion-custom</a></div>Custom completion</h3>
+
+        <p>
+            Custom completion can be provided by specifying the
+            <span class="hl-HelpString">custom,<span class="hl-HelpArg">{thing}</span></span> argument to <tt>-complete</tt>. If
+            <span class="hl-HelpArg">{thing}</span> evaluates to a function (i.e., it is a variable holding
+            a function value, or a string containing the definition itself), it
+            is called with two arguments: a completion context, and an object
+            describing the command's arguments. It should set the context's
+            <tt>completions</tt> property to the list of completion results.
+            Other influential properties include <tt>title</tt>, <tt>sort</tt>,
+            <tt>anchored</tt>, and <tt>filters</tt>, which are documented in the
+            <a href="resource://dactyl/completion.jsm" topic="resource://dactyl/completion.jsm" line="17" dactyl:command="buffer.viewSource">source code</a>.
+        </p>
+
+        <p>
+            <em>completions</em> is a two-dimensional array of the form:
+            <tt>[[val1, description1], [val2, description2], …]</tt>
+        </p>
+
+        <p>
+            Otherwise <span class="hl-HelpArg">{thing}</span> should evaluate to an array of the same form
+            as the <tt>completions</tt> property of the context object.
+        </p>
+
+        <p>
+            Example:
+            <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:command" style="color: inherit;">:command foo -nargs=? -complete custom,<span class="hl-HelpString" delim="'">
+    \ function (context) context.completions = [["val1", "description1"], ["val2", "description2"]]</span>
+    \ <span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo</a></span> <span class="hl-HelpString">Useless </span> + <em>&lt;q-args&gt;</em></a></span>
+
+<span class="hl-HelpEx"><a href="dactyl://help/map#:command" style="color: inherit;">:command foo -nargs=?
+    \ -complete custom,<span class="hl-HelpString" delim="'">[["val1", "description1"], ["val2", "description2"]]</span>
+    \ <span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo</a></span> <span class="hl-HelpString">Same as above but simpler </span> + <em>&lt;q-args&gt;</em></a></span></pre>
+        </p>
+
+        <h3><div class="hl-HelpTags"><a id="E177" class="hl-HelpTag">E177</a><a id="E178" class="hl-HelpTag">E178</a><a id=":command-count" class="hl-HelpTag">:command-count</a></div>Count handling</h3>
+
+        <p>
+            By default, user commands do not accept a count. Use the -count option if
+            you'd like to have a count passed to your user command. This will then be
+            available for expansion as &lt;count&gt; in the replacement.
+        </p>
+
+        <h3><div class="hl-HelpTags"><a id=":command-bang" class="hl-HelpTag">:command-bang</a></div>Special cases</h3>
+
+        <p>
+            By default, a user command does not have a special version, i.e. a version
+            executed with the ! modifier. Providing the -bang option will enable this
+            and &lt;bang&gt; will be available in the replacement.
+        </p>
+
+        <h3><div class="hl-HelpTags"><a id=":command-description" class="hl-HelpTag">:command-description</a></div>Command description</h3>
+
+        <p>
+            The command's description text can be set with -description. Otherwise it will
+            default to "User-defined command".
+        </p>
+
+        <h3><div class="hl-HelpTags"><a id=":command-replacement-text" class="hl-HelpTag">:command-replacement-text</a></div>Replacement text</h3>
+
+        <p>
+            The replacement text <span class="hl-HelpArg">{rep}</span> is scanned for <span class="hl-HelpTopic"><a style="color: inherit;" href="options.xhtml#macro-string">macro-string</a></span>s and these are
+            replaced with values from the user-entered command line. The resulting string
+            is then executed as an Ex command.
+        </p>
+
+        <p>
+            In addition to the standard parameters listed in
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="options.xhtml#macro-string">macro-string</a></span>, the following parameters are available:
+        </p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>&lt;args&gt;</dt><dd>The command arguments exactly as supplied</dd></tr><tr><dt>&lt;count&gt;</dt><dd>Any supplied count, e.g. 5</dd></tr><tr><dt>&lt;bang&gt;</dt><dd>! if the command was executed with the ! modifier</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":delc" class="hl-HelpTag">:delc</a><a id=":delcommand" class="hl-HelpTag">:delcommand</a></div><div class="hl-HelpSpec">:delc<span class="hl-HelpOptionalArg">[ommand]</span> <span class="hl-HelpArg">{cmd}</span></div><div class="hl-HelpSpec">:delc<span class="hl-HelpOptionalArg">[ommand]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Delete the user-defined command <span class="hl-HelpArg">{cmd}</span>. With <span class="hl-HelpOptionalArg">[!]</span>, delete
+            all user commands.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="command-examples" class="hl-HelpTag">command-examples</a></div>Examples</h2>
+
+<p>Add a :Google command to search via google:</p>
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/map#:command" style="color: inherit;">:command -nargs=* Google open google &lt;args&gt;</a></span></pre>
+
+
+
+</body></html>

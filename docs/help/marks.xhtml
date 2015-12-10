@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Marks</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" marks bookmarks a :bma :bmark A :bmarks :delbm :delbmarks history &lt;C-o&gt; &lt;C-i&gt; &lt;M-Left&gt; &lt;A-Left&gt; H &lt;M-Right&gt; &lt;A-Right&gt; L :ba :back :fw :fo :forward :hs :hist :history quickmarks M go gn :delqm :delqmarks :qma :qmark :qmarks urlmarks localmarks m ` ' :delm :delmarks :ma :mark :marks "><div class="hl-HelpTags"><a id="marks.xml" class="hl-HelpTag">marks.xml</a></div><h1><div class="hl-HelpTags"><a id="marks" class="hl-HelpTag">marks</a></div>Marks</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/marks#bookmarks">Bookmarks</a></li><li><a href="dactyl://help/marks#history">History</a></li><li><a href="dactyl://help/marks#quickmarks">QuickMarks</a></li><li><a href="dactyl://help/marks#urlmarks">Local marks and URL marks</a></li></ol></div>
+
+<p>
+    Pentadactyl supports a number of different methods of
+    marking your place, in order to easily return later,
+</p>
+
+<ul>
+    <li><em>Bookmarks</em> are the standard marks of Firefox, and are fully supported.</li>
+    <li><em>QuickMarks</em> allow you to quickly save and return to as many as 62 (a-zA-Z0-9) different web sites with a quick keyboard shortcut.</li>
+    <li><em>Local marks</em> allow you to store and return to a position within the current web page.</li>
+    <li><em>URL marks</em> allow you to store and return to the position and URL of the current web page.</li>
+    <li><em>History</em> marks every opened page with data on when and how often it has been visited.</li>
+</ul>
+
+<h2><div class="hl-HelpTags"><a id="bookmarks" class="hl-HelpTag">bookmarks</a></div>Bookmarks</h2>
+
+<p>
+    Bookmarks are the most traditional kind of marks supported by
+    Pentadactyl. They are accessible through Firefox's
+    bookmark menu, sidebar, and toolbar, in addition to its location
+    bar completion system. Pentadactyl makes them accessible
+    not only via several commands and its completion system (see the
+    <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27complete%27">'complete'</a></span> option), but also displays a ❤ in the status bar
+    when a bookmarked page is displayed.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="a" class="hl-HelpTag">a</a><a id=":bma" class="hl-HelpTag">:bma</a><a id=":bmark" class="hl-HelpTag">:bmark</a></div><div class="hl-HelpSpec">:bma<span class="hl-HelpOptionalArg">[rk]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[options]</span> <span class="hl-HelpOptionalArg">[url]</span></div><div class="hl-HelpSpec">a</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Add a bookmark.</p>
+
+        <p>The following options are available:</p>
+
+        <dl><column style="width: 8em;"></column><column style=""></column><tr><dt>-charset</dt><dd>
+                Character encoding to use for the bookmark. Useful e.g. for
+                sites that require query parameters in encodings other than
+                UTF-8 (short name <em>-c</em>).
+            </dd></tr><tr><dt>-keyword</dt><dd>
+                A keyword which may be used to open the bookmark via
+                the URL bar or <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> prompt. If the
+                <span class="hl-HelpOptionalArg">[url]</span> contains the string <em>%s</em> it is
+                replaced by any text following the keyword when it
+                is opened. See also <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#;S">;S</a></span>.
+                (short name <em>-k</em>)
+            </dd></tr><tr><dt>-post</dt><dd>
+                Data to be POSTed to the server when the bookmark is
+                opened.
+            </dd></tr><tr><dt>-tags</dt><dd>
+                Comma-separated list of tags for grouping and later
+                access (short name <em>-T</em>).
+            </dd></tr><tr><dt>-title</dt><dd>
+                The title of the bookmark.
+                Defaults to the page title, if available, or
+                <span class="hl-HelpOptionalArg">[url]</span> otherwise.
+                (short name <em>-t</em>)
+            </dd></tr></dl>
+
+        <p>
+            If <span class="hl-HelpOptionalArg">[url]</span> is omitted, the URL of the currently loaded web
+            page is used.
+        </p>
+
+        <p>
+            If <span class="hl-HelpOptionalArg">[!]</span> is present, a new bookmark is always
+            added. Otherwise, the first bookmark matching
+            <span class="hl-HelpOptionalArg">[url]</span> is updated.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="A" class="hl-HelpTag">A</a></div><div style="clear: both"></div><div class="hl-HelpSpec">A</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Toggle bookmarked state of current URL. Add/remove a
+            bookmark for the current location, depending on whether
+            it is already bookmarked. New bookmarks are placed in
+            the <em>Unfiled Bookmarks</em> folder, and don't appear
+            in the bookmarks menu or toolbar, but do appear in
+            location bar and <em>:open</em> completions, as well as
+            the <em>:bmarks</em> list.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":bmarks" class="hl-HelpTag">:bmarks</a></div><div class="hl-HelpSpec">:bmarks<span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[filter]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List or open multiple bookmarks. Opens the message window
+            at the bottom of the screen with all bookmarks with
+            titles or URLs matching <span class="hl-HelpOptionalArg">[filter]</span>. The resulting
+            URLs can be clicked, or accessed via extended hint modes
+            such as <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#;o">;o</a></span>.
+        </p>
+
+        <p>
+            The special version <span class="hl-HelpEx"><a href="dactyl://help/marks#:bmarks" style="color: inherit;">:bmarks!</a></span> works the same as
+            <span class="hl-HelpEx"><a href="dactyl://help/marks#:bmarks" style="color: inherit;">:bmarks</a></span> except that it opens all matching
+            bookmarks in new tabs rather than listing them.
+        </p>
+
+        <p>The bookmarks may also be filtered via the following options:</p>
+
+        <dl><column style="width: 8em;"></column><column style=""></column><tr><dt>-keyword</dt><dd>
+                The bookmark's keyword (short name <em>-k</em>).
+            </dd></tr><tr><dt>-tags</dt><dd>
+                A comma-separated list of tags, all of which must be
+                present for a match (short name <em>-T</em>).
+            </dd></tr><tr><dt>-title</dt><dd>
+                The title of the bookmark (short name <em>-t</em>).
+            </dd></tr><tr><dt>-max</dt><dd>
+                The maximum number of items to list or open
+                (short name <em>-m</em>).
+            </dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":delbm" class="hl-HelpTag">:delbm</a><a id=":delbmarks" class="hl-HelpTag">:delbmarks</a></div><div class="hl-HelpSpec">:delbm[arks] <span class="hl-HelpOptionalArg">[url]</span></div><div class="hl-HelpSpec">:delbm[arks]!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Deletes <em>all</em> bookmarks which match <span class="hl-HelpOptionalArg">[url]</span>.
+            If omitted, <span class="hl-HelpOptionalArg">[url]</span> defaults to the URL of the
+            current buffer.
+        </p>
+
+        <p>Accepts the same options as :bmarks.</p>
+
+        <p>If <span class="hl-HelpOptionalArg">[!]</span> is specified then all bookmarks will be deleted.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="history" class="hl-HelpTag">history</a></div>History</h2>
+
+<p>
+    Though not traditionally considered a mark, history behaves very
+    similarly to bookmarks both in Firefox and
+    Pentadactyl. Every visited page is marked and weighted by
+    when and how often it is visited, and can be retrieved both in
+    history list and location completions. Indeed, the ‘frecency’
+    algorithm used to determine the results of location completions
+    (see the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27complete%27">'complete'</a></span> option) means that history is often a
+    more effective type of mark than bookmarks themselves.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;C-o&gt;" class="hl-HelpTag">&lt;C-o&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">[count]&lt;C-o&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to an older position in the jump list. This currently
+            entails moving backward in page history, but in the
+            future will take into account page positions as well.
+            If <span class="hl-HelpOptionalArg">[count]</span> is specified go back <span class="hl-HelpOptionalArg">[count]</span> pages.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;C-i&gt;" class="hl-HelpTag">&lt;C-i&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">[count]&lt;C-i&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to an newer position in the jump list. This currently
+            entails moving forward in page history, but in the
+            future will take into account page positions as well.
+            If <span class="hl-HelpOptionalArg">[count]</span> is specified go forward <span class="hl-HelpOptionalArg">[count]</span> pages.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;M-Left&gt;" class="hl-HelpTag">&lt;M-Left&gt;</a><a id="&lt;A-Left&gt;" class="hl-HelpTag">&lt;A-Left&gt;</a><a id="H" class="hl-HelpTag">H</a></div><div style="clear: both"></div><div class="hl-HelpSpec">[count]H</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Go back in the browser history. If <span class="hl-HelpOptionalArg">[count]</span> is specified go back <span class="hl-HelpOptionalArg">[count]</span> pages.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;M-Right&gt;" class="hl-HelpTag">&lt;M-Right&gt;</a><a id="&lt;A-Right&gt;" class="hl-HelpTag">&lt;A-Right&gt;</a><a id="L" class="hl-HelpTag">L</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>L</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go forward in the browser history. If <span class="hl-HelpOptionalArg">[count]</span> is specified go forward <span class="hl-HelpOptionalArg">[count]</span>
+            pages.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ba" class="hl-HelpTag">:ba</a><a id=":back" class="hl-HelpTag">:back</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>ba<span class="hl-HelpOptionalArg">[ck]</span> <span class="hl-HelpOptionalArg">[url]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>ba<span class="hl-HelpOptionalArg">[ck]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go back in the browser history. If <span class="hl-HelpOptionalArg">[count]</span> is specified go back <span class="hl-HelpOptionalArg">[count]</span> pages.
+        </p>
+        <p>
+            The special version <span class="hl-HelpEx"><a href="dactyl://help/marks#:back" style="color: inherit;">:back!</a></span> goes to the beginning of the browser history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":fw" class="hl-HelpTag">:fw</a><a id=":fo" class="hl-HelpTag">:fo</a><a id=":forward" class="hl-HelpTag">:forward</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>fo<span class="hl-HelpOptionalArg">[rward]</span> <span class="hl-HelpOptionalArg">[url]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>fo<span class="hl-HelpOptionalArg">[rward]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go forward in the browser history. If <span class="hl-HelpOptionalArg">[count]</span> is specified go forward <span class="hl-HelpOptionalArg">[count]</span>
+            pages.
+        </p>
+        <p>
+            The special version <span class="hl-HelpEx"><a href="dactyl://help/marks#:forward" style="color: inherit;">:forward!</a></span> goes to the end of the browser history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":hs" class="hl-HelpTag">:hs</a><a id=":hist" class="hl-HelpTag">:hist</a><a id=":history" class="hl-HelpTag">:history</a></div><div class="hl-HelpSpec">:hist<span class="hl-HelpOptionalArg">[ory]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[filter]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Show recently visited URLs. Opens the message window at the bottom of the screen
+            with all history items whose page titles or URLs match
+            <span class="hl-HelpOptionalArg">[filter]</span>.
+        </p>
+
+        <p>
+            The special version <span class="hl-HelpEx"><a href="dactyl://help/marks#:history" style="color: inherit;">:history!</a></span> works the same as
+            <span class="hl-HelpEx"><a href="dactyl://help/marks#:history" style="color: inherit;">:history</a></span> except that it opens all matching
+            pages in new tabs rather than listing them.
+        </p>
+
+        <p>The pages may also be filtered via the following options,</p>
+
+        <dl><column style="width: 8em;"></column><column style=""></column><tr><dt>-max</dt><dd>
+                The maximum number of items to list or open
+                (short name <em>-m</em>).
+            </dd></tr><tr><dt>-sort</dt><dd>
+                The sort order of the results
+                (short name <em>-s</em>).
+            </dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="quickmarks" class="hl-HelpTag">quickmarks</a></div>QuickMarks</h2>
+
+<p>
+    QuickMarks are bookmarks stripped to the bone for quickly getting to the
+    pages that you visit most. A QuickMark is simply a URL assigned to a letter
+    or number. They can therefore be saved or opened with only three key
+    presses each. QuickMarks are persistent across browser sessions.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="M" class="hl-HelpTag">M</a></div><div style="clear: both"></div><div class="hl-HelpSpec">M<span class="hl-HelpArg">{a-zA-Z0-9}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Add new QuickMark for current URL. You can later jump to
+            the mark with <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/marks#go">go</a></span><span class="hl-HelpArg">{a-zA-Z0-9}</span>
+            <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/marks#gn">gn</a></span><span class="hl-HelpArg">{a-zA-Z0-9}</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="go" class="hl-HelpTag">go</a></div><div style="clear: both"></div><div class="hl-HelpSpec">go<span class="hl-HelpArg">{a-zA-Z0-9}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Jump to a QuickMark in the current tab. See also
+            <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/marks#M">M</a></span> and <span class="hl-HelpEx"><a href="dactyl://help/marks#:qmark" style="color: inherit;">:qmark</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="gn" class="hl-HelpTag">gn</a></div><div style="clear: both"></div><div class="hl-HelpSpec">gn<span class="hl-HelpArg">{a-zA-Z0-9}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Jump to a QuickMark in a new tab. The new tab is focused
+            only if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27activate%27">'activate'</a></span> contains <em>quickmark</em> or
+            <em>all</em>. See also <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/marks#M">M</a></span> and <span class="hl-HelpEx"><a href="dactyl://help/marks#:qmark" style="color: inherit;">:qmark</a></span>.
+        </p>
+        <p>Mnemonic: Go in a new tab.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":delqm" class="hl-HelpTag">:delqm</a><a id=":delqmarks" class="hl-HelpTag">:delqmarks</a></div><div class="hl-HelpSpec">:delqm<span class="hl-HelpOptionalArg">[arks]</span> <span class="hl-HelpArg">{arg}</span></div><div class="hl-HelpSpec">:delqm<span class="hl-HelpOptionalArg">[arks]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Delete the specified QuickMarks.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+            <li><span class="hl-HelpEx"><a href="dactyl://help/marks#:delqmarks" style="color: inherit;">:delqmarks Aa b p</a></span> deletes QuickMarks A, a, b and p</li>
+            <li><span class="hl-HelpEx"><a href="dactyl://help/marks#:delqmarks" style="color: inherit;">:delqmarks b-p</a></span> deletes all QuickMarks in the range b to p</li>
+            <li><span class="hl-HelpEx"><a href="dactyl://help/marks#:delqmarks" style="color: inherit;">:delqmarks!</a></span> deletes all QuickMarks</li>
+        </ul>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":qma" class="hl-HelpTag">:qma</a><a id=":qmark" class="hl-HelpTag">:qmark</a></div><div class="hl-HelpSpec">:qmark <span class="hl-HelpArg">{a-zA-Z0-9}</span> <span class="hl-HelpArg">{url}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Mark <span class="hl-HelpArg">{url}</span> with a letter for quick access. See also
+            <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/marks#go">go</a></span>, <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/marks#gn">gn</a></span>, and <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/marks#M">M</a></span>.
+        </p>
+
+        <p>
+            In addition to simple URLs, <span class="hl-HelpArg">{url}</span> may be any string
+            that can be passed to <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":qmarks" class="hl-HelpTag">:qmarks</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:qmarks <span class="hl-HelpOptionalArg">[arg]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List QuickMarks. If <span class="hl-HelpOptionalArg">[arg]</span> is given then limit the
+            list to those QuickMarks mentioned, otherwise list them
+            all.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="urlmarks" class="hl-HelpTag">urlmarks</a><a id="localmarks" class="hl-HelpTag">localmarks</a></div>Local marks and URL marks</h2>
+
+<p>
+    Local and URL marks allow you to mark your position on the current page to
+    quickly return later. Each mark is assigned to a letter. Lowercase letters
+    behave as local marks, while uppercase letters act as URL marks. The
+    difference between the two is that local marks apply uniquely to each page,
+    while URL marks mark a specific position on a specific page. So, while the
+    mark <em>m</em> may take you to the top of the page on Site 1, it may take
+    you to the middle on Site 2. The mark <em>M</em>, on the other hand, will
+    always return you to Site 1, possibly switching buffers or creating a new
+    one. All marks are persistent across browser sessions.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="m" class="hl-HelpTag">m</a></div><div style="clear: both"></div><div class="hl-HelpSpec">m<span class="hl-HelpArg">{a-zA-Z}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Set mark at the cursor position. Marks a-z are local to the buffer, whereas
+            A-Z are valid between buffers.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="`" class="hl-HelpTag">`</a><a id="'" class="hl-HelpTag">'</a></div><div style="clear: both"></div><div class="hl-HelpSpec">'<span class="hl-HelpArg">{a-zA-Z'}</span></div><div class="hl-HelpSpec">`<span class="hl-HelpArg">{a-zA-Z'}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Jump to the mark. Marks a-z are local to the buffer, whereas A-Z
+            are valid between buffers. The special mark ' holds the buffer
+            position before the last scrolling action.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":delm" class="hl-HelpTag">:delm</a><a id=":delmarks" class="hl-HelpTag">:delmarks</a></div><div class="hl-HelpSpec">:delm<span class="hl-HelpOptionalArg">[arks]</span> <span class="hl-HelpArg">{arg}</span></div><div class="hl-HelpSpec">:delm<span class="hl-HelpOptionalArg">[arks]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Delete the specified marks.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+            <li><span class="hl-HelpEx"><a href="dactyl://help/marks#:delmarks" style="color: inherit;">:delmarks Aa b p</a></span> deletes marks A, a, b, and p</li>
+            <li><span class="hl-HelpEx"><a href="dactyl://help/marks#:delmarks" style="color: inherit;">:delmarks b-p</a></span> deletes all marks in the range b to p</li>
+            <li><span class="hl-HelpEx"><a href="dactyl://help/marks#:delmarks" style="color: inherit;">:delmarks!</a></span> deletes all marks for the current buffer</li>
+        </ul>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ma" class="hl-HelpTag">:ma</a><a id=":mark" class="hl-HelpTag">:mark</a></div><div class="hl-HelpSpec">:mark <span class="hl-HelpArg">{a-zA-Z}</span></div><div class="hl-HelpDescription" short="true">
+        <p>Mark current location within the web page.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":marks" class="hl-HelpTag">:marks</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:marks <span class="hl-HelpOptionalArg">[arg]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Show all local marks for the current web page and all
+            URL marks. If <span class="hl-HelpOptionalArg">[arg]</span> is specified then limit the
+            list to those marks mentioned.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

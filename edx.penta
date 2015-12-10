@@ -1,7 +1,6 @@
 " EdX
 group edx -locations edx.org
 
-" TODO: work out how to change displayed speed on player (currently doesn't update)
 command! edxvidrate200   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(2)})()
 command! edxvidrate175   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.75)})()
 command! edxvidrate150   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.5)})()
@@ -9,10 +8,12 @@ command! edxvidrate125   :o javascript:( function(){$('.video').data('video-play
 command! edxvidrate100   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1)})()
 command! edxpause        :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.pause()})()
 command! edxplay         :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.play()})()
-"command! edxtoggleplay   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; if (v.isPlaying()) v.pause(); else v.play(); } )();
+command! edxtoggleplay   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; if (v.isPlaying()) v.pause(); else v.play(); } )();
 command! edxvidforward   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( v.valueOf().currentTime+5 ) } )()
 command! edxvidbackward  :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( Math.max(0, v.valueOf().currentTime-5) ) } )()
-"map xv :edxtoggleplay<CR>
+command! edxBindSpaceBar :map <Space> -ex edxtoggleplay
+map xv :edxtoggleplay<CR>
+map xv :edxtoggleplay<CR>
 map <F4> :edxpause<CR>
 map <F5> :edxplay<CR>
 map <C-left>  :edxvidbackward<CR>

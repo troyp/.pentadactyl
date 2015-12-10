@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Other</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" various :comp :completions :contexts :fk :feedkeys :norm :normal :mks :mksyntax &lt;redraw-screen&gt; &lt;C-l&gt; CTRL-L :redr :redraw :run :! :!cmd :!! :sil :silent :verb :verbose :ve :version :yank :y online-help &lt;open-help&gt; &lt;F1&gt; :help :h help &lt;open-single-help&gt; &lt;A-F1&gt; :helpall :helpa help-all :lc :listcommands :lk :listkeys :lo :listoptions 42 uncategorized &lt;C-[&gt; &lt;Esc&gt; &lt;Insert&gt; i "><div class="hl-HelpTags"><a id="various.xml" class="hl-HelpTag">various.xml</a></div><h1>Other help</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/various#various">Various commands</a></li><li><a href="dactyl://help/various#online-help">Online help</a></li><li><a href="dactyl://help/various#uncategorized">Uncategorized help</a></li></ol></div>
+
+<h2><div class="hl-HelpTags"><a id="various" class="hl-HelpTag">various</a></div>Various commands</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":comp" class="hl-HelpTag">:comp</a><a id=":completions" class="hl-HelpTag">:completions</a></div><div class="hl-HelpSpec">:comp<span class="hl-HelpOptionalArg">[letions]</span> <span class="hl-HelpArg">{ex-command}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List the completion results for a given command substring.
+        </p>
+        <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="dactyl://help/various#:completions" style="color: inherit;">:completions :set! <span class="hl-HelpString" delim="">browser.tabs.</span></a></span></div>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":contexts" class="hl-HelpTag">:contexts</a></div><div class="hl-HelpSpec">:contexts <span class="hl-HelpArg">{ex-command}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Lists the completion contexts used during the completion of its
+            arguments. These context names may be used to tune the function of
+            the completion system via options like <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27autocomplete%27">'autocomplete'</a></span> and
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27wildcase%27">'wildcase'</a></span>. Note that completion must be triggered in order
+            for this command to be effective, so if auto-completion is not
+            active, you'll need to press the <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span> key at
+            least once. You should also be aware that this command is only
+            useful from the command line.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":fk" class="hl-HelpTag">:fk</a><a id=":feedkeys" class="hl-HelpTag">:feedkeys</a></div><div class="hl-HelpSpec">feedkeys<span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpArg">{keys}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Fake key events. If <span class="hl-HelpOptionalArg">[!]</span> is given, key remappings are
+            ignored, similarly to the <span class="hl-HelpTopic"><a style="color: inherit;" href="map.xhtml#:map">:map</a></span> command's <em>-builtin</em>
+            option.
+        </p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>-mode</dt><dd>The mode in which to feed the keys (short name <em>-m</em>)</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":norm" class="hl-HelpTag">:norm</a><a id=":normal" class="hl-HelpTag">:normal</a></div><div class="hl-HelpSpec">:norm<span class="hl-HelpOptionalArg">[al]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpArg">{keys}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute key mappings for <span class="hl-HelpArg">{keys}</span> as if they were typed in
+            Normal mode. If <span class="hl-HelpOptionalArg">[!]</span> is provided, only builtin key mappings
+            are executed. This makes it possible to fake Normal mode key
+            presses from scripts, key mappings, autocommands, and the command
+            line.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":mks" class="hl-HelpTag">:mks</a><a id=":mksyntax" class="hl-HelpTag">:mksyntax</a></div><div class="hl-HelpSpec">:mks<span class="hl-HelpOptionalArg">[yntax]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[path]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Generate a Vim syntax file. If <span class="hl-HelpOptionalArg">[path]</span> is not given, the local
+            Vim runtime path is guessed. If <span class="hl-HelpOptionalArg">[path]</span> is a directory, the
+            file <span class="hl-HelpString" delim="">pentadactyl.vim</span> in that directory is
+            used. An existing file will never be overwritten unless
+            <span class="hl-HelpOptionalArg">[bang]</span> is given.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;redraw-screen&gt;" class="hl-HelpTag">&lt;redraw-screen&gt;</a><a id="&lt;C-l&gt;" class="hl-HelpTag">&lt;C-l&gt;</a><a id="CTRL-L" class="hl-HelpTag">CTRL-L</a><a id=":redr" class="hl-HelpTag">:redr</a><a id=":redraw" class="hl-HelpTag">:redraw</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:redr<span class="hl-HelpOptionalArg">[aw]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Redraws the screen. Useful for updating the screen during the execution of a script or function.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":run" class="hl-HelpTag">:run</a><a id=":!" class="hl-HelpTag">:!</a><a id=":!cmd" class="hl-HelpTag">:!cmd</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:!<span class="hl-HelpArg">{cmd}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Run an external command. Runs <span class="hl-HelpArg">{cmd}</span> through system()
+            and displays its output. Any ‘!’ in <span class="hl-HelpArg">{cmd}</span> is replaced with
+            the previous external command, so long as it is not preceded by a
+            backslash and <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27banghist%27">'banghist'</a></span> is enabled.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":!!" class="hl-HelpTag">:!!</a></div><div class="hl-HelpSpec">:!!</div><div class="hl-HelpDescription" short="true">
+        <p>Repeat last <span class="hl-HelpEx"><a href="cmdline.xhtml#:" style="color: inherit;">:!<span class="hl-HelpArg">{cmd}</span></a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":sil" class="hl-HelpTag">:sil</a><a id=":silent" class="hl-HelpTag">:silent</a></div><div class="hl-HelpSpec">:sil<span class="hl-HelpOptionalArg">[ent]</span> <span class="hl-HelpArg">{command}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute a command silently. Normal messages and error messages
+            generated by the command invocation will not be displayed and will
+            not be added to the message history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":verb" class="hl-HelpTag">:verb</a><a id=":verbose" class="hl-HelpTag">:verbose</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>verb<span class="hl-HelpOptionalArg">[ose]</span> <span class="hl-HelpArg">{command}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute a command with <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27verbose%27">'verbose'</a></span> set to <span class="hl-HelpOptionalArg">[count]</span>. If
+            <span class="hl-HelpOptionalArg">[count]</span> is not specified then 1 is used.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ve" class="hl-HelpTag">:ve</a><a id=":version" class="hl-HelpTag">:version</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:ve<span class="hl-HelpOptionalArg">[rsion]</span><span class="hl-HelpOptionalArg">[!]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Print Pentadactyl and Firefox version information. When
+            <span class="hl-HelpOptionalArg">[!]</span> is provided, show the Firefox version page.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":yank" class="hl-HelpTag">:yank</a><a id=":y" class="hl-HelpTag">:y</a></div><div class="hl-HelpSpec">:y[ank] :<span class="hl-HelpArg">{cmd}</span></div><div class="hl-HelpSpec">:y[ank] <span class="hl-HelpArg">{js}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Yanks the output of the given Ex command <span class="hl-HelpArg">{cmd}</span> or JavaScript <span class="hl-HelpArg">{js}</span> to the clipboard.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="online-help" class="hl-HelpTag">online-help</a></div>Online help</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;open-help&gt;" class="hl-HelpTag">&lt;open-help&gt;</a><a id="&lt;F1&gt;" class="hl-HelpTag">&lt;F1&gt;</a><a id=":help" class="hl-HelpTag">:help</a><a id=":h" class="hl-HelpTag">:h</a><a id="help" class="hl-HelpTag">help</a></div><div class="hl-HelpSpec">:h<span class="hl-HelpOptionalArg">[elp]</span> <span class="hl-HelpOptionalArg">[subject]</span></div><div class="hl-HelpSpec">&lt;F1&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open a help page for <span class="hl-HelpOptionalArg">[subject]</span>. If <span class="hl-HelpOptionalArg">[subject]</span> is
+            omitted, open the default page as specified in <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27helpfile%27">'helpfile'</a></span>.
+            If you're not sure of the exact topic you need help with, try
+            <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span> completion or <span class="hl-HelpEx"><a href="dactyl://help/various#:help" style="color: inherit;">:help overview</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;open-single-help&gt;" class="hl-HelpTag">&lt;open-single-help&gt;</a><a id="&lt;A-F1&gt;" class="hl-HelpTag">&lt;A-F1&gt;</a><a id=":helpall" class="hl-HelpTag">:helpall</a><a id=":helpa" class="hl-HelpTag">:helpa</a><a id="help-all" class="hl-HelpTag">help-all</a></div><div class="hl-HelpSpec">:helpa<span class="hl-HelpOptionalArg">[ll]</span> <span class="hl-HelpOptionalArg">[subject]</span></div><div class="hl-HelpSpec">&lt;A-F1&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open all help pages consolidated into a single page and scroll to
+            <span class="hl-HelpOptionalArg">[subject]</span> if given.
+        </p>
+
+        <p>See <span class="hl-HelpEx"><a href="dactyl://help/various#:help" style="color: inherit;">:help</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":lc" class="hl-HelpTag">:lc</a><a id=":listcommands" class="hl-HelpTag">:listcommands</a></div><div class="hl-HelpSpec">:listc<span class="hl-HelpOptionalArg">[ommands]</span> <span class="hl-HelpOptionalArg">[filter]</span></div><div class="hl-HelpSpec">:lc <span class="hl-HelpOptionalArg">[filter]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List all Ex commands matching <span class="hl-HelpOptionalArg">[filter]</span> along with their
+            short descriptions. The output contains links to the source code
+            definitions.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":lk" class="hl-HelpTag">:lk</a><a id=":listkeys" class="hl-HelpTag">:listkeys</a></div><div class="hl-HelpSpec">:listk<span class="hl-HelpOptionalArg">[eys]</span> <span class="hl-HelpOptionalArg">[-mode <span class="hl-HelpArg">{mode}</span>]</span> <span class="hl-HelpOptionalArg">[filter]</span></div><div class="hl-HelpSpec">:lk <span class="hl-HelpOptionalArg">[-mode <span class="hl-HelpArg">{mode}</span>]</span> <span class="hl-HelpOptionalArg">[filter]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List the key mappings defined for <span class="hl-HelpArg">{mode}</span> (Normal by default)
+            matching <span class="hl-HelpOptionalArg">[filter]</span> along with their short descriptions. The
+            output contains links to the source code definitions.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":lo" class="hl-HelpTag">:lo</a><a id=":listoptions" class="hl-HelpTag">:listoptions</a></div><div class="hl-HelpSpec">:listo<span class="hl-HelpOptionalArg">[ptions]</span> <span class="hl-HelpOptionalArg">[filter]</span></div><div class="hl-HelpSpec">:lo <span class="hl-HelpOptionalArg">[filter]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            List all options matching <span class="hl-HelpOptionalArg">[filter]</span> along with their short
+            descriptions. The output contains links to the source code
+            definitions.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpTags"><a id="42" class="hl-HelpTag">42</a></div>
+
+<p>
+    What is the meaning of life, the universe and everything? Douglas Adams,
+    the only person who knew what this question really was about is now dead,
+    unfortunately. So now you might wonder what the meaning of death is...
+</p>
+
+<h2><div class="hl-HelpTags"><a id="uncategorized" class="hl-HelpTag">uncategorized</a></div>Uncategorized help</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;C-[&gt;" class="hl-HelpTag">&lt;C-[&gt;</a><a id="&lt;Esc&gt;" class="hl-HelpTag">&lt;Esc&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;Esc&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Exits Command-line, Insert, or Hints mode and returns to
+            Normal mode. Focuses the content web page.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;Insert&gt;" class="hl-HelpTag">&lt;Insert&gt;</a><a id="i" class="hl-HelpTag">i</a></div><div style="clear: both"></div><div class="hl-HelpSpec">i</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Start Caret mode. This mode resembles the Vim's Normal mode where
+            the text cursor is visible on the web page. The <span class="hl-HelpKey"><a style="color: inherit;">v</a></span> key
+            enters Visual mode, where text is selected as the cursor moves.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

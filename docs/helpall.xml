@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="dactyl://content/help.xsl"?>
+
+<!DOCTYPE document  [
+<!ENTITY xmlns.dactyl 'http://vimperator.org/namespaces/liberator'>
+<!ENTITY xmlns.html 'http://www.w3.org/1999/xhtml'>
+<!ENTITY xmlns.xul 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul'>
+<!ENTITY tag.command-line '<link xmlns="http://vimperator.org/namespaces/liberator" topic="command-line">command line</link>'>
+<!ENTITY tag.status-line '<link xmlns="http://vimperator.org/namespaces/liberator" topic="status-line">status line</link>'>
+<!ENTITY mode.command-line '<link xmlns="http://vimperator.org/namespaces/liberator" topic="command-line-mode">Command Line</link>'>
+<!ENTITY dactyl.name 'pentadactyl'>
+<!ENTITY dactyl.home 'http://5digits.org/'>
+<!ENTITY dactyl.apphome 'http://5digits.org/pentadactyl'>
+<!ENTITY dactyl.code 'http://code.google.com/p/dactyl/'>
+<!ENTITY dactyl.issues 'http://5digits.org/bug/pentadactyl'>
+<!ENTITY dactyl.plugins 'http://5digits.org/pentadactyl/plugins'>
+<!ENTITY dactyl.faq 'http://5digits.org/pentadactyl/faq'>
+<!ENTITY dactyl.list.mailto 'pentadactyl@googlegroups.com'>
+<!ENTITY dactyl.list.href 'http://groups.google.com/group/pentadactyl'>
+<!ENTITY dactyl.hg.latest 'http://code.google.com/p/dactyl/source/browse/'>
+<!ENTITY dactyl.irc 'irc://irc.oftc.net/#pentadactyl'>
+<!ENTITY dactyl.appName 'Pentadactyl'>
+<!ENTITY dactyl.fileExt 'penta'>
+<!ENTITY dactyl.host 'Firefox'>
+<!ENTITY dactyl.hostbin 'firefox'>
+<!ENTITY dactyl.idName 'PENTADACTYL'>
+<!ENTITY dactyl.version 'hg7226'>
+]>
+
+<document
+    name="all"
+    title="&dactyl.appName; All"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+<tags>all</tags>
+
+<toc/>
+
+<include href="intro" tag="intro.xml"/>
+<include href="starting" tag="starting.xml"/>
+<include href="browsing" tag="browsing.xml"/>
+<include href="buffer" tag="buffer.xml"/>
+<include href="cmdline" tag="cmdline.xml"/>
+<include href="editing" tag="editing.xml"/>
+<include href="options" tag="options.xml"/>
+<include href="pattern" tag="pattern.xml"/>
+<include href="tabs" tag="tabs.xml"/>
+<include href="hints" tag="hints.xml"/>
+<include href="map" tag="map.xml"/>
+<include href="eval" tag="eval.xml"/>
+<include href="marks" tag="marks.xml"/>
+<include href="repeat" tag="repeat.xml"/>
+<include href="autocommands" tag="autocommands.xml"/>
+<include href="print" tag="print.xml"/>
+<include href="gui" tag="gui.xml"/>
+<include href="styling" tag="styling.xml"/>
+<include href="message" tag="message.xml"/>
+<include href="privacy" tag="privacy.xml"/>
+<include href="developer" tag="developer.xml"/>
+<include href="various" tag="various.xml"/>
+<include href="plugins" tag="plugins.xml"/>
+<include href="versions" tag="versions.xml"/>
+<include href="faq" tag="faq.xml"/>
+<include href="index" tag="index.xml"/>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

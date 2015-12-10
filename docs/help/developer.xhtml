@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Developer information</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" developer-information developer writing-docs documentation &lt;F1&gt; :help :h help help-tags help-xml generating-docs writing-plugins plugin-documentation 'fb' 'flashblock' "><div class="hl-HelpTags"><a id="developer.xml" class="hl-HelpTag">developer.xml</a></div><h1><div class="hl-HelpTags"><a id="developer-information" class="hl-HelpTag">developer-information</a><a id="developer" class="hl-HelpTag">developer</a></div>Developer information</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/developer#writing-docs">Writing documentation</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/developer#help-tags">Help tags</a></li></ol></li><li><a href="dactyl://help/developer#generating-docs">Generating documentation</a></li><li><a href="dactyl://help/developer#writing-plugins">Writing plugins</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/developer#plugin-documentation">Plugin documentation</a></li></ol></li></ol></div>
+
+<h2><div class="hl-HelpTags"><a id="writing-docs" class="hl-HelpTag">writing-docs</a><a id="documentation" class="hl-HelpTag">documentation</a></div>Writing documentation</h2>
+
+<p>
+    In order for any user-visible change to be accepted into the mainline, it
+    must be accompanied by accurate documentation. The docs are written in an
+    XML dialect similar to XHTML, with a few tags specific to our
+    documentation. For example:
+</p>
+
+<div class="hl-HelpXMLBlock"><div class="hl-HelpXML"><span class="hl-HelpXMLTagStart">&lt;item&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;tags&gt;</span><span class="hl-HelpXMLText">&amp;lt;F1&gt; :help :h help</span><span class="hl-HelpXMLTagEnd">&lt;/tags&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;spec&gt;</span><span class="hl-HelpXMLText">:h</span><span class="hl-HelpXMLTagStart">&lt;oa&gt;</span><span class="hl-HelpXMLText">elp</span><span class="hl-HelpXMLTagEnd">&lt;/oa&gt;</span><span class="hl-HelpXMLText"> </span><span class="hl-HelpXMLTagStart">&lt;oa&gt;</span><span class="hl-HelpXMLText">subject</span><span class="hl-HelpXMLTagEnd">&lt;/oa&gt;</span><span class="hl-HelpXMLTagEnd">&lt;/spec&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;spec&gt;</span><span class="hl-HelpXMLText">&amp;lt;F1&gt;</span><span class="hl-HelpXMLTagEnd">&lt;/spec&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;description&gt;</span><span class="hl-HelpXMLText">
+        </span><span class="hl-HelpXMLTagStart">&lt;p&gt;</span><span class="hl-HelpXMLText">
+            Open the help page. The default page, as specified by </span><span class="hl-HelpXMLTagStart">&lt;o&gt;</span><span class="hl-HelpXMLText">helpfile</span><span class="hl-HelpXMLTagEnd">&lt;/o&gt;</span><span class="hl-HelpXMLText"> is shown
+            unless </span><span class="hl-HelpXMLTagStart">&lt;oa&gt;</span><span class="hl-HelpXMLText">subject</span><span class="hl-HelpXMLTagEnd">&lt;/oa&gt;</span><span class="hl-HelpXMLText"> is specified. If you need help for a specific topic, try
+            </span><span class="hl-HelpXMLTagStart">&lt;ex&gt;</span><span class="hl-HelpXMLText">:help overview</span><span class="hl-HelpXMLTagEnd">&lt;/ex&gt;</span><span class="hl-HelpXMLText">.
+        </span><span class="hl-HelpXMLTagEnd">&lt;/p&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagEnd">&lt;/description&gt;</span><span class="hl-HelpXMLText">
+</span><span class="hl-HelpXMLTagEnd">&lt;/item&gt;</span></div></div>
+
+<p>
+    creates a new help section for the command <span class="hl-HelpEx"><a href="dactyl://help/developer#:help" style="color: inherit;">:help</a></span> and for
+    the related key binding, <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/developer#%3CF1%3E">&lt;F1&gt;</a></span>. It also creates help tags
+    for the command, its shortcuts, the key binding, and the general
+    topic, ‘help’. These tags enable linking to this section from
+    other mentions of the topic and from the <span class="hl-HelpEx"><a href="dactyl://help/developer#:help" style="color: inherit;">:help</a></span> command.
+</p>
+
+<h3><div class="hl-HelpTags"><a id="help-tags" class="hl-HelpTag">help-tags</a><a id="help-xml" class="hl-HelpTag">help-xml</a></div>Help tags</h3>
+
+<p>
+    The following is a list of the more common XML tags used in help pages,
+    along with their highlight groups.
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt>Layout</dt><dd></dd></tr><tr><dt>p</dt><dd>A paragraph (HelpParagraph)</dd></tr><tr><dt>h1</dt><dd>A first-level heading (HelpHead1)</dd></tr><tr><dt>h2</dt><dd>A second-level heading (HelpHead2)</dd></tr><tr><dt>h3</dt><dd>A third-level heading (HelpHead3)</dd></tr><tr><dt>h4</dt><dd>A fourth-level heading (HelpHead4)</dd></tr><tr><dt>code</dt><dd>A pre-formatted code block. (HelpCode)</dd></tr><tr><dt>note</dt><dd><p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> A note paragraph. (HelpNote)</p></dd></tr><tr><dt>strut</dt><dd>A horizontal strut which prevents any previous floating elements from appearing below it.</dd></tr><tr><dt>warning</dt><dd><p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpWarning">Warning:</span> A warning paragraph. (HelpWarning)</p></dd></tr></dl>
+<dl><column style=""></column><column style=""></column><tr><dt>Generic</dt><dd></dd></tr><tr><dt>link</dt><dd>A generic link. (HelpLink)</dd></tr><tr><dt>   @topic</dt><dd>The topic of the link. Either a help topic or a fully-qualified URI.</dd></tr><tr><dt>em</dt><dd><em>Emphasized</em> text. (HelpEm)</dd></tr><tr><dt>str</dt><dd>A <span class="hl-HelpString">string</span>, with its contents wrapped in quotes. (HelpString)</dd></tr><tr><dt>logo</dt><dd>Pentadactyl's logo. (Logo)</dd></tr></dl>
+<dl><column style=""></column><column style=""></column><tr><dt>Items</dt><dd></dd></tr><tr><dt>item</dt><dd>A help entry (HelpItem)</dd></tr><tr><dt>   tags</dt><dd>See the 'Tagging' section (HelpTags)</dd></tr><tr><dt>   spec</dt><dd>The specification for this item, such as an example command line. (HelpSpec)</dd></tr><tr><dt>   strut</dt><dd>A horizontal formatting strut which ensures that all previous &lt;tags&gt; and &lt;spec&gt; elements appear above the ones that follow.</dd></tr><tr><dt>   type</dt><dd>For options, the type of the option.
+                            <em>number</em>, <em>boolean</em>, <em>string</em>, <em>stringlist</em>, or <em>charlist</em>.
+                            (HelpType)
+                        </dd></tr><tr><dt>   default</dt><dd>For options, the default value. (HelpDefault)</dd></tr><tr><dt>   description</dt><dd>The description of this help item. (HelpDescription)</dd></tr><tr><dt>      @short</dt><dd>Indicates that this is a short description which should appear between the specs and tags.</dd></tr><tr><dt>a</dt><dd>Required <span class="hl-HelpArg">{argument}</span>. (HelpArg)</dd></tr><tr><dt>oa</dt><dd>Optional <span class="hl-HelpOptionalArg">[argument]</span>. (HelpOptionalArg)</dd></tr></dl>
+<dl><column style=""></column><column style=""></column><tr><dt>Tagging</dt><dd></dd></tr><tr><dt>tags</dt><dd>Space-separated list of strings to tag. Displayed right-aligned, and used for cross-linking. (HelpTags)</dd></tr><tr><dt>@tag</dt><dd>The tag attribute. Applied to any element, generates a &lt;tags&gt; element for the given tags. (HelpTag)</dd></tr></dl>
+<dl><column style=""></column><column style=""></column><tr><dt>Linking</dt><dd></dd></tr><tr><dt>o</dt><dd>Link to an option. (HelpOpt)</dd></tr><tr><dt>ex</dt><dd>Link to an Ex command. (HelpEx)</dd></tr><tr><dt>k</dt><dd>Link to a key. (HelpKey)</dd></tr><tr><dt>   @name</dt><dd>The name attribute to &lt;k&gt;. When provided, &lt;<span class="hl-HelpArg">{value}</span>&gt; is prepended to
+                            the element's contents, i.e., <em>&lt;k name="Tab"/&gt;</em> becomes <em><span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span></em>.
+                        </dd></tr><tr><dt>   @mode</dt><dd>The mode attribute to &lt;k&gt;. Some keys have different functions in different modes.
+                            You can use this attribute to specify which of the modes (other than Normal) a key pertains to.
+                            The &lt;<span class="hl-HelpArg">{value}</span>&gt; is prepended to the element's contents, i.e., <em>&lt;k name="C-i" mode="I"/&gt;</em>
+                            becomes <em><span class="hl-HelpKey"><a style="color: inherit;" href="index.xhtml#I_%3CC-i%3E">I_&lt;C-i&gt;</a></span></em>, and <em>&lt;k mode="t"&gt;i&lt;/k&gt;</em> becomes <em><span class="hl-HelpKey"><a style="color: inherit;" href="index.xhtml#t_i">t_i</a></span></em>.
+                        </dd></tr><tr><dt>t</dt><dd>Links to an arbitrary help topic. (HelpTopic)</dd></tr></dl>
+<dl><column style=""></column><column style=""></column><tr><dt>Plugins</dt><dd></dd></tr><tr><dt>@lang</dt><dd>When applied to any element under
+        &lt;plugin&gt;, that element is only visible for a specific
+        locale.</dd></tr><tr><dt>plugin</dt><dd>The container tag used for describing a plugin.</dd></tr><tr><dt>   @name</dt><dd>The name of the plugin. Used as the plugin's help tag.</dd></tr><tr><dt>   @version</dt><dd>The plugin's version number.</dd></tr><tr><dt>   @href</dt><dd>The plugin's home page.</dd></tr><tr><dt>   @summary</dt><dd>A short description of the plugin, shown in its section head.</dd></tr><tr><dt>info</dt><dd>An element with the same
+        attributes as plugin, which may override the latter for
+        specific locales</dd></tr><tr><dt>project</dt><dd>The project for which this plugin was intended.</dd></tr><tr><dt>   @name</dt><dd>The name of the project (i.e., <span class="hl-HelpString">Pentadactyl</span>)</dd></tr><tr><dt>   @min-version</dt><dd>The minimum version of the project for which this plugin is intended to work.</dd></tr><tr><dt>   @max-version</dt><dd>The maximum version of the project for which this plugin is intended to work.</dd></tr><tr><dt>author</dt><dd>The plugin's author. May appear more than once.</dd></tr><tr><dt>   @href</dt><dd>The author's home page.</dd></tr><tr><dt>   @email</dt><dd>The author's email address.</dd></tr><tr><dt>license</dt><dd>The plugin's license. May appear more than once.</dd></tr><tr><dt>   @href</dt><dd>The URI of a page which shows or explains the license.</dd></tr></dl>
+
+<h2><div class="hl-HelpTags"><a id="generating-docs" class="hl-HelpTag">generating-docs</a></div>Generating documentation</h2>
+
+<p>
+    You can also autogenerate most of the XML help after you have
+    written a new command, mapping or option.
+</p>
+
+<div class="hl-HelpExample"><span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo dactyl.generateHelp(commands.get(<span class="hl-HelpString">addons</span>), &lt;p&gt;Extra text&lt;/p&gt;)</a></span></div>
+
+<h2><div class="hl-HelpTags"><a id="writing-plugins" class="hl-HelpTag">writing-plugins</a></div>Writing plugins</h2>
+
+<p>
+    Writing Pentadactyl plugins is incredibly simple. Plugins are
+    simply JavaScript files which run with full chrome privileges and
+    have full access to the Pentadactyl and Firefox APIs.
+    Each plugin has its own global object, which means that the
+    variables and functions that you create won't pollute the global
+    <em>window</em> or private <em>dactyl</em> namespaces. This means
+    that there's no need to wrap your plugin in a closure, as is often
+    the practice in JavaScript development. Furthermore, any plugin
+    which is installed in your <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27runtimepath%27">'runtimepath'</a></span><em>/plugins</em>
+    directory will find its context stored in
+    <em>plugins.&lt;pluginName&gt;</em>, which is often invaluable during
+    development and testing.
+</p>
+
+<p>
+    Plugins are always initialized after the main window is loaded, so
+    there is no need to write <span class="hl-HelpString">load</span> event handlers. Beyond
+    that, what you may do with your plugins is practically limitless.
+    Plugins have full access to all of the chrome resources that
+    ordinary Firefox does, along with the entire power of the
+    Pentadactyl API. If you need a starting point, have a look at some
+    <a href="http://dactyl.sf.net/pentadactyl/plugins" rel="external" topic="http://dactyl.sf.net/pentadactyl/plugins">existing plugins</a> or
+    <a href="http://addon.mozilla.org/" rel="external" topic="http://addon.mozilla.org/">extensions</a>,
+    especially the
+    <a href="http://code.google.com/p/dactyl/source/browse/" rel="external" topic="http://code.google.com/p/dactyl/source/browse/">Pentadactyl</a>
+    source.
+</p>
+
+<h3><div class="hl-HelpTags"><a id="plugin-documentation" class="hl-HelpTag">plugin-documentation</a></div>Plugin documentation</h3>
+
+<p>
+    Plugins should provide inline documentation, which will appear on the
+    <span class="hl-HelpEx"><a href="dactyl://help/developer#:help" style="color: inherit;">:help <span class="hl-HelpString" delim="">plugins</span></a></span> page. The markup for help entries is the same
+    as the above, along with a few extra plugin-specific entries. Here is an
+    example from the popular <em>flashblock</em> extension:
+</p>
+
+<div class="hl-HelpXMLBlock"><div class="hl-HelpXML"><span class="hl-HelpXMLText"><span class="hl-HelpXMLString" key="HelpXMLString">use strict</span>;
+XML.ignoreWhitespace = <span class="hl-Boolean" key="Boolean">false</span>;
+XML.prettyPrinting   = <span class="hl-Boolean" key="Boolean">false</span>;
+<span class="hl-HelpXML" key="HelpXML">var</span> INFO = 
+<span class="hl-HelpXMLTagStart" key="HelpXMLTagStart">&lt;plugin
+    <span class="hl-HelpXMLAttribute" key="HelpXMLAttribute">name</span><span class="hl-HelpXMLString" key="HelpXMLString">flashblock</span>
+    <span class="hl-HelpXMLAttribute" key="HelpXMLAttribute">version</span><span class="hl-HelpXMLString" key="HelpXMLString">1.0</span>
+    <span class="hl-HelpXMLAttribute" key="HelpXMLAttribute">href</span><span class="hl-HelpXMLString" key="HelpXMLString">http://dactyl.sf.net/pentadactyl/plugins#flashblock-plugin</span>
+    <span class="hl-HelpXMLAttribute" key="HelpXMLAttribute">summary</span><span class="hl-HelpXMLString" key="HelpXMLString">Flash Blocker</span>
+    <span class="hl-HelpXMLAttribute" key="HelpXMLAttribute">xmlns</span>{NS}&gt;</span></span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;author <span class="hl-HelpXMLAttribute">email</span><span class="hl-HelpXMLString">maglione.k@gmail.com</span>&gt;</span><span class="hl-HelpXMLText">Kris Maglione</span><span class="hl-HelpXMLTagEnd">&lt;/author&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;license <span class="hl-HelpXMLAttribute">href</span><span class="hl-HelpXMLString">http://opensource.org/licenses/mit-license.php</span>&gt;</span><span class="hl-HelpXMLText">MIT</span><span class="hl-HelpXMLTagEnd">&lt;/license&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;project <span class="hl-HelpXMLAttribute">name</span><span class="hl-HelpXMLString">Pentadactyl</span> <span class="hl-HelpXMLAttribute">min-version</span><span class="hl-HelpXMLString">1.0</span>/&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;p&gt;</span><span class="hl-HelpXMLText">
+        This plugin provides the same features as the ever popular FlashBlock
+        Firefox addon. Flash animations are substituted with place holders which
+        play the original animation when clicked. Additionally, this plugin provides
+        options to control which sites can play animations without restrictions, and
+        triggers to toggle the playing of animation on the current page.
+    </span><span class="hl-HelpXMLTagEnd">&lt;/p&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagStart">&lt;item&gt;</span><span class="hl-HelpXMLText">
+        </span><span class="hl-HelpXMLTagStart">&lt;tags&gt;</span><span class="hl-HelpXMLText">'fb' 'flashblock'</span><span class="hl-HelpXMLTagEnd">&lt;/tags&gt;</span><span class="hl-HelpXMLText">
+        </span><span class="hl-HelpXMLTagStart">&lt;spec&gt;</span><span class="hl-HelpXMLText">'flashblock' 'fb'</span><span class="hl-HelpXMLTagEnd">&lt;/spec&gt;</span><span class="hl-HelpXMLText">
+        </span><span class="hl-HelpXMLTagStart">&lt;type&gt;</span><span class="hl-HelpXMLText">boolean</span><span class="hl-HelpXMLTagEnd">&lt;/type&gt;</span><span class="hl-HelpXMLText">
+        </span><span class="hl-HelpXMLTagStart">&lt;default&gt;</span><span class="hl-HelpXMLText">true</span><span class="hl-HelpXMLTagEnd">&lt;/default&gt;</span><span class="hl-HelpXMLText">
+        </span><span class="hl-HelpXMLTagStart">&lt;description&gt;</span><span class="hl-HelpXMLText">
+            </span><span class="hl-HelpXMLTagStart">&lt;p&gt;</span><span class="hl-HelpXMLText">
+                Controls the blocking of flash animations. When true, place
+                holders are substituted for flash animations on untrusted sites.
+            </span><span class="hl-HelpXMLTagEnd">&lt;/p&gt;</span><span class="hl-HelpXMLText">
+        </span><span class="hl-HelpXMLTagEnd">&lt;/description&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLTagEnd">&lt;/item&gt;</span><span class="hl-HelpXMLText">
+    </span><span class="hl-HelpXMLText"><span class="hl-HelpOptionalArg">[...]</span>
+<span class="hl-HelpXMLTagEnd" key="HelpXMLTagEnd">&lt;/plugin&gt;</span></span><span class="hl-HelpXMLText">;</span></div></div>
+
+<p>
+    The inline XML is made possible by
+    <a href="https://developer.mozilla.org/en/E4X" rel="external" topic="https://developer.mozilla.org/en/E4X">E4X</a>.
+    It is important that the documentation be assigned to the
+    <em>INFO</em> variable, or Pentadactyl will not be able
+    to find it. The XML property changes are not compulsory, but
+    they do prevent certain formatting problems that may occur
+    otherwise. Beginning your file with <span class="hl-HelpString">use strict</span>, while
+    not required, helps to prevent a lot of common errors.
+</p>
+
+<p>
+    The documentation that you provide behaves exactly as other
+    Pentadactyl documentation, which means that the tags you
+    provide are available via <span class="hl-HelpEx"><a href="dactyl://help/developer#:help" style="color: inherit;">:help</a></span> with full tag
+    completion and cross-referencing support. Although documentation
+    is not required, we strongly recommend that all plugin authors
+    provide at least basic documentation of the functionality of
+    their plugins and of each of the options, commands, and
+    especially mappings that they provide.
+</p>
+
+</body></html>

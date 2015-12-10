@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Starting</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" starting startup-options +c ++cmd +u ++noplugin initialization startup $PENTADACTYL_INIT $MY_PENTADACTYLRC pentadactylrc  save-settings :mkp :mkpentadactylrc restarting :reh :rehash :res :restart "><div class="hl-HelpTags"><a id="starting.xml" class="hl-HelpTag">starting.xml</a></div><h1><div class="hl-HelpTags"><a id="starting" class="hl-HelpTag">starting</a></div>Starting Pentadactyl</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/starting#startup-options">Command-line options</a></li><li><a href="dactyl://help/starting#initialization">Initialization</a></li><li><a href="dactyl://help/starting#save-settings">Saving settings</a></li><li><a href="dactyl://help/starting#restarting">Restarting</a></li></ol></div>
+
+<h2><div class="hl-HelpTags"><a id="startup-options" class="hl-HelpTag">startup-options</a></div>Command-line options</h2>
+
+<p>
+    Command-line options can be passed to Pentadactyl via the -pentadactyl Firefox
+    option. These are passed as single string argument.
+    E.g., <tt>firefox -pentadactyl <span class="hl-HelpString"><span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#++cmd">++cmd</a></span> 'set exrc' <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#+u">+u</a></span> 'tempRcFile' <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#++noplugin">++noplugin</a></span></span></tt>
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="+c" class="hl-HelpTag">+c</a></div><div style="clear: both"></div><div class="hl-HelpSpec">+c <span class="hl-HelpArg">{command}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute a single Ex command after all initialization has been performed. See
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#initialization">initialization</a></span>.
+        </p>
+
+        <p>This option can be specified multiple times.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="++cmd" class="hl-HelpTag">++cmd</a></div><div style="clear: both"></div><div class="hl-HelpSpec">++cmd <span class="hl-HelpArg">{command}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute a single Ex command before any initialization has been performed. See
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#initialization">initialization</a></span>.
+        </p>
+
+        <p>This option can be specified multiple times.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="+u" class="hl-HelpTag">+u</a></div><div style="clear: both"></div><div class="hl-HelpSpec">+u <span class="hl-HelpArg">{rcfile}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            The file <span class="hl-HelpArg">{rcfile}</span> is used for user initialization commands. If <span class="hl-HelpArg">{rcfile}</span> is
+            <span class="hl-HelpString">NORC</span> then no startup initialization is performed except for the loading of
+            plugins, i.e., steps 1. and 2. in <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#initialization">initialization</a></span> are skipped. If <span class="hl-HelpArg">{rcfile}</span>
+            is <span class="hl-HelpString">NONE</span> then plugin loading is also skipped.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="++noplugin" class="hl-HelpTag">++noplugin</a></div><div style="clear: both"></div><div class="hl-HelpSpec">++noplugin</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Prevents plugin scripts from being loaded at startup. See <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27loadplugins%27">'loadplugins'</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="initialization" class="hl-HelpTag">initialization</a><a id="startup" class="hl-HelpTag">startup</a></div>Initialization</h2>
+
+<p>At startup, Pentadactyl completes the following tasks in order. </p>
+
+<ol>
+    <li>
+        <p>
+            Pentadactyl first searches for user initialization commands in
+            the following locations. The first of these to be found is executed,
+            after which no further locations are searched.
+        </p>
+
+        <ol>
+            <li><div class="hl-HelpTags"><a id="$PENTADACTYL_INIT" class="hl-HelpTag">$PENTADACTYL_INIT</a></div>
+                <em>$PENTADACTYL_INIT</em>
+                <div style="clear: both"></div>
+                May contain a single Ex command (e.g., "<span class="hl-HelpEx"><a href="repeat.xhtml#:source" style="color: inherit;">:source <span class="hl-HelpArg">{file}</span></a></span>").
+            </li>
+            <li><div class="hl-HelpTags"><a id="$MY_PENTADACTYLRC" class="hl-HelpTag">$MY_PENTADACTYLRC</a></div>
+                <em>~/_pentadactylrc</em>
+                <div style="clear: both"></div>
+                Windows only. If this file exists, its contents
+                are executed and <tt>$MY_PENTADACTYLRC</tt> set to its path.
+            </li>
+            <li><div class="hl-HelpTags"><a id="pentadactylrc" class="hl-HelpTag">pentadactylrc</a></div>
+                <em>~/.pentadactylrc</em>
+                <div style="clear: both"></div>
+                If this file exists, its contents are executed.
+            </li>
+        </ol>
+    </li>
+    <li>
+        <p>
+            If <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27exrc%27">'exrc'</a></span> is set and the <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#+u">+u</a></span> command-line option was not
+            specified, then any RC file in the current directory is also
+            sourced.
+        </p>
+    </li>
+    <li>
+        <p>
+            All directories in <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27runtimepath%27">'runtimepath'</a></span> are searched for a
+            ‘plugins’ subdirectory and all yet unloaded plugins are loaded.
+            For each plugins directory, all <tt>*.{js,penta}</tt>
+            files (including those in further subdirectories) are sourced
+            alphabetically. No plugins will be sourced if,
+        </p>
+
+        <ul>
+            <li><span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27loadplugins%27">'loadplugins'</a></span> is unset,</li>
+            <li>the <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#++noplugin">++noplugin</a></span> command-line option was specified, or</li>
+            <li>the <tt><span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#+u">+u</a></span>=NONE</tt> command-line option was specified.</li>
+        </ul>
+
+        <p>
+            Any plugin which was already loaded (e.g., by an earlier
+            invocation of the <span class="hl-HelpEx"><a href="repeat.xhtml#:loadplugins" style="color: inherit;">:loadplugins</a></span> command) will be skipped.
+        </p>
+    </li>
+</ol>
+
+<p>
+    The user's home directory is determined as follows:
+</p>
+
+<ul>
+    <li>On Unix and Mac, the environment variable <tt>$HOME</tt> is used.</li>
+    <li>
+        On Windows, Pentadactyl checks for the existence of
+        <tt>%HOME%</tt>, then <tt>%USERPROFILE%</tt>, and then
+        <tt>%HOMEDRIVE%%HOMEPATH%</tt>. It uses the first one it
+        finds.
+    </li>
+</ul>
+
+<h2><div class="hl-HelpTags"><a id="save-settings" class="hl-HelpTag">save-settings</a></div>Saving settings</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":mkp" class="hl-HelpTag">:mkp</a><a id=":mkpentadactylrc" class="hl-HelpTag">:mkpentadactylrc</a></div><div class="hl-HelpSpec">:mkp<span class="hl-HelpOptionalArg">[entadactylrc]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[file]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Write current key mappings and changed options to <span class="hl-HelpOptionalArg">[file]</span>. If no
+            <span class="hl-HelpOptionalArg">[file]</span> is specified then <em>~/.pentadactylrc</em> is written unless this file
+            already exists. The special version <span class="hl-HelpEx"><a href="dactyl://help/starting#:mkpentadactylrc" style="color: inherit;">:mkpentadactylrc!</a></span> will overwrite
+            <span class="hl-HelpOptionalArg">[file]</span> if it exists.
+        </p>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpWarning">Warning:</span> 
+            This behavior differs differs from that of Vim, which defaults to
+            writing the file in the current directory.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="restarting" class="hl-HelpTag">restarting</a></div>Restarting</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":reh" class="hl-HelpTag">:reh</a><a id=":rehash" class="hl-HelpTag">:rehash</a></div><div class="hl-HelpSpec">:reh<span class="hl-HelpOptionalArg">[ash]</span> <span class="hl-HelpOptionalArg">[arg]</span> …</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Reload the Pentadactyl add-on, including all code, plugins,
+            and configuration. For users running directly from the development
+            repository, this is a good way to update to the latest version or
+            to test your changes.
+        </p>
+        <p>
+            Any arguments supplied are parsed as command-line arguments as
+            specified in <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/starting#startup-options">startup-options</a></span>.
+        </p>
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpWarning">Warning:</span> 
+            Not all plugins are designed to cleanly un-apply during a rehash.
+            While official plugins are safe, beware of possible instability
+            if you rehash while running third-party plugins.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":res" class="hl-HelpTag">:res</a><a id=":restart" class="hl-HelpTag">:restart</a></div><div class="hl-HelpSpec">:res<span class="hl-HelpOptionalArg">[tart]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Force Firefox to restart. Useful when installing extensions.</p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

@@ -1,0 +1,34 @@
+js content.document.dactyl = dactyl;
+:open javascript:(function(){dactyl.edxplayer=$('.video').data('video-player-state').videoPlayer;})();
+
+js <<EOF
+(function(){
+    function attach() {
+        dactyl.edxplayer = $('.video').data('video-player-state').videoPlayer;
+    }
+    var player = dactyl.edxplayer;
+    var edx = {
+        rate : function(rate) { player.setPlaybackRate(rate); },
+        time : function() { return player.currentTime; },
+        seek : function(t) { player.seekTo(t); },
+        forward : function(t) { player.seekTo(player.currentTime+t); },
+        back : function(t) { player.seekTo(player.currentTime-t); },
+        play : function(t) { player.play(); },
+        playpause : function() {
+            var player = $('.video').data('video-player-state').videoPlayer;
+            if (player.isPlaying())
+                player.pause();
+            else
+                player.play();
+        },
+        attach : function() { dactyl.edx = this; },
+    };
+
+    edx.attach();
+})();
+EOF
+
+autocmd DOMload courses.edx.org :js edx.attach();
+
+" TODO: work out how to change displayed speed on player (currently doesn't update)
+

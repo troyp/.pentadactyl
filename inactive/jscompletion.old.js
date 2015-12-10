@@ -1,30 +1,30 @@
-"use strict";
+/* use strict */
+XML.ignoreWhitespace = false;
+XML.prettyPrinting   = false;
 var INFO =
-["plugin", { name: "jscompletion",
-             version: "1.0.3",
-             href: "http://dactyl.sf.net/pentadactyl/plugins#jscompletion-plugin",
-             summary: "JavaScript completion enhancements",
-             xmlns: "dactyl" },
-    ["author", { email: "maglione.k@gmail.com" },
-        "Kris Maglione"],
-    ["license", { href: "http://people.freebsd.org/~phk/" },
-        "BEER-WARE"],
-    ["project", { name: "Pentadactyl", "min-version": "1.0" }],
-    ["p", {},
-        "This plugin provides advanced completion functions for ",
-        "DOM functions, eval, and some other special functions. ",
-        "For instance, ",
-        "", ["ex", {}, ':js content.document.getElementById("',
-               ["k", { name: "Tab", link: "c_<Tab>" }], ], " ",
-        "should provide you with a list of all element IDs ",
-        "present on the current web page. Many other DOM ",
-        "methods are provided, along with their namespaced variants."]];
+<plugin name="jscompletion" version="1.0.2"
+        href="http://dactyl.sf.net/pentadactyl/plugins#jscompletion-plugin"
+        summary="JavaScript completion enhancements"
+        xmlns={NS}>
+    <author email="maglione.k@gmail.com">Kris Maglione</author>
+    <license href="http://people.freebsd.org/~phk/">BEER-WARE</license>
+    <project name="Pentadactyl" min-version="1.0"/>
+    <p>
+        This plugin provides advanced completion functions for
+        DOM functions, eval, and some other special functions.
+        For instance,
+        <ex>:js content.document.getElementById("<k name="Tab" link="c_&lt;Tab>"/></ex>
+        should provide you with a list of all element IDs
+        present on the current web page. Many other DOM
+        methods are provided, along with their namespaced variants.
+    </p>
+</plugin>;
 
 function evalXPath(xpath, doc, namespace) {
     let res = doc.evaluate(xpath, doc,
         function getNamespace(prefix) ({
             html:       "http://www.w3.org/1999/xhtml",
-            dactyl:     NS,
+            dactyl:     NS.uri,
             ns:         namespace
         }[prefix]),
         XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
@@ -36,7 +36,7 @@ function evalXPath(xpath, doc, namespace) {
 let NAMESPACES = [
     ["http://purl.org/atom/ns#", "Atom 0.3"],
     ["http://www.w3.org/2005/Atom", "Atom 1.0"],
-    [NS, "Dactyl"],
+    [NS.uri, "Dactyl"],
     ["http://www.w3.org/2005/Atom", "RSS"],
     ["http://www.w3.org/2000/svg", "SVG"],
     ["http://www.mozilla.org/xbl", "XBL"],
@@ -46,12 +46,12 @@ let NAMESPACES = [
 ];
 
 function addCompleter(names, fn) {
-    for (let name of util.debrace(names))
+    for (let [, name] in Iterator(util.debrace(names)))
         javascript.completers[name] = fn;
 }
 function uniq(iter) {
     let seen = {};
-    for (let val of iter)
+    for (let val in iter)
         if (!Set.add(seen, val))
             yield val;
 }
@@ -59,8 +59,8 @@ function uniq(iter) {
 addCompleter("__lookup{Getter,Setter}__", function (context, func, obj, args) {
     if (args.length == 1)
         context.completions =
-            [[k, obj[func](k)] for (k of properties(obj))].concat(
-            [[k, obj[func](k)] for (k of properties(obj, true))]).filter(
+            [[k, obj[func](k)] for (k in properties(obj))].concat(
+            [[k, obj[func](k)] for (k in properties(obj, true))]).filter(
                 function ([k, v]) v);
 });
 
@@ -109,14 +109,14 @@ function addCompleterNS(names, fn) {
 addCompleterNS("getElementsByClassName", function (context, func, doc, args, prefix, namespace) {
     if (args.length == 1) {
         let iter = evalXPath("//@" + prefix + "class", doc, namespace);
-        return array(e.value.split(" ") for (e of iter)).flatten().uniq().array;
+        return array(e.value.split(" ") for (e in iter)).flatten().uniq().array;
     }
 });
 
 addCompleterNS("{getElementsByTagName,createElement}", function (context, func, doc, args, prefix, namespace) {
     if (args.length == 1) {
         let iter = evalXPath("//" + prefix + "*", doc, namespace);
-        return uniq(e.localName.toLowerCase() for (e of iter));
+        return uniq(e.localName.toLowerCase() for (e in iter));
     }
 });
 
@@ -124,10 +124,10 @@ addCompleterNS("getElementsByAttribute", function (context, func, doc, args, pre
     switch (args.length) {
     case 1:
         let iter = evalXPath("//@" + prefix + "*", doc, namespace);
-        return uniq(e.name for (e of iter));
+        return uniq(e.name for (e in iter));
     case 2:
         iter = evalXPath("//@" + prefix + args[0], doc, namespace);
-        return uniq(e.value for (e of iter));
+        return uniq(e.value for (e in iter));
     }
 });
 
@@ -135,7 +135,7 @@ addCompleterNS("{get,set,remove}Attribute", function (context, func, node, args,
     context.keys = { text: 0, description: 1 };
     if (args.length == 1)
         return [[a.localName, a.value]
-                for (a of array.iterValues(node.attributes))
+                for (a in array.iterValues(node.attributes))
                 if (!namespace || a.namespaceURI == namespace)];
 });
 

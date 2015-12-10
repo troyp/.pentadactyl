@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Patterns</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" text-find-commands &lt;find-forward&gt; / &lt;find-forward&gt; ? &lt;find-next&gt; n &lt;find-previous&gt; N &lt;find-word-next&gt; * &lt;find-word-previous&gt; # :noh :nohlfind "><div class="hl-HelpTags"><a id="pattern.xml" class="hl-HelpTag">pattern.xml</a></div><h1><div class="hl-HelpTags"><a id="text-find-commands" class="hl-HelpTag">text-find-commands</a></div>Text find commands</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2></div>
+
+<p>
+    Pentadactyl provides a Vim-like incremental find interface to
+    replace Firefox's crippled Typeahead Find. Among other improvements,
+    our find service:
+</p>
+<ul>
+    <li>
+        Starts at the cursor position in the currently selected frame, unlike
+        Firefox, which always starts at the beginning of the first frame
+        for documents with more than one frame.
+    </li>
+    <li>
+        Returns the cursor and viewport to their original position on cancel.
+    </li>
+    <li>
+        Backtracks to the first successful match after pressing backspace,
+        unlike Firefox, which will always continue from the last match.
+    </li>
+    <li>
+        Supports reverse incremental find.
+    </li>
+    <li>
+        Escape sequences to toggle link-only and case-sensitive find.
+    </li>
+</ul>
+
+<p>
+    Regular expression find, however, is not currently available unless the
+    /Find Bar/ service is installed, in which case it may be toggled on with
+    a find flag.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;find-forward&gt;" class="hl-HelpTag">&lt;find-forward&gt;</a><a id="/" class="hl-HelpTag">/</a></div><div class="hl-HelpSpec">/<span class="hl-HelpArg">{pattern}</span><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Find <span class="hl-HelpArg">{pattern}</span> starting at the current caret position.</p>
+
+        <p>
+            The following escape sequences can be used to modify the
+            behavior of the find. When flags conflict, the last to
+            appear is the one that takes effect.
+        </p>
+
+        <dl><column style="width: 6em;"></column><column style=""></column><tr><dt>\c</dt><dd>Perform case insensitive find (default if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27findcase%27">'findcase'</a></span>=<span class="hl-HelpString">ignore</span>).</dd></tr><tr><dt>\C</dt><dd>Perform case sensitive find (default if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27findcase%27">'findcase'</a></span>=<span class="hl-HelpString">match</span>).</dd></tr><tr><dt>\l</dt><dd>Search only in links, as defined by <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27hinttags%27">'hinttags'</a></span>.</dd></tr><tr><dt>\L</dt><dd>Search the entire page.</dd></tr></dl>
+
+        <p>
+            Additionally, if the /Find Bar/ extension is installed, the
+            following flags may be used,
+        </p>
+        <dl><column style="width: 6em;"></column><column style=""></column><tr><dt>\r</dt><dd>Process the entire pattern as a regular expression.</dd></tr><tr><dt>\R</dt><dd>Process the entire pattern as an ordinary string.</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;find-forward&gt;" class="hl-HelpTag">&lt;find-forward&gt;</a><a id="?" class="hl-HelpTag">?</a></div><div class="hl-HelpSpec">?<span class="hl-HelpArg">{pattern}</span><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Find a pattern backward of the current caret position in exactly the
+            same manner as <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/pattern#/">/</a></span>
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;find-next&gt;" class="hl-HelpTag">&lt;find-next&gt;</a><a id="n" class="hl-HelpTag">n</a></div><div class="hl-HelpSpec">n</div><div class="hl-HelpDescription" short="true">
+        <p>Find next. Repeat the last find.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;find-previous&gt;" class="hl-HelpTag">&lt;find-previous&gt;</a><a id="N" class="hl-HelpTag">N</a></div><div class="hl-HelpSpec">N</div><div class="hl-HelpDescription" short="true">
+        <p>Find previous. Repeat the last find in the opposite direction.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;find-word-next&gt;" class="hl-HelpTag">&lt;find-word-next&gt;</a><a id="*" class="hl-HelpTag">*</a></div><div class="hl-HelpSpec">*</div><div class="hl-HelpDescription" short="true">
+        <p>Search forward for the next occurrence of the word under cursor.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;find-word-previous&gt;" class="hl-HelpTag">&lt;find-word-previous&gt;</a><a id="#" class="hl-HelpTag">#</a></div><div class="hl-HelpSpec">#</div><div class="hl-HelpDescription" short="true">
+        <p>Search backward for the previous occurrence of the word under cursor.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":noh" class="hl-HelpTag">:noh</a><a id=":nohlfind" class="hl-HelpTag">:nohlfind</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:noh<span class="hl-HelpOptionalArg">[lfind]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Remove the find highlighting. The document is highlighted again
+            when another find command is used or the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27hlfind%27">'hlfind'</a></span> option
+            is set.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

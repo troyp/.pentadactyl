@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Expression Evaluation</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" expression expr eval javascript javascript-evaluation :ec :echo :echoe :echoerr :echom :echomsg :exe :execute :js :javas :javascript REPL :js! :javas! :javascript! global-variables :let :unl :unlet conditionals :if :endif :en :fi :elseif :elsei :elif :else :el "><div class="hl-HelpTags"><a id="eval.xml" class="hl-HelpTag">eval.xml</a></div><h1><div class="hl-HelpTags"><a id="expression" class="hl-HelpTag">expression</a><a id="expr" class="hl-HelpTag">expr</a><a id="eval" class="hl-HelpTag">eval</a><a id="javascript" class="hl-HelpTag">javascript</a></div>Expression evaluation</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/eval#javascript-evaluation">JavaScript evaluation</a></li><li><a href="dactyl://help/eval#global-variables">Global Variables</a></li><li><a href="dactyl://help/eval#conditionals">Conditionals</a></li></ol></div>
+
+<p>
+    Much of the power of Pentadactyl lies in its scriptable expression
+    evaluation. Pentadactyl understands two kinds of expressions: Ex
+    commands, and JavaScript. Ex commands are simple, easy to type, and
+    readily accessible from the <a href="cmdline.xhtml#command-line" topic="command-line">command line</a>.
+    They form a core part of the user interface. JavaScript, on the other hand,
+    is much less straightforward, but allows for any number of complex actions
+    to be executed, with full access to all of the internals of Pentadactyl
+    and Firefox. Both expression evaluation methods support sophisticated
+    expression completion, including option lists and descriptions thereof,
+    along with parentheses matching and syntax error highlighting.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="javascript-evaluation" class="hl-HelpTag">javascript-evaluation</a></div>JavaScript evaluation</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ec" class="hl-HelpTag">:ec</a><a id=":echo" class="hl-HelpTag">:echo</a></div><div class="hl-HelpSpec">:ec<span class="hl-HelpOptionalArg">[ho]</span> <span class="hl-HelpArg">{expr}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Echo a JavaScript expression. <span class="hl-HelpArg">{expr}</span> may be a simple quoted
+            string, in which case it is shown in the <a href="gui.xhtml#status-line" topic="status-line">status line</a>, or any
+            arbitrary JavaScript expression. If the expression results in
+            anything other than a string, it is pretty-printed in a multi-line
+            frame just above the command line. The output depends on the type
+            of object. Functions display their source, DOM nodes display the
+            pretty-printed XML of the top-level node, XML literals are
+            rendered as page content, and all other objects display their
+            string representation and all of their enumerable properties.
+        </p>
+
+        <p>See also <span class="hl-HelpEx"><a href="dactyl://help/eval#:javascript" style="color: inherit;">:javascript</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":echoe" class="hl-HelpTag">:echoe</a><a id=":echoerr" class="hl-HelpTag">:echoerr</a></div><div class="hl-HelpSpec">:echoe<span class="hl-HelpOptionalArg">[rr]</span> <span class="hl-HelpArg">{expr}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Echo the expression as an error message. Just like <span class="hl-HelpEx"><a href="dactyl://help/eval#:ec" style="color: inherit;">:ec<span class="hl-HelpOptionalArg">[ho]</span></a></span> but echoes
+            the result highlighted as with the ErrorMsg group and saves it to the message history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":echom" class="hl-HelpTag">:echom</a><a id=":echomsg" class="hl-HelpTag">:echomsg</a></div><div class="hl-HelpSpec">:echom<span class="hl-HelpOptionalArg">[sg]</span> <span class="hl-HelpArg">{expr}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Echo the expression as an informational message. Just like <span class="hl-HelpEx"><a href="dactyl://help/eval#:ec" style="color: inherit;">:ec<span class="hl-HelpOptionalArg">[ho]</span></a></span> but
+            also saves the message in the message history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":exe" class="hl-HelpTag">:exe</a><a id=":execute" class="hl-HelpTag">:execute</a></div><div class="hl-HelpSpec">:exe<span class="hl-HelpOptionalArg">[cute]</span> <span class="hl-HelpArg">{expr}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute the Ex command string that results from the evaluation of
+            the JavaScript expression <span class="hl-HelpArg">{expr}</span>. For example,
+        </p>
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/eval#:execute" style="color: inherit;">:execute <span class="hl-HelpString">open </span> + content.location.host</a></span></pre>
+        <p>
+            opens the homepage of the currently opened site.
+        </p>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> Unlike Vim this only supports a single argument.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":js" class="hl-HelpTag">:js</a><a id=":javas" class="hl-HelpTag">:javas</a><a id=":javascript" class="hl-HelpTag">:javascript</a></div><div class="hl-HelpSpec">:javas<span class="hl-HelpOptionalArg">[cript]</span> <span class="hl-HelpArg">{cmd}</span></div><div class="hl-HelpSpec" style="white-space: pre; height: 1.6em; overflow: visible;">:javascript &lt;&lt;<span class="hl-HelpArg">{endpattern}</span>
+  <span class="hl-HelpArg">{cmd}</span>
+  ...
+<span class="hl-HelpArg">{endpattern}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Evaluates the given <span class="hl-HelpArg">{cmd}</span> as JavaScript. Behaves exactly as
+            <span class="hl-HelpEx"><a href="dactyl://help/eval#:echo" style="color: inherit;">:echo</a></span>, except that the result is not printed. Any
+            exception raised by the evaluation will, however, be displayed as
+            an error message and appended to <span class="hl-HelpEx"><a href="message.xhtml#:messages" style="color: inherit;">:messages</a></span>.
+        </p>
+
+        <div class="hl-HelpExample">
+            <span class="hl-HelpEx"><a href="dactyl://help/eval#:javascript" style="color: inherit;">:javascript alert(<span class="hl-HelpString">Hello world</span>)</a></span> will open a
+            dialog window with the message <span class="hl-HelpString">Hello world</span>.
+        </div>
+
+        <p>
+            Moreover, multi-line scripts can be executed with shell-like here
+            document syntax. For example, the following,
+        </p>
+
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/eval#:javascript" style="color: inherit;">:javascript</a></span> &lt;&lt;<em>EOF</em>
+<span class="hl-HelpKeyword">for each</span> (<span class="hl-HelpKeyword">var</span> tab <span class="hl-HelpKeyword">in</span> tabs.visibleTabs)
+    tab.linkedBrowser.reload();
+<em>EOF</em></pre>
+
+        <p>
+            will reload all visible tabs.
+        </p>
+
+        <p>
+            Moreover, sophisticated, context-sensitive <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span>
+            completion is available for JavaScript code, which extends to
+            property names, object keys, and programmable completion for
+            string function arguments. The completion code is designed to be
+            both as safe and as powerful as possible. Expressions in a given
+            command-line session will only be evaluated once, and, with
+            auto-completion turned on, any completion which requires a function
+            to be executed requires an explicit <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span> press
+            to commence.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="REPL" class="hl-HelpTag">REPL</a></div><div class="hl-HelpSpec">:js! <span class="hl-HelpOptionalArg">[context]</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":js!" class="hl-HelpTag">:js!</a><a id=":javas!" class="hl-HelpTag">:javas!</a><a id=":javascript!" class="hl-HelpTag">:javascript!</a></div><div class="hl-HelpSpec">:javas<span class="hl-HelpOptionalArg">[cript]</span>! <span class="hl-HelpOptionalArg">[context]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Starts the JavaScript Read Eval Print Loop, where JavaScript
+            statements are entered and evaluated, their results printed, and the
+            input modified and entered again. Within the REPL, the results of a
+            given evaluation are available as variables named for the given
+            prompt.
+        </p>
+
+        <p>
+            If <span class="hl-HelpOptionalArg">[context]</span> is given, then statements are executed in that
+            global context.
+        </p>
+
+        <div class="hl-HelpExample"><pre class="hl-HelpCode"><span class="hl-REPL" key="REPL"><span class="hl-REPL-E" key="REPL-E"><span class="hl-REPL-R" key="REPL-R">js1&gt;</span> ({ <span class="hl-Key" key="Key">foo</span>: <span class="hl-HelpString">bar</span> })</span><span class="hl-REPL-P" key="REPL-P" style="display: block;"><span class="hl-Title Object" key="Title Object">[object Object]</span>::
+<span class="hl-Key" key="Key">foo</span>: <span class="hl-String" key="String">"bar"</span></span><span class="hl-REPL-E" key="REPL-E"><span class="hl-REPL-R" key="REPL-R">js2&gt;</span> js1.foo</span><span class="hl-REPL-P" key="REPL-P" style="display: block;"><span class="hl-HelpString">bar</span></span></span></pre></div>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="global-variables" class="hl-HelpTag">global-variables</a></div>Global Variables</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":let" class="hl-HelpTag">:let</a></div><div class="hl-HelpSpec">:let <span class="hl-HelpArg">{var-name}</span> [+-.]= <span class="hl-HelpArg">{expr1}</span></div><div class="hl-HelpSpec">:let <span class="hl-HelpArg">{var-name}</span></div><div class="hl-HelpSpec">:let</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p style="clear: both;"><span class="hl-HelpWarning">Deprecated:</span> All scripts which make use of <span class="hl-HelpEx"><a href="dactyl://help/eval#:let" style="color: inherit;">:let</a></span> should be
+            updated to use the simpler and more powerful options system
+            instead.</p>
+        <p>
+            Sets or lists a variable. Sets the variable <span class="hl-HelpArg">{var-name}</span> to the value of the
+            expression <span class="hl-HelpArg">{expr1}</span>. If no expression is given, the value of the variable is
+            displayed. Without arguments, displays a list of all variables.
+            This functionality has few useful applications and so is deprecated.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":unl" class="hl-HelpTag">:unl</a><a id=":unlet" class="hl-HelpTag">:unlet</a></div><div class="hl-HelpSpec">:unl<span class="hl-HelpOptionalArg">[et]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpArg">{name}</span> …</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p style="clear: both;"><span class="hl-HelpWarning">Deprecated:</span> All scripts which make use of <span class="hl-HelpEx"><a href="dactyl://help/eval#:unlet" style="color: inherit;">:unlet</a></span> should be
+            updated to use the simpler and more powerful options system
+            instead.</p>
+        <p>
+            Deletes the named variables. When <span class="hl-HelpOptionalArg">[!]</span> is given, no error
+            message is output for non-existing variables.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="conditionals" class="hl-HelpTag">conditionals</a></div>Conditionals</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":if" class="hl-HelpTag">:if</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:if <span class="hl-HelpArg">{expr}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute commands until the next <span class="hl-HelpEx"><a href="dactyl://help/eval#:elseif" style="color: inherit;">:elseif</a></span>, <span class="hl-HelpEx"><a href="dactyl://help/eval#:else" style="color: inherit;">:else</a></span>,
+            or <span class="hl-HelpEx"><a href="dactyl://help/eval#:endif" style="color: inherit;">:endif</a></span> only if the JavaScript expression <span class="hl-HelpArg">{expr}</span>
+            evaluates to a true value.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":endif" class="hl-HelpTag">:endif</a><a id=":en" class="hl-HelpTag">:en</a><a id=":fi" class="hl-HelpTag">:fi</a></div><div class="hl-HelpSpec">:en<span class="hl-HelpOptionalArg">[dif]</span></div><div class="hl-HelpDescription" short="true">
+        <p>
+            Ends a string of <span class="hl-HelpEx"><a href="dactyl://help/eval#:if" style="color: inherit;">:if</a></span>/<span class="hl-HelpEx"><a href="dactyl://help/eval#:elseif" style="color: inherit;">:elseif</a></span>/<span class="hl-HelpEx"><a href="dactyl://help/eval#:else" style="color: inherit;">:else</a></span>
+            conditionals.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":elseif" class="hl-HelpTag">:elseif</a><a id=":elsei" class="hl-HelpTag">:elsei</a><a id=":elif" class="hl-HelpTag">:elif</a></div><div class="hl-HelpSpec">:elsei<span class="hl-HelpOptionalArg">[f]</span> <span class="hl-HelpArg">{expr}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute commands until the next <span class="hl-HelpEx"><a href="dactyl://help/eval#:elseif" style="color: inherit;">:elseif</a></span>, <span class="hl-HelpEx"><a href="dactyl://help/eval#:else" style="color: inherit;">:else</a></span>,
+            or <span class="hl-HelpEx"><a href="dactyl://help/eval#:endif" style="color: inherit;">:endif</a></span> only if the JavaScript expression <span class="hl-HelpArg">{expr}</span>
+            evaluates to a true value.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":else" class="hl-HelpTag">:else</a><a id=":el" class="hl-HelpTag">:el</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:el<span class="hl-HelpOptionalArg">[se]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute commands until the next <span class="hl-HelpEx"><a href="dactyl://help/eval#:endif" style="color: inherit;">:endif</a></span> only if the
+            previous conditionals were not executed.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Hints</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" hints quick-hints hint-mode f F extended-hints ; ;; ;? ;s ;f ;F ;o ;t ;b ;w ;O ;T ;W ;a ;S ;v ;V ;y ;Y ;c ;i ;I g; "><div class="hl-HelpTags"><a id="hints.xml" class="hl-HelpTag">hints.xml</a></div><h1><div class="hl-HelpTags"><a id="hints" class="hl-HelpTag">hints</a></div>Hints</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2></div>
+
+<p>
+    Hints are an easy way to interact with web pages without using
+    your mouse. In Hints mode, Pentadactyl highlights and
+    numbers all clickable elements. The elements can be selected
+    either by typing their numbers, or typing parts of their text to
+    narrow them down. While the default action is to click the
+    selected link, other actions are available, including saving the
+    resulting link, copying its URL, or saving an image. For each
+    of these actions, only the set of applicable elements is
+    highlighted.
+</p>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="quick-hints" class="hl-HelpTag">quick-hints</a><a id="hint-mode" class="hl-HelpTag">hint-mode</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="f" class="hl-HelpTag">f</a></div><div style="clear: both"></div><div class="hl-HelpSpec">f<span class="hl-HelpArg">{hint}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Start <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/hints#hint-mode">hint-mode</a></span>. In this mode, every clickable
+            element (as defined by the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27hinttags%27">'hinttags'</a></span> option) is
+            highlighted and numbered.  Elements can be selected
+            either by typing their number, or by typing part of
+            their text to narrow down the result. When an element
+            has been selected, it is automatically clicked and hint
+            mode ends. Additionally, the following keys have
+            special meanings in Hints mode:
+        </p>
+        <dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></dt><dd>Selects the first highlighted element, or that
+                focused by <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span>.</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span></dt><dd>Moves the focus to the next hintable element</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CLeader%3E">&lt;Leader&gt;</a></span></dt><dd>Temporarily treats all numbers (or other keys, depending on the
+                value of <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27hintkeys%27">'hintkeys'</a></span>) as ordinary text</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span></dt><dd>Exits Hints mode without selecting an element</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="F" class="hl-HelpTag">F</a></div><div style="clear: both"></div><div class="hl-HelpSpec">F<span class="hl-HelpArg">{hint}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Start <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/hints#hint-mode">hint-mode</a></span>, but the selected elements
+            are clicked with the <span class="hl-HelpKey"><a style="color: inherit;">&lt;Shift&gt;</a></span> key pressed,
+            which has the normal effect of opening it in a new tab
+            (depending on the value of the
+            <a href="http://kb.mozillazine.org/browser.tabs.loadInBackground" class="hl-HelpOpt">'browser.tabs.loadInBackground'</a> preference).
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="extended-hints" class="hl-HelpTag">extended-hints</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=";" class="hl-HelpTag">;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">;<span class="hl-HelpArg">{mode}</span><span class="hl-HelpArg">{hint}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Start an extended hints mode. Extended hints are exactly like
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/hints#quick-hints">quick-hints</a></span>, except that each sub-mode highlights a
+            more specialized set of elements, and performs a unique action on
+            the selected link. Because of the panoply of extended hint modes
+            available, after pressing <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/hints#;">;</a></span>, pressing <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span> brings
+            up the completion list with each hints mode and its description.
+        </p>
+
+        <p><span class="hl-HelpArg">{mode}</span> may be one of:</p>
+
+        <ul>
+            <li><div class="hl-HelpTags"><a id=";;" class="hl-HelpTag">;;</a></div><em>;</em> to focus a link</li>
+            <li><div class="hl-HelpTags"><a id=";?" class="hl-HelpTag">;?</a></div><em>?</em> to show information about the element (incomplete)</li>
+            <li><div class="hl-HelpTags"><a id=";s" class="hl-HelpTag">;s</a></div><em>s</em> to save its destination</li>
+            <li><div class="hl-HelpTags"><a id=";f" class="hl-HelpTag">;f</a></div><em>f</em> to focus a frame</li>
+            <li><div class="hl-HelpTags"><a id=";F" class="hl-HelpTag">;F</a></div><em>F</em> to focus a frame or pseudo-frame</li>
+            <li><div class="hl-HelpTags"><a id=";o" class="hl-HelpTag">;o</a></div><em>o</em> to open its location in the current tab</li>
+            <li><div class="hl-HelpTags"><a id=";t" class="hl-HelpTag">;t</a></div><em>t</em> to open its location in a new tab</li>
+            <li><div class="hl-HelpTags"><a id=";b" class="hl-HelpTag">;b</a></div><em>b</em> to open its location in a new background tab</li>
+            <li><div class="hl-HelpTags"><a id=";w" class="hl-HelpTag">;w</a></div><em>w</em> to open its destination in a new window</li>
+            <li><div class="hl-HelpTags"><a id=";O" class="hl-HelpTag">;O</a></div><em>O</em> to generate an <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> prompt with hint’s URL</li>
+            <li><div class="hl-HelpTags"><a id=";T" class="hl-HelpTag">;T</a></div><em>T</em> to generate a <span class="hl-HelpEx"><a href="browsing.xhtml#:tabopen" style="color: inherit;">:tabopen</a></span> prompt with hint’s URL (like <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/hints#;O">;O</a></span>)</li>
+            <li><div class="hl-HelpTags"><a id=";W" class="hl-HelpTag">;W</a></div><em>W</em> to generate a <span class="hl-HelpEx"><a href="browsing.xhtml#:winopen" style="color: inherit;">:winopen</a></span> prompt with hint’s URL (like <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/hints#;T">;T</a></span>)</li>
+            <li><div class="hl-HelpTags"><a id=";a" class="hl-HelpTag">;a</a></div><em>a</em> to add a bookmark</li>
+            <li><div class="hl-HelpTags"><a id=";S" class="hl-HelpTag">;S</a></div><em>S</em> to add a search keyword for the hint’s form</li>
+            <li><div class="hl-HelpTags"><a id=";v" class="hl-HelpTag">;v</a></div><em>v</em> to view its destination source</li>
+            <li><div class="hl-HelpTags"><a id=";V" class="hl-HelpTag">;V</a></div><em>V</em> to view its destination source in the external editor</li>
+            <li><div class="hl-HelpTags"><a id=";y" class="hl-HelpTag">;y</a></div><em>y</em> to yank its destination location</li>
+            <li><div class="hl-HelpTags"><a id=";Y" class="hl-HelpTag">;Y</a></div><em>Y</em> to yank its text description</li>
+            <li><div class="hl-HelpTags"><a id=";c" class="hl-HelpTag">;c</a></div><em>c</em> to open its context menu</li>
+            <li><div class="hl-HelpTags"><a id=";i" class="hl-HelpTag">;i</a></div><em>i</em> to open an image</li>
+            <li><div class="hl-HelpTags"><a id=";I" class="hl-HelpTag">;I</a></div><em>I</em> to open an image in a new tab.</li>
+        </ul>
+
+        <p>
+            Of the previous modes, the value of the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27hinttags%27">'hinttags'</a></span>
+            option is used to choose the highlighted elements,
+            unless an override can be found in
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27extendedhinttags%27">'extendedhinttags'</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="g;" class="hl-HelpTag">g;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">g;<span class="hl-HelpArg">{mode}</span><span class="hl-HelpArg">{hint}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Start an extended hints mode and stay there until
+            <span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span> is pressed. Like <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/hints#;">;</a></span>, except that
+            after a hint is selected, hints remain visible so that
+            another one can be selected with the same action as the
+            first.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

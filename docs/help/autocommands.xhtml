@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Autocommands</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" autocommands :au :autocmd autocommand-list autocommand-args :doautoa :doautoall :do :doautocmd autocmd-examples "><div class="hl-HelpTags"><a id="autocommands.xml" class="hl-HelpTag">autocommands.xml</a></div>
+
+<h1><div class="hl-HelpTags"><a id="autocommands" class="hl-HelpTag">autocommands</a></div>Automatic commands</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/autocommands#autocmd-examples">Examples</a></li></ol></div>
+
+<p>
+    Autocommands are a way to automatically execute code when
+    certain events happen.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":au" class="hl-HelpTag">:au</a><a id=":autocmd" class="hl-HelpTag">:autocmd</a></div><div class="hl-HelpSpec">:au<span class="hl-HelpOptionalArg">[tocmd]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[events]</span> <span class="hl-HelpOptionalArg">[filter]</span> <span class="hl-HelpOptionalArg">[cmd]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Execute commands automatically on events.</p>
+
+        <p>
+            When <span class="hl-HelpOptionalArg">[cmd]</span> is not given, list all commands
+            defined for the given <span class="hl-HelpOptionalArg">[events]</span> and <span class="hl-HelpOptionalArg">[filter]</span>.
+            When <span class="hl-HelpOptionalArg">[!]</span> is given, delete the matching commands
+            rather than listing them.
+        </p>
+
+        <p>
+            When <span class="hl-HelpOptionalArg">[cmd]</span> is given, add it to the list of commands to be
+            executed when <span class="hl-HelpOptionalArg">[events]</span> occur for pages matching the
+            comma-separated list of <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#site-filters">site-filters</a></span>, <span class="hl-HelpOptionalArg">[filter]</span>. If the
+            <em>-javascript</em> (short name <em>-js</em>) option is given,
+            <span class="hl-HelpOptionalArg">[cmd]</span> is interpreted as JavaScript code. Otherwise, it is
+            interpreted as an Ex command.
+        </p>
+
+        <p>
+            If the <em>-group</em>=<span class="hl-HelpArg">{group}</span> flag is given, add this autocmd
+            to the named <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#group">group</a></span>. Any filters for <span class="hl-HelpArg">{group}</span> apply in
+            addition to <span class="hl-HelpOptionalArg">[filter]</span>. When listing commands this limits the
+            output to the specified group.
+        </p>
+
+        <p>Available <span class="hl-HelpOptionalArg">[events]</span>:</p>
+
+        <div class="hl-HelpTags"><a id="autocommand-list" class="hl-HelpTag">autocommand-list</a></div><dl><column style=""></column><column style=""></column><tr><dt>BookmarkAdd</dt><dd>Triggered after a page is bookmarked</dd></tr><tr><dt>BookmarkChange</dt><dd>Triggered after a page's bookmark is changed</dd></tr><tr><dt>BookmarkRemove</dt><dd>Triggered after a page's bookmark is removed</dd></tr><tr><dt>ColorScheme</dt><dd>Triggered after a color scheme has been loaded</dd></tr><tr><dt>DOMLoad</dt><dd>Triggered when a page's DOM content has fully loaded</dd></tr><tr><dt>DownloadPost</dt><dd>Triggered when a download has completed</dd></tr><tr><dt>Fullscreen</dt><dd>Triggered when the browser's fullscreen state changes</dd></tr><tr><dt>LocationChange</dt><dd>Triggered when changing tabs or when navigating to a new location</dd></tr><tr><dt>PageLoadPre</dt><dd>Triggered after a page load is initiated</dd></tr><tr><dt>PageLoad</dt><dd>Triggered when a page gets (re)loaded/opened</dd></tr><tr><dt>PrivateMode</dt><dd>Triggered when private browsing mode is activated or deactivated</dd></tr><tr><dt>Sanitize</dt><dd>Triggered when private data are sanitized</dd></tr><tr><dt>ShellCmdPost</dt><dd>Triggered after executing a shell command with <span class="hl-HelpEx"><a href="cmdline.xhtml#:" style="color: inherit;">:!</a></span><span class="hl-HelpArg">{cmd}</span></dd></tr><tr><dt>Enter</dt><dd>Triggered after Firefox starts</dd></tr><tr><dt>LeavePre</dt><dd>Triggered before exiting Firefox, just before destroying each module</dd></tr><tr><dt>Leave</dt><dd>Triggered before exiting Firefox</dd></tr></dl>
+
+        <p>
+            For Ex <span class="hl-HelpOptionalArg">[cmd]</span>s, the following keywords are
+            replaced with the appropriate value before the commands
+            are executed. For JavaScript commands, they may be
+            accessed as ordinary variables, sans angle brackets.
+        </p>
+
+        <div class="hl-HelpTags"><a id="autocommand-args" class="hl-HelpTag">autocommand-args</a></div><dl><column style=""></column><column style=""></column><tr><dt>&lt;bookmark&gt;</dt><dd>The JavaScript bookmark object. Only for <em>Bookmark*</em>.</dd></tr><tr><dt>&lt;changed&gt;</dt><dd>The name of the property that has changed. Only for <em>BookmarkChange</em>.</dd></tr><tr><dt>&lt;doc&gt;</dt><dd>The document for which the event occurred. Only for <em>DOMLoad</em>, <em>PageLoad</em> and <em>PageLoadPre</em>.</dd></tr><tr><dt>&lt;file&gt;</dt><dd>The target destination of a download. Only for <em>DownloadPost</em>.</dd></tr><tr><dt>&lt;icon&gt;</dt><dd>The icon associated with <em>&lt;url&gt;</em>. Only for <em>Bookmark*</em>.</dd></tr><tr><dt>&lt;keyword&gt;</dt><dd>The keywords applied to the bookmark. Only for <em>BookmarkChange</em>, <em>BookmarkRemove</em>.</dd></tr><tr><dt>&lt;name&gt;</dt><dd>The name of the item. Only for <em>ColorScheme</em> and <em>Sanitize</em>.</dd></tr><tr><dt>&lt;size&gt;</dt><dd>The size of a downloaded file. Only for <em>DownloadPost</em>.</dd></tr><tr><dt>&lt;state&gt;</dt><dd>The new state. Only for <em>Fullscreen</em> and <em>PrivateMode</em>.</dd></tr><tr><dt>&lt;tab&gt;</dt><dd>The tab in which the event occurred. Only for <em>DOMLoad</em>, <em>PageLoad</em> and <em>PageLoadPre</em>.</dd></tr><tr><dt>&lt;tags&gt;</dt><dd>The tags applied to <em>&lt;url&gt;</em>. Only for <em>Bookmark*</em>.</dd></tr><tr><dt>&lt;title&gt;</dt><dd>The page, bookmark or download title.</dd></tr><tr><dt>&lt;url&gt;</dt><dd>The URL against which the event was selected.</dd></tr><tr><dt>&lt;win&gt;</dt><dd>The window for which the event occurred. Only for <em>DOMLoad</em>, <em>PageLoad</em> and <em>PageLoadPre</em>.</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":doautoa" class="hl-HelpTag">:doautoa</a><a id=":doautoall" class="hl-HelpTag">:doautoall</a></div><div class="hl-HelpSpec">:doautoa<span class="hl-HelpOptionalArg">[ll]</span> <span class="hl-HelpArg">{event}</span> <span class="hl-HelpOptionalArg">[url]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Apply all <span class="hl-HelpArg">{event}</span> autocommands matching the
+            specified <span class="hl-HelpOptionalArg">[url]</span> to all buffers. If no
+            <span class="hl-HelpOptionalArg">[url]</span> is specified use the current URL.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":do" class="hl-HelpTag">:do</a><a id=":doautocmd" class="hl-HelpTag">:doautocmd</a></div><div class="hl-HelpSpec">:do<span class="hl-HelpOptionalArg">[autocmd]</span> <span class="hl-HelpArg">{event}</span> <span class="hl-HelpOptionalArg">[url]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Apply all autocommands matching the specified
+            <span class="hl-HelpOptionalArg">[url]</span> to the current buffer. If no <span class="hl-HelpOptionalArg">[url]</span>
+            is specified use the current URL.
+        </p>
+    </div><div style="clear: both;"></div></div>
+<h2><div class="hl-HelpTags"><a id="autocmd-examples" class="hl-HelpTag">autocmd-examples</a></div>Examples</h2>
+
+<p>Enable <em>Pass Through</em> mode on all Google sites:</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/autocommands#:autocmd" style="color: inherit;">:autocmd LocationChange</a></span> <span class="hl-HelpString" delim="">google.com</span> <span class="hl-HelpEx"><a href="various.xhtml#:normal" style="color: inherit;">:normal!</a></span> <span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#%3CC-z%3E">&lt;C-z&gt;</a></span></pre>
+
+<p>Enable <em>Pass Through</em> mode on <em>some</em> Google sites:</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/autocommands#:autocmd" style="color: inherit;">:autocmd LocationChange</a></span> <span class="hl-HelpString" delim="'">^https?://(www|mail)\.google\.com/</span> <span class="hl-HelpEx"><a href="various.xhtml#:normal" style="color: inherit;">:normal!</a></span> <span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#%3CC-z%3E">&lt;C-z&gt;</a></span></pre>
+
+<p>or</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/autocommands#:autocmd" style="color: inherit;">:autocmd LocationChange</a></span> <span class="hl-HelpString" delim="">www.google.com</span>,<span class="hl-HelpString" delim="">mail.google.com</span> <span class="hl-HelpEx"><a href="various.xhtml#:normal" style="color: inherit;">:normal!</a></span> <span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#%3CC-z%3E">&lt;C-z&gt;</a></span></pre>
+
+<p>Set the filetype to mail when editing email at Gmail:</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="dactyl://help/autocommands#:autocmd" style="color: inherit;">:autocmd LocationChange</a></span> !<span class="hl-HelpString" delim="">mail.google.com</span>,<span class="hl-HelpString" delim="">*</span> <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">editor</span></a>&amp;</span>
+<span class="hl-HelpEx"><a href="dactyl://help/autocommands#:autocmd" style="color: inherit;">:autocmd LocationChange</a></span> <span class="hl-HelpString" delim="'">mail.google.com</span> <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">editor</span></a>=<span class="hl-HelpString">gvim -f -c 'set ft=mail' +&lt;line&gt;</span></span></pre>
+
+</body></html>

@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Options</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" options charlist stringlist stringmap regexplist regexpmap sitelist sitemap macro-string set-option E764 :set :se E518 E519 :set!= :set-default :set-default-all :set-args E487 E521 :set+= :set^= :set-= :setlocal :setl :setglobal :setg expand-environment-var expand-env :set_env Firefox-options preferences :pref :prefs :preferences :pref! :prefs! :preferences! :set! :set-! overridden-preferences list-options 'act' 'activate' 'awim' 'altwildmode' 'au' 'autocomplete' 'bh' 'banghist' $CDPATH 'cd' 'cdpath' 'ca' 'cookieaccept' 'cl' 'cookielifetime' 'ck' 'cookies' 'cpt' 'complete' 'dls' 'dlsort' 'downloadsort' 'ds' 'defsearch' 'editor' 'enc' 'encoding' 'noeb' 'noerrorbells' 'eb' 'errorbells' 'ei' 'eventignore' 'noex' 'noexrc' 'ex' 'exrc' 'eht' 'extendedhinttags' 'fenc' 'fileencoding' 'fc' 'findcase' 'fh' 'followhints' 'nofs' 'nofullscreen' 'fs' 'fullscreen' 'go' 'guioptions' 'hf' 'helpfile' 'hin' 'hintinputs' 'hk' 'hintkeys' 'hm' 'hintmatching' 'ht' 'hinttags' 'hto' 'hinttimeout' 'hi' 'history' 'nohlf' 'nohlfind' 'hlf' 'hlfind' 'noif' 'noincfind' 'if' 'incfind' 'noim' 'noinsertmode' 'im' 'insertmode' 'nojsd' 'nojsdebugger' 'jsd' 'jsdebugger' 'jt' 'jumptags' 'lpl' 'loadplugins' 'ml' 'mapleader' 'maxitems' 'msgs' 'messages' 'nomore' 'more' 'newtab' 'nextpattern' 'noonline' 'online' 'pa' 'pageinfo' 'pk' 'passkeys' 'pu' 'passunknown' 'pps' 'popups' 'previouspattern' 'noprivate' 'private' $PENTADACTYL_RUNTIME 'rtp' 'runtimepath' 'si' 'sanitizeitems' 'ss' 'sanitizeshutdown' 'sts' 'sanitizetimespan' 'scr' 'scroll' 'sh' 'shell' 'shcf' 'shellcmdflag' 'smd' 'showmode' 'ssli' 'showstatuslinks' 'stal' 'showtabline' 'sf' 'strictfocus' 'suggestengines' 'notmo' 'notimeout' 'tmo' 'timeout' 'tmol' 'timeoutlen' 'titlestring' 'us' 'urlsep' 'urlseparator' 'noum' 'nousermode' 'um' 'usermode' 'vbs' 'verbose' 'novb' 'novisualbell' 'vb' 'visualbell' 'wia' 'wildanchor' 'wic' 'wildcase' 'wig' 'wildignore' 'wim' 'wildmode' 'wis' 'wildsort' 'wsp' 'wordseparators' "><div class="hl-HelpTags"><a id="options.xml" class="hl-HelpTag">options.xml</a></div><h1><div class="hl-HelpTags"><a id="options" class="hl-HelpTag">options</a></div>Options</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/options#set-option">Setting options</a></li><li><a href="dactyl://help/options#Firefox-options">Setting Firefox options</a></li><li><a href="dactyl://help/options#list-options">List of options</a></li></ol></div>
+
+<p>
+    Pentadactyl has a number of internal variables and switches which can be set to
+    achieve special effects. These options come in 8 forms:
+</p>
+
+<dl><column style="width: 10em;"></column><column style=""></column><tr><dt>boolean</dt><dd>Can only be <span class="hl-Boolean" key="Boolean">on</span> or <span class="hl-Boolean" key="Boolean">off</span></dd></tr><tr><dt>number</dt><dd>A numeric value</dd></tr><tr><dt>string</dt><dd>A string value</dd></tr><tr><dt></dt><dd><div class="hl-HelpTags"><a id="charlist" class="hl-HelpTag">charlist</a></div></dd></tr><tr><dt>charlist</dt><dd>A string containing a discrete set of distinct characters</dd></tr><tr><dt></dt><dd><div class="hl-HelpTags"><a id="stringlist" class="hl-HelpTag">stringlist</a></div></dd></tr><tr><dt>stringlist</dt><dd>
+        A comma-separated list of strings. Any comma appearing within single
+        or double quotes, or prefixed with a <tt>\</tt>, will not be treated
+        as an item separator.
+    </dd></tr><tr><dt></dt><dd><div class="hl-HelpTags"><a id="stringmap" class="hl-HelpTag">stringmap</a></div></dd></tr><tr><dt>stringmap</dt><dd>A comma-separated list of key-value pairs, e.g., <span class="hl-HelpString" delim="">key:val,foo:bar</span></dd></tr><tr><dt></dt><dd><div class="hl-HelpTags"><a id="regexplist" class="hl-HelpTag">regexplist</a></div></dd></tr><tr><dt>regexplist</dt><dd>
+        A comma-separated list of regular expressions. Expressions may be
+        prefixed with a <tt>!</tt>, in which case the match will be negated. A
+        literal <tt>!</tt> at the beginning of the expression may be matched
+        with <tt>[!]</tt> or by placing the regular expression in quotes.
+        Generally, the first matching regular expression is used. Any comma
+        appearing within single or double quotes, or prefixed with a
+        <tt>\</tt>, will not be treated as an item separator.
+    </dd></tr><tr><dt></dt><dd><div class="hl-HelpTags"><a id="regexpmap" class="hl-HelpTag">regexpmap</a></div></dd></tr><tr><dt>regexpmap</dt><dd>
+        A combination of a <em>stringmap</em> and a <em>regexplist</em>. Each key
+        in the <span class="hl-HelpArg">{key}</span>:<span class="hl-HelpArg">{value}</span> pair is a regexp. If the regexp begins with a
+        <tt>!</tt>, the sense of the match is negated, such that a non-matching
+        expression will be considered a match and <i>vice versa</i>.
+        The first <span class="hl-HelpArg">{key}</span> to match yields value.
+    </dd></tr><tr><dt>sitelist</dt><dd><div class="hl-HelpTags"><a id="sitelist" class="hl-HelpTag">sitelist</a><a id="sitemap" class="hl-HelpTag">sitemap</a></div></dd></tr><tr><dt>sitemap</dt><dd>
+        Like <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/options#regexplist">regexplist</a></span> and <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/options#regexpmap">regexpmap</a></span>, but the keys are
+        <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#site-filters">site-filters</a></span> rather than regular expressions.
+    </dd></tr></dl>
+
+<p><div class="hl-HelpTags"><a id="macro-string" class="hl-HelpTag">macro-string</a></div><div style="clear: right"></div>
+    Some options may be given format strings containing macro replacements in
+    the form of <tt>&lt;<span class="hl-HelpArg">{name}</span>&gt;</tt>. These tokens are replaced by
+    the parameter <span class="hl-HelpArg">{name}</span> as specified in the relevant documentation.
+    If the token is in the form <tt>&lt;q-<span class="hl-HelpArg">{name}</span>&gt;</tt>, the value of the
+    parameter is automatically <a href="cmdline.xhtml#quoting" topic="quoting">quoted</a>. If it is in
+    the form of <tt>&lt;e-<span class="hl-HelpArg">{name}</span>&gt;</tt>, its value is never shown but may be
+    used to test whether the given parameter is empty.
+</p>
+<p>
+    Array elements, such as in the <tt>&lt;args&gt;</tt> parameter
+    of <span class="hl-HelpEx"><a href="map.xhtml#:command" style="color: inherit;">:command</a></span> macros, may be accessed by appending
+    <tt>[<span class="hl-HelpArg">{n}</span>]</tt>, where <span class="hl-HelpArg">{n}</span> is the one-based array
+    index, to the macro name. The first argument of a command is
+    therefore accessed with <tt>&lt;args[1]&gt;</tt>.
+</p>
+<p>
+    Any substring enclosed by <em><tt>&lt;{</tt></em> and <em><tt>}&gt;</tt></em>
+    is automatically elided if any of the contained macros aren't currently
+    valid. A literal <em><tt>&lt;</tt></em> or <em><tt>&gt;</tt></em> character may
+    be included with the special escape sequences <tt>&lt;lt&gt;</tt> or
+    <tt>&lt;gt&gt;</tt> respectively.
+</p>
+
+<p style="text-align: left">
+    For example, given the format string
+    <span class="hl-HelpString">&lt;{(cmd: &lt;column&gt;) }&gt;&lt;{line: &lt;line&gt; }&gt;&lt;file&gt;</span>,
+    where <em>line</em>=<span class="hl-Number" key="Number">32</span> and
+    <em>file</em>=<span class="hl-HelpString" delim="'">Lieder eines fahrenden Gesellen.txt</span>,
+    the result is formatted as
+    <span class="hl-HelpString">line: 32 'Lieder eines fahrenden Gesellen.txt'</span>
+</p>
+
+<h2><div class="hl-HelpTags"><a id="set-option" class="hl-HelpTag">set-option</a><a id="E764" class="hl-HelpTag">E764</a></div>Setting options</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set" class="hl-HelpTag">:set</a><a id=":se" class="hl-HelpTag">:se</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Show all options which differ from their default values.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> all</div><div class="hl-HelpDescription" short="true">
+        <p>Show all options.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="E518" class="hl-HelpTag">E518</a><a id="E519" class="hl-HelpTag">E519</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>?</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Show value of <span class="hl-HelpArg">{option}</span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            For boolean options, turn them on. For all other types,
+            show their values.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> no<span class="hl-HelpArg">{option}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            For boolean options, turn them off. For all other types,
+            display an error.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>! <span class="hl-HelpOptionalArg">[...]</span></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> inv<span class="hl-HelpArg">{option}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            For boolean options, invert their value. For all other types,
+            display an error.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set!=" class="hl-HelpTag">:set!=</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> inv<span class="hl-HelpArg">{option}</span>=<span class="hl-HelpArg">{value}</span> <span class="hl-HelpOptionalArg">[...]</span></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>!=<span class="hl-HelpArg">{value}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>For list options, toggle the specified values.</p>
+
+        <p style="text-align: left;">
+            If the option is a list, the given values are toggled. Given,
+            <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">opt</span></a>=<span class="hl-HelpString" delim="">foo</span>,<span class="hl-HelpString" delim="">bar</span></span>
+            then,
+            <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">opt</span></a>!=<span class="hl-HelpString" delim="">foo</span>,<span class="hl-HelpString" delim="">baz</span></span>
+            has the same result as
+            <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">opt</span></a>=<span class="hl-HelpString" delim="">bar</span>,<span class="hl-HelpString" delim="">baz</span></span>
+        </p>
+
+        <p>
+            This extends to string options in a natural way, e.g.,
+            <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">stal</span></a>!=<span class="hl-HelpString" delim="">always</span>,<span class="hl-HelpString" delim="">never</span></span>
+            toggles between the two values.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set-default" class="hl-HelpTag">:set-default</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>&amp; <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Reset option to its default value.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set-default-all" class="hl-HelpTag">:set-default-all</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> all&amp;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Set all options to their default value.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set-args" class="hl-HelpTag">:set-args</a><a id="E487" class="hl-HelpTag">E487</a><a id="E521" class="hl-HelpTag">E521</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>=<span class="hl-HelpArg">{value}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Set string or number option to <span class="hl-HelpArg">{value}</span>.
+            For numeric options the value must be given in decimal.
+            The old value can be inserted by typing <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set+=" class="hl-HelpTag">:set+=</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>+=<span class="hl-HelpArg">{value}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Add the <span class="hl-HelpArg">{value}</span> to a number option, or append the <span class="hl-HelpArg">{value}</span>
+            to a string option.  When the option is a comma separated list, a
+            comma is added, unless the value was empty. If the option is a list
+            of flags, superfluous flags are removed.  When adding a flag that
+            was already present the option value doesn't change.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set^=" class="hl-HelpTag">:set^=</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>^=<span class="hl-HelpArg">{value}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Multiply the <span class="hl-HelpArg">{value}</span> to a number option, or prepend the
+            <span class="hl-HelpArg">{value}</span> to a string option. When the option is a comma
+            separated list, a comma is added, unless the value was empty.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set-=" class="hl-HelpTag">:set-=</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span> <span class="hl-HelpArg">{option}</span>-=<span class="hl-HelpArg">{value}</span> <span class="hl-HelpOptionalArg">[...]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Subtract the <span class="hl-HelpArg">{value}</span> from a number option, or remove the
+            <span class="hl-HelpArg">{value}</span> from a string option if it is there. If the
+            <span class="hl-HelpArg">{value}</span> is not found in a string option, there is no error or
+            warning. When the option is a comma separated list, a comma is
+            deleted, unless the option becomes empty. When the option is a list
+            of flags, <span class="hl-HelpArg">{value}</span> must be exactly as they appear in the option.
+            Remove flags one by one to avoid problems.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":setlocal" class="hl-HelpTag">:setlocal</a><a id=":setl" class="hl-HelpTag">:setl</a></div><div class="hl-HelpSpec">:setl<span class="hl-HelpOptionalArg">[ocal]</span> …</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            The same as <span class="hl-HelpEx"><a href="dactyl://help/options#:set" style="color: inherit;">:set</a></span> command, but operates on current tab options
+            only. See <span class="hl-HelpEx"><a href="dactyl://help/options#:set" style="color: inherit;">:set</a></span> for details.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":setglobal" class="hl-HelpTag">:setglobal</a><a id=":setg" class="hl-HelpTag">:setg</a></div><div class="hl-HelpSpec">:setg<span class="hl-HelpOptionalArg">[lobal]</span> …</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            The same as <span class="hl-HelpEx"><a href="dactyl://help/options#:set" style="color: inherit;">:set</a></span> command, but operates on global options only.
+            See <span class="hl-HelpEx"><a href="dactyl://help/options#:set" style="color: inherit;">:set</a></span> for details.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<p><div class="hl-HelpTags"><a id="expand-environment-var" class="hl-HelpTag">expand-environment-var</a><a id="expand-env" class="hl-HelpTag">expand-env</a><a id=":set_env" class="hl-HelpTag">:set_env</a></div><div style="clear: right"></div>
+    Environment variables are expanded for path options like <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27cdpath%27">'cdpath'</a></span> and
+    <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27runtimepath%27">'runtimepath'</a></span>. The variable notation is <em>$VAR</em> (terminated by a non-word
+    character) or <em>${VAR}</em>. <em>%VAR%</em> is also supported on Windows.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="Firefox-options" class="hl-HelpTag">Firefox-options</a><a id="preferences" class="hl-HelpTag">preferences</a></div>Setting Firefox options</h2>
+
+<p>Firefox options can be viewed and set with the following commands:</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":pref" class="hl-HelpTag">:pref</a><a id=":prefs" class="hl-HelpTag">:prefs</a><a id=":preferences" class="hl-HelpTag">:preferences</a></div><div class="hl-HelpSpec">:pref<span class="hl-HelpOptionalArg">[erences]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Show the Firefox preferences dialog. You can change the browser
+            preferences from this dialog. Be aware that not all Firefox
+            preferences work, because Pentadactyl overrides some key bindings and
+            changes Firefox's GUI.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":pref!" class="hl-HelpTag">:pref!</a><a id=":prefs!" class="hl-HelpTag">:prefs!</a><a id=":preferences!" class="hl-HelpTag">:preferences!</a></div><div class="hl-HelpSpec">:pref<span class="hl-HelpOptionalArg">[erences]</span>!</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Opens about:config in the current tab, where you can change advanced Firefox
+            preferences.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":set!" class="hl-HelpTag">:set!</a><a id=":set-!" class="hl-HelpTag">:set-!</a></div><div class="hl-HelpSpec">:se<span class="hl-HelpOptionalArg">[t]</span>! …</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            The same as <span class="hl-HelpEx"><a href="dactyl://help/options#:set" style="color: inherit;">:set</a></span> but operates on Firefox preferences
+            (those on the about:config page). See <span class="hl-HelpEx"><a href="dactyl://help/options#:set" style="color: inherit;">:set</a></span> for operator
+            details.
+        </p>
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+            The <em>no</em> and <em>inv</em> prefix operators are not available
+            for setting preferences.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<p><div class="hl-HelpTags"><a id="overridden-preferences" class="hl-HelpTag">overridden-preferences</a></div><div style="clear: right"></div>
+    Pentadactyl needs to set several Firefox preferences at
+    startup in order to function properly. If this is unacceptable,
+    they can be changed in your RC file with the <span class="hl-HelpEx"><a href="dactyl://help/options#:set" style="color: inherit;">:set!</a></span>
+    command, but beware of unexpected behavior. The affected
+    preferences are:
+</p>
+
+<ul>
+    <li><a href="http://kb.mozillazine.org/accessibility.typeaheadfind" class="hl-HelpOpt">'accessibility.typeaheadfind'</a></li>
+</ul>
+
+<h2><div class="hl-HelpTags"><a id="list-options" class="hl-HelpTag">list-options</a></div>List of options</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'act'" class="hl-HelpTag">'act'</a><a id="'activate'" class="hl-HelpTag">'activate'</a></div><div style="clear: both"></div><div class="hl-HelpSpec">'activate' 'act'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">addons,bookmarks,diverted,downloads,extoptions,
+          help,homepage,quickmark,tabopen,paste</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            A list of items which, when opened in a new tab, are
+            automatically focused. Available items:
+        </p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>all</dt><dd>Activate all items.</dd></tr><tr><dt>addons</dt><dd><span class="hl-HelpEx"><a href="gui.xhtml#:addo" style="color: inherit;">:addo<span class="hl-HelpOptionalArg">[ns]</span></a></span> command</dd></tr><tr><dt>bookmarks</dt><dd>Tabs loaded from bookmarks</dd></tr><tr><dt>diverted</dt><dd>Links with targets set to new tabs</dd></tr><tr><dt>downloads</dt><dd><span class="hl-HelpEx"><a href="gui.xhtml#:downl" style="color: inherit;">:downl<span class="hl-HelpOptionalArg">[oads]</span></a></span> command</dd></tr><tr><dt>extoptions</dt><dd><span class="hl-HelpEx"><a href="gui.xhtml#:exto" style="color: inherit;">:exto<span class="hl-HelpOptionalArg">[ptions]</span></a></span> command</dd></tr><tr><dt>help</dt><dd><span class="hl-HelpEx"><a href="various.xhtml#:h" style="color: inherit;">:h<span class="hl-HelpOptionalArg">[elp]</span></a></span> command</dd></tr><tr><dt>homepage</dt><dd><span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#gH">gH</a></span> mapping</dd></tr><tr><dt>links</dt><dd>Middle- or Control-clicked links</dd></tr><tr><dt>quickmark</dt><dd><span class="hl-HelpKey"><a style="color: inherit;" href="marks.xhtml#go">go</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="marks.xhtml#gn">gn</a></span> mappings</dd></tr><tr><dt>tabopen</dt><dd><span class="hl-HelpEx"><a href="browsing.xhtml#:tabopen" style="color: inherit;">:tabopen<span class="hl-HelpOptionalArg">[!]</span></a></span> command</dd></tr><tr><dt>paste</dt><dd><span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#P">P</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#gP">gP</a></span> mappings</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'awim'" class="hl-HelpTag">'awim'</a><a id="'altwildmode'" class="hl-HelpTag">'altwildmode'</a></div><div class="hl-HelpSpec">'altwildmode' 'awim'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">list:full</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Like <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27wildmode%27">'wildmode'</a></span>, but when the <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CA-Tab%3E">c_&lt;A-Tab&gt;</a></span> key
+            is pressed.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'au'" class="hl-HelpTag">'au'</a><a id="'autocomplete'" class="hl-HelpTag">'autocomplete'</a></div><div class="hl-HelpSpec">'autocomplete' 'au'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexplist">regexplist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">.*</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Enables automatic completion for completion contexts (see
+            <span class="hl-HelpEx"><a href="various.xhtml#:contexts" style="color: inherit;">:contexts</a></span>) matching the given regular expressions. When
+            automatic completion is enabled, the completion list is
+            automatically opened when the <a href="cmdline.xhtml#command-line" topic="command-line">command line</a> is focused.
+            Thereafter, any key press triggers a completion update for the
+            matching contexts. Non-matching contexts will only be updated when
+            the <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span> key is pressed. This option is useful
+            for disabling auto-completion for computationally intensive
+            contexts that don't perform well when your system is under load.
+        </p>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+            Completion contexts have names very much like Unix path names.
+            These denote the tree in which they're called. A completer will
+            never be called unless every completer preceding it in the tree
+            was also called. For example, if your completer excludes
+            <span class="hl-HelpString">/ex/</span>, it will also exclude <span class="hl-HelpString">/ex/bmarks</span>, and
+            so on.
+        </p>
+
+        <div class="hl-HelpExample">
+            To enable auto-completion for everything but <span class="hl-HelpEx"><a href="marks.xhtml#:history" style="color: inherit;">:history</a></span> or
+            <span class="hl-HelpEx"><a href="marks.xhtml#:bmarks" style="color: inherit;">:bmarks</a></span>, you would choose a value such as
+            <span class="hl-HelpString" delim="">!/ex/(bmarks|history),.?</span>
+        </div>
+
+        <p>
+            To go in the other direction, i.e. <em>only</em> enable
+            auto-completion for those commands, you have to jump through
+            some hoops, due to the way contexts work (see the note above):
+            <span class="hl-HelpString" delim="">/ex/(bmarks|history),^(/|/ex/?)$</span>
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'bh'" class="hl-HelpTag">'bh'</a><a id="'banghist'" class="hl-HelpTag">'banghist'</a></div><div class="hl-HelpSpec">'banghist' 'bh'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">on</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Replace occurrences of ! with the previous command when
+            executing external commands.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="$CDPATH" class="hl-HelpTag">$CDPATH</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'cd'" class="hl-HelpTag">'cd'</a><a id="'cdpath'" class="hl-HelpTag">'cdpath'</a></div><div class="hl-HelpSpec">'cdpath' 'cd'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: equivalent to <span class="hl-HelpString">.</span> or <span class="hl-HelpString">.,$CDPATH</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            List of directories searched when executing the <span class="hl-HelpEx"><a href="browsing.xhtml#:cd" style="color: inherit;">:cd</a></span>
+            command. This is only used for relative paths; if an absolute path is
+            specified, this option is ignored.
+        </p>
+        <p>
+            If the <em>CDPATH</em> environment variable is set this path list
+            is appended to the default value of <span class="hl-HelpString">.</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ca'" class="hl-HelpTag">'ca'</a><a id="'cookieaccept'" class="hl-HelpTag">'cookieaccept'</a></div><div class="hl-HelpSpec">'cookieaccept' 'ca'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">all</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>When to accept cookies.</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>all</dt><dd>Accept all cookies</dd></tr><tr><dt>none</dt><dd>Accept no cookies</dd></tr><tr><dt>samesite</dt><dd>Accept all non-third-party cookies</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'cl'" class="hl-HelpTag">'cl'</a><a id="'cookielifetime'" class="hl-HelpTag">'cookielifetime'</a></div><div class="hl-HelpSpec">'cookielifetime'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">default</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            The lifetime for which to accept cookies. The available
+            options are:
+        </p>
+        <dl><column style=""></column><column style=""></column><tr><dt>default</dt><dd>The lifetime requested by the setter</dd></tr><tr><dt>prompt</dt><dd>Always prompt for a lifetime</dd></tr><tr><dt>session</dt><dd>The current session</dd></tr><tr><dt><span class="hl-HelpArg">{days}</span></dt><dd>When a number is given, it is
+                interpreted as the number of days for which to keep
+                cookies</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ck'" class="hl-HelpTag">'ck'</a><a id="'cookies'" class="hl-HelpTag">'cookies'</a></div><div class="hl-HelpSpec">'cookies' 'ck'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">session</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>The default action for the <span class="hl-HelpEx"><a href="privacy.xhtml#:cookies" style="color: inherit;">:cookies</a></span> command.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'cpt'" class="hl-HelpTag">'cpt'</a><a id="'complete'" class="hl-HelpTag">'complete'</a></div><div class="hl-HelpSpec">'complete' 'cpt'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#charlist">charlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">slf</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Items which are completed at the <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> prompts. Available items:</p>
+
+        <dl><column style="width: 6em;"></column><column style=""></column><tr><dt>s</dt><dd>Search engines and keyword URLs</dd></tr><tr><dt>f</dt><dd>Local files</dd></tr><tr><dt>l</dt><dd>Firefox location bar entries (bookmarks and history sorted in an intelligent way)</dd></tr><tr><dt>b</dt><dd>Bookmarks</dd></tr><tr><dt>h</dt><dd>History</dd></tr><tr><dt>S</dt><dd>Search engine suggestions</dd></tr></dl>
+
+        <p>
+            The order is important, such that <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">complete</span></a>=<span class="hl-HelpString" delim="">bsf</span></span> will
+            list bookmarks followed by matching quick searches and then
+            matching files.
+        </p>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpWarning">Warning:</span> 
+            Using <em>b</em> and <em>h</em> can make completion very slow if
+            there are many items.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'dls'" class="hl-HelpTag">'dls'</a><a id="'dlsort'" class="hl-HelpTag">'dlsort'</a><a id="'downloadsort'" class="hl-HelpTag">'downloadsort'</a></div><div class="hl-HelpSpec">'downloadsort'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">-active,+filename</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            <span class="hl-HelpEx"><a href="gui.xhtml#:downloads" style="color: inherit;">:downloads</a></span> sort order, in order of precedence.
+            Each element must be preceded by a <tt>+</tt> or
+            <tt>-</tt>, indicating ascending or descending sorting,
+            respectively. Valid sort orders are:
+        </p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>active</dt><dd>Whether download is active</dd></tr><tr><dt>complete</dt><dd>Percent complete</dd></tr><tr><dt>date</dt><dd>Date and time the download began</dd></tr><tr><dt>filename</dt><dd>Target filename</dd></tr><tr><dt>size</dt><dd>File size</dd></tr><tr><dt>speed</dt><dd>Download speed</dd></tr><tr><dt>time</dt><dd>Time remaining</dd></tr><tr><dt>url</dt><dd>Source URL</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ds'" class="hl-HelpTag">'ds'</a><a id="'defsearch'" class="hl-HelpTag">'defsearch'</a></div><div class="hl-HelpSpec">'defsearch' 'ds'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">google</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Sets the default search engine. The default search engine is
+            used by <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> and related commands for arguments which
+            include no search or bookmark keywords and can't otherwise be
+            converted into URLs or existing file names.
+        </p>
+
+        <p>
+            This means that with <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27defsearch%27">'defsearch'</a></span> set to <span class="hl-HelpString">youtube</span>,
+            <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open Tim Minchin</a></span> behaves exactly as
+            <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open youtube Tim Minchin</a></span>, so long as you don't have a
+            search or bookmark keyword called ‘Tim’.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'editor'" class="hl-HelpTag">'editor'</a></div><div class="hl-HelpSpec">'editor'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">gvim -f +&lt;line&gt; +"sil! call cursor(0, &lt;column&gt;)" &lt;file&gt;</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Set the external text editor.
+            This is the editor used by <span class="hl-HelpKey"><a style="color: inherit;" href="index.xhtml#I_%3CC-i%3E">I_&lt;C-i&gt;</a></span>, <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#gF">gF</a></span>, and
+            other commands which launch an external text editor.
+        </p>
+
+        <p>
+            Accepts a <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/options#macro-string">macro-string</a></span> with the following escapes available.
+            Arguments containing escapes which are not relevant to a given call
+            are automatically elided. All field splitting is done before format
+            characters are processed.
+        </p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>&lt;file&gt;</dt><dd>The file to edit. Appended as the final argument if missing.</dd></tr><tr><dt>&lt;line&gt;</dt><dd>The line number at which to position the cursor.</dd></tr><tr><dt>&lt;column&gt;</dt><dd>The column at which to position the cursor.</dd></tr></dl>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpWarning">Warning:</span> 
+            Pentadactyl will not behave correctly if the editor forks its
+            own process rather than blocking until editing is complete. Gvim
+            invoked without the <em>-f</em> option is one such example.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'enc'" class="hl-HelpTag">'enc'</a><a id="'encoding'" class="hl-HelpTag">'encoding'</a></div><div class="hl-HelpSpec">'encoding' 'enc'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">UTF-8</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Changes the character encoding of the current buffer. Valid only
+            until a new page is loaded.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'noeb'" class="hl-HelpTag">'noeb'</a><a id="'noerrorbells'" class="hl-HelpTag">'noerrorbells'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'eb'" class="hl-HelpTag">'eb'</a><a id="'errorbells'" class="hl-HelpTag">'errorbells'</a></div><div class="hl-HelpSpec">'errorbells' 'eb'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">off</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Ring the bell when an error message is displayed. See also
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27visualbell%27">'visualbell'</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ei'" class="hl-HelpTag">'ei'</a><a id="'eventignore'" class="hl-HelpTag">'eventignore'</a></div><div class="hl-HelpSpec">'eventignore' 'ei'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            A list of autocommand event names which should be ignored. If the
+            list contains the value <span class="hl-HelpString">all</span> then all events are
+            ignored.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'noex'" class="hl-HelpTag">'noex'</a><a id="'noexrc'" class="hl-HelpTag">'noexrc'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ex'" class="hl-HelpTag">'ex'</a><a id="'exrc'" class="hl-HelpTag">'exrc'</a></div><div class="hl-HelpSpec">'exrc' 'ex'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">off</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Allow reading of an RC file in the current directory. This file is
+            sourced after the default <tt><span class="hl-HelpTopic"><a style="color: inherit;" href="starting.xhtml#pentadactylrc">pentadactylrc</a></span></tt> file in your
+            home directory.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'eht'" class="hl-HelpTag">'eht'</a><a id="'extendedhinttags'" class="hl-HelpTag">'extendedhinttags'</a></div><div class="hl-HelpSpec">'extendedhinttags' 'eht'</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexpmap">regexpmap</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">[asOTvVWy]:a[href],area[href],img[src],iframe[src],
+          [f]:body,
+          [F]:body,code,div,html,p,pre,span,
+          [iI]:img,
+          [S]:button,'input:not([type=hidden])',select,textarea</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Defines specialized CSS selectors or XPath expressions for arbitrary
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="hints.xhtml#extended-hints">extended-hints</a></span> modes. The syntax is the same as for
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27hinttags%27">'hinttags'</a></span>. If no matches are found, the value of
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27hinttags%27">'hinttags'</a></span> is used.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'fenc'" class="hl-HelpTag">'fenc'</a><a id="'fileencoding'" class="hl-HelpTag">'fileencoding'</a></div><div class="hl-HelpSpec">'fileencoding' 'fenc'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">UTF-8</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Changes the character encoding that Pentadactyl uses to read
+            and write files.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'fc'" class="hl-HelpTag">'fc'</a><a id="'findcase'" class="hl-HelpTag">'findcase'</a></div><div class="hl-HelpSpec">'findcase' 'fc'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">smart</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Find case matching mode.</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>ignore</dt><dd>Case is never significant</dd></tr><tr><dt>match</dt><dd>Case is always significant</dd></tr><tr><dt>smart</dt><dd>Case is significant when capital letters are typed</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'fh'" class="hl-HelpTag">'fh'</a><a id="'followhints'" class="hl-HelpTag">'followhints'</a></div><div class="hl-HelpSpec">'followhints' 'fh'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">0</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Define the conditions under which hints selected by typing the link
+            substring are followed. Hints selected by typing their label (as
+            specified by <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27hintkeys%27">'hintkeys'</a></span>) are always followed immediately.
+        </p>
+
+        <p>Possible values:</p>
+
+        <dl><column style="width: 6em;"></column><column style=""></column><tr><dt>0</dt><dd>Follow the first hint as soon as typed text uniquely identifies it.</dd></tr><tr><dt>1</dt><dd>Follow the selected hint on <span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span>.</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'nofs'" class="hl-HelpTag">'nofs'</a><a id="'nofullscreen'" class="hl-HelpTag">'nofullscreen'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'fs'" class="hl-HelpTag">'fs'</a><a id="'fullscreen'" class="hl-HelpTag">'fullscreen'</a></div><div class="hl-HelpSpec">'fullscreen' 'fs'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">off</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Show the current window full-screen. Also hide certain GUI elements, such as
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="gui.xhtml#status-line">status-line</a></span> and tab bar.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'go'" class="hl-HelpTag">'go'</a><a id="'guioptions'" class="hl-HelpTag">'guioptions'</a></div><div class="hl-HelpSpec">'guioptions' 'go'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#charlist">charlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">bCrs</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Show or hide certain GUI elements.</p>
+
+        <p>Supported characters:</p>
+
+        <dl><column style="width: 6em;"></column><column style=""></column><tr><dt>B</dt><dd>Bookmark bar</dd></tr><tr><dt>C</dt><dd>Always show the command line outside of the status line</dd></tr><tr><dt>M</dt><dd>Always show messages outside of the status line</dd></tr><tr><dt>N</dt><dd>Tab number over image</dd></tr><tr><dt>T</dt><dd>Toolbar</dd></tr><tr><dt>b</dt><dd>Bottom scrollbar</dd></tr><tr><dt>c</dt><dd>Always show the command line, even when empty</dd></tr><tr><dt>l</dt><dd>Left scrollbar (<em>l</em> and <em>r</em> are mutually exclusive)</dd></tr><tr><dt>m</dt><dd>Menu bar</dd></tr><tr><dt>n</dt><dd>Tab number</dd></tr><tr><dt>r</dt><dd>Right scrollbar</dd></tr><tr><dt>s</dt><dd>Status bar</dd></tr></dl>
+
+        <p>See also <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27showtabline%27">'showtabline'</a></span>.</p>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> Scrollbar changes require a page reload to take effect.</p>
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> Only one of <em>l</em> or <em>r</em> may be included.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'hf'" class="hl-HelpTag">'hf'</a><a id="'helpfile'" class="hl-HelpTag">'helpfile'</a></div><div class="hl-HelpSpec">'helpfile' 'hf'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">intro</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Name of the main help file. This is that page shown if the
+            <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help</a></span> command is called without any arguments.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'hin'" class="hl-HelpTag">'hin'</a><a id="'hintinputs'" class="hl-HelpTag">'hintinputs'</a></div><div class="hl-HelpSpec">'hintinputs' 'hin'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">label,value</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            When generating hints for input elements that do not have an
+            explicit caption, this specifies the methods used to generate a
+            textual hint. The options are attempted in the order they are
+            given, and the first successful value is used.
+        </p>
+
+        <dl><column style="width: 8em;"></column><column style=""></column><tr><dt>value</dt><dd>The hint is the value displayed in a text input, or the selected option for a drop-down.</dd></tr><tr><dt>label</dt><dd>The value of an explicit label for the input; this will not match most manually added labels that are found on sites.</dd></tr><tr><dt>name </dt><dd>The name of the input will be used; although the name is not designed for user consumption, it is frequently very similar to the label.</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'hk'" class="hl-HelpTag">'hk'</a><a id="'hintkeys'" class="hl-HelpTag">'hintkeys'</a></div><div class="hl-HelpSpec">'hintkeys' 'hk'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">0123456789</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            The keys used to label and select hints. With its default value,
+            each hint has a unique number which can be typed to select it,
+            while all other characters are used to filter hints based on their
+            text. With a value such as <span class="hl-HelpString">asdfg;lkjh</span>, each hint is
+            ‘numbered’ based on the characters of the home row.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'hm'" class="hl-HelpTag">'hm'</a><a id="'hintmatching'" class="hl-HelpTag">'hintmatching'</a></div><div class="hl-HelpSpec">'hintmatching' 'hm'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">contains</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Change the hint matching algorithm used in Hints mode.</p>
+
+        <p>Possible values:</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>contains</dt><dd>
+                The typed characters are split on whitespace, and
+                these character groups have to match anywhere inside
+                the text of the link.
+            </dd></tr><tr><dt>wordstartswith</dt><dd>
+                The typed characters are matched with the beginning
+                of the first word (see <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27wordseparators%27">'wordseparators'</a></span>) in the
+                link as long as possible. If no matches occur in the
+                current word, then the matching is continued at the
+                beginning of the next word. The words are worked
+                through in the order they appear in the link. If the
+                typed characters contain spaces, then the characters
+                are split on whitespace. These character groups are
+                then matched with the beginning of the words,
+                beginning at the first one and continuing with the
+                following words in the order they appear in the
+                link.
+            </dd></tr><tr><dt>firstletters</dt><dd>
+                Behaves like wordstartswith, but non-matching words
+                aren't skipped.
+            </dd></tr><tr><dt>custom</dt><dd>
+                Delegate to the function
+                <tt>dactyl.plugins.customHintMatcher</tt>.
+            </dd></tr><tr><dt>transliterated</dt><dd>
+                Certain alphanumeric characters are transliterated into their
+                unaccented equivalents, such that ‘euro’ will match 'æuró',
+                and ‘Ångström’ will match ‘angstrom’.
+            </dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ht'" class="hl-HelpTag">'ht'</a><a id="'hinttags'" class="hl-HelpTag">'hinttags'</a></div><div style="clear: both"></div><div class="hl-HelpSpec">'hinttags' 'ht'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">a,area,button,iframe,input:not([type=hidden]),select,textarea,
+          [onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],
+          [tabindex],[role=link],[role=button]</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            A list of CSS selectors or XPath expressions used to select elements
+            for <a href="hints.xhtml" topic="hints">hinting</a>. Values beginning with the
+            string <span class="hl-HelpString">xpath:</span> are treated as XPath expressions, while any
+            other values are treated as CSS selectors. Can be overridden for
+            individual <span class="hl-HelpTopic"><a style="color: inherit;" href="hints.xhtml#extended-hints">extended-hints</a></span> modes with the
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27extendedhinttags%27">'extendedhinttags'</a></span> option.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'hto'" class="hl-HelpTag">'hto'</a><a id="'hinttimeout'" class="hl-HelpTag">'hinttimeout'</a></div><div class="hl-HelpSpec">'hinttimeout' 'hto'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">0</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Timeout in milliseconds before automatically following a non-unique
+            hint. The timeout is measured since the last time a key listed in
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27hintkeys%27">'hintkeys'</a></span> was pressed. It has no effect when narrowing hints
+            by typing part of their text. Set to 0 (the default) to only follow
+            hints after pressing <span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span> or when the hint is unique.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'hi'" class="hl-HelpTag">'hi'</a><a id="'history'" class="hl-HelpTag">'history'</a></div><div class="hl-HelpSpec">'history' 'hi'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">500</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Maximum number of Ex commands and find patterns to store in the
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="cmdline.xhtml#command-line">command-line</a></span> history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'nohlf'" class="hl-HelpTag">'nohlf'</a><a id="'nohlfind'" class="hl-HelpTag">'nohlfind'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'hlf'" class="hl-HelpTag">'hlf'</a><a id="'hlfind'" class="hl-HelpTag">'hlfind'</a></div><div class="hl-HelpSpec">'hlfind' 'hlf'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">on</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Highlight previous find pattern matches.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'noif'" class="hl-HelpTag">'noif'</a><a id="'noincfind'" class="hl-HelpTag">'noincfind'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'if'" class="hl-HelpTag">'if'</a><a id="'incfind'" class="hl-HelpTag">'incfind'</a></div><div class="hl-HelpSpec">'incfind' 'if'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">on</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Show the first match for a find pattern as it is typed.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'noim'" class="hl-HelpTag">'noim'</a><a id="'noinsertmode'" class="hl-HelpTag">'noinsertmode'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'im'" class="hl-HelpTag">'im'</a><a id="'insertmode'" class="hl-HelpTag">'insertmode'</a></div><div class="hl-HelpSpec">'insertmode' 'im'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">on</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Use Insert mode as the default for text areas. This is useful if you
+            want to use the known Firefox interface for editing text areas.
+            Input fields default to this behavior irrespective of this option's
+            setting.
+        </p>
+
+        <p>
+            Text Edit mode can be entered with <span class="hl-HelpKey"><a style="color: inherit;" href="index.xhtml#I_%3CC-t%3E">I_&lt;C-t&gt;</a></span> from Insert mode.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'nojsd'" class="hl-HelpTag">'nojsd'</a><a id="'nojsdebugger'" class="hl-HelpTag">'nojsdebugger'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'jsd'" class="hl-HelpTag">'jsd'</a><a id="'jsdebugger'" class="hl-HelpTag">'jsdebugger'</a></div><div class="hl-HelpSpec">'jsdebugger' 'jsd'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">off</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Use the JavaScript debugger service for JavaScript completion.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'jt'" class="hl-HelpTag">'jt'</a><a id="'jumptags'" class="hl-HelpTag">'jumptags'</a></div><div class="hl-HelpSpec">'jumptags'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringmap">stringmap</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">p:'p,table,ul,ol,blockquote',h:'h1,h2,h3,h4,h5,h6'</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>XPath or CSS selector strings of jumpable elements for extended hint modes.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'lpl'" class="hl-HelpTag">'lpl'</a><a id="'loadplugins'" class="hl-HelpTag">'loadplugins'</a></div><div class="hl-HelpSpec">'loadplugins' 'lpl'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexplist">regexplist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">'\.(js|penta)$'</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            A regular expression list that defines which plugins are loaded at
+            startup or via <span class="hl-HelpEx"><a href="repeat.xhtml#:loadplugins" style="color: inherit;">:loadplugins</a></span>. The first item to match is
+            the one that takes effect. If no items match, the file is not
+            loaded. Setting this to a blank value effectively disables plugin
+            loading.
+        </p>
+        <p>
+            For example, to prepend to the default value of this option to load
+            all plugins except for <em>foobar-plugin</em>, you could use:
+        </p>
+        <pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27loadplugins%27" topic="'loadplugins'"><span class="hl-HelpOpt" key="HelpOpt">loadplugins</span></a>^=!<span class="hl-HelpString" delim="'">foobar-plugin</span></span></pre>
+        <p>
+            Alternatively, you can specify which plugins to load and which to
+            omit in your <tt><span class="hl-HelpTopic"><a style="color: inherit;" href="starting.xhtml#pentadactylrc">pentadactylrc</a></span></tt> using something like
+            the following:
+        </p>
+        <pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27loadplugins%27" topic="'loadplugins'"><span class="hl-HelpOpt" key="HelpOpt">loadplugins</span></a>=!<span class="hl-HelpString" delim="'">foo|bar</span>,<span class="hl-HelpString" delim="'">\.(js|penta)$</span></span></pre>
+        <p>
+            That will load all plugins but <em>foo</em> and <em>bar</em>.
+        </p>
+        <p>
+            Note that in the first expression of the latter example you don't
+            need parentheses, as the <em>!</em> negates the whole of the
+            following expression (cf. <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/options#regexplist">regexplist</a></span>).
+        </p>
+        <p>
+            See also <span class="hl-HelpEx"><a href="repeat.xhtml#:runtime" style="color: inherit;">:runtime</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ml'" class="hl-HelpTag">'ml'</a><a id="'mapleader'" class="hl-HelpTag">'mapleader'</a></div><div class="hl-HelpSpec">'mapleader' 'ml'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">\</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Defines the replacement keys for the <span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CLeader%3E">&lt;Leader&gt;</a></span> pseudo-key.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'maxitems'" class="hl-HelpTag">'maxitems'</a></div><div class="hl-HelpSpec">'maxitems'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">20</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Maximum number of items to display at once in a listing.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'msgs'" class="hl-HelpTag">'msgs'</a><a id="'messages'" class="hl-HelpTag">'messages'</a></div><div class="hl-HelpSpec">'messages' 'msgs'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">100</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Maximum number of messages to store in the message history.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nomore'" class="hl-HelpTag">'nomore'</a><a id="'more'" class="hl-HelpTag">'more'</a></div><div class="hl-HelpSpec">'more'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">on</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Pause the message list window when more than one screen of
+            listings is displayed.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'newtab'" class="hl-HelpTag">'newtab'</a></div><div class="hl-HelpSpec">'newtab'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Defines which Ex commands open pages in new tabs rather than the
+            current tab by default. This may be overridden with the
+            <span class="hl-HelpEx"><a href="tabs.xhtml#:tab" style="color: inherit;">:tab</a></span> command, and is usually inverted by affixing a
+            <em>!</em> to the command in question.
+        </p>
+
+        <p>Possible values:</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>all</dt><dd>All commands</dd></tr><tr><dt>addons</dt><dd><span class="hl-HelpEx"><a href="gui.xhtml#:addo" style="color: inherit;">:addo<span class="hl-HelpOptionalArg">[ns]</span></a></span> command</dd></tr><tr><dt>downloads</dt><dd><span class="hl-HelpEx"><a href="gui.xhtml#:downl" style="color: inherit;">:downl<span class="hl-HelpOptionalArg">[oads]</span></a></span> command</dd></tr><tr><dt>extoptions</dt><dd><span class="hl-HelpEx"><a href="gui.xhtml#:exto" style="color: inherit;">:exto<span class="hl-HelpOptionalArg">[ptions]</span></a></span> command</dd></tr><tr><dt>help</dt><dd><span class="hl-HelpEx"><a href="various.xhtml#:h" style="color: inherit;">:h<span class="hl-HelpOptionalArg">[elp]</span></a></span> command</dd></tr><tr><dt>javascript</dt><dd><span class="hl-HelpEx"><a href="eval.xhtml#:javascript" style="color: inherit;">:javascript!</a></span> or <span class="hl-HelpEx"><a href="eval.xhtml#:js" style="color: inherit;">:js!</a></span> command</dd></tr><tr><dt>prefs</dt><dd><span class="hl-HelpEx"><a href="dactyl://help/options#:pref" style="color: inherit;">:pref<span class="hl-HelpOptionalArg">[erences]</span>!</a></span> or <span class="hl-HelpEx"><a href="dactyl://help/options#:prefs" style="color: inherit;">:prefs!</a></span> command</dd></tr></dl>
+
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nextpattern'" class="hl-HelpTag">'nextpattern'</a></div><div style="clear: both"></div><div class="hl-HelpSpec">'nextpattern'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexplist">regexplist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">'\bnext\b',^&gt;$,'^(&gt;&gt;|»)$','^(&gt;|»)','(&gt;|»)$','\bmore\b'</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Patterns to use when guessing the next page in a document
+            sequence after pressing the <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#]]">]]</a></span> key. Each pattern is
+            successively tested against each link in the page (as defined by
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27hinttags%27">'hinttags'</a></span>, starting with the last), and the first link to
+            match is followed.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'noonline'" class="hl-HelpTag">'noonline'</a><a id="'online'" class="hl-HelpTag">'online'</a></div><div class="hl-HelpSpec">'online'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">on</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Enables or disables ‘offline’ mode, where network access is
+            disabled and all web pages are loaded entirely from cache.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'pa'" class="hl-HelpTag">'pa'</a><a id="'pageinfo'" class="hl-HelpTag">'pageinfo'</a></div><div class="hl-HelpSpec">'pageinfo' 'pa'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#charlist">charlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">gesfm</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Info shown in the <span class="hl-HelpEx"><a href="buffer.xhtml#:pageinfo" style="color: inherit;">:pageinfo</a></span> output.</p>
+
+        <p>Items available by default:</p>
+
+        <dl><column style="width: 6em;"></column><column style=""></column><tr><dt>g</dt><dd>General info</dd></tr><tr><dt>e</dt><dd>Search Engines</dd></tr><tr><dt>f</dt><dd>Feeds</dd></tr><tr><dt>m</dt><dd>Meta tags</dd></tr><tr><dt>s</dt><dd>Security information</dd></tr></dl>
+
+        <p>
+            The order of the options defines the order in which they appear in
+            the result.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'pk'" class="hl-HelpTag">'pk'</a><a id="'passkeys'" class="hl-HelpTag">'passkeys'</a></div><div class="hl-HelpSpec">'passkeys' 'pk'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#sitemap">sitemap</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Pass certain keys through directly for the given URLs.
+            For any page with a URL matching a given regexp, all key
+            events for keys listed in that regexp's value are passed
+            through directly to Firefox, and are not processed
+            by Pentadactyl in any way. Key names are separated
+            by commas, where the first key name is treated as a list
+            of individual keys and each subsequent key is treated as
+            a key chain. Individual key entries always apply to all
+            modes. Key chains apply only to non-input modes unless
+            they begin with a key requiring a modifier other than
+            shift.
+        </p>
+
+        <div class="hl-HelpExample"><pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27passkeys%27" topic="'passkeys'"><span class="hl-HelpOpt" key="HelpOpt">passkeys</span></a>+=<span class="hl-HelpString" delim="">mail.google.com</span>:<span class="hl-HelpString" delim="">jk&lt;CR&gt;</span>,<span class="hl-HelpString" delim="">gi</span></span></pre></div>
+
+        <p>
+            More subtle and complex pass through can be achieved
+            using <span class="hl-HelpTopic"><a style="color: inherit;" href="repeat.xhtml#groups">groups</a></span> and mode-specific mappings utilizing
+            the <span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CPass%3E">&lt;Pass&gt;</a></span> pseudo-key.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'pu'" class="hl-HelpTag">'pu'</a><a id="'passunknown'" class="hl-HelpTag">'passunknown'</a></div><div class="hl-HelpSpec">'passunknown' 'pu'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">caret,output_multiline,!normal,base</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Pass unknown keys through to Firefox in these
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="map.xhtml#modes">modes</a></span>. The first element matching a currently
+            active mode is the one that takes effect. Modes may be
+            negated by prefixing them with a <tt>!</tt>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'pps'" class="hl-HelpTag">'pps'</a><a id="'popups'" class="hl-HelpTag">'popups'</a></div><div class="hl-HelpSpec">'popups' 'pps'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">tab</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Defines where to show requested pop-up windows. Applies only to
+            links which request to open in a new window. The behavior of
+            middle-, shift-, or control- clicking a link is unaffected by this
+            option.
+        </p>
+
+        <p>Possible values are:</p>
+
+        <dl><column style="width: 8em;"></column><column style=""></column><tr><dt>tab</dt><dd>Open pop-ups in a new tab</dd></tr><tr><dt>window</dt><dd>Open pop-ups in a new window</dd></tr><tr><dt>resized</dt><dd>Open resized pop-ups in a new window</dd></tr></dl>
+
+        <p>
+            If neither <em>tab</em> nor <em>window</em> is provided, all
+            pop-ups open in the current tab. <em>tab</em> and <em>window</em>
+            are mutually exclusive, and the last one listed is effective.
+        </p>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+            This option does not alter the Firefox pop-up blocker behavior
+            in any way.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'previouspattern'" class="hl-HelpTag">'previouspattern'</a></div><div style="clear: both"></div><div class="hl-HelpSpec">'previouspattern'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexplist">regexplist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">'\bprev|previous\b',^&lt;$,'^(&lt;&lt;|«)$','^(&lt;|«)','(&lt;|«)$'</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Patterns to use when guessing the previous page in a document
+            sequence after pressing the <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#[[">[[</a></span> key. Each pattern is
+            successively tested against each link in the page (as defined by
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27hinttags%27">'hinttags'</a></span>, starting with the last), and the first link to
+            match is followed.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'noprivate'" class="hl-HelpTag">'noprivate'</a><a id="'private'" class="hl-HelpTag">'private'</a></div><div class="hl-HelpSpec">'private'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">off</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Set the <span class="hl-HelpString">private browsing</span> option. In private browsing mode
+            history, cache files, cookies, form data, passwords, download list
+            entries, local and URL <span class="hl-HelpTopic"><a style="color: inherit;" href="marks.xhtml">marks</a></span>, <span class="hl-HelpTopic"><a style="color: inherit;" href="cmdline.xhtml#command-line">command-line</a></span> history
+            and macros are available only for the duration of the private
+            browsing session and deleted when returning to normal browsing
+            mode. See also <span class="hl-HelpTopic"><a style="color: inherit;" href="privacy.xhtml">privacy</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="$PENTADACTYL_RUNTIME" class="hl-HelpTag">$PENTADACTYL_RUNTIME</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'rtp'" class="hl-HelpTag">'rtp'</a><a id="'runtimepath'" class="hl-HelpTag">'runtimepath'</a></div><div class="hl-HelpSpec">'runtimepath' 'rtp'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString">$PENTADACTYL_RUNTIME</span> or
+       Unix, Mac: <span class="hl-HelpString">~/.pentadactyl</span>
+         Windows: <span class="hl-HelpString">~/pentadactyl</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>List of directories searched for runtime files:</p>
+
+        <ul>
+            <li>colors/</li>
+            <li>macros/</li>
+            <li>plugins/</li>
+        </ul>
+
+        <p>Example:</p>
+
+        <pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27runtimepath%27" topic="'runtimepath'"><span class="hl-HelpOpt" key="HelpOpt">runtimepath</span></a>=<span class="hl-HelpString" delim="">~/mypentadactyl</span>,<span class="hl-HelpString" delim="">~/.pentadactyl</span></span></pre>
+
+        <p>
+            This will search for plugins in both
+            <span class="hl-HelpString">~/mypentadactyl/plugins</span> and
+            <span class="hl-HelpString">~/.pentadactyl/plugins</span>
+        </p>
+
+        <p>
+            On startup, if the environment variable <em>$PENTADACTYL_RUNTIME</em> does not
+            exist, Pentadactyl will set it to match this value.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'si'" class="hl-HelpTag">'si'</a><a id="'sanitizeitems'" class="hl-HelpTag">'sanitizeitems'</a></div><div class="hl-HelpSpec">'sanitizeitems' 'si'</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">all</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            The default list of private items to sanitize. See
+            <span class="hl-HelpEx"><a href="privacy.xhtml#:sanitize" style="color: inherit;">:sanitize</a></span> for a list and explanation of possible values.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ss'" class="hl-HelpTag">'ss'</a><a id="'sanitizeshutdown'" class="hl-HelpTag">'sanitizeshutdown'</a></div><div class="hl-HelpSpec">'sanitizeshutdown' 'ss'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>The items to sanitize automatically at shutdown.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'sts'" class="hl-HelpTag">'sts'</a><a id="'sanitizetimespan'" class="hl-HelpTag">'sanitizetimespan'</a></div><div class="hl-HelpSpec">'sanitizetimespan' 'sts'</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">all</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            The default sanitizer time span. Only items created within this timespan are
+            deleted. The value must be of the one of:
+        </p>
+
+        <dl><column style="width: 8em;"></column><column style=""></column><tr><dt>all</dt><dd>Everything</dd></tr><tr><dt>session</dt><dd>The current session</dd></tr><tr><dt><span class="hl-HelpArg">{n}</span>m</dt><dd>Past <span class="hl-HelpArg">{n}</span> Minutes</dd></tr><tr><dt><span class="hl-HelpArg">{n}</span>h</dt><dd>Past <span class="hl-HelpArg">{n}</span> Hours</dd></tr><tr><dt><span class="hl-HelpArg">{n}</span>d</dt><dd>Past <span class="hl-HelpArg">{n}</span> Days</dd></tr><tr><dt><span class="hl-HelpArg">{n}</span>w</dt><dd>Past <span class="hl-HelpArg">{n}</span> Weeks</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'scr'" class="hl-HelpTag">'scr'</a><a id="'scroll'" class="hl-HelpTag">'scroll'</a></div><div class="hl-HelpSpec">'scroll' 'scr'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">0</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Number of lines to scroll with <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CC-u%3E">&lt;C-u&gt;</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CC-d%3E">&lt;C-d&gt;</a></span>
+            commands. The number of lines scrolled defaults to half the window
+            size. When a <span class="hl-HelpOptionalArg">[count]</span> is specified to the <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CC-u%3E">&lt;C-u&gt;</a></span> or
+            <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CC-d%3E">&lt;C-d&gt;</a></span> commands, that value is used instead. When the
+            value is <em>0</em>, it defaults to half the window height.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'sh'" class="hl-HelpTag">'sh'</a><a id="'shell'" class="hl-HelpTag">'shell'</a></div><div class="hl-HelpSpec">'shell' 'sh'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <em>$SHELL</em> or <span class="hl-HelpString">sh</span>, Windows: <span class="hl-HelpString">cmd.exe</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Shell to use for executing <span class="hl-HelpEx"><a href="cmdline.xhtml#:" style="color: inherit;">:!</a></span> and <span class="hl-HelpEx"><a href="various.xhtml#:run" style="color: inherit;">:run</a></span> commands.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'shcf'" class="hl-HelpTag">'shcf'</a><a id="'shellcmdflag'" class="hl-HelpTag">'shellcmdflag'</a></div><div class="hl-HelpSpec">'shellcmdflag' 'shcf'</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString">-c</span>, Windows: <span class="hl-HelpString">/c</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Flag passed to shell when executing <span class="hl-HelpEx"><a href="cmdline.xhtml#:" style="color: inherit;">:!</a></span> and <span class="hl-HelpEx"><a href="various.xhtml#:run" style="color: inherit;">:run</a></span> commands.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'smd'" class="hl-HelpTag">'smd'</a><a id="'showmode'" class="hl-HelpTag">'showmode'</a></div><div class="hl-HelpSpec">'showmode' 'smd'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">caret,output_multiline,!normal,base</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Show the current mode in the command line if it or any
+            of its parent <span class="hl-HelpTopic"><a style="color: inherit;" href="map.xhtml#modes">modes</a></span> is included in the list.
+            Modes may be negated by prefixing them with a
+            <tt>!</tt>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'ssli'" class="hl-HelpTag">'ssli'</a><a id="'showstatuslinks'" class="hl-HelpTag">'showstatuslinks'</a></div><div class="hl-HelpSpec">'showstatuslinks' 'ssli'</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">status</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            When the mouse hovers over a link, or a link is otherwise focused,
+            show its destination in the status bar.
+        </p>
+
+        <p>Possible values are:</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt></dt><dd>Don't show link destination</dd></tr><tr><dt>status</dt><dd>Show the link destination in the <a href="gui.xhtml#status-line" topic="status-line">status line</a></dd></tr><tr><dt>command</dt><dd>Show the link destination in the <a href="cmdline.xhtml#command-line" topic="command-line">command line</a></dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'stal'" class="hl-HelpTag">'stal'</a><a id="'showtabline'" class="hl-HelpTag">'showtabline'</a></div><div class="hl-HelpSpec">'showtabline' 'stal'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">always</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Define when the tab bar is visible.</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>always</dt><dd>Always show the tab bar</dd></tr><tr><dt>multitab</dt><dd>Show the tab bar when there are multiple tabs</dd></tr><tr><dt>never</dt><dd>Never show the tab bar</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'sf'" class="hl-HelpTag">'sf'</a><a id="'strictfocus'" class="hl-HelpTag">'strictfocus'</a></div><div class="hl-HelpSpec">'strictfocus' 'sf'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#sitemap">sitemap</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">'chrome:*':laissez-faire,*:moderate</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Prevent scripts from focusing input elements without user intervention.
+        </p>
+
+        <p>Possible values:</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>despotic</dt><dd>Only allow focus changes when explicitly requested by the user</dd></tr><tr><dt>laissez-faire</dt><dd>Always allow focus changes</dd></tr><tr><dt>moderate</dt><dd>Allow focus changes after user-initiated focus change</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'suggestengines'" class="hl-HelpTag">'suggestengines'</a></div><div class="hl-HelpSpec">'suggestengines'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">google</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Set the search engines which can be used for completion
+            suggestions when <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27complete%27">'complete'</a></span> contains <em>S</em>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'notmo'" class="hl-HelpTag">'notmo'</a><a id="'notimeout'" class="hl-HelpTag">'notimeout'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'tmo'" class="hl-HelpTag">'tmo'</a><a id="'timeout'" class="hl-HelpTag">'timeout'</a></div><div class="hl-HelpSpec">'timeout' 'tmo'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">off</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            When this option is set and a key sequence interpretable both as a
+            complete command and as a start of a longer command is typed,
+            execute the shorter command after <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27timeoutlen%27">'timeoutlen'</a></span> milliseconds.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'tmol'" class="hl-HelpTag">'tmol'</a><a id="'timeoutlen'" class="hl-HelpTag">'timeoutlen'</a></div><div class="hl-HelpSpec">'timeoutlen' 'tmol'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">1000</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Maximum number of milliseconds to wait for a longer key command
+            when a shorter one exists. Only effective when <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27timeout%27">'timeout'</a></span> is
+            set.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'titlestring'" class="hl-HelpTag">'titlestring'</a></div><div class="hl-HelpSpec">'titlestring'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">Pentadactyl</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Set the application name shown after the current page title in
+            Firefox's title bar.
+        </p>
+        <div class="hl-HelpExample"><pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27titlestring%27" topic="'titlestring'"><span class="hl-HelpOpt" key="HelpOpt">titlestring</span></a>=<span class="hl-HelpString">Mozilla Firefox</span></span></pre></div>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'us'" class="hl-HelpTag">'us'</a><a id="'urlsep'" class="hl-HelpTag">'urlsep'</a><a id="'urlseparator'" class="hl-HelpTag">'urlseparator'</a></div><div class="hl-HelpSpec">'urlseparator' 'urlsep' 'us'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'"> \| </span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            The regular expression used to split URL lists in commands
+            like <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span>. When set to the empty string, URL lists
+            are never split. With the default value, the following will open
+            three URLs in the current tab and two new background tabs,
+        </p>
+        <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open <span class="hl-HelpString" delim="">google Linux</span> | <span class="hl-HelpString" delim="">wikipedia Arch Linux</span> | <span class="hl-HelpString" delim="">imdb Serenity</span></a></span></pre>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'noum'" class="hl-HelpTag">'noum'</a><a id="'nousermode'" class="hl-HelpTag">'nousermode'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'um'" class="hl-HelpTag">'um'</a><a id="'usermode'" class="hl-HelpTag">'usermode'</a></div><div class="hl-HelpSpec">'usermode' 'um'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">off</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>Show current website with minimal styling.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'vbs'" class="hl-HelpTag">'vbs'</a><a id="'verbose'" class="hl-HelpTag">'verbose'</a></div><div class="hl-HelpSpec">'verbose' 'vbs'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">number</a><span class="hl-HelpDefault">(default: <span class="hl-Number">1</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Define which info messages are displayed. As the value increases,
+            Pentadactyl will show more messages about its progress.
+            These can be viewed at any time with the <span class="hl-HelpEx"><a href="message.xhtml#:messages" style="color: inherit;">:messages</a></span>
+            command. The highest useful value is 15, being the most verbose
+            mode.
+        </p>
+        
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="'novb'" class="hl-HelpTag">'novb'</a><a id="'novisualbell'" class="hl-HelpTag">'novisualbell'</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id="'vb'" class="hl-HelpTag">'vb'</a><a id="'visualbell'" class="hl-HelpTag">'visualbell'</a></div><div class="hl-HelpSpec">'visualbell' 'vb'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">on</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Use visual bell instead of beeping on errors. The visual bell
+            style is controlled by <span class="hl-HelpEx"><a href="styling.xhtml#:highlight" style="color: inherit;">:highlight Bell</a></span>. See also
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27errorbells%27">'errorbells'</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'wia'" class="hl-HelpTag">'wia'</a><a id="'wildanchor'" class="hl-HelpTag">'wildanchor'</a></div><div style="clear: both"></div><div class="hl-HelpSpec">'wildanchor' 'wia'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexplist">regexplist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">!'/ex/(back|buffer|ext|forward|help|undo)'</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Regular expression list defining which completion groups show only
+            matches anchored to the beginning of the result. The first
+            matching expression is the one that applies. If the match is
+            negated, then the current filter may match anywhere in the result.
+            If it is not negated, then the match may only occur at the
+            beginning of the result. If no items match, then a
+            context-dependent default value is used.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'wic'" class="hl-HelpTag">'wic'</a><a id="'wildcase'" class="hl-HelpTag">'wildcase'</a></div><div class="hl-HelpSpec">'wildcase' 'wic'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexpmap">regexpmap</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">.?:smart</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Defines how completions are matched with regard to character case.
+            Keys in the <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/options#regexpmap">regexpmap</a></span> refer to completion context names (see
+            <span class="hl-HelpEx"><a href="various.xhtml#:contexts" style="color: inherit;">:contexts</a></span>) for which the value applies. Possible values
+            are:
+        </p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpString">smart</span></dt><dd>Case is significant when capital letters are typed</dd></tr><tr><dt><span class="hl-HelpString">match</span></dt><dd>Case is always significant</dd></tr><tr><dt><span class="hl-HelpString">ignore</span></dt><dd>Case is never significant</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'wig'" class="hl-HelpTag">'wig'</a><a id="'wildignore'" class="hl-HelpTag">'wildignore'</a></div><div class="hl-HelpSpec">'wildignore' 'wig'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexplist">regexplist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            List of path name patterns to ignore when completing files and
+            directories. For example, the following will ignore object files
+            and Vim swap files:
+        </p>
+
+        <pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27wildignore%27" topic="'wildignore'"><span class="hl-HelpOpt" key="HelpOpt">wildignore</span></a>=<span class="hl-HelpString" delim="'">\.o$</span>,<span class="hl-HelpString" delim="'">^\..*\.s[a-z]{2}$</span></span></pre>
+
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> Unlike Vim, each pattern is a regular expression rather than a glob.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'wim'" class="hl-HelpTag">'wim'</a><a id="'wildmode'" class="hl-HelpTag">'wildmode'</a></div><div class="hl-HelpSpec">'wildmode' 'wim'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">list:full</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            Defines how command-line completion works. It is a comma-separated
+            list of parts, where each part specifies what to do for each
+            consecutive press of the <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span> key. The last
+            element in the list is used for each succeeding <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#c_%3CTab%3E">c_&lt;Tab&gt;</a></span>
+            after it has been reached.
+        </p>
+
+        <p>These are the possible values for each part:</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpString"></span></dt><dd>Complete only the first match.</dd></tr><tr><dt><span class="hl-HelpString">full</span></dt><dd>Complete the next full match. After the last, the original string is used.</dd></tr><tr><dt><span class="hl-HelpString">longest</span></dt><dd>Complete the longest common substring of all completions.</dd></tr><tr><dt><span class="hl-HelpString">list</span></dt><dd>When more than one match, list all matches.</dd></tr><tr><dt><span class="hl-HelpString">list:full</span></dt><dd>When more than one match, list all matches and complete the first match.</dd></tr><tr><dt><span class="hl-HelpString">list:longest</span></dt><dd>
+                When more than one match, list all matches and
+                complete till the longest common string. When there
+                is only a single match, it is fully completed
+                regardless of the case.
+            </dd></tr></dl>
+
+        <p>
+            See also <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27altwildmode%27">'altwildmode'</a></span>.
+        </p>
+
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'wis'" class="hl-HelpTag">'wis'</a><a id="'wildsort'" class="hl-HelpTag">'wildsort'</a></div><div class="hl-HelpSpec">'wildsort' 'wis'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="dactyl://help/options#regexplist">regexplist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">.*</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            A list of regular expressions defining which completion contexts
+            should be sorted. The main purpose of this option is to prevent
+            sorting of certain completion lists that don't perform well under
+            load.
+        </p>
+
+        <p>See also <span class="hl-HelpEx"><a href="various.xhtml#:contexts" style="color: inherit;">:contexts</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'wsp'" class="hl-HelpTag">'wsp'</a><a id="'wordseparators'" class="hl-HelpTag">'wordseparators'</a></div><div class="hl-HelpSpec">'wordseparators' 'wsp'</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">[.,!?:;/"^$%&amp;?()[\]{}&lt;&gt;#*+|=~ _-]</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+        <p>
+            A regular expression which defines how words are split for
+            the <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/options#%27hintmatching%27">'hintmatching'</a></span> types <span class="hl-HelpString">wordstartswith</span> and
+            <span class="hl-HelpString">firstletters</span>. Words are split on each occurrence of the
+            given pattern.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

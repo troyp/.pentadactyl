@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Tutorial</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" tutorial modal getting-help living-mouseless keyboard-scrolling history-navigation tab-navigation hints-tutorial common-issues pentadactylrc quitting-without-menus whither-Firefox removal support "><div class="hl-HelpTags"><a id="tutorial.xml" class="hl-HelpTag">tutorial.xml</a></div>
+<h1><div class="hl-HelpTags"><a id="tutorial" class="hl-HelpTag">tutorial</a></div>Quick-start tutorial</h1>
+
+<p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+    This is a quickstart tutorial to help new users get up and running
+    in Pentadactyl. It is not intended as a full reference explaining all
+    features.
+</p>
+
+<p>
+    If you've started using Pentadactyl from scratch (i.e., without any
+    customization), you should be looking at this help page in a relatively
+    bare-looking window. The menubar, navigation bar, and bookmark bars are hidden.
+    In case you missed the notice in the <span class="hl-HelpTopic"><a style="color: inherit;" href="intro.xhtml">intro</a></span>, you can
+    regain these by issuing the command
+</p>
+
+<pre class="hl-HelpCode"><span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a href="options.xhtml#%27go%27" topic="'go'"><span class="hl-HelpOpt" key="HelpOpt">go</span></a>+=<span class="hl-HelpString" delim="">mTB</span><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></span></pre>
+
+<p>
+    where <span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span> represents pressing the <span class="hl-HelpKey"><a style="color: inherit;">&lt;Enter&gt;</a></span>
+    or <span class="hl-HelpKey"><a style="color: inherit;">&lt;Return&gt;</a></span> key. If you're a veteran Vim user, this
+    may look familiar. It should.
+</p>
+
+<p>
+    However, in this author's opinion, the best way to get familiar with
+    Pentadactyl is to leave these disabled for now. (The above action can be
+    reversed with <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">go</span></a>&amp;</span><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span>) You can look at the entry
+    for <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27guioptions%27">'guioptions'</a></span> in <span class="hl-HelpTopic"><a style="color: inherit;" href="options.xhtml">options</a></span> for more information on this.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="modal" class="hl-HelpTag">modal</a></div>Pentadactyl's modal interface</h2>
+
+<p>
+    Pentadactyl's power, like Vim's, comes from its modal interface. Keys have
+    different meanings depending on which mode the browser is in. Pentadactyl has
+    several modes, but the 2 most important are <em>Normal</em> mode and
+    <em>Command Line</em> mode.
+</p>
+
+<p>
+    When Pentadactyl starts, it is in Normal mode by default. This is probably where
+    you will spend the majority of your time.
+</p>
+
+<p>
+    The other core mode of Pentadactyl, Command Line mode, can be entered from
+    Normal mode by typing a <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#:">:</a></span> (colon). You will frequently see Pentadactyl
+    commands start with a <span class="hl-HelpKey"><a style="color: inherit;" href="cmdline.xhtml#:">:</a></span>, indicating that what follows is a command.
+</p>
+
+<p>
+    To return to Normal mode from Command Line mode, type <span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span>. Pressing
+    <span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span> will also return you to Normal mode from most other modes in
+    Pentadactyl.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="getting-help" class="hl-HelpTag">getting-help</a></div>Getting help</h2>
+
+<p>
+    Vim is a great editor but it's not much of a web browser. So even seasoned Vim
+    users will probably have to look at Pentadactyl's documentation sooner or later.
+    Most of the documentation for Pentadactyl's features are easily found using the
+    <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help</a></span> command. For example, you can find help on the <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help</a></span> command
+    by typing
+</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help :help<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></a></span></pre>
+
+<p>
+    Similarly, help on configurable options is available with
+    <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help '<span class="hl-HelpArg">{option_name}</span>'</a></span>. (Note the single quotes
+    around the option name as in Vim.) Information on all available
+    options is, predictably, <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help options</a></span>.
+</p>
+
+<p>
+    And you can find out about the <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#gt">gt</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#gT">gT</a></span> mapping with
+</p>
+
+<pre class="hl-HelpCode">
+<span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help gt<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></a></span>
+<span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help gT<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></a></span>
+</pre>
+
+<p>
+    Finally, in addition to the help system itself, <span class="hl-HelpEx"><a href="various.xhtml#:listcommands" style="color: inherit;">:listcommands</a></span>,
+    <span class="hl-HelpEx"><a href="various.xhtml#:listkeys" style="color: inherit;">:listkeys</a></span> and <span class="hl-HelpEx"><a href="various.xhtml#:listoptions" style="color: inherit;">:listoptions</a></span> are useful quick-reference
+    commands.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="living-mouseless" class="hl-HelpTag">living-mouseless</a></div>Mouseless</h2>
+
+<em>– or how I learned to stop worrying and love the 80+ buttons I already have.</em>
+
+<p>
+    The efficiency of Pentadactyl, as with the legendary editor it was inspired by,
+    relies on the user being able to keep his fingers on the keyboard where they
+    can do the most good. While there are some areas where the mouse is clearly
+    superior at, such as GUI design or some games, Pentadactyl acts on the
+    assumption that a web browser doesn't have to be one of those.
+</p>
+
+<p>
+    Here are some areas where the mouse is typically considered indisposable, and
+    how Pentadactyl challenges this preconception.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="keyboard-scrolling" class="hl-HelpTag">keyboard-scrolling</a></div>Scrolling</h2>
+
+<p>
+    Scrolling the browser window is done with simple keystrokes:
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#j">j</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#k">k</a></span></dt><dd>
+        scroll window down/up by one line, respectively
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#h">h</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#l">l</a></span></dt><dd>
+        scroll window left/right
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CSpace%3E">&lt;Space&gt;</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CC-b%3E">&lt;C-b&gt;</a></span></dt><dd>
+        scroll down/up by one page
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CC-d%3E">&lt;C-d&gt;</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CC-u%3E">&lt;C-u&gt;</a></span></dt><dd>
+        scroll down/up by 1/2 page
+    </dd></tr></dl>
+
+<p>
+    Your standard buttons (<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CUp%3E">&lt;Up&gt;</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CDown%3E">&lt;Down&gt;</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CPageUp%3E">&lt;PageUp&gt;</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CPageDown%3E">&lt;PageDown&gt;</a></span>) will
+    also work as expected.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="history-navigation" class="hl-HelpTag">history-navigation</a><a id="tab-navigation" class="hl-HelpTag">tab-navigation</a></div>History and tabs</h2>
+
+<p>
+    History navigation (e.g., <em>Back</em>, <em>Forward</em>) are done similarly to
+    scrolling.
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="marks.xhtml#%3CC-o%3E">&lt;C-o&gt;</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="marks.xhtml#%3CC-i%3E">&lt;C-i&gt;</a></span></dt><dd>
+        move Back/Forward in the current window/tab's history, respectively
+    </dd></tr></dl>
+
+<p>
+    Move between tabs using these keystrokes which may also be familiar to tabbing
+    Vimmers.
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#gt">gt</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#%3CC-n%3E">&lt;C-n&gt;</a></span></dt><dd>
+        go to the next tab
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#gT">gT</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#%3CC-p%3E">&lt;C-p&gt;</a></span></dt><dd>
+        go to the previous tab
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#g0">g0</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#g$">g$</a></span></dt><dd>
+        go to the first/last tab
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#d">d</a></span></dt><dd>
+        close the active tab (delete the buffer)
+    </dd></tr></dl>
+
+<p>
+    To open a web page in a new tab, use the <span class="hl-HelpEx"><a href="browsing.xhtml#:tabopen" style="color: inherit;">:tabopen <span class="hl-HelpArg">{url}</span></a></span>. To open a URL in
+    the current tab, use <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span>. The Normal mode mappings <span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#t">t</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#o">o</a></span>,
+    respectively, map to these commands, so the following pairs of sequences are
+    equivalent:
+</p>
+
+<pre class="hl-HelpCode">
+<span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open my.webmail.com<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></a></span>
+<span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#o">o</a></span>my.webmail.com<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span>
+
+<span class="hl-HelpEx"><a href="browsing.xhtml#:tabopen" style="color: inherit;">:tabopen google.com<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></a></span>
+<span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#t">t</a></span>google.com<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span>
+</pre>
+
+<h2><div class="hl-HelpTags"><a id="hints-tutorial" class="hl-HelpTag">hints-tutorial</a></div>Some hints about surfing…</h2>
+
+<p>
+    So now you can navigate around in Pentadactyl. But wait… how do you <em>open</em> a
+    page or tab linked in a web page? How do you <em>click</em> on all those links
+    without your tailed friend?
+</p>
+
+<p>
+    The answer is <em>hints</em>. Activating hints displays a number next to every link
+    Pentadactyl can find. To follow the link, simply type the number corresponding
+    to the hint.
+</p>
+
+<p>
+    For text links, there's an additional shortcut; you can type some text
+    contained in the link and Pentadactyl will search all the links it can find and
+    only hint the matching links, further narrowing down the list. If the text you
+    type uniquely identifies any given link, Pentadactyl will follow that link
+    immediately without any further user input.
+</p>
+
+<p>
+    Whichever way you choose to indicate your target link, once Pentadactyl has
+    highlighted the link you want, simply hit <span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span> to open it.
+</p>
+
+<p>
+    To activate Hints mode, press either <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#f">f</a></span> or <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#F">F</a></span>. The lower-case
+    <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#f">f</a></span> will open the resulting link in the current tab, while the
+    upper-case <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#F">F</a></span> will open it in a new tab.
+</p>
+
+<p>
+    To test it, try this link: <a href="http://dactyl.sourceforge.net/pentadactyl" rel="external" topic="http://dactyl.sourceforge.net/pentadactyl">Pentadactyl Homepage</a>.
+    Activate Hints mode with <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#f">f</a></span> or <span class="hl-HelpKey"><a style="color: inherit;" href="hints.xhtml#F">F</a></span> to highlight all currently
+    visible links. Then start typing the text of the link. The link should be
+    uniquely identified soon, and Pentadactyl will open it. Once you're
+    done, remember to use <span class="hl-HelpKey"><a style="color: inherit;" href="marks.xhtml#%3CC-o%3E">&lt;C-o&gt;</a></span> (<em>History Back</em>) or <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#d">d</a></span>
+    (<em>Delete Buffer</em>) to return here, depending on which key you used to
+    activate Hints mode.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="common-issues" class="hl-HelpTag">common-issues</a></div>Common issues</h2>
+
+<p>
+    Say you get half-way done typing in a new URL, only to remember that you've
+    already got that page open in the previous tab. Your command line might look
+    something like this:
+</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open my.partial.url/fooba</a></span></pre>
+
+<p>
+    You can exit the command line and access the already loaded page with the
+    following:
+</p>
+
+<pre class="hl-HelpCode"><span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span></pre>
+
+<h2><div class="hl-HelpTags"><a id="pentadactylrc" class="hl-HelpTag">pentadactylrc</a></div>Saving for posterity—<tt>pentadactylrc</tt></h2>
+
+<p>
+    Once you get Pentadactyl set up with your desired options, maps, and commands,
+    you'll probably want them to be available the next time you open Pentadactyl.
+    Continuing the Vim theme, this is done with a <tt>pentadactylrc</tt> file.
+</p>
+
+<p>
+    To save your current settings and allow them to be loaded automatically
+    next time you start Pentadactyl, issue the <span class="hl-HelpEx"><a href="starting.xhtml#:mkp" style="color: inherit;">:mkp</a></span> command.
+</p>
+
+<p>
+    This will create the file <em>$HOME/.pentadactylrc</em> containing your settings.
+    It is a simple text file, just like a vimrc file and can be easily
+    edited to suit your preferences.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="quitting-without-menus" class="hl-HelpTag">quitting-without-menus</a></div>Find the exit nearest you</h2>
+
+<p>
+    Pentadactyl supports all of Vim's classic methods of exiting.
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpEx"><a href="browsing.xhtml#:xall" style="color: inherit;">:xall</a></span></dt><dd>
+        command to quit and save the current browsing session for next time; the default.
+    </dd></tr><tr><dt><span class="hl-HelpEx"><a href="browsing.xhtml#:qall" style="color: inherit;">:qall</a></span></dt><dd>
+        command to quit <em>without</em> saving the session
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#ZZ">ZZ</a></span></dt><dd>
+        Normal mode mapping equivalent to <span class="hl-HelpEx"><a href="browsing.xhtml#:xall" style="color: inherit;">:xall</a></span>
+    </dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#ZQ">ZQ</a></span></dt><dd>
+        Normal mode mapping equivalent to <span class="hl-HelpEx"><a href="browsing.xhtml#:qall" style="color: inherit;">:qall</a></span>
+    </dd></tr></dl>
+
+<h2><div class="hl-HelpTags"><a id="whither-Firefox" class="hl-HelpTag">whither-Firefox</a></div>Where did Firefox go?</h2>
+
+<p>
+    You might feel pretty disoriented now. Don't worry. This is still Firefox
+    underneath. Here are some ways Pentadactyl allows Firefox to shine through. See
+    the <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help</a></span> for these commands and mappings for more information on how to
+    make the best use of them.
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpEx"><a href="gui.xhtml#:dialog" style="color: inherit;">:dialog</a></span></dt><dd>
+        To access some of Firefox's many dialog windows, you can use the
+        <span class="hl-HelpEx"><a href="gui.xhtml#:dialog" style="color: inherit;">:dialog</a></span> command. See <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help :dialog</a></span>.
+    </dd></tr><tr><dt><span class="hl-HelpEx"><a href="marks.xhtml#:bmarks" style="color: inherit;">:bmarks</a></span></dt><dd>
+        Pentadactyl provides a new interface to bookmarks, but they're still your
+        standard Firefox bookmarks under the hood. <span class="hl-HelpEx"><a href="marks.xhtml#:bmark" style="color: inherit;">:bmark</a></span> will add a new
+        bookmark, while <span class="hl-HelpEx"><a href="marks.xhtml#:bmarks" style="color: inherit;">:bmarks</a></span> will list the bookmarks currently defined.
+    </dd></tr><tr><dt><span class="hl-HelpEx"><a href="marks.xhtml#:history" style="color: inherit;">:history</a></span></dt><dd>
+        It's exactly what it sounds like. This command will display a colorized,
+        scrollable and clickable list of the locations in Pentadactyl's history.
+    </dd></tr><tr><dt><span class="hl-HelpEx"><a href="gui.xhtml#:emenu" style="color: inherit;">:emenu</a></span></dt><dd>
+        Access the Firefox menus through the Pentadactyl command line.
+    </dd></tr></dl>
+
+<p>
+    Feel free to explore at this point. If you use the <span class="hl-HelpEx"><a href="browsing.xhtml#:tabopen" style="color: inherit;">:tabopen</a></span> command,
+    remember to use the <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#gt">gt</a></span>/<span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#gT">gT</a></span> mappings to get back to this page. If
+    using the <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> command, use the history keys (e.g., <span class="hl-HelpKey"><a style="color: inherit;" href="marks.xhtml#H">H</a></span>) to return.
+    If you get hopelessly lost, just type <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help<span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></a></span> and click the
+    <em>Tutorial</em> link to return.
+</p>
+
+
+
+<h2><div class="hl-HelpTags"><a id="removal" class="hl-HelpTag">removal</a></div>Get me out of here!</h2>
+
+<p>
+    If you've given it a fair shot and determined … TODO
+</p>
+
+<p>
+    The Pentadactyl way to do this is with the command <span class="hl-HelpEx"><a href="gui.xhtml#:addons" style="color: inherit;">:addons</a></span>. Issuing this
+    command brings up the Firefox Add-ons dialog window; you can then remove it as
+    normal, selecting Pentadactyl from the list and clicking (yes, clicking)
+    <em>Uninstall</em>.
+</p>
+
+<p>
+    Alternatively, you can do this the old-fashioned way: re-enable the menubar,
+    as above, with <span style="display: inline-block;"><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> <a><span class="hl-HelpOpt" key="HelpOpt">go</span></a>+=m</span>, and select <em>Add-ons</em> from the <em>Tools</em> menu.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="support" class="hl-HelpTag">support</a></div>I'm interested… but lost!</h2>
+
+<p>
+    Pentadactyl has an energetic and growing user base. If you've run into a problem
+    that you can't seem to solve with Pentadactyl, or if you think you might have
+    found a bug, please let us know! There is support available on the
+    <a href="http://code.google.com/p/dactyl/w/list?q=label%3Aproject-pentadactyl" rel="external" topic="http://code.google.com/p/dactyl/w/list?q=label%3Aproject-pentadactyl">wiki</a>
+    or in the <a href="irc://irc.oftc.net/pentadactyl" rel="external" topic="irc://irc.oftc.net/pentadactyl">#pentadactyl</a> IRC
+    channel on <a href="http://oftc.net/" rel="external" topic="http://oftc.net/">OFTC</a>.
+</p>
+
+<p>
+    If you have any feature requests or (even better) offers to help, we'd love to
+    hear from you as well. Developers work on Pentadactyl whenever possible, but we
+    are neither infinite nor omnipotent; please bear with us. If you can't wait for
+    us to get around to it, rest assured patches are welcome! See the
+    <a href="developer.xhtml" topic="developer">developer</a> page for more information.
+</p>
+
+</body></html>

@@ -1,0 +1,102 @@
+.hl-Boolean	{/* JavaScript booleans */ color: red;}
+.hl-Dense	{/* Arbitrary elements which should be packed densely together */ margin-top: 0; margin-bottom: 0;}
+.hl-Help	{/* The font used for proportionally spaced text */ font-size: 10pt; font-family: "Droid Sans", "Helvetica LT Std", Helvetica, "DejaVu Sans", Verdana, sans-serif !important; /* A help page */ line-height: 1.4em;}
+.hl-HelpArg	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* A required command argument indicator */ color: #6A97D4;}
+.hl-HelpBody	{/* The body of a help page */ display: block; margin: 1em auto; max-width: 100ex; padding-bottom: 1em; margin-bottom: 4em; border-bottom-width: 1px;}
+*	{/* The styling of bordered elements */ border-color: silver; border-width: 0px; border-style: solid;}
+.hl-HelpCode	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* Code listings */ display: block; white-space: pre; margin-left: 2em;}
+.hl-HelpDefault	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* The default value of a help item */ display: inline-block; margin: -1px 1ex 0 0; white-space: pre; vertical-align: text-top;}
+.hl-HelpDescription	{/* The description of a help item */ display: block; clear: right;}
+.hl-HelpDescription[short]	{clear: none;}
+em	{/* Emphasized text */ font-weight: bold; font-style: normal;}
+.hl-HelpEx	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* An Ex command */ display: inline-block; color: #527BBD;}
+.hl-HelpExample	{/* An example */ display: block; margin: 1em 0;}
+.hl-HelpExample::before	{content: "Example: "; font-weight: bold;}
+h1,h2,h3,h4	{/* Any help heading */ font-weight: bold; color: #527BBD; clear: both;}
+h1	{/* A first-level help heading */ margin: 2em 0 1em; padding-bottom: .2ex; border-bottom-width: 1px; font-size: 2em;}
+h2	{/* A second-level help heading */ margin: 2em 0 1em; padding-bottom: .2ex; border-bottom-width: 1px; font-size: 1.2em;}
+h3	{/* A third-level help heading */ margin: 1em 0; padding-bottom: .2ex; font-size: 1.1em;}
+h4	{/* A fourth-level help heading */ }
+.hl-HelpInclude	{/* A help page included in the consolidated help listing */ margin: 2em 0;}
+.hl-HelpInfo	{/* Arbitrary information about a help item */ display: block; width: 20em; margin-left: auto;}
+.hl-HelpInfoLabel	{/* The label for a HelpInfo item */ display: inline-block; width: 6em; color: magenta; font-weight: bold; vertical-align: text-top;}
+.hl-HelpInfoValue	{/* The details for a HelpInfo item */ display: inline-block; width: 14em; text-decoration: none; vertical-align: text-top;}
+.hl-HelpItem	{/* A help item */ display: block; margin: 1em 1em 1em 10em; clear: both;}
+.hl-HelpKey	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* A keyboard key specification */ color: #102663;}
+.hl-HelpKeyword	{/* A keyword */ font-weight: bold; color: navy;}
+a	{/* A hyperlink */ text-decoration: none !important;}
+a[href]:hover	{text-decoration: underline !important;}
+a[href^="mailto:"]::after	{content: "✉"; padding-left: .2em;}
+a[rel=external]	{/* A hyperlink to an external resource */ background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAFVBMVEVmmcwzmcyZzP8AZswAZv////////9E6giVAAAAB3RSTlP///////8AGksDRgAAADhJREFUGFcly0ESAEAEA0Ei6/9P3sEcVB8kmrwFyni0bOeyyDpy9JTLEaOhQq7Ongf5FeMhHS/4AVnsAZubxDVmAAAAAElFTkSuQmCC) no-repeat scroll right center; padding-right: 13px;}
+ul	{/* An unordered list */ display: block; list-style-position: outside; margin: 1em 0;}
+li	{/* A list item, ordered or unordered */ display: list-item;}
+.hl-HelpNews	{/* A news item */ position: relative;}
+.hl-HelpNewsNew	{/* A new news item */ font-style: italic;}
+.hl-HelpNewsOld	{/* An old news item */ opacity: .7;}
+.hl-HelpNewsTag	{/* The version tag for a news item */ font-style: normal; position: absolute; left: 100%; padding-left: 1em; color: #527BBD; opacity: .6; white-space: pre;}
+.hl-HelpNote	{/* The indicator for a note */ color: red; font-weight: bold;}
+.hl-HelpOpt	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* An option name */ color: #106326;}
+.hl-HelpOptInfo	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* Information about the type and default values for an option entry */ display: block; margin-bottom: 1ex; padding-left: 4em;}
+.hl-HelpOptionalArg	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* An optional command argument indicator */ color: #6A97D4;}
+ol	{/* Any ordered list */ margin: 1em 0;}
+ol[level="1"],ol	{/* A first-level ordered list */ list-style: outside decimal; display: block;}
+ol[level="2"],ol ol	{/* A second-level ordered list */ list-style: outside upper-alpha;}
+ol[level="3"],ol ol ol	{/* A third-level ordered list */ list-style: outside lower-roman;}
+ol[level="4"],ol ol ol ol	{/* A fourth-level ordered list */ list-style: outside decimal;}
+p	{/* An ordinary paragraph */ display: block; margin: 1em 0em;}
+p:first-child	{margin-top: 0;}
+p:last-child	{margin-bottom: 0;}
+.hl-HelpSpec	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* The specification for a help entry */ display: block; margin-left: -10em; float: left; clear: left; color: #527BBD; margin-right: 1em;}
+.hl-HelpString	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* A quoted string */ color: green; font-weight: normal;}
+.hl-HelpString::after	{content: '"';}
+.hl-HelpString::before	{content: '"';}
+.hl-HelpString[delim]::after	{content: attr(delim);}
+.hl-HelpString[delim]::before	{content: attr(delim);}
+.hl-HelpTOC	{/* The Table of Contents for a help page */ }
+.hl-HelpTOC>ol ol	{margin-left: -1em;}
+tt	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* Teletype text */ }
+dl	{/* A description table */ display: table; width: 100%; margin: 1em 0; border-bottom-width: 1px; border-top-width: 1px; padding: .5ex 0; table-layout: fixed;}
+column	{display: table-column;}
+column:first-child	{width: 25%;}
+dd	{/* The description column of description tables */ display: table-cell; padding: .3ex 1em; text-indent: -1em; border-width: 0px;}
+dd>*	{text-indent: 0;}
+dl>tr	{/* Entire rows in description tables */ display: table-row;}
+dt	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* The title column of description tables */ display: table-cell; padding: .1ex 1ex; font-weight: bold;}
+.hl-HelpTag	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* A help tag */ display: inline-block; color: #527BBD; margin-left: 1ex; font-weight: normal;}
+.hl-HelpTags	{/* A group of help tags */ display: block; float: right; clear: right;}
+.hl-HelpTopic	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* A link to a help topic */ color: #102663;}
+.hl-HelpType	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* An option type */ color: #102663 !important; margin-right: 2ex;}
+.hl-HelpWarning	{/* The indicator for a warning */ color: red; font-weight: bold;}
+.hl-HelpXML	{/* The font used for code listings */ font-size: 9pt; font-family: monospace !important; /* Highlighted XML */ color: #C5F779; background-color: #444444; font-family: Terminus, Fixed, monospace;}
+.hl-HelpXMLAttribute	{color: #C5F779;}
+.hl-HelpXMLAttribute::after	{color: #E5E5E5; content: "=";}
+.hl-HelpXMLBlock	{white-space: pre; color: #C5F779; background-color: #444444; border: 1px dashed #aaaaaa; display: block; margin-left: 2em; font-family: Terminus, Fixed, monospace;}
+.hl-HelpXMLComment	{color: #444444;}
+.hl-HelpXMLComment::after	{content: "-->";}
+.hl-HelpXMLComment::before	{content: "<!--";}
+.hl-HelpXMLNamespace	{color: #FFF796;}
+.hl-HelpXMLNamespace::after	{color: #777777; content: ":";}
+.hl-HelpXMLProcessing	{color: #C5F779;}
+.hl-HelpXMLProcessing::after	{color: #444444; content: "?>";}
+.hl-HelpXMLProcessing::before	{color: #444444; content: "<?";}
+.hl-HelpXMLString	{color: #C5F779; white-space: pre;}
+.hl-HelpXMLString::after	{content: '"';}
+.hl-HelpXMLString::before	{content: '"';}
+.hl-HelpXMLTagEnd	{color: #71BEBE;}
+.hl-HelpXMLTagStart	{color: #FFF796; white-space: normal; display: inline-block; text-indent: -1.5em; padding-left: 1.5em;}
+.hl-HelpXMLText	{color: #E5E5E5;}
+.hl-Indicator	{/* The <em>#</em> and  <em>%</em> in the <ex>:buffers</ex> list */ color: blue; width: 1.5em; text-align: center;}
+.hl-Key	{/* Keywords */ font-weight: bold;}
+.hl-Logo	{display: inline-block; background: url(resource://dactyl-local-content/logo.png); width: 345px; height: 29px;}
+.hl-MoreMsg	{/* The indicator that there is more text to view */ color: green   !important; background: white       !important;}
+.hl-Number	{/* JavaScript numbers */ color: blue;}
+.hl-Object	{/* JavaScript objects */ color: maroon;}
+.hl-REPL	{/* Read-Eval-Print-Loop output */ overflow: auto; max-height: 40em;}
+.hl-REPL-E	{/* Evaled input in REPL mode */ white-space: pre-wrap;}
+.hl-REPL-P	{/* Evaled output in REPL mode */ white-space: pre-wrap; margin-bottom: 1em;}
+.hl-REPL-R	{/* A prompt for a decision */ color: green   !important; background: white       !important; font-weight: bold !important; /* Prompts in REPL mode */ }
+.hl-StatusLineBroken[dactyl|highlight]	{/* The status bar for a broken web page */ color: black !important; background: #FFa0a0 !important;}
+.hl-StatusLineExtended[dactyl|highlight]	{/* The status bar for a secure web page with an Extended Validation (EV) certificate */ color: black !important; background: #a0FFa0 !important;}
+.hl-StatusLineNormal[dactyl|highlight]	{/* The status bar for an ordinary web page */ color: white !important; background: black   !important;}
+.hl-StatusLineSecure[dactyl|highlight]	{/* The status bar for a secure web page */ color: black !important; background: #a0a0FF !important;}
+.hl-String	{/* String values */ color: green; white-space: pre;}

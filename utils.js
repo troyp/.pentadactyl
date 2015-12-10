@@ -39,6 +39,7 @@ var utils = {
 	var firstTab = tabs.getTab(firstIx);
 	var N = endIx - firstIx;
 	tabs.remove(firstTab, N);
+    return N;
     },
     
     removeTab: function (ord) {
@@ -100,6 +101,16 @@ var utils = {
         var d = ('0' + new Date().getDate()).slice(-2)
         return y + sep + m + sep + d;
     },
+	
+    loadJQuery: function () {
+        var scripttag = content.document.createElement('script');
+        scripttag.type = 'text/javascript';
+        scripttag.async = true;
+        scripttag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js';
+        var parent = (    content.document.getElementsByTagName('head')
+                       || content.document.getElementsByTagName('body') )[0]
+        parent.appendChild(scripttag);
+    },
 
 
 // =============================================================================
@@ -107,3 +118,13 @@ var utils = {
 };
 
 dactyl.utils = utils;
+
+
+
+
+
+
+
+
+
+

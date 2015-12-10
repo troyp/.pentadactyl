@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Messages</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" messages message-history :mes :messages :messc :messclear g&lt; pager more-prompt "><div class="hl-HelpTags"><a id="message.xml" class="hl-HelpTag">message.xml</a></div><h1><div class="hl-HelpTags"><a id="messages" class="hl-HelpTag">messages</a></div>Error and informational messages</h1>
+
+<div class="hl-HelpTags"><a id="message-history" class="hl-HelpTag">message-history</a></div>
+
+<p>
+    Pentadactyl stores all info and error messages in a message
+    history. The type of info messages output can be controlled by
+    the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27verbose%27">'verbose'</a></span> option. The maximum number of stored messages
+    can be limited with the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27messages%27">'messages'</a></span> option.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":mes" class="hl-HelpTag">:mes</a><a id=":messages" class="hl-HelpTag">:messages</a></div><div class="hl-HelpSpec">:mes<span class="hl-HelpOptionalArg">[sages]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Display previously shown messages.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":messc" class="hl-HelpTag">:messc</a><a id=":messclear" class="hl-HelpTag">:messclear</a></div><div class="hl-HelpSpec">:messc<span class="hl-HelpOptionalArg">[lear]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Clear the message history.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="g&lt;" class="hl-HelpTag">g&lt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">g&lt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Redisplay the last command output. Only the most recent command's output is
+            available.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+
+
+<div class="hl-HelpTags"><a id="pager" class="hl-HelpTag">pager</a><a id="more-prompt" class="hl-HelpTag">more-prompt</a></div>
+
+<pre class="hl-MoreMsg">
+ -- More --
+ -- More -- SPACE/d/j: screen/page/line down, b/u/k: up, q: quit
+</pre>
+
+<p>
+    This message is displayed when the message window is filled with
+    messages and the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27more%27">'more'</a></span> option is set. It is styled with
+    the <em>MoreMsg</em> <span class="hl-HelpEx"><a href="styling.xhtml#:highlight" style="color: inherit;">:highlight</a></span> group. When the more
+    message is shown, the following key mappings are available:
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;CR&gt;</a></span> or j or <span class="hl-HelpKey"><a style="color: inherit;">&lt;Down&gt;</a></span></dt><dd>one more line</dd></tr><tr><dt>d</dt><dd>down a page (half a screen)</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;Space&gt;</a></span> or <span class="hl-HelpKey"><a style="color: inherit;">&lt;PageDown&gt;</a></span></dt><dd>down a screen</dd></tr><tr><dt>G</dt><dd>down all the way, until the hit-enter prompt</dd></tr><tr><dt></dt><dd></dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;BS&gt;</a></span> or k or <span class="hl-HelpKey"><a style="color: inherit;">&lt;Up&gt;</a></span></dt><dd>one line back</dd></tr><tr><dt>u</dt><dd>up a page (half a screen)</dd></tr><tr><dt>b or <span class="hl-HelpKey"><a style="color: inherit;">&lt;PageUp&gt;</a></span></dt><dd>back a screen</dd></tr><tr><dt>g</dt><dd>back to the start</dd></tr><tr><dt></dt><dd></dd></tr><tr><dt>q, <span class="hl-HelpKey"><a style="color: inherit;">&lt;Esc&gt;</a></span> or <span class="hl-HelpKey"><a style="color: inherit;" href="browsing.xhtml#%3CC-c%3E">&lt;C-c&gt;</a></span></dt><dd>stop the listing</dd></tr><tr><dt>:</dt><dd>stop the listing and enter a command line</dd></tr><tr><dt>;</dt><dd>start an <span class="hl-HelpTopic"><a style="color: inherit;" href="hints.xhtml#extended-hints">extended-hints</a></span> command</dd></tr><tr><dt><span class="hl-HelpKey"><a style="color: inherit;">&lt;C-y&gt;</a></span></dt><dd>yank (copy) a modeless selection to the clipboard</dd></tr></dl>
+
+</body></html>
