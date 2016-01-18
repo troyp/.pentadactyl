@@ -93,6 +93,15 @@ var utils = {
                          commandline.APPEND_TO_MESSAGES);
     },
 
+    tempmessage: function (s) {
+        commandline.echo(s,
+                         commandline.HL_INFOMSG,
+                         commandline.APPEND_TO_MESSAGES);
+        setTimeout(function(){
+            commandline.echo('', commandline.HL_INFOMSG);
+        }, 500);
+    },
+
     dateToYYMMDD: function (date, sep) {
         if (sep === undefined)
             sep = '-';
