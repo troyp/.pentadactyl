@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Command-line</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" command-line-mode command-line mode-cmdline : cmdline-editing c_&lt;C-i&gt; c_&lt;C-c&gt; c_&lt;C-]&gt; c_&lt;Up&gt; c_&lt;Down&gt; c_&lt;C-p&gt; c_&lt;S-Up&gt; c_&lt;PageUp&gt; c_&lt;C-n&gt; c_&lt;S-Down&gt; c_&lt;PageDown&gt; cmdline-completion c_&lt;Tab&gt; c_&lt;S-Tab&gt; c_&lt;A-Tab&gt; c_&lt;A-S-Tab&gt; cmdline-lines :bar cmdline-arguments cmdline-quoting quoting cmdline-options "><div class="hl-HelpTags"><a id="cmdline.xml" class="hl-HelpTag">cmdline.xml</a></div><h1><div class="hl-HelpTags"><a id="command-line-mode" class="hl-HelpTag">command-line-mode</a><a id="command-line" class="hl-HelpTag">command-line</a><a id="mode-cmdline" class="hl-HelpTag">mode-cmdline</a></div>Command Line mode</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/cmdline#cmdline-editing">Command-line editing</a></li><li><a href="dactyl://help/cmdline#cmdline-completion">Command-line completion</a></li><li><a href="dactyl://help/cmdline#cmdline-lines">Ex command lines</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/cmdline#cmdline-arguments">Ex command-line arguments</a></li></ol></li></ol></div>
+
+<p>
+    Pentadactyl's Command Line mode is perhaps its most
+    powerful interface. In this mode, the command input bar at the
+    bottom of the window is given the keyboard focus for any of a
+    variety of required inputs. In addition to access to almost
+    every aspect of Pentadactyl and Firefox, the command
+    line provides power and comprehensive completion for all of its
+    commands, along with concise descriptions for each command and
+    all of its arguments. Couple this with persistent, searchable
+    command history, and you have a very efficient interface for
+    easily performing simple and complex tasks.
+</p>
+
+<p>
+    Included among the several command-line modes are Ex command
+    mode (the standard mode for entering commands), Find mode (for
+    searching the current page), Prompt mode (for selecting files,
+    confirming actions), and Hints mode (for selecting links and
+    other items on a page).
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":" class="hl-HelpTag">:</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Opens the command line in Ex mode. This is the mode used
+            for entering the various commands listed in
+            <span class="hl-HelpTopic"><a style="color: inherit;" href="index.xhtml#ex-cmd-index">ex-cmd-index</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="cmdline-editing" class="hl-HelpTag">cmdline-editing</a></div>Command-line editing</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;C-i&gt;" class="hl-HelpTag">c_&lt;C-i&gt;</a></div><div class="hl-HelpSpec">&lt;C-i&gt;</div><div class="hl-HelpDescription" short="true">
+        <p>Launch the external editor. See the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27editor%27">'editor'</a></span> option.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;C-c&gt;" class="hl-HelpTag">c_&lt;C-c&gt;</a></div><div class="hl-HelpSpec">&lt;C-c&gt;</div><div class="hl-HelpDescription" short="true">
+        <p>Quit Command Line mode without executing.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;C-]&gt;" class="hl-HelpTag">c_&lt;C-]&gt;</a></div><div class="hl-HelpSpec">&lt;C-]&gt;</div><div class="hl-HelpDescription" short="true">
+        <p>Expand a command-line abbreviation.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;Up&gt;" class="hl-HelpTag">c_&lt;Up&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;Up&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Recall from command history the previous command line
+            which begins with the current input value.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;Down&gt;" class="hl-HelpTag">c_&lt;Down&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;Down&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Recall from command history the next command line
+            which begins with the current input value.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;C-p&gt;" class="hl-HelpTag">c_&lt;C-p&gt;</a><a id="c_&lt;S-Up&gt;" class="hl-HelpTag">c_&lt;S-Up&gt;</a><a id="c_&lt;PageUp&gt;" class="hl-HelpTag">c_&lt;PageUp&gt;</a></div><div class="hl-HelpSpec">&lt;S-Up&gt;</div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;PageUp&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Recall the previous command line from the history list.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;C-n&gt;" class="hl-HelpTag">c_&lt;C-n&gt;</a><a id="c_&lt;S-Down&gt;" class="hl-HelpTag">c_&lt;S-Down&gt;</a><a id="c_&lt;PageDown&gt;" class="hl-HelpTag">c_&lt;PageDown&gt;</a></div><div class="hl-HelpSpec">&lt;S-Down&gt;</div><div class="hl-HelpSpec">&lt;PageDown&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Recall the next command line from the history list.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="cmdline-completion" class="hl-HelpTag">cmdline-completion</a></div>Command-line completion</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;Tab&gt;" class="hl-HelpTag">c_&lt;Tab&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;Tab&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Complete the word in front of the cursor according to the behavior
+            specified in <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27wildmode%27">'wildmode'</a></span>. If <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27wildmode%27">'wildmode'</a></span> contains
+            <span class="hl-HelpString">list</span> and there are multiple matches then the completion
+            menu window is opened.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;S-Tab&gt;" class="hl-HelpTag">c_&lt;S-Tab&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;S-Tab&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Complete the previous full match when <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27wildmode%27">'wildmode'</a></span> contains <span class="hl-HelpString">full</span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;A-Tab&gt;" class="hl-HelpTag">c_&lt;A-Tab&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;A-Tab&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Similar to <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/cmdline#c_%3CTab%3E">c_&lt;Tab&gt;</a></span>, but the completion behavior is
+            specified by the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27altwildmode%27">'altwildmode'</a></span> option.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="c_&lt;A-S-Tab&gt;" class="hl-HelpTag">c_&lt;A-S-Tab&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;A-S-Tab&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>The <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/cmdline#c_%3CS-Tab%3E">c_&lt;S-Tab&gt;</a></span> equivalent for <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27altwildmode%27">'altwildmode'</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="cmdline-lines" class="hl-HelpTag">cmdline-lines</a></div>Ex command lines</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":bar" class="hl-HelpTag">:bar</a></div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Multiple commands, separated by a <em>|</em> can be
+            given in a single command line and will be executed consecutively.
+            <em>|</em> can be included as an argument to a command by escaping
+            it with a backslash. E.g.
+            <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="map.xhtml#:map" style="color: inherit;">:map \|</a></span> <span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo <span class="hl-HelpString">bar</span></a></span><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></pre>
+
+            Several commands process the entire command-line string literally.
+            These commands will include any <em>|</em> as part of their
+            argument string and so cannot be followed by another command. The
+            list of these commands is:
+            <ul>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:abbreviate" style="color: inherit;">:abbreviate</a></span></li>
+                <li><span class="hl-HelpEx"><a href="autocommands.xhtml#:autocmd" style="color: inherit;">:autocmd</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:cabbreviate" style="color: inherit;">:cabbreviate</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:cmap" style="color: inherit;">:cmap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:cnoremap" style="color: inherit;">:cnoremap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:command" style="color: inherit;">:command</a></span></li>
+                <li><span class="hl-HelpEx"><a href="repeat.xhtml#:delmacros" style="color: inherit;">:delmacros</a></span></li>
+                <li><span class="hl-HelpEx"><a href="marks.xhtml#:delmarks" style="color: inherit;">:delmarks</a></span></li>
+                <li><span class="hl-HelpEx"><a href="marks.xhtml#:delqmarks" style="color: inherit;">:delqmarks</a></span></li>
+                <li><span class="hl-HelpEx"><a href="styling.xhtml#:delstyle" style="color: inherit;">:delstyle</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:echo" style="color: inherit;">:echo</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:echoerr" style="color: inherit;">:echoerr</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:echomsg" style="color: inherit;">:echomsg</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:elseif" style="color: inherit;">:elseif</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:execute" style="color: inherit;">:execute</a></span></li>
+                <li><span class="hl-HelpEx"><a href="styling.xhtml#:highlight" style="color: inherit;">:highlight</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:iabbreviate" style="color: inherit;">:iabbreviate</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:if" style="color: inherit;">:if</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:imap" style="color: inherit;">:imap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:inoremap" style="color: inherit;">:inoremap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:javascript" style="color: inherit;">:javascript</a></span></li>
+                <li><span class="hl-HelpEx"><a href="eval.xhtml#:let" style="color: inherit;">:let</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:map" style="color: inherit;">:map</a></span></li>
+                <li><span class="hl-HelpEx"><a href="marks.xhtml#:marks" style="color: inherit;">:marks</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:nmap" style="color: inherit;">:nmap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:nnoremap" style="color: inherit;">:nnoremap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:noremap" style="color: inherit;">:noremap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span></li>
+                <li><span class="hl-HelpEx"><a href="marks.xhtml#:qmarks" style="color: inherit;">:qmarks</a></span></li>
+                <li><span class="hl-HelpEx"><a href="various.xhtml#:silent" style="color: inherit;">:silent</a></span></li>
+                <li><span class="hl-HelpEx"><a href="styling.xhtml#:style" style="color: inherit;">:style</a></span></li>
+                <li><span class="hl-HelpEx"><a href="styling.xhtml#:styledisable" style="color: inherit;">:styledisable</a></span></li>
+                <li><span class="hl-HelpEx"><a href="styling.xhtml#:styleenable" style="color: inherit;">:styleenable</a></span></li>
+                <li><span class="hl-HelpEx"><a href="styling.xhtml#:styletoggle" style="color: inherit;">:styletoggle</a></span></li>
+                <li><span class="hl-HelpEx"><a href="browsing.xhtml#:tabopen" style="color: inherit;">:tabopen</a></span></li>
+                <li><span class="hl-HelpEx"><a href="gui.xhtml#:toolbarhide" style="color: inherit;">:toolbarhide</a></span></li>
+                <li><span class="hl-HelpEx"><a href="gui.xhtml#:toolbarshow" style="color: inherit;">:toolbarshow</a></span></li>
+                <li><span class="hl-HelpEx"><a href="gui.xhtml#:toolbartoggle" style="color: inherit;">:toolbartoggle</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:vmap" style="color: inherit;">:vmap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="map.xhtml#:vnoremap" style="color: inherit;">:vnoremap</a></span></li>
+                <li><span class="hl-HelpEx"><a href="browsing.xhtml#:winopen" style="color: inherit;">:winopen</a></span></li>
+                <li><span class="hl-HelpEx"><a href="various.xhtml#:yank" style="color: inherit;">:yank</a></span></li>
+            </ul>
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h3><div class="hl-HelpTags"><a id="cmdline-arguments" class="hl-HelpTag">cmdline-arguments</a></div>Ex command-line arguments</h3>
+
+<p>
+    Most Ex commands accept a number of options and arguments. Arguments and
+    options are generally separated by spaces, and treat a number of
+    characters, including <em>\</em>, <em>'</em>, <em>"</em>, and <em>|</em>,
+    specially.  Moreover, certain arguments have their own special characters.
+    For instance, when using <span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set</a></span> to change a <span class="hl-HelpTopic"><a style="color: inherit;" href="options.xhtml#stringlist">stringlist</a></span>
+    option, the comma character is used to separate elements of said list. Or
+    when calling <span class="hl-HelpEx"><a href="autocommands.xhtml#:autocmd" style="color: inherit;">:autocmd</a></span>, the pattern given may be negated by
+    prefixing it with a <em>!</em>. In order to use these characters in
+    command arguments, stripped of their special meaning, they must be quoted.
+</p>
+
+<p><div class="hl-HelpTags"><a id="cmdline-quoting" class="hl-HelpTag">cmdline-quoting</a><a id="quoting" class="hl-HelpTag">quoting</a></div><div style="clear: right"></div>
+    Pentadactyl offers four distinct quoting styles, each with its own
+    distinct advantages and disadvantages. The first, and most basic, is the
+    automatic quoting applied to the commands listed in <span class="hl-HelpEx"><a href="dactyl://help/cmdline#:bar" style="color: inherit;">:bar</a></span>. When
+    any of these commands is invoked, their final argument is always
+    interpreted literally. No characters have special meaning whatsoever, and
+    no care need be taken to quote anything. Additionally, the following three
+    optional quoting characters are available:
+</p>
+
+<dl><column style="width: 8em;"></column><column style=""></column><tr><dt>\</dt><dd>
+        This is the most basic quoting character. When it is encountered
+        outside of single or double quotes, it forces the next character to be
+        interpreted literally. So, for instance, <tt>\\</tt> ⇒ <tt>\</tt>,
+        <tt>\'</tt> ⇒ <tt>'</tt>, <tt>\a</tt> ⇒ <tt>a</tt>, and
+        <tt>\␣</tt> ⇒ <tt>␣</tt>.
+    </dd></tr><tr><dt>'</dt><dd>
+        Any character inside single quotes aside from the ' character itself
+        is interpreted literally. To include a literal single quote, it must
+        be doubled. So, <pre class="hl-HelpCode">'foo\ ''bar\\ baz\' ⇒ foo\ 'bar\\ baz\</pre>
+    </dd></tr><tr><dt>"</dt><dd>
+        Any character inside of double quotes except for <em>"</em> and
+        <em>\</em> is interpreted literally. A literal double quote may be
+        included by preceding it with a backslash. Any other occurrence of a
+        backslash starts an escape sequence as in JSON strings.
+        Among the available escape sequences are:
+        <dl><column style="width: 8em;"></column><column style=""></column><tr><dt>\n</dt><dd>A newline character.</dd></tr><tr><dt>\t</dt><dd>A tab character.</dd></tr><tr><dt>\uxxxx</dt><dd>Where each <em>x</em> is a digit between 0 and F, a Unicode character at code-point <em>xxxx</em>.</dd></tr></dl>
+    </dd></tr></dl>
+
+<p><div class="hl-HelpTags"><a id="cmdline-options" class="hl-HelpTag">cmdline-options</a></div><div style="clear: right"></div>
+    Many Ex commands accept option arguments in addition to regular arguments.
+    Option arguments begin with a hyphen (<em>-</em>), and often have a short
+    form and a long form, such as <em>-name</em> and <em>-n</em>. Most options
+    accept arguments, which come after the option separated by either a space
+    or an equal sign. For instance, the following three forms,
+    <em>-name=<span class="hl-HelpString">foo</span></em>, <em>-name <span class="hl-HelpString">foo</span></em>, and
+    <em>-n <span class="hl-HelpString">foo</span></em>, are all acceptable and entirely equivalent.
+</p>
+
+</body></html>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Buffer</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" buffer document buffer-information &lt;page-info&gt; &lt;C-g&gt; &lt;more-page-info&gt; g&lt;C-g&gt; :pa :pageinfo &lt;view-source&gt; gf &lt;view-source-externally&gt; gF :vie :viewsource motion scrolling &lt;scroll-begin&gt; ^ 0 &lt;scroll-end&gt; $ &lt;scroll-top&gt; &lt;Home&gt; gg &lt;scroll-bottom&gt; &lt;End&gt; G &lt;scroll-percent&gt; N% &lt;scroll-left-column&gt; &lt;Left&gt; h &lt;scroll-down-line&gt; &lt;C-e&gt; &lt;Down&gt; j &lt;scroll-up-line&gt; &lt;C-y&gt; &lt;Up&gt; k &lt;scroll-right-column&gt; &lt;Right&gt; l &lt;scroll-down&gt; &lt;C-d&gt; &lt;scroll-up&gt; &lt;C-u&gt; &lt;scroll-up-page&gt; &lt;S-Space&gt; &lt;PageUp&gt; &lt;C-b&gt; &lt;scroll-down-page&gt; &lt;Space&gt; &lt;PageDown&gt; &lt;C-f&gt; jumping &lt;Tab&gt; &lt;S-Tab&gt; &lt;focus-input&gt; gi &lt;next-frame&gt; ]f &lt;previous-frame&gt; [f &lt;next-page&gt; ]] &lt;previous-page&gt; [[ [h [p [ ]h ]p ] { } zooming zoom &lt;text-zoom-in&gt; + zi &lt;text-zoom-more&gt; zm &lt;text-zoom-out&gt; - zo &lt;text-zoom-reduce&gt; zr &lt;text-zoom&gt; zz &lt;full-zoom-in&gt; ZI zI &lt;full-zoom-more&gt; ZM zM &lt;full-zoom-out&gt; ZO zO &lt;full-zoom-reduce&gt; ZR zR &lt;full-zoom&gt; zZ :zo :zoom frames :frameo :frameonly copying yanking &lt;yank-location&gt; y &lt;yank-word&gt; Y alternate-stylesheet :pagest :pagestyle "><div class="hl-HelpTags"><a id="buffer.xml" class="hl-HelpTag">buffer.xml</a></div><h1><div class="hl-HelpTags"><a id="buffer" class="hl-HelpTag">buffer</a><a id="document" class="hl-HelpTag">document</a></div>Buffer</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/buffer#buffer-information">Buffer information</a></li><li><a href="dactyl://help/buffer#motion">Motion commands</a></li><li><a href="dactyl://help/buffer#jumping">Jumping to elements</a></li><li><a href="dactyl://help/buffer#zooming">Zooming</a></li><li><a href="dactyl://help/buffer#frames">Working with frames</a></li><li><a href="dactyl://help/buffer#copying">Copying text</a></li><li><a href="dactyl://help/buffer#alternate-stylesheet">Alternate style sheets</a></li></ol></div>
+
+<p>
+    A buffer is a container that holds the given web page, including
+    all of its history and frames. Each tab contains exactly one
+    buffer, and for most purposes the two terms are interchangeable.
+    See <span class="hl-HelpTopic"><a style="color: inherit;" href="tabs.xhtml">tabs</a></span> for more.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="buffer-information" class="hl-HelpTag">buffer-information</a></div>Buffer information</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;page-info&gt;" class="hl-HelpTag">&lt;page-info&gt;</a><a id="&lt;C-g&gt;" class="hl-HelpTag">&lt;C-g&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec">&lt;C-g&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Print the current file name along with basic page
+            information including last modification time, the number
+            of feeds present, and the page title.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;more-page-info&gt;" class="hl-HelpTag">&lt;more-page-info&gt;</a><a id="g&lt;C-g&gt;" class="hl-HelpTag">g&lt;C-g&gt;</a></div><div class="hl-HelpSpec">g&lt;C-g&gt;</div><div class="hl-HelpDescription" short="true">
+        <p>Print file information. Same as <span class="hl-HelpEx"><a href="dactyl://help/buffer#:pa" style="color: inherit;">:pa<span class="hl-HelpOptionalArg">[geinfo]</span></a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":pa" class="hl-HelpTag">:pa</a><a id=":pageinfo" class="hl-HelpTag">:pageinfo</a></div><div class="hl-HelpSpec">:pa<span class="hl-HelpOptionalArg">[geinfo]</span> <span class="hl-HelpOptionalArg">[items]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Show various page information. The information provided
+            is determined by the value of <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27pageinfo%27">'pageinfo'</a></span>, or
+            <span class="hl-HelpOptionalArg">[items]</span> if present.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;view-source&gt;" class="hl-HelpTag">&lt;view-source&gt;</a><a id="gf" class="hl-HelpTag">gf</a></div><div style="clear: both"></div><div class="hl-HelpSpec">gf</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            View source. Toggles between the source and rendered
+            content of the page.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;view-source-externally&gt;" class="hl-HelpTag">&lt;view-source-externally&gt;</a><a id="gF" class="hl-HelpTag">gF</a></div><div style="clear: both"></div><div class="hl-HelpSpec">gF</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            View source with an external editor. Opens the source
+            code of the current web site with the external editor
+            specified by the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27editor%27">'editor'</a></span> option.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":vie" class="hl-HelpTag">:vie</a><a id=":viewsource" class="hl-HelpTag">:viewsource</a></div><div class="hl-HelpSpec">:vie<span class="hl-HelpOptionalArg">[wsource]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[url]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            View source code of current document. If <span class="hl-HelpOptionalArg">[url]</span> is
+            specified then view the source of that document. When
+            <span class="hl-HelpOptionalArg">[!]</span> is given, it is opened with the external
+            editor.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="motion" class="hl-HelpTag">motion</a><a id="scrolling" class="hl-HelpTag">scrolling</a></div>Motion commands</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-begin&gt;" class="hl-HelpTag">&lt;scroll-begin&gt;</a><a id="^" class="hl-HelpTag">^</a><a id="0" class="hl-HelpTag">0</a></div><div style="clear: both"></div><div class="hl-HelpSpec">0</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll to the absolute left of the document. Unlike in
+            Vim, <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/buffer#0">0</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/buffer#^">^</a></span> work exactly the same way.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-end&gt;" class="hl-HelpTag">&lt;scroll-end&gt;</a><a id="$" class="hl-HelpTag">$</a></div><div class="hl-HelpSpec">$</div><div class="hl-HelpDescription" short="true">
+        <p>Scroll to the absolute right of the document</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-top&gt;" class="hl-HelpTag">&lt;scroll-top&gt;</a><a id="&lt;Home&gt;" class="hl-HelpTag">&lt;Home&gt;</a><a id="gg" class="hl-HelpTag">gg</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>gg</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to the top of the document. With <span class="hl-HelpOptionalArg">[count]</span>,
+            scroll vertically to <span class="hl-HelpOptionalArg">[count]</span> percent of the
+            document.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-bottom&gt;" class="hl-HelpTag">&lt;scroll-bottom&gt;</a><a id="&lt;End&gt;" class="hl-HelpTag">&lt;End&gt;</a><a id="G" class="hl-HelpTag">G</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>G</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to the end of the document. With <span class="hl-HelpOptionalArg">[count]</span>,
+            behaves exactly the same as <span class="hl-HelpOptionalArg">[gg]</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-percent&gt;" class="hl-HelpTag">&lt;scroll-percent&gt;</a><a id="N%" class="hl-HelpTag">N%</a></div><div class="hl-HelpSpec"><span class="hl-HelpArg">{count}</span>%</div><div class="hl-HelpDescription" short="true">
+        <p>Scroll to <span class="hl-HelpArg">{count}</span> percent of the document.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-left-column&gt;" class="hl-HelpTag">&lt;scroll-left-column&gt;</a><a id="&lt;Left&gt;" class="hl-HelpTag">&lt;Left&gt;</a><a id="h" class="hl-HelpTag">h</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>h</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll document to the left. If <span class="hl-HelpOptionalArg">[count]</span> is specified,
+            repeat <span class="hl-HelpOptionalArg">[count]</span> times.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-down-line&gt;" class="hl-HelpTag">&lt;scroll-down-line&gt;</a><a id="&lt;C-e&gt;" class="hl-HelpTag">&lt;C-e&gt;</a><a id="&lt;Down&gt;" class="hl-HelpTag">&lt;Down&gt;</a><a id="j" class="hl-HelpTag">j</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>j</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll document to the down. If <span class="hl-HelpOptionalArg">[count]</span> is specified,
+            repeat <span class="hl-HelpOptionalArg">[count]</span> times.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-up-line&gt;" class="hl-HelpTag">&lt;scroll-up-line&gt;</a><a id="&lt;C-y&gt;" class="hl-HelpTag">&lt;C-y&gt;</a><a id="&lt;Up&gt;" class="hl-HelpTag">&lt;Up&gt;</a><a id="k" class="hl-HelpTag">k</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>k</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll document to the up. If <span class="hl-HelpOptionalArg">[count]</span> is specified,
+            repeat <span class="hl-HelpOptionalArg">[count]</span> times.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-right-column&gt;" class="hl-HelpTag">&lt;scroll-right-column&gt;</a><a id="&lt;Right&gt;" class="hl-HelpTag">&lt;Right&gt;</a><a id="l" class="hl-HelpTag">l</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>l</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll document to the right. If <span class="hl-HelpOptionalArg">[count]</span> is specified,
+            repeat <span class="hl-HelpOptionalArg">[count]</span> times.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-down&gt;" class="hl-HelpTag">&lt;scroll-down&gt;</a><a id="&lt;C-d&gt;" class="hl-HelpTag">&lt;C-d&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-d&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll window downwards by the amount specified in the
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27scroll%27">'scroll'</a></span> option. With <span class="hl-HelpOptionalArg">[count]</span>, scroll as if
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27scroll%27">'scroll'</a></span> were set to <span class="hl-HelpOptionalArg">[count]</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-up&gt;" class="hl-HelpTag">&lt;scroll-up&gt;</a><a id="&lt;C-u&gt;" class="hl-HelpTag">&lt;C-u&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-u&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll window upwards by the amount specified in the
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27scroll%27">'scroll'</a></span> option. With <span class="hl-HelpOptionalArg">[count]</span>, scroll as if
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27scroll%27">'scroll'</a></span> were set to <span class="hl-HelpOptionalArg">[count]</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-up-page&gt;" class="hl-HelpTag">&lt;scroll-up-page&gt;</a><a id="&lt;S-Space&gt;" class="hl-HelpTag">&lt;S-Space&gt;</a><a id="&lt;PageUp&gt;" class="hl-HelpTag">&lt;PageUp&gt;</a><a id="&lt;C-b&gt;" class="hl-HelpTag">&lt;C-b&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-b&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll up a full page. With <span class="hl-HelpOptionalArg">[count]</span>, scroll up
+            <span class="hl-HelpOptionalArg">[count]</span> full pages.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;scroll-down-page&gt;" class="hl-HelpTag">&lt;scroll-down-page&gt;</a><a id="&lt;Space&gt;" class="hl-HelpTag">&lt;Space&gt;</a><a id="&lt;PageDown&gt;" class="hl-HelpTag">&lt;PageDown&gt;</a><a id="&lt;C-f&gt;" class="hl-HelpTag">&lt;C-f&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-f&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Scroll down a full page. With <span class="hl-HelpOptionalArg">[count]</span>, scroll
+            down <span class="hl-HelpOptionalArg">[count]</span> full pages.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="jumping" class="hl-HelpTag">jumping</a></div>Jumping to elements</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;Tab&gt;" class="hl-HelpTag">&lt;Tab&gt;</a></div><div class="hl-HelpSpec">&lt;Tab&gt;</div><div class="hl-HelpDescription" short="true">
+        <p>Advance keyboard focus to the next element.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;S-Tab&gt;" class="hl-HelpTag">&lt;S-Tab&gt;</a></div><div class="hl-HelpSpec">&lt;S-Tab&gt;</div><div class="hl-HelpDescription" short="true">
+        <p>Rewind keyboard focus to the previous element.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;focus-input&gt;" class="hl-HelpTag">&lt;focus-input&gt;</a><a id="gi" class="hl-HelpTag">gi</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>gi</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Focus last used input field. If there is no last input
+            field, focus the first input field. With <span class="hl-HelpOptionalArg">[count]</span>,
+            focus the <span class="hl-HelpOptionalArg">[count]</span>th input field.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;next-frame&gt;" class="hl-HelpTag">&lt;next-frame&gt;</a><a id="]f" class="hl-HelpTag">]f</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>]f</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Transfer keyboard focus to the <span class="hl-HelpOptionalArg">[count]</span>th next
+            frame. The newly focused frame is briefly highlighted
+            with <em>FrameIndicator</em>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;previous-frame&gt;" class="hl-HelpTag">&lt;previous-frame&gt;</a><a id="[f" class="hl-HelpTag">[f</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>[f</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Transfer keyboard focus to the <span class="hl-HelpOptionalArg">[count]</span>th next
+            previous frame. The newly focused frame is briefly highlighted
+            with <em>FrameIndicator</em>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;next-page&gt;" class="hl-HelpTag">&lt;next-page&gt;</a><a id="]]" class="hl-HelpTag">]]</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>]]</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Follow the last link matching <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27nextpattern%27">'nextpattern'</a></span>. Used,
+            for instance, to move to the next page of search
+            results.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;previous-page&gt;" class="hl-HelpTag">&lt;previous-page&gt;</a><a id="[[" class="hl-HelpTag">[[</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>[[</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Follow the last link matching <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27previouspattern%27">'previouspattern'</a></span>. Used,
+            for instance, to move to the previous page of search
+            results.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="[h" class="hl-HelpTag">[h</a><a id="[p" class="hl-HelpTag">[p</a><a id="[" class="hl-HelpTag">[</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>[<span class="hl-HelpArg">{arg}</span></div><div class="hl-HelpDescription" short="true">
+        <p>Jump to the previous element as defined by <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27jumptags%27">'jumptags'</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="]h" class="hl-HelpTag">]h</a><a id="]p" class="hl-HelpTag">]p</a><a id="]" class="hl-HelpTag">]</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>]<span class="hl-HelpArg">{arg}</span></div><div class="hl-HelpDescription" short="true">
+        <p>Jump to the next element as defined by <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27jumptags%27">'jumptags'</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="{" class="hl-HelpTag">{</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>{</div><div class="hl-HelpDescription" short="true">
+        <p>Jump to the previous paragraph. Identical to <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/buffer#[p">[p</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="}" class="hl-HelpTag">}</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>}</div><div class="hl-HelpDescription" short="true">
+        <p>Jump to the next paragraph. Identical to <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/buffer#]p">]p</a></span>.</p>
+    </div><div style="clear: both;"></div></div>
+
+
+<h2><div class="hl-HelpTags"><a id="zooming" class="hl-HelpTag">zooming</a><a id="zoom" class="hl-HelpTag">zoom</a></div>Zooming</h2>
+
+<p>
+    The zooming commands are dependent on two properties—a zoom
+    range and a series of levels within that range.
+</p>
+
+<p>
+    The absolute value of the page zoom is limited to a value within
+    the configured zoom range (default: 30%–300%). By default,
+    commands which zoom in or out select between the zoom levels,
+    30%, 50%, 67%, 80%, 90%, 100%, 110%, 120%, 133%, 150%, 170%,
+    200%, 240%, 300%.
+</p>
+
+<p>
+    The available zoom range can be changed by setting the
+    <a href="http://kb.mozillazine.org/zoom.minPercent" class="hl-HelpOpt">'zoom.minPercent'</a>
+    and
+    <a href="http://kb.mozillazine.org/zoom.maxPercent" class="hl-HelpOpt">'zoom.maxPercent'</a>
+    Firefox preferences. The zoom levels can be changed using the
+    <a href="http://kb.mozillazine.org/toolkit.zoomManager.zoomValues" class="hl-HelpOpt">'toolkit.zoomManager.zoomValues'</a>
+    preference.
+</p>
+
+<p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+    <a href="http://kb.mozillazine.org/toolkit.zoomManager.zoomValues" class="hl-HelpOpt">'toolkit.zoomManager.zoomValues'</a> is specified as a
+    list of values between <em>0</em> and <em>1</em> rather than
+    percentages. For instance, <em>0.5</em> is equivalent to
+    <em>50%</em>.
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;text-zoom-in&gt;" class="hl-HelpTag">&lt;text-zoom-in&gt;</a><a id="+" class="hl-HelpTag">+</a><a id="zi" class="hl-HelpTag">zi</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>zi</div><div class="hl-HelpDescription" short="true">
+        <p>Enlarge text zoom of current web page. Mnemonic: zoom in.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;text-zoom-more&gt;" class="hl-HelpTag">&lt;text-zoom-more&gt;</a><a id="zm" class="hl-HelpTag">zm</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>zm</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Enlarge text zoom of current web page by a larger amount. Mnemonic: zoom more.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;text-zoom-out&gt;" class="hl-HelpTag">&lt;text-zoom-out&gt;</a><a id="-" class="hl-HelpTag">-</a><a id="zo" class="hl-HelpTag">zo</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>zo</div><div class="hl-HelpDescription" short="true">
+        <p>Reduce text zoom of current web page. Mnemonic: zoom out.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;text-zoom-reduce&gt;" class="hl-HelpTag">&lt;text-zoom-reduce&gt;</a><a id="zr" class="hl-HelpTag">zr</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>zr</div><div class="hl-HelpDescription" short="true">
+        <p>Reduce text zoom of current web page by a larger amount. Mnemonic: zoom reduce.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;text-zoom&gt;" class="hl-HelpTag">&lt;text-zoom&gt;</a><a id="zz" class="hl-HelpTag">zz</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>zz</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Set text zoom value of current web page. Zoom value can
+            be between 30% and 300%.  If it is omitted, text zoom is
+            reset to 100%.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;full-zoom-in&gt;" class="hl-HelpTag">&lt;full-zoom-in&gt;</a><a id="ZI" class="hl-HelpTag">ZI</a><a id="zI" class="hl-HelpTag">zI</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>ZI</div><div class="hl-HelpDescription" short="true">
+        <p>Enlarge full zoom of current web page. Mnemonic: zoom in.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;full-zoom-more&gt;" class="hl-HelpTag">&lt;full-zoom-more&gt;</a><a id="ZM" class="hl-HelpTag">ZM</a><a id="zM" class="hl-HelpTag">zM</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>ZM</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Enlarge full zoom of current web page by a larger amount. Mnemonic: zoom more.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;full-zoom-out&gt;" class="hl-HelpTag">&lt;full-zoom-out&gt;</a><a id="ZO" class="hl-HelpTag">ZO</a><a id="zO" class="hl-HelpTag">zO</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>ZO</div><div class="hl-HelpDescription" short="true">
+        <p>Reduce full zoom of current web page. Mnemonic: zoom out.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;full-zoom-reduce&gt;" class="hl-HelpTag">&lt;full-zoom-reduce&gt;</a><a id="ZR" class="hl-HelpTag">ZR</a><a id="zR" class="hl-HelpTag">zR</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>ZR</div><div class="hl-HelpDescription" short="true">
+        <p>Reduce full zoom of current web page by a larger amount. Mnemonic: zoom reduce.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;full-zoom&gt;" class="hl-HelpTag">&lt;full-zoom&gt;</a><a id="zZ" class="hl-HelpTag">zZ</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>zZ</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Set full zoom value of current web page. Zoom value can be between 30 and
+            300%. If it is omitted, full zoom is reset to 100%.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":zo" class="hl-HelpTag">:zo</a><a id=":zoom" class="hl-HelpTag">:zoom</a></div><div class="hl-HelpSpec">:zo<span class="hl-HelpOptionalArg">[om]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[value]</span></div><div class="hl-HelpSpec">:zo<span class="hl-HelpOptionalArg">[om]</span><span class="hl-HelpOptionalArg">[!]</span> +<span class="hl-HelpArg">{value}</span></div><div class="hl-HelpSpec">:zo<span class="hl-HelpOptionalArg">[om]</span><span class="hl-HelpOptionalArg">[!]</span> -<span class="hl-HelpArg">{value}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Set zoom value of current web page. <span class="hl-HelpOptionalArg">[value]</span> can be an absolute value
+            between 30% and 300% or a relative value if prefixed with "-" or "+". If
+            <span class="hl-HelpOptionalArg">[value]</span> is omitted, zoom is reset to 100%.
+        </p>
+
+        <p>
+            Normally this command operates on the text zoom; if used with <span class="hl-HelpOptionalArg">[!]</span>, it
+            operates on full zoom.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="frames" class="hl-HelpTag">frames</a></div>Working with frames</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":frameo" class="hl-HelpTag">:frameo</a><a id=":frameonly" class="hl-HelpTag">:frameonly</a></div><div class="hl-HelpSpec">:frameo<span class="hl-HelpOptionalArg">[nly]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Show only the current frame's page.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="copying" class="hl-HelpTag">copying</a><a id="yanking" class="hl-HelpTag">yanking</a></div>Copying text</h2>
+
+<p>
+    When running in X11, the text of the following commands is not only
+    copied to the clipboard but is also put into the X11 selection, which
+    can be pasted with the middle mouse button:
+</p>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;yank-location&gt;" class="hl-HelpTag">&lt;yank-location&gt;</a><a id="y" class="hl-HelpTag">y</a></div><div class="hl-HelpSpec">y</div><div class="hl-HelpDescription" short="true">
+        <p>Yank current location to the clipboard.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;yank-word&gt;" class="hl-HelpTag">&lt;yank-word&gt;</a><a id="Y" class="hl-HelpTag">Y</a></div><div class="hl-HelpSpec">Y</div><div class="hl-HelpDescription" short="true">
+        <p>Copy currently selected text to the system clipboard.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="alternate-stylesheet" class="hl-HelpTag">alternate-stylesheet</a></div>Alternate style sheets</h2>
+
+Page authors may specify alternate style sheets for an HTML
+document. Users can then switch between these various style sheets,
+selecting their favorite.
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":pagest" class="hl-HelpTag">:pagest</a><a id=":pagestyle" class="hl-HelpTag">:pagestyle</a></div><div class="hl-HelpSpec">:pagest<span class="hl-HelpOptionalArg">[yle]</span> <span class="hl-HelpOptionalArg">[stylesheet]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Select the author style sheet to apply. If
+            <span class="hl-HelpOptionalArg">[stylesheet]</span> is not specified the page's default
+            style sheet is used.
+        </p>
+
+        <p>All author styling can be removed by setting the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27usermode%27">'usermode'</a></span> option.</p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Tabs</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" tabs buffers listing-tabs B :tabs :ls :files :buffers :keepa :keepalt opening-tabs :tab :window :wind changing-tabs gb gB gt &lt;C-PageDown&gt; &lt;C-Tab&gt; &lt;C-n&gt; &lt;C-PageUp&gt; &lt;C-S-Tab&gt; &lt;C-p&gt; gT :tabn :tabnext :tn :tnext :bn :bnext :bN :bNext :bp :bprevious :tN :tNext :tabN :tabNext :tp :tprevious :tabp :tabprevious &lt;C-6&gt; &lt;C-^&gt; b :b :buffer g^ g0 :bf :bfirst :br :brewind :tabfir :tabfirst :tabr :tabrewind g$ :bl :blast :tabl :tablast :tabde :tabdetach :taba :tabattach reordering-tabs :tabm :tabmove closing-tabs d :tabc :tabclose :bun :bunload :bw :bwipeout :bd :bdelete D :tabo :tabonly u :u :undo :undoa :undoall looping-over-tabs :tabd :tabdo :bufd :bufdo app-tabs application-tabs pinned-tabs :pin :pintab :unpin :unpintab "><div class="hl-HelpTags"><a id="tabs.xml" class="hl-HelpTag">tabs.xml</a></div><h1><div class="hl-HelpTags"><a id="tabs" class="hl-HelpTag">tabs</a><a id="buffers" class="hl-HelpTag">buffers</a></div>Tabs and buffers</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/tabs#listing-tabs">Listing tabs</a></li><li><a href="dactyl://help/tabs#opening-tabs">Opening tabs</a></li><li><a href="dactyl://help/tabs#changing-tabs">Changing tabs</a></li><li><a href="dactyl://help/tabs#reordering-tabs">Reordering tabs</a></li><li><a href="dactyl://help/tabs#closing-tabs">Closing tabs</a></li><li><a href="dactyl://help/tabs#looping-over-tabs">Looping over tabs</a></li><li><a href="dactyl://help/tabs#app-tabs">Application Tabs</a></li></ol></div>
+
+<p>
+    Tabs allow you to keep many web pages open at the same time and to quickly
+    switch between them. Each tab contains exactly one buffer. If your version
+    of Firefox supports tab groups, only buffers in the active group
+    will be attached to visible tabs. Although not all buffers are always
+    attached to visible tabs, they are all always accessible via the
+    buffer-centric commands and key bindings. Tab-centric commands and key
+    bindings, however, only operate on the set of visible tabs.
+</p>
+
+<p>
+
+</p>
+
+<h2><div class="hl-HelpTags"><a id="listing-tabs" class="hl-HelpTag">listing-tabs</a></div>Listing tabs</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="B" class="hl-HelpTag">B</a><a id=":tabs" class="hl-HelpTag">:tabs</a><a id=":ls" class="hl-HelpTag">:ls</a><a id=":files" class="hl-HelpTag">:files</a><a id=":buffers" class="hl-HelpTag">:buffers</a></div><div class="hl-HelpSpec">:buffers <span class="hl-HelpOptionalArg">[filter]</span></div><div class="hl-HelpSpec">B</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Show a list of buffers matching <span class="hl-HelpOptionalArg">[filter]</span>. Buffers are
+            listed according to their tab groups, whether they are visible or
+            not.
+        </p>
+
+        <p>A buffer may be marked with one of the following indicators:</p>
+
+        <dl><column style="width: 6em;"></column><column style=""></column><tr><dt><span class="hl-Indicator" key="Indicator">%</span></dt><dd>The current buffer</dd></tr><tr><dt><span class="hl-Indicator" key="Indicator">#</span></dt><dd>The alternate buffer for <span class="hl-HelpEx"><a href="dactyl://help/tabs#:buffer" style="color: inherit;">:buffer #</a></span> and <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/tabs#%3CC-^%3E">&lt;C-^&gt;</a></span></dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":keepa" class="hl-HelpTag">:keepa</a><a id=":keepalt" class="hl-HelpTag">:keepalt</a></div><div class="hl-HelpSpec">:keepa<span class="hl-HelpOptionalArg">[lt]</span> <span class="hl-HelpArg">{cmd}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Execute a command without changing the current alternate buffer.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="opening-tabs" class="hl-HelpTag">opening-tabs</a></div>Opening tabs</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tab" class="hl-HelpTag">:tab</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:tab <span class="hl-HelpArg">{cmd}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute <span class="hl-HelpArg">{cmd}</span>, but open any new pages in a new tab rather
+            than the currently focused tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":window" class="hl-HelpTag">:window</a><a id=":wind" class="hl-HelpTag">:wind</a></div><div class="hl-HelpSpec">:wind<span class="hl-HelpOptionalArg">[ow]</span> <span class="hl-HelpArg">{cmd}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute <span class="hl-HelpArg">{cmd}</span>, but open any new pages in a new window rather
+            than the currently focused tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+
+<p>
+    See <span class="hl-HelpTopic"><a style="color: inherit;" href="browsing.xhtml#opening">opening</a></span> for other ways to open new tabs.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="changing-tabs" class="hl-HelpTag">changing-tabs</a></div>Changing tabs</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="gb" class="hl-HelpTag">gb</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>gb</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Repeat last <span class="hl-HelpEx"><a href="dactyl://help/tabs#:buffer" style="color: inherit;">:buffer<span class="hl-HelpOptionalArg">[!]</span></a></span> command. This is useful to quickly jump between
+            buffers which have a similar URL or title.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="gB" class="hl-HelpTag">gB</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>gB</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Repeat last <span class="hl-HelpEx"><a href="dactyl://help/tabs#:buffer" style="color: inherit;">:buffer<span class="hl-HelpOptionalArg">[!]</span></a></span> command in the reverse direction.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="gt" class="hl-HelpTag">gt</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>gt</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to the next tab. Cycles to the first tab when the last one is selected.
+            If <span class="hl-HelpOptionalArg">[count]</span> is specified, go to the <span class="hl-HelpOptionalArg">[count]</span>th tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;C-PageDown&gt;" class="hl-HelpTag">&lt;C-PageDown&gt;</a><a id="&lt;C-Tab&gt;" class="hl-HelpTag">&lt;C-Tab&gt;</a><a id="&lt;C-n&gt;" class="hl-HelpTag">&lt;C-n&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-n&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to the next tab. Cycles to the first tab when the last one is selected.
+            If <span class="hl-HelpOptionalArg">[count]</span> is specified, go to the <span class="hl-HelpOptionalArg">[count]</span>th next tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;C-PageUp&gt;" class="hl-HelpTag">&lt;C-PageUp&gt;</a><a id="&lt;C-S-Tab&gt;" class="hl-HelpTag">&lt;C-S-Tab&gt;</a><a id="&lt;C-p&gt;" class="hl-HelpTag">&lt;C-p&gt;</a><a id="gT" class="hl-HelpTag">gT</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>gT</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to the previous tab. Cycles to the last tab when the first one is selected.
+            If <span class="hl-HelpOptionalArg">[count]</span> is specified, go to the <span class="hl-HelpOptionalArg">[count]</span>th previous tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id=":tabn" class="hl-HelpTag">:tabn</a><a id=":tabnext" class="hl-HelpTag">:tabnext</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>tabn<span class="hl-HelpOptionalArg">[ext]</span> <span class="hl-HelpOptionalArg">[count]</span></div><div class="hl-HelpTags"><a id=":tn" class="hl-HelpTag">:tn</a><a id=":tnext" class="hl-HelpTag">:tnext</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>tn<span class="hl-HelpOptionalArg">[ext]</span> <span class="hl-HelpOptionalArg">[count]</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":bn" class="hl-HelpTag">:bn</a><a id=":bnext" class="hl-HelpTag">:bnext</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>bn<span class="hl-HelpOptionalArg">[ext]</span> <span class="hl-HelpOptionalArg">[count]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Switch to the next or <span class="hl-HelpOptionalArg">[count]</span>th tab. Cycles to the first tab when
+            the last one is selected and <span class="hl-HelpOptionalArg">[count]</span> is not specified.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id=":bN" class="hl-HelpTag">:bN</a><a id=":bNext" class="hl-HelpTag">:bNext</a><a id=":bp" class="hl-HelpTag">:bp</a><a id=":bprevious" class="hl-HelpTag">:bprevious</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>bp<span class="hl-HelpOptionalArg">[revious]</span> <span class="hl-HelpOptionalArg">[count]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>bN<span class="hl-HelpOptionalArg">[ext]</span> <span class="hl-HelpOptionalArg">[count]</span></div><div class="hl-HelpTags"><a id=":tN" class="hl-HelpTag">:tN</a><a id=":tNext" class="hl-HelpTag">:tNext</a><a id=":tabN" class="hl-HelpTag">:tabN</a><a id=":tabNext" class="hl-HelpTag">:tabNext</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>tabN<span class="hl-HelpOptionalArg">[ext]</span> <span class="hl-HelpOptionalArg">[count]</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tp" class="hl-HelpTag">:tp</a><a id=":tprevious" class="hl-HelpTag">:tprevious</a><a id=":tabp" class="hl-HelpTag">:tabp</a><a id=":tabprevious" class="hl-HelpTag">:tabprevious</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>tabp<span class="hl-HelpOptionalArg">[revious]</span> <span class="hl-HelpOptionalArg">[count]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>tp<span class="hl-HelpOptionalArg">[revious]</span> <span class="hl-HelpOptionalArg">[count]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Switch to the previous tab or go <span class="hl-HelpOptionalArg">[count]</span> tabs back. Wraps around from the
+            first tab to the last tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;C-6&gt;" class="hl-HelpTag">&lt;C-6&gt;</a><a id="&lt;C-^&gt;" class="hl-HelpTag">&lt;C-^&gt;</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-^&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Select the previously selected tab. This provides a quick method of toggling
+            between two tabs. If <span class="hl-HelpOptionalArg">[count]</span> is specified, go to the <span class="hl-HelpOptionalArg">[count]</span>th tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="b" class="hl-HelpTag">b</a><a id=":b" class="hl-HelpTag">:b</a><a id=":buffer" class="hl-HelpTag">:buffer</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>b<span class="hl-HelpOptionalArg">[uffer]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[url|index]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>b<span class="hl-HelpOptionalArg">[uffer]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpArg">{match}</span></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>b</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go to the specified buffer from the buffer list. Argument can be
+            either the buffer index or the full URL opened in an existing
+            buffer. If <span class="hl-HelpOptionalArg">[count]</span> is given, go to the <span class="hl-HelpOptionalArg">[count]</span>th
+            buffer.
+        </p>
+
+        <p>
+            If argument is neither a full URL nor an index but uniquely identifies a
+            buffer, by a partial match with the URL or title, it is selected.
+            With <span class="hl-HelpOptionalArg">[!]</span> the next buffer matching the argument is selected,
+            even if it cannot be identified uniquely. Use <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/tabs#b">b</a></span> as a
+            shortcut to open this prompt.
+        </p>
+
+        <p>If argument is <em>#</em>, the alternate buffer will be selected (see <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/tabs#%3CC-^%3E">&lt;C-^&gt;</a></span>).</p>
+
+        <p>If no argument is given, the current buffer remains current.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="g^" class="hl-HelpTag">g^</a><a id="g0" class="hl-HelpTag">g0</a></div><div class="hl-HelpSpec">g0</div><div class="hl-HelpSpec">g^</div><div class="hl-HelpTags"><a id=":bf" class="hl-HelpTag">:bf</a><a id=":bfirst" class="hl-HelpTag">:bfirst</a><a id=":br" class="hl-HelpTag">:br</a><a id=":brewind" class="hl-HelpTag">:brewind</a></div><div class="hl-HelpSpec">:br<span class="hl-HelpOptionalArg">[ewind]</span></div><div class="hl-HelpSpec">:bf<span class="hl-HelpOptionalArg">[irst]</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tabfir" class="hl-HelpTag">:tabfir</a><a id=":tabfirst" class="hl-HelpTag">:tabfirst</a><a id=":tabr" class="hl-HelpTag">:tabr</a><a id=":tabrewind" class="hl-HelpTag">:tabrewind</a></div><div class="hl-HelpSpec">:tabr<span class="hl-HelpOptionalArg">[ewind]</span></div><div class="hl-HelpSpec">:tabfir<span class="hl-HelpOptionalArg">[st]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Switch to the first tab.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="g$" class="hl-HelpTag">g$</a><a id=":bl" class="hl-HelpTag">:bl</a><a id=":blast" class="hl-HelpTag">:blast</a><a id=":tabl" class="hl-HelpTag">:tabl</a><a id=":tablast" class="hl-HelpTag">:tablast</a></div><div class="hl-HelpSpec">:tabl<span class="hl-HelpOptionalArg">[ast]</span></div><div class="hl-HelpSpec">:bl<span class="hl-HelpOptionalArg">[ast]</span></div><div class="hl-HelpSpec">g$</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Switch to the last tab.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tabde" class="hl-HelpTag">:tabde</a><a id=":tabdetach" class="hl-HelpTag">:tabdetach</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:tabde<span class="hl-HelpOptionalArg">[tach]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Detach the current tab, and open it in its own window. As each
+            window must contain at least one buffer, it is not possible to detach
+            the last buffer in a window.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":taba" class="hl-HelpTag">:taba</a><a id=":tabattach" class="hl-HelpTag">:tabattach</a></div><div class="hl-HelpSpec">:taba<span class="hl-HelpOptionalArg">[ttach]</span> <span class="hl-HelpArg">{window-index}</span> <span class="hl-HelpOptionalArg">[buffer-index]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Attach the current tab to another window. <span class="hl-HelpArg">{window-index}</span> is
+            an index into the list of open windows and <span class="hl-HelpOptionalArg">[buffer-index]</span>
+            is the index at which to insert the tab in the other window's
+            buffer list. If this is the last buffer in a window, the window
+            will be closed.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="reordering-tabs" class="hl-HelpTag">reordering-tabs</a></div>Reordering tabs</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tabm" class="hl-HelpTag">:tabm</a><a id=":tabmove" class="hl-HelpTag">:tabmove</a></div><div class="hl-HelpSpec">:tabm<span class="hl-HelpOptionalArg">[ove]</span> <span class="hl-HelpArg">{N}</span></div><div class="hl-HelpSpec">:tabm<span class="hl-HelpOptionalArg">[ove]</span> <span class="hl-HelpArg">{match}</span></div><div class="hl-HelpSpec">:tabm<span class="hl-HelpOptionalArg">[ove]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpArg">{+N|-N}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Move the current tab to the position of tab <span class="hl-HelpArg">{N}</span>. When <span class="hl-HelpArg">{N}</span>
+            is <em>$</em>, the current tab is made the last one. <span class="hl-HelpArg">{N}</span> can
+            also be prefixed with <em>+</em> or <em>-</em> to indicate a
+            relative movement. If <span class="hl-HelpOptionalArg">[!]</span> is specified the movement wraps
+            around the start or end of the tab list.
+        </p>
+        <p>
+            The tab index may also be selected by a general <span class="hl-HelpArg">{match}</span> string
+            like <span class="hl-HelpEx"><a href="dactyl://help/tabs#:buffer" style="color: inherit;">:buffer</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="closing-tabs" class="hl-HelpTag">closing-tabs</a></div>Closing tabs</h2>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id="d" class="hl-HelpTag">d</a></div><div class="hl-HelpTags"><a id=":tabc" class="hl-HelpTag">:tabc</a><a id=":tabclose" class="hl-HelpTag">:tabclose</a></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":bun" class="hl-HelpTag">:bun</a><a id=":bunload" class="hl-HelpTag">:bunload</a><a id=":bw" class="hl-HelpTag">:bw</a><a id=":bwipeout" class="hl-HelpTag">:bwipeout</a><a id=":bd" class="hl-HelpTag">:bd</a><a id=":bdelete" class="hl-HelpTag">:bdelete</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>bd<span class="hl-HelpOptionalArg">[elete]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[arg]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>bun<span class="hl-HelpOptionalArg">[load]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[arg]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>bw<span class="hl-HelpOptionalArg">[ipeout]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[arg]</span></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>tabc<span class="hl-HelpOptionalArg">[lose]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[arg]</span></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>d</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Delete current buffer. If <span class="hl-HelpOptionalArg">[count]</span> is specified then <span class="hl-HelpOptionalArg">[count]</span> tabs are
+            removed. Afterwards, the tab to the right of the deleted tabs is selected.
+        </p>
+
+        <p>
+            When used with <span class="hl-HelpOptionalArg">[arg]</span>, remove all tabs which contain <span class="hl-HelpOptionalArg">[arg]</span> in the
+            currently opened hostname. With <span class="hl-HelpOptionalArg">[!]</span>, remove all tabs for which
+            the currently opened page's URL or title contains <span class="hl-HelpOptionalArg">[arg]</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="D" class="hl-HelpTag">D</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>D</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Like <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/tabs#d">d</a></span> but selects the tab to the left of the deleted tabs after deletion.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tabo" class="hl-HelpTag">:tabo</a><a id=":tabonly" class="hl-HelpTag">:tabonly</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:tabo<span class="hl-HelpOptionalArg">[nly]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Close all buffers other than the currently visible tab.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="u" class="hl-HelpTag">u</a><a id=":u" class="hl-HelpTag">:u</a><a id=":undo" class="hl-HelpTag">:undo</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>u<span class="hl-HelpOptionalArg">[ndo]</span> <span class="hl-HelpOptionalArg">[url]</span></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>u</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Restore a closed tab. If a <span class="hl-HelpOptionalArg">[count]</span> is given, restore the
+            <span class="hl-HelpOptionalArg">[count]</span>th closed tab. With <span class="hl-HelpOptionalArg">[url]</span>, restores most
+            recently closed tab with a matching URL.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":undoa" class="hl-HelpTag">:undoa</a><a id=":undoall" class="hl-HelpTag">:undoall</a></div><div class="hl-HelpSpec">:undoa<span class="hl-HelpOptionalArg">[ll]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Restore all closed tabs in the closed tabs list.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="looping-over-tabs" class="hl-HelpTag">looping-over-tabs</a></div>Looping over tabs</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tabd" class="hl-HelpTag">:tabd</a><a id=":tabdo" class="hl-HelpTag">:tabdo</a><a id=":bufd" class="hl-HelpTag">:bufd</a><a id=":bufdo" class="hl-HelpTag">:bufdo</a></div><div class="hl-HelpSpec">:tabd<span class="hl-HelpOptionalArg">[o]</span> <span class="hl-HelpArg">{cmd}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute <span class="hl-HelpArg">{cmd}</span> once in each buffer. Each buffer is focused, in
+            turn, and <span class="hl-HelpArg">{cmd}</span> is executed therein. The last buffer remains
+            focused after execution.
+        </p>
+
+        <p>
+            <span class="hl-HelpArg">{cmd}</span> should not alter the tab list state by adding, removing or reordering
+            tabs.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="app-tabs" class="hl-HelpTag">app-tabs</a><a id="application-tabs" class="hl-HelpTag">application-tabs</a><a id="pinned-tabs" class="hl-HelpTag">pinned-tabs</a></div>Application Tabs</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":pin" class="hl-HelpTag">:pin</a><a id=":pintab" class="hl-HelpTag">:pintab</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>pin<span class="hl-HelpOptionalArg">[tab]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[arg]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Pin tab as an application tab. If <span class="hl-HelpOptionalArg">[!]</span> is given,
+            the tab's pinned state is toggled. Arguments and count
+            are the same as for <span class="hl-HelpEx"><a href="dactyl://help/tabs#:bdelete" style="color: inherit;">:bdelete</a></span> and <span class="hl-HelpEx"><a href="dactyl://help/tabs#:buffer" style="color: inherit;">:buffer</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":unpin" class="hl-HelpTag">:unpin</a><a id=":unpintab" class="hl-HelpTag">:unpintab</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>unpin<span class="hl-HelpOptionalArg">[tab]</span> <span class="hl-HelpOptionalArg">[arg]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Unpin tab as an application tab. Arguments and count
+            are the same as for <span class="hl-HelpEx"><a href="dactyl://help/tabs#:pintab" style="color: inherit;">:pintab</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+
+</body></html>

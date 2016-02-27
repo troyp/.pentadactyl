@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Browsing</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" surfing browsing bypassing-pentadactyl &lt;pass-next-key-builtin&gt; &lt;A-b&gt; send-key &lt;pass-next-key&gt; &lt;C-v&gt; CTRL-V pass-through &lt;pass-all-keys&gt; &lt;C-z&gt; CTRL-Z opening o :o :open t :t :tabopen :tabnew T :tabdu :tabduplicate O w :winopen :wopen W &lt;open-clipboard-url&gt; &lt;MiddleMouse&gt; p &lt;tab-open-clipboard-url&gt; P gP &lt;decrement-url-path&gt; &lt;C-x&gt; &lt;increment-url-path&gt; &lt;C-a&gt; &lt;open-home-directory&gt; ~ navigating H &lt;C-o&gt; CTRL-O :ba :back L &lt;C-i&gt; CTRL-I :fo :fw :forward :ju :jumps &lt;open-homepage&gt; gh &lt;tab-open-homepage&gt; gH &lt;open-parent-path&gt; gu &lt;open-root-path&gt; gU reloading &lt;reload&gt; r &lt;full-reload&gt; R :re :reload :reloada :reloadall stopping &lt;stop-load&gt; &lt;C-c&gt; :st :stop :stopa :stopall writing save-file :w :write :sav :saveas quitting save-session ZQ :x :exit :q :quit :qa :qall :quita :quitall :wc :wclose :winc :winclose :winon :winonly ZZ :xa :xall :wq :wqa :wqall current-directory :chd :chdir :cd :pw :pwd "><div class="hl-HelpTags"><a id="browsing.xml" class="hl-HelpTag">browsing.xml</a></div><h1><div class="hl-HelpTags"><a id="surfing" class="hl-HelpTag">surfing</a><a id="browsing" class="hl-HelpTag">browsing</a></div>Browsing</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/browsing#bypassing-pentadactyl">Bypassing Pentadactyl</a></li><li><a href="dactyl://help/browsing#opening">Opening web pages</a></li><li><a href="dactyl://help/browsing#navigating">Navigating</a></li><li><a href="dactyl://help/browsing#reloading">Reloading</a></li><li><a href="dactyl://help/browsing#stopping">Stopping</a></li><li><a href="dactyl://help/browsing#writing">Writing</a></li><li><a href="dactyl://help/browsing#quitting">Quitting</a></li><li><a href="dactyl://help/browsing#current-directory">The current directory</a></li></ol></div>
+
+<h2><div class="hl-HelpTags"><a id="bypassing-pentadactyl" class="hl-HelpTag">bypassing-pentadactyl</a></div>Bypassing Pentadactyl</h2>
+
+Pentadactyl overrides nearly all Firefox keys in order to
+make browsing more pleasant for Vim users. On the occasions when you
+want to bypass Pentadactyl's key handling and pass keys directly to
+Firefox or to a web page, you have several options:
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;pass-next-key-builtin&gt;" class="hl-HelpTag">&lt;pass-next-key-builtin&gt;</a><a id="&lt;A-b&gt;" class="hl-HelpTag">&lt;A-b&gt;</a></div><div class="hl-HelpSpec">&lt;A-b&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Process the next key as a builtin mapping, ignoring any user defined
+            mappings and <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27passkeys%27">'passkeys'</a></span> settings.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="send-key" class="hl-HelpTag">send-key</a><a id="&lt;pass-next-key&gt;" class="hl-HelpTag">&lt;pass-next-key&gt;</a><a id="&lt;C-v&gt;" class="hl-HelpTag">&lt;C-v&gt;</a><a id="CTRL-V" class="hl-HelpTag">CTRL-V</a></div><div class="hl-HelpSpec">&lt;C-v&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Pass the next key press directly to Firefox.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="pass-through" class="hl-HelpTag">pass-through</a><a id="&lt;pass-all-keys&gt;" class="hl-HelpTag">&lt;pass-all-keys&gt;</a><a id="&lt;C-z&gt;" class="hl-HelpTag">&lt;C-z&gt;</a><a id="CTRL-Z" class="hl-HelpTag">CTRL-Z</a></div><div class="hl-HelpSpec">&lt;C-z&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Pass all keys except for <span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span> directly to
+            Firefox. When <span class="hl-HelpKey"><a style="color: inherit;" href="various.xhtml#%3CEsc%3E">&lt;Esc&gt;</a></span> is pressed,
+            resume normal key handling. This is especially useful
+            for web sites which make heavy use of key bindings.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<p>
+    See also <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27passkeys%27">'passkeys'</a></span> and <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27passunknown%27">'passunknown'</a></span> for ways to permanently pass
+    all or particular keys under certain conditions.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="opening" class="hl-HelpTag">opening</a></div>Opening web pages</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="o" class="hl-HelpTag">o</a><a id=":o" class="hl-HelpTag">:o</a><a id=":open" class="hl-HelpTag">:open</a></div><div class="hl-HelpSpec">:o<span class="hl-HelpOptionalArg">[pen]</span> <span class="hl-HelpOptionalArg">[args]</span></div><div class="hl-HelpSpec">o</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open a single URL in the current tab, or multiple URLs
+            in the current tab and background tabs. URLs may be
+            separated with <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27urlseparator%27">'urlseparator'</a></span>, in which case the
+            first URL is opened in the current tab and the rest are
+            opened in new background tabs.
+        </p>
+
+        <p>
+            Each URL may be one of the following:
+        </p>
+
+        <ol>
+            <li>
+                A local filename, if it begins with <em>/</em>,
+                <em>./</em>, or <em>~/</em> and the specified file
+                exists.
+            </li>
+            <li>
+                <p>
+                    A search or bookmark keyword, or a search engine
+                    name, followed by search arguments.
+                </p>
+                <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="dactyl://help/browsing#:open" style="color: inherit;">:open wikipedia Linus Torvalds</a></span></div>
+                <p>
+                    Search engines can be edited via
+                    <span class="hl-HelpEx"><a href="gui.xhtml#:dialog" style="color: inherit;">:dialog searchengines</a></span> and search
+                    keywords may be added by right clicking any
+                    search box and selecting <span class="hl-HelpString">Add a Keyword for
+                    this Search</span>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Any search string which does not look like a URL or
+                    hostname, which will be passed to the default
+                    search engine (see <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27defsearch%27">'defsearch'</a></span>).
+                </p>
+                <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="dactyl://help/browsing#:open" style="color: inherit;">:open Linus Torvalds</a></span></div>
+           </li>
+           <li>
+               Any other value is passed directly to Firefox and
+               must be a valid URL or hostname.
+           </li>
+        </ol>
+
+        <p>
+            <span class="hl-HelpEx"><a href="dactyl://help/browsing#:open" style="color: inherit;">:open</a></span> provides powerful URL completion from
+            several possible sources, which can be adjusted via the
+            <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27complete%27">'complete'</a></span> option.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="t" class="hl-HelpTag">t</a><a id=":t" class="hl-HelpTag">:t</a><a id=":tabopen" class="hl-HelpTag">:tabopen</a><a id=":tabnew" class="hl-HelpTag">:tabnew</a></div><div class="hl-HelpSpec">:tabopen<span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[args]</span></div><div class="hl-HelpSpec">t</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Like <span class="hl-HelpEx"><a href="dactyl://help/browsing#:open" style="color: inherit;">:open</a></span>, but all arguments are opened in new
+            tabs. The first new tab is activated if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27activate%27">'activate'</a></span>
+            contains <span class="hl-HelpString">tabopen</span> or <span class="hl-HelpOptionalArg">[!]</span> is provided.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="T" class="hl-HelpTag">T</a></div><div class="hl-HelpSpec">T</div><div class="hl-HelpDescription" short="true">
+        <p>
+            Open a <span class="hl-HelpEx"><a href="dactyl://help/browsing#:tabopen" style="color: inherit;">:tabopen</a></span> prompt followed by the current URL.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tabdu" class="hl-HelpTag">:tabdu</a><a id=":tabduplicate" class="hl-HelpTag">:tabduplicate</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>tabdu<span class="hl-HelpOptionalArg">[plicate]</span><span class="hl-HelpOptionalArg">[!]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Duplicates current tab <span class="hl-HelpOptionalArg">[count]</span> times. The first
+            new tab is activated if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27activate%27">'activate'</a></span> contains
+            <span class="hl-HelpString">tabopen</span> or <span class="hl-HelpOptionalArg">[!]</span> is provided.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="O" class="hl-HelpTag">O</a></div><div class="hl-HelpSpec">O</div><div class="hl-HelpDescription" short="true">
+        <p>
+            Open an <span class="hl-HelpEx"><a href="dactyl://help/browsing#:open" style="color: inherit;">:open</a></span> prompt followed by the current URL.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="w" class="hl-HelpTag">w</a><a id=":winopen" class="hl-HelpTag">:winopen</a><a id=":wopen" class="hl-HelpTag">:wopen</a></div><div class="hl-HelpSpec">:wino<span class="hl-HelpOptionalArg">[pen]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[args]</span></div><div class="hl-HelpSpec">w</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Like <span class="hl-HelpEx"><a href="dactyl://help/browsing#:tabopen" style="color: inherit;">:tabopen</a></span>, but all arguments are opened in
+            a single new window.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="W" class="hl-HelpTag">W</a></div><div class="hl-HelpSpec">W</div><div class="hl-HelpDescription" short="true">
+        <p>
+            Open a <span class="hl-HelpEx"><a href="dactyl://help/browsing#:winopen" style="color: inherit;">:winopen</a></span> prompt followed by the current URL.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;open-clipboard-url&gt;" class="hl-HelpTag">&lt;open-clipboard-url&gt;</a><a id="&lt;MiddleMouse&gt;" class="hl-HelpTag">&lt;MiddleMouse&gt;</a><a id="p" class="hl-HelpTag">p</a></div><div style="clear: both"></div><div class="hl-HelpSpec">p</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open (put) a URL based on the current clipboard
+            contents, or, on X11 systems, the currently selected
+            text. All white space is stripped from the selection and
+            it is opened in the same manner as <span class="hl-HelpEx"><a href="dactyl://help/browsing#:open" style="color: inherit;">:open</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;tab-open-clipboard-url&gt;" class="hl-HelpTag">&lt;tab-open-clipboard-url&gt;</a><a id="P" class="hl-HelpTag">P</a></div><div style="clear: both"></div><div class="hl-HelpSpec">P</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open (put) a URL based on the current clipboard contents
+            in a new buffer. Works like <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/browsing#p">p</a></span> but opens a new
+            tab. The new tab is activated if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27activate%27">'activate'</a></span>
+            contains <span class="hl-HelpString">paste</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="gP" class="hl-HelpTag">gP</a></div><div style="clear: both"></div><div class="hl-HelpSpec">gP</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open (put) a URL based on the current clipboard contents
+            in a new buffer. The new tab is activated if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27activate%27">'activate'</a></span>
+            does <em>not</em> contain <span class="hl-HelpString">paste</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;decrement-url-path&gt;" class="hl-HelpTag">&lt;decrement-url-path&gt;</a><a id="&lt;C-x&gt;" class="hl-HelpTag">&lt;C-x&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-x&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Decrements the last number in URL by 1, or by
+            <span class="hl-HelpOptionalArg">[count]</span> if given. Negative numbers are not
+            supported as trailing numbers in URLs are often preceded
+            by hyphens.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;increment-url-path&gt;" class="hl-HelpTag">&lt;increment-url-path&gt;</a><a id="&lt;C-a&gt;" class="hl-HelpTag">&lt;C-a&gt;</a></div><div style="clear: both"></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-a&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Increments the last number in URL by 1, or by
+            <span class="hl-HelpOptionalArg">[count]</span> if given.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;open-home-directory&gt;" class="hl-HelpTag">&lt;open-home-directory&gt;</a><a id="~" class="hl-HelpTag">~</a></div><div class="hl-HelpSpec">~</div><div class="hl-HelpDescription" short="true">
+        <p>Open home directory. Equivalent to <span class="hl-HelpEx"><a href="dactyl://help/browsing#:open" style="color: inherit;">:open ~/</a></span></p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="navigating" class="hl-HelpTag">navigating</a></div>Navigating</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="H" class="hl-HelpTag">H</a><a id="&lt;C-o&gt;" class="hl-HelpTag">&lt;C-o&gt;</a><a id="CTRL-O" class="hl-HelpTag">CTRL-O</a><a id=":ba" class="hl-HelpTag">:ba</a><a id=":back" class="hl-HelpTag">:back</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>ba<span class="hl-HelpOptionalArg">[ck]</span> <span class="hl-HelpOptionalArg">[url]</span></div><div class="hl-HelpSpec">:ba<span class="hl-HelpOptionalArg">[ck]</span>!</div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-o&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go <span class="hl-HelpOptionalArg">[count]</span> pages back in the browser history. If
+            <span class="hl-HelpOptionalArg">[url]</span> is specified go back to the first matching
+            URL. The special version <span class="hl-HelpEx"><a href="dactyl://help/browsing#:back" style="color: inherit;">:back!</a></span> goes to the
+            beginning of the browser history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="L" class="hl-HelpTag">L</a><a id="&lt;C-i&gt;" class="hl-HelpTag">&lt;C-i&gt;</a><a id="CTRL-I" class="hl-HelpTag">CTRL-I</a><a id=":fo" class="hl-HelpTag">:fo</a><a id=":fw" class="hl-HelpTag">:fw</a><a id=":forward" class="hl-HelpTag">:forward</a></div><div class="hl-HelpSpec">:<span class="hl-HelpOptionalArg">[count]</span>fo<span class="hl-HelpOptionalArg">[rward]</span> <span class="hl-HelpOptionalArg">[url]</span></div><div class="hl-HelpSpec">:fo<span class="hl-HelpOptionalArg">[rward]</span>!</div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>&lt;C-i&gt;</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go <span class="hl-HelpOptionalArg">[count]</span> pages forward in the browser history.
+            If <span class="hl-HelpOptionalArg">[url]</span> is specified go forward to the first
+            matching URL. The special version <span class="hl-HelpEx"><a href="dactyl://help/browsing#:forward" style="color: inherit;">:forward!</a></span>
+            goes to the end of the browser history.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ju" class="hl-HelpTag">:ju</a><a id=":jumps" class="hl-HelpTag">:jumps</a></div><div class="hl-HelpSpec">:ju<span class="hl-HelpOptionalArg">[mps]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>List all jumps, i.e., the current tab's session history.</p>
+
+        <p>
+            Current history position is marked with <em>&gt;</em>.
+            Jump numbers may be used as counts for
+            <span class="hl-HelpEx"><a href="dactyl://help/browsing#:back" style="color: inherit;">:back</a></span> or <span class="hl-HelpEx"><a href="dactyl://help/browsing#:forward" style="color: inherit;">:forward</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;open-homepage&gt;" class="hl-HelpTag">&lt;open-homepage&gt;</a><a id="gh" class="hl-HelpTag">gh</a></div><div class="hl-HelpSpec">gh</div><div class="hl-HelpDescription" short="true">
+        <p>Go home. Opens the homepage in the current tab.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;tab-open-homepage&gt;" class="hl-HelpTag">&lt;tab-open-homepage&gt;</a><a id="gH" class="hl-HelpTag">gH</a></div><div style="clear: both"></div><div class="hl-HelpSpec">gH</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Go home in a new tab. Opens the homepage in a new tab.
+            The new tab is activated if <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27activate%27">'activate'</a></span> contains
+            <span class="hl-HelpString">homepage</span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;open-parent-path&gt;" class="hl-HelpTag">&lt;open-parent-path&gt;</a><a id="gu" class="hl-HelpTag">gu</a></div><div class="hl-HelpSpec"><span class="hl-HelpOptionalArg">[count]</span>gu</div><div class="hl-HelpDescription" short="true">
+        <p>Go to <span class="hl-HelpOptionalArg">[count]</span>th parent directory.</p>
+
+        <p>
+            For example, at the URL
+            <tt>http://www.example.com/dir1/dir2/file.htm</tt>,
+            2<span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/browsing#gu">gu</a></span> opens <tt>http://www.example.com/dir1/</tt>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;open-root-path&gt;" class="hl-HelpTag">&lt;open-root-path&gt;</a><a id="gU" class="hl-HelpTag">gU</a></div><div class="hl-HelpSpec">gU</div><div class="hl-HelpDescription" short="true">
+        <p>Go to the root of the web site.</p>
+
+        <p>
+            For example, at the URL
+            <tt>http://www.example.com/dir1/dir2/file.htm</tt>,
+            <span class="hl-HelpKey"><a style="color: inherit;" href="dactyl://help/browsing#gU">gU</a></span> opens <tt>http://www.example.com/</tt>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="reloading" class="hl-HelpTag">reloading</a></div>Reloading</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;reload&gt;" class="hl-HelpTag">&lt;reload&gt;</a><a id="r" class="hl-HelpTag">r</a></div><div class="hl-HelpSpec">r</div><div class="hl-HelpDescription" short="true">
+        <p>Reload the current web page.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;full-reload&gt;" class="hl-HelpTag">&lt;full-reload&gt;</a><a id="R" class="hl-HelpTag">R</a></div><div class="hl-HelpSpec">R</div><div class="hl-HelpDescription" short="true">
+        <p>Reload the current web page without using the cache.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":re" class="hl-HelpTag">:re</a><a id=":reload" class="hl-HelpTag">:reload</a></div><div class="hl-HelpSpec">:re<span class="hl-HelpOptionalArg">[load]</span><span class="hl-HelpOptionalArg">[!]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Reload current web page. If <span class="hl-HelpOptionalArg">[!]</span> is given, reload
+            without using the cache.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":reloada" class="hl-HelpTag">:reloada</a><a id=":reloadall" class="hl-HelpTag">:reloadall</a></div><div class="hl-HelpSpec">:reloada<span class="hl-HelpOptionalArg">[ll]</span><span class="hl-HelpOptionalArg">[!]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Reload all tabs. If <span class="hl-HelpOptionalArg">[!]</span> is given, reload without
+            using the cache.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="stopping" class="hl-HelpTag">stopping</a></div>Stopping</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="&lt;stop-load&gt;" class="hl-HelpTag">&lt;stop-load&gt;</a><a id="&lt;C-c&gt;" class="hl-HelpTag">&lt;C-c&gt;</a><a id=":st" class="hl-HelpTag">:st</a><a id=":stop" class="hl-HelpTag">:stop</a></div><div class="hl-HelpSpec">&lt;C-c&gt;</div><div style="clear: both"></div><div class="hl-HelpSpec">:st<span class="hl-HelpOptionalArg">[op]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Stop loading the current web page.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":stopa" class="hl-HelpTag">:stopa</a><a id=":stopall" class="hl-HelpTag">:stopall</a></div><div class="hl-HelpSpec">:stopa<span class="hl-HelpOptionalArg">[ll]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Stop loading all web pages.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="writing" class="hl-HelpTag">writing</a><a id="save-file" class="hl-HelpTag">save-file</a></div>Writing</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":w" class="hl-HelpTag">:w</a><a id=":write" class="hl-HelpTag">:write</a><a id=":sav" class="hl-HelpTag">:sav</a><a id=":saveas" class="hl-HelpTag">:saveas</a></div><div class="hl-HelpSpec">:sav<span class="hl-HelpOptionalArg">[eas]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpOptionalArg">[file]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Save current web page to disk. If <span class="hl-HelpOptionalArg">[file]</span> is omitted, save to
+            the page's default filename. If <span class="hl-HelpOptionalArg">[file]</span> is a directory or ends
+            with your platform's path separator, save to the page's default
+            filename in that directory. Existing documents will only be
+            overwritten if <span class="hl-HelpOptionalArg">[!]</span> is given.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:write &gt;&gt; <span class="hl-HelpArg">{file}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Appends the current web page to the file <span class="hl-HelpArg">{file}</span>. The given
+            file must already exist.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:write !<span class="hl-HelpArg">{cmd}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Writes the current web page to <span class="hl-HelpArg">{cmd}</span> and prints the command's
+            output.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="quitting" class="hl-HelpTag">quitting</a><a id="save-session" class="hl-HelpTag">save-session</a></div>Quitting</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="ZQ" class="hl-HelpTag">ZQ</a><a id=":x" class="hl-HelpTag">:x</a><a id=":exit" class="hl-HelpTag">:exit</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:exit<span class="hl-HelpOptionalArg">[!]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Quit Pentadactyl, no matter how many tabs/windows are open.
+            The session is not stored. Use <span class="hl-HelpOptionalArg">[!]</span> to forcibly quit.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":q" class="hl-HelpTag">:q</a><a id=":quit" class="hl-HelpTag">:quit</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:q<span class="hl-HelpOptionalArg">[uit]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Quit current tab. If this is the last tab in the window,
+            close the window.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":qa" class="hl-HelpTag">:qa</a><a id=":qall" class="hl-HelpTag">:qall</a><a id=":quita" class="hl-HelpTag">:quita</a><a id=":quitall" class="hl-HelpTag">:quitall</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:quita<span class="hl-HelpOptionalArg">[ll]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Close the current Pentadactyl window, no matter how
+            many tabs are open.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":wc" class="hl-HelpTag">:wc</a><a id=":wclose" class="hl-HelpTag">:wclose</a><a id=":winc" class="hl-HelpTag">:winc</a><a id=":winclose" class="hl-HelpTag">:winclose</a></div><div class="hl-HelpSpec">:winc<span class="hl-HelpOptionalArg">[lose]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Close the current window.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":winon" class="hl-HelpTag">:winon</a><a id=":winonly" class="hl-HelpTag">:winonly</a></div><div class="hl-HelpSpec">:winon<span class="hl-HelpOptionalArg">[ly]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Close all windows but the current.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="ZZ" class="hl-HelpTag">ZZ</a><a id=":xa" class="hl-HelpTag">:xa</a><a id=":xall" class="hl-HelpTag">:xall</a><a id=":wq" class="hl-HelpTag">:wq</a><a id=":wqa" class="hl-HelpTag">:wqa</a><a id=":wqall" class="hl-HelpTag">:wqall</a></div><div class="hl-HelpSpec">:wqa<span class="hl-HelpOptionalArg">[ll]</span></div><div style="clear: both"></div><div class="hl-HelpSpec">:xa<span class="hl-HelpOptionalArg">[ll]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Save the current session and quit.</p>
+        <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+            Unlike Vim, <span class="hl-HelpEx"><a href="dactyl://help/browsing#:wq" style="color: inherit;">:wq</a></span> closes the entire window rather
+            than just the current tab.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="current-directory" class="hl-HelpTag">current-directory</a></div>The current directory</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":chd" class="hl-HelpTag">:chd</a><a id=":chdir" class="hl-HelpTag">:chdir</a><a id=":cd" class="hl-HelpTag">:cd</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:cd <span class="hl-HelpOptionalArg">[path]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Change the current directory. If <span class="hl-HelpOptionalArg">[path]</span> is
+            <em>-</em>, change to the previous directory. If it is
+            omitted, change to the home directory.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":pw" class="hl-HelpTag">:pw</a><a id=":pwd" class="hl-HelpTag">:pwd</a></div><div class="hl-HelpSpec">:pw<span class="hl-HelpOptionalArg">[d]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Print the current directory name.</p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

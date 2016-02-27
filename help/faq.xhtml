@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl FAQ</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" faq-general faq-fork faq-differences faq-statussymbols faq-lasttab faq-regexpsearch faq-autocomplete faq-editor-fork faq-symlinks faq-open faq-urlsep faq-hidden-engines faq-keys faq-website-keys faq-passkeys-autocmd faq-hints faq-hintkeys faq-hintkeys-uppercase faq-hint-hidetext "><div class="hl-HelpTags"><a id="faq.xml" class="hl-HelpTag">faq.xml</a></div><h1 style="margin-top: 0;">Frequently Asked Questions</h1>
+            <p>
+                Below is a list of some of the commonest questions that come to
+                our attention, along with their hopefully satisfactory answers.
+                Please take a minute to search for your answers here before
+                asking the <a href="http://groups.google.com/group/pentadactyl" rel="external" topic="http://groups.google.com/group/pentadactyl">mailing list</a> or
+                <a href="irc://irc.oftc.net/#pentadactyl" rel="external" topic="irc://irc.oftc.net/#pentadactyl">irc channel</a>,
+                and don't forget to peruse the
+                <a href="http://code.google.com/p/dactyl/source/browse/pentadactyl/NEWS" rel="external" topic="http://code.google.com/p/dactyl/source/browse/pentadactyl/NEWS">NEWS file</a> for recent
+                changes that might throw you off balance.
+            </p>
+
+            <div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/faq#faq-general">General</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/faq#faq-fork">Why did Pentadactyl split from Vimperator?</a></li><li><a href="dactyl://help/faq#faq-differences">What differentiates Pentadactyl from Vimperator?</a></li><li><a href="dactyl://help/faq#faq-statussymbols">What do the "[-+♥]" symbols in the status bar mean?</a></li><li><a href="dactyl://help/faq#faq-lasttab">How can I prevent <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#d">d</a></span> on the last tab from closing the window?</a></li><li><a href="dactyl://help/faq#faq-regexpsearch">How can I use regular expressions in the page search?</a></li><li><a href="dactyl://help/faq#faq-autocomplete">How can I prevent the command line completion list showing until I press <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span>?</a></li><li><a href="dactyl://help/faq#faq-editor-fork">Why doesn't external input field editing work with my <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27editor%27">'editor'</a></span> setting?</a></li><li><a href="dactyl://help/faq#faq-symlinks">Why can't I build/install from the Mercurial repository on Windows®?</a></li></ol></li><li><a href="dactyl://help/faq#faq-open"><span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> behavior</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/faq#faq-urlsep">Why can't I separate URLs in <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> with a comma anymore?</a></li><li><a href="dactyl://help/faq#faq-hidden-engines">
+                
+                <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open <span class="hl-HelpArg">{search-string}</span></a></span> or <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open <span class="hl-HelpString" delim="">google</span> <span class="hl-HelpArg">{search-string}</span></a></span>
+                results in <span class="hl-HelpString">The url is not valid and cannot be loaded</span>
+            </a></li></ol></li><li><a href="dactyl://help/faq#faq-keys">Key bindings</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/faq#faq-website-keys">How can I use the native key bindings of sites like Gmail?</a></li><li><a href="dactyl://help/faq#faq-passkeys-autocmd">Why doesn't my modes.passAllKeys autocmd work anymore?</a></li></ol></li><li><a href="dactyl://help/faq#faq-hints">Hints</a><ol level="3" class="hl-HelpOrderedList"><li><a href="dactyl://help/faq#faq-hintkeys">How can I use keys other than numbers for hinting?</a></li><li><a href="dactyl://help/faq#faq-hintkeys-uppercase">How can I display my hints in upper case but type them in lower case?</a></li><li><a href="dactyl://help/faq#faq-hint-hidetext">How can I hide the hint text for input and image hints?</a></li></ol></li></ol></div>
+
+            <h2><div class="hl-HelpTags"><a id="faq-general" class="hl-HelpTag">faq-general</a></div>General</h2>
+            <h3><div class="hl-HelpTags"><a id="faq-fork" class="hl-HelpTag">faq-fork</a></div>Why did Pentadactyl split from Vimperator?</h3>
+            <p>
+                The reasons for the fork were mostly political, but mostly
+                boil down to the fact that the current maintainer, while
+                making no substantial contributions to the project for several
+                years, continues to exercise full editorial control while
+                actively soliciting donations with no transparency whatever.
+                We considered the latter especially a slight on both our
+                developers and our users, and after a considerable escalation
+                of the degree of offense felt compelled to leave the project.
+            </p>
+            <p>
+                However, though we could no longer justify supporting the
+                Vimperator project, we've invested considerable time and
+                energy into the code over these past several years and still
+                use and care about it. For that reason, we've decided to
+                publicly release our personal changes and continue to develop
+                the extension under a different name.
+            </p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-differences" class="hl-HelpTag">faq-differences</a></div>What differentiates Pentadactyl from Vimperator?</h3>
+            <p>
+                The main difference is that Vimperator's most active
+                developers have moved on to Pentadactyl. More qualitative
+                changes may be found in the
+                <a href="http://code.google.com/p/dactyl/source/browse/pentadactyl/NEWS" rel="external" topic="http://code.google.com/p/dactyl/source/browse/pentadactyl/NEWS">change log</a>,
+                but essentially add up to what we consider more active and
+                thoughtful development. Among the most visible differences, as
+                of Pentadactyl 1.0, are more extensive Firefox 4 support,
+                significantly better startup time and completion performance,
+                considerably better :sanitize and private mode support, a
+                greatly improved incremental find implementation, major
+                improvements in Ex command parsing (including the ability to
+                separate commands with | and split long commands across lines),
+                conditionals (<span class="hl-HelpEx"><a href="eval.xhtml#:if" style="color: inherit;">:if</a></span>/<span class="hl-HelpEx"><a href="eval.xhtml#:else" style="color: inherit;">:else</a></span>) in configuration
+                files, greatly updated documentation, and a number of bug fixes.
+            </p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-statussymbols" class="hl-HelpTag">faq-statussymbols</a></div>What do the "[-+♥]" symbols in the status bar mean?</h3>
+            <p>
+                These indicate that you can move backward through history,
+                that you can move forward through history, and that the page
+                is bookmarked, respectively. See also <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help</a></span>
+                <span class="hl-HelpTopic"><a style="color: inherit;" href="gui.xhtml#status-line">status-line</a></span>.
+            </p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-lasttab" class="hl-HelpTag">faq-lasttab</a></div>How can I prevent <span class="hl-HelpKey"><a style="color: inherit;" href="tabs.xhtml#d">d</a></span> on the last tab from closing the window?</h3>
+            <p><span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set!</a></span> <span class="hl-HelpOpt" key="HelpOpt">browser.tabs.closeWindowWithLastTab</span>=<span class="hl-Boolean" key="Boolean">false</span></p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-regexpsearch" class="hl-HelpTag">faq-regexpsearch</a></div>How can I use regular expressions in the page search?</h3>
+            <p>
+                Regular expression search is possible with the <tt>/Find Bar/</tt>
+                extension installed, in which case it can be toggled with the
+                <em>\r</em> and <em>\R</em> search flags. See also
+                <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help</a></span> <span class="hl-HelpTopic"><a style="color: inherit;" href="pattern.xhtml">pattern</a></span>.
+            </p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-autocomplete" class="hl-HelpTag">faq-autocomplete</a></div>How can I prevent the command line completion list showing until I press <span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span>?</h3>
+            <p>
+                You can disable it entirely with <span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set autocomplete=</a></span>
+                or for specific types of command completion by
+                choosing more restrictive values. See <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help</a></span>
+                <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27autocomplete%27">'autocomplete'</a></span> and <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27wildmode%27">'wildmode'</a></span>.
+            </p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-editor-fork" class="hl-HelpTag">faq-editor-fork</a></div>Why doesn't external input field editing work with my <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27editor%27">'editor'</a></span> setting?</h3>
+            <p>
+                Unfortunately, external editors which return immediately,
+                before editing is complete, are not supported. This means that
+                gvim, for instance, must be run with the <em>-f</em> flag, and
+                editors run from a terminal must not connect to a remote
+                process. In the case of Rxvt-unicode, this means that the
+                urxvtc program is not an option, and Gnome Terminal is very
+                likely not useable under any circumstances.
+            </p>
+            <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+                If you are using a version of Firefox newer than 4.0
+                beta 7 and a version of Pentadactyl less than 1.0
+                βeta 4, you'll need to upgrade the latter.
+            </p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-symlinks" class="hl-HelpTag">faq-symlinks</a></div>Why can't I build/install from the Mercurial repository on Windows®?</h3>
+            <p>
+                We use symbolic links in our repository to deal with certain
+                files which are common across projects. Mercurial for
+                Windows®, unfortunately, doesn't deal with these very well.
+                However, adding the following lines to the <tt>.hg\hgrc</tt>
+                file in your repository should make things work:
+            </p>
+            <pre class="hl-HelpCode"><span class="hl-Key" key="Key">[hooks]</span>
+update = <span class="hl-HelpString" delim="">python:common/contrib/fix_symlinks.py:fix_symlinks</span>
+preupdate = <span class="hl-HelpString" delim="">python:common/contrib/fix_symlinks.py:fix_symlinks</span>
+commit = <span class="hl-HelpString" delim="">python:common/contrib/fix_symlinks.py:fix_symlinks</span>
+precommit = <span class="hl-HelpString" delim="">python:common/contrib/fix_symlinks.py:fix_symlinks</span></pre>
+
+            <h2><div class="hl-HelpTags"><a id="faq-open" class="hl-HelpTag">faq-open</a></div><span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> behavior</h2>
+            <h3><div class="hl-HelpTags"><a id="faq-urlsep" class="hl-HelpTag">faq-urlsep</a></div>Why can't I separate URLs in <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open</a></span> with a comma anymore?</h3>
+            <p>See <span class="hl-HelpEx"><a href="various.xhtml#:help" style="color: inherit;">:help <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27urlseparator%27">'urlseparator'</a></span></a></span></p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-hidden-engines" class="hl-HelpTag">faq-hidden-engines</a></div>
+                <div style="clear: both"></div>
+                <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open <span class="hl-HelpArg">{search-string}</span></a></span> or <span class="hl-HelpEx"><a href="browsing.xhtml#:open" style="color: inherit;">:open <span class="hl-HelpString" delim="">google</span> <span class="hl-HelpArg">{search-string}</span></a></span>
+                results in <span class="hl-HelpString">The url is not valid and cannot be loaded</span>
+            </h3>
+            <p>
+                You need a valid search engine name in the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27defsearch%27">'defsearch'</a></span>
+                option. If it's stopped working suddenly, there's a good chance
+                that you've either deleted a search engine or changed its alias.
+                You can check by invoking
+
+                <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="gui.xhtml#:dialog" style="color: inherit;">:dialog <span class="hl-HelpString" delim="">searchengines</span></a></span></pre>
+
+                There also appears to be a Firefox bug whereby the default
+                engines are hidden after an update. This can be remedied by
+                invoking
+
+                <pre class="hl-HelpCode" style="position: relative"><span class="hl-HelpEx"><a href="eval.xhtml#:js" style="color: inherit;">:js</a></span> services.get(<span class="hl-HelpString">browserSearch</span>).getEngines().forEach(<em>function</em> (e) e.hidden = <span class="hl-Boolean" key="Boolean">false</span>)</pre>
+            </p>
+
+            <h2><div class="hl-HelpTags"><a id="faq-keys" class="hl-HelpTag">faq-keys</a></div>Key bindings</h2>
+            <h3><div class="hl-HelpTags"><a id="faq-website-keys" class="hl-HelpTag">faq-website-keys</a></div>How can I use the native key bindings of sites like Gmail?</h3>
+            <p>
+                See the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27passkeys%27">'passkeys'</a></span> option to automatically pass specific
+                keys on sites of your choosing, or <span class="hl-HelpTopic"><a style="color: inherit;" href="autocommands.xhtml#autocmd-examples">autocmd-examples</a></span> to
+                automatically enter <em>Pass Through</em> mode for certain websites.
+            </p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-passkeys-autocmd" class="hl-HelpTag">faq-passkeys-autocmd</a></div>Why doesn't my modes.passAllKeys autocmd work anymore?</h3>
+            <p>See <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/faq#faq-website-keys">faq-website-keys</a></span> above.</p>
+
+            <h2><div class="hl-HelpTags"><a id="faq-hints" class="hl-HelpTag">faq-hints</a></div>Hints</h2>
+            <h3><div class="hl-HelpTags"><a id="faq-hintkeys" class="hl-HelpTag">faq-hintkeys</a></div>How can I use keys other than numbers for hinting?</h3>
+            <p>Use the <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27hintkeys%27">'hintkeys'</a></span> option.</p>
+
+            <h3><div class="hl-HelpTags"><a id="faq-hintkeys-uppercase" class="hl-HelpTag">faq-hintkeys-uppercase</a></div>How can I display my hints in upper case but type them in lower case?</h3>
+            <p>
+                If you use alphabetic characters for your <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27hintkeys%27">'hintkeys'</a></span> and
+                would like to be able to type them in lower case but still have
+                the hints displayed in upper case, use:
+            </p>
+            <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="styling.xhtml#:highlight" style="color: inherit;">:highlight</a></span> <em>-a</em> Hint <span class="hl-Key" key="Key">text-transform</span>: <span class="hl-HelpString" delim="">uppercase</span>;</pre>
+
+            <h3><div class="hl-HelpTags"><a id="faq-hint-hidetext" class="hl-HelpTag">faq-hint-hidetext</a></div>How can I hide the hint text for input and image hints?</h3>
+            <p>
+                If you'd only like to show the numbered portion of hints, you
+                can do so with:
+            </p>
+            <pre class="hl-HelpCode"><span class="hl-HelpEx"><a href="styling.xhtml#:highlight" style="color: inherit;">:highlight</a></span> Hint<span class="hl-HelpString" delim="">::after</span> <span class="hl-Key" key="Key">content</span>: attr(<span class="hl-HelpString" delim="">number</span>) <span class="hl-Key" key="Key">!important</span>;</pre>
+
+</body></html>

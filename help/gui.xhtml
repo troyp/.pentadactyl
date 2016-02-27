@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl GUI</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" gui menu :emenu dialogs :ao :addo :addons :dia :dialog dialog-list :dl :downl :downloads :dlc :dlclear extensions add-ons :exta :extadd :extde :extdelete :extd :extdisable :exte :extenable :exto :extoptions :extp :extpreferences :extr :extrehash :extt :exttoggle :extu :extupdate sidebar :sbcl :sbclose :sbope :sbopen :sb :sbar :sideb :sidebar status-line status-bar toolbar :tbs :tbshow :toolbars :toolbarshow :tbh :tbhide :toolbarh  :toolbarhide :tbt :tbtoggle :toolbart :toolbartoggle "><div class="hl-HelpTags"><a id="gui.xml" class="hl-HelpTag">gui.xml</a></div>
+
+<h1><div class="hl-HelpTags"><a id="gui" class="hl-HelpTag">gui</a></div>Firefox's GUI</h1>
+<div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/gui#menu">Menus</a></li><li><a href="dactyl://help/gui#dialogs">Dialogs</a></li><li><a href="dactyl://help/gui#extensions">Add-ons</a></li><li><a href="dactyl://help/gui#sidebar">Sidebar</a></li><li><a href="dactyl://help/gui#status-line">Status line</a></li><li><a href="dactyl://help/gui#toolbar">Toolbars</a></li></ol></div>
+
+<p>
+    Although Pentadactyl offers access to the most frequently used
+    Firefox functionality via Ex and Normal mode commands, there may be
+    times when direct access to the Firefox GUI is required. For such
+    eventualities, there are commands to access menu items and to launch
+    standard Firefox dialogs.
+</p>
+
+<h2><div class="hl-HelpTags"><a id="menu" class="hl-HelpTag">menu</a></div>Menus</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":emenu" class="hl-HelpTag">:emenu</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:emenu <span class="hl-HelpArg">{menu}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Execute <span class="hl-HelpArg">{menu}</span> from the command line. This command provides command-line access
+            to all menu items available from the main Firefox menubar. <span class="hl-HelpArg">{menu}</span> is a
+            hierarchical path to the menu item with each submenu separated by a period.
+            E.g. <span class="hl-HelpEx"><a href="dactyl://help/gui#:emenu" style="color: inherit;">:emenu File.Open File…</a></span> launches the standard
+            Firefox ‘Open File’ dialog.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="dialogs" class="hl-HelpTag">dialogs</a></div>Dialogs</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ao" class="hl-HelpTag">:ao</a><a id=":addo" class="hl-HelpTag">:addo</a><a id=":addons" class="hl-HelpTag">:addons</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:addo<span class="hl-HelpOptionalArg">[ns]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Opens the add-on list.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":dia" class="hl-HelpTag">:dia</a><a id=":dialog" class="hl-HelpTag">:dialog</a></div><div class="hl-HelpSpec">:dia<span class="hl-HelpOptionalArg">[log]</span> <span class="hl-HelpOptionalArg">[Firefox-dialog]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Open a Firefox dialog. Available dialogs include:</p>
+
+        <div class="hl-HelpTags"><a id="dialog-list" class="hl-HelpTag">dialog-list</a></div><dl><column style=""></column><column style=""></column></dl><dl><column style=""></column><column style=""></column><tr><dt>about</dt><dd>About Firefox</dd></tr><tr><dt>addbookmark</dt><dd>Add bookmark for the current page</dd></tr><tr><dt>addons</dt><dd>Manage Add-ons</dd></tr><tr><dt>bookmarks</dt><dd>List your bookmarks</dd></tr><tr><dt>cookies</dt><dd>List your cookies</dd></tr><tr><dt>console</dt><dd>JavaScript console</dd></tr><tr><dt>customizetoolbar</dt><dd>Customize the Toolbar</dd></tr><tr><dt>dominspector</dt><dd>DOM Inspector</dd></tr><tr><dt>downloads</dt><dd>Manage Downloads</dd></tr><tr><dt>history</dt><dd>List your history</dd></tr><tr><dt>import</dt><dd>Import Preferences, Bookmarks, History, etc. from other browsers</dd></tr><tr><dt>openfile</dt><dd>Open the file selector dialog</dd></tr><tr><dt>pageinfo</dt><dd>Show information about the current page</dd></tr><tr><dt>pagesource</dt><dd>View page source</dd></tr><tr><dt>passwords</dt><dd>Passwords dialog</dd></tr><tr><dt>places</dt><dd>Places Organizer: Manage your bookmarks and history</dd></tr><tr><dt>preferences</dt><dd>Show Firefox preferences dialog</dd></tr><tr><dt>printpreview</dt><dd>Preview the page before printing</dd></tr><tr><dt>printsetup</dt><dd>Setup the page size and orientation before printing</dd></tr><tr><dt>print</dt><dd>Show print dialog</dd></tr><tr><dt>saveframe</dt><dd>Save frame to disk</dd></tr><tr><dt>savepage</dt><dd>Save page to disk</dd></tr><tr><dt>searchengines</dt><dd>Manage installed search engines</dd></tr><tr><dt>selectionsource</dt><dd>View selection source</dd></tr><tr><dt>venkman</dt><dd>The JavaScript debugger</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":dl" class="hl-HelpTag">:dl</a><a id=":downl" class="hl-HelpTag">:downl</a><a id=":downloads" class="hl-HelpTag">:downloads</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:downl<span class="hl-HelpOptionalArg">[oads]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Show progress of current downloads. Here, downloads can
+            be paused, resumed, and canceled.
+        </p>
+
+        <p>Available options include:</p>
+
+        <dl><column style=""></column><column style=""></column><tr><dt>-sort</dt><dd>Sort order (see <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27downloadsort%27">'downloadsort'</a></span>) (short name: <em>-s</em>)</dd></tr></dl>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":dlc" class="hl-HelpTag">:dlc</a><a id=":dlclear" class="hl-HelpTag">:dlclear</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:dlc<span class="hl-HelpOptionalArg">[lear]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Clear completed downloads.</p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="extensions" class="hl-HelpTag">extensions</a><a id="add-ons" class="hl-HelpTag">add-ons</a></div>Add-ons</h2>
+
+<p>
+    The following commands manipulate the currently installed
+    add-ons. With the exception of <span class="hl-HelpEx"><a href="dactyl://help/gui#:extadd" style="color: inherit;">:extadd</a></span>, they all except
+    the following arguments:
+</p>
+
+<dl><column style=""></column><column style=""></column><tr><dt>-types</dt><dd>The types of add-ons to operate on, the most
+        common types being <tt>extension</tt>, <tt>theme</tt>, and <tt>plugin</tt> (short names <em>-type</em>,
+        <em>-t</em>)</dd></tr></dl>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":exta" class="hl-HelpTag">:exta</a><a id=":extadd" class="hl-HelpTag">:extadd</a></div><div class="hl-HelpSpec">:exta<span class="hl-HelpOptionalArg">[dd]</span> <span class="hl-HelpArg">{file|url}</span></div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Install an extension. <span class="hl-HelpArg">{file|uri}</span> must be the local file
+            path or URL of an XPInstall (.xpi) file.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":extde" class="hl-HelpTag">:extde</a><a id=":extdelete" class="hl-HelpTag">:extdelete</a></div><div class="hl-HelpSpec">:extde<span class="hl-HelpOptionalArg">[lete]</span> <span class="hl-HelpArg">{extension}</span></div><div class="hl-HelpSpec">:extde<span class="hl-HelpOptionalArg">[lete]</span>!</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Uninstall an extension. <span class="hl-HelpArg">{extension}</span> is the extension's name. When <span class="hl-HelpOptionalArg">[!]</span> is given
+            all extensions are uninstalled.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":extd" class="hl-HelpTag">:extd</a><a id=":extdisable" class="hl-HelpTag">:extdisable</a></div><div class="hl-HelpSpec">:extd<span class="hl-HelpOptionalArg">[isable]</span> <span class="hl-HelpArg">{extension}</span></div><div class="hl-HelpSpec">:extd<span class="hl-HelpOptionalArg">[isable]</span>!</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Disable an extension. <span class="hl-HelpArg">{extension}</span> is the extension's name. When <span class="hl-HelpOptionalArg">[!]</span> is given
+            all extensions are disabled.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":exte" class="hl-HelpTag">:exte</a><a id=":extenable" class="hl-HelpTag">:extenable</a></div><div class="hl-HelpSpec">:exte<span class="hl-HelpOptionalArg">[nable]</span> <span class="hl-HelpArg">{extension}</span></div><div class="hl-HelpSpec">:exte<span class="hl-HelpOptionalArg">[nable]</span>!</div><div style="clear: both"></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Enable an extension. <span class="hl-HelpArg">{extension}</span> is the extension's name. When <span class="hl-HelpOptionalArg">[!]</span> is given all
+            extensions are enabled.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div class="hl-HelpTags"><a id=":exto" class="hl-HelpTag">:exto</a><a id=":extoptions" class="hl-HelpTag">:extoptions</a></div><div class="hl-HelpSpec">:exto<span class="hl-HelpOptionalArg">[ptions]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpArg">{extension}</span></div><div style="clear: right"></div><div class="hl-HelpTags"><a id=":extp" class="hl-HelpTag">:extp</a><a id=":extpreferences" class="hl-HelpTag">:extpreferences</a></div><div class="hl-HelpSpec">:extp<span class="hl-HelpOptionalArg">[references]</span><span class="hl-HelpOptionalArg">[!]</span> <span class="hl-HelpArg">{extension}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open the preferences dialog for an extension. If <span class="hl-HelpOptionalArg">[!]</span> is given, open a dialog,
+            otherwise open a buffer. See also <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27newtab%27">'newtab'</a></span>.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":extr" class="hl-HelpTag">:extr</a><a id=":extrehash" class="hl-HelpTag">:extrehash</a></div><div class="hl-HelpSpec">:extr<span class="hl-HelpOptionalArg">[ehash]</span> <span class="hl-HelpArg">{extension}</span></div><div class="hl-HelpSpec">:extr<span class="hl-HelpOptionalArg">[ehash]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Toggle an extension's enabled status twice. This is useful for rebooting
+            a restartless extension.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":extt" class="hl-HelpTag">:extt</a><a id=":exttoggle" class="hl-HelpTag">:exttoggle</a></div><div class="hl-HelpSpec">:extt<span class="hl-HelpOptionalArg">[oggle]</span> <span class="hl-HelpArg">{extension}</span></div><div class="hl-HelpSpec">:extt<span class="hl-HelpOptionalArg">[oggle]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Toggle an extension's enabled status.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":extu" class="hl-HelpTag">:extu</a><a id=":extupdate" class="hl-HelpTag">:extupdate</a></div><div class="hl-HelpSpec">:extu<span class="hl-HelpOptionalArg">[pdate]</span> <span class="hl-HelpArg">{extension}</span></div><div class="hl-HelpSpec">:extu<span class="hl-HelpOptionalArg">[pdate]</span><span class="hl-HelpOptionalArg">[!]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Update an extension. When <span class="hl-HelpOptionalArg">[!]</span> is given, update all
+            extensions.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+<h2><div class="hl-HelpTags"><a id="sidebar" class="hl-HelpTag">sidebar</a></div>Sidebar</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":sbcl" class="hl-HelpTag">:sbcl</a><a id=":sbclose" class="hl-HelpTag">:sbclose</a></div><div class="hl-HelpSpec">:sbcl<span class="hl-HelpOptionalArg">[ose]</span></div><div class="hl-HelpDescription" short="true">
+        <p>Close the sidebar window.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":sbope" class="hl-HelpTag">:sbope</a><a id=":sbopen" class="hl-HelpTag">:sbopen</a><a id=":sb" class="hl-HelpTag">:sb</a><a id=":sbar" class="hl-HelpTag">:sbar</a><a id=":sideb" class="hl-HelpTag">:sideb</a><a id=":sidebar" class="hl-HelpTag">:sidebar</a></div><div class="hl-HelpSpec">:sidebar <span class="hl-HelpArg">{name}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Open the sidebar window. <span class="hl-HelpArg">{name}</span> is any of the menu items listed under the
+            standard Firefox View-&gt;Sidebar menu. Add-ons, Preferences and Downloads are
+            also available in the sidebar.
+        </p>
+    </div><div style="clear: both;"></div></div>
+<div class="hl-HelpItem"><div class="hl-HelpSpec">:sidebar! <span class="hl-HelpOptionalArg">[name]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>
+            Toggle the sidebar window. When <span class="hl-HelpOptionalArg">[name]</span> is provided, the
+            semantics are as follows: If the named sidebar is currently open,
+            it is closed. Otherwise the named sidebar is opened. When
+            <span class="hl-HelpOptionalArg">[name]</span> is not provided, the semantics are as follows: If the
+            sidebar is currently open, it is closed. Otherwise the previously
+            open sidebar panel is re-opened.
+        </p>
+    </div><div style="clear: both;"></div></div>
+
+
+<h2><div class="hl-HelpTags"><a id="status-line" class="hl-HelpTag">status-line</a><a id="status-bar" class="hl-HelpTag">status-bar</a></div>Status line</h2>
+
+<p>
+    The status line appears at the bottom of each window. You can use
+    <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27guioptions%27">'guioptions'</a></span> to specify if and when the status line appears, as well
+    as its relation to the command line and messages.
+</p>
+
+<p>
+    The status line contains several fields that provide information about the
+    state of the current buffer. These are, in order:
+</p>
+
+<ul>
+    <li>
+        <em>URL</em>: The URL of the currently loaded page. While the page is loading,
+        progress messages are also output to this field.
+    </li>
+    <li>
+        <em>History and bookmark status</em> (<tt>[+-❤⋯]</tt>): The position
+        of the current page in the tab's session history; <tt>-</tt> and
+        <tt>+</tt> indicate that it is possible to move backwards and forwards
+        through the history respectively. ❤ indicates that the current page is
+        bookmarked. Any other character indicates a QuickMark matching the
+        current page.
+    </li>
+    <li>
+        <em>Tab index</em> (<tt>[N/M]</tt>): <tt>N</tt> is the index of the
+        currently selected tab and <tt>M</tt> is the total number of tabs in
+        the current window.
+    </li>
+    <li>
+        <em>Vertical scroll</em>: The vertical scroll percentage of the current buffer,
+        or Top or Bot for the top and bottom of the buffer respectively.
+    </li>
+    <li>
+        <em>Security</em>: The security information button is displayed when appropriate
+        as per Firefox. The color of the status bar also changes to reflect the
+        current security status of the loaded page.
+        <dl><column style=""></column><column style=""></column><tr><dt style="border:1px solid white" class="hl-StatusLineNormal">black</dt><dd>The site's identity is unverified and the connection is unencrypted</dd></tr><tr><dt style="border:1px solid white" class="hl-StatusLineBroken">red</dt><dd>The connection is encrypted, but the site's identity has not been verified or it contains unencrypted content</dd></tr><tr><dt style="border:1px solid white" class="hl-StatusLineSecure">blue</dt><dd>The site's domain has been verified and the connection is encrypted</dd></tr><tr><dt style="border:1px solid white" class="hl-StatusLineExtended">green</dt><dd>The site's domain and owner have been fully verified via an Extended Validation certificate and the connection is encrypted</dd></tr></dl>
+    </li>
+    <li>
+        <em>Extensions</em>: Any extension buttons that would normally be installed to the
+        Firefox status bar are appended to the end of the status line.
+    </li>
+</ul>
+
+<h2><div class="hl-HelpTags"><a id="toolbar" class="hl-HelpTag">toolbar</a></div>Toolbars</h2>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tbs" class="hl-HelpTag">:tbs</a><a id=":tbshow" class="hl-HelpTag">:tbshow</a><a id=":toolbars" class="hl-HelpTag">:toolbars</a><a id=":toolbarshow" class="hl-HelpTag">:toolbarshow</a></div><div class="hl-HelpSpec">:toolbarshow <span class="hl-HelpArg">{name}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Shows the named toolbar.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tbh" class="hl-HelpTag">:tbh</a><a id=":tbhide" class="hl-HelpTag">:tbhide</a><a id=":toolbarh" class="hl-HelpTag">:toolbarh</a><a id=":toolbarhide" class="hl-HelpTag">:toolbarhide</a></div><div class="hl-HelpSpec">:toolbarhide <span class="hl-HelpArg">{name}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Hides the named toolbar.</p>
+    </div><div style="clear: both;"></div></div>
+
+<div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":tbt" class="hl-HelpTag">:tbt</a><a id=":tbtoggle" class="hl-HelpTag">:tbtoggle</a><a id=":toolbart" class="hl-HelpTag">:toolbart</a><a id=":toolbartoggle" class="hl-HelpTag">:toolbartoggle</a></div><div class="hl-HelpSpec">:toolbartoggle <span class="hl-HelpArg">{name}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+        <p>Toggles the named toolbar.</p>
+    </div><div style="clear: both;"></div></div>
+
+</body></html>

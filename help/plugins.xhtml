@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dactyl="http://vimperator.org/namespaces/liberator" class="hl-Help"><head><link rel="stylesheet" type="text/css" href="help.css" xmlns="http://www.w3.org/1999/xhtml"/><title>Pentadactyl Plugins</title><script type="text/javascript" src="help.js"></script></head><body class="hl-HelpBody" document-tags=" using-plugins browser-improvements-plugin curl-plugin ;C flashblock-plugin 'fb' 'flashblock' 'fbw' 'fbwhitelist' :flashplay :flp :flashstop :fls :flashtoggle :flt http-headers-plugin jQuery-plugin jscompletion-plugin noscript-plugin 'script' 'noscript' 'nsf' 'noscript-forbid' 'nsl' 'noscript-list' 'nso' 'noscript-objects' 'nss' 'noscript-sites' 'nst' 'noscript-tempsites' 'nsu' 'noscript-untrusted' tab-options-plugin 'tc' 'tabclose' 'to' 'tabopen' useragent-plugin :ua :useragent :deluseragent :delua 'useragent' 'ua' xpcom-plugin xpwrapper xpclasses xpproviders xpservices "><div class="hl-HelpTags"><a id="plugins.xml" class="hl-HelpTag">plugins.xml</a></div><h1><div class="hl-HelpTags"><a id="using-plugins" class="hl-HelpTag">using-plugins</a></div>Using Plugins</h1>
+                    <div class="hl-HelpTOC"><h2>Contents</h2><ol level="2" class="hl-HelpOrderedList"><li><a href="dactyl://help/plugins#browser-improvements-plugin">Browser Consistency Improvements</a></li><li><a href="dactyl://help/plugins#curl-plugin">Curl command-line generator</a></li><li><a href="dactyl://help/plugins#flashblock-plugin">Flash Blocker</a></li><li><a href="dactyl://help/plugins#http-headers-plugin">HTTP header info</a></li><li><a href="dactyl://help/plugins#jQuery-plugin">jQuery integration</a></li><li><a href="dactyl://help/plugins#jscompletion-plugin">JavaScript completion enhancements</a></li><li><a href="dactyl://help/plugins#noscript-plugin">NoScript integration</a></li><li><a href="dactyl://help/plugins#tab-options-plugin">Tab options</a></li><li><a href="dactyl://help/plugins#useragent-plugin">User Agent Switcher</a></li><li><a href="dactyl://help/plugins#xpcom-plugin">XPCOM development</a></li></ol></div>
+
+                    <h2><div class="hl-HelpTags"><a id="browser-improvements-plugin" class="hl-HelpTag">browser-improvements-plugin</a></div>Browser Consistency Improvements</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#browser-improvements-plugin"><span>browser-improvements</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>0.1</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        This plugin provides various browser consistency improvements, including:
+    </p>
+    <ul>
+        <li>Middle clicking on a form submit button opens the resulting page in a new tab.</li>
+        <li>Pressing <span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;C-Return&gt;</a></span> while a textarea or select element is focused submits the form.</li>
+    </ul>
+<h2><div class="hl-HelpTags"><a id="curl-plugin" class="hl-HelpTag">curl-plugin</a></div>Curl command-line generator</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#curl-plugin"><span>curl</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>0.2</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        This plugin provides a means to generate a <tt>curl(1)</tt>
+        command-line from the data in a given form.
+    </p>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=";C" class="hl-HelpTag">;C</a></div><div style="clear: both"></div><div class="hl-HelpSpec">;C</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                Generates a curl command-line from the data in the selected form.
+                The command includes the data from each form element, along with
+                the current User-Agent string and the cookies for the current
+                page.
+            </p>
+        </div><div style="clear: both;"></div></div>
+<h2><div class="hl-HelpTags"><a id="flashblock-plugin" class="hl-HelpTag">flashblock-plugin</a></div>Flash Blocker</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#flashblock-plugin"><span>flashblock</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>1.0.11</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        This plugin provides the same features as the ever popular FlashBlock
+        Firefox add-on. Place holders are substituted for flash animations and
+        embedded videos. When clicked, the original embedded content is
+        restored. Additionally, this plugin provides options to control which
+        sites can play animations without restrictions and triggers to toggle
+        the playing of animations on the current page.
+    </p>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'fb'" class="hl-HelpTag">'fb'</a><a id="'flashblock'" class="hl-HelpTag">'flashblock'</a></div><div class="hl-HelpSpec">'flashblock' 'fb'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">true</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                Controls the blocking of flash animations. When true, place
+                holders are substituted for flash animations on untrusted sites.
+            </p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'fbw'" class="hl-HelpTag">'fbw'</a><a id="'fbwhitelist'" class="hl-HelpTag">'fbwhitelist'</a></div><div class="hl-HelpSpec">'fbwhitelist' 'fbw'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#sitelist">sitelist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                Controls which sites may play flash animations without user
+                intervention. See <span class="hl-HelpEx"><a href="starting.xhtml#:mkpentadactylrc" style="color: inherit;">:mkpentadactylrc</a></span>.
+            </p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":flashplay" class="hl-HelpTag">:flashplay</a><a id=":flp" class="hl-HelpTag">:flp</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:flashplay</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                Plays any blocked flash animations on the current page.
+            </p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":flashstop" class="hl-HelpTag">:flashstop</a><a id=":fls" class="hl-HelpTag">:fls</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:flashstop</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                Stops any currently playing flash animations on the current
+                page.
+            </p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":flashtoggle" class="hl-HelpTag">:flashtoggle</a><a id=":flt" class="hl-HelpTag">:flt</a></div><div style="clear: both"></div><div class="hl-HelpSpec">:flashtoggle</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                Toggles the playing of all animations on the current page. If
+                any flash animations are currently blocked, all may begin
+                playing. Otherwise, all animations are stopped.
+            </p>
+            <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="map.xhtml#:map" style="color: inherit;">:map</a></span> <span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;silent&gt;</a></span> <span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-p&gt;</a></span> <span class="hl-HelpEx"><a href="dactyl://help/plugins#:flashtoggle" style="color: inherit;">:flashtoggle</a></span><span class="hl-HelpKey"><a style="color: inherit;" href="map.xhtml#%3CCR%3E">&lt;CR&gt;</a></span></div>
+        </div><div style="clear: both;"></div></div>
+<h2><div class="hl-HelpTags"><a id="http-headers-plugin" class="hl-HelpTag">http-headers-plugin</a></div>HTTP header info</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#http-headers-plugin"><span>http-headers</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>0.4</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        Adds request and response headers to the <span class="hl-HelpEx"><a href="buffer.xhtml#:pageinfo" style="color: inherit;">:pageinfo</a></span>
+        command, with the keys <em>h</em> and <em>H</em> respectively.
+        See also <span class="hl-HelpOpt"><a style="color: inherit;" href="options.xhtml#%27pageinfo%27">'pageinfo'</a></span>.
+    </p>
+    <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="buffer.xhtml#:pageinfo" style="color: inherit;">:pageinfo hH</a></span></div>
+<h2><div class="hl-HelpTags"><a id="jQuery-plugin" class="hl-HelpTag">jQuery-plugin</a></div>jQuery integration</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#jQuery-plugin"><span>jQuery</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>1.5.1</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a href="http://ejohn.org/">John Resig</a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Dojo Foundation</a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/bsd-license.php">BSD</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        This plugin provides basic jQuery integration. With it enabled,
+        jQuery's <tt>$</tt> function is available for any web page, with the
+        full power of jQuery. It also provides <tt>$w</tt>,
+        <tt>$d</tt>, and <tt>$b</tt> objects which refer to the
+        the content <tt>window</tt>, <tt>document</tt>, and
+        <tt>body</tt> respectively.
+    </p>
+<h2><div class="hl-HelpTags"><a id="jscompletion-plugin" class="hl-HelpTag">jscompletion-plugin</a></div>JavaScript completion enhancements</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#jscompletion-plugin"><span>jscompletion</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>1.0.1</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://people.freebsd.org/~phk/">BEER-WARE</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        This plugin provides advanced completion functions for
+        DOM functions, eval, and some other special functions.
+        For instance,
+        <span class="hl-HelpEx"><a href="eval.xhtml#:js" style="color: inherit;">:js content.document.getElementById("<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span></a></span>
+        should provide you with a list of all element IDs
+        present on the current web page. Many other DOM
+        methods are provided, along with their namespaced variants.
+    </p>
+<h2><div class="hl-HelpTags"><a id="noscript-plugin" class="hl-HelpTag">noscript-plugin</a></div>NoScript integration</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#noscript-plugin"><span>noscript</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>0.7</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        This plugin provides tight integration with the NoScript add-on.
+        In addition to commands and options to control the behavior of
+        NoScript, this plugin also provides integration with both the
+        Pentadactyl and Firefox sanitization systems sorely
+        lacking in the add-on itself. Namely, when data for a domain is
+        purged, all of its associated NoScript permissions are purged as
+        well, and temporary permissions are purged along with session
+        data.
+    </p>
+    <p style="clear: both;"><div style="clear: both;"></div><span class="hl-HelpNote">Note:</span> 
+        As most options provided by this script directly alter NoScript
+        preferences, which are persistent, their values are automatically
+        preserved across restarts.
+    </p>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'script'" class="hl-HelpTag">'script'</a><a id="'noscript'" class="hl-HelpTag">'noscript'</a></div><div style="clear: both"></div><div class="hl-HelpSpec">'script'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">boolean</a><span class="hl-HelpDefault">(default: <span class="hl-Boolean">noscript</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                When on, all sites are allowed to execute scripts and
+                load plugins. When off, only specifically allowed sites
+                may do so.
+            </p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nsf'" class="hl-HelpTag">'nsf'</a><a id="'noscript-forbid'" class="hl-HelpTag">'noscript-forbid'</a></div><div class="hl-HelpSpec">'noscript-forbid'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                The set of permissions forbidden to untrusted sites.
+            </p>
+            <dl><column style=""></column><column style=""></column><tr><dt>bookmarklet</dt><dd>Forbid bookmarklets</dd></tr><tr><dt>collapse</dt><dd>Collapse forbidden objects</dd></tr><tr><dt>flash</dt><dd>Block Adobe® Flash® animations</dd></tr><tr><dt>fonts</dt><dd>Forbid remote font loading</dd></tr><tr><dt>frame</dt><dd>Block foreign &lt;frame&gt; elements</dd></tr><tr><dt>iframe</dt><dd>Block foreign &lt;iframe&gt; elements</dd></tr><tr><dt>java</dt><dd>Block Java™ applets</dd></tr><tr><dt>media</dt><dd>Block &lt;audio&gt; and &lt;video&gt; elements</dd></tr><tr><dt>placeholder</dt><dd>Replace forbidden objects with a placeholder</dd></tr><tr><dt>plugins</dt><dd>Forbid other plugins</dd></tr><tr><dt>refresh</dt><dd>Block &lt;meta&gt; page directions</dd></tr><tr><dt>silverlight</dt><dd>Block Microsoft® Silverlight™ objects</dd></tr><tr><dt>trusted</dt><dd>Block media and plugins even on trusted sites</dd></tr><tr><dt>webbug</dt><dd>Block “web bug” tracking images</dd></tr><tr><dt>xslt</dt><dd>Forbid XSLT stylesheets</dd></tr></dl>
+            <p>See also <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/plugins#%27noscript-objects%27">'noscript-objects'</a></span>.</p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nsl'" class="hl-HelpTag">'nsl'</a><a id="'noscript-list'" class="hl-HelpTag">'noscript-list'</a></div><div class="hl-HelpSpec">'noscript-list'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                The set of items to show in the main completion list and
+                NoScript menu.
+            </p>
+            <dl><column style=""></column><column style=""></column><tr><dt>address</dt><dd>Show the full address (http://www.google.com)</dd></tr><tr><dt>base</dt><dd>Show the base domain (google.com)</dd></tr><tr><dt>full</dt><dd>Show the full domain (www.google.com)</dd></tr></dl>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nso'" class="hl-HelpTag">'nso'</a><a id="'noscript-objects'" class="hl-HelpTag">'noscript-objects'</a></div><div class="hl-HelpSpec">'noscript-objects'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                The list of objects which allowed to display. See also
+                <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/plugins#%27noscript-forbid%27">'noscript-forbid'</a></span>.
+            </p>
+            <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="map.xhtml#:map" style="color: inherit;">:map <span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-c&gt;</a></span></a></span> <span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set nso!=<span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-Tab&gt;</a></span></a></span></div>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nss'" class="hl-HelpTag">'nss'</a><a id="'noscript-sites'" class="hl-HelpTag">'noscript-sites'</a></div><div class="hl-HelpSpec">'noscript-sites'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                The list of sites which are permanently allowed to execute
+                scripts.
+            </p>
+            <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="map.xhtml#:map" style="color: inherit;">:map <span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-s&gt;</a></span></a></span> <span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set nss!=<span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-Tab&gt;</a></span></a></span></div>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nst'" class="hl-HelpTag">'nst'</a><a id="'noscript-tempsites'" class="hl-HelpTag">'noscript-tempsites'</a></div><div class="hl-HelpSpec">'noscript-tempsites'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                The list of sites which are temporarily allowed to execute
+                scripts. The value is not preserved across application
+                restarts.
+            </p>
+            <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="map.xhtml#:map" style="color: inherit;">:map <span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-S-s&gt;</a></span></a></span> <span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set nst!=<span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-Tab&gt;</a></span></a></span></div>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'nsu'" class="hl-HelpTag">'nsu'</a><a id="'noscript-untrusted'" class="hl-HelpTag">'noscript-untrusted'</a></div><div class="hl-HelpSpec">'noscript-untrusted'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim=""></span>(empty))</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                The list of untrusted sites which are not allowed to activate,
+                nor are listed in the main completion lists or NoScript menu.
+            </p>
+            <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="map.xhtml#:map" style="color: inherit;">:map <span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-C-s&gt;</a></span></a></span> <span class="hl-HelpEx"><a href="options.xhtml#:set" style="color: inherit;">:set nsu!=<span class="hl-HelpKey"><a style="color: inherit;" href="javascript:;">&lt;A-Tab&gt;</a></span></a></span></div>
+        </div><div style="clear: both;"></div></div>
+<h2><div class="hl-HelpTags"><a id="tab-options-plugin" class="hl-HelpTag">tab-options-plugin</a></div>Tab options</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#tab-options-plugin"><span>tab-options</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>0.3</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://people.freebsd.org/~phk/">BEER-WARE</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        Adds extended tab options, including relative placement of new
+        tabs and more sensible focus changes after tab closure.
+    </p>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'tc'" class="hl-HelpTag">'tc'</a><a id="'tabclose'" class="hl-HelpTag">'tabclose'</a></div><div class="hl-HelpSpec">'tabclose' 'tc'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringlist">stringlist</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">left,opener,previous,right</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                Tab closure options, in order of precedence. The
+                first item for which a valid tab exists is used.
+            </p>
+            <dl><column style=""></column><column style=""></column><tr><dt>left</dt><dd>Select the tab to the left when closing</dd></tr><tr><dt>opener</dt><dd>Select the tab’s opener, if available</dd></tr><tr><dt>previous</dt><dd>Select the previously selected tab</dd></tr><tr><dt>right</dt><dd>Select the tab to the right when closing</dd></tr></dl>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'to'" class="hl-HelpTag">'to'</a><a id="'tabopen'" class="hl-HelpTag">'tabopen'</a></div><div class="hl-HelpSpec">'tabopen' 'to'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType" href="options.xhtml#stringmap">stringmap</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="">link:right,orphan:groupright,external:end</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                New tab placement options. The keys in the <span class="hl-HelpTopic"><a style="color: inherit;" href="options.xhtml#stringmap">stringmap</a></span>
+                refer to the ways the tab was opened, while the values define
+                where such tabs are placed. The following keys are applicable:
+            </p>
+            <dl><column style=""></column><column style=""></column><tr><dt>external</dt><dd>Tabs opened from an external application</dd></tr><tr><dt>link</dt><dd>Tabs opened by clicking links and the like</dd></tr><tr><dt>orphan</dt><dd>Tabs opened by any other means</dd></tr></dl>
+            <p>As are the following values:</p>
+            <dl><column style=""></column><column style=""></column><tr><dt>end</dt><dd>Open new tabs at the end of the tab bar</dd></tr><tr><dt>groupleft</dt><dd>Open tabs to the left of the current group</dd></tr><tr><dt>groupright</dt><dd>Open tabs to the right of the current group</dd></tr><tr><dt>left</dt><dd>Open new tabs to the left of the current tab</dd></tr><tr><dt>right</dt><dd>Open new tabs to the right of the current tab</dd></tr><tr><dt>start</dt><dd>Open new tabs at the start of the tab bar</dd></tr></dl>
+        </div><div style="clear: both;"></div></div>
+<h2><div class="hl-HelpTags"><a id="useragent-plugin" class="hl-HelpTag">useragent-plugin</a></div>User Agent Switcher</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#useragent-plugin"><span>useragent</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>0.2</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        Ths plugin allows you to switch the browser's reported user-agent to a
+        number of preset values.
+    </p>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":ua" class="hl-HelpTag">:ua</a><a id=":useragent" class="hl-HelpTag">:useragent</a></div><div class="hl-HelpSpec">:useragent <span class="hl-HelpOptionalArg">[name]</span> <span class="hl-HelpOptionalArg">[useragent]</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                With zero or one arguments, list the currently defined
+                user-agent values.
+            </p>
+
+            <p>
+                With two arguments, defines a new user-agent for use in the
+                <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/plugins#%27useragent%27">'useragent'</a></span> option. When <span class="hl-HelpOpt"><a style="color: inherit;" href="dactyl://help/plugins#%27useragent%27">'useragent'</a></span> is set to
+                <span class="hl-HelpOptionalArg">[name]</span>, the <tt>User-Agent</tt> value sent to web
+                servers, and the value returned by
+                <tt>navigator.userAgent</tt> will be <span class="hl-HelpOptionalArg">[useragent]</span>.
+                Additionally, the following options are available:
+            </p>
+
+            <dl><column style=""></column><column style=""></column><tr><dt>-appcodename</dt><dd>The value of <tt>navigator.appCodeName</tt></dd></tr><tr><dt>-appname</dt><dd>The value of <tt>navigator.appName</tt></dd></tr><tr><dt>-appversion</dt><dd>The value of <tt>navigator.appVersion</tt></dd></tr><tr><dt>-platform</dt><dd>The value of <tt>navigator.platform</tt></dd></tr><tr><dt>-vendor</dt><dd>The value of <tt>navigator.vendor</tt></dd></tr><tr><dt>-vendorsub</dt><dd>The value of <tt>navigator.vendorsub</tt></dd></tr></dl>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id=":deluseragent" class="hl-HelpTag">:deluseragent</a><a id=":delua" class="hl-HelpTag">:delua</a></div><div class="hl-HelpSpec">:deluseragent <span class="hl-HelpArg">{name}</span></div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>Deletes a useragent created by <span class="hl-HelpEx"><a href="dactyl://help/plugins#:useragent" style="color: inherit;">:useragent</a></span>.</p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="'useragent'" class="hl-HelpTag">'useragent'</a><a id="'ua'" class="hl-HelpTag">'ua'</a></div><div class="hl-HelpSpec">'useragent' 'ua'</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpOptInfo"><a class="hl-HelpType">string</a><span class="hl-HelpDefault">(default: <span class="hl-HelpString" delim="'">default</span>)</span><div style="clear: both;"></div></div><div class="hl-HelpDescription">
+            <p>
+                Changes the User-Agent string sent to the web server and
+                returned by <tt>navigator.userAgent</tt>. If the value is the
+                name of a user-agent defined by <span class="hl-HelpEx"><a href="dactyl://help/plugins#:useragent" style="color: inherit;">:useragent</a></span>, or one of
+                the predefined values, then the defined value is used.
+                Otherwise, the value itself is used.
+            </p>
+        </div><div style="clear: both;"></div></div>
+<h2><div class="hl-HelpTags"><a id="xpcom-plugin" class="hl-HelpTag">xpcom-plugin</a></div>XPCOM development</h2><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Plugin:
+            </div><span class="hl-HelpInfoValue"><a href="http://dactyl.sf.net/pentadactyl/plugins#xpcom-plugin"><span>xpcom</span></a></span></div><div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Version:
+            </div><span class="hl-HelpInfoValue"><a><span>0.3</span></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">Author:
+            </div><span class="hl-HelpInfoValue"><a>Kris Maglione</a> <a href="mailto:maglione.k@gmail.com"></a></span></div>
+    <div class="hl-HelpInfo"><div class="hl-HelpInfoLabel">License:
+            </div><span class="hl-HelpInfoValue"><a href="http://opensource.org/licenses/mit-license.php">MIT</a></span></div>
+    <project name="Pentadactyl" min-version="1.0"></project>
+    <p>
+        This plugin aids in the development of XPCOM-related code, and
+        in the exploration of extant XPCOM interfaces, classes, and
+        instances. All of the functions herein are exported to the
+        <em>userContext</em> and are thus available from the
+        <span class="hl-HelpEx"><a href="eval.xhtml#:javascript" style="color: inherit;">:javascript</a></span> command. Each of these functions provides
+        JavaScript completion for its arguments.
+    </p>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="xpwrapper" class="hl-HelpTag">xpwrapper</a></div><div class="hl-HelpSpec">xpwrapper(<span class="hl-HelpArg">{instance}</span>, <span class="hl-HelpOptionalArg">[interface]</span>)</div><div class="hl-HelpSpec">xpwrapper(<span class="hl-HelpArg">{string}</span>)</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                This function is the core of the plugin. It wraps XPCOM
+                objects so that their properties are more easily
+                accessible. When <span class="hl-HelpArg">{instance}</span> alone is given, the
+                result contains one property for each interface that
+                <span class="hl-HelpArg">{instance}</span> implements. Each of those properties, in
+                turn, returns <span class="hl-HelpArg">{instance}</span> wrapped in a call to
+
+                <pre class="hl-HelpCode">xpwrapper(<span class="hl-HelpArg">{instance}</span>, <span class="hl-HelpArg">{interface}</span>),</pre>
+
+                which contains only the properties of <span class="hl-HelpArg">{instance}</span>
+                specified in <span class="hl-HelpArg">{interface}</span>. Additionally, the
+                one-argument form contains the properties <em>all</em>
+                and <em>wrappedJSObject</em>, the former of which
+                returns an object that implements all interfaces
+                provided by the instance, and the latter of which, when
+                applicable, is the raw JavaScript object that backs the
+                XPCOM instance.
+            </p>
+            <p>
+                When <span class="hl-HelpArg">{string}</span> is provided rather than an XPCOM
+                instance, the returned object contains all of the
+                properties specified by the interface with the given
+                name, each with an <span class="hl-Object" key="Object">undefined</span> value.
+            </p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="xpclasses" class="hl-HelpTag">xpclasses</a></div><div class="hl-HelpSpec">xpclasses(<span class="hl-HelpArg">{class}</span>)</div><div class="hl-HelpSpec">xpclasses(<span class="hl-HelpArg">{string}</span>)</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                When given an XPCOM instance as its first argument,
+                the result is exactly the same as the one argument form
+                of <em>xpwrapper</em>. When given a string, returns the
+                <em>xpwrapper</em> for an instance of the provided
+                XPCOM contract ID.
+            </p>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="xpproviders" class="hl-HelpTag">xpproviders</a></div><div style="clear: both"></div><div class="hl-HelpSpec">xpproviders</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                Presents, for each installed interface, a property for
+                each class that provides that interface. The properties
+                on both levels are lazily instantiated, so iterating
+                over the values of either level is not a good idea.
+            </p>
+            <div class="hl-HelpExample"><span class="hl-HelpEx"><a href="eval.xhtml#:js" style="color: inherit;">:js xpproviders.nsILocalFile["<span class="hl-HelpKey"><a style="color: inherit;" href="buffer.xhtml#%3CTab%3E">&lt;Tab&gt;</a></span></a></span></div>
+        </div><div style="clear: both;"></div></div>
+    <div class="hl-HelpItem"><div style="clear: right"></div><div class="hl-HelpTags"><a id="xpservices" class="hl-HelpTag">xpservices</a></div><div class="hl-HelpSpec">xpservices(<span class="hl-HelpArg">{class}</span>)</div><div class="hl-HelpSpec">xpservices[<span class="hl-HelpArg">{class}</span>]</div><hr style="border: 0; height: 0; margin: 0; width: 100%; float: right;" /><div class="hl-HelpDescription">
+            <p>
+                An object containing an <span class="hl-HelpTopic"><a style="color: inherit;" href="dactyl://help/plugins#xpwrapper">xpwrapper</a></span> wrapped service for
+                each contract ID in <em>Components.classes</em>.
+            </p>
+        </div><div style="clear: both;"></div></div>
+
+                </body></html>
