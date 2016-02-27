@@ -1,0 +1,74 @@
+" -------------------------------------------------------------------------------
+" ,---------------,
+" | Alias Command |
+" '---------------'
+" FIXME
+
+js <<EOF
+
+createAlias = function(alias, def) {
+  var cmd = "dactyl.execute(\"'" + def + "' + (bang ? '! ' : ' ') + ' '.join(args);\")"
+  dactyl.execute("command! " + alias + " -nargs=* -bang -js " + cmd); 
+}
+
+EOF
+
+command! alias -nargs=+ 
+    \ -js createAlias(args[0], args[1]);
+
+
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | Autopager |
+" '-----------'
+
+command! apoff -description "Autopager off"
+    \ :js autopagerMain.enabledThisSite()
+command! ap -description "Autopager on"
+    \ :js autopagerMain.onEnable()
+map -b gp -ex ap
+map -b gP -ex apoff
+
+
+" -------------------------------------------------------------------------------
+" ,------------,
+" | PageZipper |
+" '------------'
+
+command! pz -description "PageZipper"
+   "\ -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
+
+" see also scratch.js
+
+
+" -------------------------------------------------------------------------------
+" ,-------,
+" | JSBin |
+" '-------'
+
+"map -modes pass-through -b <A-1> <C-1>
+"map -modes pass-through -b <A-2> <C-2>
+"map -modes pass-through -b <A-3> <C-3>
+"map -modes pass-through -b <A-4> <C-4>
+"map -modes pass-through -b <A-5> <C-5>
+"map -modes pass-through -b <A-6> <C-6>
+"map -modes pass-through -b <A-7> <C-7>
+"map -modes pass-through -b <A-8> <C-8>
+"map -modes pass-through -b <A-9> <C-9>
+
+" ----------------------------------------------------------------------------- 
+" ,------------------,
+" | Removed Commands |
+" '------------------'
+
+" js hints.addMode('0','Force open in current tab',function(elem) dactyl.open(elem.href));
+"command! outputtabhrefs :tabdo :execute "!echo >> \"Pentadactyl Output " + Date().slice(0,15) + "\" " + content.location.href
+"" Output list of tab hrefs
+"map -b t> :outputtabhrefs<CR>
+"" Output list of tab hrefs followed by a blank line
+"command! tabhrefs :normal t> <C-x>0
+"map -b t. :tabhrefs<CR>
+
+"" Output newline in 'Pentadactyl Output <Date>' file:
+"command! outputnewline :execute "!echo >> \"Pentadactyl Output " + Date().slice(0,15) + "\""
+"map -b <C-x>0 :outputnewline<CR>

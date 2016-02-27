@@ -319,19 +319,6 @@ command! listhintmodes :echo hints.modes
 command! encuni :emenu View.Text Encoding.Unicode
 command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
 
-" ALIAS COMMAND
-" FIXME
-js <<EOF
-
-createAlias = function(alias, def) {
-  var cmd = "dactyl.execute(\"'" + def + "' + (bang ? '! ' : ' ') + ' '.join(args);\")"
-  dactyl.execute("command! " + alias + " -nargs=* -bang -js " + cmd); 
-}
-
-EOF
-
-command! alias -nargs=+ 
-    \ -js createAlias(args[0], args[1]);
 
 " =============================================================================
 "                                       ______ 
@@ -863,20 +850,6 @@ map -b <extra>t -js (function(){var s=content.document.createElement('script'); 
 " PageZipper
 " activate pagezipper bookmark (keyword pz)
 map <A-p> :open pz<CR>
-"command! pz -description "PageZipper"
-    "\ -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
-
-"" TODO: finish
-"js <<EOF
-"(function() {
-    "if (window['pgzp']) { 
-        "_pgzpToggleBookmarklet();
-    "} else {
-        "window._page_zipper_is_bookmarklet = true;
-
-        "window._page_zipper = document.createElement('script');
-        "window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
-"EOF
 
 
 " =============================================================================
@@ -1504,15 +1477,6 @@ group jsbin -locations=jsbin.com
 autocmd! -group jsbin
 
 map -b <extra>m -js toggleMenu();
-"map -modes pass-through -b <A-1> <C-1>
-"map -modes pass-through -b <A-2> <C-2>
-"map -modes pass-through -b <A-3> <C-3>
-"map -modes pass-through -b <A-4> <C-4>
-"map -modes pass-through -b <A-5> <C-5>
-"map -modes pass-through -b <A-6> <C-6>
-"map -modes pass-through -b <A-7> <C-7>
-"map -modes pass-through -b <A-8> <C-8>
-"map -modes pass-through -b <A-9> <C-9>
 
 js <<EOF
 
@@ -1678,43 +1642,6 @@ command! fixdetailslinks
 autocmd DOMLoad jisho.org :fixdetailslinks
 
 
-js <<EOF
-
-function processEntries () {
-    document.extraSearchEngines = {
-        "tangorin search": "http://tangorin.com/dict.php?dict=general&s=%s",
-        "Forvo pronunciation": "http://www.forvo.com/search/%s",
-        "Tatoeba example sentences": "http://tatoeba.org/eng/sentences/search?query=%s"
-    }
-    document.verbSearchEngines = {
-        "Verbix verb conjugation": "http://www.verbix.com/webverbix/go.php?T1=%s&D1=51&H1=151",
-        "Japanese Verb Conjugator": "http://www.japaneseverbconjugator.com/VerbDetails.asp?txtVerb=%s"
-    }
-    document.kanjiSearchEngines = {
-        "SLJFAQ kanji search": "http://kanji.sljfaq.org/soft-keyboard.html#?=%s",
-        "Red Finch kanji search": "http://redfinchjapanese.com/?action=kanji_dictionary?=%s"
-    }
-    document.entryNodes = content.document.getElementsByClassName("concept_light");
-    function getEntryName(x) {
-        return String.trim(x.getElementsByClassName("text")[0].textContent);
-    }
-    document.results = map(document.entryNodes, getEntry);
-    function getEntryStatusLinks(x) {
-        return x.getElementsByClassName("concept_light-status_link");
-    }
-    function getEntryLinksDropdown(x) {
-        var links = getEntryStatusLinks(x);
-        var dropdownId;
-        for (i=0; i<links.length; ++i) {
-            if (links[i].textContent == "Links")
-                dropdownId = links[i].getAttribute("data-dropdown");
-        return document.getElementById(dropdownId);
-        }
-    }
-}
-
-EOF
-
 command! shrinksod
      \ -description "Halve the dimensions of stroke order diagrams"
      \ -js shrinkSOD();
@@ -1835,24 +1762,6 @@ command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 " NOTE: index used in tabs.getTab is zero-based
 "       ordinal returned from .dactylOrdinal is 1-based
 "
-
-" ----------------------------------------------------------------------------- 
-" ,------------------,
-" | Removed Commands |
-" '------------------'
-
-" js hints.addMode('0','Force open in current tab',function(elem) dactyl.open(elem.href));
-"command! outputtabhrefs :tabdo :execute "!echo >> \"Pentadactyl Output " + Date().slice(0,15) + "\" " + content.location.href
-"" Output list of tab hrefs
-"map -b t> :outputtabhrefs<CR>
-"" Output list of tab hrefs followed by a blank line
-"command! tabhrefs :normal t> <C-x>0
-"map -b t. :tabhrefs<CR>
-
-"" Output newline in 'Pentadactyl Output <Date>' file:
-"command! outputnewline :execute "!echo >> \"Pentadactyl Output " + Date().slice(0,15) + "\""
-"map -b <C-x>0 :outputnewline<CR>
-
 
 " ============================================================================= 
 
