@@ -322,11 +322,14 @@ command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
 " ALIAS COMMAND
 " FIXME
 js <<EOF
+
 createAlias = function(alias, def) {
   var cmd = "dactyl.execute(\"'" + def + "' + (bang ? '! ' : ' ') + ' '.join(args);\")"
   dactyl.execute("command! " + alias + " -nargs=* -bang -js " + cmd); 
 }
+
 EOF
+
 command! alias -nargs=+ 
     \ -js createAlias(args[0], args[1]);
 
@@ -735,20 +738,24 @@ command! firebug :feedkeys! <C-f12>
 " | TileView |
 " '----------'
 js <<EOF
+
 function viewTiledOn() {
     tileView.viewTiled = true; 
     tileView.drawTiledLayout();
 }
+
 function viewTiledOff() {
     tileView.viewTiled = false; 
     tileView.drawSelectedPanel();
 }
+
 function viewTiledToggle() {
     if (tileView.viewTiled) 
         viewTiledOff();
     else 
         viewTiledOn();
 }
+
 EOF
 
 command! toggleViewTiled -js viewTiledToggle(); 
@@ -782,12 +789,14 @@ command! togglestylesall :execute "emenu Tools.Web Developer Extension.CSS.Disab
 command! togglestylesbrowser :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Browser Default Styles"
 
  js <<EOF
+
 function toggleMagnifier() {
     if (document.getElementById("web-developer-page-magnifier-container").hidden)
         WebDeveloper.PageMagnifier.createPageMagnifier();
     else
         WebDeveloper.PageMagnifier.removePageMagnifier();
 }
+
 EOF
 
 map -b zx :magnifier!<CR>
@@ -892,6 +901,7 @@ map <A-p> :open pz<CR>
 
 
 js <<EOF
+
 closeAllToLeft = function (ord) {
     if (typeof(ord)==="undefined") ord = tabs.getTab().dactylOrdinal;
     // convert from 0- to 1-based  ==> -1  | 
@@ -900,9 +910,7 @@ closeAllToLeft = function (ord) {
     var prevTabIx = ix - 1;
     utils.closeTabsTo(prevTabIx)  
 }
-EOF
 
-js <<EOF
 closeAllToRight = function (ord) {
     if (typeof(ord)==="undefined") ord = tabs.getTab().dactylOrdinal;
     // convert from 0- to 1-based  ==> -1  | 
@@ -911,26 +919,20 @@ closeAllToRight = function (ord) {
     var nextTabIx = ix + 1;
     utils.closeTabsFrom(nextTabIx)  
 }
-EOF
 
-js <<EOF
 var closeTabRange = function (firstSpec, endSpec) {
     firstSpec = firstSpec - 1;
     endSpec = endSpec;
     utils.closeTabsFromTo(firstSpec, endSpec, spec='');
 }
-EOF
 
-js <<EOF
 var openAllLinksInCB = function () {
     var a = window.readFromClipboard().split(/[ \t\n]+/); 
     for (i = 1; i < a.length; ++i) { 
         dactyl.open(a[i], {where:dactyl.NEW_TAB}); 
     };
 }
-EOF
 
-js <<EOF
 undob = function() {
     var currT = gBrowser.selectedTab;
     var altT = tabs.alternate;
@@ -943,10 +945,8 @@ undob = function() {
     gBrowser.selectedTab = altT;
     gBrowser.selectedTab = currT;
 }
-EOF
 
-" Create adjacent duplicate tab and go back in the browser history
-js <<EOF
+" Create adjacent duplicate tab and go back in the browser history "
 backt = function () { 
     tabs.cloneTab(tabs.getTab(), true);
     var backtListener = function () { 
@@ -955,10 +955,8 @@ backt = function () {
     };          
     document.addEventListener("DOMContentLoaded", backtListener, false);
 }
-EOF
  
-" Create adjacent duplicate tab and go forward in the browser history
-js <<EOF
+" Create adjacent duplicate tab and go forward in the browser history "
 forwardt = function() {
     tabs.cloneTab(tabs.getTab(), true);
     var forwardtListener = function () {
@@ -967,10 +965,8 @@ forwardt = function() {
     };
     dupTB.addEventListener("DOMContentLoaded", forwardtListener);
 }
-EOF
 
-" Create adjacent duplicate tab
-js <<EOF
+" Create adjacent duplicate tab "
 tabdupa = function() {
     var currT = gBrowser.selectedTab;
     var dupT = gBrowser.duplicateTab(currT);
@@ -1022,14 +1018,17 @@ EOF
 command! eplist -nargs=1 -js (eplist(args[0]))
 
 js <<EOF
+
 String.prototype.capitalize = function() {
     return this.replace(/\b\w/g,
                         function (c) { return c.toUpperCase(); });
 }
+
 function eplist (s) {
     var sConv = s.capitalize().replace(" ", "_");
     dactyl.open("www.wikipedia.org/wiki/List_of_" + sConv + "_episodes");
 }
+
 EOF
 
 
@@ -1060,7 +1059,9 @@ map -b <site>s :toggleHTTPS<CR>
 command! toggleHTTPS 
    \ -description "Toggle protocol between HTTP and HTTPS" 
    \ -js toggleHTTPS()
+
 js <<EOF
+
 function toggleHTTPS () {
     var url = content.location.href;
     var newurl;
@@ -1072,6 +1073,7 @@ function toggleHTTPS () {
         newurl = url.replace(sc_https, sc_http);
     dactyl.open(newurl);
 }
+
 EOF
 
 " ----------------------------------------------------------------------------- 
@@ -1080,7 +1082,9 @@ map -b <extra>k :kanjisearch!<CR>
 command! kanjisearch 
     \ -bang -description "kanji search on jisho.org" 
     \ -js kanjiSearchJisho(dactyl.clipboardRead(), bang);
+
 js <<EOF
+
 function kanjiSearchJisho (s, newtab) {
     if (newtab)
         dactyl.open("http://jisho.org/search/"+s+"%20%23kanji",
@@ -1088,6 +1092,7 @@ function kanjiSearchJisho (s, newtab) {
     else
         dactyl.open("http://jisho.org/search/"+s+"%20%23kanji");
 }
+
 EOF
 
 " ----------------------------------------------------------------------------- 
@@ -1098,17 +1103,21 @@ command! popjisyo
     \ -js bang ? popJisyoEtoJ() : popJisyo();
 
 js <<EOF
+
 popJisyoUrl = 'http://www.popjisyo.com/WebHint/AddHint.aspx?r=e';
+
 function popJisyo(url) {
     if (!url) 
         url = content.location.href;
     location.href = popJisyoUrl + '&d=7&du=' + encodeURIComponent(url);
 }
+
 function popJisyoEtoJ(url) {
     if (!url) 
         url = content.location.href;
     location.href = popJisyoUrl + '&d=1&du=' + encodeURIComponent(url);
 }
+
 EOF
 
 
@@ -1128,6 +1137,7 @@ command! table2csv
 
 
 js <<EOF
+
 function appendLinks () {
     tmpStr = '';
     d = content.document;
@@ -1146,6 +1156,7 @@ function appendLinks () {
         '<br style = clear:both;><div><hr>Link Footnotes:<hr>' + tmpStr + '</div><hr>'
     );
 }
+
 function appendLinkUrls () {
     tmpStr = '';
     d = content.document;
@@ -1164,11 +1175,9 @@ function appendLinkUrls () {
         '<br style = clear:both;><div><hr>Link Footnotes:<hr><p>' + tmpStr + '</div><hr>'
     );
 }
-EOF
 
-" ----------------------------------------------------------------------------- 
+" ----------------------------------------------------------------------------- "
 
-js <<EOF
 function toggleUrl (x, y, x_canon, y_canon) {
     " General purpose URL toggle function: swaps x and y in URL "
     " If an argument is a regex, then canonical strings corresponding "
@@ -1185,11 +1194,10 @@ function toggleUrl (x, y, x_canon, y_canon) {
         newurl = url.replace(y, x_canon);
     dactyl.open(newurl);
 }
-EOF
 
-" -----------------------------------------------------------------------------
 
-js <<EOF
+" ----------------------------------------------------------------------------- "
+
 function imgToDataUri(img) {
     var canvas = content.document.createElement("canvas");
     canvas.width = img.width;
@@ -1201,6 +1209,7 @@ function imgToDataUri(img) {
     return dataUri;
 }
 dactyl.utils.imgToDataUri = imgToDataUri;
+
 EOF
 
 " =============================================================================
@@ -1531,7 +1540,9 @@ map -b <site>r :toggleromaji<CR>
 command! toggleromaji 
      \ -description "Toggle between kana and romaji"
      \ -js toggleRomaji();
+
 js <<EOF
+
 var toggleRomaji = function() {
     var url = buffer.URL;
     var romtag = "%23romaji";
@@ -1541,6 +1552,7 @@ var toggleRomaji = function() {
         newurl = url + "%23romaji";
     dactyl.open(newurl)
 }
+
 EOF
 
 " Hints modes.
@@ -1552,61 +1564,59 @@ set eht+=[keKE]:span[class=text]
 set eht+=[l]:a[class="concept_light-status_link"]
 
 js <<EOF
-    \ hints.addMode(
-    \   'k','open kanji details',
-    \   function(e) { 
-    \     dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-    \                                    e.textContent +
-    \                                    "%2523kanji"));
-    \   }
-    \ );
-EOF
-js <<EOF
-    \ hints.addMode(
-    \   'e','open sentence examples',
-    \   function(e) { 
-    \     dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-    \                                    e.textContent +
-    \                                    "%2523sentences"));
-    \   }
-    \ );
-EOF
-js <<EOF
-    \ hints.addMode(
-    \   'K','open kanji details in new tab',
-    \   function(e) { 
-    \     dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-    \                                     e.textContent +
-    \                                     "%2523kanji"), 
-    \                 {where:dactyl.NEW_TAB});
-    \   }
-    \ );
-EOF
-js <<EOF
-    \ hints.addMode(
-    \   'E','open sentence examples in new tab',
-    \   function(e) { 
-    \     dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-    \                                    e.textContent +
-    \                                    "%2523sentences"),
-    \                 {where:dactyl.NEW_TAB});
-    \   }
-    \ );
-EOF
-js <<EOF
-    \ hints.addMode(
-    \   'l','links drop down',
-    \   function(e) { 
-    \     var dd_id = e.getAttribute("data-dropdown");
-    \     var dd = content.document.getElementById(dd_id);
-    \     dactyl.echo(dd.style.left);
-    \     if (parseInt(dd.style.left) < -100) {
-    \       dd.style.left = "0px";
-    \     } else {
-    \       dd.style.left = "-99999px";
-    \     } 
-    \   }
-    \ );
+
+hints.addMode(
+  'k','open kanji details',
+  function(e) { 
+    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
+                                   e.textContent +
+                                   "%2523kanji"));
+  }
+);
+
+hints.addMode(
+  'e','open sentence examples',
+  function(e) { 
+    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
+                                   e.textContent +
+                                   "%2523sentences"));
+  }
+);
+
+hints.addMode(
+  'K','open kanji details in new tab',
+  function(e) { 
+    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
+                                    e.textContent +
+                                    "%2523kanji"), 
+                {where:dactyl.NEW_TAB});
+  }
+);
+
+hints.addMode(
+  'E','open sentence examples in new tab',
+  function(e) { 
+    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
+                                   e.textContent +
+                                   "%2523sentences"),
+                {where:dactyl.NEW_TAB});
+  }
+);
+
+hints.addMode(
+  'l','links drop down',
+  function(e) { 
+    var dd_id = e.getAttribute("data-dropdown");
+    var dd = content.document.getElementById(dd_id);
+    dactyl.echo(dd.style.left);
+    if (parseInt(dd.style.left) < -100) {
+      dd.style.left = "0px";
+    } else {
+      dd.style.left = "-99999px";
+    } 
+  }
+);
+
 EOF
 
 " Kanji style
@@ -1632,11 +1642,13 @@ command! kanjitoggle
 " Remove arrows from details links
 
 js <<EOF
+
 function fixDetailsLinks() {
     var links = content.document.getElementsByClassName("light-details_link")
     for (i=0; i<links.length; ++i)
         links[i].textContent = links[i].textContent.slice(0, -2);
 }
+
 EOF
 
 command! fixdetailslinks 
@@ -1646,6 +1658,7 @@ autocmd DOMLoad jisho.org :fixdetailslinks
 
 
 js <<EOF
+
 function processEntries () {
     document.extraSearchEngines = {
         "tangorin search": "http://tangorin.com/dict.php?dict=general&s=%s",
@@ -1678,6 +1691,7 @@ function processEntries () {
         }
     }
 }
+
 EOF
 
 command! shrinksod
@@ -1690,6 +1704,7 @@ autocmd DOMLoad jisho.org :shrinksod
 autocmd LocationChange jisho.org :shrinksod
 
 js <<EOF
+
 function shrinkSOD() {
     var svgelts=content.document.getElementsByTagName("svg");
 
@@ -1714,15 +1729,15 @@ function shrinkSOD() {
         );
     }
 }
-EOF
 
-js <<EOF
 function repositionModal() {
     var modal = content.document.getElementsByClassName('reveal-modal')[0];
     var ypos = content.window.pageYOffset + 100;
     modal.style.top = ypos + "px";
 }
+
 EOF
+
 command! repositionmodal
      \ -description "Reposition modal box to scroll position"
      \ -js repositionModal();
@@ -1751,6 +1766,7 @@ group user
 " FIXME
 "
 js <<EOF
+
 function userscriptsToMirror() {
     alert("triggered");
     var url = buffer.URL;
@@ -1762,6 +1778,7 @@ function userscriptsToMirror() {
     else
         dactyl.utils.message("userScriptsToMirror: Address doesn't match: " + url);
 }
+
 EOF
 
 autocmd LocationChange userscripts.org :js userScriptsToMirror();
