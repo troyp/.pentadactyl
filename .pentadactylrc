@@ -1305,7 +1305,9 @@ command! toggleWaybackToolbar
     \ -bang
     \ -description "Hides/shows Wayback Machine toolbar. With [!], toggles between regular and no-toolbar URLs"
     \ -js bang ? toggleWaybackToolbarUrl() : toggleWaybackToolbar();
+
 js <<EOF
+
 function toggleWaybackToolbar() {
     var url = content.location.href
     var waybackRegex = /(https?:\/\/web\.archive\.org\/web\/\d+)(id_)?(\/.*)/;
@@ -1321,6 +1323,7 @@ function toggleWaybackToolbar() {
             toolbar.style.display = "none";
     }
 }
+
 function toggleWaybackToolbarUrl() {
     var url = content.location.href
     var waybackRegex = /(https?:\/\/web\.archive\.org\/web\/\d+)(id_)?(\/.*)/;
@@ -1332,6 +1335,7 @@ function toggleWaybackToolbarUrl() {
         dactyl.open(match[1] + "id_" + match[3]);
     }
 }
+
 EOF
 
 group user
@@ -1366,7 +1370,9 @@ map -b <extra>z
     \ -js loginAndSearch(getSearchField());
 
 js <<EOF
+
 var signinurl = "http://singlelogin.org/";
+
 function loginAndSearch() {
     var searchId = content.document.getElementsByTagName("input")[0].value;
     var curT = gBrowser.selectedTab;
@@ -1380,6 +1386,7 @@ function loginAndSearch() {
     curTB.loadURI(signinurl);
     curTB.addEventListener("DOMContentLoaded", searchForId);
 }
+
 EOF
 
 group user
@@ -1395,7 +1402,9 @@ map -b <site>h :togglehtmlview<CR>
 command! togglehtmlview 
      \ -description "Toggle between HTML file and rendered view"
      \ -js toggleHTMLView();
+
 js <<EOF
+
 function toggleHTMLView () {
     var url = buffer.URL.toLowerCase();
     var newurl;
@@ -1413,6 +1422,7 @@ function toggleHTMLView () {
     }
     dactyl.open(newurl);
 }
+
 EOF
 
 group user
@@ -1425,22 +1435,27 @@ group user
 group gtransja -locations=translate.google.com/#ja,translate.google.com.au/#ja
 
 js <<EOF
+
 var showHandWriteInput = function() {
     content.document.getElementsByClassName("ita-hwt-ime")[0].style = "left: 28px; top: 364px;"
 }
+
 var hideHandWriteInput = function() {
     content.document.getElementsByClassName("ita-hwt-ime")[0].style = "-moz-user-select: none; left: 28px; top: 364px; display: none;"
 }
+
 var isVisibleHandWriteInput = function() {
     var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
     return ! hwBox.style.cssText.contains('display: none');
 }
+
 var toggleHandWriteInput = function() {
     if (isVisibleHandWriteInput())
         hideHandWriteInput();
     else
         showHandWriteInput();
 }
+
 EOF
 
 command! handwrite -description "Show Handwritten Input box. With [!], toggle."
@@ -1460,6 +1475,7 @@ group user
 " '----------------'
 
 js <<EOF
+
 var graphemicaCharSelect = function (words) {
     var s = words.join(' ');
     dactyl.execute('tabopen http://graphemica.com/search?q='+s);
@@ -1469,6 +1485,7 @@ var graphemicaCharSelect = function (words) {
     };
     document.addEventListener("DOMContentLoaded", charselectListener, false);
 }
+
 EOF
 
 command! graphemicacharselect 
@@ -1498,6 +1515,7 @@ map -b <extra>m -js toggleMenu();
 "map -modes pass-through -b <A-9> <C-9>
 
 js <<EOF
+
 function toggleMenu() {
     var menu = content.document.getElementsByClassName('menu')[0];
     if (menu.className.endsWith(' open'))
@@ -1505,22 +1523,25 @@ function toggleMenu() {
     else
         menu.className += ' open';
 }
+
 EOF
 
 set eht+=[m]:.menu,select[id=library]
 
 js <<EOF
-    \ hints.addMode(
-    \   'm','JSBin menu',
-    \   function(e) { 
-    \     if (e.className.contains('toppanel-hide'))
-    \       e.click();
-    \     else if (e.className.contains(' open'))
-    \         e.className = e.className.replace(' open', '');
-    \     else
-    \         e.className += ' open';
-    \   }
-    \ );
+
+hints.addMode(
+  'm','JSBin menu',
+  function(e) { 
+    if (e.className.contains('toppanel-hide'))
+      e.click();
+    else if (e.className.contains(' open'))
+        e.className = e.className.replace(' open', '');
+    else
+        e.className += ' open';
+  }
+);
+
 EOF
 
 group user
