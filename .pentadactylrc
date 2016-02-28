@@ -64,8 +64,9 @@ set wildignore='~$','^(.*/)?\..*\.sw[m-p]$','^(.*/)?#.+#$'
 " Map prefix keys to prefix pseudokeys
 map e <goto>
 map c <site>
-map s <select>
-map S <sidebar>
+" " The <select> and <sidebar> pseudokeys were broken for some reason
+" map s <select>
+" map S <sidebar>
 map x <extra>
 map X <S-extra>
 map <C-x> <option>
@@ -160,8 +161,8 @@ map -b <C-/> :noh<CR>
 map -b g/ /\r
 map -b g? ?\r
 " Link search
-map -b <select>/ /\l
-map -b <select>? ?\l
+map -b s/ /\l
+map -b s? ?\l
 " Search from top of page
 map -b <option>/ gg/
 " Search for word starting with...
@@ -607,18 +608,18 @@ map -b <goto><f1> -ex tabopen ~/.pentadactyl/docs/all.html
 
 " Select:
 
-map -b <select>j :jumps<CR>
-map -b <select>;h :history! -max 30<SPACE>
-map -b <select>a :addons<CR>
-map -b <select>m :emenu<SPACE>
-map -b <select>p :set<SPACE>
-map -b <select>c :set!<SPACE>
-map -b <select>;k :bmarks! -max 30<SPACE>
+map -b sj :jumps<CR>
+map -b s;h :history! -max 30<SPACE>
+map -b sa :addons<CR>
+map -b sm :emenu<SPACE>
+map -b sp :set<SPACE>
+map -b sc :set!<SPACE>
+map -b s;k :bmarks! -max 30<SPACE>
 
 " List:
-map -b <select>b :buffers -max 30<SPACE>
-map -b <select>h :history -max 30<SPACE>
-map -b <select>k :bmarks -max 30<SPACE>
+map -b sb :buffers -max 30<SPACE>
+map -b sh :history -max 30<SPACE>
+map -b sk :bmarks -max 30<SPACE>
 
 " ----------------------------------------------------------------------------- 
 " ,--------------,
@@ -627,26 +628,26 @@ map -b <select>k :bmarks -max 30<SPACE>
 
 " Manual sidebar selection with si, toggle with S
 map -b si :sidebar<SPACE>
-" map -b <sidebar> :sidebar!<CR>
+" map -b S :sidebar!<CR>
 " Open/close AiOS, switch focus
-"map -b <sidebar> :js aios_toggleSidebar()<CR><f6><f6>
+"map -b S :js aios_toggleSidebar()<CR><f6><f6>
 " Open AiOS, switch focus and enter passthrough
-"map -b <select>S :js aios_toggleSidebar()<CR><f6><f6><C-z>
+"map -b sS :js aios_toggleSidebar()<CR><f6><f6><C-z>
 
 " Sidebar selection:
-map -b <select>A :sidebar! Add-ons<CR>
-map -b <sidebar>A :sidebar! Add-ons<CR><f6><f6><C-z>
-map -b <select>M :sidebar! Bookmarks<CR>
+map -b sA :sidebar! Add-ons<CR>
+map -b SA :sidebar! Add-ons<CR><f6><f6><C-z>
+map -b sM :sidebar! Bookmarks<CR>
 map -b SM :sidebar! Bookmarks<CR><f6><f6><C-z>
-map -b <select>D :sidebar! Downloads<CR>
+map -b sD :sidebar! Downloads<CR>
 map -b SD :sidebar! Downloads<CR><f6><f6><C-z>
-map -b <select>H :sidebar! History<CR>
+map -b sH :sidebar! History<CR>
 map -b SH :sidebar! History<CR><f6><f6><C-z>
-map -b <select>M :sidebar! Moji<CR>
+map -b sM :sidebar! Moji<CR>
 map -b SM :sidebar! Moji<CR><f6><f6><C-z>
-map -b <select>O :sidebar! HeadingsMap<CR>
+map -b sO :sidebar! HeadingsMap<CR>
 map -b SO :sidebar! HeadingsMap<CR><f6><f6><C-z>
-map -b <select>P :sidebar! Preferences<CR>
+map -b sP :sidebar! Preferences<CR>
 map -b SP :sidebar! Preferences<CR><f6><f6><C-z>
 
 " ----------------------------------------------------------------------------- 
