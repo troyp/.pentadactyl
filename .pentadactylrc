@@ -607,19 +607,18 @@ map -b <goto><f1> -ex tabopen ~/.pentadactyl/docs/all.html
 
 
 " Select:
-
-map -b sj :jumps<CR>
 map -b s;h :history! -max 30<SPACE>
+map -b s;k :bmarks!  -max 30<SPACE>
+map -b sj :jumps<CR>
 map -b sa :addons<CR>
 map -b sm :emenu<SPACE>
 map -b sp :set<SPACE>
 map -b sc :set!<SPACE>
-map -b s;k :bmarks! -max 30<SPACE>
 
 " List:
-map -b sb :buffers -max 30<SPACE>
-map -b sh :history -max 30<SPACE>
-map -b sk :bmarks -max 30<SPACE>
+map -b sb :buffers -max 45<SPACE>
+map -b sh :history -max 45<SPACE>
+map -b sk :bmarks  -max 45<SPACE>
 
 " ----------------------------------------------------------------------------- 
 " ,--------------,
