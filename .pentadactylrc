@@ -57,9 +57,9 @@ set wildignore='~$','^(.*/)?\..*\.sw[m-p]$','^(.*/)?#.+#$'
 " '-------------'
 
 " Unmap prefix keys
-map -b s <Nop>
-map -b <C-x><C-h> <Nop>
-map -b <C-x> <Nop>
+" map -b s <Nop>
+" map -b <C-x><C-h> <Nop>
+" map -b <C-x> <Nop>
 
 " Map prefix keys to prefix pseudokeys
 map e <goto>
@@ -608,17 +608,17 @@ map -b <goto><f1> -ex tabopen ~/.pentadactyl/docs/all.html
 " Select:
 
 map -b <select>j :jumps<CR>
-map -b <select>;h :history!<SPACE>
+map -b <select>;h :history! -max 30<SPACE>
 map -b <select>a :addons<CR>
 map -b <select>m :emenu<SPACE>
 map -b <select>p :set<SPACE>
 map -b <select>c :set!<SPACE>
-map -b <select>;k :bmarks!<SPACE>
+map -b <select>;k :bmarks! -max 30<SPACE>
 
 " List:
-map -b <select>b :buffers<SPACE>
-map -b <select>h :history<SPACE>
-map -b <select>k :bmarks<SPACE>
+map -b <select>b :buffers -max 30<SPACE>
+map -b <select>h :history -max 30<SPACE>
+map -b <select>k :bmarks -max 30<SPACE>
 
 " ----------------------------------------------------------------------------- 
 " ,--------------,
@@ -693,6 +693,7 @@ map -b gc y:style -group=temp <C-v><C-v><Space>
 map -b <extra>gs :emenu View.Page Style.
 " map -b <extra><C-s> :emenu View.Page Style.No Style<CR>
 map -b <extra><C-s> :set usermode!<CR>
+
 
 " =============================================================================
 "                            ___________________                               
@@ -1706,7 +1707,6 @@ map -b <extra>M :repositionmodal<CR>
 
 group user
 
-
 " -----------------------------------------------------------------------------
 " ,-------------------,
 " | StackOverflow.com |
@@ -1715,6 +1715,8 @@ group user
 group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
 
 map -modes insert <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
+
+set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
 
 group user
 
