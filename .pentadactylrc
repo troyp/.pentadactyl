@@ -1529,16 +1529,13 @@ group user
 " '-----------'
 "
 group jisho -locations=jisho.org
+
 " remove all existing jisho autocmds
 autocmd! -group jisho
 
-map -b <site>r :toggleromaji<CR>
-
-" toggleromaji: adds/removes #romaji tag to toggle between kana and romaji:
-command! toggleromaji 
-     \ -description "Toggle between kana and romaji"
-     \ -js toggleRomaji();
-
+" ------------
+" toggleromaji
+" ------------
 js <<EOF
 
 var toggleRomaji = function() {
@@ -1553,7 +1550,16 @@ var toggleRomaji = function() {
 
 EOF
 
-" Hints modes.
+" adds/removes #romaji tag to toggle between kana and romaji:
+
+map -b <site>r :toggleromaji<CR>
+command! toggleromaji 
+     \ -description "Toggle between kana and romaji"
+     \ -js toggleRomaji();
+
+" ----------
+" Hint modes
+" ----------
 " TODO: work out site/group-specific hinting.
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
@@ -1617,7 +1623,9 @@ hints.addMode(
 
 EOF
 
+" -----------
 " Kanji style
+" -----------
 style -name=kanji_light
     \ jisho.org 
     \ .kanji .character, .kanji_light .character {
@@ -1637,8 +1645,9 @@ command! kanjitoggle
     \ styletoggle -group jisho -name kanji_light
 
 
+" --------------------------------
 " Remove arrows from details links
-
+" --------------------------------
 js <<EOF
 
 function fixDetailsLinks() {
@@ -1655,15 +1664,9 @@ command! fixdetailslinks
 autocmd DOMLoad jisho.org :fixdetailslinks
 
 
-command! shrinksod
-     \ -description "Halve the dimensions of stroke order diagrams"
-     \ -js shrinkSOD();
-command! ss
-     \ -description "Halve the dimensions of stroke order diagrams"
-     \ -js shrinkSOD();
-autocmd DOMLoad jisho.org :shrinksod
-autocmd LocationChange jisho.org :shrinksod
-
+" --------------------------------------------------------
+" shrinksod: Halve the dimensions of stroke order diagrams
+" --------------------------------------------------------
 js <<EOF
 
 function shrinkSOD() {
@@ -1691,19 +1694,36 @@ function shrinkSOD() {
     }
 }
 
-function repositionModal() {
+EOF
+
+command! shrinksod
+     \ -description "Halve the dimensions of stroke order diagrams"
+     \ -js shrinkSOD();
+command! ss
+     \ -description "Halve the dimensions of stroke order diagrams"
+     \ -js shrinkSOD();
+autocmd DOMLoad jisho.org :shrinksod
+autocmd LocationChange jisho.org :shrinksod
+
+" -------------------------------------
+" fix position of modal box in viewport
+" -------------------------------------
+" TODO: have :fixmodal applied automatically.
+
+js <<EOF
+
+function fixModal() {
     var modal = content.document.getElementsByClassName('reveal-modal')[0];
-    var ypos = content.window.pageYOffset + 100;
-    modal.style.top = ypos + "px";
+    modal.setAttribute("style", "position: fixed;")
 }
 
 EOF
 
-command! repositionmodal
-     \ -description "Reposition modal box to scroll position"
-     \ -js repositionModal();
-map -b <extra>M :repositionmodal<CR>
-
+command! fixmodal
+     \ -description "Fix modal in viewport"
+     \ -js fixModal();
+     
+map -b <extra>M -ex fixmodal
 
 group user
 
