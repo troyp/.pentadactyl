@@ -70,9 +70,13 @@ command! pz -description "PageZipper"
 
 group maggiesensei -locations=maggiesensei.com
 
+" For now, use :togglestylesembedded
+" TODO: work out how to fix the style
 command! fixmaggie
     \ -description "Fix regions of missing content on maggiesensei.com"
-    \ :emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Individual Style Sheet.http://maggiesensei.com/wp-content/themes/custom-community/style.css
+    " \ -js content.document.getElementsByClassName('entry')[0].hidden='false';
+    " \     // '.post-content' class has post in it.
+    \ :togglestylesembedded<CR>
 
 
 autocmd LocationChange :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Individual Style Sheet.http://maggiesensei.com/wp-content/themes/custom-community/style.css"
