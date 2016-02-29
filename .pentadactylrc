@@ -781,12 +781,12 @@ command! styleson
 command! styleinfo
     \ -description "Show styles for selected element"
     \ :execute "emenu Tools.Web Developer Extension.CSS.Display Style Information"
-command! togglestylesembedded :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Embedded Styles"
-command! togglestyleslinked execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Linked Style Sheets"
-command! togglestylesinline :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Inline Styles"
+command! togglestylesembedded -js document.getElementById('web-developer-disable-embedded-styles-menu').click();
+command! togglestyleslinked  -js document.getElementById('web-developer-disable-linked-style-sheets-menu').click();
+command! togglestylesinline  -js document.getElementById('web-developer-disable-inline-styles-menu').click();
 " note: toggle all styles has binding <Alt-Shift-A>
-command! togglestylesall :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable All Styles"
-command! togglestylesbrowser :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Browser Default Styles"
+command! togglestylesall -js document.getElementById('web-developer-disable-all-styles-menu').click();
+command! togglestylesbrowser  -js document.getElementById('web-developer-disable-browser-default-styles-menu').click();
 
  js <<EOF
 
