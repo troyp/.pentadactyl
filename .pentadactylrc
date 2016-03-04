@@ -1233,8 +1233,12 @@ group user
 " ,-----,
 " | EdX |
 " '-----'
+group edx -locations=www.edx.org
+
 command! edx :runtime! edx.penta
 autocmd DOMload courses.edx.org :edx
+
+group user
 
 " ----------------------------------------------------------------------------- 
 " ,----------,
@@ -1270,7 +1274,6 @@ map <site>P <C-v>'Print<Space>view<f3><CR>
 " ,----------,
 " | about: * |
 " '----------'
-
 group about -locations=about:*,chrome:*
 
 map -g about -b j <C-v><Down>
@@ -1350,6 +1353,7 @@ command! widenSidebar -group tipsonjap
     s.style.width='400px';
     c.style['margin-left']='400px';
 EOF
+
 group user
 
 " -----------------------------------------------------------------------------
@@ -1429,7 +1433,6 @@ group user
 " ,-----------------------------,
 " | Google Translate (Japanese) |
 " '-----------------------------'
-
 group gtransja -locations=translate.google.com/#ja,translate.google.com.au/#ja
 
 js <<EOF
@@ -1471,6 +1474,7 @@ group user
 " ,----------------,
 " | Graphemica.com |
 " '----------------'
+group graphemica -locations=graphemica.com
 
 js <<EOF
 
@@ -1491,12 +1495,12 @@ command! graphemicacharselect
     \ -nargs=*
     \ -js graphemicaCharSelect(args);
 
+group user
 
 " -----------------------------------------------------------------------------
 " ,-----------,
 " | JSBin.com |
 " '-----------'
-
 group jsbin -locations=jsbin.com
 
 " remove all existing jsbin autocmds
@@ -1540,7 +1544,6 @@ group user
 " ,-----------,
 " | Jisho.org |
 " '-----------'
-"
 group jisho -locations=jisho.org
 
 " remove all existing jisho autocmds
@@ -1744,7 +1747,6 @@ group user
 " ,-----------------,
 " | MaggiSensei.com |
 " '-----------------'
-
 group maggiesensei -locations=maggiesensei.com
 
 " For now, use :togglestylesembedded
@@ -1762,7 +1764,6 @@ group user
 " ,-------------------,
 " | StackOverflow.com |
 " '-------------------'
-
 group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
 
 map -modes insert <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
@@ -1775,6 +1776,7 @@ group user
 " ,-----------------,
 " | Userscripts.org |
 " '-----------------'
+group userscripts.org -locations=userscripts.org
 
 " FIXME
 "
@@ -1796,13 +1798,17 @@ EOF
 
 autocmd LocationChange userscripts.org :js userScriptsToMirror();
 
+group user
+
 " -----------------------------------------------------------------------------
 " ,---------------,
 " | Wikipedia.org |
 " '---------------'
+group wikipedia -locations=wikipedia.org
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 
+group user
 
 " =============================================================================
 "                                       _______ 
