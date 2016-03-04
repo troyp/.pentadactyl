@@ -632,11 +632,11 @@ command! appcache
     \ :tabopen about:cache?storage=appcache
 
 " help
-map -b <goto>h -ex tabopen ~/.pentadactyl/docs/help/index.html
+map <local-help> -ex tabopen ~/.pentadactyl/docs/help/index.html
+map <goto>h <local-help>
 " single-page pentadactyl help
-"map -b <goto><f1> :helpall<CR>
-map -b <goto><f1> -ex tabopen ~/.pentadactyl/docs/all.html
-
+map <local-help-all> -ex tabopen ~/.pentadactyl/docs/all.html
+map <goto><f1> <local-help-all>
 
 " Select:
 map -b s;h :history! -max 30<SPACE>
