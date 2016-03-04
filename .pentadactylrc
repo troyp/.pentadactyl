@@ -1776,7 +1776,7 @@ group user
 " ,-----------------,
 " | Userscripts.org |
 " '-----------------'
-group userscripts.org -locations=userscripts.org
+group userscriptsDOTorg -locations=userscripts.org
 
 " FIXME
 "
