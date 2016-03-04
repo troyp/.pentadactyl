@@ -101,8 +101,10 @@ map -b <C-.> <Right>
 map -b h gT
 map -b l gt
 " replace h, l with A-k, A-j for horizontal movement
-map -b <A-j> l
 map -b <A-k> h
+map -b <A-j> l
+map -b <A-,> h
+map -b <A-.> l
 " free C-N, C-P bindings for tab movement
 map -b <C-S-P> <Nop>
 map -b <C-S-N> <Nop>
