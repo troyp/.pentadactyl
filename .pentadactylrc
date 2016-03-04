@@ -859,8 +859,8 @@ command! oku -description "Open local PDF in Okular"
 "                                |__________________|
 
 " Autopagerize:
-command! pagezipper :open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();<CR>
-command! pagezipper opz<CR>
+command! pagezipper :open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
+
 map <extra>z -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
 
 " Print What You Like:
@@ -1218,6 +1218,10 @@ EOF
 " '--------'
 group google -locations=google.com,google.com.*
 
+autocmd!
+
+autocmd DOMLoad google.com.au,google.com :pagezipper
+
 " restrict search to pages in a specific language
 map -b <site>gl O&lr=lang_
 " restrict search to pages originating in a specific country
@@ -1494,6 +1498,7 @@ command! graphemicacharselect
 " '-----------'
 
 group jsbin -locations=jsbin.com
+
 " remove all existing jsbin autocmds
 autocmd! -group jsbin
 
