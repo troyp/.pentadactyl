@@ -1126,7 +1126,9 @@ command! listlinks
             \ -description "List all links in page"
             \ :open listlinks
 
+" table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
 command! table2csv
+    \ -description "Convert table contents to CSV in box under table"
     \ :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
 
 
