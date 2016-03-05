@@ -379,7 +379,7 @@ map -b <extra>> -js closeAllToRight()
 command! tc 
     \ -description "close tab range from START to END inclusive"
     \ -nargs=+
-    \ -js alert(args.length); if (args.length==2) { closeTabRange(args[0], args[1]); }
+    \ -js if (args.length==2) { closeTabRange(args[0], args[1]); }
     \     else { closeTabsFromCurrentTo(args[0]); }
 map -b <extra>; :tc<SPACE>
 
