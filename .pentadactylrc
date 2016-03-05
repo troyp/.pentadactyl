@@ -851,8 +851,6 @@ command! oku -description "Open local PDF in Okular"
 
 
 " =============================================================================
-
-
 "                                 __________________ 
 "                                |                  |
 "                                | OTHER EXTENSIONS |
@@ -895,6 +893,100 @@ map -b <extra>t -js (function(){var s=content.document.createElement('script'); 
 " PageZipper
 " activate pagezipper bookmark (keyword pz)
 map <A-p> :open pz<CR>
+
+" ===============================================================================
+"                                  ________________ 
+"                                 |                |
+"                                 | Other Commands |
+"                                 |________________|
+
+
+command! yanktrueURL
+    \ -description "Yank the uncoded URL of the current buffer"
+    \ -js var text=decodeURIComponent(buffer.URL);
+    \     dactyl.clipboardWrite(text);
+    \     dactyl.utils.message(text);
+command! yankfilenameorURL
+    \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
+    \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    \     dactyl.clipboardWrite(text);
+    \     dactyl.utils.message(text);
+
+command! pwhash
+    \ -description "Open Password Hasher"
+    \ -nargs=0
+    \ -js <<EOF
+    var newtab = gBrowser.addTab('file:///opt/webapps/password-hasher.html');
+    gBrowser.selectedTab = newtab;    
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+	var keyfield = content.document.getElementById('master-key')
+	keyfield.value=user.mymasterpw;	
+	var sitefield = content.document.getElementById('site-tag')
+	sitefield.focus();	
+    });
+EOF
+map -b <extra>p :pwhash<CR>
+
+command! tr
+    \ -description "Translate: tr FROM TO TEXT"
+    \ -nargs=*
+    \ -js <<EOF
+    dactyl.open("https://translate.google.com.au/#" + args[0] + "/" + args[1] + "/" + args[2],
+                {where:dactyl.NEW_TAB});
+EOF
+
+" ----------------------------------------------------------------------------- 
+" shortcut to Wikipedia episode lists.
+command! eplist -nargs=1 -js (eplist(args[0]))
+
+" ----------------------------------------------------------------------------- 
+" toggleWayback
+
+map -b <extra>w :toggleWayback<CR>
+command! toggleWayback 
+    \ -bang
+    \ -description "Toggle web page and archive.org copy"
+    \ -js bang ? toggleWayback({where: dactyl.NEW_TAB}) : toggleWayback()
+
+" ----------------------------------------------------------------------------- 
+
+map -b <site>s :toggleHTTPS<CR>
+command! toggleHTTPS 
+   \ -description "Toggle protocol between HTTP and HTTPS" 
+   \ -js toggleHTTPS()
+
+" ----------------------------------------------------------------------------- 
+" kanji
+
+map -b <extra>k :kanjisearch!<CR>
+command! kanjisearch 
+    \ -bang -description "kanji search on jisho.org" 
+    \ -js kanjiSearchJisho(dactyl.clipboardRead(), bang);
+
+command! popjisyo
+    \ -bang
+    \ -description "Add hints for Japanese via POPjisyo.com. With !, adds hints for English"
+    \ -js bang ? popJisyoEtoJ() : popJisyo();
+
+" ----------------------------------------------------------------------------- 
+
+command! appendlinks
+            \ -description "Append links to end of page"
+    \ -js appendLinks();
+command! appendlinkurls
+            \ -description "Append link destinations to end of page"
+    \ -js appendLinkUrls();
+" trigger listlinks keyword bookmarklet
+command! listlinks
+            \ -description "List all links in page"
+            \ :open listlinks
+
+" table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
+command! table2csv
+    \ -description "Convert table contents to CSV in box under table"
+    \ :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
+
 
 
 " =============================================================================
@@ -967,51 +1059,35 @@ tabdupa = function() {
     var dupTB = gBrowser.getBrowserForTab(dupT);
     getBrowser().moveTabForward();
 }
-EOF
 
-command! yanktrueURL
-    \ -description "Yank the uncoded URL of the current buffer"
-    \ -js var text=decodeURIComponent(buffer.URL);
-    \     dactyl.clipboardWrite(text);
-    \     dactyl.utils.message(text);
-command! yankfilenameorURL
-    \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
-    \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    \     dactyl.clipboardWrite(text);
-    \     dactyl.utils.message(text);
+function toggleUrl (x, y, x_canon, y_canon) {
+    " General purpose URL toggle function: swaps x and y in URL "
+    " If an argument is a regex, then canonical strings corresponding "
+    " to x and y must be provided to be used in replacement."
+    " If one of the search expressions may be a substring of the other,"
+    " the larger must be passed as the first argument x."
+    if (x_canon === undefined) x_canon = x;
+    if (y_canon === undefined) y_canon = y;
+    var url = content.location.href;
+    var newurl;
+    if (url.search(x) >= 0)
+        newurl = url.replace(x, y_canon);
+    else if (url.search(y) >= 0)
+        newurl = url.replace(y, x_canon);
+    dactyl.open(newurl);
+}
 
-command! pwhash
-    \ -description "Open Password Hasher"
-    \ -nargs=0
-    \ -js <<EOF
-    var newtab = gBrowser.addTab('file:///opt/webapps/password-hasher.html');
-    gBrowser.selectedTab = newtab;    
-    var tb = gBrowser.getBrowserForTab(newtab);
-    tb.addEventListener("DOMContentLoaded", function () {
-	var keyfield = content.document.getElementById('master-key')
-	keyfield.value=user.mymasterpw;	
-	var sitefield = content.document.getElementById('site-tag')
-	sitefield.focus();	
-    });
-EOF
-map -b <extra>p :pwhash<CR>
-
-command! tr
-    \ -description "Translate: tr FROM TO TEXT"
-    \ -nargs=*
-    \ -js <<EOF
-    dactyl.open("https://translate.google.com.au/#" + args[0] + "/" + args[1] + "/" + args[2],
-                {where:dactyl.NEW_TAB});
-EOF
-
-
-
-" ----------------------------------------------------------------------------- 
-
-" shortcut to Wikipedia episode lists.
-command! eplist -nargs=1 -js (eplist(args[0]))
-
-js <<EOF
+function imgToDataUri(img) {
+    var canvas = content.document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    var dataUri = canvas.toDataURL("image/png");
+    // data only, return dataUri.replace(/^data:image\/(png|jpg);base64,/, "");
+    return dataUri;
+}
+dactyl.utils.imgToDataUri = imgToDataUri;
 
 String.prototype.capitalize = function() {
     return this.replace(/\b\w/g,
@@ -1022,81 +1098,6 @@ function eplist (s) {
     var sConv = s.capitalize().replace(" ", "_");
     dactyl.open("www.wikipedia.org/wiki/List_of_" + sConv + "_episodes");
 }
-
-EOF
-
-
-" ----------------------------------------------------------------------------- 
-
-map -b <extra>w :toggleWayback<CR>
-command! toggleWayback 
-    \ -bang
-    \ -description "Toggle web page and archive.org copy"
-    \ -js bang ? toggleWayback({where: dactyl.NEW_TAB}) : toggleWayback()
-js <<EOF
-function toggleWayback(opts={}) {
-    var url = content.location.href.toLowerCase();
-    var waybackRegex = /https?:\/\/web\.archive\.org\/web\/(\d+)(id_)?\/(.*)/;
-    var match = waybackRegex.exec(url);
-    if (match) {
-        dactyl.open(match[3], opts);
-    }
-    else {
-        dactyl.open("http://web.archive.org/web/" + url, opts);
-    }
-}
-EOF
-
-" ----------------------------------------------------------------------------- 
-
-map -b <site>s :toggleHTTPS<CR>
-command! toggleHTTPS 
-   \ -description "Toggle protocol between HTTP and HTTPS" 
-   \ -js toggleHTTPS()
-
-js <<EOF
-
-function toggleHTTPS () {
-    var url = content.location.href;
-    var newurl;
-    var sc_http  = "http://";
-    var sc_https = "https://";
-    if (url.indexOf(sc_http) == 0)
-        newurl = url.replace(sc_http, sc_https);
-    else if (url.indexOf(sc_https) == 0)
-        newurl = url.replace(sc_https, sc_http);
-    dactyl.open(newurl);
-}
-
-EOF
-
-" ----------------------------------------------------------------------------- 
-
-map -b <extra>k :kanjisearch!<CR>
-command! kanjisearch 
-    \ -bang -description "kanji search on jisho.org" 
-    \ -js kanjiSearchJisho(dactyl.clipboardRead(), bang);
-
-js <<EOF
-
-function kanjiSearchJisho (s, newtab) {
-    if (newtab)
-        dactyl.open("http://jisho.org/search/"+s+"%20%23kanji",
-                    {where:dactyl.NEW_TAB});
-    else
-        dactyl.open("http://jisho.org/search/"+s+"%20%23kanji");
-}
-
-EOF
-
-" ----------------------------------------------------------------------------- 
-
-command! popjisyo
-    \ -bang
-    \ -description "Add hints for Japanese via POPjisyo.com. With !, adds hints for English"
-    \ -js bang ? popJisyoEtoJ() : popJisyo();
-
-js <<EOF
 
 popJisyoUrl = 'http://www.popjisyo.com/WebHint/AddHint.aspx?r=e';
 
@@ -1112,27 +1113,29 @@ function popJisyoEtoJ(url) {
     location.href = popJisyoUrl + '&d=1&du=' + encodeURIComponent(url);
 }
 
-EOF
+function toggleWayback(opts={}) {
+    var url = content.location.href.toLowerCase();
+    var waybackRegex = /https?:\/\/web\.archive\.org\/web\/(\d+)(id_)?\/(.*)/;
+    var match = waybackRegex.exec(url);
+    if (match) {
+        dactyl.open(match[3], opts);
+    }
+    else {
+        dactyl.open("http://web.archive.org/web/" + url, opts);
+    }
+}
 
-
-command! appendlinks
-            \ -description "Append links to end of page"
-    \ -js appendLinks();
-command! appendlinkurls
-            \ -description "Append link destinations to end of page"
-    \ -js appendLinkUrls();
-" trigger listlinks keyword bookmarklet
-command! listlinks
-            \ -description "List all links in page"
-            \ :open listlinks
-
-" table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
-command! table2csv
-    \ -description "Convert table contents to CSV in box under table"
-    \ :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
-
-
-js <<EOF
+function toggleHTTPS () {
+    var url = content.location.href;
+    var newurl;
+    var sc_http  = "http://";
+    var sc_https = "https://";
+    if (url.indexOf(sc_http) == 0)
+        newurl = url.replace(sc_http, sc_https);
+    else if (url.indexOf(sc_https) == 0)
+        newurl = url.replace(sc_https, sc_http);
+    dactyl.open(newurl);
+}
 
 function appendLinks () {
     tmpStr = '';
@@ -1172,39 +1175,13 @@ function appendLinkUrls () {
     );
 }
 
-" ----------------------------------------------------------------------------- "
-
-function toggleUrl (x, y, x_canon, y_canon) {
-    " General purpose URL toggle function: swaps x and y in URL "
-    " If an argument is a regex, then canonical strings corresponding "
-    " to x and y must be provided to be used in replacement."
-    " If one of the search expressions may be a substring of the other,"
-    " the larger must be passed as the first argument x."
-    if (x_canon === undefined) x_canon = x;
-    if (y_canon === undefined) y_canon = y;
-    var url = content.location.href;
-    var newurl;
-    if (url.search(x) >= 0)
-        newurl = url.replace(x, y_canon);
-    else if (url.search(y) >= 0)
-        newurl = url.replace(y, x_canon);
-    dactyl.open(newurl);
+function kanjiSearchJisho (s, newtab) {
+    if (newtab)
+        dactyl.open("http://jisho.org/search/"+s+"%20%23kanji",
+                    {where:dactyl.NEW_TAB});
+    else
+        dactyl.open("http://jisho.org/search/"+s+"%20%23kanji");
 }
-
-
-" ----------------------------------------------------------------------------- "
-
-function imgToDataUri(img) {
-    var canvas = content.document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-    var dataUri = canvas.toDataURL("image/png");
-    // data only, return dataUri.replace(/^data:image\/(png|jpg);base64,/, "");
-    return dataUri;
-}
-dactyl.utils.imgToDataUri = imgToDataUri;
 
 EOF
 
