@@ -43,6 +43,9 @@ set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)"
 " default: '^\s*Prev(ious)? Page\s*$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)',
 set nextpattern='^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bMore Words\b','\bmore\b',
 set wildignore='~$','^(.*/)?\..*\.sw[m-p]$','^(.*/)?#.+#$'
+command! editorvim :set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
+command! editoremacs :set editor='emacsclient'
+command! editoremacsnewwin :set editor='emacsclient -c'
 
 
 " =============================================================================
@@ -427,9 +430,9 @@ EOF
 " | New Tabs |
 " '----------'
 " Duplicate tab, Back/Forward in New Tab
-map -ex C :tabdupa
-map -ex gh :backt
-map -ex gl :forwardt
+map C  -ex tabdupa
+map gh -ex backt
+map gl -ex forwardt
 " Open multiple hints in background tabs
 map -b gf g;b
 " New tab
