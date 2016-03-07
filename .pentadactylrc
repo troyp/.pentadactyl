@@ -100,6 +100,9 @@ map -b <C-.> <Right>
 " use h, l for tab changing
 map -b h gT
 map -b l gt
+" <C-n> and <C-p> for down and up
+map -b <C-n> <C-v><down>
+map -b <C-p> <C-v><up>
 " replace h, l with A-k, A-j for horizontal movement
 map -b <A-k> h
 map -b <A-j> l
