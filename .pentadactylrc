@@ -1703,8 +1703,7 @@ command! shrinksod
 command! ss
      \ -description "Halve the dimensions of stroke order diagrams"
      \ -js shrinkSOD();
-autocmd DOMLoad jisho.org :shrinksod
-autocmd LocationChange jisho.org :shrinksod
+autocmd PageLoad jisho.org :shrinksod
 
 " -------------------------------------
 " fix position of modal box in viewport
