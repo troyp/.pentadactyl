@@ -439,6 +439,7 @@ map -b gf g;b
 map -b gN  tabout:newtab<CR>
 map -b gON oabout:newtab<CR>
 "      gH : open home page in new tab
+autocmd PageLoadPre about:newtab normal o
 
 " -----------------------------------------------------------------------------
 " ,-------------,
