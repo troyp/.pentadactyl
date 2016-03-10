@@ -938,10 +938,7 @@ map -b <extra>p :pwhash<CR>
 command! tr
     \ -description "Translate: tr FROM TO TEXT"
     \ -nargs=*
-    \ -js <<EOF
-    dactyl.open("https://translate.google.com.au/#" + args[0] + "/" + args[1] + "/" + args[2],
-                {where:dactyl.NEW_TAB});
-EOF
+    \ -js dactyl.open(`https://translate.google.com.au/#${args[0]}/${args[1]}/${args[2]}`, {where:dactyl.NEW_TAB});
 
 " ----------------------------------------------------------------------------- 
 " shortcut to Wikipedia episode lists.
@@ -1103,7 +1100,7 @@ String.prototype.capitalize = function() {
 
 function eplist (s) {
     var sConv = s.capitalize().replace(" ", "_");
-    dactyl.open("www.wikipedia.org/wiki/List_of_" + sConv + "_episodes");
+    dactyl.open(`www.wikipedia.org/wiki/List_of_${sConv}_episodes`);
 }
 
 popJisyoUrl = 'http://www.popjisyo.com/WebHint/AddHint.aspx?r=e';
@@ -1111,13 +1108,13 @@ popJisyoUrl = 'http://www.popjisyo.com/WebHint/AddHint.aspx?r=e';
 function popJisyo(url) {
     if (!url) 
         url = content.location.href;
-    location.href = popJisyoUrl + '&d=7&du=' + encodeURIComponent(url);
+    content.location.href = `${popJisyoUrl}&d=7&u=${encodeURIComponent(url)}`;
 }
 
 function popJisyoEtoJ(url) {
     if (!url) 
         url = content.location.href;
-    location.href = popJisyoUrl + '&d=1&du=' + encodeURIComponent(url);
+    content.location.href = `${popJisyoUrl}&d=1&u=${encodeURIComponent(url)}`;
 }
 
 function toggleWayback(opts={}) {
@@ -1128,7 +1125,7 @@ function toggleWayback(opts={}) {
         dactyl.open(match[3], opts);
     }
     else {
-        dactyl.open("http://web.archive.org/web/" + url, opts);
+        dactyl.open(`http://web.archive.org/web/${url}`, opts);
     }
 }
 
@@ -1156,10 +1153,10 @@ function appendLinks () {
             la[lc] = s[i];
         }
     for(i = 1; i<=lc; i++)
-        tmpStr += '<a href=' + la[i].href + '>' + la[i].href + '</a><br>';
+        tmpStr += `<a href=${la[i].href}> ${la[i].href} </a><br>`;
     d.body.insertAdjacentHTML(
         'beforeEnd', 
-        '<br style = clear:both;><div><hr>Link Footnotes:<hr>' + tmpStr + '</div><hr>'
+        `<br style = clear:both;><div><hr>Link Footnotes:<hr>${tmpStr}</div><hr>`
     );
 }
 
@@ -1178,16 +1175,16 @@ function appendLinkUrls () {
         tmpStr += la[i].href + '<br>';
     d.body.insertAdjacentHTML(
         'beforeEnd', 
-        '<br style = clear:both;><div><hr>Link Footnotes:<hr><p>' + tmpStr + '</div><hr>'
+        `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${tmpStr}</div><hr>`
     );
 }
 
 function kanjiSearchJisho (s, newtab) {
     if (newtab)
-        dactyl.open("http://jisho.org/search/"+s+"%20%23kanji",
+        dactyl.open(`http://jisho.org/search/${s}%20%23kanji`,
                     {where:dactyl.NEW_TAB});
     else
-        dactyl.open("http://jisho.org/search/"+s+"%20%23kanji");
+        dactyl.open(`http://jisho.org/search/${s}%20%23kanji`);
 }
 
 EOF
@@ -1385,7 +1382,7 @@ group user
 " '------------'
 group github -locations=github.com,githubusercontent.com,rawgit.com
 
-map -b <site>h :togglehtmlview<CR>
+map -b <site>h -ex togglehtmlview
 
 command! togglehtmlview 
      \ -description "Toggle between HTML file and rendered view"
@@ -1399,14 +1396,16 @@ function toggleHTMLView () {
     if (url.contains("https://github.com")) {
         var rx = /https:\/\/github.com\/([^/\s]+\/[^/\s]+)\/blob(\/.*)/;
         var match = rx.exec(url);
-        newurl = "https://rawgit.com/" + match[1] + match[2];
+        newurl = `https://rawgit.com/${match[1]}${match[2]}`;
     }
-    else if (url.contains("https://raw.githubusercontent.com"))
-        newurl = url.replace("raw.githubusercontent", "rawgit");
-    else if (url.contains("https://rawgit.com")) {
-        var rx = /https:\/\/rawgit.com\/([^/\s]+\/[^/\s]+)(\/.*)/;
-        var match = rx.exec(url);
-        newurl = "https://github.com/" + match[1] + "/blob" + match[2];
+    else {
+        if (url.contains("https://raw.githubusercontent.com"))
+            url = url.replace("raw.githubusercontent", "rawgit");
+        if (url.contains("https://rawgit.com")) {
+            var rx = /https:\/\/rawgit.com\/([^/\s]+\/[^/\s]+)(\/.*)/;
+            var match = rx.exec(url);
+            newurl = `https://github.com/${match[1]}/blob${match[2]}`;
+        }
     }
     dactyl.open(newurl);
 }
