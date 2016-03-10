@@ -309,7 +309,7 @@ command! jsdisable :set! javascript.enabled=false
 command! nointercept -js document.addEventListener('keydown', function(e) { e.stopImmediatePropagation(); return false;}, true);
 
 " Open in Google Chrome:
-command! ochrome :exec '!google-chrome ' + buffer.URL
+command! ochrome :exec `!google-chrome ${buffer.URL}`
 map -b <extra>c :ochrome<CR>
 
 " Show all marks (quickmarks and url/local marks)
@@ -853,8 +853,8 @@ group user
 "       - otherwise by re-downloading
 
 " PDF (local): view in Okular
-command! oku -description "Open local PDF in Okular"
-    \ execute 'run okular "' + decodeURIComponent(buffer.URL.substring(7)) + '"'
+command! oku -description "Open local file in Okular"
+    \ execute `run okular "${decodeURIComponent(buffer.URL.substring(7))}"`
 
 
 " =============================================================================
@@ -1459,13 +1459,12 @@ group user
 " ,----------------,
 " | Graphemica.com |
 " '----------------'
-group graphemica -locations=graphemica.com
 
 js <<EOF
 
 var graphemicaCharSelect = function (words) {
     var s = words.join(' ');
-    dactyl.execute('tabopen http://graphemica.com/search?q='+s);
+    dactyl.execute(`tabopen http://graphemica.com/search?q=${s}`);
     var charselectListener = function () {
         dactyl.execute('normal <link_desc>');
         document.removeEventListener("DOMContentLoaded", charselectListener, false);
@@ -1480,7 +1479,6 @@ command! graphemicacharselect
     \ -nargs=*
     \ -js graphemicaCharSelect(args);
 
-group user
 
 " -----------------------------------------------------------------------------
 " ,-----------,
@@ -1545,7 +1543,7 @@ var toggleRomaji = function() {
     if (url.contains(romtag))
         newurl = url.replace(romtag,"");
     else
-        newurl = url + "%23romaji";
+        newurl = `${url}%23romaji`;
     dactyl.open(newurl)
 }
 
@@ -1570,30 +1568,26 @@ set eht+=[l]:a[class="concept_light-status_link"]
 
 js <<EOF
 
+var dec = decodeURIComponent;
+
 hints.addMode(
   'k','open kanji details',
   function(e) { 
-    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-                                   e.textContent +
-                                   "%2523kanji"));
+    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`));
   }
 );
 
 hints.addMode(
   'e','open sentence examples',
   function(e) { 
-    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-                                   e.textContent +
-                                   "%2523sentences"));
+    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`));
   }
 );
 
 hints.addMode(
   'K','open kanji details in new tab',
   function(e) { 
-    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-                                    e.textContent +
-                                    "%2523kanji"), 
+    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`), 
                 {where:dactyl.NEW_TAB});
   }
 );
@@ -1601,9 +1595,7 @@ hints.addMode(
 hints.addMode(
   'E','open sentence examples in new tab',
   function(e) { 
-    dactyl.open(decodeURIComponent("http://jisho.org/search/" +
-                                   e.textContent +
-                                   "%2523sentences"),
+    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`),
                 {where:dactyl.NEW_TAB});
   }
 );
@@ -1690,7 +1682,7 @@ function shrinkSOD() {
         var wunit = style.width.slice(-2);
         sods[i].setAttribute(
             "style", 
-            "height: " + newheight + hunit + "; width: " + newwidth + wunit + ";"
+            `height: ${newheight}${hunit}; width: ${newwidth}${wunit};`
         );
     }
 }
@@ -1768,9 +1760,9 @@ function userscriptsMirror(url) {
     var newurl;
     var match = rx.exec(url.toLowerCase());
     if (match)
-        dactyl.open("http://userscripts-mirror.org/" + match[1]);
+        dactyl.open(`http://userscripts-mirror.org/${match[1]}`);
     else
-        dactyl.utils.message("userScriptsMirror: Address doesn't match: " + url);
+        dactyl.utils.message(`userScriptsMirror: Address doesn't match: ${url}`);
 }
 
 EOF
