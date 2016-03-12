@@ -1782,6 +1782,15 @@ group wikipedia -locations=wikipedia.org
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 
+js <<EOF
+var wpLatest = function() {
+   var newurl = buffer.URL.replace(/\?.*$/, '');
+   dactyl.open(newurl);
+}
+EOF
+command! wplatest -description "Go to latest revision" -js wpLatest();
+map <site>l -ex wplatest
+
 group user
 
 " =============================================================================
