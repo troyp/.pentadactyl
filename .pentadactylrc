@@ -436,10 +436,21 @@ map gl -ex forwardt
 " Open multiple hints in background tabs
 map -b gf g;b
 " New tab
-map -b gN  tabout:newtab<CR>
-map -b gON oabout:newtab<CR>
+map -b gN  -js newTabPage();
+map -b gON -ex oabout:newtab
 "      gH : open home page in new tab
-autocmd PageLoadPre about:newtab normal o
+
+"TODO: newTabPage: get temp (or local) hinttags value to work
+js <<EOF
+var newTabPage = function() {
+    dactyl.open('about:newtab', {where:dactyl.NEW_TAB});
+    //var hinttags_orig = options.store.get('hinttags');
+    //options.hinttags = ":-moz-any-link, input:not([type=hidden]):not([disabled])";
+    //options.store.set('hinttags', { value: ":-moz-any-link, input:not([type=hidden]):not([disabled])", time: Date.now() });
+    dactyl.execute('normal f');
+    //options.store.set('hinttags', hinttags_orig);
+}
+EOF
 
 " -----------------------------------------------------------------------------
 " ,-------------,
@@ -644,6 +655,9 @@ map <goto>h <local-help>
 " single-page pentadactyl help
 map <local-help-all> -ex tabopen ~/.pentadactyl/docs/all.html
 map <goto><f1> <local-help-all>
+
+" Pentadactyl source
+map <goto>D -ex tabopen resource://dactyl/
 
 " Select:
 map -b s;h :history! -max 30<SPACE>
