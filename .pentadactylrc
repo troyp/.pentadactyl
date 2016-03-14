@@ -1217,7 +1217,7 @@ group google -locations=google.com,google.com.*
 
 autocmd!
 
-autocmd DOMLoad google.com.au,google.com :pagezipper
+autocmd DOMLoad https://www.google.com.au/*,https://www.google.com* :pagezipper
 
 " restrict search to pages in a specific language
 map -b <site>gl O&lr=lang_
