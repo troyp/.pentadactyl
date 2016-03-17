@@ -891,8 +891,18 @@ command! dtamaagr -description "Open DownThemAll manager"
     \ -js self.DTA.openManager()
 
 " Rikaisama:
+" notes:
 " CSS - chrome://rikaichan/skin/popup-blue.css
 " keybindings: stored as ASCII codes in rcxConfig.kb* entries
+" functions:
+"   rcxData.convertKatakanaToHiragana(word)
+"   rcxData.kanjiSearch(text)
+"   rcxData.textSearch(text)
+"   rcxData.wordSearch(text)
+"   rcxData.translate(word, noKanji)
+"   rcxMain.containsKanji(text)
+"   rcxMain.htmlParser(aHTMLString)
+"   rcxMain.lookupSearch(text)            // perform lookupbar search (results in popup)
 map -b <extra>x -js rcxMain.saveToFile()
 command! rikLbOn -description "Rikaisama lookupbar on"
     \ -js rcxMain.lbToggle()
