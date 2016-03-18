@@ -114,9 +114,9 @@ map -b <A-.> l
 " free C-N, C-P bindings for tab movement
 map -b <C-S-P> <Nop>
 map -b <C-S-N> <Nop>
-" bind gs as :viewsource, free gf for g;b
+" bind gs as :viewpagesource, free gf for g;b
 map -b gf <Nop>
-map -b gs gf
+map -b gs -ex viewpagesource
 " replace builtin <C-a> and <C-x> bindings (inrease/decrease URL by 1)
 map -b <C-a> <Nop>
 map -b <A-=> <C-a>
@@ -292,6 +292,9 @@ command! tabdupa -description "Create adjacent duplicate tab" -js tabdupa()
 
 command! pasteall -description "open all links in clipboard" -js openAllLinksInCB();
 map gp :pasteall<CR>
+
+command! viewpagesource -description "Toggle viewing page / viewing page source" 
+\    -js var loc = content.location; if ( !(loc.protocol === 'view-source:') ) loc.href = 'view-source:' + loc.href;
 
 command! rc source ~/.pentadactylrc
 "command! rce viewsource! file:/home/troy/.pentadactylrc
