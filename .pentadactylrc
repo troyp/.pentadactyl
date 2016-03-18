@@ -1415,6 +1415,8 @@ command! togglehtmlview
      \ -description "Toggle between HTML file and rendered view"
      \ -js toggleHTMLView();
 
+command! gotolines -nargs=+ -js goToLines(args);
+
 js <<EOF
 
 function toggleHTMLView () {
@@ -1435,6 +1437,14 @@ function toggleHTMLView () {
         }
     }
     dactyl.open(newurl);
+}
+
+function goToLines (args) {
+    var loc = content.location;
+    var url = loc.href.replace(/#.*$/, '');
+    var frag = `#L${args[0]}`;
+    if (args.length > 1) frag += `-L${args[1]}`;
+    loc.href = url + frag;
 }
 
 EOF
