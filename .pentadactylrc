@@ -32,17 +32,26 @@ set showstatuslinks=status
 set wildmode=list:full
 set altwildmode=list:longest,list:full
 set strictfocus=mail.google.com:laissez-faire,'chrome:*':laissez-faire,*:moderate
-" Ex commands output in a new tab by default (prefs, addons...)
-set newtab=all
-" make yanks go to clipboard
-js editor.defaultRegister="+"
-set! browser.tabs.closeWindowWithLastTab=false
 set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)" <file>'
+set scrolltime=0
+set scrollsteps=1
+
 " nextpattern, previouspattern
 " default: '^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bmore\b',
 " default: '^\s*Prev(ious)? Page\s*$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)',
 set nextpattern='^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bMore Words\b','\bmore\b',
+
 set wildignore='~$','^(.*/)?\..*\.sw[m-p]$','^(.*/)?#.+#$'
+
+
+" Ex commands output in a new tab by default (prefs, addons...)
+set newtab=all
+
+" make yanks go to clipboard
+js editor.defaultRegister="+"
+
+set! browser.tabs.closeWindowWithLastTab=false
+
 command! editorvim :set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
 command! editoremacs :set editor='emacsclient'
 command! editoremacsnewwin :set editor='emacsclient -c'
@@ -191,9 +200,9 @@ map -b <leader>S :<C-v><C-v><Home>open<Space><Space><Left>
 " use c_<C-,>, c_<C-.> for cycling WildMode completion
 cmap -b <C-,> <Tab>
 cmap -b <C-.> <S-Tab>
-" use c_<C-Space> for AltWildMode completion
-map -b -modes=command-line <C-Space> <A-Tab>
-map -b -modes=command-line <C-S-Space> <A-S-Tab>
+" use c_<A-/> for AltWildMode completion
+map -b -modes=command-line <A-/> <A-Tab>
+map -b -modes=command-line <A-S-/> <A-S-Tab>
 
 map -modes command-line,insert -b <C-y> <C-v><C-v>
 map -modes command-line,insert -b <C-p> <Up>
@@ -202,6 +211,13 @@ map -modes command-line,insert -b <C-S-P> <S-Up>
 map -modes command-line,insert -b <C-S-N> <S-Down>
 map -modes command-line,insert -b <C-f> <Right>
 map -modes command-line,insert -b <C-b> <Left>
+
+" repeat last search with a new keyword:
+"   uses clipboard and javascript to do text processing, since <C-Del>, <C-BS>, <C-S-Left>, etc aren't working in map commands
+"   TODO: remove dependence on clipboard and ad-hoc pseudo-keyword (either by getting delete-word keys working in `map`, or finding
+"         javascript commands for retrieving command history and entering text in command line)
+map -modes command-line <change-open-keyword> -js var cmd=dactyl.clipboardRead(0).split(/\s/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
+map -modes command-line <C-r> <up><A-a><C-v><C-c><down><change-open-keyword><C-v><C-v><Home><C-Right><Space>
 
 " SPACES (TODO)
 " insert space with C-SPACE (When typing search keywords in
@@ -342,6 +358,7 @@ command! listhintmodes :echo hints.modes
 "command! encjis :execute "emenu View.Text Encoding.Japanese (Shift_JIS)"
 command! encuni :emenu View.Text Encoding.Unicode
 command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
+command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
 
 
 " =============================================================================
@@ -429,6 +446,35 @@ EOF
 
 "
 " -----------------------------------------------------------------------------
+" ,-------------,
+" | Moving Tabs |
+" '-------------'
+" alias tt=tabmove
+command! tt -nargs=1 -bang 
+    \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]); 
+map -b <extra>m :tabmove<SPACE>
+map -b -arg <extra>M -ex tabmove <arg>
+map -b gt :tabmove!<SPACE>
+map -b <C-S-P> -ex tabmove! -1
+map -b <C-S-N> -ex tabmove! +1
+map -b <C-h> -ex tabmove! -1
+map -b <C-l> -ex tabmove! +1
+map -b <C-Left> -ex tabmove! -1
+map -b <C-Right> -ex tabmove! +1
+map -b <C-\<> -ex tabmove! 1
+map -b <C-\>> -ex tabmove! $
+map -b g\> -ex tabmove! $
+map -b <A-S-1> -ex tabmove! 1
+map -b <A-S-2> -ex tabmove! 2
+map -b <A-S-3> -ex tabmove! 3
+map -b <A-S-4> -ex tabmove! 4
+map -b <A-S-5> -ex tabmove! 5
+map -b <A-S-6> -ex tabmove! 6
+map -b <A-S-7> -ex tabmove! 7
+map -b <A-S-8> -ex tabmove! 8
+map -b <A-S-9> -ex tabmove! $
+
+" -----------------------------------------------------------------------------
 " ,----------,
 " | New Tabs |
 " '----------'
@@ -438,51 +484,42 @@ map gh -ex backt
 map gl -ex forwardt
 " Open multiple hints in background tabs
 map -b gf g;b
+
 " New tab
+" note: hints not working right...
+"   each site has two hints: foreground hint DELETES page; background hint: SELECTS page
 map -b gN  -js newTabPage();
 map -b gON -ex oabout:newtab
+map -b <goto>N  -js newTabPage();
+map -b <goto>ON -ex oabout:newtab
+
 "      gH : open home page in new tab
 
 "TODO: newTabPage: get temp (or local) hinttags value to work
 js <<EOF
+
 var newTabPage = function() {
     dactyl.open('about:newtab', {where:dactyl.NEW_TAB});
-    //var hinttags_orig = options.store.get('hinttags');
-    //options.hinttags = ":-moz-any-link, input:not([type=hidden]):not([disabled])";
-    //options.store.set('hinttags', { value: ":-moz-any-link, input:not([type=hidden]):not([disabled])", time: Date.now() });
+    // var hinttags_orig = options.store.get('hinttags');
+    // options.hinttags.value = options.hinttags.value.slice(0, 0);
+    // options.hinttags.value.push();
+    // options.hinttags.value = "button[not(substring(title(),string-length(name())-1) = 'fu')]";
     dactyl.execute('normal f');
-    //options.store.set('hinttags', hinttags_orig);
+    // options.store.set('hinttags', hinttags_orig);
 }
-EOF
 
-" -----------------------------------------------------------------------------
-" ,-------------,
-" | Moving Tabs |
-" '-------------'
-" alias tt=tabmove
-command! tt -nargs=1 -bang 
-    \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]); 
-" map -b -arg <C-m>t :tabmove <arg><CR>
-map -b <extra>m :tabmove<SPACE>
-map -b gt :tabmove!<SPACE>
-map -b <C-S-P> :tabmove! -1<CR>
-map -b <C-S-N> :tabmove! +1<CR>
-map -b <C-h> :tabmove! -1<CR>
-map -b <C-l> :tabmove! +1<CR>
-map -b <C-Left> :tabmove! -1<CR>
-map -b <C-Right> :tabmove! +1<CR>
-map -b <C-\<> :tabmove! 1<CR>
-map -b <C-\>> :tabmove! $<CR>
-map -b g\> :tabmove! $<CR>
-map -b <A-S-1> :tabmove! 1<CR>
-map -b <A-S-2> :tabmove! 2<CR>
-map -b <A-S-3> :tabmove! 3<CR>
-map -b <A-S-4> :tabmove! 4<CR>
-map -b <A-S-5> :tabmove! 5<CR>
-map -b <A-S-6> :tabmove! 6<CR>
-map -b <A-S-7> :tabmove! 7<CR>
-map -b <A-S-8> :tabmove! 8<CR>
-map -b <A-S-9> :tabmove! $<CR>
+// // FIXME:
+// var newTabPage = function() {
+//     dactyl.open('about:newtab', {where:dactyl.NEW_TAB});
+//     var hinttags_orig = options.store.get('hinttags');
+//     options.hinttags.value = options.hinttags.value.slice(0, 0);
+//     options.hinttags.value.push();
+//     options.hinttags.value = "button[not(substring(title(),string-length(name())-1) = 'fu')]";
+//     dactyl.execute('normal f');
+//     options.store.set('hinttags', hinttags_orig);
+// }
+
+EOF
 
 " -----------------------------------------------------------------------------
 " ,------------,
