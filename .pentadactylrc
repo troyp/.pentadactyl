@@ -169,8 +169,16 @@ map -b <extra>y -js dactyl.clipboardWrite(buffer.title)
 map -b gy -ex yanktrueURL
 " yank filename or buffer URL (unencoded)
 map -b <extra>gy -ex yankfilenameorURL
+" open file in Emacs
+map -b <extra>e -ex openFileInEmacs
+" open directory in Dired
+map -b <extra>d -ex openDirectoryInDired
 " jumplist
 map -b <C-j> -ex jumps
+" password hasher
+map -b <extra>P -ex pwhash
+" password hasher: hash site domain
+map -b <extra>p -ex pwhashsite
 
 " Search:
 " clear the search term highlighting
@@ -315,7 +323,7 @@ command! viewpagesource -description "Toggle viewing page / viewing page source"
 
 command! rc source ~/.pentadactylrc
 "command! rce viewsource! file:/home/troy/.pentadactylrc
-command! rce !gvim ~/.pentadactylrc 2> /dev/null
+command! rce !emacsclient ~/.pentadactylrc 2> /dev/null
 
 command! loadutils runtime! utils.js | js var utils = dactyl.utils.getPlugin("utils");
 
@@ -985,21 +993,30 @@ command! yankfilenameorURL
     \     dactyl.clipboardWrite(text);
     \     dactyl.utils.message(text);
 
+command! openDirectoryInDired
+    \ -description "Open the current file's directory in Dired."
+    \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    \     var dir = file.replace(/[^/]*$/,'');
+    \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`);
+
+command! openFileInEmacs
+    \ -description "Open the current file for editing in Emacs."
+    \ -js dactyl.execute('!emacsclient "' + getFilenameOrURL() + '"');
+
 command! pwhash
     \ -description "Open Password Hasher"
     \ -nargs=0
-    \ -js <<EOF
-    var newtab = gBrowser.addTab('file:///opt/webapps/password-hasher.html');
-    gBrowser.selectedTab = newtab;
-    var tb = gBrowser.getBrowserForTab(newtab);
-    tb.addEventListener("DOMContentLoaded", function () {
-	var keyfield = content.document.getElementById('master-key')
-	keyfield.value=user.mymasterpw;
-	var sitefield = content.document.getElementById('site-tag')
-	sitefield.focus();
-    });
-EOF
-map -b <extra>p :pwhash<CR>
+    \ -js pwHash();
+
+command! pwhashgen
+    \ -description "Generate short password from URL using Password Hasher"
+    \ -nargs=1
+    \ -js pwHashGen(args[0]);
+
+command! pwhashsite
+    \ -description "Generate short password from current site's URL using Password Hasher"
+    \ -nargs=0
+    \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'')); pwHashGen(domain);
 
 command! tr
     \ -description "Translate: tr FROM TO TEXT"
@@ -1057,6 +1074,8 @@ command! table2csv
     \ -description "Convert table contents to CSV in box under table"
     \ :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
 
+command! activator -description "Lightbend (Typesafe) Activator"
+     \ :!/opt/activator-dist/bin/activator && firefox http://127.0.0.1:8888/home &
 
 
 " =============================================================================
@@ -1251,6 +1270,45 @@ function kanjiSearchJisho (s, newtab) {
                     {where:dactyl.NEW_TAB});
     else
         dactyl.open(`http://jisho.org/search/${s}%20%23kanji`);
+}
+
+function getFilenameOrURL() {
+    var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    return text;
+}
+
+function pwHash() {
+    var newtab = gBrowser.addTab('file:///opt/webapps/password-hasher.html');
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        var keyfield = content.document.getElementById('master-key')
+        keyfield.value=user.mymasterpw;
+        var sitefield = content.document.getElementById('site-tag')
+        sitefield.focus();
+    });
+}
+
+function pwHashGen(s) {
+    var newtab = gBrowser.addTab('file:///opt/webapps/password-hasher.html');
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        var keyfield = content.document.getElementById('master-key')
+        keyfield.value=user.mymasterpw;
+        var siteEntryBox = content.document.getElementById("site-tag");
+        var shortPWButton = content.document.getElementById("hash-word").nextElementSibling;
+        siteEntryBox.value = s;
+        shortPWButton = content.document.getElementsByTagName("details")[0].getElementsByTagName("button")[0];
+        shortPWButton.click();
+    });
+}
+
+function pwHashGenerateShortPassword(s) {
+    var siteEntryBox = content.document.getElementById("site-tag");
+    var shortPWButton = content.document.getElementById("hash-word").nextElementSibling;
+    siteEntryBox.value = s;
+    shortPWButton = click();
 }
 
 EOF
