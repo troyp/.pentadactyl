@@ -337,7 +337,7 @@ command! jsdisable :set! javascript.enabled=false
 command! nointercept -js document.addEventListener('keydown', function(e) { e.stopImmediatePropagation(); return false;}, true);
 
 " Open in Google Chrome:
-command! ochrome :exec `!google-chrome ${buffer.URL}`
+command! ochrome :exec `!google-chrome "${buffer.URL}"`
 map -b <extra>c :ochrome<CR>
 
 " Show all marks (quickmarks and url/local marks)
@@ -1069,6 +1069,7 @@ command! listlinks
             \ -description "List all links in page"
             \ :open listlinks
 
+map -b <leader>t -ex table2csv
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
 command! table2csv
     \ -description "Convert table contents to CSV in box under table"
@@ -1361,6 +1362,7 @@ group user
 " | EdX |
 " '-----'
 group edx -locations=www.edx.org
+autocmd! -group edx
 
 command! edx :runtime! edx.penta
 autocmd DOMload courses.edx.org :edx
@@ -1657,7 +1659,7 @@ group jsbin -locations=jsbin.com
 " remove all existing jsbin autocmds
 autocmd! -group jsbin
 
-map -b <extra>m -js toggleMenu();
+map <site>m -js toggleMenu();
 
 js <<EOF
 
@@ -1700,6 +1702,10 @@ group jisho -locations=jisho.org
 " remove all existing jisho autocmds
 autocmd! -group jisho
 
+map <site>s -ex shrinksod
+map <site>M -ex fixmodal
+map <site>r :toggleromaji<CR>
+
 " ------------
 " toggleromaji
 " ------------
@@ -1719,7 +1725,6 @@ EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji:
 
-map -b <site>r :toggleromaji<CR>
 command! toggleromaji
      \ -description "Toggle between kana and romaji"
      \ -js toggleRomaji();
@@ -1863,6 +1868,7 @@ command! shrinksod
 command! ss
      \ -description "Halve the dimensions of stroke order diagrams"
      \ -js shrinkSOD();
+
 autocmd PageLoad jisho.org :shrinksod
 
 " -------------------------------------
@@ -1883,8 +1889,6 @@ command! fixmodal
      \ -description "Fix modal in viewport"
      \ -js fixModal();
 
-map -b <extra>M -ex fixmodal
-
 group user
 
 " -------------------------------------------------------------------------------
@@ -1892,6 +1896,7 @@ group user
 " | MaggiSensei.com |
 " '-----------------'
 group maggiesensei -locations=maggiesensei.com
+autocmd! -group maggiesensei
 
 " For now, use :togglestylesembedded
 " TODO: work out how to fix the style (the '.post-content' class has post in it).
@@ -1941,6 +1946,26 @@ command! userscriptsmirror -nargs=?
     \     else
     \         userscriptsMirror(args[0]);
 
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | Wikia.com |
+" '-----------'
+group wikia -locations='.*\.wikia\.com/'
+autocmd! -group wikia
+
+command! removefandomads
+    \ -description "Remove 'Trending Fandom' ads"
+    \ -js removeFandomAds();
+js <<EOF
+function removeFandomAds() {
+  var fads = content.document.getElementsByClassName("recirculation-rail")[0];
+  fads.style.display="none";
+  alert("done");
+}
+EOF
+map <site>c -js removeFandomAds();
+
+group user
 
 " -----------------------------------------------------------------------------
 " ,---------------,
