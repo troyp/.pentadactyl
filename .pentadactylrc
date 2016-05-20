@@ -1960,7 +1960,6 @@ js <<EOF
 function removeFandomAds() {
   var fads = content.document.getElementsByClassName("recirculation-rail")[0];
   fads.style.display="none";
-  alert("done");
 }
 EOF
 map <site>c -js removeFandomAds();
