@@ -559,6 +559,8 @@ js hints.addMode('X','shift div off screen',utils.removeFromView);
 js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
 set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:div/p
 js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
+set eht+=[e]:':-moz-any-link'
+js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
 
 " svg: FIXME
 runtime! svg-pan-zoom.min.js
@@ -1273,6 +1275,11 @@ function kanjiSearchJisho (s, newtab) {
         dactyl.open(`http://jisho.org/search/${s}%20%23kanji`);
 }
 
+function filenameOrURL(s) {
+    var text=decodeURIComponent(s.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    return text;
+}
+
 function getFilenameOrURL() {
     var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     return text;
@@ -1736,7 +1743,7 @@ command! toggleromaji
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
 "
-set eht+=[keKE]:span[class=text]
+set eht+=[kgKG]:span[class=text]
 set eht+=[l]:a[class="concept_light-status_link"]
 
 js <<EOF
@@ -1751,7 +1758,7 @@ hints.addMode(
 );
 
 hints.addMode(
-  'e','open sentence examples',
+  'g','open sentence examples',
   function(e) {
     dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`));
   }
@@ -1766,7 +1773,7 @@ hints.addMode(
 );
 
 hints.addMode(
-  'E','open sentence examples in new tab',
+  'G','open sentence examples in new tab',
   function(e) {
     dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`),
                 {where:dactyl.NEW_TAB});
