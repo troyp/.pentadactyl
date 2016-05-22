@@ -197,14 +197,32 @@ map -b <extra>/ /\r\w*<Left><Left><left>
 map -b <S-extra>/ /\r\w*\w*<Left><Left><left>
 " C-' Firefox link search
 map -b "<C-'>" <C-v>'
+
+" ,---------------------------------------,
+" | Normal mode bindings for Command-line |
+" '---------------------------------------'
 " Search clipboard contents using search keyword
 map -b <leader>s :<C-v><C-v><Home>tabopen<Space><Space><Left>
 map -b <leader>S :<C-v><C-v><Home>open<Space><Space><Left>
+" Repeat search just entered with keyword changed
+map <leader>r :<C-r>
+" Repeat default just entered search with keyword
+map <leader>s :<up><Home><forward-word><Space>
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
 " | Command mode and insert mode bindings |  cmap: command-line mode
 " '---------------------------------------'  imap: insert mode
+
+" Useful pseudo-keys
+map -modes command-line <copy-command-to-cb> <A-a><C-v><C-c>
+map -modes command-line <paste> <C-v><C-v>
+map -modes command-line <copy> <C-v><C-c>
+map -modes command-line <forward-word> <C-Right>
+map -modes command-line <backward-word> <C-Left>
+
+map -modes command-line <A-b> <backward-word>
+map -modes command-line <A-f> <forward-word>
 
 " use c_<C-,>, c_<C-.> for cycling WildMode completion
 cmap -b <C-,> <Tab>
