@@ -1,5 +1,5 @@
 // =============================================================================
-//                           _______________________________ 
+//                           _______________________________
 //                          |                               |
 //                          | utils -- Javascript utilities |
 //                          |_______________________________|
@@ -10,10 +10,10 @@ var utils = {
 
 // =============================================================================
 
-    tabNumber: function () { 
+    tabNumber: function () {
         return tabs.getTab().dactylOrdinal;
-    },   
-    
+    },
+
     // closes tab spec and all to left
     closeTabsTo: function (spec='') {
         //spec = (typeof(spec)==="undefined") ? '' : tabs.getTab(spec);
@@ -22,7 +22,7 @@ var utils = {
         var numToClose = targetIx + 1;
         tabs.remove(firstTab, numToClose);
     },
-    
+
     // closes tab spec and all to right
     closeTabsFrom: function (spec='') {
         //spec = (typeof(spec)==="undefined") ? '' : tabs.getTab(spec);
@@ -41,7 +41,7 @@ var utils = {
 	tabs.remove(firstTab, N);
     return N;
     },
-    
+
     removeTab: function (ord) {
         var currT = gBrowser.selectedTab;
         var altT = tabs.alternate;
@@ -110,7 +110,7 @@ var utils = {
         var d = ('0' + new Date().getDate()).slice(-2)
         return y + sep + m + sep + d;
     },
-	
+
     loadJQuery: function () {
         var scripttag = content.document.createElement('script');
         scripttag.type = 'text/javascript';
@@ -127,13 +127,3 @@ var utils = {
 };
 
 dactyl.utils = utils;
-
-
-
-
-
-
-
-
-
-
