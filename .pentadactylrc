@@ -816,7 +816,6 @@ map -b <extra>gs :emenu View.Page Style.
 " map -b <extra><C-s> :emenu View.Page Style.No Style<CR>
 map -b <extra><C-s> :set usermode!<CR>
 
-
 " =============================================================================
 "                            ___________________
 "                           |                   |
@@ -1089,11 +1088,30 @@ command! listlinks
             \ -description "List all links in page"
             \ :open listlinks
 
-map -b <leader>t -ex table2csv
+" -------------------------------------------------------------------------------
+" ,----------------,
+" | Table Commands |
+" '----------------'
+group table -locations=*
+
+" Table2CSV
+map -b <leader>tc -ex table2csv
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
 command! table2csv
     \ -description "Convert table contents to CSV in box under table"
     \ :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
+
+" Widen table
+
+map -b <leader>tw -ex tablewiden
+style -name=table_widen
+    \ file://*
+    \ body { max-width: 250em !important; }
+command! tablewiden -description "widen table" styletoggle -name table_widen
+
+group user
+
+" -------------------------------------------------------------------------------
 
 command! activator -description "Lightbend (Typesafe) Activator"
      \ :!/opt/activator-dist/bin/activator && firefox http://127.0.0.1:8888/home &
@@ -1834,7 +1852,6 @@ command! kanjiheavy
 command! kanjitoggle
     \ -description "Toggle heavy/light kanji style"
     \ styletoggle -group jisho -name kanji_light
-
 
 " --------------------------------
 " Remove arrows from details links
