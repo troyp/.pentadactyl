@@ -207,7 +207,7 @@ map -b <leader>S :<C-v><C-v><Home>open<Space><Space><Left>
 " Repeat search just entered with keyword changed
 map <leader>r :<C-r>
 " Repeat default just entered search with keyword
-map <leader>s :<up><Home><forward-word><Space>
+map <leader>R :<up><Home><forward-word><Space>
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
@@ -1035,7 +1035,7 @@ command! pwhashgen
 command! pwhashsite
     \ -description "Generate short password from current site's URL using Password Hasher"
     \ -nargs=0
-    \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'')); pwHashGen(domain);
+    \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'').replace(/www\./,'')); pwHashGen(domain);
 
 command! tr
     \ -description "Translate: tr FROM TO TEXT"
