@@ -69,9 +69,9 @@ command! editoremacsnewwin :set editor='emacsclient -c'
 " '-------------'
 
 " Unmap prefix keys
-" map -b s <Nop>
-" map -b <C-x><C-h> <Nop>
-" map -b <C-x> <Nop>
+" map s <Nop>
+" map <C-x><C-h> <Nop>
+" map <C-x> <Nop>
 
 " Map prefix keys to prefix pseudokeys
 map e <goto>
@@ -105,7 +105,7 @@ map <link_desc> ;Y
 
 " REPLACE DEFAULT BINDINGS:
 " free a
-map -b a <Nop>
+map a <Nop>
 " free C-h, use C-,, C-. to replace h, l
 map -b <C-,> <Left>
 map -b <C-.> <Right>
@@ -122,13 +122,13 @@ map -b <A-j> l
 map -b <A-,> h
 map -b <A-.> l
 " free C-N, C-P bindings for tab movement
-map -b <C-S-P> <Nop>
-map -b <C-S-N> <Nop>
+map <C-S-P> <Nop>
+map <C-S-N> <Nop>
 " bind gs as :viewpagesource, free gf for g;b
-map -b gf <Nop>
-map -b gs -ex viewpagesource
+map gf <Nop>
+map gs -ex viewpagesource
 " replace builtin <C-a> and <C-x> bindings (inrease/decrease URL by 1)
-map -b <C-a> <Nop>
+map <C-a> <Nop>
 map -b <A-=> <C-a>
 map -b <A--> <C-x>
 " swap p and P
@@ -152,37 +152,37 @@ map -b <C-S-D> <C-u>
 map -b J <C-d>
 map -b K <C-u>
 " Restart with C-c C-c:
-map -b <C-x><C-x> :restart<CR>
+map <C-x><C-x> -ex restart
 " reload .pentadactylrc
-map -b <C-x>l :rc<CR>
+map <C-x>l -ex rc
 " redraw screen
-map -b gR :redraw<CR>
+map gR -ex redraw
 " (Re-)Maximize window (when Pentadactyl pushes command line offscreen)
-map -b gx -js window.restore(); window.maximize();
+map gx -js window.restore(); window.maximize();
 " select all
 nmap -b <C-x>h iGvggy
 " second input area
 map -b <extra>gi 2gi
 " yank page title
-map -b <extra>y -js dactyl.clipboardWrite(buffer.title)
+map <extra>y -js dactyl.clipboardWrite(buffer.title)
 " yank buffer URL (unencoded)
-map -b gy -ex yanktrueURL
+map gy -ex yanktrueURL
 " yank filename or buffer URL (unencoded)
-map -b <extra>gy -ex yankfilenameorURL
+map <extra>gy -ex yankfilenameorURL
 " open file in Emacs
-map -b <extra>e -ex openFileInEmacs
+map <extra>e -ex openFileInEmacs
 " open directory in Dired
-map -b <extra>d -ex openDirectoryInDired
+map <extra>d -ex openDirectoryInDired
 " jumplist
-map -b <C-j> -ex jumps
+map <C-j> -ex jumps
 " password hasher
-map -b <extra>P -ex pwhash
+map <extra>P -ex pwhash
 " password hasher: hash site domain
-map -b <extra>p -ex pwhashsite
+map <extra>p -ex pwhashsite
 
 " Search:
 " clear the search term highlighting
-map -b <C-/> :noh<CR>
+map <C-/> -ex noh
 " Regex search
 map -b g/ /\r
 map -b g? ?\r
@@ -194,7 +194,7 @@ map -b <option>/ gg/
 " Search for word starting with...
 map -b <extra>/ /\r\w*<Left><Left><left>
 " Search for word containing...
-map -b <S-extra>/ /\r\w*\w*<Left><Left><left>
+map <S-extra>/ /\r\w*\w*<Left><Left><left>
 " C-' Firefox link search
 map -b "<C-'>" <C-v>'
 
@@ -215,11 +215,11 @@ map <leader>R :<up><Home><forward-word><Space>
 " '---------------------------------------'  imap: insert mode
 
 " Useful pseudo-keys
-map -modes command-line <copy-command-to-cb> <A-a><C-v><C-c>
-map -modes command-line <paste> <C-v><C-v>
-map -modes command-line <copy> <C-v><C-c>
-map -modes command-line <forward-word> <C-Right>
-map -modes command-line <backward-word> <C-Left>
+map -modes command-line -b <copy-command-to-cb> <A-a><C-v><C-c>
+map -modes command-line -b <paste> <C-v><C-v>
+map -modes command-line -b <copy> <C-v><C-c>
+map -modes command-line -b <forward-word> <C-Right>
+map -modes command-line -b <backward-word> <C-Left>
 
 map -modes command-line <A-b> <backward-word>
 map -modes command-line <A-f> <forward-word>
@@ -334,7 +334,7 @@ command! forwardt -description "Create adjacent duplicate tab and go forward in 
 command! tabdupa -description "Create adjacent duplicate tab" -js tabdupa()
 
 command! pasteall -description "open all links in clipboard" -js openAllLinksInCB();
-map gp :pasteall<CR>
+map gp -ex pasteall
 
 command! viewpagesource -description "Toggle viewing page / viewing page source"
 \    -js var loc = content.location; if ( !(loc.protocol === 'view-source:') ) loc.href = 'view-source:' + loc.href;
@@ -356,7 +356,7 @@ command! nointercept -js document.addEventListener('keydown', function(e) { e.st
 
 " Open in Google Chrome:
 command! ochrome :exec `!google-chrome "${buffer.URL}"`
-map -b <extra>c :ochrome<CR>
+map <extra>c -ex ochrome
 
 " Show all marks (quickmarks and url/local marks)
 command! allmarks,amarks,am :qmarks | marks
@@ -411,7 +411,7 @@ map -b \> g$
 " '--------------'
 command! unpinall tabdo unpintab
 " toggle pinning of current tab
-map -b ! :pintab!<CR>
+map ! -ex pintab!
 
 " -----------------------------------------------------------------------------
 " ,--------------,
@@ -419,7 +419,7 @@ map -b ! :pintab!<CR>
 " '--------------'
 
 " close other tabs
-map -b <extra>1 :tabonly<CR>
+map <extra>1 -ex tabonly
 " close tabs to left
 map -b <extra>< -js closeAllToLeft()
 " close tabs to right
@@ -480,26 +480,26 @@ EOF
 command! tt -nargs=1 -bang
     \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
 map -b <extra>m :tabmove<SPACE>
-map -b -arg <extra>M -ex tabmove <arg>
+map -arg <extra>M -ex tabmove <arg>
 map -b gm :tabmove!<SPACE>
-map -b <C-S-P> -ex tabmove! -1
-map -b <C-S-N> -ex tabmove! +1
-map -b <C-h> -ex tabmove! -1
-map -b <C-l> -ex tabmove! +1
-map -b <C-Left> -ex tabmove! -1
-map -b <C-Right> -ex tabmove! +1
-map -b <C-\<> -ex tabmove! 1
-map -b <C-\>> -ex tabmove! $
-map -b g\> -ex tabmove! $
-map -b <A-S-1> -ex tabmove! 1
-map -b <A-S-2> -ex tabmove! 2
-map -b <A-S-3> -ex tabmove! 3
-map -b <A-S-4> -ex tabmove! 4
-map -b <A-S-5> -ex tabmove! 5
-map -b <A-S-6> -ex tabmove! 6
-map -b <A-S-7> -ex tabmove! 7
-map -b <A-S-8> -ex tabmove! 8
-map -b <A-S-9> -ex tabmove! $
+map <C-S-P> -ex tabmove! -1
+map <C-S-N> -ex tabmove! +1
+map <C-h> -ex tabmove! -1
+map <C-l> -ex tabmove! +1
+map <C-Left> -ex tabmove! -1
+map <C-Right> -ex tabmove! +1
+map <C-\<> -ex tabmove! 1
+map <C-\>> -ex tabmove! $
+map g\> -ex tabmove! $
+map <A-S-1> -ex tabmove! 1
+map <A-S-2> -ex tabmove! 2
+map <A-S-3> -ex tabmove! 3
+map <A-S-4> -ex tabmove! 4
+map <A-S-5> -ex tabmove! 5
+map <A-S-6> -ex tabmove! 6
+map <A-S-7> -ex tabmove! 7
+map <A-S-8> -ex tabmove! 8
+map <A-S-9> -ex tabmove! $
 
 " -----------------------------------------------------------------------------
 " ,----------,
@@ -515,10 +515,10 @@ map -b gf g;b
 " New tab
 " note: hints not working right...
 "   each site has two hints: foreground hint DELETES page; background hint: SELECTS page
-map -b gN  -js newTabPage();
-map -b gON -ex open about:newtab
-map -b <goto>N  -js newTabPage();
-map -b <goto>ON -ex open about:newtab
+map gN  -js newTabPage();
+map gON -ex open about:newtab
+map <goto>N  -js newTabPage();
+map <goto>ON -ex open about:newtab
 
 "      gH : open home page in new tab
 
@@ -663,19 +663,19 @@ highlight -a Hint[Active]
 " <A-Up>:     show the navigation and bookmarks toolbars:
 " <A-Down>:   hide the navigation and bookmarks toolbars:
 " <C-x><C-a>: toggle the navigation and bookmarks toolbars:
-map -b <A-Up> :set guioptions-=TB | set showtabline=never<CR>
-map -b <A-Down> :set guioptions+=TB | set showtabline=always<CR>
-map -b <C-x><C-a> :set guioptions!=TB | set showtabline!=always,never<CR>
+map <A-Up> -ex set guioptions-=TB | set showtabline=never
+map <A-Down> -ex set guioptions+=TB | set showtabline=always
+map <C-x><C-a> -ex set guioptions!=TB | set showtabline!=always,never
 " <C-x><C-m|t|e|b|d|s|o>: toggle toolbars/menubars
 "(  menu|tab|navigation|bookmark|web-developer toolbar )
-map -b <C-x><C-m> :set guioptions!=m<CR>
-map -b <C-x><C-t> :set showtabline!=always,never<CR>
-map -b <C-x><C-e> :set guioptions!=T<CR>
-map -b <C-x><C-b> :set guioptions!=B<CR>
-map -b <C-x><C-d> :toolbartoggle Web Developer Toolbar<CR>
-map -b <C-x><C-s> :set guioptions!=s<CR>
-map -b <C-x><C-o> :toolbartoggle Add-on Bar<CR>
-"map -b <C-x><C-f> :buftabs<CR>
+map <C-x><C-m> -ex set guioptions!=m
+map <C-x><C-t> -ex set showtabline!=always,never
+map <C-x><C-e> -ex set guioptions!=T
+map <C-x><C-b> -ex set guioptions!=B
+map <C-x><C-d> -ex toolbartoggle Web Developer Toolbar
+map <C-x><C-s> -ex set guioptions!=s
+map <C-x><C-o> -ex toolbartoggle Add-on Bar
+"map <C-x><C-f> -ex buftabs
 "
 " Toggle FF Developer command line
 " <S-f2> requires <Esc> to enter normal mode after toggling off.
@@ -692,7 +692,7 @@ map -modes base -b <A-x> <S-f2><Tab>
 " '---------'
 
 " downloads
-map -b <goto>wd :dialog downloads<CR>
+map <goto>wd -ex dialog downloads
 " about:config
 command! ac
     \ -description "Open about:config in new window"
@@ -706,7 +706,7 @@ command! historydialog
 " TODO: places.xul doesn't allow keyboard navigation. Can it be fixed?
 "       In the meantime, use the bookmarks dialog window instead.
 
-map -b <goto>a -ex dialog addons
+map <goto>a -ex dialog addons
 map -b <goto>c tabout:config<CR>
 map -b <goto>d tabout:downloads<CR>
 map -b <goto>k tchrome://browser/content/places/places.xul<CR>
@@ -731,8 +731,8 @@ map <goto>D -ex tabopen resource://dactyl/
 " Select:
 map -b s;h :history! -max 30<SPACE>
 map -b s;k :bmarks!  -max 30<SPACE>
-map -b sj :jumps<CR>
-map -b sa :addons<CR>
+map sj -ex jumps
+map sa -ex addons
 map -b sm :emenu<SPACE>
 map -b sp :set<SPACE>
 map -b sc :set!<SPACE>
@@ -749,26 +749,26 @@ map -b sk :bmarks  -max 45<SPACE>
 
 " Manual sidebar selection with si, toggle with S
 map -b si :sidebar<SPACE>
-" map -b S :sidebar!<CR>
+" map S -ex sidebar!
 " Open/close AiOS, switch focus
 "map -b S :js aios_toggleSidebar()<CR><f6><f6>
 " Open AiOS, switch focus and enter passthrough
 "map -b sS :js aios_toggleSidebar()<CR><f6><f6><C-z>
 
 " Sidebar selection:
-map -b sA :sidebar! Add-ons<CR>
+map sA -ex sidebar! Add-ons
 map -b SA :sidebar! Add-ons<CR><f6><f6><C-z>
-map -b sM :sidebar! Bookmarks<CR>
+map sM -ex sidebar! Bookmarks
 map -b SM :sidebar! Bookmarks<CR><f6><f6><C-z>
-map -b sD :sidebar! Downloads<CR>
+map sD -ex sidebar! Downloads
 map -b SD :sidebar! Downloads<CR><f6><f6><C-z>
-map -b sH :sidebar! History<CR>
+map sH -ex sidebar! History
 map -b SH :sidebar! History<CR><f6><f6><C-z>
-map -b sM :sidebar! Moji<CR>
+map sM -ex sidebar! Moji
 map -b SM :sidebar! Moji<CR><f6><f6><C-z>
-map -b sO :sidebar! HeadingsMap<CR>
+map sO -ex sidebar! HeadingsMap
 map -b SO :sidebar! HeadingsMap<CR><f6><f6><C-z>
-map -b sP :sidebar! Preferences<CR>
+map sP -ex sidebar! Preferences
 map -b SP :sidebar! Preferences<CR><f6><f6><C-z>
 
 " -----------------------------------------------------------------------------
@@ -814,7 +814,7 @@ group user
 map -b gc y:style -group=temp <C-v><C-v><Space>
 map -b <extra>gs :emenu View.Page Style.
 " map -b <extra><C-s> :emenu View.Page Style.No Style<CR>
-map -b <extra><C-s> :set usermode!<CR>
+map <extra><C-s> -ex set usermode!
 
 " =============================================================================
 "                            ___________________
@@ -824,7 +824,7 @@ map -b <extra><C-s> :set usermode!<CR>
 
 group developer
 
-map -b <extra>j :js!<CR>
+map <extra>j -ex js!
 
 " -----------------------------------------------------------------------------
 " ,-------------------------,
@@ -834,8 +834,8 @@ command! webide :feedkeys! <S-f8>
 command! browserconsole :feedkeys! <C-S-J>
 command! devtools :execute "emenu Tools.Web Developer.Toggle Tools"
 command! storageinspector :execute "emenu Tools.Web Developer.Storage Inspector"
-map -b <extra>d -ex emenu Tools.Web Developer.Eyedropper<CR>
-map -b <S-f12> -ex devtools
+map <extra>d -ex emenu Tools.Web Developer.Eyedropper
+map <S-f12> -ex devtools
 
 " -----------------------------------------------------------------------------
 " ,---------------,
@@ -847,7 +847,7 @@ command! dominspector :dialog dominspector
 command! dominspectorchrome :js inspectDOMDocument(document.URL)
 "
 " restore C-S-I shortcut for DOM Inspector (stolen by dev tools inspector)
-map -b <C-S-I> -ex dominspector
+map <C-S-I> -ex dominspector
 
 " -----------------------------------------------------------------------------
 " ,---------,
@@ -921,7 +921,7 @@ function toggleMagnifier() {
 
 EOF
 
-map -b zx :magnifier!<CR>
+map zx -ex magnifier!
 
 group user
 
@@ -977,18 +977,18 @@ command! rikLbOn -description "Rikaisama lookupbar on"
     \ -js rcxMain.lbToggle()
 command! rikLbOff -description "Rikaisama lookupbar off"
     \ -js rcxMain.lbHide()
-map -b <site>r :rikLbOn<CR>
-map -b <site>R :rikLbOff<CR>
+map <site>r -ex rikLbOn
+map <site>R -ex rikLbOff
 
 " USERSCRIPTS
 " word highlight
-map <site>h -ex emenu Tools.Greasemonkey.word highlight
+map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
 " TeX The World
-map <site>t -ex emenu Tools.Greasemonkey.TeX the world
+map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
 
 " WEB APPS
 " MS Translate
-map -b <extra>t -js (function(){var s=content.document.createElement('script'); s.type='text/javascript'; s.src='http://labs.microsofttranslator.com/bookmarklet/default.aspx?f=js&to=en'; content.document.body.insertBefore(s, content.document.body.firstChild);})();
+map <extra>t -js (function(){var s=content.document.createElement('script'); s.type='text/javascript'; s.src='http://labs.microsofttranslator.com/bookmarklet/default.aspx?f=js&to=en'; content.document.body.insertBefore(s, content.document.body.firstChild);})();
 
 " PageZipper
 " activate pagezipper bookmark (keyword pz)
@@ -1036,6 +1036,11 @@ command! pwhashsite
     \ -description "Generate short password from current site's URL using Password Hasher"
     \ -nargs=0
     \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'').replace(/www\./,'')); pwHashGen(domain);
+
+command! prefsuffsearch
+    \ -description "Search for prefix/suffix on macroevolution.net"
+    \ -nargs=1
+    \ -js prefsuffSearch(args[0]);
 
 command! tr
     \ -description "Translate: tr FROM TO TEXT"
@@ -1095,7 +1100,7 @@ command! listlinks
 group table -locations=*
 
 " Table2CSV
-map -b <leader>tc -ex table2csv
+map <leader>tc -ex table2csv
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
 command! table2csv
     \ -description "Convert table contents to CSV in box under table"
@@ -1103,7 +1108,7 @@ command! table2csv
 
 " Widen table
 
-map -b <leader>tw -ex tablewiden
+map <leader>tw -ex tablewiden
 style -name=table_widen
     \ file://*
     \ body { max-width: 250em !important; }
@@ -1355,6 +1360,19 @@ function pwHashGenerateShortPassword(s) {
     shortPWButton = click();
 }
 
+function prefsuffSearch(s) {
+    var newtab = gBrowser.addTab('http://www.macroevolution.net/site-search.html');
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        var entrybox = content.document.getElementsByTagName('input')[0];
+        entrybox.click();
+        entrybox.value = s;
+        var srchBtn = content.document.getElementsByClassName('gsc-search-button gsc-search-button-v2')[0];
+        srchBtn.click();
+    });
+}
+
 EOF
 
 " =============================================================================
@@ -1429,7 +1447,7 @@ function togglePaused() {
         v.pause();
 }
 EOF
-map -b <Space> -js togglePaused();
+map <Space> -js togglePaused();
 
 group user
 
@@ -1440,7 +1458,7 @@ group user
 group animelyrics -locations=animelyrics.com
 
 " Go to "Print view with kanji" if it exists, or else "Print view"
-map <site>P <C-v>'Print<Space>view<f3><CR>
+map -b <site>P <C-v>'Print<Space>view<f3><CR>
 
 " -----------------------------------------------------------------------------
 " ,----------,
@@ -1451,12 +1469,12 @@ group about -locations=about:*,chrome:*
 map -g about -b j <C-v><Down>
 map -g about -b k <C-v><Up>
 "
-map -g about  J <C-v><PageDown>
-map -g about  K <C-v><PageUp>
-map -g about  <C-d> <C-v><PageDown>
-map -g about  <C-u> <C-v><PageUp>
-map -g about  gg <C-v><Home>
-map -g about  G <C-v><End>
+map -g about -b J <C-v><PageDown>
+map -g about -b K <C-v><PageUp>
+map -g about -b <C-d> <C-v><PageDown>
+map -g about -b <C-u> <C-v><PageUp>
+map -g about -b gg <C-v><Home>
+map -g about -b G <C-v><End>
 
 group user
 
@@ -1466,8 +1484,8 @@ group user
 " '-------------'
 group wayback -locations=archive.org
 
-map -g wayback -b ct :toggleWaybackToolbar<CR>
-map -g wayback -b gct :toggleWaybackToolbar!<CR>
+map -g wayback ct -ex toggleWaybackToolbar
+map -g wayback gct -ex toggleWaybackToolbar!
 
 " Wayback Toolbar Go To Previous Capture:
 " ( Searches for a year (starting with '20' using FF link search,
@@ -1519,12 +1537,12 @@ group user
 " '--------'
 group bookzz -locations=bookzz.org
 
-map -b <site>z :loginAndSearch<CR>
+map <site>z -ex loginAndSearch
 
 command! loginAndSearch
     \ -description "Sign in and repeat search for ID in input field"
     \ -js loginAndSearch(getSearchField());
-map -b <extra>z
+map <extra>z
     \ -description "Sign in and repeat search for ID in input field"
     \ -js loginAndSearch(getSearchField());
 
@@ -1556,7 +1574,8 @@ group user
 " '------------'
 group github -locations=github.com,githubusercontent.com,rawgit.com
 
-map -b <site>h -ex togglehtmlview
+map <site>h -ex togglehtmlview
+map <site>y -js copyRepoLink();
 
 command! togglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -1592,6 +1611,11 @@ function goToLines (args) {
     var frag = `#L${args[0]}`;
     if (args.length > 1) frag += `-L${args[1]}`;
     loc.href = url + frag;
+}
+
+function copyRepoLink () {
+    var url=buffer.URL.toLowerCase();
+    return url + ".git";
 }
 
 EOF
@@ -1664,7 +1688,7 @@ command! nohandwrite -description "Hide Handwritten Input box." -js hideHandWrit
 
 " map -b <SPACE><SPACE> <SPACE><SPACE>
 " unmap -group gtransja <SPACE><SPACE>
-map -b <SPACE><SPACE> -js showHandWriteInput();
+map <SPACE><SPACE> -js showHandWriteInput();
 
 group user
 
@@ -1957,7 +1981,7 @@ group user
 " '-------------------'
 group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
 
-map -modes insert <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
+map -modes insert -b <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
 
 set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
 
