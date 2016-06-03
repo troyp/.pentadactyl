@@ -387,6 +387,12 @@ command! encuni :emenu View.Text Encoding.Unicode
 command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
 command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
 
+" about:config settings
+command! toggleconfig
+    \ -description "Toggle boolean about:config setting."
+    \ -nargs=1
+    \ -js dactyl.utils.togglePref(args[0]);
+
 
 " =============================================================================
 "                                       ______
@@ -1371,6 +1377,15 @@ function prefsuffSearch(s) {
         var srchBtn = content.document.getElementsByClassName('gsc-search-button gsc-search-button-v2')[0];
         srchBtn.click();
     });
+
+}
+
+function convertMdUrlToOrg(url) {
+    if (typeof(url) == 'undefined' || !url)
+        url = content.location.href;
+    var regex = /\.md$|.md(?=#)/;
+    var newurl = url.replace(regex, '.org');
+    dactyl.open(newurl);
 }
 
 EOF
@@ -1619,6 +1634,19 @@ function copyRepoLink () {
 }
 
 EOF
+
+" =======================
+" Spacemacs Documentation
+" =======================
+group spacemacs -locations https://github.com/syl20bnr/*
+
+command! markdowntoorg -nargs=? -js convertMdUrlToOrg(args.length ? args[0] : null);
+map <site>o -js convertMdUrlToOrg();
+
+autocmd! -group spacemacs
+
+" FIXME! - autocmd not working
+autocmd PageLoad https://github.com/syl20bnr/spacemacs -javascript convertMdUrlToOrg(url)
 
 group user
 
