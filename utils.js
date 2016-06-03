@@ -34,12 +34,12 @@ var utils = {
     },
 
     closeTabsFromTo: function (firstSpec, endSpec, spec='') {
-	var firstIx = tabs.indexFromSpec(firstSpec);
-	var endIx = tabs.indexFromSpec(endSpec);
-	var firstTab = tabs.getTab(firstIx);
-	var N = endIx - firstIx;
-	tabs.remove(firstTab, N);
-    return N;
+	      var firstIx = tabs.indexFromSpec(firstSpec);
+	      var endIx = tabs.indexFromSpec(endSpec);
+	      var firstTab = tabs.getTab(firstIx);
+	      var N = endIx - firstIx;
+	      tabs.remove(firstTab, N);
+        return N;
     },
 
     removeTab: function (ord) {
@@ -120,6 +120,12 @@ var utils = {
                        || content.document.getElementsByTagName('body') )[0]
         parent.appendChild(scripttag);
     },
+
+    togglePref: function (pref) {
+        var currentval = prefManager.getBoolPref(pref);
+        prefManager.setBoolPref(pref, !currentval);
+        this.message(`${pref}=${!currentval}`);
+    }
 
 
 // =============================================================================
