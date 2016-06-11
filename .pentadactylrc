@@ -208,6 +208,11 @@ map -b <leader>S :<C-v><C-v><Home>open<Space><Space><Left>
 map <leader>r :<C-r>
 " Repeat default just entered search with keyword
 map <leader>R :<up><Home><forward-word><Space>
+" Google definitions
+map <leader>d :ggdef<Space>
+" map <leader>d :tabopen https://www.google.com.au/search?q=define:
+map <leader>,d -js googleDefExpand();
+map <leader>D :open https://www.google.com.au/search?q=define:
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
@@ -393,6 +398,7 @@ command! toggleconfig
     \ -nargs=1
     \ -js dactyl.utils.togglePref(args[0]);
 
+command! ggdef -nargs=1 -js googledef(args[0]);
 
 " =============================================================================
 "                                       ______
@@ -956,6 +962,8 @@ command! oku -description "Open local file in Okular"
 command! pagezipper :open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
 
 map <extra>z -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
+map <autopager> -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
+map <Space><Space> <autopager>
 
 " Print What You Like:
 command! prwul -description "run PrintWhatYouLike"
@@ -964,6 +972,16 @@ command! prwul -description "run PrintWhatYouLike"
 " DownThemAll:
 command! dtamaagr -description "Open DownThemAll manager"
     \ -js self.DTA.openManager()
+
+" Wiktionary and Google Translate
+js <<EOF
+if (typeof gd12 != 'undefined') {
+    gd12.prefs.applyUserStyle();
+    var gd12style_default = ".gDicClassPopup { background-color: white !important; border: 2px solid gray !important; }";
+    gd12.prefs.myStyle = ".gDicClassPopup { background-color: #FFDDDD !important; border: 2px solid gray !important; }"
+    gd12.prefs.applyUserStyle()
+}
+EOF
 
 " Rikaisama:
 " notes:
@@ -1367,7 +1385,7 @@ function pwHashGenerateShortPassword(s) {
 }
 
 function prefsuffSearch(s) {
-    var newtab = gBrowser.addTab('http://www.macroevolution.net/site-search.html');
+             var newtab = gBrowser.addTab('http://www.macroevolution.net/site-search.html')   ;
     gBrowser.selectedTab = newtab;
     var tb = gBrowser.getBrowserForTab(newtab);
     tb.addEventListener("DOMContentLoaded", function () {
@@ -1387,6 +1405,32 @@ function convertMdUrlToOrg(url) {
     var newurl = url.replace(regex, '.org');
     dactyl.open(newurl);
 }
+
+function convertLastSlashToHash(url) {
+    if (typeof(url) == 'undefined' || !url)
+        url = content.location.href;
+    var regex = /(.*)(\/)/;
+    var newurl = url.replace(regex, '$1#');
+    dactyl.open(newurl);
+}
+
+"FIXME: event listener not working"
+function googledef (word) {
+    var newtab = gBrowser.addTab(`https://www.google.com.au/search?q=define:${word}`);
+    var tb = gBrowser.getBrowserForTab(newtab);
+    var callback = function () {
+        googleDefExpand();
+        tb.removeEventListener("domloaded", callback, false);
+    };
+    tb.addEventListener("domloaded", callback, false);
+    gBrowser.selectedTab = newtab;
+}
+
+ googleDefExpand = function() {
+     var div = content.document.getElementById('uid_0');
+     var link = div.getElementsByClassName('xcae')[0];
+     link.click();
+ };
 
 EOF
 
@@ -1442,6 +1486,25 @@ autocmd! -group edx
 
 command! edx :runtime! edx.penta
 autocmd DOMload courses.edx.org :edx
+
+" if syllabus won't stay open
+command! edxshowsyllabus -js edxShowSyllabus();
+
+command! edxtogglesyllabus -js edxToggleSyllabus();
+map <site>l -js edxToggleSyllabus();
+
+js <<EOF
+function edxShowSyllabus() {
+    var syllabusDiv = content.document.getElementsByClassName("toggled-content")[0];
+    syllabusDiv.style="height: 1500px;";
+}
+function edxToggleSyllabus() {
+    var showLink = content.document.getElementsByClassName("show-content-cta")[0];
+    var hideLink = content.document.getElementsByClassName("hide-content-cta")[0];
+    var link = showLink.classList.contains("hidden") ? hideLink : showLink;
+    link.click();
+}
+EOF
 
 group user
 
@@ -1598,6 +1661,10 @@ command! togglehtmlview
 
 command! gotolines -nargs=+ -js goToLines(args);
 
+command! tabopenrepo -nargs=1 -js tabopenRepo(args[0]);
+map <goto>gh :tabopen https://github.com/
+map <goto>gH :open https://github.com/
+
 js <<EOF
 
 function toggleHTMLView () {
@@ -1633,6 +1700,10 @@ function copyRepoLink () {
     return url + ".git";
 }
 
+function tabopenRepo (s) {
+    dactyl.tabopen(`https://github.com/${s}`);
+}
+
 EOF
 
 " =======================
@@ -1642,6 +1713,12 @@ group spacemacs -locations https://github.com/syl20bnr/*
 
 command! markdowntoorg -nargs=? -js convertMdUrlToOrg(args.length ? args[0] : null);
 map <site>o -js convertMdUrlToOrg();
+
+command! slashtohash -nargs=? -js convertLastSlashToHash(args.length ? args[0] : null);
+map <site>O -js convertLastSlashToHash();
+
+" To use navigation menu when there are no ids:
+"     use ;; to focus the link, then * to jump to it.
 
 autocmd! -group spacemacs
 
@@ -2023,11 +2100,10 @@ group user
 js <<EOF
 
 function userscriptsMirror(url) {
-    var rx = /https?:\/\/userscripts.org\/(.*)/;
-    var newurl;
+    var rx = /https?:\/\/(www.)?userscripts.org\/(.*)/;
     var match = rx.exec(url.toLowerCase());
     if (match)
-        dactyl.open(`http://userscripts-mirror.org/${match[1]}`);
+        dactyl.open(`http://userscripts-mirror.org/${match[2]}`);
     else
         dactyl.utils.message(`userScriptsMirror: Address doesn't match: ${url}`);
 }
