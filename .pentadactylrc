@@ -160,7 +160,7 @@ map gR -ex redraw
 " (Re-)Maximize window (when Pentadactyl pushes command line offscreen)
 map gx -js window.restore(); window.maximize();
 " select all
-nmap -b <C-x>h iGvggy
+map -b <C-x>h iGvggy
 " second input area
 map -b <extra>gi 2gi
 " yank page title
@@ -229,6 +229,8 @@ map -modes command-line -b <backward-word> <C-Left>
 map -modes command-line <A-b> <backward-word>
 map -modes command-line <A-f> <forward-word>
 
+" select all
+map -modes command-line -b <C-x>h <Home><S-End><C-v><C-c>
 " use c_<C-,>, c_<C-.> for cycling WildMode completion
 cmap -b <C-,> <Tab>
 cmap -b <C-.> <S-Tab>
@@ -827,6 +829,16 @@ map -b gc y:style -group=temp <C-v><C-v><Space>
 map -b <extra>gs :emenu View.Page Style.
 " map -b <extra><C-s> :emenu View.Page Style.No Style<CR>
 map <extra><C-s> -ex set usermode!
+
+map <extra>N :narrowpage<Space>
+command! narrowpage
+\    -nargs=*
+\    -js <<EOF
+var width = args[0] || 1000;
+var lmarg = args[1] || 100;
+var rmarg = args[2] || 1000;
+narrowPage(width, lmarg, rmarg);
+EOF
 
 " =============================================================================
 "                            ___________________
@@ -1431,6 +1443,12 @@ function googledef (word) {
      var link = div.getElementsByClassName('xcae')[0];
      link.click();
  };
+
+function narrowPage(width, lmarg, rmarg) {
+    var doc = content.document.getElementsByTagName('html')[0];
+    doc.setAttribute('style',
+                     `width: ${width}px; margin-left: ${lmarg}px; margin-right: ${rmarg}px;`);
+}
 
 EOF
 
