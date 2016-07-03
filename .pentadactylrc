@@ -415,11 +415,14 @@ command! ggdef -nargs=1 -js googledef(args[0]);
 " | Buffer Selection |
 " '------------------'
 " Select buffer:  b  (cycle with gb, gB)
-" switch to previously selected buffer: A-;
+" switch to alternate (previously selected buffer): A-;
 map -modes command,embed -b <A-;> <C-^>
 map -modes input -b <A-;> <Esc><C-^>
 map -b \< g0
 map -b \> g$
+" delete and switch to alternate
+map -modes command,embed -b <A-:> d<C-^>
+map -modes input -b <A-:> <Esc>d<C-^>
 
 " -----------------------------------------------------------------------------
 " ,--------------,
@@ -715,6 +718,7 @@ command! ac
     \ :winopen about:config
 
 " history (better dialog than `:dialog history`)
+map <goto>wh -ex historydialog
 command! historydialog
     \ -description "Open history dialog"
     \ :feedkeys <C-S-H>
@@ -1417,7 +1421,8 @@ function convertMdUrlToOrg(url) {
         url = content.location.href;
     var regex = /\.md$|.md(?=#)/;
     var newurl = url.replace(regex, '.org');
-    dactyl.open(newurl);
+    if (newurl !== url)
+       dactyl.open(newurl);
 }
 
 function convertLastSlashToHash(url) {
@@ -1501,7 +1506,7 @@ group user
 " ,-----,
 " | EdX |
 " '-----'
-group edx -locations=www.edx.org
+group edx -locations=edx.org
 autocmd! -group edx
 
 command! edx :runtime! edx.penta
@@ -1743,7 +1748,7 @@ map <site>O -js convertLastSlashToHash();
 autocmd! -group spacemacs
 
 " FIXME! - autocmd not working
-autocmd PageLoad https://github.com/syl20bnr/spacemacs -javascript convertMdUrlToOrg(url)
+autocmd PageLoad https://github.com/syl20bnr/spacemacs -javascript convertMdUrlToOrg(buffer.URL);
 
 group user
 
@@ -1841,6 +1846,58 @@ command! graphemicacharselect
     \ -nargs=*
     \ -js graphemicaCharSelect(args);
 
+" -------------------------------------------------------------------------------
+" ,---------------------------------,
+" | Japanese Compound Verb Database |
+" '---------------------------------'
+
+js <<EOF
+function japDoSearchCompVerb(type, s) {
+    var searchComp = content.document.getElementById('V1_V2_mode');
+    var searchV1 = content.document.getElementById('V1_mode');
+    var searchV2 = content.document.getElementById('V2_mode');
+    switch (type) {
+      case 0:
+        searchComp.click();
+        break;
+      case 1:
+        searchV1.click();
+        break;
+      case 2:
+        searchV2.click();
+        break;
+    } ;
+    var searchbox = content.document.getElementById('searchbox');
+    searchbox.value=s;
+    //var searchbutton = content.document.getElementById('filterButton');
+    return true;
+}
+
+function japSearchCompVerb(type, s) {
+    var newtab = gBrowser.addTab('http://vvlexicon.ninjal.ac.jp/db/');
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    japSearchCompCallback = function() { japDoSearchCompVerb(type, s) };
+    tb.addEventListener("DOMContentLoaded", japSearchCompCallback);
+}
+EOF
+
+command! jcompvb
+\ -desc "Search for japanese compound verb"
+\ -nargs=1
+\ -js japSearchCompVerb(0, args)
+command! jcompvb1
+\ -desc "Search for japanese compound verb by verb 1"
+\ -nargs=1
+\ -js japSearchCompVerb(1, args)
+command! jcompvb2
+\ -desc "Search for japanese compound verb by verb 2"
+\ -nargs=1
+\ -js japSearchCompVerb(2, args)
+command! jdocompvb2
+\ -desc "Search for japanese compound verb by verb 2"
+\ -nargs=1
+\ -js japDoSearchCompVerb(2, args)
 
 " -----------------------------------------------------------------------------
 " ,-----------,
@@ -2109,6 +2166,35 @@ group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
 map -modes insert -b <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
 
 set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,--------------,
+" | TheHylia.com |
+" '--------------'
+group hylia -locations=anime.thehylia.com
+
+command! hyliacurlsonglinks
+  \ -description "Generate curl commands to download song links and copy to clipboard."
+  \ -js hyliaGetSongLinks();
+
+js <<EOF
+function hyliaGetSongLinks() {
+    var tbl = content.document.getElementsByClassName("blog")[0];
+    var albumName = tbl.getElementsByTagName("h2")[0].innerText;
+    var rows = tbl.getElementsByTagName("table")[0].getElementsByTagName("tr");
+    var script = "";
+    for (i=0; i<rows.length; ++i) {
+        var row = rows[i];
+        var link = row.getElementsByTagName("a")[0].href;
+        var trackName = row.getElementsByTagName("a")[0].innerText;
+        var curlCmd = `curl ${link} > "${albumName} - ${trackName}"`;
+        script += `${curlCmd}\n`;
+        dactyl.clipboardWrite(script);
+    }
+}
+EOF
 
 group user
 
