@@ -846,6 +846,12 @@ var rmarg = args[2] || 1000;
 narrowPage(width, lmarg, rmarg);
 EOF
 
+command! cssapply
+\ -nargs=*
+\ -description "Apply CSS to current page. '!;' is expanded to '!important;'"
+\ -js dactyl.execute(`style -group temp -name ${Date().replace(/ /g,'',true)} '${buffer.URL}' ${args.join(' ').replace(/ !;/g, ' !important;')}`);
+
+
 " =============================================================================
 "                            ___________________
 "                           |                   |
@@ -1155,6 +1161,12 @@ style -name=table_widen
     \ file://*
     \ body { max-width: 250em !important; }
 command! tablewiden -description "widen table" styletoggle -name table_widen
+
+style -name=table_wrap
+    \ file://*
+    \ td:first-of-type { white-space: pre-wrap !important; }
+command! tablewrap -description "wrap text in table cells" styletoggle -name table_wrap
+map <leader>tW -ex tablewrap
 
 group user
 
@@ -2175,24 +2187,63 @@ group user
 " '--------------'
 group hylia -locations=anime.thehylia.com
 
+" FIXME!
+
 command! hyliacurlsonglinks
   \ -description "Generate curl commands to download song links and copy to clipboard."
-  \ -js hyliaGetSongLinks();
+  \ -js hyliaFollowSongLinks();
+
+command! hyliacurlsong
+  \ -description "Generate curl command to download the current song link and copy to clipboard."
+  \ -js hyliaGetSong();
+map -b <site>d -js hyliaGetSong();
+
 
 js <<EOF
-function hyliaGetSongLinks() {
+function hyliaFollowSongLinks() {
     var tbl = content.document.getElementsByClassName("blog")[0];
     var albumName = tbl.getElementsByTagName("h2")[0].innerText;
     var rows = tbl.getElementsByTagName("table")[0].getElementsByTagName("tr");
-    var script = "";
     for (i=0; i<rows.length; ++i) {
         var row = rows[i];
-        var link = row.getElementsByTagName("a")[0].href;
+        var pageLink = row.getElementsByTagName("a")[0].href;
         var trackName = row.getElementsByTagName("a")[0].innerText;
-        var curlCmd = `curl ${link} > "${albumName} - ${trackName}"`;
-        script += `${curlCmd}\n`;
-        dactyl.clipboardWrite(script);
+        var filename = `"${albumName} - ${trackName}"`;
+        dactyl.clipboardWrite(filename);
+        hyliaFetchSongPage(albumName, trackName, pageLink);
     }
+}
+function hyliaFetchSongPage(albumName, trackName, pageLink) {
+    var newtab = gBrowser.addTab(pageLink);
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function() {
+        var tbl = content.document.getElementsByClassName("blog")[0];
+        var allLinks = tbl.getElementsByTagName("a");
+        var link = allLinks[allLinks.length-1];
+        var linkurl = decodeURIComponent(link.href);
+        hyliaCopyCurlCommand(albumName, trackName);
+    });
+}
+function hyliaCopyCurlCommand(albumName, trackName) {
+        if (typeof trackName == 'undefined')
+            var curlCmd = `curl ${linkurl} `;
+        else
+            var curlCmd = `curl ${linkurl} > "${albumName} - ${trackName}";`;
+        dactyl.utils.message(curlCmd);
+        dactyl.clipboardWrite(curlCmd);
+}
+function hyliaGetSong(albumName, trackName) {
+    var tbl = content.document.getElementsByClassName("blog")[0];
+    var allLinks = tbl.getElementsByTagName("a");
+    var link = allLinks[allLinks.length-1];
+    var linkurl = decodeURIComponent(link.href);
+    if (typeof trackName == 'undefined')
+        var curlCmd = `curl ${linkurl} `;
+    else
+        var curlCmd = `curl ${linkurl} > "${albumName} - ${trackName}";`;
+    dactyl.utils.message(curlCmd);
+    dactyl.clipboardWrite(curlCmd);
 }
 EOF
 
