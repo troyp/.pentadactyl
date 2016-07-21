@@ -1,19 +1,18 @@
 " EdX
 group edx -locations edx.org
 
-command! edxvidrate200   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(2)})()
-command! edxvidrate175   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.75)})()
-command! edxvidrate150   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.5)})()
-command! edxvidrate125   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.25)})()
-command! edxvidrate100   :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1)})()
-command! edxpause        :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.pause()})()
-command! edxplay         :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.play()})()
-command! edxtoggleplay   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; if (v.isPlaying()) v.pause(); else v.play(); } )();
-command! edxvidforward   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( v.valueOf().currentTime+5 ) } )()
-command! edxvidbackward  :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( Math.max(0, v.valueOf().currentTime-5) ) } )()
-command! edxBindSpaceBar :map <Space> -ex edxtoggleplay
-map xv :edxtoggleplay<CR>
-map xv :edxtoggleplay<CR>
+command! edxvidrate200    :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(2)})()
+command! edxvidrate175    :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.75)})()
+command! edxvidrate150    :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.5)})()
+command! edxvidrate125    :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1.25)})()
+command! edxvidrate100    :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.setPlaybackRate(1)})()
+command! edxpause         :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.pause()})()
+command! edxplay          :o javascript:( function(){$('.video').data('video-player-state').videoPlayer.play()})()
+command! edxtoggleplay    :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; if (v.isPlaying()) v.pause(); else v.play(); } )();
+command! edxvidforward    :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( v.valueOf().currentTime+5 ) } )()
+command! edxvidbackward   :o javascript:( function() { v=$('.video').data('video-player-state').videoPlayer; v.seekTo( Math.max(0, v.valueOf().currentTime-5) ) } )()
+map <extra>v :edxtoggleplay<CR>
+map <extra>v :edxtoggleplay<CR>
 map <F4> :edxpause<CR>
 map <F5> :edxplay<CR>
 map <C-left>  :edxvidbackward<CR>
@@ -24,7 +23,44 @@ map <C-right> :edxvidforward<CR>
 
 command! r200 :edxvidrate200
 command! r175 :edxvidrate175
-command! r150 :edxvidrate150 
+command! r150 :edxvidrate150
 command! r125 :edxvidrate125
 command! r100 :edxvidrate100
 
+" Second player on page
+js <<EOF
+
+// HTMLCollection.prototype.isEmpty = function () { return this.length == 0; }
+function isEmpty(coll) { return coll.length == 0; }
+
+function edxPlay(n) {
+    var wrapper = document.getElementsByClassName('wrapper')[n];
+    var playbuttons = wrapper.getElementsByClassName('play');
+    isEmpty(playbuttons) || playbuttons[0].click();
+}
+
+function edxPause(n) {
+    var wrapper = document.getElementsByClassName('wrapper')[n];
+    var playbuttons = wrapper.getElementsByClassName('pause');
+    isEmpty(playbuttons) || playbuttons[0].click();
+}
+
+function edxIsPlaying(n) {
+    var wrapper = document.getElementsByClassName('wrapper')[n];
+    var playbuttons = wrapper.getElementsByClassName('play');
+    return !isEmpty(playbuttons);
+}
+
+
+EOF
+
+command! edxpause2        :o javascript:edxPause(1);
+command! edxplay2         :o javascript:edxPlay(1);
+command! edxtoggleplay2   :o javascript: if (edxIsPlaying(1)) edxPause(1); else edxPlay(1);
+
+command! edxBindSpaceBar1 :map <Space> -ex edxtoggleplay
+command! edxBindSpaceBar2 :map <S-Space> -ex edxtoggleplay2
+map <edxbindspacebar1> -ex map <Space> -ex edxtoggleplay
+map <edxbindspacebar2> -ex map <S-Space> -ex edxtoggleplay2
+map <edxbindspacebar> <edxbindspacebar1><edxbindspacebar2>
+command! edxBindSpaceBar normal <edxbindspacebar>
