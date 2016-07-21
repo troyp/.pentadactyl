@@ -34,29 +34,28 @@ js <<EOF
 function isEmpty(coll) { return coll.length == 0; }
 
 function edxPlay(n) {
-    var wrapper = document.getElementsByClassName('wrapper')[n];
+    var wrapper = content.document.getElementsByClassName('video-wrapper')[n];
     var playbuttons = wrapper.getElementsByClassName('play');
     isEmpty(playbuttons) || playbuttons[0].click();
 }
 
 function edxPause(n) {
-    var wrapper = document.getElementsByClassName('wrapper')[n];
+    var wrapper = content.document.getElementsByClassName('video-wrapper')[n];
     var playbuttons = wrapper.getElementsByClassName('pause');
     isEmpty(playbuttons) || playbuttons[0].click();
 }
 
 function edxIsPlaying(n) {
-    var wrapper = document.getElementsByClassName('wrapper')[n];
+    var wrapper = content.document.getElementsByClassName('video-wrapper')[n];
     var playbuttons = wrapper.getElementsByClassName('play');
-    return !isEmpty(playbuttons);
+    return isEmpty(playbuttons);
 }
-
 
 EOF
 
-command! edxpause2        :o javascript:edxPause(1);
-command! edxplay2         :o javascript:edxPlay(1);
-command! edxtoggleplay2   :o javascript: if (edxIsPlaying(1)) edxPause(1); else edxPlay(1);
+command! edxpause2       -js edxPause(1);
+command! edxplay2        -js edxPlay(1);
+command! edxtoggleplay2  -js if (edxIsPlaying(1)) edxPause(1); else edxPlay(1);
 
 command! edxBindSpaceBar1 :map <Space> -ex edxtoggleplay
 command! edxBindSpaceBar2 :map <S-Space> -ex edxtoggleplay2
