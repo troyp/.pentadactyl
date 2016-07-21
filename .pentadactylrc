@@ -1400,6 +1400,8 @@ function pwHashGen(s) {
         var keyfield = content.document.getElementById('master-key')
         keyfield.value=user.mymasterpw;
         var siteEntryBox = content.document.getElementById("site-tag");
+        var noSpecial = content.document.getElementById("noSpecial");
+        noSpecial.click();
         var shortPWButton = content.document.getElementById("hash-word").nextElementSibling;
         siteEntryBox.value = s;
         shortPWButton = content.document.getElementsByTagName("details")[0].getElementsByTagName("button")[0];
@@ -1467,6 +1469,47 @@ function narrowPage(width, lmarg, rmarg) {
     var doc = content.document.getElementsByTagName('html')[0];
     doc.setAttribute('style',
                      `width: ${width}px; margin-left: ${lmarg}px; margin-right: ${rmarg}px;`);
+}
+
+function wiktionaryWordToIndexPage (word)
+{
+    word = word.toLowerCase();
+    word = word.replace(/^-*/, '');
+    var page, id;
+
+    Number.prototype.inRange = function (a, b) {
+        return (a <= this && this < b);
+    }
+    String.prototype.isAlphaAt = function (i) {
+        ord = this.charCodeAt(i);
+        return (ord.inRange(97, 123));
+    }
+    var wordord = "".charCodeAt.bind(word);
+
+    if (word.isAlphaAt(0))    // word starts with letter
+    {
+        page = word[0];
+        // letters split into 2 pages by second letter (a-m and n-z)
+        if ("abcdmnprst".contains(word[0]))
+            if (wordord(1).inRange(97, 110))          // a-m
+                page += "1";
+            else if (wordord(1).inRange(110, 123))    // n-z
+                page += "2";
+
+        id = word[0];
+        if (word.isAlphaAt(1))
+            id += word[1];
+    }
+    else                     // word starts with digit or symbol
+    {
+        page = "0";
+        if (word.charCodeAt(1).inRange(48, 58))
+            id = word(1);
+        else
+            id = "Symbols";
+    }
+
+    return page + "#" + id;
 }
 
 EOF
