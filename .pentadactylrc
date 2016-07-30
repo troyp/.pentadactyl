@@ -39,7 +39,8 @@ set scrollsteps=1
 " nextpattern, previouspattern
 " default: '^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bmore\b',
 " default: '^\s*Prev(ious)? Page\s*$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)',
-set nextpattern='^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bMore Words\b','\bmore\b',
+set nextpattern='^\W*\bForward\b\W*$','^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bMore Words\b','\bmore\b',
+set previouspattern='^\W*\bBack\b\W*$','^\s*Prev(ious)? Page\s*$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)','(<|«)$'
 
 set wildignore='~$','^(.*/)?\..*\.sw[m-p]$','^(.*/)?#.+#$'
 
@@ -2353,6 +2354,49 @@ EOF
 command! wplatest -description "Go to latest revision" -js wpLatest();
 map <site>l -ex wplatest
 
+group user
+
+" -------------------------------------------------------------------------------
+" ,-------------,
+" | Youtube.com |
+" '-------------'
+group youtube -locations=youtube.com
+
+js <<EOF
+var ytplayer = function () {
+    return content.document.getElementById("movie_player").wrappedJSObject;
+}
+var ytMinSpeed = 0.25;
+var ytGetSpeed = function() { return ytplayer().getPlaybackRate(); }
+var ytSetSpeed = function(r) { ytplayer().setPlaybackRate(Math.max(r, ytMinSpeed)); }
+var ytAdjustSpeed = function(delta) { ytSetSpeed(ytGetSpeed()+delta); }
+var ytPlay = function() { ytplayer().playVideo(); }
+var ytPause = function() { ytplayer().pauseVideo(); }
+var ytIsPaused = function() { return (ytplayer().getPlayerState() == 2); }
+var ytTogglePause = function() {
+    if (ytIsPaused()) ytPlay();
+    else ytPause();
+}
+
+EOF
+
+command! ytincrate -description "increase playback rate" -js ytAdjustSpeed(0.25);
+command! ytdecrate -description "decrease playback rate" -js ytAdjustSpeed(-0.25);
+command! ytshowrate
+    \ -description "show playback rate"
+    \ -js dactyl.utils.message(ytGetSpeed());
+
+command! ytrate
+    \ -description "set playback rate"
+    \ -nargs=1
+    \ -js ytSetSpeed(args[0]/10);
+
+map <site>yr :ytrate<Space>
+map <site>yR -ex ytshowrate
+map <site>\> -js ytAdjustSpeed(0.25);
+map <site>\< -js ytAdjustSpeed(-0.25);
+map <site><Space> -js ytTogglePause();
+map <Space> -js ytTogglePause();
 group user
 
 " -------------------------------------------------------------------------------
