@@ -2255,6 +2255,38 @@ set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" 
 group user
 
 " -------------------------------------------------------------------------------
+" ,-------------,
+" | Subs.com.ru |
+" '-------------'
+
+js <<EOF
+
+function subsRuSearch(s){
+    var searchForm = content.document.getElementById("search");
+    var inputs = searchForm.getElementsByTagName("input");
+    var searchField = inputs[1];
+    var searchButton = inputs[2];
+    searchField.value = (s);
+    searchButton.click();
+}
+
+function searchSubsRu(s) {
+    var newtab = gBrowser.addTab('subs.com.ru');
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    subsRuCallback = function() { subsRuSearch(s); }
+    tb.addEventListener("DOMContentLoaded", subsRuCallback);
+}
+
+EOF
+
+command! subsrusearch
+    \ -description "Search subs.com.ru"
+    \ -nargs=1
+    \ -js searchSubsRu(args[0]);
+
+
+" -------------------------------------------------------------------------------
 " ,--------------,
 " | TheHylia.com |
 " '--------------'
