@@ -1803,8 +1803,8 @@ map <site>O -js convertLastSlashToHash();
 
 autocmd! -group spacemacs
 
-" FIXME! - autocmd not working
-autocmd PageLoad https://github.com/syl20bnr/spacemacs -javascript convertMdUrlToOrg(buffer.URL);
+" FIXME!
+" autocmd PageLoad https://github.com/syl20bnr/spacemacs -javascript convertMdUrlToOrg(buffer.URL);
 
 group user
 
@@ -1841,6 +1841,11 @@ group user
 " ,-----------------------------,
 " | Google Translate (Japanese) |
 " '-----------------------------'
+
+" Note: Handwriting entry box:
+" - S-Enter copies top candidate to input field.
+" - Esc clears the box.
+
 group gtransja -locations=translate.google.com/#ja,translate.google.com.au/#ja
 
 js <<EOF
@@ -1863,6 +1868,30 @@ var toggleHandWriteInput = function() {
         hideHandWriteInput();
     else
         showHandWriteInput();
+}
+
+function getCandidates() {
+    var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
+    return candidatesDiv.innerText;
+}
+
+function getCandidate(n=1) {
+    var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
+    var candidateDiv = candidatesDiv.children(n-1);
+    return candidateDiv.innerText;
+}
+
+function selectCandidate(n=1) {
+    var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
+    var candidateDiv = candidatesDiv.children(n-1);
+    return candidateDiv.click();
+}
+
+function copyCandidate(n=1) {
+    var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
+    var candidateDiv = candidatesDiv.children(n-1);
+    dactyl.clipboardWrite(candidateDiv.innerText);
+    return candidateDiv.innerText;
 }
 
 EOF
