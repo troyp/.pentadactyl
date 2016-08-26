@@ -224,10 +224,13 @@ map <leader>D :open https://www.google.com.au/search?q=define:
 
 " Useful pseudo-keys
 map -modes command-line -b <copy-command-to-cb> <A-a><C-v><C-c>
+map -modes command-line -b <cut-command-to-cb> <A-a><C-v><C-x>
 map -modes command-line -b <paste> <C-v><C-v>
 map -modes command-line -b <copy> <C-v><C-c>
+map -modes command-line -b <cut> <C-v><C-x>
 map -modes command-line -b <forward-word> <C-Right>
 map -modes command-line -b <backward-word> <C-Left>
+map -modes command-line -b <insert-after-command> <Home><C-Right><Space>
 
 map -modes command-line <A-b> <backward-word>
 map -modes command-line <A-f> <forward-word>
@@ -253,8 +256,12 @@ map -modes command-line,insert -b <C-b> <Left>
 "   uses clipboard and javascript to do text processing, since <C-Del>, <C-BS>, <C-S-Left>, etc aren't working in map commands
 "   TODO: remove dependence on clipboard and ad-hoc pseudo-keyword (either by getting delete-word keys working in `map`, or finding
 "         javascript commands for retrieving command history and entering text in command line)
-map -modes command-line <change-open-keyword> -js var cmd=dactyl.clipboardRead(0).split(/\s/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
-map -modes command-line <C-r> <up><A-a><C-v><C-c><down><change-open-keyword><C-v><C-v><Home><C-Right><Space>
+map <cb-change-first-arg> -js var cmd=dactyl.clipboardRead(0).split(/\s+/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
+map -modes command-line <cb-change-first-arg> -js var cmd=dactyl.clipboardRead(0).split(/\s+/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
+map -modes command-line <C-r> <up><A-a><C-v><C-c><down><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
+map -modes command-line <change-first-arg> <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
+map -modes command-line <C-s> <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
+" map -modes command-line <C-s> <change-first-arg>
 
 " SPACES (TODO)
 " insert space with C-SPACE (When typing search keywords in
