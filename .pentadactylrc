@@ -412,6 +412,8 @@ command! toggleconfig
 
 command! ggdef -nargs=1 -js googledef(args[0]);
 
+command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
+
 " =============================================================================
 "                                       ______
 "                                      |      |
@@ -1204,6 +1206,17 @@ command! activator -description "Lightbend (Typesafe) Activator"
 " |                                                                                      |
 " \______________________________________________________________________________________/
 
+" Function stub for opening a site and filling in a text field
+" function (s) {
+"     var newtab = gBrowser.addTab('');
+"     gBrowser.selectedTab = newtab;
+"     var tb = gBrowser.getBrowserForTab(newtab);
+"     tb.addEventListener("DOMContentLoaded", function () {
+"         var box = content.document.getElementById('')
+"         box.value=s;
+"         // box.focus();
+"     });
+" }
 
 js <<EOF
 
@@ -1393,8 +1406,8 @@ function pwHash() {
     gBrowser.selectedTab = newtab;
     var tb = gBrowser.getBrowserForTab(newtab);
     tb.addEventListener("DOMContentLoaded", function () {
-        var keyfield = content.document.getElementById('master-key')
-        keyfield.value=user.mymasterpw;
+        var box = content.document.getElementById('master-key')
+        box.value=user.mymasterpw;
         var sitefield = content.document.getElementById('site-tag')
         sitefield.focus();
     });
@@ -1405,8 +1418,8 @@ function pwHashGen(s) {
     gBrowser.selectedTab = newtab;
     var tb = gBrowser.getBrowserForTab(newtab);
     tb.addEventListener("DOMContentLoaded", function () {
-        var keyfield = content.document.getElementById('master-key')
-        keyfield.value=user.mymasterpw;
+        var box = content.document.getElementById('master-key')
+        box.value=user.mymasterpw;
         var siteEntryBox = content.document.getElementById("site-tag");
         var noSpecial = content.document.getElementById("noSpecial");
         noSpecial.click();
@@ -1518,6 +1531,17 @@ function wiktionaryWordToIndexPage (word)
     }
 
     return page + "#" + id;
+}
+
+function searchKanjiDamage(s) {
+    var newtab = gBrowser.addTab('http://www.kanjidamage.com');
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        var box = content.document.getElementById('q')
+        box.value=s;
+        box.form.submit();
+    });
 }
 
 EOF
@@ -1901,12 +1925,19 @@ function copyCandidate(n=1) {
     return candidateDiv.innerText;
 }
 
+function moveHandWriteBox(h="365px") {
+    var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
+    hwBox.style.top = h;
+}
+
 EOF
 
 command! handwrite -description "Show Handwritten Input box. With [!], toggle."
     \ -bang
     \ -js bang ? toggleHandWriteInput() : showHandWriteInput();
 command! nohandwrite -description "Hide Handwritten Input box." -js hideHandWriteInput();
+command! hwboxrepos -description "Reposition Handwritten Input box." -js moveHandWriteBox();
+map <site><C-l> -js moveHandWriteBox();
 
 " map -b <SPACE><SPACE> <SPACE><SPACE>
 " unmap -group gtransja <SPACE><SPACE>
@@ -2230,6 +2261,7 @@ command! fixmodal
      \ -js fixModal();
 
 group user
+
 
 " -------------------------------------------------------------------------------
 " ,-----------------,
