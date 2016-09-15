@@ -200,6 +200,8 @@ map -b <extra>/ /\r\w*<Left><Left><left>
 map <S-extra>/ /\r\w*\w*<Left><Left><left>
 " C-' Firefox link search
 map -b "<C-'>" <C-v>'
+" Popjisyo Japanese hints
+map -b <leader>jp -ex popjisyo
 
 " ,---------------------------------------,
 " | Normal mode bindings for Command-line |
@@ -936,7 +938,7 @@ map <A-f1> -js viewTiledToggle()
 command! magnifier
     \ -bang
     \ -description "Display magnifier (! toggles)"
-    \ -js bang ? toggleMagnifier() : WebDeveloper.PageMagnifier.createPageMagnifier();
+    \ -js bang ? wdtToggleMagnifier() : WebDeveloper.PageMagnifier.createPageMagnifier();
 command! magnifieroff
     \ -description "Turns off magnifier"
     \ -js WebDeveloper.PageMagnifier.removePageMagnifier();
@@ -958,11 +960,20 @@ command! togglestylesbrowser  -js document.getElementById('web-developer-disable
 
  js <<EOF
 
-function toggleMagnifier() {
+function wdtToggleMagnifier() {
     if (document.getElementById("web-developer-page-magnifier-container").hidden)
         WebDeveloper.PageMagnifier.createPageMagnifier();
     else
         WebDeveloper.PageMagnifier.removePageMagnifier();
+}
+
+function wdtGetMagnification() {
+    return parseFloat(WebDeveloper.Preferences.getExtensionStringPreference("magnification.level"));
+}
+
+function wdtSetMagnification(level) {
+    // WebDeveloper.PageMagnifier.updateMagnificationLevel({ value: level });
+    WebDeveloper.Preferences.setExtensionStringPreference("magnification.level", level);
 }
 
 EOF
@@ -1877,71 +1888,89 @@ group user
 " - S-Enter copies top candidate to input field.
 " - Esc clears the box.
 
-group gtransja -locations=translate.google.com/#ja,translate.google.com.au/#ja
+group gtransja -locations=translate.google.com/#ja,translate.google.com.au/#ja,translate.google.com/#zh-CN,translate.google.com.au/#zh-CN
+
+set hinttags+="div.ita-hwt-candidate"
 
 js <<EOF
 
-var showHandWriteInput = function() {
+var gtrImeShowHandWriteInput = function() {
     content.document.getElementsByClassName("ita-hwt-ime")[0].style = "left: 28px; top: 364px;"
 }
 
-var hideHandWriteInput = function() {
+var gtrImeHideHandWriteInput = function() {
     content.document.getElementsByClassName("ita-hwt-ime")[0].style = "-moz-user-select: none; left: 28px; top: 364px; display: none;"
 }
 
-var isVisibleHandWriteInput = function() {
+var gtrImeIsVisibleHandWriteInput = function() {
     var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
     return ! hwBox.style.cssText.contains('display: none');
 }
 
-var toggleHandWriteInput = function() {
-    if (isVisibleHandWriteInput())
-        hideHandWriteInput();
+var gtrImeToggleHandWriteInput = function() {
+    if (gtrImeIsVisibleHandWriteInput())
+        gtrImeHideHandWriteInput();
     else
-        showHandWriteInput();
+        gtrImeShowHandWriteInput();
 }
 
-function getCandidates() {
+function gtrImeGetCandidates() {
     var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
     return candidatesDiv.innerText;
 }
 
-function getCandidate(n=1) {
+function gtrImeGetCandidate(n=1) {
     var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
     var candidateDiv = candidatesDiv.children(n-1);
     return candidateDiv.innerText;
 }
 
-function selectCandidate(n=1) {
+function gtrImeSelectCandidate(n=1) {
     var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
     var candidateDiv = candidatesDiv.children(n-1);
     return candidateDiv.click();
 }
 
-function copyCandidate(n=1) {
+function gtrImeCopyCandidate(n=1) {
     var candidatesDiv = content.document.getElementsByClassName("ita-hwt-candidates")[0];
     var candidateDiv = candidatesDiv.children(n-1);
     dactyl.clipboardWrite(candidateDiv.innerText);
     return candidateDiv.innerText;
 }
 
-function moveHandWriteBox(h="365px") {
+function gtrImeMoveHandWriteBox(h="365px") {
     var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
     hwBox.style.top = h;
+}
+
+function gtrImeSetWidth(w) {
+    var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
+    hwBox.style.width = w;
+}
+
+function gtrImeGetWidth() {
+    var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
+    return hwBox.style.width;
 }
 
 EOF
 
 command! handwrite -description "Show Handwritten Input box. With [!], toggle."
     \ -bang
-    \ -js bang ? toggleHandWriteInput() : showHandWriteInput();
-command! nohandwrite -description "Hide Handwritten Input box." -js hideHandWriteInput();
-command! hwboxrepos -description "Reposition Handwritten Input box." -js moveHandWriteBox();
-map <site><C-l> -js moveHandWriteBox();
+    \ -js bang ? gtrImeToggleHandWriteInput() : gtrImeShowHandWriteInput();
+command! nohandwrite -description "Hide Handwritten Input box." -js gtrImeHideHandWriteInput();
+command! hwboxrepos -description "Reposition Handwritten Input box." -js gtrImeMoveHandWriteBox();
+map <site><C-l> -js gtrImeMoveHandWriteBox();
+command! hwgetwidth -js dactyl.utils.message(gtrImeGetWidth());
+command! hwsetwidth -nargs=? -js gtrImeSetWidth((args[0] || "425") + "px");
+command! hwtogglewidth -description "Toggle normal-width/wide IME box"
+    \ -js if (gtrImeGetWidth() != "800px") gtrImeSetWidth("800px"); else gtrImeSetWidth("425px");
+map <site><C-S-L> -ex hwtogglewidth
+
 
 " map -b <SPACE><SPACE> <SPACE><SPACE>
 " unmap -group gtransja <SPACE><SPACE>
-map <SPACE><SPACE> -js showHandWriteInput();
+map <SPACE><SPACE> -js gtrImeShowHandWriteInput();
 
 group user
 
