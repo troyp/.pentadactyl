@@ -7,12 +7,16 @@
 "
 "
 group default
+
 " load javascript utilities
 runtime! utils.js
 " load utils into current context
 js var utils = dactyl.utils.getPlugin("utils");
+
 " load personal details
 runtime! personal.js
+js var user = dactyl.utils.getPlugin("personal");
+
 runtime! jquery.min.js
 set passkeys=
 
@@ -601,9 +605,9 @@ set eht=[iI]:img,[asOTvVWy]:':-moz-any-link',area[href],img[src],iframe[src],[A]
 js hints.addMode('m','mouseover',utils.simulateMouseover);
 " remove elements
 set eht+=[x]:div,iframe
-js hints.addMode('x','make div invisible',utils.undisplay);
+js hints.addMode('x','make div invisible', utils.undisplay);
 set eht+=[X]:div,iframe
-js hints.addMode('X','shift div off screen',utils.removeFromView);
+js hints.addMode('X','shift div off screen', utils.removeFromView);
 " replace ;t with function for ;b (open in background)
 js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
 set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:div/p
@@ -2307,6 +2311,51 @@ command! fixmaggie
 
 autocmd LocationChange :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Individual Style Sheet.http://maggiesensei.com/wp-content/themes/custom-community/style.css"
 " autocmd LocationChange :emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Individual Style Sheet.http://maggiesensei.com/wp-content/themes/custom-community/style.css
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,-------------,
+" | OReilly.com |
+" '-------------'
+group oreilly -locations=oreilly.com
+
+js <<EOF
+function oreillyFreeEbookFillForm() {
+    var fields = content.document.getElementsByClassName("tar mt mb")[0].getElementsByTagName("input");
+    fields[0].value = user.myfirstname;
+    fields[1].value = user.mylastname;
+    fields[2].value = user.myemail2;
+    fields[4].click();
+}
+function oreillyFreeEbookGetPdfHref() {
+  var pdf = content.document.getElementsByClassName("download format-pdf mr")[0];
+  if (typeof pdf != 'undefined')
+    return pdf.children[0].href;
+  else return '';
+}
+function oreillyFreeEbookGetEpubHref() {
+  var epub = content.document.getElementsByClassName("download format-epub mr")[0];
+  if (typeof epub != 'undefined')
+    return epub.children[0].href;
+  else return '';
+}
+function oreillyFreeEbookWgetEpubHref() {
+  var epubhref = oreillyFreeEbookGetEpubHref();
+  return (epubhref === '') ? '' : `wget ${epubhref}`;
+}
+function oreillyFreeEbookWgetPdfHref() {
+  var pdfhref = oreillyFreeEbookGetPdfHref();
+  return (pdfhref === '') ? '' : `wget ${pdfhref}`;
+}
+EOF
+command! oreillyFreeEbookAutofill -js oreillyFreeEbookFillForm();
+map <site>eo -js oreillyFreeEbookFillForm();
+command! oreillyFreeEbookDlPdf -js dactyl.open(oreillyFreeEbookGetPdfHref(), {where:dactyl.NEW_TAB});
+command! oreillyFreeEbookDlEpub -js dactyl.open(oreillyFreeEbookGetEpubHref(), {where:dactyl.NEW_TAB});
+map <site>eD -ex oreillyFreeEbookDlEpub | oreillyFreeEbookDlPdf
+command! oreillyFreeEbookDl -js dactyl.execute(`!roxterm -e zsh -c 'cd ~/Downloads && {${oreillyFreeEbookWgetEpubHref()}} && {${oreillyFreeEbookWgetPdfHref()}}'`);
+map <site>ed -ex oreillyFreeEbookDl
 
 group user
 
