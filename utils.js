@@ -78,7 +78,7 @@ var utils = {
 
     getPlugin: function(s) {
         for (x in plugins.contexts) {
-            if (x.contains(s))
+            if (x.indexOf(s) !== -1)    // if x contains s
                 return plugins.contexts[x][s];
         }
     },
