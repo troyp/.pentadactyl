@@ -2574,8 +2574,15 @@ map <site>yr :ytrate<Space>
 map <site>yR -ex ytshowrate
 map <site>\> -js ytAdjustSpeed(0.25);
 map <site>\< -js ytAdjustSpeed(-0.25);
+
+command! ytdl -description "Download video/playlist with youtube-dl"
+    \ -js dactyl.execute(`! cd ~/Downloads && youtube-dl '${buffer.URL}'`);
+map <site>yd -ex ytdl
+
 map <site><Space> -js ytTogglePause();
 map <Space> -js ytTogglePause();
+command! ytBindSpacebar -ex map <Space> -js ytTogglePause();
+
 group user
 
 " -------------------------------------------------------------------------------
