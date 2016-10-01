@@ -165,6 +165,7 @@ map <C-x>l -ex rc
 " redraw screen
 map gR -ex redraw
 " (Re-)Maximize window (when Pentadactyl pushes command line offscreen)
+map z; -js ZoomManager.toggleZoom();
 map gx -js window.restore(); window.maximize();
 " select all
 map -b <C-x>h iGvggy
