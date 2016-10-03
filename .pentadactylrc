@@ -602,7 +602,7 @@ command! tginit
 
 "map -b gf g;t
 
-set eht=[iI]:img,[asOTvVWy]:':-moz-any-link',area[href],img[src],iframe[src],[A]:[id],a[name],[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select)
+set eht=[iI]:img,[asOTvVWy]:':-moz-any-link',area[href],img[src],iframe[src],[A]:[id],a[name],[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
 js hints.addMode('m','mouseover',utils.simulateMouseover);
 " remove elements
 set eht+=[x]:div,iframe
@@ -615,6 +615,9 @@ set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:di
 js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
 set eht+=[e]:':-moz-any-link'
 js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
+" open link with wayback
+set eht+=[\]:':-moz-any-link'
+js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
 
 " svg: FIXME
 runtime! svg-pan-zoom.min.js
