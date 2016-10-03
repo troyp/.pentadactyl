@@ -1778,6 +1778,13 @@ group user
 " ,------------,
 " | Github.com |
 " '------------'
+
+js function ghTabopenRepo (s) { dactyl.tabopen(`https://github.com/${s}`); }
+command! ghtabopenrepo -nargs=1 -js ghTabopenRepo(args[0]);
+map <goto>gh :tabopen https://github.com/
+map <goto>gH :open https://github.com/
+
+" ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
 
 map <site>h -ex togglehtmlview
@@ -1789,13 +1796,17 @@ command! togglehtmlview
 
 command! gotolines -nargs=+ -js goToLines(args);
 
-command! tabopenrepo -nargs=1 -js tabopenRepo(args[0]);
-map <goto>gh :tabopen https://github.com/
-map <goto>gH :open https://github.com/
+command! ghsavethisreadmetodoc
+    \ -bang
+    \ -description "Download README for current repo to /opt/doc/"
+    \ -js ghSaveThisReadmeToDoc(bang);
+map <site>r -ex ghsavethisreadmetodoc
+
+map <site>c -js ghClickReadme();
 
 js <<EOF
 
-function toggleHTMLView () {
+function toggleHTMLView() {
     var url = buffer.URL.toLowerCase();
     var newurl;
     if (url.contains("https://github.com")) {
@@ -1815,7 +1826,7 @@ function toggleHTMLView () {
     dactyl.open(newurl);
 }
 
-function goToLines (args) {
+function goToLines(args) {
     var loc = content.location;
     var url = loc.href.replace(/#.*$/, '');
     var frag = `#L${args[0]}`;
@@ -1823,33 +1834,46 @@ function goToLines (args) {
     loc.href = url + frag;
 }
 
-function copyRepoLink () {
+function copyRepoLink() {
     var url=buffer.URL.toLowerCase();
     return url + ".git";
 }
 
-function tabopenRepo (s) {
-    dactyl.tabopen(`https://github.com/${s}`);
+function ghDownloadReadmeToDoc(repo, name, ext, overwrite) {
+    var overwrite = overwrite ? 't' : '';    // to be interpolated into shell script
+    var rawurl = `https://raw.githubusercontent.com/${repo}/master/README.${ext}`;
+    var filename = `/opt/doc/${name}-README.${ext}`;
+    dactyl.execute(`! if [[ -e ${filename} ]] && [[ -z '${overwrite}' ]]; then kdialog --error "${filename} already exists"; else curl ${rawurl} > ${filename}; fi`);
+}
+function ghSaveThisReadmeToDoc(overwrite) {
+    var matches = buffer.URL.match(/github.com\/([^/]+\/([^/]+))\/blob\/master\/README\.(.+)/);
+    var repo = matches[1];
+    var name = matches[2];
+    var ext = matches[3];
+    ghDownloadReadmeToDoc(repo, name, ext, overwrite);
+}
+
+function ghClickReadme() {
+    var links = content.document.getElementsByTagName( 'a' );
+    for ( var i = 0; i < links.length; i++ ) {
+        if ( links[i].textContent.contains('README.') )
+            links[i].click();
+    }
 }
 
 EOF
 
-" =======================
-" Spacemacs Documentation
-" =======================
+
+" ===== Spacemacs GROUP START =====
 group spacemacs -locations https://github.com/syl20bnr/*
 
 command! markdowntoorg -nargs=? -js convertMdUrlToOrg(args.length ? args[0] : null);
 map <site>o -js convertMdUrlToOrg();
-
 command! slashtohash -nargs=? -js convertLastSlashToHash(args.length ? args[0] : null);
 map <site>O -js convertLastSlashToHash();
-
 " To use navigation menu when there are no ids:
 "     use ;; to focus the link, then * to jump to it.
-
 autocmd! -group spacemacs
-
 " FIXME!
 " autocmd PageLoad https://github.com/syl20bnr/spacemacs -javascript convertMdUrlToOrg(buffer.URL);
 
