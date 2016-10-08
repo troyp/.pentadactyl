@@ -165,7 +165,6 @@ map <C-x>l -ex rc
 " redraw screen
 map gR -ex redraw
 " (Re-)Maximize window (when Pentadactyl pushes command line offscreen)
-map z; -js ZoomManager.toggleZoom();
 map gx -js window.restore(); window.maximize();
 " select all
 map -b <C-x>h iGvggy
@@ -187,6 +186,14 @@ map <C-j> -ex jumps
 map <extra>P -ex pwhash
 " password hasher: hash site domain
 map <extra>p -ex pwhashsite
+
+" Zoom
+" note: text and full zoom can't be used independently. Using one cancels the other
+map = +
+map <C-=> zI
+map <C--> zO
+" toggle text/full zoom
+map z; -js ZoomManager.toggleZoom();
 
 " Search:
 " clear the search term highlighting
