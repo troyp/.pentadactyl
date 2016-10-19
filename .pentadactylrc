@@ -897,8 +897,21 @@ command! webide :feedkeys! <S-f8>
 command! browserconsole :feedkeys! <C-S-J>
 command! devtools :execute "emenu Tools.Web Developer.Toggle Tools"
 command! storageinspector :execute "emenu Tools.Web Developer.Storage Inspector"
+command! toggledevtoolbar
+\ -description "Toggle Developer Toolbar"
+\ -js <<EOF
+  var tb=DeveloperToolbar;
+  if (tb.visible) {
+      tb.hide();
+  } else {
+      tb.show();
+      setTimeout(()=>{tb.focus();}, 300);
+  }
+EOF
+map <C-A-;> -modes main -ex toggledevtoolbar
 map <extra>d -ex emenu Tools.Web Developer.Eyedropper
 map <S-f12> -ex devtools
+
 
 " -----------------------------------------------------------------------------
 " ,---------------,
