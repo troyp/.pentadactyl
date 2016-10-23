@@ -122,6 +122,9 @@ map -b l <C-n>
 map -b <C-n> <C-v><down>
 map -b <C-p> <C-v><up>
 " replace h, l with A-k, A-j for horizontal movement
+map -b <C-A-h> h
+map -b <C-A-l> l
+" A-k/j and A-,/. can be reused...
 map -b <A-k> h
 map -b <A-j> l
 map -b <A-,> h
