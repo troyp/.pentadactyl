@@ -787,10 +787,16 @@ map -b sm :emenu<SPACE>
 map -b sp :set<SPACE>
 map -b sc :set!<SPACE>
 
-" List:
+" List/Search:
 map -b sb :buffers -max 45<SPACE>
 map -b sh :history -max 45<SPACE>
 map -b sk :bmarks  -max 45<SPACE>
+" Search bookmarks by keyword
+map -b gk<Space> :bmarks -max 45<SPACE> -keyword<SPACE>
+" List all static keyword bookmarks (keyword contains :::)
+map -b gkk :bmarks -max 45<SPACE> -keyword :::<CR>
+" Search bookmarks by tag
+map -b gkt :bmarks -max 45<SPACE> -tags<SPACE>
 
 " -----------------------------------------------------------------------------
 " ,--------------,
