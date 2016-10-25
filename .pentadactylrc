@@ -994,6 +994,7 @@ command! togglestylesinline  -js document.getElementById('web-developer-disable-
 " note: toggle all styles has binding <Alt-Shift-A>
 command! togglestylesall -js document.getElementById('web-developer-disable-all-styles-menu').click();
 command! togglestylesbrowser  -js document.getElementById('web-developer-disable-browser-default-styles-menu').click();
+command! hidebackground -js WebDeveloper.Images.hideBackgroundImages([content.document]);
 
  js <<EOF
 
