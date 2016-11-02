@@ -2341,8 +2341,12 @@ autocmd PageLoad jisho.org :shrinksod
 js <<EOF
 
 function fixModal() {
-    var modal = content.document.getElementsByClassName('reveal-modal')[0];
-    modal.setAttribute("style", "position: fixed;")
+    var modal = content.document.getElementById('inflection_modal');
+    var modalbg = content.document.getElementsByClassName('reveal-modal-bg')[0];
+    var basestyle = modal.getAttribute("style");
+    var bgbasestyle = modalbg.getAttribute("style");
+    modal.setAttribute("style", `${basestyle}; position: fixed;`)
+    modalbg.setAttribute("style", `${bgbasestyle}; position: fixed;`)
 }
 
 EOF
