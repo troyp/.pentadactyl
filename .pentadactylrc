@@ -139,9 +139,14 @@ map gs -ex viewpagesource
 map <C-a> <Nop>
 map -b <A-=> <C-a>
 map -b <A--> <C-x>
+
+" Paste and Search
 " swap p and P
 map -b p P
 map -b P p
+" jisho.org nihongo search
+map -b <extra>n -js dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.NEW_TAB})
+
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
 
