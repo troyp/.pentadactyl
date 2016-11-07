@@ -218,22 +218,6 @@ map -b "<C-'>" <C-v>'
 " Popjisyo Japanese hints
 map -b <leader>jp -ex popjisyo
 
-" ,---------------------------------------,
-" | Normal mode bindings for Command-line |
-" '---------------------------------------'
-" Search clipboard contents using search keyword
-map -b <leader>s :<C-v><C-v><Home>tabopen<Space><Space><Left>
-map -b <leader>S :<C-v><C-v><Home>open<Space><Space><Left>
-" Repeat search just entered with keyword changed
-map <leader>r :<C-r>
-" Repeat default just entered search with keyword
-map <leader>R :<up><Home><forward-word><Space>
-" Google definitions
-map <leader>d :ggdef<Space>
-" map <leader>d :tabopen https://www.google.com.au/search?q=define:
-map <leader>,d -js googleDefExpand();
-map <leader>D :open https://www.google.com.au/search?q=define:
-
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
 " | Command mode and insert mode bindings |  cmap: command-line mode
@@ -304,6 +288,22 @@ execute "map -modes command-line,insert -b <C-S-A> " + user.mystreet
 execute "map -modes command-line,insert -b <C-S-S> " + user.mysuburb
 execute "map -modes command-line,insert -b <C-S-D> " + user.myaddress
 execute "map -modes command-line,insert -b <C-S-P> " + user.myphone
+
+" ,---------------------------------------,
+" | Normal mode bindings for Command-line |
+" '---------------------------------------'
+" Search clipboard contents using search keyword
+map -b <leader>s :<C-v><C-v><Home>tabopen<Space><Space><Left>
+map -b <leader>S :<C-v><C-v><Home>open<Space><Space><Left>
+" Repeat search just entered with keyword changed
+map <leader>r :<C-r>
+" Repeat default just entered search with keyword
+map <leader>R :<up><Home><forward-word><Space>
+" Google definitions
+map <leader>d :ggdef<Space>
+" map <leader>d :tabopen https://www.google.com.au/search?q=define:
+map <leader>,d -js googleDefExpand();
+map <leader>D :open https://www.google.com.au/search?q=define:
 
 
 " -----------------------------------------------------------------------------
