@@ -2041,6 +2041,12 @@ command! hwsetwidth -nargs=? -js gtrImeSetWidth((args[0] || "425") + "px");
 command! hwtogglewidth -description "Toggle normal-width/wide IME box"
     \ -js if (gtrImeGetWidth() != "800px") gtrImeSetWidth("800px"); else gtrImeSetWidth("425px");
 map <site><C-S-L> -ex hwtogglewidth
+map <site>k
+    \ -description "Open Jisho.org kanji page (new tab)"
+    \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`, {where:dactyl.NEW_TAB})
+map <site>K
+    \ -description "Open Jisho.org kanji page (current tab)"
+    \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`)
 
 
 " map -b <SPACE><SPACE> <SPACE><SPACE>
