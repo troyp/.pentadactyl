@@ -2178,16 +2178,16 @@ group jisho -locations=jisho.org
 " remove all existing jisho autocmds
 autocmd! -group jisho
 
-map <site>s -ex shrinksod
-map <site>M -ex fixmodal
-map <site>r :toggleromaji<CR>
+map <site>s -ex jishoshrinksod
+map <site>M -ex jishofixmodal
+map <site>r -ex jishotoggleromaji
 
-" ------------
-" toggleromaji
-" ------------
+" -----------------
+" jishotoggleromaji
+" -----------------
 js <<EOF
 
-var toggleRomaji = function() {
+var jishoToggleRomaji = function() {
     var url = buffer.URL;
     var romtag = "%23romaji";
     if (url.contains(romtag))
@@ -2201,9 +2201,9 @@ EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji:
 
-command! toggleromaji
+command! jishotoggleromaji
      \ -description "Toggle between kana and romaji"
-     \ -js toggleRomaji();
+     \ -js jishoToggleRomaji();
 
 " ----------
 " Hint modes
@@ -2276,13 +2276,13 @@ style -name=kanji_light
     \ .kanji .character:hover, .kanji_light .character:hover {
     \     font-family:  "HiraKakuPro-W3","Hiragino Kaku Gothic Pro W3","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ",Meiryo,"游ゴシック",YuGothic,"ＭＳ Ｐゴシック","MS PGothic","ＭＳ ゴシック","MS Gothic",sans,sans-serif !important;
     \ }
-command! kanjilight
+command! jishokanjilight
     \ -description "Light style kanji"
     \ styleenable -group jisho -name kanji_light
-command! kanjiheavy
+command! jishokanjiheavy
     \ -description "Heavy style kanji"
     \ styledisable -group jisho -name kanji_light
-command! kanjitoggle
+command! jishokanjitoggle
     \ -description "Toggle heavy/light kanji style"
     \ styletoggle -group jisho -name kanji_light
 
@@ -2291,7 +2291,7 @@ command! kanjitoggle
 " --------------------------------
 js <<EOF
 
-function fixDetailsLinks() {
+function jishoFixDetailsLinks() {
     var links = content.document.getElementsByClassName("light-details_link")
     for (i=0; i<links.length; ++i)
         links[i].textContent = links[i].textContent.slice(0, -2);
@@ -2299,18 +2299,18 @@ function fixDetailsLinks() {
 
 EOF
 
-command! fixdetailslinks
+command! jishofixdetailslinks
      \ -description "Remove arrows from `details' links"
-     \ -js fixDetailsLinks();
-autocmd DOMLoad jisho.org :fixdetailslinks
+     \ -js jishoFixDetailsLinks();
+autocmd DOMLoad jisho.org :jishofixdetailslinks
 
 
-" --------------------------------------------------------
-" shrinksod: Halve the dimensions of stroke order diagrams
-" --------------------------------------------------------
+" -------------------------------------------------------------
+" jishoshrinksod: Halve the dimensions of stroke order diagrams
+" -------------------------------------------------------------
 js <<EOF
 
-function shrinkSOD() {
+function jishoShrinkSOD() {
     var svgelts=content.document.getElementsByTagName("svg");
 
     // NOTE: sod class must be first or only class
@@ -2337,23 +2337,23 @@ function shrinkSOD() {
 
 EOF
 
-command! shrinksod
+command! jishoshrinksod
      \ -description "Halve the dimensions of stroke order diagrams"
-     \ -js shrinkSOD();
+     \ -js jishoShrinkSOD();
 command! ss
      \ -description "Halve the dimensions of stroke order diagrams"
-     \ -js shrinkSOD();
+     \ -js jishoShrinkSOD();
 
-autocmd PageLoad jisho.org :shrinksod
+autocmd PageLoad jisho.org :jishoshrinksod
 
-" -------------------------------------
-" fix position of modal box in viewport
-" -------------------------------------
-" TODO: have :fixmodal applied automatically.
+" ----------------------------------------------------
+" jishofixmodal: fix position of modal box in viewport
+" ----------------------------------------------------
+" TODO: have :jishofixmodal applied automatically.
 
 js <<EOF
 
-function fixModal() {
+function jishoFixModal() {
     var modal = content.document.getElementById('inflection_modal');
     var modalbg = content.document.getElementsByClassName('reveal-modal-bg')[0];
     var basestyle = modal.getAttribute("style");
@@ -2364,9 +2364,9 @@ function fixModal() {
 
 EOF
 
-command! fixmodal
+command! jishofixmodal
      \ -description "Fix modal in viewport"
-     \ -js fixModal();
+     \ -js jishoFixModal();
 
 group user
 
