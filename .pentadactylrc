@@ -144,8 +144,16 @@ map -b <A--> <C-x>
 " swap p and P
 map -b p P
 map -b P p
-" jisho.org nihongo search
-map -b <extra>n -js dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.NEW_TAB})
+" jisho.org nihongo search: opens in new tab; prefix with (nonzero) count to open in current tab
+js <<EOF
+var jishoPasteSearch = function(count) {
+    if (typeof count === "undefined")
+        dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.CURRENT_TAB});
+    else
+        dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.NEW_TAB});
+}
+EOF
+map -b <extra>n -ex js jishoPasteSearch(<count>)
 
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
