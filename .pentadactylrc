@@ -2197,6 +2197,16 @@ var jishoToggleRomaji = function() {
     dactyl.open(newurl)
 }
 
+var jishoToggleKanji = function() {
+    var url = buffer.URL;
+    var kanjitag = "%23kanji";
+    if (url.contains(kanjitag))
+        newurl = url.replace(kanjitag,"");
+    else
+        newurl = `${url} ${kanjitag}`;
+    dactyl.open(newurl)
+}
+
 EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji:
@@ -2204,6 +2214,10 @@ EOF
 command! jishotoggleromaji
      \ -description "Toggle between kana and romaji"
      \ -js jishoToggleRomaji();
+
+command! jishotogglekanji
+     \ -description "Toggle between kanji page and regular results"
+     \ -js jishoToggleKanji();
 
 " ----------
 " Hint modes
