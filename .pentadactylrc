@@ -2187,6 +2187,7 @@ autocmd! -group jisho
 map <site>s -ex jishoshrinksod
 map <site>M -ex jishofixmodal
 map <site>r -ex jishotoggleromaji
+map <site>k -ex jishotogglekanji
 
 " -----------------
 " jishotoggleromaji
