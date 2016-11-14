@@ -318,6 +318,12 @@ map <leader>d :ggdef<Space>
 map <leader>,d -js googleDefExpand();
 map <leader>D :open https://www.google.com.au/search?q=define:
 
+" ,-------------------,
+" | Command-line only |
+" '-------------------'
+" regex search: word boundary
+cmap <C-1> (?= |^)
+cmap <C-2> (?= |$)
 
 " -----------------------------------------------------------------------------
 " ,--------------------------------,  MAP COMMANDS.
