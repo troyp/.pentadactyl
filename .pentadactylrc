@@ -202,6 +202,8 @@ map <C-j> -ex jumps
 map <extra>P -ex pwhash
 " password hasher: hash site domain
 map <extra>p -ex pwhashsite
+" Popjisyo SearchJapanese hints
+map -b <leader>jp -ex popjisyo
 
 " Zoom
 " note: text and full zoom can't be used independently. Using one cancels the other
@@ -211,7 +213,18 @@ map <C--> zO
 " toggle text/full zoom
 map z; -js ZoomManager.toggleZoom();
 
-" Search:
+" ,--------,
+" | Search |
+" '--------'
+map <findbarOpenFocus> <C-v><C-f>
+js <<EOF
+findbarToggle = function() {
+    if (gFindBar.hidden)
+        dactyl.execute("normal <findbarOpenFocus>");
+    else
+        gFindBar.close();
+}
+EOF
 " clear the search term highlighting
 map <C-/> -ex noh
 " Regex search
@@ -226,10 +239,10 @@ map -b <option>/ gg/
 map -b <extra>/ /\r\w*<Left><Left><left>
 " Search for word containing...
 map <S-extra>/ /\r\w*\w*<Left><Left><left>
+" Firefox find box
+map -b v/ -js findbarToggle();
 " C-' Firefox link search
 map -b "<C-'>" <C-v>'
-" Popjisyo Japanese hints
-map -b <leader>jp -ex popjisyo
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
