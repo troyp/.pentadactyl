@@ -1230,7 +1230,7 @@ command! appendlinkurls
 " trigger listlinks keyword bookmarklet
 command! listlinks
             \ -description "List all links in page"
-            \ :open listlinks
+            \ :open listalllinks
 
 " -------------------------------------------------------------------------------
 " ,----------------,
