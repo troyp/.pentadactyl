@@ -2643,9 +2643,31 @@ var wpLatest = function() {
    var newurl = buffer.URL.replace(/\?.*$/, '');
    dactyl.open(newurl);
 }
+var wpContent = function() {
+    var heading = content.document.getElementById("firstHeading");
+    var articletext = content.document.getElementById("bodyContent");
+    return heading.innerText + "\n\n" + articletext.innerText;
+}
+var wpHtml = function() {
+    var heading = content.document.getElementById("firstHeading");
+    var articletext = content.document.getElementById("bodyContent");
+    return `<h1>${heading.innerHTML}</h1>\n${articletext.innerHTML}`;
+}
+var wpCopyContent = function() {
+    articletext = wpContent();
+    dactyl.clipboardWrite(articletext);
+    dactyl.utils.message(`COPIED: ${articletext.slice(0, 20)} ... ${articletext.slice(-20)}`);
+}
+var wpCopyHtml = function() {
+    articlehtml = wpHtml();
+    dactyl.clipboardWrite(articlehtml);
+    dactyl.utils.message(`COPIED: ${articlehtml.slice(0, 20)} ... ${articlehtml.slice(-20)}`);
+}
 EOF
 command! wplatest -description "Go to latest revision" -js wpLatest();
 map <site>l -ex wplatest
+command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
+command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml();
 
 group user
 
