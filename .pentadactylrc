@@ -596,7 +596,7 @@ map -b gf g;b
 map gN  -js newTabPage();
 map gON -ex open about:newtab
 map <goto>N  -js newTabPage();
-map <goto>ON -ex open about:newtab
+map <goto>eN -ex open about:newtab
 
 "      gH : open home page in new tab
 
@@ -790,12 +790,19 @@ command! historydialog
 
 map <goto>a -ex dialog addons
 map -b <goto>c tabout:config<CR>
+map -b <goto>ec oabout:config<CR>
 map -b <goto>d tabout:downloads<CR>
+map -b <goto>ed oabout:downloads<CR>
 map -b <goto>k tchrome://browser/content/places/places.xul<CR>
+map -b <goto>ek ochrome://browser/content/places/places.xul<CR>
 map -b <goto>p tabout:plugins<CR>
+map -b <goto>ep oabout:plugins<CR>
 map -b <goto>r tabout:sessionrestore<CR>
+map -b <goto>er oabout:sessionrestore<CR>
 map -b <goto>s tabout:support<CR>
+map -b <goto>es oabout:support<CR>
 map -b <goto>s tabout:support<CR>
+map -b <goto>es oabout:support<CR>
 command! appcache
     \ -description "Open about:cache in new tab"
     \ :tabopen about:cache?storage=appcache
