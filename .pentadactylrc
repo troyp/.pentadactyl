@@ -139,6 +139,8 @@ map gs -ex viewpagesource
 map <C-a> <Nop>
 map -b <A-=> <C-a>
 map -b <A--> <C-x>
+" passthrough
+map -b \\ <C-v>
 
 " Paste and Search
 " swap p and P
