@@ -86,8 +86,10 @@ map c <site>
 " map S <sidebar>
 map x <extra>
 map X <S-extra>
-map <C-x> <option>
 map , <leader>
+map v <browser>
+map a <spare>
+map <A-enter> <option>
 
 " -------------------------------------------------------------------------------
 " ,------------------,
@@ -109,8 +111,6 @@ map <link_desc> ;Y
 " <C-x> : GUI commands, etc.
 
 " REPLACE DEFAULT BINDINGS:
-" free a
-map a <Nop>
 " free C-h, use C-,, C-. to replace h, l
 map -b <C-,> <Left>
 map -b <C-.> <Right>
@@ -213,6 +213,13 @@ map <C--> zO
 " toggle text/full zoom
 map z; -js ZoomManager.toggleZoom();
 
+" ,----------------------,
+" | Option Key Sequences |
+" '----------------------'
+" <option>t - toggles
+map <option>tu -ex set usermode!
+
+
 " ,--------,
 " | Search |
 " '--------'
@@ -234,13 +241,13 @@ map -b g? ?\r
 map -b s/ /\l
 map -b s? ?\l
 " Search from top of page
-map -b <option>/ gg/
+map -b <C-x>/ gg/
 " Search for word starting with...
 map -b <extra>/ /\r\w*<Left><Left><left>
 " Search for word containing...
 map <S-extra>/ /\r\w*\w*<Left><Left><left>
 " Firefox find box
-map -b v/ -js findbarToggle();
+map -b <browser>/ -js findbarToggle();
 " C-' Firefox link search
 map -b "<C-'>" <C-v>'
 
@@ -474,11 +481,11 @@ command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
 " | Buffer Selection |
 " '------------------'
 " Select buffer:  b  (cycle with gb, gB)
+map -b \< g0
+map -b \> g$
 " switch to alternate (previously selected buffer): A-;
 map -modes command,embed -b <A-;> <C-^>
 map -modes input -b <A-;> <Esc><C-^>
-map -b \< g0
-map -b \> g$
 " delete and switch to alternate
 map -modes command,embed -b <A-:> d<C-^>
 map -modes input -b <A-:> <Esc>d<C-^>
@@ -497,11 +504,11 @@ map ! -ex pintab!
 " '--------------'
 
 " close other tabs
-map <extra>1 -ex tabonly
+map <browser>1 -ex tabonly
 " close tabs to left
-map -b <extra>< -js closeAllToLeft()
+map -b <browser>< -js closeAllToLeft()
 " close tabs to right
-map -b <extra>> -js closeAllToRight()
+map -b <browser>> -js closeAllToRight()
 
 " close tab range
 " :tc START END : close tabs starting with START and ending with the tabs before END
@@ -512,7 +519,7 @@ command! tc
     \ -nargs=+
     \ -js if (args.length==2) { closeTabRange(args[0], args[1]); }
     \     else { closeTabsFromCurrentTo(args[0]); }
-map -b <extra>; :tc<SPACE>
+map -b <browser>; :tc<SPACE>
 
 " undo recent closed tab from list
 map -b U :undo<SPACE>
@@ -557,8 +564,8 @@ EOF
 " alias tt=tabmove
 command! tt -nargs=1 -bang
     \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
-map -b <extra>m :tabmove<SPACE>
-map -arg <extra>M -ex tabmove <arg>
+map -b <browser>m :tabmove<SPACE>
+map -arg <browser>M -ex tabmove <arg>
 map -b gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
 map <C-S-N> -ex tabmove! +1
@@ -667,7 +674,7 @@ set eht+=[G]:svg
 js hints.addMode('G','pan & zoom SVG',alert);
 
 " focus frame
-map -b <extra>f ;F
+map -b vf ;F
 
 map <yank_desc> ;Y
 
