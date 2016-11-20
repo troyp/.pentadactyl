@@ -33,8 +33,8 @@ set hlfind
 set findcase=smart
 set showstatuslinks=status
 "set wildmode=list:longest,list:full
-set wildmode=list:full
-set altwildmode=list:longest,list:full
+set wildmode=list:longest,list:full
+set altwildmode=list:full
 set strictfocus=mail.google.com:laissez-faire,'chrome:*':laissez-faire,*:moderate
 set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)" <file>'
 set scrolltime=0
