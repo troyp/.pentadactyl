@@ -411,8 +411,7 @@ command! tabdupa -description "Create adjacent duplicate tab" -js tabdupa()
 command! pasteall -description "open all links in clipboard" -js openAllLinksInCB();
 map gp -ex pasteall
 
-command! viewpagesource -description "Toggle viewing page / viewing page source"
-\    -js var loc = content.location; if ( !(loc.protocol === 'view-source:') ) loc.href = 'view-source:' + loc.href;
+command! viewpagesource -description "Toggle viewing page / viewing page source" -js viewPageSource();
 
 command! rc source ~/.pentadactylrc
 "command! rce viewsource! file:/home/troy/.pentadactylrc
@@ -1380,6 +1379,14 @@ function toggleUrl (x, y, x_canon, y_canon) {
     else if (url.search(y) >= 0)
         newurl = url.replace(y, x_canon);
     dactyl.open(newurl);
+}
+
+viewPageSource = function() {
+    var loc = content.location;
+    if (loc.protocol === 'view-source:')
+        loc.href = loc.href.substring(12);
+    else
+        loc.href = 'view-source:' + loc.href;
 }
 
 function imgToDataUri(img) {
