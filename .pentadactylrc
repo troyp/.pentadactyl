@@ -788,7 +788,7 @@ command! ac
     \ :winopen about:config
 
 " history (better dialog than `:dialog history`)
-map <goto>wh -ex historydialog
+map <goto>wh -ex historydialog | ! wmctrl -F -r "Library" -b add,above,sticky
 command! historydialog
     \ -description "Open history dialog"
     \ :feedkeys <C-S-H>
