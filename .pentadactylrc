@@ -2230,6 +2230,7 @@ map <site>s -ex jishoshrinksod
 map <site>M -ex jishofixmodal
 map <site>r -ex jishotoggleromaji
 map <site>k -ex jishotogglekanji
+map <site>l -ex jishotogglelinklists
 
 " -----------------
 " jishotoggleromaji
@@ -2430,6 +2431,32 @@ EOF
 command! jishofixmodal
      \ -description "Fix modal in viewport"
      \ -js jishoFixModal();
+
+" --------------------
+" jishotogglelinklists
+" --------------------
+js <<EOF
+
+function jishoToggleLinkLists() {
+    var linklists = content.document.getElementsByClassName("f-dropdown");
+    for (i=0; i<linklists.length; ++i) {
+        linklists[i].focus();
+        var llstyle = linklists[i].style;
+        leftvalmatch = llstyle.cssText.match(/left: *(-?\d+\w*);/);
+        if (leftvalmatch && parseInt(leftvalmatch[1])>-200) {
+            llstyle.cssText = "";
+        } else {
+            llstyle.cssText = "position: relative; left: -120px; top: 0;";
+        }
+    }
+}
+
+EOF
+
+command! jishotogglelinklists
+     \ -description "Show all link lists"
+     \ -js jishoToggleLinkLists();
+
 
 group user
 
