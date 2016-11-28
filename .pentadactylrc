@@ -1849,10 +1849,10 @@ function loginAndSearch() {
     var curT = gBrowser.selectedTab;
     var curTB = gBrowser.getBrowserForTab(curT);
     function searchForId() {
-	var searchFields = content.document.getElementsByTagName("input");
-	searchFields[0].value = searchId;
-	searchFields[1].click();
-	curTB.removeEventListener("DOMContentLoaded", searchForId);
+        var searchFields = content.document.getElementsByTagName("input");
+        searchFields[0].value = searchId;
+        searchFields[1].click();
+        curTB.removeEventListener("DOMContentLoaded", searchForId);
     }
     curTB.loadURI(signinurl);
     curTB.addEventListener("DOMContentLoaded", searchForId);
