@@ -1996,6 +1996,77 @@ map <C-f11> -ex togglefullscreen
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-------,
+" | Gmail |
+" '-------'
+group gmail -locations=mail.google.com
+
+js <<EOF
+
+function gmailFilterScreen () {
+    var filterlink = content.document.getElementsByTagName("tr")[2].getElementsByTagName("a")[1];
+    if (filterlink.innerHTML === "Create&nbsp;a&nbsp;filter") {
+        filterlink.click();
+    }
+}
+
+function gmailFilterFillFrom (from) {
+    var fromField = content.document.getElementsByName("cf1_from")[0];
+    fromField.value=from;
+    var nextStep = content.document.getElementsByName("nvp_bu_nxsb")[0];
+    nextStep.click();
+}
+
+function gmailFilterFillToLabel (label) {
+    var skipInputBox = content.document.getElementById("cf2_ar");
+    var applyLabelBox = content.document.getElementById("cf2_cat");
+    var alsoApplyBox = content.document.getElementsByName("irf")[0];
+    var chooseLabelDropdown = content.document.getElementsByName("cf2_sel")[0];
+    skipInputBox.checked = true;
+    applyLabelBox.checked = true;
+    alsoApplyBox.checked = true;
+    chooseLabelDropdown.value = label;
+    var createFilter = content.document.getElementsByName("nvp_bu_cftb")[0];
+    createFilter.click();
+    if (chooseLabelDropdown.value === label) {
+        return value;
+    } else {
+        return null;
+    }
+}
+
+function gmailFilterMailFrom (from, label) {
+    // TODO: add callbacks
+    var curT = gBrowser.selectedTab;
+    var curTB = gBrowser.getBrowserForTab(curT);
+    function doFillFrom() {
+        curTB.removeEventListener("DOMContentLoaded", doFillFrom);
+        function doFillLabel() {
+            gmailFilterFillToLabel(label);
+            curTB.removeEventListener("DOMContentLoaded", doFillLabel);
+        }
+        curTB.addEventListener("DOMContentLoaded", doFillLabel);
+        gmailFilterFillFrom(from);
+    }
+    curTB.addEventListener("DOMContentLoaded", doFillFrom);
+    gmailFilterScreen();
+}
+
+EOF
+
+command! gmailcreatefilter
+    \ -description "Create a filter for mail from $1, archive to label $2"
+    \ -nargs=1
+    \ -js gmailFilterMailFrom(args[0], args[1]);
+
+command! gmailcreatefiltertonewsletters
+    \ -description "Create a filter for mail from $1, archive to label MISC/newsletter"
+    \ -nargs=1
+    \ -js gmailFilterMailFrom(args[0], "MISC/newsletter");
+
+ group user
+
 " -----------------------------------------------------------------------------
 " ,-----------------------------,
 " | Google Translate (Japanese) |
