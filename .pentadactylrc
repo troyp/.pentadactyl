@@ -2541,7 +2541,7 @@ autocmd! -group maggiesensei
 
 " For now, use :togglestylesembedded
 " TODO: work out how to fix the style (the '.post-content' class has post in it).
-command! fixmaggie
+command! maggiefix
     \ -description "Fix regions of missing content on maggiesensei.com"
     \ :togglestylesembedded<CR>
 
