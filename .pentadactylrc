@@ -2252,7 +2252,11 @@ function japDoSearchCompVerb(type, s) {
     } ;
     var searchbox = content.document.getElementById('searchbox');
     searchbox.value=s;
-    //var searchbutton = content.document.getElementById('filterButton');
+    var doClick = function(){
+        var searchbutton = content.document.getElementById('filterButton');
+        searchbutton.click();
+    }
+    window.setTimeout(doClick, 1500);
     return true;
 }
 
@@ -2281,6 +2285,44 @@ command! jdocompvb2
 \ -desc "Search for japanese compound verb by verb 2"
 \ -nargs=1
 \ -js japDoSearchCompVerb(2, args)
+
+" -------------------------------------------------------------------------------
+group vvlex -locations=vvlexicon.ninjal.ac.jp
+
+js <<EOF
+function vvlexSearchV1(s) {
+    var searchbox = content.document.getElementById('searchbox');
+    searchterm = s || searchbox.value;
+    var v1search = content.document.getElementById('V1_mode');
+    v1search.click();
+    searchbox.value = searchterm;
+    searchbox.value = searchterm;
+    var doClick = function(){
+        var searchbutton = content.document.getElementById('filterButton');
+        searchbutton.click();
+    }
+    window.setTimeout(doClick, 1500);
+}
+function vvlexSearchV2(s) {
+    var searchbox = content.document.getElementById('searchbox');
+    searchterm = s || searchbox.value;
+    var v2search = content.document.getElementById('V2_mode');
+    v2search.click();
+    searchbox.value = searchterm;
+    var doClick = function(){
+        var searchbutton = content.document.getElementById('filterButton');
+        searchbutton.click();
+    }
+    window.setTimeout(doClick, 1500);
+}
+EOF
+
+command! vvlexsearchv1 -nargs=? -js vvlexSearchV1(args[0]);
+command! vvlexsearchv2 -nargs=? -js vvlexSearchV2(args[0]);
+map <site>1 -js vvlexSearchV1();
+map <site>2 -js vvlexSearchV2();
+
+group user
 
 " -----------------------------------------------------------------------------
 " ,-----------,
