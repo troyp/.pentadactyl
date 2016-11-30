@@ -1778,13 +1778,13 @@ group user
 " '-------------'
 group wayback -locations=archive.org
 
-map -g wayback ct -ex toggleWaybackToolbar
-map -g wayback gct -ex toggleWaybackToolbar!
+map <site>t -ex toggleWaybackToolbar
+map g<site>t -ex toggleWaybackToolbar!
 
 " Wayback Toolbar Go To Previous Capture:
 " ( Searches for a year (starting with '20' using FF link search,
 "   then tabs backwards twice to land on back link and activates )
-map -g wayback -b cb <C-v>'20<S-Tab><S-Tab><CR>
+map -b <site>b <C-v>'20<S-Tab><S-Tab><CR>
 
 command! toggleWaybackToolbar
     \ -bang
