@@ -1772,6 +1772,43 @@ map -g about -b G <C-v><End>
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,--------------,
+" | About:addons |
+" '--------------'
+group aboutaddons -locations=about:addons
+
+js <<EOF
+
+function addonsGet() {
+    var getAddonsButton = content.document.getElementById("category-discover");
+    getAddonsButton.click();
+}
+
+function addonsClickCategory(category) {
+    var getButton = content.document.getElementById(category);
+    getButton.click();
+}
+
+EOF
+
+command! addonsget        -js addonsClickCategory("category-discover");
+command! addonsextension  -js addonsClickCategory("category-extension");
+command! addonsuserscript -js addonsClickCategory("category-greasemonkey-user-script");
+command! addonsuserstyle  -js addonsClickCategory("category-userstyle");
+command! addonsappearance -js addonsClickCategory("category-theme");
+command! addonsplugin     -js addonsClickCategory("category-plugin");
+command! addonsservice    -js addonsClickCategory("category-service");
+map <site>a -js addonsClickCategory("category-discover");
+map <site>e -js addonsClickCategory("category-extension");
+map <site>u -js addonsClickCategory("category-greasemonkey-user-script");
+map <site>U -js addonsClickCategory("category-userstyle");
+map <site>t -js addonsClickCategory("category-theme");
+map <site>p -js addonsClickCategory("category-plugin");
+map <site>s -js addonsClickCategory("category-service");
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-------------,
 " | Archive.org |
