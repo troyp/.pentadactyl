@@ -2381,6 +2381,7 @@ map <site>M -ex jishofixmodal
 map <site>r -ex jishotoggleromaji
 map <site>k -ex jishotogglekanji
 map <site>l -ex jishotogglelinklists
+map <site>* :jishoscalesod<Space>
 
 " -----------------
 " jishotoggleromaji
@@ -2524,8 +2525,9 @@ autocmd DOMLoad jisho.org :jishofixdetailslinks
 " -------------------------------------------------------------
 js <<EOF
 
-function jishoShrinkSOD() {
+function jishoScaleSOD(scale=0.5, ignore_min=false) {
     var svgelts=content.document.getElementsByTagName("svg");
+    var MINHEIGHT = 40;
 
     // NOTE: sod class must be first or only class
     function isSOD(x) {
@@ -2536,10 +2538,12 @@ function jishoShrinkSOD() {
     // NOTE: assume length unit is "px" or other 2-char unit
     for (i=0; i<sods.length; ++i) {
         var style = sods[i].style;
-        var newheight = parseInt(style.height) / 2;
-        var newwidth = parseInt(style.width) / 2;
+        var newheight = parseInt(style.height) * scale;
+        var newwidth = parseInt(style.width) * scale;
+
         // NOTE: crude test to see if previously shrunken
-        if (newheight < 40) continue;
+        if (!ignore_min && newheight<MINHEIGHT) continue;
+
         var hunit = style.height.slice(-2);
         var wunit = style.width.slice(-2);
         sods[i].setAttribute(
@@ -2553,10 +2557,15 @@ EOF
 
 command! jishoshrinksod
      \ -description "Halve the dimensions of stroke order diagrams"
-     \ -js jishoShrinkSOD();
+     \ -js jishoScaleSOD();
+command! jishoscalesod
+     \ -description "Scale kanji stroke order diagrams by a factor"
+     \ -nargs=?
+     \ -js jishoScaleSOD(args[0], true);
 command! ss
-     \ -description "Halve the dimensions of stroke order diagrams"
-     \ -js jishoShrinkSOD();
+     \ -description "Scale kanji stroke order diagrams by a factor"
+     \ -nargs=?
+     \ -js jishoScaleSOD(args[0], true);
 
 autocmd PageLoad jisho.org :jishoshrinksod
 
