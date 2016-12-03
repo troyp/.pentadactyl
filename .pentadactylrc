@@ -2439,7 +2439,7 @@ command! jishotogglekanji
 "
 set eht+=[kgKG]:span[class=text]
 set eht+=[l]:a[class="concept_light-status_link"]
-set eht+=[r]:li.radical.available
+set eht+=[r]:li.radical.available,li.radical.selected
 
 js <<EOF
 
