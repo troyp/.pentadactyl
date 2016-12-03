@@ -2395,7 +2395,7 @@ var jishoToggleRomaji = function() {
         newurl = url.replace(romtag,"");
     else
         newurl = `${url}%23romaji`;
-    dactyl.open(newurl)
+    dactyl.open(newurl);
 }
 
 var jishoToggleKanji = function() {
@@ -2405,7 +2405,8 @@ var jishoToggleKanji = function() {
         newurl = url.replace(kanjitag,"");
     else
         newurl = `${url} ${kanjitag}`;
-    dactyl.open(newurl)
+    dactyl.open(newurl);
+}
 }
 
 EOF
