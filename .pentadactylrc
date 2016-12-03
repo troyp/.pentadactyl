@@ -2378,8 +2378,9 @@ autocmd! -group jisho
 
 map <site>s -ex jishoshrinksod
 map <site>M -ex jishofixmodal
-map <site>r -ex jishotoggleromaji
+map <site>R -ex jishotoggleromaji
 map <site>k -ex jishotogglekanji
+map <site>r -ex jishotoggleradicalinput
 map <site>l -ex jishotogglelinklists
 map <site>* :jishoscalesod<Space>
 
@@ -2407,6 +2408,10 @@ var jishoToggleKanji = function() {
         newurl = `${url} ${kanjitag}`;
     dactyl.open(newurl);
 }
+
+var jishoToggleRadicalInput = function() {
+    var radicalButton = content.document.getElementById("radical_button");
+    radicalButton.click();
 }
 
 EOF
@@ -2416,6 +2421,10 @@ EOF
 command! jishotoggleromaji
      \ -description "Toggle between kana and romaji"
      \ -js jishoToggleRomaji();
+
+command! jishotoggleradicalinput
+     \ -description "Toggle kanji radical input dialog"
+     \ -js jishoToggleRadicalInput();
 
 command! jishotogglekanji
      \ -description "Toggle between kanji page and regular results"
