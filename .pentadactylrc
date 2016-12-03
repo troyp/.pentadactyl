@@ -2429,10 +2429,18 @@ command! jishotogglekanji
 "
 set eht+=[kgKG]:span[class=text]
 set eht+=[l]:a[class="concept_light-status_link"]
+set eht+=[r]:li.radical.available
 
 js <<EOF
 
 var dec = decodeURIComponent;
+
+hints.addMode(
+  'r','select kanji radical',
+  function(e) {
+      e.click();
+  }
+);
 
 hints.addMode(
   'k','open kanji details',
