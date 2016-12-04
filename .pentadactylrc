@@ -1212,6 +1212,10 @@ command! tr
     \ -nargs=*
     \ -js dactyl.open(`https://translate.google.com.au/#${args[0]}/${args[1]}/${args[2]}`, {where:dactyl.NEW_TAB});
 
+command! hidefooter -js toggleFooter();
+command! removefooter -js removeFooter();
+command! removecruft -js removeCruft();
+
 " -----------------------------------------------------------------------------
 " shortcut to Wikipedia episode lists.
 command! eplist -nargs=1 -js (eplist(args[0]))
@@ -1514,6 +1518,66 @@ function filenameOrURL(s) {
 function getFilenameOrURL() {
     var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     return text;
+}
+
+function removeFooter() {
+    var footers=content.document.body.getElementsByTagName("footer");
+    for (i=0; i<footers.length; ++i) {
+        footers[i].remove();
+    }
+}
+
+function toggleFooter() {
+    var footers=content.document.body.getElementsByTagName("footer");
+    for (i=0; i<footers.length; ++i) {
+        if (footers[i].style.display=="none")
+            footers[i].style.display="";
+        else footers[i].style.display="none";
+    }
+}
+
+function removeCruft() {
+    var elts = [];
+    var toarray = Array.prototype.slice;
+    var doc = content.document;
+    var coll = doc.getElementsByTagName("header");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var coll = doc.getElementsByClassName("header");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var item = doc.getElementById("header");
+    if (coll) elts.push(item);
+    var coll = doc.getElementsByTagName("aside");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var coll = doc.getElementsByClassName("aside");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var item = doc.getElementById("aside");
+    if (coll) elts.push(item);
+    var coll = doc.getElementsByTagName("footer");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var coll = doc.getElementsByClassName("footer");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var item = doc.getElementById("footer");
+    if (coll) elts.push(item);
+    var coll = doc.getElementsByTagName("form");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var coll = doc.getElementsByClassName("topbar");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var item = doc.getElementById("topbar");
+    if (coll) elts.push(item);
+    var coll = doc.getElementsByClassName("sidebar");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var item = doc.getElementById("sidebar");
+    if (coll) elts.push(item);
+    var coll = doc.getElementsByClassName("comments");
+    if (coll) elts = elts.concat(toarray.call(coll));
+    var item = doc.getElementById("comments");
+    var item = doc.getElementById("feed-link");
+    if (coll) elts.push(item);
+    if (coll) elts.push(item);
+    for (i=0; i<elts.length; ++i) {
+        if (elts[i])
+            elts[i].remove();
+    }
 }
 
 function pwHash() {
