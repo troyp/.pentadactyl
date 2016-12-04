@@ -90,6 +90,7 @@ map , <leader>
 map v <browser>
 map a <spare>
 map <A-enter> <option>
+map y <yank>
 
 " -------------------------------------------------------------------------------
 " ,------------------,
@@ -109,6 +110,7 @@ map <link_desc> ;Y
 " s : selection bindings
 " ss : sidebar bindings
 " <C-x> : GUI commands, etc.
+" y : yank
 
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
@@ -188,12 +190,6 @@ map gx -js window.restore(); window.maximize();
 map -b <C-x>h iGvggy
 " second input area
 map -b <extra>gi 2gi
-" yank page title
-map <extra>y -js dactyl.clipboardWrite(buffer.title)
-" yank buffer URL (unencoded)
-map gy -ex yanktrueURL
-" yank filename or buffer URL (unencoded)
-map <extra>gy -ex yankfilenameorURL
 " open file in Emacs
 map <extra>e -ex openFileInEmacs
 " open directory in Dired
@@ -207,7 +203,19 @@ map <extra>p -ex pwhashsite
 " Popjisyo SearchJapanese hints
 map -b <leader>jp -ex popjisyo
 
-" Zoom
+" =====YANK=====
+" show <yank>... bindings via completion interface
+map <yank><C-h> :map <yank>
+" yank buffer URL
+map -b <yank>y y
+" yank page title
+map <yank>t -js dactyl.clipboardWrite(buffer.title)
+" yank buffer URL (unencoded)
+map <yank>u -ex yanktrueURL
+" yank filename or buffer URL (unencoded)
+map <yank>f -ex yankfilenameorURL
+
+ " =====ZOOM=====
 " note: text and full zoom can't be used independently. Using one cancels the other
 map = +
 map <C-=> zI
