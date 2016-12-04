@@ -2448,10 +2448,9 @@ command! jishotogglekanji
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
 "
-set eht+=[kgKG]:span[class=text]
+set eht+=[kgKG\']:div.concept_light-representation>span.text
 set eht+=[l]:a[class="concept_light-status_link"]
 set eht+=[r]:li.radical.available,li.radical.selected
-set eht+=[\']:div.concept_light-representation>span.text
 
 js <<EOF
 
