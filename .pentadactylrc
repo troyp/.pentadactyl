@@ -2451,6 +2451,7 @@ command! jishotogglekanji
 set eht+=[kgKG]:span[class=text]
 set eht+=[l]:a[class="concept_light-status_link"]
 set eht+=[r]:li.radical.available,li.radical.selected
+set eht+=[\']:div.concept_light-representation>span.text
 
 js <<EOF
 
@@ -2460,6 +2461,13 @@ hints.addMode(
   'r','select kanji radical',
   function(e) {
       e.click();
+  }
+);
+
+hints.addMode(
+  '\'','yank entry',
+  function(e) {
+      dactyl.clipboardWrite(e.innerText);
   }
 );
 
