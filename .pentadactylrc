@@ -214,6 +214,9 @@ map <yank>t -js dactyl.clipboardWrite(buffer.title)
 map <yank>u -ex yanktrueURL
 " yank filename or buffer URL (unencoded)
 map <yank>f -ex yankfilenameorURL
+" yank page text
+map <yank>x -js dactyl.clipboardWrite(content.document.body.innerText);
+
 
  " =====ZOOM=====
 " note: text and full zoom can't be used independently. Using one cancels the other
