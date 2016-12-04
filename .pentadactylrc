@@ -665,11 +665,16 @@ command! tginit
 
 set eht=[iI]:img,[asOTvVWy]:':-moz-any-link',area[href],img[src],iframe[src],[A]:[id],a[name],[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
 js hints.addMode('m','mouseover',utils.simulateMouseover);
+
 " remove elements
-set eht+=[x]:div,iframe
-js hints.addMode('x','make div invisible', utils.undisplay);
+js function removeElt(e) { e.remove(); }
+set eht+=[x]:div,iframe,header,footer,aside,form,iframe,'input:not([type=hidden])',textarea,img
+js hints.addMode('x','remove element', removeElt);
+set eht+=[0]:div,iframe
+js hints.addMode('0','make div invisible', utils.undisplay);
 set eht+=[X]:div,iframe
 js hints.addMode('X','shift div off screen', utils.removeFromView);
+
 " replace ;t with function for ;b (open in background)
 js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
 set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:div/p
