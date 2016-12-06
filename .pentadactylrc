@@ -724,7 +724,7 @@ set hinttags+=a[class^='speed']
 " | Styling for hints |
 " '-------------------'
 "
-set hintkeys="jfkdls;ahgnvurieow"
+set hintkeys="jkl;fdsahgnvurieow"
 "
 highlight Hint
     \ font-family: "Droid Sans Mono Slashed";
