@@ -190,6 +190,8 @@ map gx -js window.restore(); window.maximize();
 map -b <C-x>h iGvggy
 " second input area
 map -b <extra>gi 2gi
+" open local file with xdg-open
+map -b <extra>f :xopen<Space>
 " open file in Emacs
 map <extra>e -ex openFileInEmacs
 " open directory in Dired
@@ -438,6 +440,10 @@ command! jsdisable :set! javascript.enabled=false
 
 " Stop page from intercepting key events:
 command! nointercept -js document.addEventListener('keydown', function(e) { e.stopImmediatePropagation(); return false;}, true);
+
+" open file with xdg-open
+" FIXME: issue with maff files with spaces in directory (not name)
+command! xopen -nargs=1 -complete=file !xdg-open <args>
 
 " Open in Google Chrome:
 command! ochrome :exec `!google-chrome "${buffer.URL}"`
