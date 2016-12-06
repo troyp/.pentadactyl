@@ -2747,6 +2747,31 @@ command! maggiefix
 autocmd LocationChange :execute "emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Individual Style Sheet.http://maggiesensei.com/wp-content/themes/custom-community/style.css"
 " autocmd LocationChange :emenu Tools.Web Developer Extension.CSS.Disable Styles.Disable Individual Style Sheet.http://maggiesensei.com/wp-content/themes/custom-community/style.css
 
+js <<EOF
+function maggieRemoveCruft(removeImgs=false) {
+    var article = content.document.getElementsByClassName("post-content")[0];
+    var body = content.document.getElementsByTagName("body")[0];
+    for (i=body.children.length-1; i>=0; --i) {
+        body.children[i].remove();
+    }
+    body.appendChild(article);
+    article.style["background-color"]="white";
+    var torem = content.document.getElementsByClassName("wp_social_bookmarking_light");
+    if (torem.length) torem[0].remove();
+    torem = content.document.getElementsByClassName("wp_social_bookmarking_light_clear");
+    if (torem.length) torem[0].remove();
+    if (removeImgs) {
+        var imgs = content.document.getElementsByTagName("img");
+        for (i=imgs.length-1; i>=0; --i) {
+            imgs[i].remove();
+        }
+    }
+}
+EOF
+
+command! maggieremovecruft -bang -js maggieRemoveCruft(bang);
+map -b <site>c -js maggieRemoveCruft(count);
+
 group user
 
 " -------------------------------------------------------------------------------
