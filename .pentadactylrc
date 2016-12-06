@@ -1533,14 +1533,14 @@ function getFilenameOrURL() {
 
 function removeFooter() {
     var footers=content.document.body.getElementsByTagName("footer");
-    for (i=0; i<footers.length; ++i) {
+    for (i=footers.length-1; i>=0; --i) {
         footers[i].remove();
     }
 }
 
 function toggleFooter() {
     var footers=content.document.body.getElementsByTagName("footer");
-    for (i=0; i<footers.length; ++i) {
+    for (i=footers.length-1; i>=0; --i) {
         if (footers[i].style.display=="none")
             footers[i].style.display="";
         else footers[i].style.display="none";
@@ -1585,7 +1585,7 @@ function removeCruft() {
     var item = doc.getElementById("feed-link");
     if (coll) elts.push(item);
     if (coll) elts.push(item);
-    for (i=0; i<elts.length; ++i) {
+    for (i=elts.length-1; i>=0; --i) {
         if (elts[i])
             elts[i].remove();
     }
