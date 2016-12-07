@@ -1233,6 +1233,11 @@ command! editcontent
     \         else
     \             elts[i].contentEditable = "true";
 
+command! setbodybyid
+    \ -nargs=1
+    \ -complete=javascript
+    \ -js setBodyById(args[0]);
+
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeFooter();
 command! removecruft -js removeCruft();
@@ -1750,6 +1755,8 @@ function setBody(elt) {
         body.children[i].remove();
     body.appendChild(elt);
 }
+
+function setBodyById(eltId) { setBody(content.document.getElementById(eltId)); }
 
 EOF
 
