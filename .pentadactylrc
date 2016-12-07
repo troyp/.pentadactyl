@@ -233,6 +233,7 @@ map z; -js ZoomManager.toggleZoom();
 " '----------------------'
 " <option>t - toggles
 map <option>tu -ex set usermode!
+map <option>te -ex editcontent
 
 
 " ,--------,
@@ -1222,6 +1223,15 @@ command! tr
     \ -description "Translate: tr FROM TO TEXT"
     \ -nargs=*
     \ -js dactyl.open(`https://translate.google.com.au/#${args[0]}/${args[1]}/${args[2]}`, {where:dactyl.NEW_TAB});
+
+command! editcontent
+    \ -description "Make content editable"
+    \ -js elts = content.document.getElementsByTagName("*");
+    \     for (i=0; i<elts.length; ++i)
+    \         if (elts[i].hasAttribute("contentEditable") && elts[i].contentEditable === "true")
+    \             elts[i].contentEditable = "false";
+    \         else
+    \             elts[i].contentEditable = "true";
 
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeFooter();
