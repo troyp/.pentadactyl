@@ -1049,6 +1049,14 @@ command! magnifier
 command! magnifieroff
     \ -description "Turns off magnifier"
     \ -js WebDeveloper.PageMagnifier.removePageMagnifier();
+command! magnifiersize
+    \ -description "Sets magnifier size in pixels"
+    \ -nargs=+
+    \ -js wdtSetMagnifierSize(args[0], args[1])
+command! magnifierzoom
+    \ -description "Sets magnifier zoom level"
+    \ -nargs=1
+    \ -js wdtSetMagnification(args[0])
 command! stylesoff
     \ -description "Turns off styles via Web Developer 'Toggle all Stylesheets'"
     \ -js WebDeveloper.CSS.toggleAllStyleSheets(true, content.document);
@@ -1082,6 +1090,12 @@ function wdtGetMagnification() {
 function wdtSetMagnification(level) {
     // WebDeveloper.PageMagnifier.updateMagnificationLevel({ value: level });
     WebDeveloper.Preferences.setExtensionStringPreference("magnification.level", level);
+}
+
+function wdtSetMagnifierSize(w, h=w) {
+    var magnifier = document.getElementById("web-developer-page-magnifier");
+    magnifier.width = w;
+    magnifier.height = h;
 }
 
 EOF
