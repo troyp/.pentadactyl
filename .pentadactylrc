@@ -2526,6 +2526,7 @@ map <site>R -ex jishotoggleromaji
 map <site>k -ex jishotogglekanji
 map <site>r -ex jishotoggleradicalinput
 map <site>l -ex jishotogglelinklists
+map <site>x -ex jishotogglesentences
 map <site>* :jishoscalesod<Space>
 
 " -----------------
@@ -2553,6 +2554,16 @@ var jishoToggleKanji = function() {
     dactyl.open(newurl);
 }
 
+var jishoToggleSentences = function() {
+    var url = buffer.URL;
+    sentencetag = "%23sentences";
+    if (url.contains(sentencetag))
+        newurl = url.replace(sentencetag,"");
+    else
+        newurl = `${url} ${sentencetag}`;
+    dactyl.open(newurl);
+}
+
 var jishoToggleRadicalInput = function() {
     var radicalButton = content.document.getElementById("radical_button");
     radicalButton.click();
@@ -2573,6 +2584,10 @@ command! jishotoggleradicalinput
 command! jishotogglekanji
      \ -description "Toggle between kanji page and regular results"
      \ -js jishoToggleKanji();
+
+command! jishotogglesentences
+     \ -description "Toggle between sentences page and regular results"
+     \ -js jishoToggleSentences();
 
 " ----------
 " Hint modes
@@ -2604,7 +2619,15 @@ hints.addMode(
 );
 
 hints.addMode(
-  'k','open kanji details',
+  'k','open kanji details in new tab',
+  function(e) {
+    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`),
+                {where:dactyl.NEW_TAB});
+  }
+);
+
+hints.addMode(
+  'K','open kanji details',
   function(e) {
     dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`));
   }
@@ -2614,14 +2637,6 @@ hints.addMode(
   'g','open sentence examples',
   function(e) {
     dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`));
-  }
-);
-
-hints.addMode(
-  'K','open kanji details in new tab',
-  function(e) {
-    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`),
-                {where:dactyl.NEW_TAB});
   }
 );
 
