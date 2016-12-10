@@ -88,7 +88,7 @@ map x <extra>
 map X <S-extra>
 map , <leader>
 map v <browser>
-map a <spare>
+map a <ext>
 map <A-enter> <option>
 map y <yank>
 
@@ -1163,13 +1163,33 @@ EOF
 "   rcxMain.containsKanji(text)
 "   rcxMain.htmlParser(aHTMLString)
 "   rcxMain.lookupSearch(text)            // perform lookupbar search (results in popup)
+"   rcxMain.showPopup(text)               // show text using Rikaisama popup
 map -b <extra>x -js rcxMain.saveToFile()
-command! rikLbOn -description "Rikaisama lookupbar on"
+command! riklbaron -description "Rikaisama lookupbar on"
     \ -js rcxMain.lbToggle()
-command! rikLbOff -description "Rikaisama lookupbar off"
+command! riklbaroff -description "Rikaisama lookupbar off"
     \ -js rcxMain.lbHide()
-map <site>r -ex rikLbOn
-map <site>R -ex rikLbOff
+command! rikplayaudio -bang -js rcxMain.playJDicAudio(bang);
+command! rikcopydef -description "Rikaisama: copy definition to clipboard"
+    \ -js rcxMain.copyToClip();
+command! rikcopy -description "Rikaisama: copy word to clipboard"
+    \ -js rikCopyWordToClipboard();
+command! rikstick  -description "Rikaisama: make current popup sticky"
+    \ -js rcxMain.allowOneTimeSuperSticky();
+
+map <ext>r -ex rikLbOn
+map <ext>R -ex rikLbOff
+js <<EOF
+function rikPlayAudio() {
+    rcxMain.playJDicAudio();
+}
+function rikCopyWordToClipboard() {
+    dactyl.clipboardWrite(rcxMain.word);
+}
+function rikStick() {
+    rcxMain.allowOneTimeSuperSticky();
+}
+EOF
 
 " USERSCRIPTS
 " word highlight
