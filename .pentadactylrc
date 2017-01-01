@@ -2829,6 +2829,8 @@ function maggieRemoveCruft(removeImgs=false) {
     }
     body.appendChild(article);
     article.style["background-color"]="white";
+    article.style["margin"]="4em";
+    article.style["padding"]="4em";
     var torem = content.document.getElementsByClassName("wp_social_bookmarking_light");
     if (torem.length) torem[0].remove();
     torem = content.document.getElementsByClassName("wp_social_bookmarking_light_clear");
