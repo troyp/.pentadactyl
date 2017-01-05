@@ -1104,6 +1104,20 @@ map zx -ex magnifier!
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,---------,
+" | Stylish |
+" '---------'
+
+" Manage Styles
+command! stylishmanage tabopen chrome://stylish-custom/content/info.xul
+map <goto>S -ex tabopen chrome://stylish-custom/content/info.xul
+map <browser>sm -ex tabopen chrome://stylish-custom/content/info.xul
+
+" New Style
+command! stylishnew -js stylishCommon.openEdit('new');
+map <browser>sn -js stylishCommon.openEdit('new');
+
 " =============================================================================
 "                                      _________
 "                                     |         |
