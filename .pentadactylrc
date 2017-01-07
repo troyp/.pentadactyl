@@ -1286,6 +1286,10 @@ command! setbodybyid
     \ -complete=javascript
     \ -js setBodyById(args[0]);
 
+command! imgsalttotitle
+    \ -description "Add ALT text to TITLE for all images on page"
+    \ -js imgsAddAltTextToTitle();
+
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeFooter();
 command! removecruft -js removeCruft();
@@ -1335,6 +1339,12 @@ command! appendlinkurls
 command! listlinks
             \ -description "List all links in page"
             \ :open listalllinks
+
+" -------------------------------------------------------------------------------
+" ,----------------,
+" | Image Commands |
+" '----------------'
+map <leader>ia -ex imgsalttotitle
 
 " -------------------------------------------------------------------------------
 " ,----------------,
@@ -1805,6 +1815,22 @@ function setBody(elt) {
 }
 
 function setBodyById(eltId) { setBody(content.document.getElementById(eltId)); }
+
+function imgsAddAltTextToTitle() {
+    var imgs = content.document.getElementsByTagName('img');
+    var img, alt, title;
+    for (i=0; i<imgs.length; ++i) {
+        img = imgs[i];
+        alt = img.getAttribute('alt') || '';
+        title = img.getAttribute('title') || '';
+        if (alt !== '') {
+            if (title === '')
+                img.setAttribute('title', alt);
+            else
+                img.setAttribute('title', title + "\nALT TEXT:\n" + alt);
+        }
+    }
+}
 
 EOF
 
