@@ -336,7 +336,6 @@ map -modes command-line,insert <C-S-s> -js alert("not implemented");
 " FIXME: Doesn't work.
 "map -modes insert -b <C-s> \u2003
 "execute "map -modes insert -b <C-s> \u2003"
-"execute "map -modes command-line,insert -b <C-s> " + '\u2003'
 
 execute "map -modes command-line,insert -b <C-m> " + user.myemail
 execute "map -modes command-line,insert -b <C-S-m> " + user.myemail2
@@ -1341,15 +1340,15 @@ command! popjisyo
 " -----------------------------------------------------------------------------
 
 command! appendlinks
-            \ -description "Append links to end of page"
+    \ -description "Append links to end of page"
     \ -js appendLinks();
 command! appendlinkurls
-            \ -description "Append link destinations to end of page"
+    \ -description "Append link destinations to end of page"
     \ -js appendLinkUrls();
 " trigger listlinks keyword bookmarklet
 command! listlinks
-            \ -description "List all links in page"
-            \ :open listalllinks
+    \ -description "List all links in page"
+    \ :open listalllinks
 
 " -------------------------------------------------------------------------------
 " ,----------------,
