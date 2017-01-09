@@ -1339,6 +1339,9 @@ command! popjisyo
 
 " -----------------------------------------------------------------------------
 
+map -b <leader>la -ex appendlinks
+map -b <leader>lu -ex appendlinkurls
+map -b <leader>ll -ex listlinks
 command! appendlinks
     \ -description "Append links to end of page"
     \ -js appendLinks();
