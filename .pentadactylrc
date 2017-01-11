@@ -1219,9 +1219,14 @@ command! rikcopy -description "Rikaisama: copy word to clipboard"
     \ -js rikCopyWordToClipboard();
 command! rikstick  -description "Rikaisama: make current popup sticky"
     \ -js rcxMain.allowOneTimeSuperSticky();
+command! rikEpwingToggle -description "Rikaisama: toggle epwing mode"
+    \ -js rikEpwingToggle();
+command! rikSanseidoToggle -description "Rikaisama: toggle sanseido mode"
+    \ -js rikSanseidoToggle();
 
 map <ext>r -ex rikLbOn
 map <ext>R -ex rikLbOff
+map <ext>s -ex rikSanseidoToggle
 js <<EOF
 function rikPlayAudio() {
     rcxMain.playJDicAudio();
@@ -1231,6 +1236,24 @@ function rikCopyWordToClipboard() {
 }
 function rikStick() {
     rcxMain.allowOneTimeSuperSticky();
+}
+function rikEpwingToggle() {
+    if (rcxMain.epwingMode) {
+        rcxMain.epwingMode = false;
+        dactyl.utils.message("epwing mode off");
+    } else {
+        rcxMain.epwingMode = true;
+        dactyl.utils.message("epwing mode on");
+    }
+}
+function rikSanseidoToggle() {
+    if (rcxMain.sanseidoMode) {
+        rcxMain.sanseidoMode = false;
+        dactyl.utils.message("sanseido mode off");
+    } else {
+        rcxMain.sanseidoMode = true;
+        dactyl.utils.message("sanseido mode on");
+    }
 }
 EOF
 
