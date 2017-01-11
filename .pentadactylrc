@@ -982,6 +982,11 @@ command! cssapply
 \ -description "Apply CSS to current page. '!;' is expanded to '!important;'"
 \ -js dactyl.execute(`style -group temp -name ${Date().replace(/ /g,'',true)} '${buffer.URL}' ${args.join(' ').replace(/ !;/g, ' !important;')}`);
 
+style -name=visitedlinks * a:visited { color: purple !important; }
+command! visitedlinkstoggle
+\    -description "toggle visitedlinks style (purple highlighting)"
+\    styletoggle -name visitedlinks
+map <C-x>l :visitedlinkstoggle<Cr>
 
 " =============================================================================
 "                            ___________________
