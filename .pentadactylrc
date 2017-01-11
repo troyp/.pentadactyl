@@ -215,6 +215,16 @@ map <extra>P -ex pwhash
 map <extra>p -ex pwhashsite
 " Popjisyo SearchJapanese hints
 map -b <leader>jp -ex popjisyo
+" word highlight
+map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
+" TeX The World
+map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
+" MS Translate
+map <extra>t -js (function(){var s=content.document.createElement('script'); s.type='text/javascript'; s.src='http://labs.microsofttranslator.com/bookmarklet/default.aspx?f=js&to=en'; content.document.body.insertBefore(s, content.document.body.firstChild);})();
+" PageZipper
+" activate pagezipper bookmark (keyword pz)
+map <A-p> :open pz<CR>
+
 
 " =====YANK=====
 " show <yank>... bindings via completion interface
@@ -1149,7 +1159,9 @@ command! oku -description "Open local file in Okular"
 "                                | OTHER EXTENSIONS |
 "                                |__________________|
 
-" Autopagerize:
+" ,--------------,
+" | Autopagerize |
+" '--------------'
 command! pagezipper :open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
 
 map <extra>z -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
@@ -1160,21 +1172,28 @@ map <Space><Space> <autopager>
 command! prwul -description "run PrintWhatYouLike"
     \ :o javascript:(function(){if(window['ppw']&&ppw['bookmarklet']){ppw.bookmarklet.toggle();}else{window._pwyl_home=%22http://www.printwhatyoulike.com/%22;_pwyl_bmkl=document.createElement('script');_pwyl_bmkl.setAttribute('type','text/javascript');_pwyl_bmkl.setAttribute('src',_pwyl_home+'static/compressed/pwyl_bookmarklet_10.js');_pwyl_bmkl.setAttribute('pwyl','true');document.getElementsByTagName('head')[0].appendChild(_pwyl_bmkl);}})();
 
-" DownThemAll:
+" ,-------------,
+" | DownThemAll |
+" '-------------'
 command! dtamaagr -description "Open DownThemAll manager"
     \ -js self.DTA.openManager()
 
-" Wiktionary and Google Translate
+" ,---------------------------------,
+" | Wiktionary and Google Translate |
+" '---------------------------------'
 js <<EOF
 if (typeof gd12 != 'undefined') {
     gd12.prefs.applyUserStyle();
     var gd12style_default = ".gDicClassPopup { background-color: white !important; border: 2px solid gray !important; }";
+
     gd12.prefs.myStyle = ".gDicClassPopup { background-color: #FFDDDD !important; border: 2px solid gray !important; }"
     gd12.prefs.applyUserStyle()
 }
 EOF
 
-" Rikaisama:
+" ,-----------,
+" | Rikaisama |
+" '-----------'
 " notes:
 " CSS - chrome://rikaichan/skin/popup-blue.css
 " keybindings: stored as ASCII codes in rcxConfig.kb* entries
@@ -1214,20 +1233,6 @@ function rikStick() {
     rcxMain.allowOneTimeSuperSticky();
 }
 EOF
-
-" USERSCRIPTS
-" word highlight
-map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
-" TeX The World
-map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
-
-" WEB APPS
-" MS Translate
-map <extra>t -js (function(){var s=content.document.createElement('script'); s.type='text/javascript'; s.src='http://labs.microsofttranslator.com/bookmarklet/default.aspx?f=js&to=en'; content.document.body.insertBefore(s, content.document.body.firstChild);})();
-
-" PageZipper
-" activate pagezipper bookmark (keyword pz)
-map <A-p> :open pz<CR>
 
 " ===============================================================================
 "                                  ________________
