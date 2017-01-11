@@ -175,7 +175,7 @@ map -modes main <C-q> <Nop>
 
 " Miscellaneous Bindings:
 " Passthrough
-map -b a <C-v>
+map -b <ext>a <C-v>
 map -b <C-a> <C-z>
 " Repeat last ex command
 map -b g. @:
