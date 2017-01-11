@@ -27,7 +27,7 @@ set passkeys=
 " '---------'
 "
 set runtimepath=/home/troy/.pentadactyl
-set guioptions=bBCrMNsT
+set guioptions=bBCrmNsT
 set incfind
 set hlfind
 set findcase=smart
