@@ -189,10 +189,14 @@ map -b <C-w> :q<CR>
 map -b <C-S-D> <C-u>
 map -b J <C-d>
 map -b K <C-u>
-" Restart with C-c C-c:
+" Restart with C-x C-x:
 map <C-x><C-x> -ex restart
 " reload .pentadactylrc
 map <C-x>l -ex rc
+" hide messages
+map <C-x>; :<Esc>
+" hide and clear messages
+map <C-x>: :messclear<Cr>
 " redraw screen
 map gR -ex redraw
 " (Re-)Maximize window (when Pentadactyl pushes command line offscreen)
