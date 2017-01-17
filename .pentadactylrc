@@ -220,6 +220,8 @@ map <extra>P -ex pwhash
 map <extra>p -ex pwhashsite
 " Popjisyo SearchJapanese hints
 map -b <leader>jp -ex popjisyo
+" Google Translate handwritten input
+map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 " word highlight
 map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
 " TeX The World
@@ -2420,12 +2422,15 @@ command! handwrite -description "Show Handwritten Input box. With [!], toggle."
     \ -js bang ? gtrImeToggleHandWriteInput() : gtrImeShowHandWriteInput();
 command! nohandwrite -description "Hide Handwritten Input box." -js gtrImeHideHandWriteInput();
 command! hwboxrepos -description "Reposition Handwritten Input box." -js gtrImeMoveHandWriteBox();
-map <site><C-l> -js gtrImeMoveHandWriteBox();
 command! hwgetwidth -js dactyl.utils.message(gtrImeGetWidth());
 command! hwsetwidth -nargs=? -js gtrImeSetWidth((args[0] || "425") + "px");
 command! hwtogglewidth -description "Toggle normal-width/wide IME box"
     \ -js if (gtrImeGetWidth() != "800px") gtrImeSetWidth("800px"); else gtrImeSetWidth("425px");
+map <site><C-l> -js gtrImeMoveHandWriteBox();
 map <site><C-S-L> -ex hwtogglewidth
+map <site>l -js gtrImeMoveHandWriteBox();
+map <site>w -ex hwtogglewidth
+map <site>h -js gtrImeToggleHandWriteInput()
 map <site>k
     \ -description "Open Jisho.org kanji page (new tab)"
     \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`, {where:dactyl.NEW_TAB})
