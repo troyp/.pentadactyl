@@ -169,7 +169,7 @@ var jishoPasteSearch = function(count) {
         dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.NEW_TAB});
 }
 EOF
-map -b <extra>n -ex js jishoPasteSearch(<count>)
+map <extra>n -ex js jishoPasteSearch(<count>)
 
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
@@ -185,7 +185,7 @@ map -b <A-w> Y
 " A-Esc: Pass-through Escape
 map -b <A-Esc> <C-v><Esc>
 " C-w closes tab; if last in window closes window.
-map -b <C-w> :q<CR>
+map <C-w> :q<CR>
 " movement
 map -b <C-S-D> <C-u>
 map -b J <C-d>
@@ -207,7 +207,7 @@ map -b <C-x>h iGvggy
 " second input area
 map -b <extra>gi 2gi
 " open local file with xdg-open
-map -b <extra>f :xopen<Space>
+map <extra>f :xopen<Space>
 " open file in Emacs
 map <extra>e -ex openFileInEmacs
 " open directory in Dired
@@ -219,7 +219,7 @@ map <extra>P -ex pwhash
 " password hasher: hash site domain
 map <extra>p -ex pwhashsite
 " Popjisyo SearchJapanese hints
-map -b <leader>jp -ex popjisyo
+map <leader>jp -ex popjisyo
 " Google Translate handwritten input
 map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 " word highlight
@@ -291,7 +291,7 @@ map -b <extra>/ /\r\w*<Left><Left><left>
 " Search for word containing...
 map <S-extra>/ /\r\w*\w*<Left><Left><left>
 " Firefox find box
-map -b <browser>/ -js findbarToggle();
+map <browser>/ -js findbarToggle();
 " C-' Firefox link search
 map -b "<C-'>" <C-v>'
 
@@ -552,9 +552,9 @@ map ! -ex pintab!
 " close other tabs
 map <browser>1 -ex tabonly
 " close tabs to left
-map -b <browser>< -js closeAllToLeft()
+map <browser>< -js closeAllToLeft()
 " close tabs to right
-map -b <browser>> -js closeAllToRight()
+map <browser>> -js closeAllToRight()
 
 " close tab range
 " :tc START END : close tabs starting with START and ending with the tabs before END
@@ -565,10 +565,10 @@ command! tc
     \ -nargs=+
     \ -js if (args.length==2) { closeTabRange(args[0], args[1]); }
     \     else { closeTabsFromCurrentTo(args[0]); }
-map -b <browser>; :tc<SPACE>
+map <browser>; :tc<SPACE>
 
 " undo recent closed tab from list
-map -b U :undo<SPACE>
+map U :undo<SPACE>
 
 js <<EOF
 
@@ -610,9 +610,9 @@ EOF
 " alias tt=tabmove
 command! tt -nargs=1 -bang
     \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
-map -b <browser>m :tabmove<SPACE>
+map <browser>m :tabmove<SPACE>
 map -arg <browser>M -ex tabmove <arg>
-map -b gm :tabmove!<SPACE>
+map gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
 map <C-S-N> -ex tabmove! +1
 map <C-h> -ex tabmove! -1
@@ -889,11 +889,11 @@ map -b sb :buffers -max 45<SPACE>
 map -b sh :history -max 45<SPACE>
 map -b sk :bmarks  -max 45<SPACE>
 " Search bookmarks by keyword
-map -b gk<Space> :bmarks -max 45<SPACE> -keyword<SPACE>
+map gk<Space> :bmarks -max 45<SPACE> -keyword<SPACE>
 " List all static keyword bookmarks (keyword contains :::)
-map -b gkk :bmarks -max 45<SPACE> -keyword :::<CR>
+map gkk :bmarks -max 45<SPACE> -keyword :::<CR>
 " Search bookmarks by tag
-map -b gkt :bmarks -max 45<SPACE> -tags<SPACE>
+map gkt :bmarks -max 45<SPACE> -tags<SPACE>
 
 " -----------------------------------------------------------------------------
 " ,--------------,
@@ -904,7 +904,7 @@ map -b gkt :bmarks -max 45<SPACE> -tags<SPACE>
 map -b si :sidebar<SPACE>
 " map S -ex sidebar!
 " Open/close AiOS, switch focus
-"map -b S :js aios_toggleSidebar()<CR><f6><f6>
+"map S :js aios_toggleSidebar()<CR><f6><f6>
 " Open AiOS, switch focus and enter passthrough
 "map -b sS :js aios_toggleSidebar()<CR><f6><f6><C-z>
 
@@ -965,8 +965,8 @@ group temp
 group user
 
 map -b gc y:style -group=temp <C-v><C-v><Space>
-map -b <extra>gs :emenu View.Page Style.
-" map -b <extra><C-s> :emenu View.Page Style.No Style<CR>
+map <extra>gs :emenu View.Page Style.
+" map <extra><C-s> :emenu View.Page Style.No Style<CR>
 map <extra><C-s> -ex set usermode!
 
 map <extra>N :narrowpage<Space>
@@ -1219,7 +1219,7 @@ EOF
 "   rcxMain.htmlParser(aHTMLString)
 "   rcxMain.lookupSearch(text)            // perform lookupbar search (results in popup)
 "   rcxMain.showPopup(text)               // show text using Rikaisama popup
-map -b <extra>x -js rcxMain.saveToFile()
+map <extra>x -js rcxMain.saveToFile()
 command! riklbaron -description "Rikaisama lookupbar on"
     \ -js rcxMain.lbToggle()
 command! riklbaroff -description "Rikaisama lookupbar off"
@@ -1351,7 +1351,7 @@ command! eplist -nargs=1 -js (eplist(args[0]))
 " -----------------------------------------------------------------------------
 " toggleWayback
 
-map -b <extra>w :toggleWayback<CR>
+map <extra>w :toggleWayback<CR>
 command! toggleWayback
     \ -bang
     \ -description "Toggle web page and archive.org copy"
@@ -1359,7 +1359,7 @@ command! toggleWayback
 
 " -----------------------------------------------------------------------------
 
-map -b <site>s :toggleHTTPS<CR>
+map <site>s :toggleHTTPS<CR>
 command! toggleHTTPS
    \ -description "Toggle protocol between HTTP and HTTPS"
    \ -js toggleHTTPS()
@@ -1367,7 +1367,7 @@ command! toggleHTTPS
 " -----------------------------------------------------------------------------
 " kanji
 
-map -b <extra>k :kanjisearch!<CR>
+map <extra>k :kanjisearch!<CR>
 command! kanjisearch
     \ -bang -description "kanji search on jisho.org"
     \ -js kanjiSearchJisho(dactyl.clipboardRead(), bang);
@@ -1379,9 +1379,9 @@ command! popjisyo
 
 " -----------------------------------------------------------------------------
 
-map -b <leader>la -ex appendlinks
-map -b <leader>lu -ex appendlinkurls
-map -b <leader>ll -ex listlinks
+map <leader>la -ex appendlinks
+map <leader>lu -ex appendlinkurls
+map <leader>ll -ex listlinks
 command! appendlinks
     \ -description "Append links to end of page"
     \ -js appendLinks();
@@ -2941,7 +2941,7 @@ function maggieRemoveCruft(removeImgs=false) {
 EOF
 
 command! maggieremovecruft -bang -js maggieRemoveCruft(bang);
-map -b <site>c -js maggieRemoveCruft(count);
+map <site>c -js maggieRemoveCruft(count);
 
 group user
 
@@ -3049,7 +3049,7 @@ command! hyliacurlsonglinks
 command! hyliacurlsong
   \ -description "Generate curl command to download the current song link and copy to clipboard."
   \ -js hyliaGetSong();
-map -b <site>d -js hyliaGetSong();
+map <site>d -js hyliaGetSong();
 
 
 js <<EOF
