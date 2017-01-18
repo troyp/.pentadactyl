@@ -6,7 +6,7 @@
 "    \___________________/
 "
 "
-group default
+group user
 
 " load javascript utilities
 runtime! utils.js
