@@ -94,17 +94,18 @@ map <A-enter> <option>
 map y <yank>
 
 " List mappings by prefix (using commandline completion)
-map <leader>hke :map <Lt>goto
+map <leader>hka :map <Lt>ext
 map <leader>hkc :map <Lt>site
-map <leader>hk, :map <Lt>leader
+map <leader>hkg :map g
+map <leader>hke :map <Lt>goto
 map <leader>hks :map s
 map <leader>hkx :map <Lt>extra
 map <leader>hkX :map <Lt>S-extra
 map <leader>hkv :map <Lt>browser
-map <leader>hka :map <Lt>ext
-map <leader>hk<A-enter> :map <Lt>option
 map <leader>hky :map <Lt>yank
+map <leader>hk, :map <Lt>leader
 map <leader>hk<C-x> :map <Lt>C-x
+map <leader>hk<A-enter> :map <Lt>option
 
 " -------------------------------------------------------------------------------
 " ,------------------,
