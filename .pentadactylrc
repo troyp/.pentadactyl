@@ -166,9 +166,9 @@ map -b P p
 js <<EOF
 var jishoPasteSearch = function(count) {
     if (typeof count === "undefined")
-        dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.CURRENT_TAB});
-    else
         dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.NEW_TAB});
+    else
+        dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.CURRENT_TAB});
 }
 EOF
 map <extra>j -ex js jishoPasteSearch(<count>)
