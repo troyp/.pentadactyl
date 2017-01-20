@@ -244,6 +244,8 @@ map -b <yank>y y
 map <yank>t -js dactyl.clipboardWrite(buffer.title)
 " yank buffer URL (unencoded)
 map <yank>u -ex yanktrueURL
+" yank page domain
+map <yank>d -js dactyl.clipboardWrite(buffer.URL.match(/:\/+([^/]+)/)[1])
 " yank filename or buffer URL (unencoded)
 map <yank>f -ex yankfilenameorURL
 " yank page text
