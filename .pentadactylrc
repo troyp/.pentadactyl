@@ -171,7 +171,7 @@ var jishoPasteSearch = function(count) {
         dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.NEW_TAB});
 }
 EOF
-map <extra>n -ex js jishoPasteSearch(<count>)
+map <extra>j -ex js jishoPasteSearch(<count>)
 
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
@@ -1001,7 +1001,8 @@ map <C-x>l :visitedlinkstoggle<Cr>
 "                           | DEVELOPMENT TOOLS |
 "                           |___________________|
 
-map <extra>j -ex js!
+" JS Repl
+map <extra>x -ex js!
 
 " -----------------------------------------------------------------------------
 " ,-------------------------,
