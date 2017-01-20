@@ -172,7 +172,8 @@ var jishoPasteSearch = function(count) {
         dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.CURRENT_TAB});
 }
 EOF
-map <extra>j -ex js jishoPasteSearch(<count>)
+map <extra>j -ex js jishoPasteSearch(<count>);
+map g<extra>j -ex js jishoPasteSearch('current');
 
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
@@ -204,7 +205,7 @@ map <C-x>: :messclear<Cr>
 " redraw screen
 map gR -ex redraw
 " (Re-)Maximize window (when Pentadactyl pushes command line offscreen)
-map gx -js window.restore(); window.maximize();
+map <browser>x -js window.restore(); window.maximize();
 " select all
 map -b <C-x>h iGvggy
 " second input area
