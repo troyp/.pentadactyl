@@ -999,8 +999,6 @@ map <C-x>l :visitedlinkstoggle<Cr>
 "                           | DEVELOPMENT TOOLS |
 "                           |___________________|
 
-group developer
-
 map <extra>j -ex js!
 
 " -----------------------------------------------------------------------------
@@ -1136,8 +1134,6 @@ function wdtSetMagnifierSize(w, h=w) {
 EOF
 
 map zx -ex magnifier!
-
-group user
 
 " -------------------------------------------------------------------------------
 " ,---------,
@@ -1406,7 +1402,6 @@ map <leader>ia -ex imgsalttotitle
 " ,----------------,
 " | Table Commands |
 " '----------------'
-group table -locations=*
 
 " Table2CSV
 map <leader>tc -ex table2csv
@@ -1429,7 +1424,6 @@ style -name=table_wrap
 command! tablewrap -description "wrap text in table cells" styletoggle -name table_wrap
 map <leader>tW -ex tablewrap
 
-group user
 
 " -------------------------------------------------------------------------------
 
