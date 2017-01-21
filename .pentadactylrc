@@ -236,6 +236,19 @@ map <extra>t -js (function(){var s=content.document.createElement('script'); s.t
 " activate pagezipper bookmark (keyword pz)
 map <A-p> :open pz<CR>
 
+" =====WEBSITES/WEBAPPS=====
+js <<EOF
+function openInNewOrCurrentTab(site) {
+    return function(count=false) {
+        if (typeof count == 'number')
+            dactyl.open(site, {where:dactyl.CURRENT_TAB});
+        else
+            dactyl.open(site, {where:dactyl.NEW_TAB})
+    };
+}
+EOF
+" Weather
+map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
 
 " =====YANK=====
 " show <yank>... bindings via completion interface
