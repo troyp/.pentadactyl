@@ -2164,14 +2164,15 @@ map <goto>gH :open https://github.com/
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
 
-map <site>h -ex togglehtmlview
-map <site>y -js copyRepoLink();
+map <site>h -ex ghtogglehtmlview
+map <site>y -js ghCopyRepoLinkHttps();
+map <site>Y -js ghCopyRepoLinkGit();
 
-command! togglehtmlview
+command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
-     \ -js toggleHTMLView();
+     \ -js ghToggleHTMLView();
 
-command! gotolines -nargs=+ -js goToLines(args);
+command! ghgotolines -nargs=+ -js ghGgoToLines(args);
 
 command! ghsavethisreadmetodoc
     \ -bang
@@ -2183,7 +2184,7 @@ map <site>c -js ghClickReadme();
 
 js <<EOF
 
-function toggleHTMLView() {
+function ghToggleHTMLView() {
     var url = buffer.URL.toLowerCase();
     var newurl;
     if (url.contains("https://github.com")) {
@@ -2203,7 +2204,7 @@ function toggleHTMLView() {
     dactyl.open(newurl);
 }
 
-function goToLines(args) {
+function ghGoToLines(args) {
     var loc = content.location;
     var url = loc.href.replace(/#.*$/, '');
     var frag = `#L${args[0]}`;
@@ -2211,9 +2212,11 @@ function goToLines(args) {
     loc.href = url + frag;
 }
 
-function copyRepoLink() {
-    var url=buffer.URL.toLowerCase();
-    return url + ".git";
+function ghCopyRepoLinkHttps() {
+    dactyl.utils.cbWrite(ghGetCloneUrl("https"))
+}
+function ghCopyRepoLinkGit() {
+    dactyl.utils.cbWrite(ghGetCloneUrl("git"))
 }
 
 function ghDownloadReadmeToDoc(repo, name, ext, overwrite) {
@@ -2235,6 +2238,17 @@ function ghClickReadme() {
     for ( var i = 0; i < links.length; i++ ) {
         if ( links[i].textContent.contains('README.') )
             links[i].click();
+    }
+}
+
+function ghGetCloneUrl(urltype) {
+    var linkColl = content.document.getElementsByClassName('js-url-field');
+    var links = Array.from(linkColl).map((_)=>_.value);
+    var httpslink = links.filter((_)=> /^https/.test(_))[0];
+    var gitlink = links.filter((_)=> /^git/.test(_))[0];
+    switch (urltype) {
+        case "git":   return gitlink;
+        case "https": return httpslink;
     }
 }
 
