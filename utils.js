@@ -125,8 +125,12 @@ var utils = {
         var currentval = prefManager.getBoolPref(pref);
         prefManager.setBoolPref(pref, !currentval);
         this.message(`${pref}=${!currentval}`);
-    }
+    },
 
+    cbWrite: function (s) {
+        dactyl.clipboardWrite(s);
+        utils.message(s);
+    }
 
 // =============================================================================
 
