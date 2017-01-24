@@ -2370,6 +2370,40 @@ command! gmailcreatefiltertonewsletters
 
  group user
 
+" -------------------------------------------------------------------------------
+" ,---------,
+" | GNU.org |
+" '---------'
+group gnu -locations=gnu.org
+
+autocmd! -group gnu
+
+" Add << >> symbols to prev/next links so pentadactyl can recognize them
+autocmd DOMLoad gnu.org :gnuDecorateLinks
+command! gnuDecorateLinks -js gnuDecorateLinks();
+
+js <<EOF
+
+function gnuDecorateLinks() {
+    var header = content.document.getElementsByClassName("header")[0];
+    var headerchildnodes = header.getElementsByTagName('p')[0].childNodes;
+    var headerlinks = Array.from(headerchildnodes).filter((_)=>_.tagName=='A');
+    for (l of headerlinks) {
+        switch (l.getAttribute("rel")) {
+            case "next":
+                l.innerText = ">> " + l.innerText;
+                break;
+            case "prev":
+                l.innerText = "<< " + l.innerText;
+                break;
+        }
+    }
+}
+
+EOF
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-----------------------------,
 " | Google Translate (Japanese) |
