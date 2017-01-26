@@ -281,6 +281,7 @@ map z; -js ZoomManager.toggleZoom();
 " <option>t - toggles
 map <option>tu -ex set usermode!
 map <option>te -ex editcontent
+map <option>s -js toggleHTTPS()
 
 
 " ,--------,
@@ -1377,12 +1378,6 @@ command! toggleWayback
 
 " -----------------------------------------------------------------------------
 
-map <site>s :toggleHTTPS<CR>
-command! toggleHTTPS
-   \ -description "Toggle protocol between HTTP and HTTPS"
-   \ -js toggleHTTPS()
-
-" -----------------------------------------------------------------------------
 " kanji
 
 map <extra>k :kanjisearch!<CR>
