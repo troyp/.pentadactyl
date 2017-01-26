@@ -1039,6 +1039,7 @@ command! toggledevtoolbar
   }
 EOF
 map <C-A-;> -modes main -ex toggledevtoolbar
+map <C-x>v -modes main -ex toggledevtoolbar
 map <extra>d -ex emenu Tools.Web Developer.Eyedropper
 map <S-f12> -ex devtools
 
