@@ -3104,64 +3104,77 @@ command! subsrusearch
 " '--------------'
 group hylia -locations=anime.thehylia.com
 
-" FIXME!
-
-command! hyliacurlsonglinks
+command! hyliacurlallsongs
   \ -description "Generate curl commands to download song links and copy to clipboard."
-  \ -js hyliaFollowSongLinks();
-
+  \ -js hyliaCurlAllSongs();
 command! hyliacurlsong
   \ -description "Generate curl command to download the current song link and copy to clipboard."
   \ -js hyliaGetSong();
-map <site>d -js hyliaGetSong();
+command! hyliacurlsongwithfullname
+  \ -description "Generate curl command to download the current song link and copy to clipboard."
+  \ -js hyliaGetSongWithFullName();
+map <site><C-h> :map -group hylia <Lt>site
+map <site>a -ex hyliacurlallsongs
+map <site>d -ex hyliacurlsong
+map <site>D -ex hyliacurlsongwithfullname
+map <site>yy -js hyliaCopyTrackName();
+map <site>ya -js hyliaCopyAlbumName();
 
+
+" FIXME: hyliaCurlAllSongs only generates a curl command for last song
 
 js <<EOF
-function hyliaFollowSongLinks() {
+function hyliaCurlAllSongs() {
     var tbl = content.document.getElementsByClassName("blog")[0];
     var albumName = tbl.getElementsByTagName("h2")[0].innerText;
     var rows = tbl.getElementsByTagName("table")[0].getElementsByTagName("tr");
     for (i=0; i<rows.length; ++i) {
         var row = rows[i];
         var pageLink = row.getElementsByTagName("a")[0].href;
-        var trackName = row.getElementsByTagName("a")[0].innerText;
-        var filename = `"${albumName} - ${trackName}"`;
-        dactyl.clipboardWrite(filename);
-        hyliaFetchSongPage(albumName, trackName, pageLink);
+        hyliaFetchSongPage(pageLink);
     }
 }
-function hyliaFetchSongPage(albumName, trackName, pageLink) {
+function hyliaFetchSongPage(pageLink) {
     var newtab = gBrowser.addTab(pageLink);
     gBrowser.selectedTab = newtab;
     var tb = gBrowser.getBrowserForTab(newtab);
-    tb.addEventListener("DOMContentLoaded", function() {
-        var tbl = content.document.getElementsByClassName("blog")[0];
-        var allLinks = tbl.getElementsByTagName("a");
-        var link = allLinks[allLinks.length-1];
-        var linkurl = decodeURIComponent(link.href);
-        hyliaCopyCurlCommand(albumName, trackName);
-    });
+    tb.addEventListener("DOMContentLoaded", hyliaGetSong);
 }
-function hyliaCopyCurlCommand(albumName, trackName) {
-        if (typeof trackName == 'undefined')
-            var curlCmd = `curl ${linkurl} `;
-        else
-            var curlCmd = `curl ${linkurl} > "${albumName} - ${trackName}";`;
-        dactyl.utils.message(curlCmd);
-        dactyl.clipboardWrite(curlCmd);
-}
-function hyliaGetSong(albumName, trackName) {
+function hyliaGetSong(filename) {
     var tbl = content.document.getElementsByClassName("blog")[0];
     var allLinks = tbl.getElementsByTagName("a");
     var link = allLinks[allLinks.length-1];
     var linkurl = decodeURIComponent(link.href);
-    if (typeof trackName == 'undefined')
-        var curlCmd = `curl ${linkurl} `;
-    else
-        var curlCmd = `curl ${linkurl} > "${albumName} - ${trackName}";`;
-    dactyl.utils.message(curlCmd);
-    dactyl.clipboardWrite(curlCmd);
+    if (typeof filename == 'undefined')
+        filename = `${hyliaGetTrackName()}`;
+    hyliaGenerateCurlCommand(linkurl, filename);
 }
+function hyliaGetSongWithFullName() {
+    albumName = hyliaGetAlbumName();
+    trackName = hyliaGetTrackName();
+    filename = `${albumName} - ${trackName}`;
+    hyliaGetSong(fullname);
+}
+function hyliaGenerateCurlCommand(linkURL, filename) {
+        if (typeof filename == 'undefined')
+            var curlCmd = `curl '${linkURL}' `;
+        else
+            var curlCmd = `curl '${linkURL}' > '${filename}';`;
+        dactyl.utils.cbWrite(curlCmd);
+}
+function hyliaGetAlbumName() {
+    var hdg = content.document.getElementsByTagName('h2')[0];
+    return hdg.innerText;
+}
+function hyliaGetTrackName() {
+    var pars = content.document.getElementsByTagName('p');
+    var descript = Array.from(pars).filter(p=>p.innerText.contains('Song name:'))[0].innerText;
+    var lines = descript.split('\n');
+    var track = lines[1].replace(/Song name:\s+/i,'');
+    return track;
+}
+function hyliaCopyAlbumName() { dactyl.utils.cbWrite(hyliaGetAlbumName()); }
+function hyliaCopyTrackName() { dactyl.utils.cbWrite(hyliaGetTrackName()); }
 EOF
 
 group user
