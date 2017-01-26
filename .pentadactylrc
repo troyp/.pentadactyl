@@ -1914,6 +1914,7 @@ EOF
 " | Google |
 " '--------'
 group google -locations=google.com,google.com.*
+map <leader>hkc :map -group google <Lt>site
 
 " =================
 " searchbox command
@@ -1952,6 +1953,7 @@ group user
 " '-----'
 group edx -locations=edx.org
 autocmd! -group edx
+map <leader>hkc :map -group edx <Lt>site
 
 command! edx :runtime! edx.penta
 autocmd DOMload courses.edx.org :edx
@@ -1982,6 +1984,7 @@ group user
 " | Coursera |
 " '----------'
 group coursera -locations=www.coursera.org
+map <leader>hkc :map -group coursera <Lt>site
 
 set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
 
@@ -2003,6 +2006,7 @@ group user
 " | AnimeLyrics.com |
 " '-----------------'
 group animelyrics -locations=animelyrics.com
+map <leader>hkc :map -group animelyrics <Lt>site
 
 " Go to "Print view with kanji" if it exists, or else "Print view"
 map -b <site>P <C-v>'Print<Space>view<f3><CR>
@@ -2012,6 +2016,7 @@ map -b <site>P <C-v>'Print<Space>view<f3><CR>
 " | about: * |
 " '----------'
 group about -locations=about:*,chrome:*
+map <leader>hkc :map -group about <Lt>site
 
 map -g about -b j <C-v><Down>
 map -g about -b k <C-v><Up>
@@ -2030,6 +2035,7 @@ group user
 " | About:addons |
 " '--------------'
 group aboutaddons -locations=about:addons
+map <leader>hkc :map -group aboutaddons <Lt>site
 
 js <<EOF
 
@@ -2067,6 +2073,7 @@ group user
 " | Archive.org |
 " '-------------'
 group wayback -locations=archive.org
+map <leader>hkc :map -group wayback <Lt>site
 
 map <site>t -ex toggleWaybackToolbar
 map g<site>t -ex toggleWaybackToolbar!
@@ -2120,6 +2127,7 @@ group user
 " | BookZZ |
 " '--------'
 group bookzz -locations=bookzz.org
+map <leader>hkc :map -group bookzz <Lt>site
 
 map <site>z -ex loginAndSearch
 
@@ -2164,6 +2172,7 @@ map <goto>gH :open https://github.com/
 
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
+map <leader>hkc :map -group github <Lt>site
 
 map <site>h -ex ghtogglehtmlview
 map <site>y -js ghCopyRepoLinkHttps();
@@ -2258,6 +2267,7 @@ EOF
 
 " ===== Spacemacs GROUP START =====
 group spacemacs -locations https://github.com/syl20bnr/*
+map <leader>hkc :map -group spacemacs <Lt>site
 
 command! markdowntoorg -nargs=? -js convertMdUrlToOrg(args.length ? args[0] : null);
 map <site>o -js convertMdUrlToOrg();
@@ -2276,6 +2286,7 @@ group user
 " | GoGoAnime |
 " '-----------'
 group gogoanime -locations=gogoanime.io
+map <leader>hkc :map -group gogoanime <Lt>site
 
 js <<EOF
 
@@ -2305,6 +2316,7 @@ group user
 " | Gmail |
 " '-------'
 group gmail -locations=mail.google.com
+map <leader>hkc :map -group gmail <Lt>site
 
 js <<EOF
 
@@ -2376,6 +2388,7 @@ command! gmailcreatefiltertonewsletters
 " | GNU.org |
 " '---------'
 group gnu -locations=gnu.org
+map <leader>hkc :map -group gnu <Lt>site
 
 autocmd! -group gnu
 
@@ -2415,6 +2428,7 @@ group user
 " - Esc clears the box.
 
 group gtransja -locations=translate.google.com/#ja,translate.google.com.au/#ja,translate.google.com/#zh-CN,translate.google.com.au/#zh-CN
+map <leader>hkc :map -group gtransja <Lt>site
 
 set hinttags+="div.ita-hwt-candidate"
 
@@ -2592,6 +2606,7 @@ command! jdocompvb2
 
 " -------------------------------------------------------------------------------
 group vvlex -locations=vvlexicon.ninjal.ac.jp
+map <leader>hkc :map -group vvlex <Lt>site
 
 js <<EOF
 function vvlexSearchV1(s) {
@@ -2633,6 +2648,7 @@ group user
 " | JSBin.com |
 " '-----------'
 group jsbin -locations=jsbin.com
+map <leader>hkc :map -group jsbin <Lt>site
 
 " remove all existing jsbin autocmds
 autocmd! -group jsbin
@@ -2676,6 +2692,7 @@ group user
 " | Jisho.org |
 " '-----------'
 group jisho -locations=jisho.org
+map <leader>hkc :map -group jisho <Lt>site
 
 " remove all existing jisho autocmds
 autocmd! -group jisho
@@ -2970,6 +2987,7 @@ group user
 " '-----------------'
 group maggiesensei -locations=maggiesensei.com
 autocmd! -group maggiesensei
+map <leader>hkc :map -group maggiesensei <Lt>site
 
 " For now, use :togglestylesembedded
 " TODO: work out how to fix the style (the '.post-content' class has post in it).
@@ -3014,6 +3032,7 @@ group user
 " | OReilly.com |
 " '-------------'
 group oreilly -locations=oreilly.com
+map <leader>hkc :map -group oreilly <Lt>site
 
 js <<EOF
 function oreillyFreeEbookFillForm() {
@@ -3059,6 +3078,7 @@ group user
 " | StackOverflow.com |
 " '-------------------'
 group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
+map <leader>hkc :map -group stackexchange <Lt>site
 
 map -modes insert -b <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
 
@@ -3103,6 +3123,8 @@ command! subsrusearch
 " | TheHylia.com |
 " '--------------'
 group hylia -locations=anime.thehylia.com
+map <leader>hkc :map -group hylia <Lt>site
+map <site><C-h> :map -group hylia <Lt>site
 
 command! hyliacurlallsongs
   \ -description "Generate curl commands to download song links and copy to clipboard."
@@ -3113,7 +3135,6 @@ command! hyliacurlsong
 command! hyliacurlsongwithfullname
   \ -description "Generate curl command to download the current song link and copy to clipboard."
   \ -js hyliaGetSongWithFullName();
-map <site><C-h> :map -group hylia <Lt>site
 map <site>a -ex hyliacurlallsongs
 map <site>d -ex hyliacurlsong
 map <site>D -ex hyliacurlsongwithfullname
@@ -3209,6 +3230,7 @@ command! userscriptsmirror -nargs=?
 " '-----------'
 group wikia -locations='.*\.wikia\.com/'
 autocmd! -group wikia
+map <leader>hkc :map -group wikia <Lt>site
 
 command! removefandomads
     \ -description "Remove 'Trending Fandom' ads"
@@ -3228,6 +3250,7 @@ group user
 " | Wikipedia.org |
 " '---------------'
 group wikipedia -locations=wikipedia.org
+map <leader>hkc :map -group wikipedia <Lt>site
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 
@@ -3269,6 +3292,7 @@ group user
 " | Youtube.com |
 " '-------------'
 group youtube -locations=youtube.com
+map <leader>hkc :map -group youtube <Lt>site
 
 js <<EOF
 var ytplayer = function () {
@@ -3320,6 +3344,7 @@ group user
 " '-------------'
 
 group tipsonjap -locations=meadowlake001.blogspot.jp
+map <leader>hkc :map -group tipsonjap <Lt>site
 " Tips on Japanese
 " http://meadowlake001.blogspot.jp
 command! widenSidebar -group tipsonjap
