@@ -907,7 +907,9 @@ map sc :set!<SPACE>
 " List/Search:
 map sb :buffers -max 45<SPACE>
 map sh :history -max 45<SPACE>
-map sk :bmarks  -max 45<SPACE>
+map sk<space> :bmarks  -max 45<SPACE>
+map skk :bmarks  -max 45<SPACE> -keyword<SPACE>
+map skt :bmarks  -max 45<SPACE> -title<SPACE>
 " Search bookmarks by keyword
 map gk<Space> :bmarks -max 45<SPACE> -keyword<SPACE>
 " List all static keyword bookmarks (keyword contains :::)
