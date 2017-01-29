@@ -3091,6 +3091,85 @@ map <site>c -js maggieRemoveCruft(count);
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------------,
+" | MangaReader.net |
+" '-----------------'
+
+js <<EOF
+
+function mangareaderGetChapter(series, chapter) {
+    var newtab = gBrowser.addTab(`http://www.mangareader.net/${series}/${chapter}`);
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        var imgsrc = content.document.getElementById('imgholder').firstChild.firstChild.src;
+        var srcmatch = imgsrc.match(/(.*-)(\d+)[.](\w+)/);
+        var srcpref = srcmatch[1];
+        var srcnum = parseInt(srcmatch[2]);
+        var srcext = srcmatch[3];
+        var pageselect = content.document.getElementById('selectpage');
+        var npages = parseInt(pageselect.innerText.match(/ *of (\d+)/)[1]);
+        var pagerange = `$(seq ${srcnum} ${srcnum + npages - 1})`;
+        var imgsrcparametrized = `${srcpref}$i.${srcext}`;
+        var dir = `~/manga/dl/mangareader/${series}/${chapter}`;
+        var file=`${dir}/$i.${srcext}`
+        var looptext = `for i in ${pagerange}; do curl ${imgsrcparametrized} > ${file}; done`;
+        dactyl.execute(`!mkdir -p ${dir}`);
+        dactyl.execute(`!${looptext};`);
+        gBrowser.removeCurrentTab();
+    });
+}
+
+EOF
+
+command! mangareadergetchapter -nargs=+ -js mangareaderGetChapter(args[0], args[1]);
+
+" =====GROUP START=====
+
+group mangareader -locations=mangareader.net
+
+js <<EOF
+
+function mangareaderGetNextChapter() {
+    var url = buffer.URL;
+    var urlmatch = url.match(/.*\/([^/]+)\/(\d+)/);
+    var series = urlmatch[1];
+    var chapter = urlmatch[2];
+    var nextURL = `http://www.mangareader.net/${series}/${++chapter}`;
+    var origtab = gBrowser.selectedTab;
+    var newtab = gBrowser.addTab(`http://www.mangareader.net/${series}/${chapter}`);
+    var tb = gBrowser.getBrowserForTab(newtab);
+    gBrowser.selectedTab = newtab;
+    gBrowser.removeTab(origtab);
+    tb.loadURI(nextURL);
+    var mangareaderGetNextListener = function () {
+        var imgsrc = content.document.getElementById('imgholder').firstChild.firstChild.src;
+        var srcmatch = imgsrc.match(/(.*-)(\d+)[.](\w+)/);
+        var srcpref = srcmatch[1];
+        var srcnum = parseInt(srcmatch[2]);
+        var srcext = srcmatch[3];
+        var pageselect = content.document.getElementById('selectpage');
+        var npages = parseInt(pageselect.innerText.match(/ *of (\d+)/)[1]);
+        var pagerange = `$(seq ${srcnum} ${srcnum + npages - 1})`;
+        var imgsrcparametrized = `${srcpref}$i.${srcext}`;
+        var dir = `~/manga/dl/mangareader/${series}/${chapter}`;
+        var file=`${dir}/$i.${srcext}`
+        var looptext = `for i in ${pagerange}; do curl ${imgsrcparametrized} > ${file}; done`;
+        dactyl.execute(`!mkdir -p ${dir}`);
+        dactyl.execute(`!${looptext};`);
+        document.removeEventListener("DOMContentLoaded", mangareaderGetNextListener, false);
+    };
+    tb.addEventListener("DOMContentLoaded", mangareaderGetNextListener);
+}
+
+EOF
+
+command! mangareadergetnextchapter -js mangareaderGetNextChapter();
+map <site>c -js mangareaderGetNextChapter();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-------------,
 " | OReilly.com |
 " '-------------'
