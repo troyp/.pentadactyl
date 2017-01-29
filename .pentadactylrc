@@ -1986,15 +1986,46 @@ map <leader>hkc :map -group coursera <Lt>site
 set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
 
 js <<EOF
-function togglePaused() {
+function courseraTogglePaused() {
     var v = content.document.getElementById('c-video_html5_api');
-    if (v.paused)
-        v.play();
-    else
-        v.pause();
+    if (v.paused) v.play(); else v.pause();
+}
+function courseraRateDec() {
+    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
+    var ratedec = buttons[0];
+    ratedec.click();
+}
+function courseraRateInc() {
+    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
+    var rateinc = buttons[1];
+    rateinc.click();
+}
+function courseraVolume(vol) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.volume = vol;
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraVolumeDec() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    if (vid.volume <= 0.15) vid.volume /= 2;
+    else vid.volume = vid.volume - 0.1;
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraVolumeInc() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.volume = Math.min(1, vid.volume + 0.1);
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
 }
 EOF
-map <Space> -js togglePaused();
+command! -nargs=1 courseravolume -js courseraVolume(args[0]);
+map <Return> -js courseraTogglePaused();
+map <site>c -js courseraTogglePaused();
+map <site>v -count -ex js courseraVolume(parseInt(<count>)/10);
+map <site>V :courseravolume<Space>
+map <site>, -js courseraRateDec();
+map <site>. -js courseraRateInc();
+map <site>j -js courseraVolumeInc();
+map <site>k -js courseraVolumeDec();
 
 group user
 
