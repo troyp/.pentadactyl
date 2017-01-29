@@ -1987,8 +1987,8 @@ set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left>
 
 js <<EOF
 function courseraTogglePaused() {
-    var v = content.document.getElementById('c-video_html5_api');
-    if (v.paused) v.play(); else v.pause();
+    var vid = content.document.getElementById('c-video_html5_api');
+    if (vid.paused) vid.play(); else vid.pause();
 }
 function courseraRateDec() {
     var buttons = content.document.getElementsByClassName('c-playback-rate-button');
