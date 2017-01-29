@@ -2021,11 +2021,38 @@ function courseraVolumeInc() {
     vid.volume = Math.min(1, vid.volume + 0.1);
     dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
 }
+function courseraJumpTo(s) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = s;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraJumpBackward(delta) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = vid.currentTime - delta;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraJumpForward(delta) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = vid.currentTime + delta;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraDisplay() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    dactyl.utils.message(`time:\t${vid.currentTime.toFixed(2)}\nvolume:\t${vid.volume.toFixed(3)}\nrate:\t${vid.playbackRate.toFixed(1)}`);
+}
 EOF
 command! -nargs=1 courseravolume -js courseraVolume(args[0]);
 command! -nargs=1 courserarate -js courseraRate(args[0]);
+command! -nargs=1 courserajump -js courseraJumpTo(args[0]);
+command! courseradisplay -js courseraDisplay();
 map <Return> -js courseraTogglePaused();
 map <site>c -js courseraTogglePaused();
+map <site><A-h> -js courseraJumpBackward(1);
+map <site><A-l> -js courseraJumpForward(1);
+map <site>h -js courseraJumpBackward(5);
+map <site>l -js courseraJumpForward(5);
+map <site>H -js courseraJumpBackward(25);
+map <site>L -js courseraJumpForward(25);
 map <site>r :courserarate<Space>
 map <site>v -count -ex js courseraVolume(parseInt(<count>)/10);
 map <site>V :courseravolume<Space>
@@ -2033,6 +2060,7 @@ map <site>, -js courseraRateDec();
 map <site>. -js courseraRateInc();
 map <site>j -js courseraVolumeInc();
 map <site>k -js courseraVolumeDec();
+map <site>? -js courseraDisplay();
 
 group user
 
