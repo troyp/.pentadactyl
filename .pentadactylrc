@@ -2000,6 +2000,11 @@ function courseraRateInc() {
     var rateinc = buttons[1];
     rateinc.click();
 }
+function courseraRate(r) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.playbackRate = r;
+    dactyl.utils.message(`rate: ${vid.playbackRate.toFixed(1)}`);
+}
 function courseraVolume(vol) {
     var vid = content.document.getElementById('c-video_html5_api');
     vid.volume = vol;
@@ -2018,8 +2023,10 @@ function courseraVolumeInc() {
 }
 EOF
 command! -nargs=1 courseravolume -js courseraVolume(args[0]);
+command! -nargs=1 courserarate -js courseraRate(args[0]);
 map <Return> -js courseraTogglePaused();
 map <site>c -js courseraTogglePaused();
+map <site>r :courserarate<Space>
 map <site>v -count -ex js courseraVolume(parseInt(<count>)/10);
 map <site>V :courseravolume<Space>
 map <site>, -js courseraRateDec();
