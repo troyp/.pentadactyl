@@ -230,8 +230,6 @@ map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
 " TeX The World
 map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
-" MS Translate
-map <extra>t -js (function(){var s=content.document.createElement('script'); s.type='text/javascript'; s.src='http://labs.microsofttranslator.com/bookmarklet/default.aspx?f=js&to=en'; content.document.body.insertBefore(s, content.document.body.firstChild);})();
 " PageZipper
 " activate pagezipper bookmark (keyword pz)
 map <A-p> :open pz<CR>
@@ -249,6 +247,75 @@ function openInNewOrCurrentTab(site) {
 EOF
 " Weather
 map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
+
+" =====TRANSLATION=====
+
+js <<EOF
+
+function googleTranslateText(s, from='auto', to='en', where=dactyl.NEW_TAB) {
+    dactyl.open(`https://translate.google.com.au/#${from}/${to}/${s}`, where);
+}
+
+function googleTranslateUrl(url, from='auto', to='en', where=dactyl.NEW_TAB) {
+    dactyl.open(`http://translate.google.com/translate?hl=&sl=${from}&tl=${to}&u=${url}`, where);
+}
+
+function bingAddWebWidget() {
+    var d=content.document.createElement('div');
+    d.id='MicrosoftTranslatorWidget';
+    d.class='Dark';
+    d.style='color:white;background-color:#555555';
+    content.document.body.insertBefore(d, content.document.body.firstChild);
+    var s=content.document.createElement('script');
+    s.type='text/javascript';
+    code="setTimeout(function(){{var s=document.createElement('script');s.type='text/javascript';s.charset='UTF-8';s.src=((location && location.href && location.href.indexOf('https') == 0)?'https://ssl.microsofttranslator.com':'http://www.microsofttranslator.com')+'/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=False&ui=true&settings=Manual&from=';var p=document.getElementsByTagName('head')[0]||document.documentElement;p.insertBefore(s,p.firstChild); }},0)";
+    s.innerText = code;
+    content.document.body.insertBefore(s, content.document.body.firstChild);
+}
+
+// WHERE parameter can be 'here', 'tab', 'background-tab' or 'window'
+// which are the values of the variables dactyl.CURRENT_TAB etc
+
+function bingTranslateUrl(url, from='auto', to='en', where=dactyl.NEW_TAB) {
+    dactyl.open(`http://www.microsofttranslator.com/bv.aspx?from=${from}&to=${to}&a=${url}`, where);
+}
+
+function bingTranslateText(s, from='auto', to='en', where=dactyl.NEW_TAB) {
+    dactyl.open(`http://www.bing.com/translator/?from=${from}&to=${to}&text=${s}`, where);
+}
+
+EOF
+
+command! googletranslatetext
+    \ -description "googletranslatetext TEXT [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js googleTranslateText(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! googletranslateurl
+    \ -description "googletranslateurl URL [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js googleTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! googletranslatepage
+    \ -description "Google Translate Page (!: in new tab)"
+    \ -bang
+    \ -js googleTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
+command! bingwebwidget -js bingAddWebWidget();
+command! bingtranslatetext
+    \ -description "bingtranslatetext TEXT [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js bingTranslateText(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! bingtranslateurl
+    \ -description "bingtranslateurl URL [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js bingTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! bingtranslatepage
+    \ -description "Bing Translate Page (!: in new tab)"
+    \ -bang
+    \ -js bingTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
+
+map <extra>tt -ex bingtranslatepage
+map <extra>tg -ex googletranslatepage
+
+
 
 " =====YANK=====
 " show <yank>... bindings via completion interface
@@ -1337,11 +1404,6 @@ command! prefsuffsearch
     \ -description "Search for prefix/suffix on macroevolution.net"
     \ -nargs=1
     \ -js prefsuffSearch(args[0]);
-
-command! tr
-    \ -description "Translate: tr FROM TO TEXT"
-    \ -nargs=*
-    \ -js dactyl.open(`https://translate.google.com.au/#${args[0]}/${args[1]}/${args[2]}`, {where:dactyl.NEW_TAB});
 
 command! editcontent
     \ -description "Make content editable"
