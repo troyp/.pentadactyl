@@ -2302,6 +2302,7 @@ map <leader>hkc :map -group github <Lt>site
 map <site>h -ex ghtogglehtmlview
 map <site>y -js ghCopyRepoLinkHttps();
 map <site>Y -js ghCopyRepoLinkGit();
+map <site>u -js ghCopyUserAndRepo();
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -2352,6 +2353,20 @@ function ghCopyRepoLinkHttps() {
 }
 function ghCopyRepoLinkGit() {
     dactyl.utils.cbWrite(ghGetCloneUrl("git"))
+}
+function ghGetUserAndRepo() {
+    var url = ghGetCloneUrl("https");
+    var regex = /https:\/\/github.com\/([^/]+)\/([^/]+)/;
+    var match = url.match(regex);
+    var user = match[1];
+    var repo = match[2];
+    return [user, repo];
+}
+
+function ghCopyUserAndRepo() {
+    [user, repo] = ghGetUserAndRepo();
+    var url = ghGetCloneUrl("https");
+    dactyl.utils.cbWrite(`${user}/${repo}`);
 }
 
 function ghDownloadReadmeToDoc(repo, name, ext, overwrite) {
