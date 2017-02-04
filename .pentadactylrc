@@ -1252,6 +1252,39 @@ map <browser>sn -js stylishCommon.openEdit('new');
 command! oku -description "Open local file in Okular"
     \ execute `run okular "${decodeURIComponent(buffer.URL.substring(7))}"`
 
+" Dump webpage text
+command! dumptextw3m
+    \ -description "Dump page text with w3m"
+    \ -js dumpTextW3m(args[0]||undefined, args[1]||undefined, args[3]||undefined);
+command! yanktextw3m
+    \ -description "Extract page text with w3m and yank to clipboard"
+    \ -js yankTextW3m(args[0]||undefined, args[1]||undefined);
+
+js <<EOF
+
+function yankTextW3m(columns=80, charset=null) {
+    var url = buffer.URL;
+    if (charset)
+        dactyl.execute(`yank :!w3m -dump -cols ${columns} -o display_charset=${charset} ${url}`);
+    else
+        dactyl.execute(`yank :!w3m -dump -cols ${columns} ${url}`);
+}
+
+function dumpTextW3m(columns=80, charset=null, where=dactyl.NEW_TAB) {
+    var url = buffer.URL;
+    var urlname = urlLastComponent(url);
+    var file = FileUtils.getFile("TmpD", [`${urlname}.txt`]);
+    file.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0o666);
+    var fname = file.path;
+    if (charset)
+        dactyl.execute(`!w3m -dump -cols ${columns} -o display_charset=${charset} ${url} > ${fname}`);
+    else
+        dactyl.execute(`!w3m -dump -cols ${columns} ${url} > ${fname}`);
+    dactyl.open(`file://${fname}`, {where:where});
+}
+
+EOF
+
 
 " =============================================================================
 "                                 __________________
