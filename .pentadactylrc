@@ -2878,7 +2878,10 @@ map <site>k -ex jishotogglekanji
 map <site>r -ex jishotoggleradicalinput
 map <site>l -ex jishotogglelinklists
 map <site>x -ex jishotogglesentences
+map <site>y -ex jishoyanksearchterm
 map <site>* :jishoscalesod<Space>
+
+imap <A-k> <Space>#kanji
 
 " -----------------
 " jishotoggleromaji
@@ -2920,9 +2923,32 @@ var jishoToggleRadicalInput = function() {
     radicalButton.click();
 }
 
+function jishoGetSearchedForText() {
+    var searchedforMsg = content.document.getElementById('the_corrector');
+    if (!searchedforMsg) return null;
+    var msgText = searchedforMsg.innerText;
+    var re = /Searched for ([^ ]+)\./;
+    var match = msgText.match(re);
+    return match[1];
+}
+
+function jishoGetSearchText() {
+    var re = /https?:\/\/jisho.org\/search\/([^#]*[^# ])/;
+    var match = decodeURIComponent(buffer.URL).match(re);
+    return match[1];
+}
+
+function jishoGetCorrectedSearchText() {
+    return jishoGetSearchedForText() || jishoGetSearchText();
+}
+
 EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji:
+
+command! jishoyanksearchterm
+    \ -description "Yank search term to clipboard"
+    \ -js dactyl.utils.cbWrite(jishoGetCorrectedSearchText());
 
 command! jishotoggleromaji
      \ -description "Toggle between kana and romaji"
