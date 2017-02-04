@@ -3616,6 +3616,24 @@ group user
 "                                      | NOTES |
 "                                      |_______|
 
+" ===============================================================================
+"                                 __________________
+"                                |                  |
+"                                | HELPER FUNCTIONS |
+"                                |__________________|
+
+js <<EOF
+
+function getSelectionText() {
+    return content.getSelection().text;
+}
+
+function isAscii(s) {
+    return Array.from(s).every(c=>c.charCodeAt(0) <= 128);
+}
+
+EOF
+
 " -----------------------------------------------------------------------------
 " ,-----------------,
 " | USEFUL COMMANDS |
