@@ -3658,6 +3658,10 @@ function isAscii(s) {
     return Array.from(s).every(c=>c.charCodeAt(0) <= 128);
 }
 
+function urlLastComponent(url) {
+    return url.replace(/^.*\//, '');
+}
+
 EOF
 
 " -----------------------------------------------------------------------------
