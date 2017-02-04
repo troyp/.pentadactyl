@@ -1981,7 +1981,7 @@ map <leader>hkc :map -group google <Lt>site
 
 " FIXME: completion drop-down remains open after search
 js <<EOF
-function searchBox(s) {
+function googleSearchBox(s) {
     var isTextField = function(e) { return (e.getAttribute("type") == "text"); }
     var isSubmitButton = function(e) { return (e.getAttribute("type") == "submit"); }
     var inputElts = content.document.getElementsByTagName("input");
@@ -1990,10 +1990,17 @@ function searchBox(s) {
     var searchbutton = [].find.call(inputElts, isSubmitButton);
     searchbutton.click();
 }
+
+function googleRemoveQuotes() {
+    var quotere = /"|'|%22/g;
+    dactyl.open(buffer.URL.replace(quotere, ''),
+                dactyl.CURRENT_TAB);
+}
 EOF
 
-command! searchbox -description "Enter string search box." -nargs="*" -js searchBox(args.join(' '));
+command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
 map <site>s :searchbox<Space>
+map <site>\' -js googleRemoveQuotes();
 
 "              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
