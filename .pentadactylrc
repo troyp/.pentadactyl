@@ -2695,6 +2695,33 @@ command! graphemicacharselect
     \ -js graphemicaCharSelect(args);
 
 " -------------------------------------------------------------------------------
+" ,-----------,
+" | JapanDict |
+" '-----------'
+group japandict -locations=japandict.com
+map <leader>hkc :map -group japandict <Lt>site
+
+map ck -js japandictToggleKanji();
+
+js <<EOF
+
+var japandictToggleKanji = function() {
+    var url = buffer.URL;
+    var kanjiurl =    'https://www.japandict.com/kanji/';
+    var nonkanjiurl = 'https://www.japandict.com/';
+    if (url.startsWith(kanjiurl))
+        newurl = url.replace(kanjiurl, nonkanjiurl);
+    else
+        newurl = url.replace(nonkanjiurl, kanjiurl);
+    dactyl.open(newurl, {where:dactyl.CURRENT_TAB});
+}
+
+
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,---------------------------------,
 " | Japanese Compound Verb Database |
 " '---------------------------------'
