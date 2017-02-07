@@ -2395,9 +2395,9 @@ function ghCopyRepoLinkGit() {
     dactyl.utils.cbWrite(ghGetCloneUrl("git"))
 }
 function ghGetUserAndRepo() {
-    var url = ghGetCloneUrl("https");
-    var regex = /https:\/\/github.com\/([^/]+)\/([^/]+)/;
-    var match = url.match(regex);
+    // var url = ghGetCloneUrl("https");
+    var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/]+)(\/.*)?/;
+    var match = buffer.URL.match(regex);
     var user = match[1];
     var repo = match[2];
     return [user, repo];
