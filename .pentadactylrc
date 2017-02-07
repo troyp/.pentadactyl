@@ -2350,6 +2350,9 @@ command! ghtogglehtmlview
 
 command! ghgotolines -nargs=+ -js ghGgoToLines(args);
 
+command! ghfilefinder -js ghFileFinder();
+map <site>/ -ex ghfilefinder
+
 command! ghsavethisreadmetodoc
     \ -bang
     \ -description "Download README for current repo to /opt/doc/"
@@ -2440,6 +2443,12 @@ function ghGetCloneUrl(urltype) {
         case "git":   return gitlink;
         case "https": return httpslink;
     }
+}
+
+function ghFileFinder(where=dactyl.CURRENT_TAB) {
+    [user, repo] = ghGetUserAndRepo();
+    var ffurl = `https://github.com/${user}/${repo}/find/master`;
+    dactyl.open(ffurl, {where:where});
 }
 
 EOF
