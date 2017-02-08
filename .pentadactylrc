@@ -2345,8 +2345,8 @@ group user
 
 js function ghTabopenRepo (s) { dactyl.tabopen(`https://github.com/${s}`); }
 command! ghtabopenrepo -nargs=1 -js ghTabopenRepo(args[0]);
-map <goto>gh :tabopen https://github.com/
-map <goto>gH :open https://github.com/
+map <goto>gh :tabopen https://github.com/troyp?tab=repositories
+map <goto>gH :open https://github.com/troyp?tab=repositories
 
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
