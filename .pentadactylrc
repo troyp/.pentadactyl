@@ -3508,7 +3508,7 @@ function hyliaGetSongWithFullName() {
     albumName = hyliaGetAlbumName();
     trackName = hyliaGetTrackName();
     filename = `${albumName} - ${trackName}`;
-    hyliaGetSong(fullname);
+    hyliaGetSong(filename);
 }
 function hyliaGenerateCurlCommand(linkURL, filename) {
         if (typeof filename == 'undefined')
