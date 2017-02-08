@@ -1129,9 +1129,11 @@ command! toggledevtoolbar
       setTimeout(()=>{tb.focus();}, 300);
   }
 EOF
-map <C-A-;> -modes main -ex toggledevtoolbar
 map <C-x>v -modes main -ex toggledevtoolbar
-map <extra>d -ex emenu Tools.Web Developer.Eyedropper
+map <leader>dy -ex emenu Tools.Web Developer.Eyedropper
+map <leader>dw -ex webide
+map <leader>db -ex browserconsole
+map <leader>ds -ex storageinspector
 map <S-f12> -ex devtools
 
 
@@ -1140,12 +1142,13 @@ map <S-f12> -ex devtools
 " | DOM Inspector |
 " '---------------'
 " inspect current content document
+command! dominspector -js inspectDOMDocument(content.document);
 command! dominspector :dialog dominspector
 " inspect current chrome document - chrome://browser/content/browser.xul
 command! dominspectorchrome :js inspectDOMDocument(document.URL)
 "
 " restore C-S-I shortcut for DOM Inspector (stolen by dev tools inspector)
-map <C-S-I> -ex dominspector
+map <leader>,di -ex dominspector
 
 " -----------------------------------------------------------------------------
 " ,---------,
