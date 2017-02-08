@@ -483,11 +483,6 @@ map -b <leader>S :<C-v><C-v><Home>open<Space><Space><Left>
 map <leader>r :<C-r>
 " Repeat default just entered search with keyword
 map <leader>R :<up><Home><forward-word><Space>
-" Google definitions
-map <leader>d :ggdef<Space>
-" map <leader>d :tabopen https://www.google.com.au/search?q=define:
-map <leader>,d -js googleDefExpand();
-map <leader>D :open https://www.google.com.au/search?q=define:
 
 " ,-------------------,
 " | Command-line only |
@@ -619,8 +614,6 @@ command! toggleconfig
     \ -description "Toggle boolean about:config setting."
     \ -nargs=1
     \ -js dactyl.utils.togglePref(args[0]);
-
-command! ggdef -nargs=1 -js googledef(args[0]);
 
 command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
 
@@ -1916,24 +1909,6 @@ function convertLastSlashToHash(url) {
     dactyl.open(newurl);
 }
 
-"FIXME: event listener not working"
-function googledef (word) {
-    var newtab = gBrowser.addTab(`https://www.google.com.au/search?q=define:${word}`);
-    var tb = gBrowser.getBrowserForTab(newtab);
-    var callback = function () {
-        googleDefExpand();
-        tb.removeEventListener("domloaded", callback, false);
-    };
-    tb.addEventListener("domloaded", callback, false);
-    gBrowser.selectedTab = newtab;
-}
-
- googleDefExpand = function() {
-     var div = content.document.getElementById('uid_0');
-     var link = div.getElementsByClassName('xcae')[0];
-     link.click();
- };
-
 function narrowPage(width, lmarg, rmarg) {
     var doc = content.document.getElementsByTagName('html')[0];
     doc.setAttribute('style',
@@ -2029,12 +2004,32 @@ EOF
 " ,--------,
 " | Google |
 " '--------'
+
+" Google definitions
+command! ggdef -nargs=1 -js googledef(args[0]);
+map <leader>gd :ggdef<Space>
+
+js <<EOF
+
+function googledef (word) {
+    "FIXME: event listener not working"
+    var newtab = gBrowser.addTab(`https://www.google.com.au/search?q=define:${word}`);
+    var tb = gBrowser.getBrowserForTab(newtab);
+    var callback = function () {
+        googleDefExpand();
+        tb.removeEventListener("domloaded", callback, false);
+    };
+    tb.addEventListener("domloaded", callback, false);
+    gBrowser.selectedTab = newtab;
+}
+
+EOF
+
+" ===== GROUP START =====
+
 group google -locations=google.com,google.com.*
 map <leader>hkc :map -group google <Lt>site
-
-" =================
-" searchbox command
-" =================
+map <site><C-h> :map -group google <Lt>site
 
 " FIXME: completion drop-down remains open after search
 js <<EOF
@@ -2053,11 +2048,20 @@ function googleRemoveQuotes() {
     dactyl.open(buffer.URL.replace(quotere, ''),
                 dactyl.CURRENT_TAB);
 }
+
+ googleDefExpand = function() {
+     var div = content.document.getElementById('uid_0');
+     var link = div.getElementsByClassName('xcae')[0];
+     link.click();
+ };
 EOF
 
+" searchbox command
 command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
 map <site>s :searchbox<Space>
 map <site>\' -js googleRemoveQuotes();
+" Google definitions: expand
+map <site>d -js googleDefExpand();
 
 "              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
