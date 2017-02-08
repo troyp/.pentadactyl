@@ -27,10 +27,18 @@ set passkeys=
 
 js <<EOF
 
-// Monkey patch DOM types
-// allow for..of iteration of Nodelist and HTMLCollection without Array.from()
-NodeList.__proto__[Symbol.iterator] = Array.prototype[Symbol.iterator];
-HTMLCollection.__proto__[Symbol.iterator] = Array.prototype[Symbol.iterator];
+// Array methods for other collections
+A = {
+    map:       (coll, f) => Array.from(coll).map(f);
+    filter:    (coll, f) => Array.from(coll).filter(f);
+    forEach:   (coll, f) => Array.from(coll).forEach(f);
+    find:      (coll, f) => Array.from(coll).find(f);
+    every:     (coll, f) => Array.from(coll).every(f);
+    some:      (coll, f) => Array.from(coll).some(f);
+    findIndex: (coll, f) => Array.from(coll).find(f);
+    includes:  (coll, f, fromIndex=undefined) => Array.from(coll).includes(f, fromIndex);
+    indexOf:   (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex);
+}
 
 EOF
 
