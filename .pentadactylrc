@@ -20,6 +20,19 @@ js var user = dactyl.utils.getPlugin("personal");
 runtime! jquery.min.js
 set passkeys=
 
+" -------------------------------------------------------------------------------
+" ,------------------------,
+" | Javascript helper code |
+" '------------------------'
+
+js <<EOF
+
+// Monkey patch DOM types
+// allow for..of iteration of Nodelist and HTMLCollection without Array.from()
+NodeList.__proto__[Symbol.iterator] = Array.prototype[Symbol.iterator];
+HTMLCollection.__proto__[Symbol.iterator] = Array.prototype[Symbol.iterator];
+
+EOF
 
 " -----------------------------------------------------------------------------
 " ,---------,
