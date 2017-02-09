@@ -676,6 +676,9 @@ command! toggleconfig
 
 command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
 
+" run shell command in terminal
+command! -nargs=1 runinterminal -js runInTerminal(args[0]);
+
 " =============================================================================
 "                                       ______
 "                                      |      |
@@ -2049,6 +2052,14 @@ function imgsAddAltTextToTitle() {
                 img.setAttribute('title', title + "\nALT TEXT:\n" + alt);
         }
     }
+}
+
+function runInTerminal(cmd) {
+    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
+    executable.initWithPath("/usr/bin/roxterm");
+    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
+    process.init(executable);
+    process.runAsync(["-e",`zsh -c 'source ~/.sh-aliases; source .sh-functions; ${cmd}; zsh'`], 2);
 }
 
 EOF
