@@ -1317,6 +1317,23 @@ map <browser>sm -ex tabopen chrome://stylish-custom/content/info.xul
 command! stylishnew -js stylishCommon.openEdit('new');
 map <browser>sn -js stylishCommon.openEdit('new');
 
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | Bookmarks |
+" '-----------'
+
+js <<EOF
+function bookmarkExportBuku() {
+    var filename = `/tmp/firefox-buku-${(new Date).toISOString()}`;
+    BookmarkHTMLUtils.exportToFile(filename);
+    runProcess("/usr/local/bin/buku", "--import", filename);
+}
+EOF
+
+command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0]);
+command! bookmarkExportBuku -js bookmarkExportBuku();
+
+
 " =============================================================================
 "                                      _________
 "                                     |         |
