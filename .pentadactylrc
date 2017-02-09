@@ -27,17 +27,63 @@ set passkeys=
 
 js <<EOF
 
+"imports"
+Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
+
+"components"
+var Cc = Components.classes;
+function XpcService(url, ifc) {
+    try {
+        var interface = Ci[ifc];
+        return Cc[url].getService(interface);
+    } catch(e) {
+        err("XpcService: Cannot get service " + url + ", " + ifc + "\n" + e);
+        return null;
+    }
+}
+function XpcInstance(url, ifc) {
+    try {
+        var interface = Ci[ifc];
+        return Cc[url].createInstance(interface);
+    } catch(e) {
+        err("XpcInstance: Cannot create instance " + url + ", " + ifc + "\n" + e);
+        return null;
+    }
+}
+
+function XpcQueryInterface(elt, ifc) {
+    try {
+        var interface = Ci[ifc];
+        return elt.QueryInterface(interface);
+    } catch(e) {
+        err("XpcQueryInterface: Cannot query interface " + ifc + " of " + elt + "\n" + e);
+	      return null;
+    }
+}
+
+var environment = XpcService("@mozilla.org/process/environment;1",
+                             Components.interfaces.nsIEnvironment);
+
+"utility functions"
 // Array methods for other collections
 A = {
-    map:       (coll, f) => Array.from(coll).map(f);
-    filter:    (coll, f) => Array.from(coll).filter(f);
-    forEach:   (coll, f) => Array.from(coll).forEach(f);
-    find:      (coll, f) => Array.from(coll).find(f);
-    every:     (coll, f) => Array.from(coll).every(f);
-    some:      (coll, f) => Array.from(coll).some(f);
-    findIndex: (coll, f) => Array.from(coll).find(f);
-    includes:  (coll, f, fromIndex=undefined) => Array.from(coll).includes(f, fromIndex);
-    indexOf:   (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex);
+    map:       (coll, f) => Array.from(coll).map(f),
+    filter:    (coll, f) => Array.from(coll).filter(f),
+    forEach:   (coll, f) => Array.from(coll).forEach(f),
+    find:      (coll, f) => Array.from(coll).find(f),
+    every:     (coll, f) => Array.from(coll).every(f),
+    some:      (coll, f) => Array.from(coll).some(f),
+    findIndex: (coll, f) => Array.from(coll).find(f),
+    includes:  (coll, f, fromIndex=undefined) => Array.from(coll).includes(f, fromIndex),
+    indexOf:   (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex),
+}
+
+function runProcess(exec, ...args) {
+    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
+    executable.initWithPath(exec);
+    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
+    process.init(executable);
+    process.runAsync(args, args.length);
 }
 
 EOF
