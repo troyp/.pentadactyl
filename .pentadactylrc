@@ -1332,6 +1332,8 @@ EOF
 
 command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0]);
 command! bookmarkExportBuku -js bookmarkExportBuku();
+command! bukurun !buku_run
+map <browser>k -ex !buku_run
 
 
 " =============================================================================
