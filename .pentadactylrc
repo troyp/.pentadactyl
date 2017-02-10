@@ -679,6 +679,9 @@ command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
 " run shell command in terminal
 command! -nargs=1 runinterminal -js runInTerminal(args[0]);
 
+" rubular
+command! rubular -nargs=+ -js rubular(args[0], args[1]);
+
 " =============================================================================
 "                                       ______
 "                                      |      |
@@ -2079,6 +2082,19 @@ function runInTerminal(cmd) {
     var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
     process.init(executable);
     process.runAsync(["-e",`zsh -c 'source ~/.sh-aliases; source .sh-functions; ${cmd}; zsh'`], 2);
+}
+
+function rubular(regex, test) {
+    var newtab = gBrowser.addTab('http://rubular.com/');
+    var tb = gBrowser.getBrowserForTab(newtab);
+    function rubularCB() {
+        var regexfield = content.document.getElementById("regex");
+        var testfield = content.document.getElementById("test");
+        regexfield.value = regex;
+        testfield.value = test;
+        tb.removeEventListener("DOMContentLoaded", rubularCB);
+    }
+    tb.addEventListener("DOMContentLoaded", rubularCB);
 }
 
 EOF
