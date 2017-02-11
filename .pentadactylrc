@@ -1307,6 +1307,19 @@ EOF
 map zx -ex magnifier!
 
 " -------------------------------------------------------------------------------
+" ,--------------,
+" | GreaseMonkey |
+" '--------------'
+
+set! extensions.greasemonkey.editor=/usr/local/bin/emacsclient
+set! extensions.greasemonkey.fileIsGreaseable=true
+set! extensions.greasemonkey.unmhtIsGreaseable=true
+command! gmopenscriptsdirectory -js dactyl.execute("!dolphin "+GM_util.scriptDir().path)
+command! gmscriptsdirectory -js dactyl.open(GM_util.scriptDir().path, {where:dactyl.NEW_TAB});
+command! -bang gmnew -js dactyl.open('chrome://greasemonkey/content/newscript.xul', { where: bang ? 'here' : 'tab' });
+
+
+" -------------------------------------------------------------------------------
 " ,---------,
 " | Stylish |
 " '---------'
