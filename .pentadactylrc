@@ -3236,17 +3236,17 @@ var dec = decodeURIComponent;
 hints.addMode('r','select kanji radical', e => e.click());
 hints.addMode('\'','yank entry', e => dactyl.clipboardWrite(e.innerText));
 hints.addMode(
-    'k','open kanji details in new tab',
-    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`), {where:dactyl.NEW_TAB}));
+    'k','open kanji details',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`)));
 hints.addMode(
-    'K','open kanji details',
-    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`)));
+    'K','open kanji details in new tab',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`), {where:dactyl.NEW_TAB}));
 hints.addMode(
     'g','open sentence examples',
-    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`)));
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`)));
 hints.addMode(
     'G','open sentence examples in new tab',
-    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`), {where:dactyl.NEW_TAB}));
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
 hints.addMode(
   'l','links drop down',
   function(e) {
