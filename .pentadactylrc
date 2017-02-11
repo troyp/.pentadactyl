@@ -3184,50 +3184,20 @@ js <<EOF
 
 var dec = decodeURIComponent;
 
+hints.addMode('r','select kanji radical', e => e.click());
+hints.addMode('\'','yank entry', e => dactyl.clipboardWrite(e.innerText));
 hints.addMode(
-  'r','select kanji radical',
-  function(e) {
-      e.click();
-  }
-);
-
+    'k','open kanji details in new tab',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`), {where:dactyl.NEW_TAB}));
 hints.addMode(
-  '\'','yank entry',
-  function(e) {
-      dactyl.clipboardWrite(e.innerText);
-  }
-);
-
+    'K','open kanji details',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`)));
 hints.addMode(
-  'k','open kanji details in new tab',
-  function(e) {
-    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`),
-                {where:dactyl.NEW_TAB});
-  }
-);
-
+    'g','open sentence examples',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`)));
 hints.addMode(
-  'K','open kanji details',
-  function(e) {
-    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523kanji`));
-  }
-);
-
-hints.addMode(
-  'g','open sentence examples',
-  function(e) {
-    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`));
-  }
-);
-
-hints.addMode(
-  'G','open sentence examples in new tab',
-  function(e) {
-    dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`),
-                {where:dactyl.NEW_TAB});
-  }
-);
-
+    'G','open sentence examples in new tab',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent}%2523sentences`), {where:dactyl.NEW_TAB}));
 hints.addMode(
   'l','links drop down',
   function(e) {
