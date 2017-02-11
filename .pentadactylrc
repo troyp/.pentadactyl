@@ -1320,6 +1320,11 @@ map <browser>sm -ex tabopen chrome://stylish-custom/content/info.xul
 command! stylishnew -js stylishCommon.openEdit('new');
 map <browser>sn -js stylishCommon.openEdit('new');
 
+" ,------------,
+" | HackTheWeb |
+" '------------'
+command! hacktheweb -js hacktheweb.start();
+
 " -------------------------------------------------------------------------------
 " ,-----------,
 " | Bookmarks |
