@@ -981,14 +981,6 @@ map <C-x><C-d> -ex toolbartoggle Web Developer Toolbar
 map <C-x><C-s> -ex set guioptions!=s
 map <C-x><C-o> -ex toolbartoggle Add-on Bar
 "map <C-x><C-f> -ex buftabs
-"
-" Toggle FF Developer command line
-" <S-f2> requires <Esc> to enter normal mode after toggling off.
-" <S-f2><Esc> cannot restore focus to command line once lost.
-" <S-f2><Tab> is mostly fine, but has the drawback that when
-"             restoring focus, it will select the current
-"             tab-completion candidate, if one is visible.
-map -modes base -b <A-x> <S-f2><Tab>
 
 
 " -----------------------------------------------------------------------------
@@ -1176,24 +1168,32 @@ command! webide :feedkeys! <S-f8>
 command! browserconsole :feedkeys! <C-S-J>
 command! devtools :execute "emenu Tools.Web Developer.Toggle Tools"
 command! storageinspector :execute "emenu Tools.Web Developer.Storage Inspector"
-command! toggledevtoolbar
-\ -description "Toggle Developer Toolbar"
-\ -js <<EOF
-  var tb=DeveloperToolbar;
-  if (tb.visible) {
-      tb.hide();
-  } else {
-      tb.show();
-      setTimeout(()=>{tb.focus();}, 300);
-  }
-EOF
-map <C-x>v -modes main -ex toggledevtoolbar
-map <leader>dy -ex emenu Tools.Web Developer.Eyedropper
+command! togglegcli -description "Toggle Developer Toolbar" -js toggleGCLI();
+command! eyedropper -description "Eyedropper" -js openEyedropper();
+
+map <C-x>v -modes main -ex togglegcli
+map <leader>dy -ex eyedropper
 map <leader>dw -ex webide
 map <leader>db -ex browserconsole
 map <leader>ds -ex storageinspector
 map <S-f12> -ex devtools
 
+" Toggle FF Developer command line
+" <S-f2> requires <Esc> to enter normal mode after toggling off.
+" <S-f2><Esc> cannot restore focus to command line once lost.
+" <S-f2><Tab> is mostly fine, but has the drawback that when
+"             restoring focus, it will select the current
+"             tab-completion candidate, if one is visible.
+" map -modes base -b <A-x> <S-f2><Tab>
+map -modes base <A-x> -ex togglegcli
+
+js <<EOF
+function toggleGCLI() {
+    var bar = DeveloperToolbar;
+    if (bar.visible) bar.hide();
+    else bar.show(true);
+}
+EOF
 
 " -----------------------------------------------------------------------------
 " ,---------------,
