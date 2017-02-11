@@ -3145,6 +3145,37 @@ function jishoGetCorrectedSearchText() {
     return jishoGetSearchedForText() || jishoGetSearchText();
 }
 
+function jishoKanjiAddSimilarLink() {
+    "for reference: added to GM script"
+    var kanjiDetails = Array.from(content.document.getElementsByClassName("kanji details"));
+    for (kanjidiv of kanjiDetails) {
+        var links = kanjidiv.getElementsByClassName("inline-list")[0];
+        var kanji = kanjidiv.getElementsByClassName('character')[0].innerText;
+        var new_li = content.document.createElement("li");
+        var new_a = content.document.createElement("a");
+        new_a.href = `http://similarity.gakusha.info/?kanji=${kanji}`;
+        new_a.innerText = `Similar to ${kanji}`;
+        new_li.appendChild(new_a);
+        links.appendChild(new_li);
+    }
+}
+
+function jishoKanjiAddLink(location, text) {
+    var kanjiDetails = Array.from(content.document.getElementsByClassName("kanji details"));
+    for (kanjidiv of kanjiDetails) {
+        var links = kanjidiv.getElementsByClassName("inline-list")[0];
+        var kanji = kanjidiv.getElementsByClassName('character')[0].innerText;
+        location_ = location.replace("%s", kanji);
+        text_ = text.replace("%s", kanji);
+        var new_li = content.document.createElement("li");
+        var new_a = content.document.createElement("a");
+        new_a.href = location_;
+        new_a.innerText = text_;
+        new_li.appendChild(new_a);
+        links.appendChild(new_li);
+    }
+}
+
 EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji:
@@ -3168,6 +3199,11 @@ command! jishotogglekanji
 command! jishotogglesentences
      \ -description "Toggle between sentences page and regular results"
      \ -js jishoToggleSentences();
+
+command! jishokanjisimilarlink -js jishoKanjiAddSimilarLink();
+command! jishokanjiaddlink
+    \ -description "args: HREF, TEXT. Add link to kanji. (%s is replaced by kanji)"
+    \ -nargs=+ -js jishoKanjiAddLink(args[0], args[1]);
 
 " ----------
 " Hint modes
@@ -3241,6 +3277,7 @@ command! jishokanjitoggle
 js <<EOF
 
 function jishoFixDetailsLinks() {
+    "for reference: added to GM script"
     var links = content.document.getElementsByClassName("light-details_link")
     for (i=0; i<links.length; ++i)
         links[i].textContent = links[i].textContent.slice(0, -2);
@@ -3251,7 +3288,7 @@ EOF
 command! jishofixdetailslinks
      \ -description "Remove arrows from `details' links"
      \ -js jishoFixDetailsLinks();
-autocmd DOMLoad jisho.org :jishofixdetailslinks
+" autocmd DOMLoad jisho.org :jishofixdetailslinks
 
 
 " -------------------------------------------------------------
