@@ -3095,6 +3095,7 @@ map <site>r -ex jishotoggleradicalinput
 map <site>l -ex jishotogglelinklists
 map <site>x -ex jishotogglesentences
 map <site>y -ex jishoyanksearchterm
+map <site>b -ex jishokanjitogglestyle
 map <site>* :jishoscalesod<Space>
 
 imap <A-k> <Space>#kanji
@@ -3280,7 +3281,7 @@ command! jishokanjilight
 command! jishokanjiheavy
     \ -description "Heavy style kanji"
     \ styledisable -group jisho -name kanji_light
-command! jishokanjitoggle
+command! jishokanjitogglestyle
     \ -description "Toggle heavy/light kanji style"
     \ styletoggle -group jisho -name kanji_light
 
