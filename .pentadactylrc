@@ -1578,6 +1578,10 @@ command! imgsalttotitle
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeFooter();
 command! removecruft -js removeCruft();
+command! keepvid -js
+    \ s=content.document.createElement('script');
+    \ s.src="http://keepvid.com/js/bm.js";
+    \ content.document.body.appendChild(s);
 
 " -----------------------------------------------------------------------------
 " shortcut to Wikipedia episode lists.
