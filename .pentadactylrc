@@ -2744,18 +2744,16 @@ command! gmailcreatefiltertonewsletters
 " ,---------,
 " | GNU.org |
 " '---------'
-group gnu -locations=gnu.org
+group gnu -locations=www.gnu.org/*
 map <leader>hkc :map -group gnu <Lt>site
 map <site><C-h> :map -group gnu <Lt>site
 
 autocmd! -group gnu
 
 " Add << >> symbols to prev/next links so pentadactyl can recognize them
-autocmd DOMLoad gnu.org :gnuDecorateLinks
+" for reference: implemented as GM script
 command! gnuDecorateLinks -js gnuDecorateLinks();
-
 js <<EOF
-
 function gnuDecorateLinks() {
     var header = content.document.getElementsByClassName("header")[0];
     var headerchildnodes = header.getElementsByTagName('p')[0].childNodes;
@@ -2771,7 +2769,6 @@ function gnuDecorateLinks() {
         }
     }
 }
-
 EOF
 
 group user
