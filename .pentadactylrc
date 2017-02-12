@@ -3237,6 +3237,7 @@ command! jishokanjiaddlink
 set eht+=[kgKG\']:div.concept_light-representation>span.text
 set eht+=[l]:a[class="concept_light-status_link"]
 set eht+=[r]:li.radical.available,li.radical.selected
+set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
 
 js <<EOF
 
@@ -3256,6 +3257,7 @@ hints.addMode(
 hints.addMode(
     'G','open sentence examples in new tab',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
+hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
 hints.addMode(
   'l','links drop down',
   function(e) {
