@@ -3972,6 +3972,22 @@ function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
 }
 
+function intToOrdinal(n) {
+    // trim in case n is a string to start with
+    var nstr = n.trim().toString();
+    var lastDigit = nstr.slice(-1);
+    switch (parseInt(lastDigit)) {
+        case 1:
+            return nstr + "st";
+        case 2:
+            return nstr + "nd";
+        case 3:
+            return nstr + "rd";
+        case 4: case 5: case 6: case 7: case 8: case 9: case 0:
+            return nstr + "th";
+    }
+}
+
 EOF
 
 " -----------------------------------------------------------------------------
