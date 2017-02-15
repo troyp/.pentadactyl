@@ -3157,10 +3157,15 @@ function jishoGetSearchedForText() {
     return match[1];
 }
 
-function jishoGetSearchText() {
+function jishoGetSearchTextFromURL() {
     var re = /https?:\/\/jisho.org\/search\/([^#]*[^# ])/;
     var match = decodeURIComponent(buffer.URL).match(re);
     return match[1];
+}
+
+function jishoGetSearchText() {
+    var searchbox = content.document.getElementById('keyword');
+    return searchbox.value;
 }
 
 function jishoGetCorrectedSearchText() {
