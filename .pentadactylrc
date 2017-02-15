@@ -3414,6 +3414,38 @@ command! jishotogglelinklists
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,--------,
+" | Libgen |
+" '--------'
+group libgen -locations=libgen.io
+map <leader>hkc :map -group libgen <Lt>site
+map <site><C-h> :map -group libgen <Lt>site
+
+command! libgendl -js libgenCopyFileNameAndDownload();
+map <site>c -ex libgendl
+
+js <<EOF
+
+function libgenGetDetails(field) {
+    var bibtext = content.document.getElementById('bibtext').value;
+    var regex = RegExp(`${field} = +{([^}]+)}`)
+    var match = bibtext.match(regex);
+    return match[1];
+}
+
+function libgenCopyFileNameAndDownload() {
+    var name = libgenGetDetails('title');
+    var ed = libgenGetDetails('edition');
+    var filename = name + (ed==1 ? '' : `, ${intToOrdinal(ed)} ed`);
+    utils.cbWrite(filename);
+    var link = content.document.querySelector('a h2');
+    dactyl.open(link.parentNode.href);
+}
+
+EOF
+
+group user
 
 " -------------------------------------------------------------------------------
 " ,-----------------,
