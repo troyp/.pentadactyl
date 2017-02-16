@@ -3446,6 +3446,7 @@ function libgenCopyFileNameAndDownload() {
     var ed = libgenGetDetails('edition');
     var filename = name + (ed==1 ? '' : `, ${intToOrdinal(ed)} ed`);
     utils.cbWrite(filename);
+    utils.cbWrite(filename);
     var link = content.document.querySelector('a h2');
     dactyl.open(link.parentNode.href);
 }
