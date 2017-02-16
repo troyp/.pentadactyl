@@ -3438,7 +3438,7 @@ function libgenGetDetails(field) {
     var bibtext = content.document.getElementById('bibtext').value;
     var regex = RegExp(`${field} = +{([^}]+)}`)
     var match = bibtext.match(regex);
-    return match[1];
+    return match ? match[1] : '';
 }
 
 function libgenCopyFileNameAndDownload() {
