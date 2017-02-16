@@ -3443,7 +3443,7 @@ function libgenGetDetails(field) {
 
 function libgenCopyFileNameAndDownload() {
     var name = libgenGetDetails('title');
-    var ed = libgenGetDetails('edition');
+    var ed = libgenGetDetails('edition') || 1;
     var filename = name + (ed==1 ? '' : `, ${intToOrdinal(ed)} ed`);
     utils.cbWrite(filename);
     utils.cbWrite(filename);
