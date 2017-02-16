@@ -1213,6 +1213,8 @@ map <leader>,di -ex dominspector
 " | Firebug |
 " '---------'
 command! firebug :feedkeys! <C-f12>
+command! firebugShow -js Firebug.showBar(true);
+command! firebugHide -js Firebug.showBar(null);
 
 " -----------------------------------------------------------------------------
 " ,----------,
