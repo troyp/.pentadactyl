@@ -2555,12 +2555,6 @@ map <site>c -js ghClickReadme();
 
 js <<EOF
 
-function ghRevertDarkHeader() {
-    "for reference: used in GM script"
-    var header = content.document.querySelector('.header');
-    header.classList.remove('header-dark');
-}
-
 function ghToggleHTMLView() {
     var url = buffer.URL.toLowerCase();
     var newurl;
