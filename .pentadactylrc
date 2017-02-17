@@ -2489,6 +2489,33 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-------------,
+" | Crunchyroll |
+" '-------------'
+group crunchyroll -locations=crunchyroll.com
+map <leader>hkc :map -group crunchyroll <Lt>site
+map <site><C-h> :map -group crunchyroll <Lt>site
+
+js <<EOF
+
+function crDL() {
+    var title = content.document.querySelector("#source_showview h1").innerText;
+    var links = content.document.querySelector(".portrait-grid").getElementsByClassName("block-link");
+    var urls = Array.from(links).map(l=>l.href);
+    var dir = `~/anime/${title}`;
+    dactyl.execute(`!mkdir -p ${dir}`);
+    for (url of urls) {
+        dactyl.execute(`!cd ${dir}; youtube-dl ${url}`);
+    }
+}
+
+EOF
+
+command! crdl -js crDL();
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,------------,
 " | Github.com |
