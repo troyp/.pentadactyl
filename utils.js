@@ -3,6 +3,7 @@
 //                          |                               |
 //                          | utils -- Javascript utilities |
 //                          |_______________________________|
+// jshint esversion: 6
 
 
 // Create global `utils' object
@@ -55,9 +56,9 @@ var utils = {
     },
 
     simulateMouseover: function(elem) {
-        "Simulate mouseover event (sometimes). Based on code by:";
-        "http://stackoverflow.com/users/58659/stephan";
-        "At http://stackoverflow.com/questions/911586";
+        // Simulate mouseover event (sometimes). Based on code by:;
+        // http://stackoverflow.com/users/58659/stephan;
+        // At http://stackoverflow.com/questions/911586;
         var evt = elem.ownerDocument.createEvent('MouseEvents');
         evt.initMouseEvent('mouseover',true,true,
                            elem.ownerDocument.defaultView,
@@ -77,9 +78,10 @@ var utils = {
     },
 
     getPlugin: function(s) {
-        for (x in plugins.contexts) {
+        for (var x in plugins.contexts) {
             if (x.indexOf(s) !== -1)    // if x contains s
                 return plugins.contexts[x][s];
+            else return null;
         }
     },
 
@@ -106,8 +108,8 @@ var utils = {
         if (sep === undefined)
             sep = '-';
         var y = date.getFullYear().toString().slice(-2);
-        var m = ('0' + (new Date().getMonth() + 1)).slice(-2)
-        var d = ('0' + new Date().getDate()).slice(-2)
+        var m = ('0' + (new Date().getMonth() + 1)).slice(-2);
+        var d = ('0' + new Date().getDate()).slice(-2);
         return y + sep + m + sep + d;
     },
 
@@ -116,8 +118,8 @@ var utils = {
         scripttag.type = 'text/javascript';
         scripttag.async = true;
         scripttag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js';
-        var parent = (    content.document.getElementsByTagName('head')
-                       || content.document.getElementsByTagName('body') )[0]
+        var parent = ( content.document.getElementsByTagName('head') ||
+                       content.document.getElementsByTagName('body') )[0];
         parent.appendChild(scripttag);
     },
 
