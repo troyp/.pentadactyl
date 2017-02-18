@@ -81,8 +81,8 @@ var utils = {
         for (var x in plugins.contexts) {
             if (x.indexOf(s) !== -1)    // if x contains s
                 return plugins.contexts[x][s];
-            else return null;
         }
+        return null;
     },
 
     sourceFromPath: function(s) {
