@@ -317,6 +317,8 @@ map <A-p> :open pz<CR>
 " =====WEBSITES/WEBAPPS=====
 js <<EOF
 function openInNewOrCurrentTab(site) {
+    "Curried function openInNewOrCurrentTab(url)(count):"
+    "  Open URL in new tab, or with COUNT, in current tab."
     return function(count=false) {
         if (typeof count == 'number')
             dactyl.open(site, {where:dactyl.CURRENT_TAB});
@@ -327,6 +329,8 @@ function openInNewOrCurrentTab(site) {
 EOF
 " Weather
 map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
+" Banking
+map <leader>ab -count -ex js openInNewOrCurrentTab(user.mybankurl)(<count>);
 
 " =====TRANSLATION=====
 
