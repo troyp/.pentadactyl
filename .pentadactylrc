@@ -1632,6 +1632,22 @@ command! listlinks
     \ -description "List all links in page"
     \ :open listalllinks
 
+js <<EOF
+appendLinksAndAlt = function() {
+    s = '';
+    for (var l of content.document.links) {
+        var title = l.parentElement.parentElement.getAttribute('data-title');
+        if (title) title = title.replace(/ /g, '_');
+        var url = l.href;
+        s += `${title} <a href='${url}'>${url}</a><br>`
+    }
+    var linklist = content.document.createElement('div');
+    linklist.innerHTML = s;
+    content.document.body.appendChild(linklist);
+}
+EOF
+command! appendlinksandalt -js appendLinksAndAlt();
+
 " -------------------------------------------------------------------------------
 " ,----------------,
 " | Image Commands |
