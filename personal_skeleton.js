@@ -1,6 +1,4 @@
 var personal = {
-    myemail:     "",
-    myemail2:    "",
     myname:      "",
     myfirstname: "",
     mylastname:  "",
@@ -9,4 +7,7 @@ var personal = {
     mysuburb:    "",
     myphone:     "",
     mymasterpw:  "",
+    myemail:     "",
+    myemail2:    "",
+    mybankurl:   "",
 }
