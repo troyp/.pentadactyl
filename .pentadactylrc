@@ -3683,7 +3683,8 @@ map <site><C-h> :map -group packt <Lt>site
 " takes too long!
 command! packttoggleallbookdetails -js packtToggleAllBookDetails();
 command! -nargs=1 packtToggleBooksByName -js packtToggleBooksByName(eval(args[0]));
-command! -nargs=1 packtDownloadPdfsByName -js packtDownloadBooksByName(eval(args[0]), "Pdf");
+command! -nargs=1 packtDownloadPdfsByName -js packtDownloadBooksByName(eval(args[0]), "pdf");
+command! -nargs=1 packtDownloadEpubsByName -js packtDownloadBooksByName(eval(args[0]), "epub");
 
 js <<EOF
 
