@@ -2235,7 +2235,7 @@ map <site><C-h> :map -group edx <Lt>site
 command! edx :runtime! edx.penta
 autocmd DOMload courses.edx.org :edx
 
-" if syllabus won't stay open
+" if syllabus won't stay open "
 command! edxshowsyllabus -js edxShowSyllabus();
 
 command! edxtogglesyllabus -js edxToggleSyllabus();
