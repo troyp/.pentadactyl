@@ -3169,7 +3169,7 @@ var jishoToggleRomaji = function() {
 var jishoToggleKanji = function() {
     var url = buffer.URL;
     var kanjitag = "%23kanji";
-    if (url.contains(kanjitag))
+    if (url.includes(kanjitag))
         newurl = url.replace(kanjitag,"");
     else
         newurl = `${url} ${kanjitag}`;
