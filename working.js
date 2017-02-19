@@ -1,16 +1,18 @@
+// jshint esversion: 6
 
 // --------------
 // swap ;f and ;F
 // --------------
 
 Ci = Components.interfaces;
-isScrollable = (elem) => isinstance(elem, [Ci.nsIDOMHTMLFrameElement, 
-                                           Ci.nsIDOMHTMLIFrameElement])
-                         || Buffer.isScrollable(elem, 0, true) 
-                         || Buffer.isScrollable(elem, 0, false);
+isScrollable =
+    (elem) =>
+    isinstance(elem, [Ci.nsIDOMHTMLFrameElement, Ci.nsIDOMHTMLIFrameElement]) ||
+    Buffer.isScrollable(elem, 0, true) ||
+    Buffer.isScrollable(elem, 0, false);
 
-js hints.addMode("F", "Focus frame", elem => dactyl.focus(elem.ownerDocument.defaultView));
-js hints.addMode("f", "Focus frame or pseudo-frame", buffer.bound.focusElement, isScrollable);
+hints.addMode("F", "Focus frame", elem => dactyl.focus(elem.ownerDocument.defaultView));
+hints.addMode("f", "Focus frame or pseudo-frame", buffer.bound.focusElement, isScrollable);
 
 // -------------------------------------------------------------------------------
 // ,-----------------,
@@ -58,7 +60,7 @@ function insertAtCaret2(areaId, text) {
     txtarea.scrollTop = scrollPos;
 }
 
-map -modes insert <C-q> -js insertAtCaret("search", "foo");
+// map -modes insert <C-q> -js insertAtCaret("search", "foo");
 
 
 // -------------------------------------------------------------------------------
@@ -68,7 +70,7 @@ map -modes insert <C-q> -js insertAtCaret("search", "foo");
 
 // TODO: finish
 (function() {
-    if (window['pgzp']) { 
+    if (window.pgzp) {
         _pgzpToggleBookmarklet();
     } else {
         window._page_zipper_is_bookmarklet = true;
@@ -89,15 +91,15 @@ function processEntries () {
         "tangorin search": "http://tangorin.com/dict.php?dict=general&s=%s",
         "Forvo pronunciation": "http://www.forvo.com/search/%s",
         "Tatoeba example sentences": "http://tatoeba.org/eng/sentences/search?query=%s"
-    }
+    };
     document.verbSearchEngines = {
         "Verbix verb conjugation": "http://www.verbix.com/webverbix/go.php?T1=%s&D1=51&H1=151",
         "Japanese Verb Conjugator": "http://www.japaneseverbconjugator.com/VerbDetails.asp?txtVerb=%s"
-    }
+    };
     document.kanjiSearchEngines = {
         "SLJFAQ kanji search": "http://kanji.sljfaq.org/soft-keyboard.html#?=%s",
         "Red Finch kanji search": "http://redfinchjapanese.com/?action=kanji_dictionary?=%s"
-    }
+    };
     document.entryNodes = content.document.getElementsByClassName("concept_light");
     function getEntryName(x) {
         return String.trim(x.getElementsByClassName("text")[0].textContent);
@@ -115,4 +117,63 @@ function processEntries () {
         return document.getElementById(dropdownId);
         }
     }
+}
+
+
+// -------------------------------------------------------------------------------
+// ,----------,
+// | PacktPub |
+// '----------'
+
+// attempt at no dialogs version
+function packtDownloadBooksByName(pattern, format, dir='~/ebook_downloads') {
+    formatre = RegExp(format, 'i');
+    matching = packtGetBooksByName(pattern);
+    matching.forEach(function(e) {
+        var div = Array.from(e.getElementsByClassName('download-container'))[1];
+        var links = Array.from(div.getElementsByTagName('a'));
+        var link = links.find(function(l) {
+            var linkformat = l.children[0].getAttribute('format') || "";
+            return linkformat.match(formatre);
+        });
+        if (typeof link == 'undefined') { alert(div); return links; }
+        // alert(link.href);
+        xhr(link.href, data => {
+            Services.prompt.alert(null, 'XHR Success', data);
+            var file = OS.Path.join(OS.Constants.Path.homeDir, "ebook_downloads", `{e.title}.{format}`);
+            var promised = OS.File.writeAtomic(file, data);
+            promised.then(()=>true, ()=>alert('save failed'));
+        });
+        return null;
+    });
+}
+
+function xhr(url, cb) {
+    // http://stackoverflow.com/a/25112976/1261964
+    let xhr = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance(Ci.nsIXMLHttpRequest);
+    let handler = ev => {
+        evf(m => xhr.removeEventListener(m, handler, !1));
+        switch (ev.type) {
+            case 'load':
+                if (xhr.status == 200) {
+                    cb(xhr.response);
+                }
+            break;
+            default:
+                Services.prompt.alert(null, 'XHR Error', 'Error Fetching Package: ' + xhr.statusText + ' [' + ev.type + ':' + xhr.status + ']');
+                break;
+        }
+    };
+    let evf = f => ['load', 'error', 'abort'].forEach(f);
+    evf(m => xhr.addEventListener(m, handler, false));
+    xhr.mozBackgroundRequest = true;
+    xhr.open('GET', url, true);
+    xhr.channel.loadFlags |= Ci.nsIRequest.LOAD_ANONYMOUS |
+                             Ci.nsIRequest.LOAD_BYPASS_CACHE |
+                             Ci.nsIRequest.INHIBIT_PERSISTENT_CACHING;
+    /* dont set it, so it returns string, you dont want arraybuffer. you only
+       want this if your url is to a zip file or some file you want to download
+       and make a nsIArrayBufferInputStream out of it or something */
+    xhr.responseType = "arraybuffer";
+    xhr.send(null);
 }
