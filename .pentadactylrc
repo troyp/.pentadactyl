@@ -29,6 +29,7 @@ js <<EOF
 
 "imports"
 Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
+Cu.import("resource://gre/modules/FileUtils.jsm");
 
 "components"
 var Cc = Components.classes;
@@ -3724,7 +3725,7 @@ function packtToggleBooksByName(pattern='') {
     );
 }
 
-// FIXME: only downloads first match
+// FIXME: only downloads first match - use delay?
 function packtDownloadBooksByName(pattern='', format) {
     formatre = RegExp(format, 'i');
     matching = packtGetBooksByName(pattern);
@@ -3736,6 +3737,31 @@ function packtDownloadBooksByName(pattern='', format) {
         });
         button.getElementsByClassName('download')[0].click();
     });
+}
+function packtGetDownloadDialogsByName(pattern='', format) {
+    formatre = RegExp(format, 'i');
+    matching = packtGetBooksByName(pattern);
+    return matching.map(function(e) {
+        var buttons = Array.from(e.getElementsByClassName('fake-button'));
+        var button = buttons.find(function(but) {
+            var buttonformat = but.getAttribute('format') || "";
+            return buttonformat.match(formatre);
+        });
+        return button.getElementsByClassName('download')[0];
+    });
+}
+function packtClickButtons(buttonlist) {
+    b = buttonlist.pop();
+    b.click();
+    setTimeout(function(){
+        //alert(buttonlist.length);
+        packtClickButtons(buttonlist);
+    }, 2000)
+}
+function packtDownloadBooksByName(pattern='', format) {
+    var buttonlist = packtGetDownloadDialogsByName(pattern, format);
+    alert(buttonlist.length);
+    packtClickButtons(buttonlist);
 }
 
 EOF
