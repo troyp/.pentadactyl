@@ -3485,10 +3485,13 @@ function libgenGetDetails(field) {
 
 function libgenCopyFileNameAndDownload() {
     var name = libgenGetDetails('title');
-    var ed = libgenGetDetails('edition') || 1;
+    var ed_raw = libgenGetDetails('edition') || "1";
+    var ed_match = ed_raw.trim().match(/\d+/);
+    var ed = ed_match ? intToOrdinal(ed_match[0]) : "1st";
+    if (typeof ed == 'undefined') ed="1st";
     var year = libgenGetDetails('year');
     var filename = name +
-                   (ed==1 ? '' : `, ${intToOrdinal(ed)} ed`) +
+                   (ed=="1st" ? '' : `, ${ed} ed`) +
                    (year ? ` (${year})` : '');
     utils.cbWrite(filename);
     utils.cbWrite(filename);
