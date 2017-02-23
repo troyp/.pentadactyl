@@ -77,6 +77,7 @@ A = {
     findIndex: (coll, f) => Array.from(coll).find(f),
     includes:  (coll, f, fromIndex=undefined) => Array.from(coll).includes(f, fromIndex),
     indexOf:   (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex),
+    concatMap: (coll, f) => [].concat.apply([], Array.from(coll).map(e=>Array.from(f(e))))
 }
 
 function runProcess(exec, ...args) {
@@ -85,6 +86,19 @@ function runProcess(exec, ...args) {
     var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
     process.init(executable);
     process.runAsync(args, args.length);
+}
+
+"Patched Classes"
+String.prototype.capitalize = function() {
+    return this.replace(/\b\w/g,
+                        function (c) { return c.toUpperCase(); });
+}
+String.prototype.isAlphaAt = function (i) {
+    ord = this.charCodeAt(i);
+    return (ord.inRange(97, 123));
+}
+Number.prototype.inRange = function (a, b) {
+    return (a <= this && this < b);
 }
 
 EOF
@@ -1807,11 +1821,7 @@ function imgToDataUri(img) {
 }
 dactyl.utils.imgToDataUri = imgToDataUri;
 
-String.prototype.capitalize = function() {
-    return this.replace(/\b\w/g,
-                        function (c) { return c.toUpperCase(); });
-}
-
+// monkey-patched capitalize method
 function eplist (s) {
     var sConv = s.capitalize().replace(" ", "_");
     dactyl.open(`www.wikipedia.org/wiki/List_of_${sConv}_episodes`);
@@ -2050,13 +2060,7 @@ function wiktionaryWordToIndexPage (word)
     word = word.replace(/^-*/, '');
     var page, id;
 
-    Number.prototype.inRange = function (a, b) {
-        return (a <= this && this < b);
-    }
-    String.prototype.isAlphaAt = function (i) {
-        ord = this.charCodeAt(i);
-        return (ord.inRange(97, 123));
-    }
+    // patched methods Number.inRange, String.isAlphaAt
     var wordord = "".charCodeAt.bind(word);
 
     if (word.isAlphaAt(0))    // word starts with letter
