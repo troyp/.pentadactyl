@@ -3251,6 +3251,13 @@ function jishoKanjiAddLink(location, text) {
     }
 }
 
+function jishoKanjiParts() {
+    var kanjidivs = Array.from(content.document.getElementsByClassName('kanji details'));
+    var divs = content.document.getElementsByClassName('radicals');
+    var links = A.concatMap(divs, d=>d.getElementsByTagName('a'));
+    return links.map(e=>e.innerText);
+}
+
 EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji:
@@ -3279,6 +3286,7 @@ command! jishokanjisimilarlink -js jishoKanjiAddSimilarLink();
 command! jishokanjiaddlink
     \ -description "args: HREF, TEXT. Add link to kanji. (%s is replaced by kanji)"
     \ -nargs=+ -js jishoKanjiAddLink(args[0], args[1]);
+command! jishokanjiyankparts -js utils.cbWrite(jishoKanjiParts().join(''));
 
 " ----------
 " Hint modes
