@@ -2491,7 +2491,7 @@ function batotoDecorateLinks() {
     pp.setAttribute('alt', '<<');
 }
 
-function batotoYankImgURL() {
+function batotoGetImgURL() {
     var img = content.document.querySelector("#comic_page");
     return img.src;
 }
@@ -2512,7 +2512,7 @@ function batoPreviousPage() {
 EOF
 
 command! batotodecoratelinks -js batotoDecorateLinks();
-command! batotoyankimgurl -js utils.cbWrite(batotoYankImgURL());
+command! batotoyankimgurl -js utils.cbWrite(batotoGetImgURL());
 command! batotonextpage -js batoNextPage();
 command! batotopreviouspage -js batoPreviousPage();
 
