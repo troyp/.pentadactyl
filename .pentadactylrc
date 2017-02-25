@@ -2475,6 +2475,44 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,---------,
+" | Bato.to |
+" '---------'
+group batoto -locations=bato.to
+
+js <<EOF
+function batotoDecorateLinks() {
+    var reader=content.document.getElementById('reader');
+    var imgs=Array.from(reader.getElementsByTagName('img'));
+    var np=imgs.filter(e=>e.title=='Next Page')[0];
+    var nptext = content.document.createTextNode(">>");
+    np.parentNode.insertBefore(nptext, np);
+    np.parentNode.appendChild(nptext);
+    np.attributes.alt = ">>";
+    var pp=imgs.filter(e=>e.title=='Previous Page')[0];
+    var pptext = content.document.createTextNode("<<");
+    pp.parentNode.insertBefore(pptext, pp);
+    pp.parentNode.appendChild(pptext);
+    pp.alt = "<<";
+}
+
+function batotoYankImgURL() {
+    var img = content.document.querySelector("#comic_page");
+    return img.src;
+}
+EOF
+
+command! batotodecoratelinks -js batotoDecorateLinks();
+command! batotoyankimgurl -js utils.cbWrite(batotoYankImgURL());
+
+map <site>y -ex batotoyankimgurl
+map <site>. -ex batotodecoratelinks
+
+" autocmd DOMLoad bato.to/reader :batotodecoratelinks
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,--------,
 " | BookZZ |
