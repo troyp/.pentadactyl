@@ -2495,13 +2495,31 @@ function batotoYankImgURL() {
     var img = content.document.querySelector("#comic_page");
     return img.src;
 }
+
+function batoNextPage() {
+    var reader=content.document.getElementById('reader');
+    var links=Array.from(reader.getElementsByTagName('a'));
+    var link = links.filter(l=>l.firstChild.title=='Next Page')[0];
+    link.click();
+}
+
+function batoPreviousPage() {
+    var reader=content.document.getElementById('reader');
+    var links=Array.from(reader.getElementsByTagName('a'));
+    var link = links.filter(l=>l.firstChild.title=='Previous Page')[0];
+    link.click();
+}
 EOF
 
 command! batotodecoratelinks -js batotoDecorateLinks();
 command! batotoyankimgurl -js utils.cbWrite(batotoYankImgURL());
+command! batotonextpage -js batoNextPage();
+command! batotopreviouspage -js batoPreviousPage();
 
 map <site>y -ex batotoyankimgurl
 map <site>d -ex batotodecoratelinks
+map <site>, -ex batotopreviouspage
+map <site>. -ex batotonextpage
 
 group user
 
