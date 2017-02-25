@@ -2482,7 +2482,7 @@ group user
 group batoto -locations=bato.to
 
 js <<EOF
-function batotoDecorateLinks() {
+function batoDecorateLinks() {
     var reader=content.document.getElementById('reader');
     var imgs=Array.from(reader.getElementsByTagName('img'));
     var np=imgs.filter(e=>e.title=='Next Page')[0];
@@ -2491,7 +2491,7 @@ function batotoDecorateLinks() {
     pp.setAttribute('alt', '<<');
 }
 
-function batotoGetImgURL() {
+function batoGetImgURL() {
     var img = content.document.querySelector("#comic_page");
     return img.src;
 }
@@ -2511,15 +2511,15 @@ function batoPreviousPage() {
 }
 EOF
 
-command! batotodecoratelinks -js batotoDecorateLinks();
-command! batotoyankimgurl -js utils.cbWrite(batotoGetImgURL());
-command! batotonextpage -js batoNextPage();
-command! batotopreviouspage -js batoPreviousPage();
+command! batodecoratelinks -js batoDecorateLinks();
+command! batoyankimgurl -js utils.cbWrite(batoGetImgURL());
+command! batonextpage -js batoNextPage();
+command! batopreviouspage -js batoPreviousPage();
 
-map <site>y -ex batotoyankimgurl
-map <site>d -ex batotodecoratelinks
-map <site>, -ex batotopreviouspage
-map <site>. -ex batotonextpage
+map <site>y -ex batoyankimgurl
+map <site>d -ex batodecoratelinks
+map <site>, -ex batopreviouspage
+map <site>. -ex batonextpage
 
 group user
 
