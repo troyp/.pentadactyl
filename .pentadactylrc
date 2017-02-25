@@ -2486,15 +2486,9 @@ function batotoDecorateLinks() {
     var reader=content.document.getElementById('reader');
     var imgs=Array.from(reader.getElementsByTagName('img'));
     var np=imgs.filter(e=>e.title=='Next Page')[0];
-    var nptext = content.document.createTextNode(">>");
-    np.parentNode.insertBefore(nptext, np);
-    np.parentNode.appendChild(nptext);
-    np.attributes.alt = ">>";
+    np.setAttribute('alt', '>>');
     var pp=imgs.filter(e=>e.title=='Previous Page')[0];
-    var pptext = content.document.createTextNode("<<");
-    pp.parentNode.insertBefore(pptext, pp);
-    pp.parentNode.appendChild(pptext);
-    pp.alt = "<<";
+    pp.setAttribute('alt', '<<');
 }
 
 function batotoYankImgURL() {
@@ -2507,9 +2501,7 @@ command! batotodecoratelinks -js batotoDecorateLinks();
 command! batotoyankimgurl -js utils.cbWrite(batotoYankImgURL());
 
 map <site>y -ex batotoyankimgurl
-map <site>. -ex batotodecoratelinks
-
-" autocmd DOMLoad bato.to/reader :batotodecoratelinks
+map <site>d -ex batotodecoratelinks
 
 group user
 
