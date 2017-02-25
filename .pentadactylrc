@@ -2509,17 +2509,24 @@ function batoPreviousPage() {
     var link = links.filter(l=>l.firstChild.title=='Previous Page')[0];
     link.click();
 }
+
+function batoGetNumPages() {
+    var menu = content.document.getElementById('page_select');
+    return menu.children.length;
+}
 EOF
 
 command! batodecoratelinks -js batoDecorateLinks();
 command! batoyankimgurl -js utils.cbWrite(batoGetImgURL());
 command! batonextpage -js batoNextPage();
 command! batopreviouspage -js batoPreviousPage();
+command! batonumpages -js utils.message(batoGetNumPages());
 
 map <site>y -ex batoyankimgurl
 map <site>d -ex batodecoratelinks
 map <site>, -ex batopreviouspage
 map <site>. -ex batonextpage
+map <site>n -ex batonumpages
 
 group user
 
