@@ -2496,6 +2496,18 @@ function batoGetImgURL() {
     return img.src;
 }
 
+function batoGetImgURLandNumPages() {
+    return `${batoGetImgURL()} ${batoGetNumPages()}`;
+}
+
+function batoGoToPage(n, where=dactyl.CURRENT_TAB) {
+    if (!n) n = 1;
+    var pageselect = content.document.querySelector("#page_select");
+    var currentpage = pageselect.value;
+    var pages = pageselect.children;
+    dactyl.open(pages[n-1].value, { where: where });
+}
+
 function batoNextPage() {
     var reader=content.document.getElementById('reader');
     var links=Array.from(reader.getElementsByTagName('a'));
@@ -2514,19 +2526,64 @@ function batoGetNumPages() {
     var menu = content.document.getElementById('page_select');
     return menu.children.length;
 }
+
+function batoGetNextChapterUrl() {
+    var reader = content.document.getElementById('reader');
+    var selectelts = Array.from(reader.getElementsByTagName('select'));
+    var chselect = selectelts.filter(e=>e.name == 'chapter_select')[0];
+    var currenturl = chselect.value;
+    var chapters = chselect.children;
+    for (var i=chapters.length-1; i>=0; --i)
+        if (chapters[i].value == currenturl) {
+            var nextch = chapters[i-1];
+            return nextch ? nextch.value : null;
+        }
+}
+
+function batoGetPreviousChapterUrl() {
+    var reader = content.document.getElementById('reader');
+    var selectelts = Array.from(reader.getElementsByTagName('select'));
+    var chselect = selectelts.filter(e=>e.name == 'chapter_select')[0];
+    var currenturl = chselect.value;
+    var chapters = chselect.children;
+    for (var i=chapters.length-1; i>=0; --i)
+        if (chapters[i].value == currenturl) {
+            var previousch = chapters[i+1];
+            return previousch ? previousch.value : null;
+        }
+}
+
+function batoNextChapter(where=dactyl.CURRENT_TAB) {
+    var nextch = batoGetNextChapterUrl();
+    dactyl.open(nextch, { where: where })
+}
+
+function batoPreviousChapter(where=dactyl.CURRENT_TAB) {
+    var previousch = batoGetPreviousChapterUrl();
+    dactyl.open(previousch, { where: where })
+}
+
 EOF
 
 command! batodecoratelinks -js batoDecorateLinks();
 command! batoyankimgurl -js utils.cbWrite(batoGetImgURL());
+command! batonumpages -js utils.message(batoGetNumPages());
+command! batoyankinfo -js utils.cbWrite(batoGetImgURLandNumPages());
 command! batonextpage -js batoNextPage();
 command! batopreviouspage -js batoPreviousPage();
-command! batonumpages -js utils.message(batoGetNumPages());
+command! -bang batonextchapter -js batoNextChapter(bang?'tab':'here');
+command! -bang batopreviouschapter -js batoPreviousChapter(bang?'tab':'here');
+command! -nargs ? -bang batogotopage -js batoGoToPage(args[0], bang?'tab':'here');
 
+map <site># -ex batonumpages
 map <site>y -ex batoyankimgurl
+map <site>i -ex batoyankinfo
 map <site>d -ex batodecoratelinks
 map <site>, -ex batopreviouspage
 map <site>. -ex batonextpage
-map <site>n -ex batonumpages
+map <site>n -ex batonextchapter
+map <site>p -ex batopreviouschapter
+map <site>g :batogotopage<Space>
 
 group user
 
