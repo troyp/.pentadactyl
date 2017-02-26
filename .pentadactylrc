@@ -2540,6 +2540,19 @@ function batoGetNextChapterUrl() {
         }
 }
 
+function batoGoToChapterIndex(n, where=dactyl.CURRENT_TAB) {
+    "Go to nth chapter listed (bottom to top)"
+    if (!n) n = 1;
+    var reader = content.document.getElementById('reader');
+    var selectelts = Array.from(reader.getElementsByTagName('select'));
+    var chselect = selectelts.filter(e=>e.name == 'chapter_select')[0];
+    var currentch = chselect.value;
+    var chapters = chselect.children;
+    var N = chapters.length;
+    var idx = N - n;
+    dactyl.open(chapters[idx].value, { where: where });
+}
+
 function batoGetPreviousChapterUrl() {
     var reader = content.document.getElementById('reader');
     var selectelts = Array.from(reader.getElementsByTagName('select'));
@@ -2574,6 +2587,7 @@ command! batopreviouspage -js batoPreviousPage();
 command! -bang batonextchapter -js batoNextChapter(bang?'tab':'here');
 command! -bang batopreviouschapter -js batoPreviousChapter(bang?'tab':'here');
 command! -nargs ? -bang batogotopage -js batoGoToPage(args[0], bang?'tab':'here');
+command! -nargs ? -bang batogotochapterindex -js batoGoToChapterIndex(args[0], bang?'tab':'here');
 
 map <site># -ex batonumpages
 map <site>y -ex batoyankimgurl
@@ -2584,6 +2598,7 @@ map <site>. -ex batonextpage
 map <site>n -ex batonextchapter
 map <site>p -ex batopreviouschapter
 map <site>g :batogotopage<Space>
+map <site>c :batogotochapterindex<Space>
 
 group user
 
