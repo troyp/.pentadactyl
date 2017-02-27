@@ -3828,39 +3828,63 @@ command! packttoggleallbookdetails -js packtToggleAllBookDetails();
 command! -nargs=1 packtToggleBooksByName -js packtToggleBooksByName(eval(args[0]));
 command! -nargs=1 packtDownloadPdfsByName -js packtDownloadBooksByName(eval(args[0]), "pdf");
 command! -nargs=1 packtDownloadEpubsByName -js packtDownloadBooksByName(eval(args[0]), "epub");
+command! packtbooklist -js packtBookList();
 
 js <<EOF
 
 function packtToggleAllBookDetails() {
-    if (!buffer.URL.match("https://www.packtpub.com/account/my-ebooks"))
+    if (!buffer.URL.match("https://www.packtpub.com/account/my-ebooks")) {
         dactyl.open("https://www.packtpub.com/account/my-ebooks", {where:dactyl.CURRENT_TAB});
+        return;
+    }
     var dlDivs = content.document.getElementsByClassName('download-container');
     var dlDivs = content.document.getElementsByClassName('product-buttons-line');
     var dlDivs = content.document.getElementsByClassName('toggle-product-line');
         for (button of dlDivs) button.click();
 }
 
-function packtGetBooksList() {
-    if (!buffer.URL.match("https://www.packtpub.com/account/my-ebooks"))
+function packtGetBookList() {
+    if (!buffer.URL.match("https://www.packtpub.com/account/my-ebooks")) {
         dactyl.open("https://www.packtpub.com/account/my-ebooks", {where:dactyl.CURRENT_TAB});
+        return;
+    }
     var books = content.document.getElementsByClassName('product-line');
     return Array.from(books);
 }
 
+function packtGetBookListStr() {
+    var s = "";
+    for (book of packtGetBookList()) {
+        s += book.title + "\n";
+    }
+    return s;
+}
+
+function packtGetBookListHTML() {
+    style = "font-size:10pt;color:#ECF1F4;";
+    content.document.body.innerHTML = `<pre style="${style}">${packtGetBookListStr()}</pre>`;
+}
+
+function packtBookList() {
+    var page = content.document.implementation.createHTMLDocument("Packt: Books List");
+    page.innerHTML = packtGetBookListHTML();
+    content.document = page;
+}
+
 function packtGetBookById(nid) {
-    var books = packtGetBooksList();
+    var books = packtGetBookList();
     var book = books.filter(e=>e.getAttribute("nid")==nid)[0];
     return book;
 }
 
 function packtGetBooksByName(pattern='') {
-    var books = Array.from(packtGetBooksList());
+    var books = Array.from(packtGetBookList());
     var matching = books.filter(e=>e.title.match(pattern));
     return matching;
 }
 
 function packtToggleBooksByName(pattern='') {
-    var books = Array.from(packtGetBooksList());
+    var books = Array.from(packtGetBookList());
     var matching = books.filter(e=>e.title.match(pattern));
     matching.forEach(
         e=> e.getElementsByClassName('toggle-product-line')[0].click()
