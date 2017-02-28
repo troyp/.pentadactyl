@@ -17,7 +17,7 @@ js var utils = dactyl.utils.getPlugin("utils");
 runtime! personal.js
 js var user = dactyl.utils.getPlugin("personal");
 
-runtime! jquery.min.js
+runtime! js/jquery.min.js
 set passkeys=
 
 " -------------------------------------------------------------------------------
@@ -923,7 +923,7 @@ set eht+=[\]:':-moz-any-link'
 js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
 
 " svg: FIXME
-runtime! svg-pan-zoom.min.js
+runtime! js/svg-pan-zoom.min.js
 set eht+=[G]:svg
 js hints.addMode('G','pan & zoom SVG',alert);
 
