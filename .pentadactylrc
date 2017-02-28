@@ -1695,6 +1695,7 @@ map <leader>ia -ex imgsalttotitle
 map <leader>tc -ex table2csv
 map <leader>tw -ex tablewiden
 map <leader>tW -ex tablewrap
+map <leader>td :tableDeleteColumns<Space>
 
 " Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
@@ -1713,6 +1714,23 @@ style -name=table_wrap
     \ file://*
     \ td:first-of-type { white-space: pre-wrap !important; }
 command! tablewrap -description "wrap text in table cells" styletoggle -name table_wrap
+
+js <<EOF
+function deleteCols(cols) {
+    var tables = content.document.getElementsByTagName('table');
+    for (var t of Array.from(tables))
+        for (var r of Array.from(t.rows))
+            for (var i of cols) {
+                var cell = r.children[i];
+                if (cell) cell.remove();
+            }
+}
+EOF
+
+command! tableDeleteColumns
+    \ -description "Delete given columns from all tables."
+    \ -nargs=*
+    \ -js deleteCols(args.map(parseInt));
 
 
 " -------------------------------------------------------------------------------
