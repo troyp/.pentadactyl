@@ -1692,8 +1692,11 @@ map <leader>ia -ex imgsalttotitle
 " | Table Commands |
 " '----------------'
 
-" Table2CSV
 map <leader>tc -ex table2csv
+map <leader>tw -ex tablewiden
+map <leader>tW -ex tablewrap
+
+" Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
 command! table2csv
     \ -description "Convert table contents to CSV in box under table"
@@ -1701,7 +1704,6 @@ command! table2csv
 
 " Widen table
 
-map <leader>tw -ex tablewiden
 style -name=table_widen
     \ file://*
     \ body { max-width: 250em !important; }
@@ -1711,7 +1713,6 @@ style -name=table_wrap
     \ file://*
     \ td:first-of-type { white-space: pre-wrap !important; }
 command! tablewrap -description "wrap text in table cells" styletoggle -name table_wrap
-map <leader>tW -ex tablewrap
 
 
 " -------------------------------------------------------------------------------
