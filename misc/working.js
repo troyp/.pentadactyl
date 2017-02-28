@@ -15,6 +15,27 @@ hints.addMode("F", "Focus frame", elem => dactyl.focus(elem.ownerDocument.defaul
 hints.addMode("f", "Focus frame or pseudo-frame", buffer.bound.focusElement, isScrollable);
 
 // -------------------------------------------------------------------------------
+// ,----------,
+// | File I/O |
+// '----------'
+
+// FILEPICKER
+
+var nsIFilePicker = Ci.nsIFilePicker;
+var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
+
+fp.init(window, title, nsIFilePicker.modeOpen);
+// modes: modeGetFolder modeOpen modeOpenMultiple modeSave
+fp.defaultExtension=".txt";
+var file_chosen = fp.show();
+
+// for nsIFilePicker.modeOpenMultiple:
+var files = fp.files;
+var results = [];
+while (files.hasMoreElements())
+    results.push(files.getNext().QueryInterface(Components.interfaces.nsILocalFile));
+
+// -------------------------------------------------------------------------------
 // ,-----------------,
 // | Insert at Caret |
 // '-----------------'
