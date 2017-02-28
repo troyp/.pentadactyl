@@ -27,7 +27,9 @@ set passkeys=
 
 js <<EOF
 
-var { Cu: utils, Cc: classes, Ci: instances } = Components;
+var Cc = Components.classes;
+var Ci = Components.interfaces;
+var Cu = Components.utils;
 
 "imports"
 Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
@@ -40,7 +42,7 @@ function XpcService(url, ifc) {
         var interface = Ci[ifc];
         return Cc[url].getService(interface);
     } catch(e) {
-        err("XpcService: Cannot get service " + url + ", " + ifc + "\n" + e);
+        utils.message("XpcService: Cannot get service " + url + ", " + ifc + "\n" + e);
         return null;
     }
 }
@@ -49,7 +51,7 @@ function XpcInstance(url, ifc) {
         var interface = Ci[ifc];
         return Cc[url].createInstance(interface);
     } catch(e) {
-        err("XpcInstance: Cannot create instance " + url + ", " + ifc + "\n" + e);
+        utils.message("XpcInstance: Cannot create instance " + url + ", " + ifc + "\n" + e);
         return null;
     }
 }
@@ -59,7 +61,7 @@ function XpcQueryInterface(elt, ifc) {
         var interface = Ci[ifc];
         return elt.QueryInterface(interface);
     } catch(e) {
-        err("XpcQueryInterface: Cannot query interface " + ifc + " of " + elt + "\n" + e);
+        utils.message("XpcQueryInterface: Cannot query interface " + ifc + " of " + elt + "\n" + e);
 	      return null;
     }
 }
