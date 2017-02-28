@@ -655,6 +655,16 @@ command! jsdisable :set! javascript.enabled=false
 command! strictorigin :set! security.fileuri.strict_origin_policy=true
 command! strictoriginoff :set! security.fileuri.strict_origin_policy=false
 
+" enable jQuery in content document
+command! jQueryLoad -js <<EOF
+    var scripttag = content.document.createElement('script');
+    scripttag.type = 'text/javascript';
+    scripttag.async = true;
+    scripttag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js';
+    var parent = ( content.document.getElementsByTagName('head') ||
+                    content.document.getElementsByTagName('body') )[0];
+    parent.appendChild(scripttag);
+EOF
 " Stop page from intercepting key events:
 command! nointercept -js document.addEventListener('keydown', function(e) { e.stopImmediatePropagation(); return false;}, true);
 
