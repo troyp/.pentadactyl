@@ -652,6 +652,9 @@ command! showsource -nargs=1 -js (alert(self[args[0]].toString()))
 command! jsenable  :set! javascript.enabled=true
 command! jsdisable :set! javascript.enabled=false
 
+command! strictorigin :set! security.fileuri.strict_origin_policy=true
+command! strictoriginoff :set! security.fileuri.strict_origin_policy=false
+
 " Stop page from intercepting key events:
 command! nointercept -js document.addEventListener('keydown', function(e) { e.stopImmediatePropagation(); return false;}, true);
 
