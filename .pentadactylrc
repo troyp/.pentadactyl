@@ -27,6 +27,8 @@ set passkeys=
 
 js <<EOF
 
+var { Cu: utils, Cc: classes, Ci: instances } = Components;
+
 "imports"
 Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
 Cu.import("resource://gre/modules/FileUtils.jsm");
@@ -64,6 +66,9 @@ function XpcQueryInterface(elt, ifc) {
 
 var environment = XpcService("@mozilla.org/process/environment;1",
                              Components.interfaces.nsIEnvironment);
+
+var nsIFilePicker = Ci.nsIFilePicker;
+var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
 
 "utility functions"
 // Array methods for other collections
