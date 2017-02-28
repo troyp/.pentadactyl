@@ -961,7 +961,7 @@ highlight Hint
     \ font-family: "Droid Sans Mono Slashed";
     \ line-height: 14px;
     \ text-shadow: 1px 1px 1px #888;
-    \ padding: 5px 8px 6px;
+    \ padding: 5px 3px 6px;
     \ font-size: 20px;
     \ font-weight: bold;
     \ text-transform: uppercase;
