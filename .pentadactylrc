@@ -1202,7 +1202,13 @@ map <C-x>l :visitedlinkstoggle<Cr>
 "                           |___________________|
 
 " JS Repl
+command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
 map <extra>r -ex js!
+map <leader>ee :echo<Space>
+map <leader>er -ex js!
+map <leader>eR -js dactyl.execute("js doc=content.document; $=jQuery;"); dactyl.execute("js!");
+map <leader>em :js <<EOF
+map <leader>eb :open javascript:
 
 " -----------------------------------------------------------------------------
 " ,-------------------------,
