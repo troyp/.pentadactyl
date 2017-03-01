@@ -918,6 +918,9 @@ set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:di
 js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
 set eht+=[e]:':-moz-any-link'
 js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
+" inspect in Firebug
+set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
 " open link with wayback
 set eht+=[\]:':-moz-any-link'
 js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
@@ -3462,7 +3465,6 @@ command! jishokanjiyankparts -js utils.cbWrite(jishoKanjiParts().join(''));
 set eht+=[kgKG\']:div.concept_light-representation>span.text
 set eht+=[l]:a[class="concept_light-status_link"]
 set eht+=[r]:li.radical.available,li.radical.selected
-set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
 
 js <<EOF
 
@@ -3482,7 +3484,6 @@ hints.addMode(
 hints.addMode(
     'G','open sentence examples in new tab',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
-hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
 hints.addMode(
   'l','links drop down',
   function(e) {
