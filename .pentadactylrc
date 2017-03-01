@@ -1142,6 +1142,8 @@ command! maximizeW -description "Maximize window width"
     \ -js self.resizeTo(screen.availWidth, self.outerHeight)
 command! minimize -description "Minimize window"
     \ -js self.minimize()
+command! maximizeRestore -description "Maximize and restore"
+    \ -js self.resizeTo(null,null); window.setTimeout(()=>self.maximize(), 400);
 command! move -description "Move window by X Y"
     \ -nargs=* -js self.moveBy(args[0], args[1])
 command! moveto -description "Move window to X Y"
@@ -1154,6 +1156,8 @@ command! moveBL -description "Move window to bottom left"
     \ :js self.moveTo(0, screen.availHeight-self.window.outerHeight)
 command! moveBR -description "Move window to bottom right"
     \ :js self.moveTo(screen.availWidth-self.window.outerWidth, screen.availHeight-self.window.outerHeight)
+
+map -modes=base <C-\\> -ex maximizeRestore
 
 " =============================================================================
 "                                      _________
