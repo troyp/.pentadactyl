@@ -815,8 +815,12 @@ EOF
 " alias tt=tabmove
 command! tt -nargs=1 -bang
     \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
+command! moverighttabs -nargs ? -js moveRightTabs(null, args[0]||1);
+command! movelastntabs -nargs + -js moveLastNTabs(args[0], args[1]||1);
 map <browser>m :tabmove<SPACE>
 map -arg <browser>M -ex tabmove <arg>
+map -arg <browser>, -ex moverighttabs <arg>
+map -arg -count <browser>. -ex movelastntabs <count> <arg>
 map gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
 map <C-S-N> -ex tabmove! +1
@@ -836,6 +840,24 @@ map <A-S-6> -ex tabmove! 6
 map <A-S-7> -ex tabmove! 7
 map <A-S-8> -ex tabmove! 8
 map <A-S-9> -ex tabmove! $
+
+js <<EOF
+
+moveLastNTabs = function (n, toOrd, wrap=false) {
+    var N = tabs.allTabs.length;
+    for (var i = 1; i <= n; ++i) {
+        var target = tabs.getTab(N-1);
+        tabs.move(target, toOrd, wrap)
+    }
+}
+
+moveRightTabs = function (fromOrd, toOrd, wrap=false) {
+    fromOrd = fromOrd || tabs.getTab().dactylOrdinal;
+    var N = tabs.allTabs.length;
+    moveLastNTabs(N-fromOrd+1, toOrd, wrap);
+}
+
+EOF
 
 " -----------------------------------------------------------------------------
 " ,----------,
