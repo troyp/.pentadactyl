@@ -817,10 +817,12 @@ command! tt -nargs=1 -bang
     \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
 command! moverighttabs -nargs ? -js moveRightTabs(null, args[0]||1);
 command! movelastntabs -nargs + -js moveLastNTabs(args[0], args[1]||1);
+command! moventabs -nargs + -js moveNTabs(tabs.getTab().dactylOrdinal, args[0], args[1]||1);
 map <browser>m :tabmove<SPACE>
 map -arg <browser>M -ex tabmove <arg>
 map -arg <browser>, -ex moverighttabs <arg>
 map -arg -count <browser>. -ex movelastntabs <count> <arg>
+map -arg -count <browser>\> -ex moventabs <count> <arg>
 map gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
 map <C-S-N> -ex tabmove! +1
@@ -842,6 +844,17 @@ map <A-S-8> -ex tabmove! 8
 map <A-S-9> -ex tabmove! $
 
 js <<EOF
+
+moveNTabs = function (start, n, toOrd=1, wrap=false) {
+    // we don't know which way tabs will move, so we can't predict how tab
+    // numbers may change - thus, have to get references to each tab first
+    var targets = [];
+    for (var i = 0; i < n; ++i)
+        targets.push(tabs.getTab(start-1+i));
+    targets.reverse();
+    for (var target of targets)
+        tabs.move(target, toOrd, wrap);
+}
 
 moveLastNTabs = function (n, toOrd, wrap=false) {
     var N = tabs.allTabs.length;
