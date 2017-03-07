@@ -455,6 +455,7 @@ map z; -js ZoomManager.toggleZoom();
 map <option>tu -ex set usermode!
 map <option>te -ex editcontent
 map <option>s -js toggleHTTPS()
+map <option>v -ex styletoggle -name visitedlinks
 
 
 " ,--------,
@@ -1225,10 +1226,6 @@ command! cssapply
 \ -js dactyl.execute(`style -group temp -name ${Date().replace(/ /g,'',true)} '${buffer.URL}' ${args.join(' ').replace(/ !;/g, ' !important;')}`);
 
 style -name=visitedlinks * a:visited { color: purple !important; }
-command! visitedlinkstoggle
-\    -description "toggle visitedlinks style (purple highlighting)"
-\    styletoggle -name visitedlinks
-map <C-x>l :visitedlinkstoggle<Cr>
 
 " =============================================================================
 "                            ___________________
