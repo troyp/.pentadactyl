@@ -1225,7 +1225,7 @@ command! cssapply
 \ -description "Apply CSS to current page. '!;' is expanded to '!important;'"
 \ -js dactyl.execute(`style -group temp -name ${Date().replace(/ /g,'',true)} '${buffer.URL}' ${args.join(' ').replace(/ !;/g, ' !important;')}`);
 
-style -name=visitedlinks * a:visited { color: purple !important; }
+style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
 
 " =============================================================================
 "                            ___________________
