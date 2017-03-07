@@ -823,7 +823,7 @@ map <browser>m :tabmove<SPACE>
 map -arg <browser>M -ex tabmove <arg>
 map -arg <browser>, -ex moverighttabs <arg>
 map -arg -count <browser>. -ex movelastntabs <count> <arg>
-map -arg -count <browser>\> -ex moventabs <count> <arg>
+map -arg -count <browser>\' -ex moventabs <count> <arg>
 map gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
 map <C-S-N> -ex tabmove! +1
