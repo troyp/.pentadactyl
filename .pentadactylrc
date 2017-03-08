@@ -3684,6 +3684,36 @@ command! jishotogglelinklists
 group user
 
 " -------------------------------------------------------------------------------
+" ,----------,
+" | JPopAsia |
+" '----------'
+group jpopasia -locations=jpopasia.com
+map <leader>hkc :map -group jpopasia <Lt>site
+map <site><C-h> :map -group jpopasia <Lt>site
+
+command! jpopcleanlyrics -js jpopasiaCleanLyrics();
+
+map <site>c -ex jpopcleanlyrics
+
+js <<EOF
+
+function jpopasiaCleanLyrics() {
+    var div = content.document.getElementById('tabLyrics');
+    btns = Array.from(div.getElementsByClassName('btn-default'));
+    btns.map(e=>e.remove());
+    end = content.document.getElementById('lyricEnd_1');
+    end.nextElementSibling.remove();
+    end.nextElementSibling.remove();
+    topLvlElts = content.document.body.childNodes;
+    while (topLvlElts.length) topLvlElts[0].remove();
+    content.document.body.appendChild(div);
+}
+
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,--------,
 " | Libgen |
 " '--------'
