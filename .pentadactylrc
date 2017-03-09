@@ -265,17 +265,6 @@ map -b \\ <C-v>
 " swap p and P
 map -b p P
 map -b P p
-" jisho.org nihongo search: opens in new tab; prefix with (nonzero) count to open in current tab
-js <<EOF
-var jishoPasteSearch = function(count) {
-    if (typeof count === "undefined")
-        dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.NEW_TAB});
-    else
-        dactyl.open(`http://jisho.org/search/${dactyl.clipboardRead(0)}`, {where:dactyl.CURRENT_TAB});
-}
-EOF
-map <extra>j -ex js jishoPasteSearch(<count>);
-map g<extra>j -ex js jishoPasteSearch('current');
 
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
@@ -1685,11 +1674,6 @@ command! toggleWayback
 
 " kanji
 
-map <extra>k :kanjisearch!<CR>
-command! kanjisearch
-    \ -bang -description "kanji search on jisho.org"
-    \ -js kanjiSearchJisho(dactyl.clipboardRead(), bang);
-
 command! popjisyo
     \ -bang
     \ -description "Add hints for Japanese via POPjisyo.com. With !, adds hints for English"
@@ -1984,14 +1968,6 @@ function appendLinkUrls () {
         'beforeEnd',
         `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${tmpStr}</div><hr>`
     );
-}
-
-function kanjiSearchJisho (s, newtab) {
-    if (newtab)
-        dactyl.open(`http://jisho.org/search/${s}%20%23kanji`,
-                    {where:dactyl.NEW_TAB});
-    else
-        dactyl.open(`http://jisho.org/search/${s}%20%23kanji`);
 }
 
 function filenameOrURL(s) {
@@ -3346,6 +3322,29 @@ group user
 " ,-----------,
 " | Jisho.org |
 " '-----------'
+
+js <<EOF
+
+var jishoSearch = function(count) {
+    dactyl.open(`http://jisho.org/search/${s}`, where);
+}
+
+function jishoKanjiSearch (s, where) {
+    dactyl.open(`http://jisho.org/search/${s}%20%23kanji`, where);
+}
+
+EOF
+map <extra>j -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <extra>k -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
+command! cbjishosearch
+    \ -bang -description "search on jisho.org"
+    \ -js jishoSearch(dactyl.clipboardRead(), bang?'here':'tab');
+command! cbkanjisearch
+    \ -bang -description "kanji search on jisho.org"
+    \ -js jishoKanjiSearch(dactyl.clipboardRead(), bang?'here':'tab');
+
+" =====GROUP START=====
+
 group jisho -locations=jisho.org
 map <leader>hkc :map -group jisho <Lt>site
 map <site><C-h> :map -group jisho <Lt>site
