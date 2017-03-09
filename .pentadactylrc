@@ -3325,11 +3325,11 @@ group user
 
 js <<EOF
 
-var jishoSearch = function(count) {
+function jishoSearch(s, where) {
     dactyl.open(`http://jisho.org/search/${s}`, where);
 }
 
-function jishoKanjiSearch (s, where) {
+function jishoKanjiSearch(s, where) {
     dactyl.open(`http://jisho.org/search/${s}%20%23kanji`, where);
 }
 
