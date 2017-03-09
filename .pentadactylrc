@@ -1252,6 +1252,7 @@ command! devtools :execute "emenu Tools.Web Developer.Toggle Tools"
 command! storageinspector :execute "emenu Tools.Web Developer.Storage Inspector"
 command! togglegcli -description "Toggle Developer Toolbar" -js toggleGCLI();
 command! eyedropper -description "Eyedropper" -js openEyedropper();
+command! browsertoolbox :feedkeys <C-A-S-I>
 
 map <C-x>v -modes main -ex togglegcli
 map <leader>dy -ex eyedropper
