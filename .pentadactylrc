@@ -3333,7 +3333,14 @@ function jishoKanjiSearch(s, where) {
     dactyl.open(`http://jisho.org/search/${s}%20%23kanji`, where);
 }
 
+function jishoMultiSearch(...ss) {
+    for (s of ss)
+        dactyl.open(`http://jisho.org/search/${s}`, {where:dactyl.NEW_TAB});
+}
+
 EOF
+
+map <leader>jj :cbjishomultisearch<Space>
 map <extra>j -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
 map <extra>k -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
 command! cbjishosearch
@@ -3342,6 +3349,10 @@ command! cbjishosearch
 command! cbkanjisearch
     \ -bang -description "kanji search on jisho.org"
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), bang?'here':'tab');
+command! cbjishomultisearch
+    \ -nargs=* -description "search multiple words on jisho.org"
+    \ -js jishoMultiSearch.apply(null, args);
+
 
 " =====GROUP START=====
 
