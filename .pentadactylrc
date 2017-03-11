@@ -3325,7 +3325,8 @@ group user
 
 js <<EOF
 
-function jishoSearch(s, where) {
+function jishoSearch(s, where, keepCase) {
+    s = keepCase ? s : s.toLowerCase();
     dactyl.open(`http://jisho.org/search/${s}`, where);
 }
 
@@ -3335,7 +3336,7 @@ function jishoKanjiSearch(s, where) {
 
 function jishoMultiSearch(...ss) {
     for (s of ss)
-        dactyl.open(`http://jisho.org/search/${s}`, {where:dactyl.NEW_TAB});
+        jishoSearch(s, dactyl.NEW_TAB);
 }
 
 EOF
