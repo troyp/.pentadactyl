@@ -475,6 +475,7 @@ map -b <extra>/ /\r\w*<Left><Left><left>
 map <S-extra>/ /\r\w*\w*<Left><Left><left>
 " Firefox find box
 map <browser>/ -js findbarToggle();
+map -mode base <A-/> -js findbarToggle();
 " C-' Firefox link search
 map -b "<C-'>" <C-v>'
 
