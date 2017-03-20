@@ -1503,8 +1503,10 @@ command! prwul -description "run PrintWhatYouLike"
 " ,-------------,
 " | DownThemAll |
 " '-------------'
-command! dtamaagr -description "Open DownThemAll manager"
-    \ -js self.DTA.openManager()
+command! dtamanager -description "Open DownThemAll manager"
+    \ -js window.openDialog('chrome://dta/content/dta/manager.xul');
+command! dta -description "DownThemAll"
+    \ -js document.getElementById('dtaCtxDTA-direct').click();
 
 " ,---------------------------------,
 " | Wiktionary and Google Translate |
