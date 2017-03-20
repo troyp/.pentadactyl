@@ -3521,7 +3521,7 @@ command! jishokanjiyankparts -js utils.cbWrite(jishoKanjiParts().join(''));
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
 "
-set eht+=[kgKG\']:div.concept_light-representation>span.text
+set eht+=[kKE\']:div.concept_light-representation>span.text
 set eht+=[l]:a[class="concept_light-status_link"]
 set eht+=[r]:li.radical.available,li.radical.selected
 
@@ -3538,11 +3538,8 @@ hints.addMode(
     'K','open kanji details in new tab',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`), {where:dactyl.NEW_TAB}));
 hints.addMode(
-    'g','open sentence examples',
+    'E','open sentence examples',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`)));
-hints.addMode(
-    'G','open sentence examples in new tab',
-    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
 hints.addMode(
   'l','links drop down',
   function(e) {
