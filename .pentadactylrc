@@ -204,7 +204,8 @@ map s<C-h> :map s
 map <extra><C-h> :map <Lt>extra
 map <S-extra><C-h> :map <Lt>S-extra
 map <browser><C-h> :map <Lt>browser
-map <yank><C-h> :map <Lt>yank
+" for some reason, mapping <yank><C-h> to ':map<Lt>yank' doesn't work"
+map <yank><C-h> <leader>hky
 map <leader><C-h> :map <Lt>leader
 map <C-x><C-h> :map <Lt>C-x
 map <A-enter><C-h> :map <Lt>option
