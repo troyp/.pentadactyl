@@ -1228,6 +1228,7 @@ style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
 command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
 map <extra>r -ex js!
 map <leader>ee :echo<Space>
+map <leader>eE :echo doc=content.document;<Space>$=jQuery;<Space>
 map <leader>er -ex js!
 map <leader>eR -js dactyl.execute("js doc=content.document; $=jQuery;"); dactyl.execute("js!");
 map <leader>em :js <<EOF
