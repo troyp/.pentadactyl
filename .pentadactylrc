@@ -3154,6 +3154,36 @@ command! graphemicacharselect
     \ -js graphemicaCharSelect(args);
 
 " -------------------------------------------------------------------------------
+" ,--------------------,
+" | HouseOfVape.com.au |
+" '--------------------'
+group houseofvape -locations=houseofvape.com.au
+map <leader>hkc :map -group houseofvape <Lt>site
+map <site><C-h> :map -group houseofvape <Lt>site
+
+js <<EOF
+
+function hovShowPrices() {
+    var articles = content.document.getElementsByTagName('article');
+    for (article of articles) {
+        var info = article.getElementsByClassName('product-info')[0];
+        var name = article.getElementsByTagName('p')[0];
+        name.innerHTML = name.innerHTML + info.innerHTML;
+        name.style.height = "150px";
+    }
+}
+
+EOF
+
+command hovshowprices
+    \ -description "Show prices below product names"
+    \ -js hovShowPrices();
+map cc -ex hovshowprices
+
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-----------,
 " | JapanDict |
 " '-----------'
