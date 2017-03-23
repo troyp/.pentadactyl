@@ -3175,7 +3175,7 @@ function hovShowPrices() {
 
 EOF
 
-command hovshowprices
+command! hovshowprices
     \ -description "Show prices below product names"
     \ -js hovShowPrices();
 map cc -ex hovshowprices
