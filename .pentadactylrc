@@ -2914,6 +2914,8 @@ group user
 " ,-------,
 " | Gmail |
 " '-------'
+" For the old-style GMail interface. "
+
 group gmail -locations=mail.google.com
 map <leader>hkc :map -group gmail <Lt>site
 map <site><C-h> :map -group gmail <Lt>site
@@ -2969,7 +2971,81 @@ function gmailFilterMailFrom (from, label) {
     gmailFilterScreen();
 }
 
+function gmailCheckAll() {
+    for (elt of content.document.querySelectorAll('td input'))
+        if (elt.type == "checkbox")
+            elt.checked = true;
+}
+
+function gmailUncheckAll() {
+    for (elt of content.document.querySelectorAll('td input'))
+        if (elt.type == "checkbox")
+            elt.checked = false;
+}
+
+function gmailToggleAllCheckboxes() {
+    for (elt of content.document.querySelectorAll('td input'))
+        if (elt.type == "checkbox")
+            elt.checked = !elt.checked;
+}
+
+function gmailSelectedAction(act=null) {
+    // for search results page (green)
+    // TODO: generalize for inbox page (blue)
+    switch (act) {
+        case 'archive': act = 'arch';  break;
+        case 'read':    act = 'rd';  break;
+        case 'unread':  act = 'ur';  break;
+        case 'star':    act = 'st';  break;
+        case 'unstar':  act = 'xst'; break;
+    }
+    var actselect = content.document.querySelector('input + select');
+    if (act !== null)
+        actselect.value = act;
+    return actselect.value;
+}
+
+function gmailGo() {
+    var gobutton = content.document.querySelector('td select + input');
+    gobutton.click();
+}
+
+function gmailInboxArchive() {
+    // archive in inbox & similar views
+    var archbutton = content.document.querySelector('h2 + table input');
+    if (archbutton.name === 'nvp_a_arch') {
+        archbutton.click();
+        return true;
+    }
+    else return false;
+}
+
+function gmailArchive() {
+    var done = gmailInboxArchive();
+    if (!done) {
+        gmailSelectedAction('archive');
+        gmailGo();
+    }
+}
+
 EOF
+
+map <site>= -ex gmailcheckall
+map <site>- -ex gmailuncheckall
+map <site><Return> -ex gmailtoggleallcheckboxes
+map <site>A -ex gmailarchivechecked
+
+command! gmailcheckall
+    \ -description "Check all checkboxes on page."
+    \ -js gmailCheckAll();
+
+command! gmailuncheckall
+    \ -description "Uncheck all checkboxes on page."
+    \ -js gmailUncheckAll();
+
+command! gmailtoggleallcheckboxes
+    \ -description "Toggle all checkboxes on page."
+    \ -js gmailToggleAllCheckboxes();
 
 command! gmailcreatefilter
     \ -description "Create a filter for mail from $1, archive to label $2"
@@ -2980,6 +3056,15 @@ command! gmailcreatefiltertonewsletters
     \ -description "Create a filter for mail from $1, archive to label MISC/newsletter"
     \ -nargs=1
     \ -js gmailFilterMailFrom(args[0], "MISC/newsletter");
+
+command! gmailarchivechecked -js gmailArchive();
+command! -nargs=1 gmailactiononchecked  -js gmailSelectedAction(args[0]); gmailGo();
+command! gmailmarkasread    gmailactiononchecked read
+command! gmailmarkasunread  gmailactiononchecked unread
+command! gmailstar          gmailactiononchecked star
+command! gmailunstar        gmailactiononchecked unstar
+command! -nargs=1 gmailaddlabel    -js gmailSelectedAction('ac_'+args[0]); gmailGo();
+command! -nargs=1 gmailremovelabel -js gmailSelectedAction('rc_'+args[0]); gmailGo();
 
  group user
 
