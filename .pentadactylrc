@@ -4021,6 +4021,27 @@ map <site>c -js mangareaderGetNextChapter();
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------------,
+" | MyAnimeList.net |
+" '-----------------'
+group mal -locations=myanimelist.net
+map <leader>hkc :map -group mal <Lt>site
+map <site><C-h> :map -group mal <Lt>site
+
+js <<EOF
+
+function malGetHeading() {
+    return content.document.getElementsByTagName('h1')[0].innerText;
+}
+
+EOF
+
+command! malyanktitle -js utils.cbWrite(malGetHeading());
+
+map <site>y -ex malyanktitle
+
+
+" -------------------------------------------------------------------------------
 " ,-------------,
 " | OReilly.com |
 " '-------------'
