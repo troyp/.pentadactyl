@@ -972,6 +972,8 @@ map -b vf ;F
 set eht+=[ä]:a>strong,a>b
 js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
 
+" coursera: jump to match in transcript: mode ẖ "
+
 map <yank_desc> ;Y
 
 " -----------------------------------------------------------------------------
@@ -2348,6 +2350,7 @@ map <site><C-h> :map -group coursera <Lt>site
 set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
 
 js <<EOF
+
 function courseraTogglePaused() {
     var vid = content.document.getElementById('c-video_html5_api');
     if (vid.paused) vid.play(); else vid.pause();
@@ -2403,6 +2406,21 @@ function courseraDisplay() {
     dactyl.utils.message(`time:\t${vid.currentTime.toFixed(2)}\nvolume:\t${vid.volume.toFixed(3)}\nrate:\t${vid.playbackRate.toFixed(1)}`);
 }
 EOF
+
+" ,-----------------,
+" | Coursera: hints |
+" '-----------------'
+" coursera: jump to match in transcript: mode ẖ "
+set eht+=[ẖ]:.highlighted
+js hints.addMode("ẖ", "Jump to match in transcript", elem => elem.click());
+
+map <site>f
+    \ -description "Hints mode: jump to match in transcript"
+    \ -js hints.show("ẖ");
+
+" ,---------------------------------,
+" | Coursera: commands and bindings |
+" '---------------------------------'
 command! -nargs=1 courseravolume -js courseraVolume(args[0]);
 command! -nargs=1 courserarate -js courseraRate(args[0]);
 command! -nargs=1 courserajump -js courseraJumpTo(args[0]);
