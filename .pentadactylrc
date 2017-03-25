@@ -4052,6 +4052,10 @@ command! malyanktitle -js utils.cbWrite(malGetHeading());
 
 map <site>y -ex malyanktitle
 
+map <site>f
+    \ -description "Hints mode: follow bold links"
+    \ -js hints.show("ä");
+
 
 " -------------------------------------------------------------------------------
 " ,-------------,
