@@ -2405,6 +2405,15 @@ function courseraDisplay() {
     var vid = content.document.getElementById('c-video_html5_api');
     dactyl.utils.message(`time:\t${vid.currentTime.toFixed(2)}\nvolume:\t${vid.volume.toFixed(3)}\nrate:\t${vid.playbackRate.toFixed(1)}`);
 }
+function courseraScrollToNextHighlighted() {
+    var hilited = Array.from(content.document.querySelectorAll('.highlighted'));
+    "jump to first match below viewport; if none, jump back to first match"
+    var i = Math.max(0, hilited.findIndex(e => e.getBoundingClientRect().y > content.window.innerHeight));
+    "scroll the element into view at bottom of page (since navbar obscures top)"
+    hilited[i].scrollIntoView(false);
+    return i;
+}
+
 EOF
 
 " ,-----------------,
@@ -2442,6 +2451,7 @@ map <site>. -js courseraRateInc();
 map <site>j -js courseraVolumeInc();
 map <site>k -js courseraVolumeDec();
 map <site>? -js courseraDisplay();
+map <site><Tab> -js courseraScrollToNextHighlighted();
 "Arrow Keys"
 map <S-Left> -js courseraJumpBackward(2);
 map <S-Right> -js courseraJumpForward(2);
