@@ -145,6 +145,8 @@ set newtab=all
 js editor.defaultRegister="+"
 
 set! browser.tabs.closeWindowWithLastTab=false
+set! zoom.minPercent=10
+set! zoom.maxPercent=1000
 
 command! editorvim :set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
 command! editoremacs :set editor='emacsclient'
