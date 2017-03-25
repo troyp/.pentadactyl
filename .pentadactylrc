@@ -962,6 +962,16 @@ js hints.addMode('G','pan & zoom SVG',alert);
 " focus frame
 map -b vf ;F
 
+" --------------- "
+" Non-Ascii Hints "
+" --------------- "
+" These can actually be activated via ; by entering ä (via compose key, for example) "
+" Alternatively, can be bound to another binding using -js hints.open('ä') "
+
+" bold links: mode ä "
+set eht+=[ä]:a>strong,a>b
+js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
+
 map <yank_desc> ;Y
 
 " -----------------------------------------------------------------------------
