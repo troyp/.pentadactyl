@@ -346,6 +346,12 @@ map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/fo
 " Banking
 map <leader>ab -count -ex js openInNewOrCurrentTab(user.mybankurl)(<count>);
 
+" Keepvid "
+command! keepvid -js
+    \ s=content.document.createElement('script');
+    \ s.src="http://keepvid.com/js/bm.js";
+    \ content.document.body.appendChild(s);
+
 " =====TRANSLATION=====
 
 js <<EOF
@@ -707,13 +713,76 @@ command! toggleconfig
     \ -nargs=1
     \ -js dactyl.utils.togglePref(args[0]);
 
+" Search commands "
 command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
+command! prefsuffsearch
+    \ -description "Search for prefix/suffix on macroevolution.net"
+    \ -nargs=1
+    \ -js prefsuffSearch(args[0]);
 
 " run shell command in terminal
 command! -nargs=1 runinterminal -js runInTerminal(args[0]);
 
 " rubular
 command! rubular -nargs=+ -js rubular(args[0], args[1]);
+
+" Yank commands "
+command! yanktrueURL
+    \ -description "Yank the uncoded URL of the current buffer"
+    \ -js var text=decodeURIComponent(buffer.URL);
+    \     dactyl.clipboardWrite(text);
+    \     dactyl.utils.message(text);
+command! yankfilenameorURL
+    \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
+    \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    \     dactyl.clipboardWrite(text);
+    \     dactyl.utils.message(text);
+
+" Open in Emacs "
+command! openDirectoryInDired
+    \ -description "Open the current file's directory in Dired."
+    \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    \     var dir = file.replace(/[^/]*$/,'');
+    \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`);
+command! openFileInEmacs
+    \ -description "Open the current file for editing in Emacs."
+    \ -js dactyl.execute('!emacsclient "' + getFilenameOrURL() + '"');
+
+" Password Hasher "
+command! pwhash
+    \ -description "Open Password Hasher"
+    \ -nargs=0
+    \ -js pwHash();
+command! pwhashgen
+    \ -description "Generate short password from URL using Password Hasher"
+    \ -nargs=1
+    \ -js pwHashGen(args[0]);
+command! pwhashsite
+    \ -description "Generate short password from current site's URL using Password Hasher"
+    \ -nargs=0
+    \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'').replace(/www\./,'')); pwHashGen(domain);
+
+" Page editing commands "
+command! editcontent
+    \ -description "Make content editable"
+    \ -js elts = content.document.getElementsByTagName("*");
+    \     for (i=0; i<elts.length; ++i)
+    \         if (elts[i].hasAttribute("contentEditable") && elts[i].contentEditable === "true")
+    \             elts[i].contentEditable = "false";
+    \         else
+    \             elts[i].contentEditable = "true";
+command! setbodybyid
+    \ -nargs=1
+    \ -complete=javascript
+    \ -js setBodyById(args[0]);
+command! hidefooter -js toggleFooter();
+command! removefooter -js removeFooter();
+command! removecruft -js removeCruft();
+
+" Page info commands "
+command! imgsalttotitle
+    \ -description "Add ALT text to TITLE for all images on page"
+    \ -js imgsAddAltTextToTitle();
 
 " =============================================================================
 "                                       ______
@@ -1601,80 +1670,6 @@ function rikSanseidoToggle() {
     }
 }
 EOF
-
-" ===============================================================================
-"                                  ________________
-"                                 |                |
-"                                 | Other Commands |
-"                                 |________________|
-
-
-command! yanktrueURL
-    \ -description "Yank the uncoded URL of the current buffer"
-    \ -js var text=decodeURIComponent(buffer.URL);
-    \     dactyl.clipboardWrite(text);
-    \     dactyl.utils.message(text);
-command! yankfilenameorURL
-    \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
-    \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    \     dactyl.clipboardWrite(text);
-    \     dactyl.utils.message(text);
-
-command! openDirectoryInDired
-    \ -description "Open the current file's directory in Dired."
-    \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    \     var dir = file.replace(/[^/]*$/,'');
-    \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`);
-
-command! openFileInEmacs
-    \ -description "Open the current file for editing in Emacs."
-    \ -js dactyl.execute('!emacsclient "' + getFilenameOrURL() + '"');
-
-command! pwhash
-    \ -description "Open Password Hasher"
-    \ -nargs=0
-    \ -js pwHash();
-
-command! pwhashgen
-    \ -description "Generate short password from URL using Password Hasher"
-    \ -nargs=1
-    \ -js pwHashGen(args[0]);
-
-command! pwhashsite
-    \ -description "Generate short password from current site's URL using Password Hasher"
-    \ -nargs=0
-    \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'').replace(/www\./,'')); pwHashGen(domain);
-
-command! prefsuffsearch
-    \ -description "Search for prefix/suffix on macroevolution.net"
-    \ -nargs=1
-    \ -js prefsuffSearch(args[0]);
-
-command! editcontent
-    \ -description "Make content editable"
-    \ -js elts = content.document.getElementsByTagName("*");
-    \     for (i=0; i<elts.length; ++i)
-    \         if (elts[i].hasAttribute("contentEditable") && elts[i].contentEditable === "true")
-    \             elts[i].contentEditable = "false";
-    \         else
-    \             elts[i].contentEditable = "true";
-
-command! setbodybyid
-    \ -nargs=1
-    \ -complete=javascript
-    \ -js setBodyById(args[0]);
-
-command! imgsalttotitle
-    \ -description "Add ALT text to TITLE for all images on page"
-    \ -js imgsAddAltTextToTitle();
-
-command! hidefooter -js toggleFooter();
-command! removefooter -js removeFooter();
-command! removecruft -js removeCruft();
-command! keepvid -js
-    \ s=content.document.createElement('script');
-    \ s.src="http://keepvid.com/js/bm.js";
-    \ content.document.body.appendChild(s);
 
 " -----------------------------------------------------------------------------
 " shortcut to Wikipedia episode lists.
