@@ -1005,7 +1005,7 @@ js hints.addMode('m','mouseover',utils.simulateMouseover);
 
 " remove elements
 js function removeElt(e) { e.remove(); }
-set eht+=[x]:div,iframe,header,footer,aside,form,iframe,'input:not([type=hidden])',textarea,img
+set eht+=[x]:div,iframe,header,footer,aside,form,'input:not([type=hidden])',textarea,img,ul
 js hints.addMode('x','remove element', removeElt);
 set eht+=[0]:div,iframe
 js hints.addMode('0','make div invisible', utils.undisplay);
