@@ -862,6 +862,8 @@ closeAllToRight = function (ord) {
 
 var closeTabRange = function (firstOrd, endOrd) {
     firstSpec = firstOrd - 1;
+    if (endOrd === '$') endOrd = 0;  // last tab
+    endOrd = tabNormalizeOrdinal(endOrd);
     endSpecInc = endOrd -1;        // ord  -> idx
     endSpecExc = endSpecInc +1;    // incl -> excl
     utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
