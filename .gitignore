@@ -3,6 +3,7 @@
 *.swp
 *.kate-swp
 *~
+*.rej
 session.*
 \#*\#
 *.swp
