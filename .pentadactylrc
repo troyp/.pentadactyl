@@ -1156,6 +1156,9 @@ map <C-x><C-o> -ex toolbartoggle Add-on Bar
 " | Dialogs |
 " '---------'
 
+map <leader>hke :map <Lt>goto
+map <goto><C-h> :map <Lt>goto
+
 " downloads
 map <goto>wd -ex dialog downloads
 " about:config
