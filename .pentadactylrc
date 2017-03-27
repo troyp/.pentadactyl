@@ -873,6 +873,17 @@ var closeTabsFromCurrentTo = function (endOrd) {
     closeTabRange(gBrowser.mCurrentTab.dactylOrdinal, endOrd);
 }
 
+function tabIdxToOrd (idx) { return idx+1; }
+function tabOrdToIdx (ord) { return ord-1; }
+
+function tabNormalizeOrdinal (ord) {
+    var N = tabs.allTabs.length;
+    if (ord <= 0)
+        return ord%N + Number(N) ;
+    else
+        return ord%N;
+}
+
 EOF
 
 "
