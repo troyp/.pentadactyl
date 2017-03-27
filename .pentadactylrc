@@ -1182,6 +1182,8 @@ map -b <goto>d tabout:downloads<CR>
 map -b <goto>ed oabout:downloads<CR>
 map -b <goto>k tchrome://browser/content/places/places.xul<CR>
 map -b <goto>ek ochrome://browser/content/places/places.xul<CR>
+map -b <goto>l tchrome://passwordmgr/content/passwordManager.xul<CR>
+map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
 map -b <goto>p tabout:plugins<CR>
 map -b <goto>ep oabout:plugins<CR>
 map -b <goto>r tabout:sessionrestore<CR>
