@@ -4613,6 +4613,13 @@ function intToOrdinal(n) {
     }
 }
 
+function tabURL(t) {
+    // URL of t, where t is a tab or a tab index
+    if (Number.isInteger(t))
+        t = tabs.getTab(t);
+    return gBrowser.getBrowserForTab(t).contentDocument.URL;
+}
+
 EOF
 
 " -----------------------------------------------------------------------------
