@@ -4497,6 +4497,33 @@ command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml
 group user
 
 " -------------------------------------------------------------------------------
+" ,------------------,
+" | WolframAlpha.com |
+" '------------------'
+group wolfram -locations=wolframalpha.com
+map <leader>hkc :map -group wolfram <Lt>site
+map <site><C-h> :map -group wolfram <Lt>site
+
+" warning: wolframalpha.com uses multiple 'plaintext' ids when more than one box is showing"
+
+js <<EOF
+function wolframGetResult() {
+    var ptdiv = content.document.getElementById('plaintext');
+    if (ptdiv)
+        utils.cbWrite(ptdiv.innerText);
+    else
+        content.document.querySelector('#Result .plaintext').click();
+}
+EOF
+
+command! wolframresult
+    \ -desciption "If plaintext showing, copy; else show plaintext"
+    \ -js wolframGetResult();
+map <site>c -ex wolframresult
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-------------,
 " | Youtube.com |
 " '-------------'
