@@ -929,6 +929,7 @@ js <<EOF
 moveNTabs = function (start, n, toOrd=1, wrap=false) {
     // we don't know which way tabs will move, so we can't predict how tab
     // numbers may change - thus, have to get references to each tab first
+    if (toOrd == 0 || toOrd === "$") toOrd = tabCount();
     var targets = [];
     for (var i = 0; i < n; ++i)
         targets.push(tabs.getTab(start-1+i));
