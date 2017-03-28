@@ -900,7 +900,7 @@ command! moverighttabs -nargs ? -js moveRightTabs(null, args[0]||1);
 command! movelastntabs -nargs + -js moveLastNTabs(args[0], args[1]||1);
 command! moventabs -nargs + -js moveNTabs(tabs.getTab().dactylOrdinal, args[0], args[1]||1);
 map <browser>m :tabmove<SPACE>
-map -arg <browser>M -ex tabmove <arg>
+map <browser>M :moventabs<Space>
 map -arg <browser>, -ex moverighttabs <arg>
 map -arg -count <browser>. -ex movelastntabs <count> <arg>
 map -arg -count <browser>\' -ex moventabs <count> <arg>
