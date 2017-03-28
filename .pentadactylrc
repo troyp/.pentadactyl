@@ -3936,7 +3936,7 @@ function libgenCopyFileNameAndDownload() {
     var name = libgenGetDetails('title');
     var ed_raw = libgenGetDetails('edition') || "1";
     var ed_match = ed_raw.trim().match(/\d+/);
-    var ed = ed_match ? intToOrdinal(ed_match[0]) : "1st";
+    var ed = ed_match ? indexToOrdinal(ed_match[0]) : "1st";
     if (typeof ed == 'undefined') ed="1st";
     var year = libgenGetDetails('year');
     var filename = name +
@@ -4597,7 +4597,7 @@ function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
 }
 
-function intToOrdinal(n) {
+function indexToOrdinal(n) {
     // trim in case n is a string to start with
     var nstr = n.trim().toString();
     var lastDigit = nstr.slice(-1);
