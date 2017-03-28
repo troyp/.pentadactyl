@@ -4620,6 +4620,8 @@ function tabURL(t) {
     return gBrowser.getBrowserForTab(t).contentDocument.URL;
 }
 
+function tabCount() { return tabs.allTabs.length; }
+
 EOF
 
 " -----------------------------------------------------------------------------
