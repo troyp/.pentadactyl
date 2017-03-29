@@ -886,6 +886,15 @@ function tabNormalizeOrdinal (ord) {
         return ord%N;
 }
 
+function tabURL(t) {
+    // URL of t, where t is a tab or a tab index
+    if (Number.isInteger(t))
+        t = tabs.getTab(t);
+    return gBrowser.getBrowserForTab(t).contentDocument.URL;
+}
+
+function tabCount() { return tabs.allTabs.length; }
+
 EOF
 
 "
@@ -4641,14 +4650,8 @@ function indexToOrdinal(n) {
     }
 }
 
-function tabURL(t) {
-    // URL of t, where t is a tab or a tab index
-    if (Number.isInteger(t))
-        t = tabs.getTab(t);
-    return gBrowser.getBrowserForTab(t).contentDocument.URL;
 }
 
-function tabCount() { return tabs.allTabs.length; }
 
 EOF
 
