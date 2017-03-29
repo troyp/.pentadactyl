@@ -840,6 +840,13 @@ map <browser>; :tc<SPACE>
 " undo recent closed tab from list
 map U :undo<SPACE>
 
+" filter tabs "
+command! tabfilter
+    \ -description "Close tabs that do not satisfy expression (t=tab, n=init.ord, t.ord=curr.ord, t.URL=url)"
+    \ -nargs=1
+    \ -js tabFilter(eval(`(t, n)=>${args[0]};`));
+map <browser>c :tabfilter<Space>""<C-b>
+
 js <<EOF
 
 closeAllToLeft = function (ord) {
@@ -894,6 +901,24 @@ function tabURL(t) {
 }
 
 function tabCount() { return tabs.allTabs.length; }
+
+function tabFilter(f) {
+    // takes a function of 1 or 2 args (current tab, [original ordinal])
+    var alltabs = Array.from(tabs.allTabs);
+    var N_0 = alltabs.length;
+    var i, t;
+    for (i=0; i<N_0; ++i) {
+        t = alltabs[i];
+        t.URL = tabURL(t);
+        // t.dactylOrdinal doesn't seem to update properly: use ._tPos+1
+        t.ord = t._tPos+1;
+        // alert(`${f}\n${f(t, i+1)}\n${i+1}\n${t.ord}`); // debug
+        if (!f(t, i+1)) tabs.remove(t);
+    }
+    var N_closed = N_0 - tabCount();
+    utils.message(`${N_closed} tabs closed`);
+    return N_closed;
+}
 
 EOF
 
