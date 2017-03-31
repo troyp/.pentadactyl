@@ -87,6 +87,7 @@ A = {
     concatMap: (coll, f) => [].concat.apply([], Array.from(coll).map(e=>Array.from(f(e)))),
     mapProperty: (coll, p) => Array.from(coll).map(e=>e[p])
 }
+window.A = A;
 
 function runProcess(exec, ...args) {
     var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
