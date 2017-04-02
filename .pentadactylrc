@@ -4698,6 +4698,18 @@ function indexToOrdinal(n) {
 }
 
 
+function makeDisplayToggle(selector) {
+    function displayToggle() {
+        var elt = content.document.querySelector(selector);
+        if (elt) {
+          if (elt.style.display = 'none')
+          elt.style.display = 'block';
+          else elt.style.display = 'none';
+        } else dactyl.echoerr(`no match for selector ${selector}`);
+    }
+    return displayToggle;
+}
+
 EOF
 
 " -----------------------------------------------------------------------------
