@@ -4707,6 +4707,8 @@ function isInView(elt) {
     return inview;
 }
 
+// modulus function taking negative n (base assumed to be positive)
+function mod(n,b) { return n<0 ? n%b + Number(b) : n%b; }
 
 function makeDisplayToggle(selector) {
     function displayToggle() {
