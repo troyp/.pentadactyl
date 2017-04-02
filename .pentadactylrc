@@ -1082,6 +1082,10 @@ js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http
 runtime! js/svg-pan-zoom.min.js
 set eht+=[G]:svg
 js hints.addMode('G','pan & zoom SVG',alert);
+" openseadragon: image zoom and pan "
+set eht+=[m]:img
+js hints.addMode('m','pan & zoom img', elem=>{ dactyl.open(`http://openseadragon.github.io/openseadragonizer/?img=${elem.src.replace(/(\?|#).*/,'')}&encoded=true`, { where: dactyl.NEW_TAB }) });
+
 
 " focus frame
 map -b vf ;F
