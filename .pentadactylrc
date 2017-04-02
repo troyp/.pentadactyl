@@ -4310,6 +4310,22 @@ group user
 
 " -------------------------------------------------------------------------------
 " ,------------,
+" | Reddit.com |
+" '------------'
+group reddit -locations=reddit.com
+map <leader>hkc :map -group reddit <Lt>site
+map <site><C-h> :map -group reddit <Lt>site
+
+" Key Help (id: keyHelp) "
+map -b <site>? <C-v>?
+
+" Commandline (id: keyCommandLineWidget) "
+map <site>x -b <C-v>.
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,------------,
 " | Scriptular |
 " '------------'
 
