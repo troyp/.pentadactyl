@@ -1096,6 +1096,7 @@ map -b vf ;F
 set eht+=[ä]:a>strong,a>b
 js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
 
+" JSBin menus: mode ï "
 " coursera: jump to match in transcript: mode ẖ "
 
 map <yank_desc> ;Y
@@ -3511,7 +3512,8 @@ map <site><C-h> :map -group jsbin <Lt>site
 " remove all existing jsbin autocmds
 autocmd! -group jsbin
 
-map <site>m -js toggleMenu();
+map <site>m -description "Toggle menu" -js toggleMenu();
+map <site>c -description "Hint menus" -js hints.show("ï");
 
 js <<EOF
 
@@ -3525,16 +3527,16 @@ function toggleMenu() {
 
 EOF
 
-set eht+=[m]:.menu,select[id=library]
+set eht+=[ï]:.menu,select[id=library]
 
 js <<EOF
 
 hints.addMode(
-  'm','JSBin menu',
+  'ï','JSBin menu',
   function(e) {
-    if (e.className.contains('toppanel-hide'))
+    if (e.className.includes('toppanel-hide'))
       e.click();
-    else if (e.className.contains(' open'))
+    else if (e.className.includes(' open'))
         e.className = e.className.replace(' open', '');
     else
         e.className += ' open';
