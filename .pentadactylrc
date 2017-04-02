@@ -4699,6 +4699,12 @@ function indexToOrdinal(n) {
     }
 }
 
+function isInView(elt) {
+    var bound = elt.getBoundingClientRect();
+    var viewBottom = content.window.innerHeight || content.document.documentElement.clientHeight;
+    var viewRight = content.window.innerWidth || content.document.documentElement.clientWidth;
+    var inview = bound.top >= 0 && bound.left >= 0 && bound.bottom <= viewBottom && bound.right <= viewRight;
+    return inview;
 }
 
 
