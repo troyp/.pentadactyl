@@ -1736,6 +1736,13 @@ function rikSanseidoToggle() {
 }
 EOF
 
+" -------------------------------------------------------------------------------
+" ,-------,
+" | gDict |
+" '-------'
+js var gdictToggle = makeDisplayToggle('.gdict-dialog');
+map <ext>g -description "Toggle gDict" -js gdictToggle();
+
 " -----------------------------------------------------------------------------
 " shortcut to Wikipedia episode lists.
 command! eplist -nargs=1 -js (eplist(args[0]))
