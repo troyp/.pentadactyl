@@ -4722,6 +4722,10 @@ function makeDisplayToggle(selector) {
     return displayToggle;
 }
 
+// requires a webdriver implementation
+function mouse_x() { return MousePosTracker._x; }
+function mouse_y() { return MousePosTracker._y; }
+
 EOF
 
 " -----------------------------------------------------------------------------
