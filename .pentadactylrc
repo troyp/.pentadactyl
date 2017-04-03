@@ -4726,6 +4726,16 @@ function makeDisplayToggle(selector) {
 function mouse_x() { return MousePosTracker._x; }
 function mouse_y() { return MousePosTracker._y; }
 
+function searchCommandSets(regex) {
+    var cmdsets = document.querySelectorAll('commandset');
+    var cmds = Array.from(document.querySelectorAll('command'));
+    for (cmd of cmds) {
+        if (cmd.id.match(regex))
+           utils.message(cmd.id+': '+cmd.oncommand);
+    }
+}
+window.searchCommandSets = searchCommandSets;
+
 EOF
 
 " -----------------------------------------------------------------------------
