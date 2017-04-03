@@ -4714,13 +4714,14 @@ function makeDisplayToggle(selector) {
     function displayToggle() {
         var elt = content.document.querySelector(selector);
         if (elt) {
-          if (elt.style.display = 'none')
+          if (elt.style.display == 'none')
           elt.style.display = 'block';
           else elt.style.display = 'none';
         } else dactyl.echoerr(`no match for selector ${selector}`);
     }
     return displayToggle;
 }
+window.makeDisplayToggle = makeDisplayToggle;
 
 // requires a webdriver implementation
 function mouse_x() { return MousePosTracker._x; }
