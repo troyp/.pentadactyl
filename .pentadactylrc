@@ -178,8 +178,8 @@ map c <site>
 " " The <sel> and <sidebar> pseudokeys were broken for some reason
 " map s <sel>
 " map S <sidebar>
-map x <extra>
-map X <S-extra>
+map x <xtra>
+map X <S-xtra>
 map , <leader>
 map v <browser>
 map a <ext>
@@ -192,8 +192,8 @@ map <leader>hkc :map <Lt>site
 map <leader>hkg :map g
 map <leader>hke :map <Lt>goto
 map <leader>hks :map s
-map <leader>hkx :map <Lt>extra
-map <leader>hkX :map <Lt>S-extra
+map <leader>hkx :map <Lt>xtra
+map <leader>hkX :map <Lt>S-xtra
 map <leader>hkv :map <Lt>browser
 map <leader>hky :map <Lt>yank
 map <leader>hk, :map <Lt>leader
@@ -205,8 +205,8 @@ map <site><C-h> :map <Lt>site
 map g<C-h> :map g
 map <goto><><C-h> :map <Lt>goto
 map s<C-h> :map s
-map <extra><C-h> :map <Lt>extra
-map <S-extra><C-h> :map <Lt>S-extra
+map <xtra><C-h> :map <Lt>xtra
+map <S-xtra><C-h> :map <Lt>S-xtra
 map <browser><C-h> :map <Lt>browser
 " for some reason, mapping <yank><C-h> to ':map<Lt>yank' doesn't work"
 map <yank><C-h> <leader>hky
@@ -305,19 +305,19 @@ map <browser>x -js window.restore(); window.maximize();
 " select all
 map -b <C-x>h iGvggy
 " second input area
-map -b <extra>gi 2gi
+map -b <xtra>gi 2gi
 " open local file with xdg-open
-map <extra>f :xopen<Space>
+map <xtra>f :xopen<Space>
 " open file in Emacs
-map <extra>e -ex openFileInEmacs
+map <xtra>e -ex openFileInEmacs
 " open directory in Dired
-map <extra>d -ex openDirectoryInDired
+map <xtra>d -ex openDirectoryInDired
 " jumplist
 map <C-j> -ex jumps
 " password hasher
-map <extra>P -ex pwhash
+map <xtra>P -ex pwhash
 " password hasher: hash site domain
-map <extra>p -ex pwhashsite
+map <xtra>p -ex pwhashsite
 " Popjisyo SearchJapanese hints
 map <leader>jp -ex popjisyo
 " Google Translate handwritten input
@@ -483,9 +483,9 @@ map -b s? ?\l
 " Search from top of page
 map -b <C-x>/ gg/
 " Search for word starting with...
-map -b <extra>/ /\r\w*<Left><Left><left>
+map -b <xtra>/ /\r\w*<Left><Left><left>
 " Search for word containing...
-map <S-extra>/ /\r\w*\w*<Left><Left><left>
+map <S-xtra>/ /\r\w*\w*<Left><Left><left>
 " Firefox find box
 map <browser>/ -js findbarToggle();
 map -mode base <A-/> -js findbarToggle();
@@ -680,7 +680,7 @@ command! xopen -nargs=1 -complete=file !xdg-open <args>
 
 " Open in Google Chrome:
 command! ochrome :exec `!google-chrome "${buffer.URL}"`
-map <extra>c -ex ochrome
+map <xtra>c -ex ochrome
 
 " Show all marks (quickmarks and url/local marks)
 command! allmarks,amarks,am :qmarks | marks
@@ -1345,11 +1345,11 @@ group temp
 group user
 
 map -b gc y:style -group=temp <C-v><C-v><Space>
-map <extra>gs :emenu View.Page Style.
-" map <extra><C-s> :emenu View.Page Style.No Style<CR>
-map <extra><C-s> -ex set usermode!
+map <xtra>gs :emenu View.Page Style.
+" map <xtra><C-s> :emenu View.Page Style.No Style<CR>
+map <xtra><C-s> -ex set usermode!
 
-map <extra>N :narrowpage<Space>
+map <xtra>N :narrowpage<Space>
 command! narrowpage
 \    -nargs=*
 \    -js <<EOF
@@ -1374,7 +1374,7 @@ style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
 
 " JS Repl
 command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
-map <extra>r -ex js!
+map <xtra>r -ex js!
 map <leader>ee :echo<Space>
 map <leader>eE :echo doc=content.document;<Space>$=jQuery;<Space>
 map <leader>er -ex js!
@@ -1641,7 +1641,7 @@ EOF
 " '--------------'
 command! pagezipper :open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
 
-map <extra>z -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
+map <xtra>z -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
 map <autopager> -ex open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
 map <C-Space> <autopager>
 
@@ -1686,7 +1686,7 @@ EOF
 "   rcxMain.htmlParser(aHTMLString)
 "   rcxMain.lookupSearch(text)            // perform lookupbar search (results in popup)
 "   rcxMain.showPopup(text)               // show text using Rikaisama popup
-map <extra>x -js rcxMain.saveToFile()
+map <xtra>x -js rcxMain.saveToFile()
 command! riklbaron -description "Rikaisama lookupbar on"
     \ -js rcxMain.lbToggle()
 command! riklbaroff -description "Rikaisama lookupbar off"
@@ -1743,7 +1743,7 @@ command! eplist -nargs=1 -js (eplist(args[0]))
 " -----------------------------------------------------------------------------
 " toggleWayback
 
-map <extra>w :toggleWayback<CR>
+map <xtra>w :toggleWayback<CR>
 command! toggleWayback
     \ -bang
     \ -description "Toggle web page and archive.org copy"
@@ -2791,7 +2791,7 @@ map <site>z -ex loginAndSearch
 command! loginAndSearch
     \ -description "Sign in and repeat search for ID in input field"
     \ -js loginAndSearch(getSearchField());
-map <extra>z
+map <xtra>z
     \ -description "Sign in and repeat search for ID in input field"
     \ -js loginAndSearch(getSearchField());
 
@@ -3575,8 +3575,8 @@ function jishoMultiSearch(...ss) {
 EOF
 
 map <leader>jj :cbjishomultisearch<Space>
-map <extra>j -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <extra>k -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <xtra>j -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <xtra>k -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
 command! cbjishosearch
     \ -bang -description "search on jisho.org"
     \ -js jishoSearch(dactyl.clipboardRead(), bang?'here':'tab');
