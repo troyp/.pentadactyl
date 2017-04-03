@@ -526,6 +526,7 @@ map -modes command-line,insert -b <C-S-P> <S-Up>
 map -modes command-line,insert -b <C-S-N> <S-Down>
 map -modes command-line,insert -b <C-f> <Right>
 map -modes command-line,insert -b <C-b> <Left>
+map -modes command-line,insert -b <C-g> <C-u><Escape>
 
 " repeat last search with a new keyword:
 "   uses clipboard and javascript to do text processing, since <C-Del>, <C-BS>, <C-S-Left>, etc aren't working in map commands
