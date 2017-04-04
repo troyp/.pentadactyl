@@ -2852,6 +2852,93 @@ command! crdl -js crDL();
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,----------------,
+" | GetComics.Info |
+" '----------------'
+" =====GETCOMICS.INFO=====
+group gci -locations=getcomics.info
+map <leader>hkc :map -group gci <Lt>site
+map <site><C-h> :map -group gci <Lt>site
+
+js <<EOF
+function gciNextPageURL() {
+    var url = buffer.URL.spec;
+    var regex = /getcomics.info\/page\/(\d+)/;
+    var match = url.match(regex);
+    if (match) {
+        var replstr = `getcomics.info/page/${Number(match[1])+1}`;
+        return url.replace(regex, replstr);
+    } else
+        return url.replace('getcomics.info', 'getcomics.info/page/2');
+}
+
+function gciPreviousPageURL() {
+    var url = buffer.URL.spec;
+    var regex = /getcomics.info\/page\/(\d+)/;
+    var match = url.match(regex);
+    if (match && match[1] > 1) {
+        var replstr = `getcomics.info/page/${Number(match[1])-1}`;
+        return url.replace(regex, replstr);
+    } else
+        return url;
+}
+EOF
+
+map ]] -js dactyl.open(gciNextPageURL());
+map [[ -js dactyl.open(gciPreviousPageURL());
+
+map <site>c -description "Download" -js content.document.querySelector('.aio-red').click();
+
+" =====GETCOMICS.GQ=====
+group gcgq -locations=getcomics.gq
+map <leader>hkc :map -group gcgq <Lt>site
+map <site><C-h> :map -group gcgq <Lt>site
+
+map <site>c -description "Get Link" -js content.document.querySelector('.button.green').click();
+
+" =====SAFELINKCONVERTER.COM=====
+group gclinkconvert -locations=decrypt2.safelinkconverter.com
+map <leader>hkc :map -group gclinkconvert <Lt>site
+map <site><C-h> :map -group gclinkconvert <Lt>site
+
+map <site>c -description "Convert Link" -js content.document.querySelector('.redirect_url div').click();
+
+" =====SHORTE.ST=====
+group shortest -locations=shorte.st,viid.me,sh.st
+map <leader>hkc :map -group shortest <Lt>site
+map <site><C-h> :map -group shortest <Lt>site
+
+map <site>c -description "Close temp tabs" -js shortestClickOrClose();
+
+js <<EOF
+function shortestClickOrClose() {
+    if (content.document.alreadyClicked)
+        shortestCloseUnneededTabs();
+    else {
+        shortestClick();
+        content.document.alreadyClicked = true;
+    }
+}
+function shortestClick() {
+    dactyl.open("javascript:app.skipClickNotify.redirectToTargetUrl();");
+    void(0);
+}
+function shortestCloseUnneededTabs() {
+    var currentTab = tabs.getTab();
+    var currentIdx = currentTab.dactylOrdinal - 1;
+    var tab1 = tabs.getTab(currentIdx -2);
+    var tab2 = tabs.getTab(currentIdx -1);
+    var tempTabRE = /(getcomics.gq|shorte.st|sh.st|viid.me)\//;
+    for (t of [tab1, tab2, currentTab]) {
+        if (tabURL(t).match(tempTabRE))
+            tabs.remove(t);
+    }
+}
+EOF
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,------------,
 " | Github.com |
