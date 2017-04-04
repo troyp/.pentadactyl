@@ -4837,7 +4837,7 @@ function toggleAddon(id) {
         if (addon) {
             addon.userDisabled = !addon.userDisabled;
         } else {
-            echoerr(`addon ${id} not found`);
+            dactyl.echoerr(`addon ${id} not found`);
             return;
         }
     });
