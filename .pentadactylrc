@@ -1632,10 +1632,25 @@ EOF
 
 
 " =============================================================================
-"                                 __________________
-"                                |                  |
-"                                | OTHER EXTENSIONS |
-"                                |__________________|
+"                                   ____________
+"                                  |            |
+"                                  | EXTENSIONS |
+"                                  |____________|
+
+js <<EOF
+
+function toggleAddon(id) {
+    AddonManager.getAddonByID(id, function(addon) {
+        if (addon) {
+            addon.userDisabled = !addon.userDisabled;
+        } else {
+            dactyl.echoerr(`addon ${id} not found`);
+            return;
+        }
+    });
+}
+window.toggleAddon = toggleAddon;
+
 
 " ,--------------,
 " | Autopagerize |
@@ -4832,17 +4847,7 @@ function searchCommandSets(regex) {
 }
 window.searchCommandSets = searchCommandSets;
 
-function toggleAddon(id) {
-    AddonManager.getAddonByID(id, function(addon) {
-        if (addon) {
-            addon.userDisabled = !addon.userDisabled;
-        } else {
-            dactyl.echoerr(`addon ${id} not found`);
-            return;
-        }
-    });
 }
-window.toggleAddon = toggleAddon;
 
 EOF
 
