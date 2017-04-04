@@ -4832,6 +4832,18 @@ function searchCommandSets(regex) {
 }
 window.searchCommandSets = searchCommandSets;
 
+function toggleAddon(id) {
+    AddonManager.getAddonByID(id, function(addon) {
+        if (addon) {
+            addon.userDisabled = !addon.userDisabled;
+        } else {
+            echoerr(`addon ${id} not found`);
+            return;
+        }
+    });
+}
+window.toggleAddon = toggleAddon;
+
 EOF
 
 " -----------------------------------------------------------------------------
