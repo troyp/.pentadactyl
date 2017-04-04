@@ -1741,8 +1741,8 @@ EOF
 " ,-------,
 " | gDict |
 " '-------'
-js var gdictToggle = makeDisplayToggle('.gdict-dialog');
-map <ext>g -description "Toggle gDict" -js gdictToggle();
+js var gdict_id='jid1-6OFSXFbACQthzQ@jetpack';
+map <ext>g -description "Toggle gDict" -js toggleAddon(gdict_id);
 
 " -----------------------------------------------------------------------------
 " shortcut to Wikipedia episode lists.
