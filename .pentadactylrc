@@ -4848,6 +4848,9 @@ function searchCommandSets(regex) {
 window.searchCommandSets = searchCommandSets;
 
 }
+function arrayWriteItems(a) { utils.message(a.join('\n')); };
+function arrayCopyItems(a)  { utils.cbWrite(a.join('\n')); };
+
 
 EOF
 
