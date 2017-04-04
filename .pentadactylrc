@@ -1651,6 +1651,25 @@ function toggleAddon(id) {
 }
 window.toggleAddon = toggleAddon;
 
+// getExtensions produces an array and passes it to an optional callback.
+// By default, it prints the result list and copies it to clipboard.
+function getExtensions(arrayCallback) {
+    if (!arrayCallback) arrayCallback = arrayCopyItems;
+    AddonManager.getAddonsByTypes(["extension"], function(exts) {
+        var result = [];
+        for (let ext of exts)
+            result.push(ext.name+': '+ext.id);
+        arrayCallback.call(null, result);
+    });
+}
+window.getExtensions = getExtensions;
+
+EOF
+
+command! listextensions
+    \ -description "List extensions and copy to clipboard."
+    \ -js getExtensions();
+
 
 " ,--------------,
 " | Autopagerize |
