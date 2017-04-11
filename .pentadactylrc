@@ -420,8 +420,8 @@ command! bingtranslatepage
     \ -bang
     \ -js bingTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
 
-map <extra>tt -ex bingtranslatepage
-map <extra>tg -ex googletranslatepage
+map <xtra>tt -ex bingtranslatepage
+map <xtra>tg -ex googletranslatepage
 
 
 
