@@ -1591,6 +1591,24 @@ map <browser>sm -ex tabopen chrome://stylish-custom/content/info.xul
 command! stylishnew -js stylishCommon.openEdit('new');
 map <browser>sn -js stylishCommon.openEdit('new');
 
+" Toggle Overlay "
+js <<EOF
+function stylishGetOverlayStatus() {
+    var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+    return prefs.getBoolPref("extensions.stylish.styleRegistrationEnabled");
+}
+function stylishToggleOverlay() {
+    var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+    if (stylishGetOverlayStatus())
+        prefs.setBoolPref("extensions.stylish.styleRegistrationEnabled", false);
+    else
+        prefs.setBoolPref("extensions.stylish.styleRegistrationEnabled", true);
+}
+EOF
+
+command! stylishtoggleoverlay -js stylishToggleOverlay();
+map <browser>ss -ex stylishtoggleoverlay
+
 " ,------------,
 " | HackTheWeb |
 " '------------'
