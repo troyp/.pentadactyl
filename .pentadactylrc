@@ -1193,6 +1193,26 @@ map <C-x><C-o> -ex toolbartoggle Add-on Bar
 "map <C-x><C-f> -ex buftabs
 
 
+" -------------------------------------------------------------------------------
+" ,-------,
+" | Menus |
+" '-------'
+
+js <<EOF
+function showContextMenu(element, xpos, ypos, popuptype, anchoralignment, popupalignment) {
+    var cmenu = document.getElementById('contentAreaContextMenu');
+    cmenu.showPopup(
+        element || document.body,
+        xpos || 200,
+        ypos || 200,
+        anchoralignment,
+        popupalignment
+    );
+}
+EOF
+
+map <C-f10> -js showContextMenu();
+
 " -----------------------------------------------------------------------------
 " ,---------,
 " | Dialogs |
