@@ -1071,6 +1071,16 @@ set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:di
 js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
 set eht+=[e]:':-moz-any-link'
 js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
+" Show node (popup)"
+set eht+=[`]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('`','show node (popup)', e => alert(e.innerHTML || e));
+" Get node "
+set eht+=[1]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('1','get node', e => dactyl.stored_node=e);
+" Get selectors (uses Stylish functions) "
+set eht+=[2]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('2','get selectors', e => dactyl.stored_result = stylishCommon.generateSelectors(e));
+
 " inspect in Firebug
 set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
