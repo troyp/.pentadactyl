@@ -331,6 +331,8 @@ map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
 map <A-p> :open pz<CR>
 " Remove cruft. "
 map <leader>nr -ex removecruft
+" Remove images "
+map <leader>ni -ex removeimages
 
 " =====WEBSITES/WEBAPPS=====
 js <<EOF
@@ -783,6 +785,7 @@ command! setbodybyid
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeFooter();
 command! removecruft -js removeCruft();
+command! removeimages -js removeImages();
 
 " Page info commands "
 command! imgsalttotitle
@@ -2143,6 +2146,15 @@ function toggleFooter() {
         if (footers[i].style.display=="none")
             footers[i].style.display="";
         else footers[i].style.display="none";
+    }
+}
+
+function removeImages() {
+    var doc = content.document;
+    var imgs = doc.getElementsByTagName("img");
+    for (i=imgs.length-1; i>=0; --i) {
+        if (imgs[i].remove)
+            imgs[i].remove();
     }
 }
 
