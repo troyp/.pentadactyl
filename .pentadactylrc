@@ -2996,13 +2996,13 @@ map <site><C-h> :map -group gclinkconvert <Lt>site
 
 map <site>c -description "Convert Link" -js gcConvertLinkOrClose();
 
-command! gcclose -js closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//);
+command! gcclose -js closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//, 3);
 
 js <<EOF
 function gcConvertLinkOrClose() {
     var redirect = content.document.querySelector('.redirect_url div');
     if (redirect.innerText.match(/three.comicfiles.ru/)) {
-        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//);
+        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//, 3);
         utils.message("three")
     }
     else {
@@ -3022,7 +3022,7 @@ map <site>c -description "Close temp tabs" -js shortestClickOrClose();
 js <<EOF
 function shortestClickOrClose() {
     if (content.document.alreadyClicked)
-        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me)\//);
+        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me)\//, 3);
     else {
         shortestClick();
         content.document.alreadyClicked = true;
