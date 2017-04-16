@@ -4929,7 +4929,22 @@ function searchCommandSets(regex) {
 }
 window.searchCommandSets = searchCommandSets;
 
+function closeTabsLeftWhileMatching(regex, n) {
+    "Close tabs from current, working left, while url matches regex";
+    "n = max tabs to close";
+    var currentTab = tabs.getTab();
+    var currentIdx = currentTab.dactylOrdinal - 1;
+    var ts = Array.from(new Array(currentIdx+1), (_,i)=>tabs.getTab(i));
+    ts.reverse();
+    if (Number(n) > 0)
+        ts = ts.slice(0, n);
+    for (t of ts) {
+        if (tabURL(t).match(regex))
+            tabs.remove(t);
+    }
 }
+window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
+
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCopyItems(a)  { utils.cbWrite(a.join('\n')); };
 
