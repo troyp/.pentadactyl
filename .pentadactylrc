@@ -1389,12 +1389,7 @@ map <xtra><C-s> -ex set usermode!
 map <xtra>N :narrowpage<Space>
 command! narrowpage
 \    -nargs=*
-\    -js <<EOF
-var width = args[0] || 1000;
-var lmarg = args[1] || 100;
-var rmarg = args[2] || 1000;
-narrowPage(width, lmarg, rmarg);
-EOF
+\    -js narrowPage(args[0]||1000, args[1]||100, args[2]||1000);
 
 command! cssapply
 \ -nargs=*
