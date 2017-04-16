@@ -331,6 +331,8 @@ map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
 " PageZipper
 " activate pagezipper bookmark (keyword pz)
 map <A-p> :open pz<CR>
+" Remove selector. "
+map <leader>nn :removeselector<Space>
 " Remove cruft. "
 map <leader>nr -ex removecruft
 " Remove images "
@@ -787,9 +789,10 @@ command! setbodybyid
     \ -complete=javascript
     \ -js setBodyById(args[0]);
 command! hidefooter -js toggleFooter();
-command! removefooter -js removeFooter();
+command! removefooter -js removeSelector('footer');
+command! removeimages -js removeSelector('img');
+command! removeselector -nargs=* -js Array.from(args).map(removeSelector);
 command! removecruft -js removeCruft();
-command! removeimages -js removeImages();
 
 " Page info commands "
 command! imgsalttotitle
@@ -2150,13 +2153,6 @@ function getFilenameOrURL() {
     return text;
 }
 
-function removeFooter() {
-    var footers=content.document.body.getElementsByTagName("footer");
-    for (i=footers.length-1; i>=0; --i) {
-        footers[i].remove();
-    }
-}
-
 function toggleFooter() {
     var footers=content.document.body.getElementsByTagName("footer");
     for (i=footers.length-1; i>=0; --i) {
@@ -2166,13 +2162,13 @@ function toggleFooter() {
     }
 }
 
-function removeImages() {
+function removeSelector(sel) {
     var doc = content.document;
-    var imgs = doc.getElementsByTagName("img");
-    for (i=imgs.length-1; i>=0; --i) {
-        if (imgs[i].remove)
-            imgs[i].remove();
-    }
+    var elts = Array.from(doc.querySelectorAll(sel));
+    elts.forEach(e=>e.remove && e.remove());
+}
+function removeSelectors(...sels) {
+    sels.forEach(removeSelector);
 }
 
 function removeCruft() {
