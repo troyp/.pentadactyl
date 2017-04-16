@@ -2983,7 +2983,7 @@ map [[ -js dactyl.open(gciPreviousPageURL());
 map <site>c -description "Download" -js content.document.querySelector('.aio-red').click();
 
 " =====GETCOMICS.GQ=====
-group gcgq -locations=getcomics.gq
+group gcgq -locations=getcomics.gq,getcomics.ga
 map <leader>hkc :map -group gcgq <Lt>site
 map <site><C-h> :map -group gcgq <Lt>site
 
@@ -2994,7 +2994,23 @@ group gclinkconvert -locations=decrypt2.safelinkconverter.com
 map <leader>hkc :map -group gclinkconvert <Lt>site
 map <site><C-h> :map -group gclinkconvert <Lt>site
 
-map <site>c -description "Convert Link" -js content.document.querySelector('.redirect_url div').click();
+map <site>c -description "Convert Link" -js gcConvertLinkOrClose();
+
+command! gcclose -js closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//);
+
+js <<EOF
+function gcConvertLinkOrClose() {
+    var redirect = content.document.querySelector('.redirect_url div');
+    if (redirect.innerText.match(/three.comicfiles.ru/)) {
+        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//);
+        utils.message("three")
+    }
+    else {
+        shortestClick();
+        redirect.click();
+    }
+}
+EOF
 
 " =====SHORTE.ST=====
 group shortest -locations=shorte.st,viid.me,sh.st
@@ -3006,7 +3022,7 @@ map <site>c -description "Close temp tabs" -js shortestClickOrClose();
 js <<EOF
 function shortestClickOrClose() {
     if (content.document.alreadyClicked)
-        shortestCloseUnneededTabs();
+        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me)\//);
     else {
         shortestClick();
         content.document.alreadyClicked = true;
@@ -3015,17 +3031,6 @@ function shortestClickOrClose() {
 function shortestClick() {
     dactyl.open("javascript:app.skipClickNotify.redirectToTargetUrl();");
     void(0);
-}
-function shortestCloseUnneededTabs() {
-    var currentTab = tabs.getTab();
-    var currentIdx = currentTab.dactylOrdinal - 1;
-    var tab1 = tabs.getTab(currentIdx -2);
-    var tab2 = tabs.getTab(currentIdx -1);
-    var tempTabRE = /(getcomics.gq|shorte.st|sh.st|viid.me)\//;
-    for (t of [tab1, tab2, currentTab]) {
-        if (tabURL(t).match(tempTabRE))
-            tabs.remove(t);
-    }
 }
 EOF
 
