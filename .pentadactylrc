@@ -777,7 +777,8 @@ command! pwhashgen
 command! pwhashsite
     \ -description "Generate short password from current site's URL using Password Hasher"
     \ -nargs=0
-    \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'').replace(/www\./,'')); pwHashGen(domain);
+    \ -js var domain = decodeURIComponent(buffer.URL.replace(/^\w+:\/\//,'').replace(/\/.*/,'').replace(/www\./,'')); fromtab = tabs.getTab(); pwHashGen(domain, fromtab);
+map -modes input <pwhashsite> -ex pwhashsite
 
 " Page editing commands "
 command! editcontent
@@ -2231,7 +2232,7 @@ function pwHash() {
     });
 }
 
-function pwHashGen(s) {
+function pwHashGen(s, fromtab) {
     var newtab = gBrowser.addTab('file:///opt/webapps/password-hasher.html');
     gBrowser.selectedTab = newtab;
     var tb = gBrowser.getBrowserForTab(newtab);
@@ -2245,8 +2246,13 @@ function pwHashGen(s) {
         siteEntryBox.value = s;
         shortPWButton = content.document.getElementsByTagName("details")[0].getElementsByTagName("button")[0];
         shortPWButton.click();
+        var pw = content.document.getElementById("hash-word").value;
+        utils.cbWrite(pw);
+        if (fromtab!==undefined)
+            gBrowser.selectedTab = fromtab;
     });
 }
+window.pwHashGen = pwHashGen;
 
 function pwHashGenerateShortPassword(s) {
     var siteEntryBox = content.document.getElementById("site-tag");
