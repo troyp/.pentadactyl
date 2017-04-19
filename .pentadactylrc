@@ -314,7 +314,7 @@ map <xtra>f :xopen<Space>
 " open file in Emacs
 map <xtra>e -ex openFileInEmacs
 " open page in EWW
-map <xtra>E -ex openineww
+map <xtra>E -ex openUrlInEWW
 " open directory in Dired
 map <xtra>d -ex openDirectoryInDired
 " jumplist
@@ -661,8 +661,6 @@ command! viewpagesource -description "Toggle viewing page / viewing page source"
 command! rc source ~/.pentadactylrc
 "command! rce viewsource! file:/home/troy/.pentadactylrc
 command! rce !emacsclient ~/.pentadactylrc 2> /dev/null
-command! openineww -description "Open in EWW in Emacsclient"
-    \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
 
 command! loadutils runtime! utils.js | js var utils = dactyl.utils.getPlugin("utils");
 
@@ -765,6 +763,9 @@ command! openDirectoryInDired
 command! openFileInEmacs
     \ -description "Open the current file for editing in Emacs."
     \ -js dactyl.execute('!emacsclient "' + getFilenameOrURL() + '"');
+command! openUrlInEWW -description "Open in EWW in Emacsclient"
+    \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
+
 
 " Password Hasher "
 command! pwhash
