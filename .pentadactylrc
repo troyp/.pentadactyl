@@ -278,7 +278,6 @@ map -b P p
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
 
-" Miscellaneous Bindings:
 " Passthrough
 map -b <ext>a <C-v>
 map -b <C-a> <C-z>
@@ -914,7 +913,7 @@ function tabNormalizeOrdinal (ord) {
 }
 
 function tabURL(t) {
-    // URL of t, where t is a tab or a tab index
+    "URL of t, where t is a tab or a tab index";
     if (Number.isInteger(t))
         t = tabs.getTab(t);
     return gBrowser.getBrowserForTab(t).contentDocument.URL;
