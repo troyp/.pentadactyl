@@ -4937,6 +4937,17 @@ function searchCommandSets(regex) {
 }
 window.searchCommandSets = searchCommandSets;
 
+function getMenuItems(regex) {
+    var mitems = document.querySelectorAll('menuitem');
+    var result = [];
+    for (mitem of mitems) {
+        if (mitem.id.match(regex))
+            result.push(mitem);
+    }
+    return result;
+}
+window.getMenuItems = getMenuItems;
+
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
     "n = max tabs to close";
