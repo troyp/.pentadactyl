@@ -6,6 +6,7 @@ var personal = {
     mystreet:    "",
     mysuburb:    "",
     myphone:     "",
+    mypostcode:  "",
     mymasterpw:  "",
     myemail:     "",
     myemail2:    "",
