@@ -4967,6 +4967,8 @@ window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCopyItems(a)  { utils.cbWrite(a.join('\n')); };
 
+function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
+window.seq = seq;
 
 EOF
 
