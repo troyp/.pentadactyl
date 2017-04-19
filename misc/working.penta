@@ -5,6 +5,47 @@
 
 map -b <extra>C :emenu<Space>Tools.Web Developer<Space>Extension.CSS.Disable<Space>Styles.Disable<Space>Individual<Space>Style<Space>Sheet.
 
+" Ruby (SE) "
+style -name=fixruby japanese.stackexchange.com
+\ span rtc, span ruby > rt {
+\     font-size: 0.55em !important;
+\     transform: translateY(-1em) !important;
+\ }
+\ span rtc, span ruby > rt {
+\     font-size: 0.55em !important;
+\     transform: translateY(-1em) !important;
+\ }
+\ span rtc, span rbc {
+\     display: block !important;
+\ }
+\ span ruby, span rbc, span rtc, span rb, span rt {
+\     border-style: none !important;
+\     bottom: auto !important;
+\     height: auto !important;
+\     left: auto !important;
+\     letter-spacing: 0;
+\     line-height: 1.4em !important;
+\     margin: 0 !important;
+\     overflow: visible !important;
+\     padding: 0 !important;
+\     right: auto !important;
+\     text-align: center !important;
+\     text-decoration: none !important;
+\     text-indent: 0;
+\     top: auto !important;
+\     vertical-align: baseline !important;
+\     white-space: nowrap !important;
+\     width: auto !important;
+\ }
+\ span ruby, span rbc, span rtc, span rb, span rt {
+\     letter-spacing: 0;
+\     line-height: 1.4em !important;
+\     text-align: center !important;
+\     text-indent: 0;
+\     white-space: nowrap !important;
+\ }
+
+
 " -------------------------------------------------------------------------------
 " ,---------------,
 " | Alias Command |
@@ -79,3 +120,64 @@ command! pz -description "PageZipper"
 "" Output newline in 'Pentadactyl Output <Date>' file:
 "command! outputnewline :execute "!echo >> \"Pentadactyl Output " + Date().slice(0,15) + "\""
 "map -b <C-x>0 :outputnewline<CR>
+
+
+" -----------------------------------------------------------------------------
+" ,---------,
+" | Firebug |
+" '---------'
+
+js <<EOF
+
+var fbugToggleInspectNode = document.querySelector('#cmd_firebug_toggleInspecting');
+var fbugToggleInspectCmd = fbugToggleInspectNode.getAttribute('oncommand');
+
+EOF
+
+command! firebugToggleInspecting -js eval(fbugToggleInspectCmd);
+
+" -------------------------------------------------------------------------------
+" ,---------,
+" | MozREPL |
+" '---------'
+set! extensions.mozrepl.initUrl=file:///home/troy/.mozreplrc
+
+" ,---------------,
+" | OpenSeaDragon |
+" '---------------'
+group openseadragon -locations=openseadragon.github.io
+map <leader>hkc :map -group openseadragon <Lt>site
+map <site><C-h> :map -group openseadragon <Lt>site
+
+js <<EOF
+
+function openseadragonGetButtons() {
+    var buttons = content.document.querySelectorAll('.openseadragon-container :nth-child(2) div div div');
+    return Array.from(buttons);
+}
+
+hints.addMode('ö','show buttons', elem=>alert('NOT IMPLEMENTED'));
+
+EOF
+
+map <site>c -description "Hint buttons" -js hints.show("ő");
+
+set eht+=[ö]:.openseadragon-container>:nth-child(2)>div>div>div;
+
+
+group user
+
+" -------------------------------------------------------------------------------
+
+" ,--------------,
+" | VapeKing.com |
+" '--------------'
+group vapeking -locations=vapeking.com.au
+map <leader>hkc :map -group vapeking <Lt>site
+map <site><C-h> :map -group vapeking <Lt>site
+
+style -name=vapeking_visitedlinks www.vapeking.com.au body a:visited { color: ##F3D859 !important; }
+
+group user
+
+" -------------------------------------------------------------------------------
