@@ -297,6 +297,8 @@ map -b K <C-u>
 map <C-x><C-x> -ex restart
 " reload .pentadactylrc
 map <browser>r -ex rc
+" edit .pentadactylrc
+map <browser>R -ex rce
 " hide messages
 map <C-x>; :<Esc>
 " hide and clear messages
