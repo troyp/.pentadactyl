@@ -4518,6 +4518,22 @@ group user
 
 " -------------------------------------------------------------------------------
 " ,------------,
+" | Ptable.com |
+" '------------'
+group ptable -locations=ptable.com
+map <leader>hkc :map -group ptable <Lt>site
+map <site><C-h> :map -group ptable <Lt>site
+
+js <<EOF
+var ptableToggleWP = makeDisplayToggle('#WikiBox');
+EOF
+
+map <site>w -js ptableToggleWP();
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,------------,
 " | Reddit.com |
 " '------------'
 group reddit -locations=reddit.com
