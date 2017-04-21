@@ -4974,6 +4974,25 @@ function arrayCopyItems(a)  { utils.cbWrite(a.join('\n')); };
 function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
 window.seq = seq;
 
+" ,-------------------------,
+" | variables for temp data |
+" '-------------------------'
+
+window._dactylresult = null;
+function dactylResultSet(value) {
+    window._dactylresult = value;
+}
+
+window._dactyldata = {};
+function dactylDataSet(key, value) {
+    window._dactyldata[key] = value;
+}
+window.dactylDataSet = dactylDataSet;
+function dactylDataGet(key) {
+    return window._dactyldata[key];
+}
+window.dactylDataGet = dactylDataGet;
+
 EOF
 
 " -----------------------------------------------------------------------------
