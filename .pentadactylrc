@@ -1844,15 +1844,6 @@ map <ext>g -description "Toggle gDict" -js toggleAddon(gdict_id);
 command! eplist -nargs=1 -js (eplist(args[0]))
 
 " -----------------------------------------------------------------------------
-" toggleWayback
-
-map <xtra>w :toggleWayback<CR>
-command! toggleWayback
-    \ -bang
-    \ -description "Toggle web page and archive.org copy"
-    \ -js bang ? toggleWayback({where: dactyl.NEW_TAB}) : toggleWayback()
-
-" -----------------------------------------------------------------------------
 
 " kanji
 
@@ -2088,18 +2079,6 @@ function popJisyoEtoJ(url) {
     if (!url)
         url = content.location.href;
     content.location.href = `${popJisyoUrl}&d=1&u=${encodeURIComponent(url)}`;
-}
-
-function toggleWayback(opts={}) {
-    var url = content.location.href.toLowerCase();
-    var waybackRegex = /https?:\/\/web\.archive\.org\/web\/(\d+)(id_)?\/(.*)/;
-    var match = waybackRegex.exec(url);
-    if (match) {
-        dactyl.open(match[3], opts);
-    }
-    else {
-        dactyl.open(`http://web.archive.org/web/${url}`, opts);
-    }
 }
 
 function toggleHTTPS () {
@@ -2710,26 +2689,49 @@ group user
 " ,-------------,
 " | Archive.org |
 " '-------------'
+
+js <<EOF
+function waybackToggle(opts={}) {
+    var url = content.location.href.toLowerCase();
+    var waybackRegex = /https?:\/\/web\.archive\.org\/web\/(\d+)(id_)?\/(.*)/;
+    var match = waybackRegex.exec(url);
+    if (match) {
+        dactyl.open(match[3], opts);
+    }
+    else {
+        dactyl.open(`http://web.archive.org/web/${url}`, opts);
+    }
+}
+EOF
+
+command! waybacktoggle
+    \ -bang
+    \ -description "Toggle web page and archive.org copy"
+    \ -js bang ? waybackToggle({where: dactyl.NEW_TAB}) : waybackToggle()
+map <xtra>w -ex waybacktoggle
+
+" ===== GROUP START =====
+
 group wayback -locations=archive.org
 map <leader>hkc :map -group wayback <Lt>site
 map <site><C-h> :map -group wayback <Lt>site
 
-map <site>t -ex toggleWaybackToolbar
-map g<site>t -ex toggleWaybackToolbar!
+map <site>t -ex waybacktoggletoolbar
+map <site>T -js waybackToggleToolbarUrl();
 
 " Wayback Toolbar Go To Previous Capture:
 " ( Searches for a year (starting with '20' using FF link search,
 "   then tabs backwards twice to land on back link and activates )
 map -b <site>b <C-v>'20<S-Tab><S-Tab><CR>
 
-command! toggleWaybackToolbar
+command! waybacktoggletoolbar
     \ -bang
     \ -description "Hides/shows Wayback Machine toolbar. With [!], toggles between regular and no-toolbar URLs"
-    \ -js bang ? toggleWaybackToolbarUrl() : toggleWaybackToolbar();
+    \ -js bang ? waybackToggleToolbarUrl() : waybackToggleToolbar();
 
 js <<EOF
 
-function toggleWaybackToolbar() {
+function waybackToggleToolbar() {
     var url = content.location.href
     var waybackRegex = /(https?:\/\/web\.archive\.org\/web\/\d+)(id_)?(\/.*)/;
     var match = waybackRegex.exec(url);
@@ -2745,7 +2747,7 @@ function toggleWaybackToolbar() {
     }
 }
 
-function toggleWaybackToolbarUrl() {
+function waybackToggleToolbarUrl() {
     var url = content.location.href
     var waybackRegex = /(https?:\/\/web\.archive\.org\/web\/\d+)(id_)?(\/.*)/;
     var match = waybackRegex.exec(url);
