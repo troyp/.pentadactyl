@@ -1393,6 +1393,7 @@ group temp
 " define temp group for use by temp styles, etc
 group user
 
+" Create temp style for current page. "
 map -b gc y:style -group=temp <C-v><C-v><Space>
 map <xtra>gs :emenu View.Page Style.
 " map <xtra><C-s> :emenu View.Page Style.No Style<CR>
