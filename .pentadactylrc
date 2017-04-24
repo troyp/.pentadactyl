@@ -101,6 +101,19 @@ function runProcess(exec, ...args) {
     process.runAsync(args, args.length);
 }
 
+function makeDisplayToggle(selector) {
+    function displayToggle() {
+        var elt = content.document.querySelector(selector);
+        if (elt) {
+          if (elt.style.display == 'none')
+          elt.style.display = 'block';
+          else elt.style.display = 'none';
+        } else dactyl.echoerr(`no match for selector ${selector}`);
+    }
+    return displayToggle;
+}
+window.makeDisplayToggle = makeDisplayToggle;
+
 "Patched Classes"
 String.prototype.capitalize = function() {
     return this.replace(/\b\w/g,
@@ -4930,19 +4943,6 @@ function isInView(elt) {
 
 // modulus function taking negative n (base assumed to be positive)
 function mod(n,b) { return n<0 ? n%b + Number(b) : n%b; }
-
-function makeDisplayToggle(selector) {
-    function displayToggle() {
-        var elt = content.document.querySelector(selector);
-        if (elt) {
-          if (elt.style.display == 'none')
-          elt.style.display = 'block';
-          else elt.style.display = 'none';
-        } else dactyl.echoerr(`no match for selector ${selector}`);
-    }
-    return displayToggle;
-}
-window.makeDisplayToggle = makeDisplayToggle;
 
 // requires a webdriver implementation
 function mouse_x() { return MousePosTracker._x; }
