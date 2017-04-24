@@ -4985,6 +4985,23 @@ function closeTabsLeftWhileMatching(regex, n) {
 }
 window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
 
+function foreachElement(f, top=content.document) {
+    Array.from(top.getElementsByTagName("*")).forEach(f);
+}
+window.foreachElement = foreachElement;
+
+function foreachNode(f, top=content.document) {
+    var nodes = [];
+    var recurseNode = function(top) {
+        nodes.push(top);
+        for (n of top.childNodes)
+            recurseNode(n);
+    }
+    recurseNode(top);
+    nodes.forEach(f);
+}
+window.foreachNode = foreachNode;
+
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
 
