@@ -4991,6 +4991,15 @@ function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
 function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
 window.seq = seq;
 
+function id(x) { return x; }
+function fconst(x) { return function(...args) { return x; }; }
+function ftrue(...args) { return true; }
+function ffalse(...args) { return false; }
+window.id = id;
+window.fconst = fconst;
+window.ftrue = ftrue;
+window.ffalse = ffalse;
+
 // ,-------------------------,
 // | variables for temp data |
 // '-------------------------'
