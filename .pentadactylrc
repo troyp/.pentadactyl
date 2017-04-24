@@ -4948,6 +4948,24 @@ function isInView(elt) {
     return inview;
 }
 
+function alertobj(obj) {
+    var s = "";
+    for(k in Object.keys(obj)) {
+        s += `${k.toString()}: ${obj[k].toString()}\n`;
+    }
+    alert(s);
+}
+window.alertobj = alertobj;
+
+function alertall(...xs) {
+    var s = "";
+    for(x of xs) {
+        s += x.toString() + "\n";
+    }
+    alert(s);
+}
+window.alertall = alertall;
+
 // modulus function taking negative n (base assumed to be positive)
 function mod(n,b) { return n<0 ? n%b + Number(b) : n%b; }
 
