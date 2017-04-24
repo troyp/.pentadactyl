@@ -813,7 +813,7 @@ command! setbodybyid
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeSelector('footer');
 command! removeimages -js removeSelector('img');
-command! removeselector -nargs=* -js Array.from(args).map(removeSelector);
+command! removeselector -nargs=* -js removeSelectors.call(...args);
 command! removecruft -js removeCruft();
 
 " Page info commands "
