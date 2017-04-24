@@ -4587,6 +4587,52 @@ group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
 map <leader>hkc :map -group stackexchange <Lt>site
 map <site><C-h> :map -group stackexchange <Lt>site
 
+js <<EOF
+
+function seExpandAllComments() {
+    var expandLinks = Array.from(content.document.querySelectorAll('.js-show-link'));
+    for (l of expandLinks) l.click();
+}
+
+function seExpandAllSnippets() {
+    var runBtns = Array.from(content.document.querySelectorAll('.snippet-ctas button'));
+    for (b of runBtns)
+        if (!b.classList.contains('hideResults'))
+            b.click();
+}
+
+function seCleanup(showSnippetResults) {
+    if (showSnippetResults) {
+        seExpandAllSnippets();
+        removeSelectors('.snippet-ctas');
+    } else {
+        removeSelectors('.snippet-result');
+    }
+    removeSelectors(
+        'script',
+        'header','#sidebar', '.aside-cta',    // header, sidebar, ask a question
+        '.post-taglist', '.special-status', '.bounty-notification',
+        '.star-off', '.favoritecount', '#tabs',
+        '#PrinterFriendly',    // added-by-userscript
+        '.vt',    //  share-edit-flag
+        '.vote-up-off', '.vote-down-off', '.js-add-link',
+        '.user-gravatar32', '.-flair',
+        '.bottom-notice', 'form', '#footer', '#feed-link',
+    );
+}
+
+EOF
+
+command! secleanup
+    \ -description "Cleanup SO page: Expand links and remove cruft."
+    \ -bang
+    \ -js seExpandAllComments(); seCleanup(bang);
+
+map <site>c
+    \ -count
+    \ -description "Expand links and remove cruft."
+    \ -js  seExpandAllComments(); seCleanup(count);
+
 map -modes insert -b <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
 
 set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
