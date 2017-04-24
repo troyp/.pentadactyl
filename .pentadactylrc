@@ -4789,9 +4789,14 @@ var wpCopyHtml = function() {
 }
 EOF
 command! wplatest -description "Go to latest revision" -js wpLatest();
-map <site>l -ex wplatest
 command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
 command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml();
+command! wpcleanup
+    \ -description "Cleanup article"
+    \ -ex removeselector #mw-navigation #footer .noprint .mw-editsection .navbox
+
+map <site>c -ex wpcleanup
+map <site>l -ex wplatest
 
 group user
 
