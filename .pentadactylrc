@@ -811,8 +811,8 @@ command! setbodybyid
     \ -complete=javascript
     \ -js setBodyById(args[0]);
 command! hidefooter -js toggleFooter();
-command! removefooter -js removeSelector('footer');
-command! removeimages -js removeSelector('img');
+command! removefooter -js removeSelectors('footer');
+command! removeimages -js removeSelectors('img');
 command! removeselector -nargs=* -js removeSelectors.call(...args);
 command! removecruft -js removeCruft();
 
@@ -2171,13 +2171,12 @@ function toggleFooter() {
     }
 }
 
-function removeSelector(sel) {
-    var doc = content.document;
-    var elts = Array.from(doc.querySelectorAll(sel));
-    elts.forEach(e=>e.remove && e.remove());
-}
 function removeSelectors(...sels) {
-    sels.forEach(removeSelector);
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=>e.remove && e.remove());
+    });
 }
 
 function removeCruft() {
