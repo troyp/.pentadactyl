@@ -5002,6 +5002,26 @@ function foreachNode(f, top=content.document) {
 }
 window.foreachNode = foreachNode;
 
+function listElements(pred, options={}) {
+    var top = options.top || content.document;
+    var max = options.max;
+    var elts = [];
+    foreachElement(e=>{ if (pred(e)) elts.push(e); }, top);
+    return max ? elts.slice(0, max) : elts;
+}
+function listNodes(pred, options={}) {
+    var top = options.top || content.document;
+    var max = options.max;
+    var nodes = [];
+    foreachNode(n=>{ if (pred(n)) elts.push(n); }, top);
+    return max ? nodes.slice(0, max) : nodes;
+}
+window.listElements = listElements;
+window.listNodes = listNodes;
+
+function matches(var_, regex) { return (var_ && var_.match && var_.match(regex)); }
+window.matches = matches;
+
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
 
