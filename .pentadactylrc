@@ -1716,7 +1716,7 @@ window.toggleAddon = toggleAddon;
 // getExtensions produces an array and passes it to an optional callback.
 // By default, it prints the result list and copies it to clipboard.
 function getExtensions(arrayCallback) {
-    if (!arrayCallback) arrayCallback = arrayCopyItems;
+    if (!arrayCallback) arrayCallback = arrayCbWriteItems;
     AddonManager.getAddonsByTypes(["extension"], function(exts) {
         var result = [];
         for (let ext of exts)
@@ -4986,7 +4986,7 @@ function closeTabsLeftWhileMatching(regex, n) {
 window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
 
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
-function arrayCopyItems(a)  { utils.cbWrite(a.join('\n')); };
+function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
 
 function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
 window.seq = seq;
