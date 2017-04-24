@@ -854,12 +854,14 @@ map ! -ex pintab!
 " | Closing Tabs |
 " '--------------'
 
-" close other tabs
+" close other tabs "
 map <browser>1 -ex tabonly
-" close tabs to left
+" close tabs to left "
 map <browser>< -js closeAllToLeft()
-" close tabs to right
+" close tabs to right "
 map <browser>> -js closeAllToRight()
+" close tabs to right (inclusive) "
+map <C-k> <browser>>d
 
 " close tab range
 " :tc START END : close tabs starting with START and ending with the tabs before END
