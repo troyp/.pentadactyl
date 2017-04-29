@@ -5002,6 +5002,13 @@ function isInView(elt) {
     return inview;
 }
 
+function clickElement(sel) {
+    var getButton = content.document.querySelector(sel);
+    getButton.click();
+}
+window.clickElement = clickElement;
+
+
 function alertobj(obj) {
     var s = "";
     for(k in Object.keys(obj)) {
