@@ -3034,9 +3034,10 @@ command! gcclose -js closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|v
 
 js <<EOF
 function gcConvertLinkOrClose() {
+    var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
     var redirect = content.document.querySelector('.redirect_url div');
     if (redirect.innerText.match(/three.comicfiles.ru/)) {
-        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//, 3);
+        closeTabsLeftWhileMatching(URLsRegex, 3);
         utils.message("three")
     }
     else {
@@ -3047,7 +3048,7 @@ function gcConvertLinkOrClose() {
 EOF
 
 " =====SHORTE.ST=====
-group shortest -locations=shorte.st,viid.me,sh.st
+group shortest -locations=shorte.st,viid.me,sh.st,cllkme.com
 map <leader>hkc :map -group shortest <Lt>site
 map <site><C-h> :map -group shortest <Lt>site
 
@@ -3055,8 +3056,9 @@ map <site>c -description "Close temp tabs" -js shortestClickOrClose();
 
 js <<EOF
 function shortestClickOrClose() {
+    var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
     if (content.document.alreadyClicked)
-        closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me)\//, 3);
+        closeTabsLeftWhileMatching(URLsRegex, 3);
     else {
         shortestClick();
         content.document.alreadyClicked = true;
