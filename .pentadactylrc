@@ -905,6 +905,7 @@ closeAllToRight = function (ord) {
 }
 
 var closeTabRange = function (firstOrd, endOrd) {
+    if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  // current
     firstSpec = firstOrd - 1;
     if (endOrd === '$') endOrd = 0;  // last tab
     endOrd = tabNormalizeOrdinal(endOrd);
