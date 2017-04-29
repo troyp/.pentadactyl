@@ -2652,7 +2652,7 @@ map -b <site>P <C-v>'Print<Space>view<f3><CR>
 " ,----------,
 " | about: * |
 " '----------'
-group about -locations=about:*,chrome:*
+group about -locations=chrome:*,about:addons,about:config,about:cache,about:debugging,about:downloads,about:performance,about:plugins,about:support
 map <leader>hkc :map -group about <Lt>site
 map <site><C-h> :map -group about <Lt>site
 
