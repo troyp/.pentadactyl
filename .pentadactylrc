@@ -1285,10 +1285,10 @@ command! historydialog
 map <goto>a -ex dialog addons
 map -b <goto>c tabout:config<CR>
 map -b <goto>ec oabout:config<CR>
-map -b <goto>d tabout:downloads<CR>
-map -b <goto>ed oabout:downloads<CR>
-map -b <goto>k tchrome://browser/content/places/places.xul<CR>
-map -b <goto>ek ochrome://browser/content/places/places.xul<CR>
+map -b <goto>d tabout:downloads<CR><C-z>
+map -b <goto>ed oabout:downloads<CR><C-z>
+map -b <goto>k tchrome://browser/content/places/places.xul<CR>gi<C-z>
+map -b <goto>ek ochrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>l tchrome://passwordmgr/content/passwordManager.xul<CR>
 map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
 map -b <goto>p tabout:plugins<CR>
