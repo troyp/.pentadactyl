@@ -2707,6 +2707,35 @@ map <site>s -js addonsClickCategory("category-service");
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-------------------,
+" | about:preferences |
+" '-------------------'
+group aboutpreferences -locations=about:preferences,about:preferences#*
+map <leader>hkc :map -group aboutpreferences <Lt>site
+map <site><C-h> :map -group aboutpreferences <Lt>site
+
+map <site>z <pass-all-keys>
+
+command! aprefsgeneral      -js clickElement("#category-general");
+command! aprefssearch       -js clickElement("#category-search");
+command! aprefscontent      -js clickElement("#category-content");
+command! aprefsapplications -js clickElement("#category-application");
+command! aprefsprivacy      -js clickElement("#category-privacy");
+command! aprefssecurity     -js clickElement("#category-security");
+command! aprefssync         -js clickElement("#category-sync");
+command! aprefsadvanced     -js clickElement("#category-advanced");
+map <site>g -ex aprefsgeneral
+map <site>/ -ex aprefssearch
+map <site>c -ex aprefscontent
+map <site>a -ex aprefsapplications
+map <site>p -ex aprefsprivacy
+map <site>s -ex aprefssecurity
+map <site>y -ex aprefssync
+map <site>v -ex aprefsadvanced
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-------------,
 " | Archive.org |
