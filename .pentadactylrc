@@ -1293,6 +1293,8 @@ map -b <goto>l tchrome://passwordmgr/content/passwordManager.xul<CR>
 map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
 map -b <goto>p tabout:plugins<CR>
 map -b <goto>ep oabout:plugins<CR>
+map -b <goto>P tabout:preferences<CR><C-z>
+map -b <goto>eP oabout:preferences<CR><C-z>
 map -b <goto>r tabout:sessionrestore<CR>
 map -b <goto>er oabout:sessionrestore<CR>
 map -b <goto>s tabout:support<CR>
