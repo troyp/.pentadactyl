@@ -856,10 +856,25 @@ map ! -ex pintab!
 
 " close other tabs "
 map <browser>1 -ex tabonly
-" close tabs to left "
-map <browser>< -js closeAllToLeft()
-" close tabs to right "
-map <browser>> -js closeAllToRight()
+
+command! closetabstoleft
+    \ -description "Close all tabs to the left of the current tab"
+    \ -js
+    \ var firstTab = tabs.getTab(0);
+    \ var numToClose = tabs.getTab().dactylOrdinal - 1;
+    \ tabs.remove(firstTab, numToClose);
+command! closetabstoright
+    \ -description "Close all tabs to the right of the current tab"
+    \ -js
+    \ tabIndex = tabs.getTab().dactylOrdinal - 1;
+    \ var nextTabIndex = tabIndex + 1;
+    \ var firstTab = tabs.getTab(nextTabIndex);
+    \ var N = tabs.allTabs.length;
+    \ var numToClose = N - nextTabIndex;
+    \ tabs.remove(firstTab, numToClose);
+
+map <browser>< -ex closetabstoleft
+map <browser>> -ex closetabstoright
 " close tabs to right (inclusive) "
 map <C-k> <browser>>d
 
@@ -885,24 +900,6 @@ command! tabfilter
 map <browser>c :tabfilter<Space>""<C-b>
 
 js <<EOF
-
-closeAllToLeft = function (ord) {
-    if (typeof(ord)==="undefined") ord = tabs.getTab().dactylOrdinal;
-    // convert from 0- to 1-based  ==> -1  |
-    // end at previous tab         ==> -1  | ==> -2
-    var ix = ord - 1;
-    var prevTabIx = ix - 1;
-    utils.closeTabsTo(prevTabIx)
-}
-
-closeAllToRight = function (ord) {
-    if (typeof(ord)==="undefined") ord = tabs.getTab().dactylOrdinal;
-    // convert from 0- to 1-based  ==> -1  |
-    // start from next tab         ==> +1  | ... cancel out
-    var ix = ord - 1;
-    var nextTabIx = ix + 1;
-    utils.closeTabsFrom(nextTabIx)
-}
 
 var closeTabRange = function (firstOrd, endOrd) {
     if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  // current
