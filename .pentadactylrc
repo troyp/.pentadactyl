@@ -4827,6 +4827,37 @@ function removeFandomAds() {
 }
 EOF
 map <site>c -js removeFandomAds();
+map <site>a -js removeFandomAds();
+
+" ,-------------------------,
+" | AdventureTime.Wikia.com |
+" '-------------------------'
+group advtimewikia -locations='adventuretime\.wikia\.com/wiki/'
+autocmd! -group advtimewikia
+map <leader>hkc :map -group advtimewikia <Lt>site
+map <site><C-h> :map -group advtimewikia <Lt>site
+
+js <<EOF
+
+function advtimeToggleTranscript() {
+    var url_A = /\/Transcript/;
+    var url_B = /$/;
+    var url_A_canon = "/Transcript";
+    var url_B_canon = "";
+    var url = content.location.href;
+    var newurl;
+    if (url.search(url_A) >= 0)
+        newurl = url.replace(url_A, url_B_canon);
+    else if (url.search(url_B) >= 0)
+        newurl = url.replace(url_B, url_A_canon);
+    dactyl.open(newurl);
+}
+
+EOF
+
+command! advtimeToggleTranscript -js advtimeToggleTranscript();
+map <site>c -ex advtimeToggleTranscript
+map <site>a -ex removefandomads
 
 group user
 
