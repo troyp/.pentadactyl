@@ -2173,14 +2173,6 @@ function toggleFooter() {
     }
 }
 
-function removeSelectors(...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>e.remove && e.remove());
-    });
-}
-
 function removeCruft() {
     var elts = [];
     var toarray = Array.prototype.slice;
@@ -5114,6 +5106,30 @@ function getMenuItems(regex) {
     return result;
 }
 window.getMenuItems = getMenuItems;
+
+function removeSelectors(...sels) {
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=>e.remove && e.remove());
+    });
+}
+window.removeSelectors = removeSelectors;
+
+"remove each matching element, plus immediately preceding heading (H1-H6)"
+function removeSelectorsWithPrecedingElt(...sels) {
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=> {
+            var prev = e.previousElementSibling;
+            if (prev && prev.tagName && prev.tagName.match(/H[1-6]/))
+                prev.remove && prev.remove();
+            e.remove && e.remove();
+        });
+    });
+}
+window.removeSelectorsWithPrecedingElt = removeSelectorsWithPrecedingElt;
 
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
