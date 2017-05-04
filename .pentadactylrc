@@ -4815,13 +4815,34 @@ function wikiaRemoveFandomAds() {
   var fads = content.document.getElementsByClassName("recirculation-rail")[0];
   fads.style.display="none";
 }
+
+function wikiaRemoveCruft() {
+    removeSelectors(
+    '.wds-global-navigation-wrapper', '#WikiaTopAds', '.wikia-ad', '#WikiHeader',
+    '.header-tally', '.wikia-button', '.wikia-menu-button', '.editsection', '.WikiaRail',
+    '.navbox', '.WikiaArticleInterlang', '.refpopups-configure-page', '#WikiaArticleFooter',
+    'footer', '#WikiaArticleBottomAd', '#WikiaBar', 'script', '.ve-spinner'
+    );
+}
+
+function wikiaRemoveImages() {
+    removeSelectors('img', '#Gallery');
+    removeSelectorsWithPrecedingElt('.wikia-gallery');
+}
+
 EOF
 
 command! wikiaremovefandomads
     \ -description "Remove 'Trending Fandom' ads"
     \ -js wikiaRemoveFandomAds();
+command! wikiaremovecruft -js wikiaRemoveCruft();
+command! wikiaremoveimages -js wikiaRemoveImages();
+
 map <site>c -ex wikiaremovefandomads
 map <site>a -ex wikiaremovefandomads
+map <site>r -ex wikiaremovecruft
+map <site>i -ex wikiaremoveimages
+
 " ,-------------------------,
 " | AdventureTime.Wikia.com |
 " '-------------------------'
