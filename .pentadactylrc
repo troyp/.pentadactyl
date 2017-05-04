@@ -4809,18 +4809,19 @@ autocmd! -group wikia
 map <leader>hkc :map -group wikia <Lt>site
 map <site><C-h> :map -group wikia <Lt>site
 
-command! removefandomads
-    \ -description "Remove 'Trending Fandom' ads"
-    \ -js removeFandomAds();
 js <<EOF
-function removeFandomAds() {
+
+function wikiaRemoveFandomAds() {
   var fads = content.document.getElementsByClassName("recirculation-rail")[0];
   fads.style.display="none";
 }
 EOF
-map <site>c -js removeFandomAds();
-map <site>a -js removeFandomAds();
 
+command! wikiaremovefandomads
+    \ -description "Remove 'Trending Fandom' ads"
+    \ -js wikiaRemoveFandomAds();
+map <site>c -ex wikiaremovefandomads
+map <site>a -ex wikiaremovefandomads
 " ,-------------------------,
 " | AdventureTime.Wikia.com |
 " '-------------------------'
@@ -4849,7 +4850,7 @@ EOF
 
 command! advtimeToggleTranscript -js advtimeToggleTranscript();
 map <site>c -ex advtimeToggleTranscript
-map <site>a -ex removefandomads
+map <site>a -ex wikiaremovefandomads
 
 group user
 
