@@ -4995,15 +4995,15 @@ command! ytrate
 command! ytfullscreen -description "toggle fullscreen" -js clickElement('.ytp-fullscreen-button');
 command! ytcinema -description "toggle cinema mode" -js clickElement('.ytp-size-button');
 
-map <site>yr :ytrate<Space>
-map <site>yR -ex ytshowrate
+map <site>r :ytrate<Space>
+map <site>R -ex ytshowrate
 map <site>\> -js ytAdjustSpeed(0.25);
 map <site>\< -js ytAdjustSpeed(-0.25);
 map <site>f -ex ytfullscreen
 map <site>c -ex ytcinema
 
 command! ytdl -description "Download video/playlist with youtube-dl" -js ytDL(args[0]);
-map <site>yd -ex ytdl
+map <site>d -ex ytdl
 
 map <site><Space> -js ytTogglePause();
 map <Space> -js ytTogglePause();
