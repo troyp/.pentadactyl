@@ -621,6 +621,13 @@ cmap <C-2> (?= |$)
 map -modes caret,visual -b <C-a> 0
 map -modes caret,visual -b <C-e> $
 map -modes caret,visual -b <C-S-Y> <C-e>
+
+" select from caret mode "
+map -modes caret H <S-left>
+map -modes caret L <S-right>
+map -modes caret J <S-down>
+map -modes caret K <S-up>
+
 " to search and select:
 " 1. press / and type search term
 " 2. when satisfied, press enter
