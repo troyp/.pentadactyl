@@ -151,8 +151,8 @@ set scrollsteps=1
 " nextpattern, previouspattern
 " default: '^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bmore\b',
 " default: '^\s*Prev(ious)? Page\s*$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)',
-set nextpattern='^\W*\bForward\b\W*$','^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bMore Words\b','\bmore\b',
-set previouspattern='^\W*\bBack\b\W*$','^\s*Prev(ious)? Page\s*$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)','(<|«)$'
+set nextpattern='^\W*\bForward\b\W*$','^\s*Next( Page\s*)?$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bMore Words\b','\bmore\b',
+set previouspattern='^\W*\bBack\b\W*$','^\s*Prev(ious)?( Page\s*)?$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)','(<|«)$'
 
 set wildignore='~$','^(.*/)?\..*\.sw[m-p]$','^(.*/)?#.+#$'
 
