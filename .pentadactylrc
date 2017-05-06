@@ -4840,6 +4840,15 @@ function wikiaRemoveImages() {
     removeSelectorsWithPrecedingElt('.wikia-gallery');
 }
 
+function wikiaGetNext() {
+    var nextprevLinks = content.document.querySelectorAll('.portable-infobox tr a');
+    return nextprevLinks[1].href;
+}
+function wikiaGetPrevious() {
+    var nextprevLinks = content.document.querySelectorAll('.portable-infobox tr a');
+    return nextprevLinks[0].href;
+}
+
 EOF
 
 command! wikiaremovefandomads
@@ -4847,11 +4856,17 @@ command! wikiaremovefandomads
     \ -js wikiaRemoveFandomAds();
 command! wikiaremovecruft -js wikiaRemoveCruft();
 command! wikiaremoveimages -js wikiaRemoveImages();
+command! -bang wikianext
+    \ -js dactyl.open(wikiaGetNext(), { where: bang?'tab':'here' });
+command! -bang wikiaprevious
+    \ -js dactyl.open(wikiaGetPrevious(), { where: bang?'tab':'here' });
 
 map <site>c -ex wikiaremovefandomads
 map <site>a -ex wikiaremovefandomads
 map <site>r -ex wikiaremovecruft
 map <site>i -ex wikiaremoveimages
+map <site>] -ex wikianext
+map <site>[ -ex wikiaprevious
 
 " ,-------------------------,
 " | AdventureTime.Wikia.com |
