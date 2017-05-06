@@ -540,8 +540,8 @@ map -modes command-line -b <C-x>h <Home><S-End><C-v><C-c>
 cmap -b <C-,> <Tab>
 cmap -b <C-.> <S-Tab>
 " use c_<A-/> for AltWildMode completion
-map -b -modes=command-line <A-/> <A-Tab>
-map -b -modes=command-line <A-S-/> <A-S-Tab>
+map -modes command-line -b <A-/> <A-Tab>
+map -modes command-line -b <A-S-/> <A-S-Tab>
 
 map -modes command-line,insert -b <C-y> <C-v><C-v>
 map -modes command-line,insert -b <C-p> <Up>
