@@ -253,23 +253,23 @@ map <link_desc> ;Y
 
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
-map -b <C-,> <Left>
-map -b <C-.> <Right>
+map -modes normal -b <C-,> <Left>
+map -modes normal -b <C-.> <Right>
 " use h, l for tab changing
 "   note: <C-n>,gT are opposite motions. gt with arg goes to arg'th tab
-map -b h gT
-map -b l <C-n>
+map -modes normal -b h gT
+map -modes normal -b l <C-n>
 " <C-n> and <C-p> for down and up
-map -b <C-n> <C-v><down>
-map -b <C-p> <C-v><up>
+map -modes normal -b <C-n> <C-v><down>
+map -modes normal -b <C-p> <C-v><up>
 " replace h, l with A-k, A-j for horizontal movement
-map -b <C-A-h> h
-map -b <C-A-l> l
+map -modes normal -b <C-A-h> h
+map -modes normal -b <C-A-l> l
 " A-k/j and A-,/. can be reused...
-map -b <A-k> h
-map -b <A-j> l
-map -b <A-,> h
-map -b <A-.> l
+map -modes normal -b <A-k> h
+map -modes normal -b <A-j> l
+map -modes normal -b <A-,> h
+map -modes normal -b <A-.> l
 " free C-N, C-P bindings for tab movement
 map <C-S-P> <Nop>
 map <C-S-N> <Nop>
@@ -278,15 +278,15 @@ map gf <Nop>
 map gs -ex viewpagesource
 " replace builtin <C-a> and <C-x> bindings (inrease/decrease URL by 1)
 map <C-a> <Nop>
-map -b <A-=> <C-a>
-map -b <A--> <C-x>
+map -modes normal -b <A-=> <C-a>
+map -modes normal -b <A--> <C-x>
 " passthrough
 map -b \\ <C-v>
 
 " Paste and Search
 " swap p and P
-map -b p P
-map -b P p
+map -modes normal -b p P
+map -modes normal -b P p
 
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
@@ -295,17 +295,17 @@ map -modes main <C-q> <Nop>
 map -b <ext>a <C-v>
 map -b <C-a> <C-z>
 " Repeat last ex command
-map -b g. @:
+map -modes normal -b g. @:
 " Copying
-map -b <A-w> Y
+map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
 map -b <A-Esc> <C-v><Esc>
 " C-w closes tab; if last in window closes window.
 map <C-w> :q<CR>
 " movement
-map -b <C-S-D> <C-u>
-map -b J <C-d>
-map -b K <C-u>
+map -modes normal -b <C-S-D> <C-u>
+map -modes normal -b J <C-d>
+map -modes normal -b K <C-u>
 " Restart with C-x C-x:
 map <C-x><C-x> -ex restart
 " reload .pentadactylrc
@@ -321,9 +321,9 @@ map gR -ex redraw
 " (Re-)Maximize window (when Pentadactyl pushes command line offscreen)
 map <browser>x -js window.restore(); window.maximize();
 " select all
-map -b <C-x>h iGvggy
+map -modes normal -b <C-x>h iGvggy
 " second input area
-map -b <xtra>gi 2gi
+map -modes normal -b <xtra>gi 2gi
 " open local file with xdg-open
 map <xtra>f :xopen<Space>
 " open file in Emacs
@@ -499,22 +499,22 @@ EOF
 " clear the search term highlighting
 map <C-/> -ex noh
 " Regex search
-map -b g/ /\r
-map -b g? ?\r
+map -modes normal -b g/ /\r
+map -modes normal -b g? ?\r
 " Link search
-map -b s/ /\l
-map -b s? ?\l
+map -modes normal -b s/ /\l
+map -modes normal -b s? ?\l
 " Search from top of page
-map -b <C-x>/ gg/
+map -modes normal -b <C-x>/ gg/
 " Search for word starting with...
-map -b <xtra>/ /\r\w*<Left><Left><left>
+map -modes normal -b <xtra>/ /\r\w*<Left><Left><left>
 " Search for word containing...
 map <S-xtra>/ /\r\w*\w*<Left><Left><left>
 " Firefox find box
 map <browser>/ -js findbarToggle();
 map -mode base <A-/> -js findbarToggle();
 " C-' Firefox link search
-map -b "<C-'>" <C-v>'
+map -modes normal -b "<C-'>" <C-v>'
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
