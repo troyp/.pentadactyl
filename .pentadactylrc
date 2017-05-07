@@ -4821,11 +4821,6 @@ map <site><C-h> :map -group wikia <Lt>site
 
 js <<EOF
 
-function wikiaRemoveFandomAds() {
-  var fads = content.document.getElementsByClassName("recirculation-rail")[0];
-  fads.style.display="none";
-}
-
 function wikiaRemoveCruft() {
     removeSelectors(
     '.wds-global-navigation-wrapper', '#WikiaTopAds', '.wikia-ad', '#WikiHeader',
@@ -4853,7 +4848,7 @@ EOF
 
 command! wikiaremovefandomads
     \ -description "Remove 'Trending Fandom' ads"
-    \ -js wikiaRemoveFandomAds();
+    \ removeselector '#recirculation-rail' '.recirculation-rail'
 command! wikiaremovecruft -js wikiaRemoveCruft();
 command! wikiaremoveimages -js wikiaRemoveImages();
 command! -bang wikianext
