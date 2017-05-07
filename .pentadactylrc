@@ -1777,8 +1777,8 @@ command! prwul -description "run PrintWhatYouLike"
 
 js <<EOF
 var dta_id = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-var dta = AddonManager.getAddonByID(dta_id, a=>{ window.dta = a; });
-window.dta = dta;
+AddonManager.getAddonByID(dta_id, a=>{ window.dta = a; });
+dta = window.dta;
 EOF
 
 command! dtamanager -description "Open DownThemAll manager"
