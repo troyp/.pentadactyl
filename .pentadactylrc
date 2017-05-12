@@ -220,18 +220,30 @@ map <leader>hk, :map <Lt>leader
 map <leader>hk<C-x> :map <Lt>C-x
 map <leader>hk<A-enter> :map <Lt>option
 
-map <ext><C-h> :map <Lt>ext
-map <site><C-h> :map <Lt>site
-map g<C-h> :map g
-map <goto><><C-h> :map <Lt>goto
-map s<C-h> :map s
-map <xtra><C-h> :map <Lt>xtra
-map <S-xtra><C-h> :map <Lt>S-xtra
-map <browser><C-h> :map <Lt>browser
-map <leader><C-h> :map <Lt>leader
-map <C-x><C-h> :map <Lt>C-x
-map <A-enter><C-h> :map <Lt>option
-map <yank><C-h> :map <Lt>yank
+map <ext><C-h> -description "Show key completions"
+    \ :map <Lt>ext
+map <site><C-h> -description "Show key completions"
+    \ :map <Lt>site
+map g<C-h> -description "Show key completions"
+    \ :map g
+map <goto><><C-h> -description "Show key completions"
+    \ :map <Lt>goto
+map s<C-h> -description "Show key completions"
+    \ :map s
+map <xtra><C-h> -description "Show key completions"
+    \ :map <Lt>xtra
+map <S-xtra><C-h> -description "Show key completions"
+    \ :map <Lt>S-xtra
+map <browser><C-h> -description "Show key completions"
+    \ :map <Lt>browser
+map <yank><C-h> -description "Show key completions"
+    \ :map <Lt>yank
+map <leader><C-h> -description "Show key completions"
+    \ :map <Lt>leader
+map <C-x><C-h> -description "Show key completions"
+    \ :map <Lt>C-x
+map <A-enter><C-h> -description "Show key completions"
+    \ :map <Lt>option
 
 " -------------------------------------------------------------------------------
 " ,------------------,
@@ -452,18 +464,18 @@ map <xtra>tg -ex googletranslatepage
 
 
 " =====YANK=====
-" yank buffer URL
-map -b <yank>y y
-" yank page title
-map <yank>t -js dactyl.clipboardWrite(buffer.title)
-" yank buffer URL (unencoded)
-map <yank>u -ex yanktrueURL
-" yank page domain
-map <yank>d -js dactyl.clipboardWrite(buffer.URL.match(/:\/+([^/]+)/)[1])
-" yank filename or buffer URL (unencoded)
-map <yank>f -ex yankfilenameorURL
-" yank page text
-map <yank>x -js dactyl.clipboardWrite(content.document.body.innerText);
+map -b -description "Yank buffer URL"
+    \ <yank>y y
+map <yank>t -description "Yank page title"
+    \ -js dactyl.clipboardWrite(buffer.title)
+map <yank>u -description "Yank buffer URL (unencoded)"
+    \ -ex yanktrueURL
+map <yank>d -description "Yank page domain"
+    \ -js dactyl.clipboardWrite(buffer.URL.match(/:\/+([^/]+)/)[1])
+map <yank>f -description "Yank filename or buffer URL (unencoded)"
+    \ -ex yankfilenameorURL
+map <yank>x -description "Yank page text"
+    \ -js dactyl.clipboardWrite(content.document.body.innerText);
 
 
  " =====ZOOM=====
