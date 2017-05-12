@@ -476,6 +476,8 @@ map <yank>f -description "Yank filename or buffer URL (unencoded)"
     \ -ex yankfilenameorURL
 map <yank>x -description "Yank page text"
     \ -js dactyl.clipboardWrite(content.document.body.innerText);
+map <yank>h -description "Yank page heading (<H1>)"
+    \ -js dactyl.clipboardWrite(content.document.querySelector('h1').innerText);
 
 
  " =====ZOOM=====
