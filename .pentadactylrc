@@ -4875,10 +4875,10 @@ map <site>[ -ex wikiaprevious
 " ,-------------------------,
 " | AdventureTime.Wikia.com |
 " '-------------------------'
-group advtimewikia -locations='adventuretime\.wikia\.com/wiki/'
-autocmd! -group advtimewikia
-map <leader>hkc :map -group advtimewikia <Lt>site
-map <site><C-h> :map -group advtimewikia <Lt>site
+group wikiaadvtime -locations='adventuretime\.wikia\.com/wiki/'
+autocmd! -group wikiaadvtime
+map <leader>hkc :map -group wikiaadvtime <Lt>site
+map <site><C-h> :map -group wikiaadvtime <Lt>site
 
 js <<EOF
 
