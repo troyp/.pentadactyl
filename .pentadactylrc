@@ -5176,7 +5176,6 @@ function removeSelectors(...sels) {
         elts.forEach(e=>e.remove && e.remove());
     });
 }
-window.removeSelectors = removeSelectors;
 
 "remove each matching element, plus immediately preceding heading (H1-H6)"
 function removeSelectorsWithPrecedingElt(...sels) {
