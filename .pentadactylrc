@@ -4898,9 +4898,15 @@ function advtimeToggleTranscript() {
 
 EOF
 
+" Repeat wikia bindings so <site><C-h> works "
+map <site>a -ex wikiaremovefandomads
+map <site>r -ex wikiaremovecruft
+map <site>i -ex wikiaremoveimages
+map <site>] -ex wikianext
+map <site>[ -ex wikiaprevious
+
 command! advtimeToggleTranscript -js advtimeToggleTranscript();
 map <site>c -ex advtimeToggleTranscript
-map <site>a -ex wikiaremovefandomads
 
 group user
 
