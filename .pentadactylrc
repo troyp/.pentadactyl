@@ -478,6 +478,8 @@ map <yank>x -description "Yank page text"
     \ -js dactyl.clipboardWrite(content.document.body.innerText);
 map <yank>h -description "Yank page heading (<H1>)"
     \ -js dactyl.clipboardWrite(content.document.querySelector('h1').innerText);
+map <yank>p -description "Yank paragraph"
+    \ -js hints.show("ÿ");
 
 
  " =====ZOOM=====
@@ -1166,6 +1168,9 @@ js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dacty
 
 " JSBin menus: mode ï "
 " coursera: jump to match in transcript: mode ẖ "
+
+set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre
+js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
 
 map <yank_desc> ;Y
 
