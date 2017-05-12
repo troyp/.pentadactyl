@@ -834,6 +834,7 @@ command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
 command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
 command! removecruft -js removeCruft();
+command! isolateselector -nargs=1 -js isolateSelector(args[0]);
 
 " Page info commands "
 command! imgsalttotitle
@@ -5191,6 +5192,13 @@ function removeSelectorsWithPrecedingElt(...sels) {
     });
 }
 window.removeSelectorsWithPrecedingElt = removeSelectorsWithPrecedingElt;
+
+function isolateSelector(sel) {
+    selectedElt = content.document.querySelector(sel);
+    topElts = Array.from(content.document.body.children);
+    topElts.forEach(elt => elt.remove());
+    content.document.body.appendChild(selectedElt);
+}
 
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
