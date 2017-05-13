@@ -467,17 +467,17 @@ map <xtra>tg -ex googletranslatepage
 map -b -description "Yank buffer URL"
     \ <yank>y y
 map <yank>t -description "Yank page title"
-    \ -js dactyl.clipboardWrite(buffer.title)
+    \ -js utils.cbWrite(buffer.title)
 map <yank>u -description "Yank buffer URL (unencoded)"
     \ -ex yanktrueURL
 map <yank>d -description "Yank page domain"
-    \ -js dactyl.clipboardWrite(buffer.URL.match(/:\/+([^/]+)/)[1])
+    \ -js utils.cbWrite(buffer.URL.match(/:\/+([^/]+)/)[1])
 map <yank>f -description "Yank filename or buffer URL (unencoded)"
     \ -ex yankfilenameorURL
 map <yank>x -description "Yank page text"
-    \ -js dactyl.clipboardWrite(content.document.body.innerText);
+    \ -js utils.cbWrite(content.document.body.innerText);
 map <yank>h -description "Yank page heading (<H1>)"
-    \ -js dactyl.clipboardWrite(content.document.querySelector('h1').innerText);
+    \ -js utils.cbWrite(content.document.querySelector('h1').innerText);
 map <yank>p -description "Yank paragraph"
     \ -js hints.show("ÿ");
 
