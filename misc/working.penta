@@ -1,4 +1,27 @@
 " -------------------------------------------------------------------------------
+" ,------------------,
+" | Convert Currency |
+" '------------------'
+
+" How to add options correctly? "
+js group.options.add(["audexchange", "aud"], "$AU exchange rate in $US", "number", 0.75);
+
+" -------------------------------------------------------------------------------
+" ,-------------,
+" | Keybindings |
+" '-------------'
+
+" undo "
+map -modes command-line -b <C-/> <C-z>
+map -modes insert <C-/> <C-v><C-z>
+
+" Snippet pseudo-key "
+map -modes command-line,insert <snip> <f8>
+map -modes command-line,insert <snip><C-h> :map <Lt>snip
+
+map -modes command-line,insert <snip>vr (rebuildable OR rba)
+
+" -------------------------------------------------------------------------------
 " ,--------,
 " | Styles |
 " '--------'
@@ -149,6 +172,7 @@ group openseadragon -locations=openseadragon.github.io
 map <leader>hkc :map -group openseadragon <Lt>site
 map <site><C-h> :map -group openseadragon <Lt>site
 
+
 js <<EOF
 
 function openseadragonGetButtons() {
@@ -179,5 +203,11 @@ map <site><C-h> :map -group vapeking <Lt>site
 style -name=vapeking_visitedlinks www.vapeking.com.au body a:visited { color: ##F3D859 !important; }
 
 group user
+
+" -------------------------------------------------------------------------------
+" ,---------,
+" | toktogi |
+" '---------'
+js AddonManager.getAddonByID('toktogi@toktogi.com', a=>{ window.toktogi = a; })
 
 " -------------------------------------------------------------------------------
