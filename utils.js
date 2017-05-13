@@ -95,6 +95,17 @@ var utils = {
                          commandline.APPEND_TO_MESSAGES);
     },
 
+    messageWithLineLimit: function(s, maxL=30) {
+        var lines = s.split('\n');
+        if (lines.length < maxL) {
+            utils.message(s);
+        }
+        else {
+            var msg = lines.slice(0, maxL).join('\n') + "\n....<clip>";
+            utils.message(msg);
+        }
+    },
+
     tempmessage: function (s) {
         commandline.echo(s,
                          commandline.HL_INFOMSG,
