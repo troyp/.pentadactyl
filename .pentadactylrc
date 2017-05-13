@@ -788,13 +788,11 @@ command! rubular -nargs=+ -js rubular(args[0], args[1]);
 command! yanktrueURL
     \ -description "Yank the uncoded URL of the current buffer"
     \ -js var text=decodeURIComponent(buffer.URL);
-    \     dactyl.clipboardWrite(text);
-    \     dactyl.utils.message(text);
+    \     utils.cbWrite(text);
 command! yankfilenameorURL
     \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
     \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    \     dactyl.clipboardWrite(text);
-    \     dactyl.utils.message(text);
+    \     utils.cbWrite(text);
 command! yanktextarea
     \ -description "Yank the contents of textarea N."
     \ -nargs=1
