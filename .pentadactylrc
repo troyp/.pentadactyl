@@ -480,6 +480,8 @@ map <yank>h -description "Yank page heading (<H1>)"
     \ -js utils.cbWrite(content.document.querySelector('h1').innerText);
 map <yank>p -description "Yank paragraph"
     \ -js hints.show("ÿ");
+map <yank>a -description "Yank text area contents"
+    \ :yanktextarea<Space>
 
 
  " =====ZOOM=====
@@ -791,6 +793,18 @@ command! yankfilenameorURL
     \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     \     dactyl.clipboardWrite(text);
     \     dactyl.utils.message(text);
+command! yanktextarea
+    \ -description "Yank the contents of textarea N."
+    \ -nargs=1
+    \ -js yankTextarea(Number(args[0]));
+
+js <<EOF
+function yankTextarea(n) {
+    var contents = getTextArea(n);
+    dactyl.clipboardWrite(contents);
+    utils.messageWithLineLimit(contents);
+}
+EOF
 
 " Open in Emacs "
 command! openDirectoryInDired
@@ -5131,6 +5145,10 @@ function clickElement(sel) {
 }
 window.clickElement = clickElement;
 
+function getTextArea(n) {
+    var tareas = content.document.querySelectorAll('textarea');
+    return tareas[n].textContent;
+}
 
 function alertobj(obj) {
     var s = "";
