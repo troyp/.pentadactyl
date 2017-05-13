@@ -838,7 +838,7 @@ command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
 command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
 command! removecruft -js removeCruft();
-command! isolateselector -nargs=1 -js isolateSelector(args[0]);
+command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
 
 " Page info commands "
 command! imgsalttotitle
@@ -5205,6 +5205,16 @@ function isolateSelector(sel) {
     topElts = Array.from(content.document.body.children);
     topElts.forEach(elt => elt.remove());
     content.document.body.appendChild(selectedElt);
+}
+
+function isolateSelectors(...sels) {
+    var doc = content.document;
+    selectedElts = Array.from(content.document.querySelectorAll(sels));
+    topElts = Array.from(content.document.body.children);
+    topElts.forEach(elt => elt.remove());
+    selectedElts.forEach(elt =>
+        content.document.body.appendChild(elt)
+    );
 }
 
 function closeTabsLeftWhileMatching(regex, n) {
