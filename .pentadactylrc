@@ -441,7 +441,7 @@ command! googletranslateurl
     \ -nargs=+
     \ -js googleTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
 command! googletranslatepage
-    \ -description "Google Translate Page (!: in new tab)"
+    \ -description "Google translate page (!: in new tab)"
     \ -bang
     \ -js googleTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
 command! bingwebwidget -js bingAddWebWidget();
@@ -454,12 +454,12 @@ command! bingtranslateurl
     \ -nargs=+
     \ -js bingTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
 command! bingtranslatepage
-    \ -description "Bing Translate Page (!: in new tab)"
+    \ -description "Bing translate page (!: in new tab)"
     \ -bang
     \ -js bingTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
 
-map <xtra>tt -ex bingtranslatepage
-map <xtra>tg -ex googletranslatepage
+map -description "Bing translate page" <xtra>tt -ex bingtranslatepage
+map -description "Google translate page" <xtra>tg -ex googletranslatepage
 
 
 
