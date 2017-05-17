@@ -472,6 +472,7 @@ map -description "Bing translate page" <xtra>tt -ex bingtranslatepage
 map -description "Google translate page" <xtra>tg -ex googletranslatepage
 map -description "Google translate text" <xtra>tx :trans<Space>
 map -description "Google translate selection" <xtra>tv -ex googletranslateselection
+map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
 
 
 
@@ -1196,8 +1197,14 @@ js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dacty
 " JSBin menus: mode ï "
 " coursera: jump to match in transcript: mode ẖ "
 
+" Copy text "
 set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre
 js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
+
+" Translate text "
+" Fasttech reviews: add classes ReviewContent, ProsConsContent "
+set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
+js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
 
 map <yank_desc> ;Y
 
