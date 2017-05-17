@@ -444,6 +444,12 @@ command! googletranslatepage
     \ -description "Google translate page (!: in new tab)"
     \ -bang
     \ -js googleTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
+command! googletranslateselection
+    \ -description "Google translate selection"
+    \ -nargs=*
+    \ -bang
+    \ -js googleTranslateText(dactyl.clipboardRead(), args[0]||undefined, args[1]||undefined);
+
 command! bingwebwidget -js bingAddWebWidget();
 command! bingtranslatetext
     \ -description "bingtranslatetext TEXT [FROM] [TO] [WHERE]"
@@ -465,6 +471,7 @@ command! trans
 map -description "Bing translate page" <xtra>tt -ex bingtranslatepage
 map -description "Google translate page" <xtra>tg -ex googletranslatepage
 map -description "Google translate text" <xtra>tx :trans<Space>
+map -description "Google translate selection" <xtra>tv -ex googletranslateselection
 
 
 
