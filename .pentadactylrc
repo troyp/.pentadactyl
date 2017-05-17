@@ -457,9 +457,14 @@ command! bingtranslatepage
     \ -description "Bing translate page (!: in new tab)"
     \ -bang
     \ -js bingTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
+command! trans
+    \ -description "Google translate text"
+    \ -nargs=+
+    \ -js googleTranslateText(args.join(" "));
 
 map -description "Bing translate page" <xtra>tt -ex bingtranslatepage
 map -description "Google translate page" <xtra>tg -ex googletranslatepage
+map -description "Google translate text" <xtra>tx :trans<Space>
 
 
 
