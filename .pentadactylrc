@@ -2425,7 +2425,7 @@ function wiktionaryWordToIndexPage (word)
     {
         page = word[0];
         // letters split into 2 pages by second letter (a-m and n-z)
-        if ("abcdmnprst".contains(word[0]))
+        if ("abcdmnprst".includes(word[0]))
             if (wordord(1).inRange(97, 110))          // a-m
                 page += "1";
             else if (wordord(1).inRange(110, 123))    // n-z
@@ -3277,15 +3277,15 @@ js <<EOF
 function ghToggleHTMLView() {
     var url = buffer.URL.toLowerCase();
     var newurl;
-    if (url.contains("https://github.com")) {
+    if (url.includes("https://github.com")) {
         var rx = /https:\/\/github.com\/([^/\s]+\/[^/\s]+)\/blob(\/.*)/;
         var match = rx.exec(url);
         newurl = `https://rawgit.com/${match[1]}${match[2]}`;
     }
     else {
-        if (url.contains("https://raw.githubusercontent.com"))
+        if (url.includes("https://raw.githubusercontent.com"))
             url = url.replace("raw.githubusercontent", "rawgit");
-        if (url.contains("https://rawgit.com")) {
+        if (url.includes("https://rawgit.com")) {
             var rx = /https:\/\/rawgit.com\/([^/\s]+\/[^/\s]+)(\/.*)/;
             var match = rx.exec(url);
             newurl = `https://github.com/${match[1]}/blob${match[2]}`;
@@ -3340,7 +3340,7 @@ function ghSaveThisReadmeToDoc(overwrite) {
 function ghClickReadme() {
     var links = content.document.getElementsByTagName( 'a' );
     for ( var i = 0; i < links.length; i++ ) {
-        if ( links[i].textContent.contains('README.') )
+        if ( links[i].textContent.includes('README.') )
             links[i].click();
     }
 }
@@ -3638,7 +3638,7 @@ var gtrImeHideHandWriteInput = function() {
 
 var gtrImeIsVisibleHandWriteInput = function() {
     var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
-    return ! hwBox.style.cssText.contains('display: none');
+    return ! hwBox.style.cssText.includes('display: none');
 }
 
 var gtrImeToggleHandWriteInput = function() {
@@ -4010,7 +4010,7 @@ js <<EOF
 var jishoToggleRomaji = function() {
     var url = buffer.URL;
     var romtag = "%23romaji";
-    if (url.contains(romtag))
+    if (url.includes(romtag))
         newurl = url.replace(romtag,"");
     else
         newurl = `${url}%23romaji`;
@@ -4030,7 +4030,7 @@ var jishoToggleKanji = function() {
 var jishoToggleSentences = function() {
     var url = buffer.URL;
     sentencetag = "%23sentences";
-    if (url.contains(sentencetag))
+    if (url.includes(sentencetag))
         newurl = url.replace(sentencetag,"");
     else
         newurl = `${url} ${sentencetag}`;
@@ -4935,7 +4935,7 @@ function hyliaGetAlbumName() {
 }
 function hyliaGetTrackName() {
     var pars = content.document.getElementsByTagName('p');
-    var descript = Array.from(pars).filter(p=>p.innerText.contains('Song name:'))[0].innerText;
+    var descript = Array.from(pars).filter(p=>p.innerText.includes('Song name:'))[0].innerText;
     var lines = descript.split('\n');
     var track = lines[1].replace(/Song name:\s+/i,'');
     return track;
