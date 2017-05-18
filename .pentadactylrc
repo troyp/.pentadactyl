@@ -4357,6 +4357,34 @@ function libgenCopyFileNameAndDownload() {
 
 EOF
 
+" ,----------------,
+" | gen.lib.rus.ec |
+" '----------------'
+group genlib -locations=gen.lib.rus.ec
+map <leader>hkc :map -group genlib <Lt>site
+map <site><C-h> :map -group genlib <Lt>site
+
+js <<EOF
+
+function genlibLibgen() {
+    var link = content.document.querySelector('tbody :nth-child(2) :nth-child(3) a');
+    var title = link.innerText;
+    var year = content.document.querySelector('tbody :nth-child(6) :nth-child(2)').innerText;
+    var ed_raw = content.document.querySelector('tbody :nth-child(6) :nth-child(4)').innerText;
+    var ed_match = ed_raw.trim().match(/\d+/);
+    var ed = ed_match ? indexToOrdinal(ed_match[0]) : "1st";
+    if (typeof ed == 'undefined') ed="1st";
+    var filename = title +
+                   (ed=="1st" ? '' : `, ${ed} ed`) +
+                   (year ? ` (${year})` : '');
+    utils.cbWrite(filename);
+    link.click();
+}
+
+EOF
+
+map <site>c -js genlibLibgen();
+
 group user
 
 " -------------------------------------------------------------------------------
