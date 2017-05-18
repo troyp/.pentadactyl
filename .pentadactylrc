@@ -406,6 +406,20 @@ function googleTranslateUrl(url, from='auto', to='en', where=dactyl.NEW_TAB) {
     dactyl.open(`http://translate.google.com/translate?hl=&sl=${from}&tl=${to}&u=${url}`, where);
 }
 
+function googleFetchTranslation(s) {
+    var newtab = gBrowser.addTab(`https://translate.google.com.au/#auto/en/${s}`);
+    var fromtab = tabs.getTab();
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        window.setTimeout(()=>{
+            var translation = content.document.getElementById('gt-res-content').innerText;
+            utils.cbWrite(translation);
+            gBrowser.selectedTab = fromtab;
+        }, 1000);
+    });
+}
+
 function bingAddWebWidget() {
     var d=content.document.createElement('div');
     d.id='MicrosoftTranslatorWidget';
@@ -449,6 +463,10 @@ command! googletranslateselection
     \ -nargs=*
     \ -bang
     \ -js googleTranslateText(dactyl.clipboardRead(), args[0]||undefined, args[1]||undefined);
+command! googletranslatetextcb
+    \ -description "Google translate text: store translation in clipboard"
+    \ -nargs=+
+    \ -js googleFetchTranslation(args.join(" "));
 
 command! bingwebwidget -js bingAddWebWidget();
 command! bingtranslatetext
@@ -471,6 +489,7 @@ command! trans
 map -description "Bing translate page" <xtra>tt -ex bingtranslatepage
 map -description "Google translate page" <xtra>tg -ex googletranslatepage
 map -description "Google translate text" <xtra>tx :trans<Space>
+map -description "Google translate text to clipboard" <xtra>tc :googletranslatetextcb<Space>
 map -description "Google translate selection" <xtra>tv -ex googletranslateselection
 map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
 
