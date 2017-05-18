@@ -3117,6 +3117,31 @@ command! crdl -js crDL();
 group user
 
 " -------------------------------------------------------------------------------
+" ,--------------,
+" | Fasttech.com |
+" '--------------'
+group fasttech -locations=fasttech.com
+map <leader>hkc :map -group fasttech <Lt>site
+map <site><C-h> :map -group fasttech <Lt>site
+
+js <<EOF
+function fasttechToggleReviews () {
+    var url = buffer.URL;
+    var product_prefix = 'https://www.fasttech.com/p/';
+    var reviews_prefix = 'https://www.fasttech.com/reviews/';
+    if (url.includes(product_prefix))
+        newurl = url.replace(product_prefix, reviews_prefix);
+    else if (url.includes(reviews_prefix))
+        newurl = url.replace(reviews_prefix, product_prefix);
+    dactyl.open(newurl);
+}
+EOF
+
+map <site>c -description "Toggle reviews" -js fasttechToggleReviews();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,----------------,
 " | GetComics.Info |
 " '----------------'
