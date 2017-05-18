@@ -416,6 +416,7 @@ function googleFetchTranslation(s) {
             var translation = content.document.getElementById('gt-res-content').innerText;
             utils.cbWrite(translation);
             gBrowser.selectedTab = fromtab;
+            newtab.remove();
         }, 1000);
     });
 }
@@ -430,6 +431,7 @@ function googleInsertTranslationForElement(elt) {
         window.setTimeout(()=>{
             var translation = content.document.getElementById('gt-res-content').innerText;
             gBrowser.selectedTab = fromtab;
+            newtab.remove();
             var transDiv = content.document.createElement('div');
             transDiv.style = "background: #FFC; border: solid #822 1px;";
             transDiv.innerText = translation;
