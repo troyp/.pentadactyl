@@ -420,6 +420,25 @@ function googleFetchTranslation(s) {
     });
 }
 
+function googleInsertTranslationForElement(elt) {
+    var s = elt.innerText;
+    var newtab = gBrowser.addTab(`https://translate.google.com.au/#auto/en/${s}`);
+    var fromtab = tabs.getTab();
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        window.setTimeout(()=>{
+            var translation = content.document.getElementById('gt-res-content').innerText;
+            gBrowser.selectedTab = fromtab;
+            var transDiv = content.document.createElement('div');
+            transDiv.style = "background: #FFC; border: solid #822 1px;";
+            transDiv.innerText = translation;
+            elt.parentNode.insertBefore(transDiv, elt);
+        }, 1000);
+    });
+}
+window.googleInsertTranslationForElement = googleInsertTranslationForElement;
+
 function bingAddWebWidget() {
     var d=content.document.createElement('div');
     d.id='MicrosoftTranslatorWidget';
@@ -492,6 +511,7 @@ map -description "Google translate text" <xtra>tx :trans<Space>
 map -description "Google translate text to clipboard" <xtra>tc :googletranslatetextcb<Space>
 map -description "Google translate selection" <xtra>tv -ex googletranslateselection
 map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
+map -description "Google append translation (HINTS)" <xtra>ta -js hints.show("ʈ");
 
 
 
@@ -1224,6 +1244,8 @@ js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
 " Fasttech reviews: add classes ReviewContent, ProsConsContent "
 set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
+set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
+js hints.addMode("ʈ", "Insert translation", elem => googleInsertTranslationForElement(elem));
 
 map <yank_desc> ;Y
 
