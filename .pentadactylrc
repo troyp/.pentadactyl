@@ -5189,7 +5189,10 @@ map <site>\< -js ytAdjustSpeed(-0.25);
 map <site>f -ex ytfullscreen
 map <site>c -ex ytcinema
 
-command! ytdl -description "Download video/playlist with youtube-dl" -js ytDL(args[0]);
+command! ytdl
+    \ -description "Download video/playlist with youtube-dl"
+    \ -nargs=?
+    \ -js ytDL(args[0]);
 map <site>d -ex ytdl
 
 map <site><Space> -js ytTogglePause();
