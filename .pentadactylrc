@@ -3127,13 +3127,16 @@ map <site><C-h> :map -group fasttech <Lt>site
 js <<EOF
 function fasttechToggleReviews () {
     var url = buffer.URL;
-    var product_regex  = /https:\/\/www.fasttech.com\/p(roducts)?\//;
+    var product_regex  = /https:\/\/www.fasttech.com\/p(roducts)?\/(.*\/)?([^/]+)/;
     var product_prefix = 'https://www.fasttech.com/p/';
+    var reviews_regex = /https:\/\/www.fasttech.com\/reviews\/([^/]+)/;
     var reviews_prefix = 'https://www.fasttech.com/reviews/';
-    if (url.match(product_regex))
-        newurl = url.replace(product_regex, reviews_prefix);
-    else if (url.includes(reviews_prefix))
-        newurl = url.replace(reviews_prefix, product_prefix);
+    var p_matches = url.match(product_regex);
+    var r_matches = url.match(reviews_regex);
+    if (r_matches)
+        newurl = product_prefix + r_matches[1];
+    else if (p_matches)
+        newurl = reviews_prefix + p_matches[3];
     dactyl.open(newurl);
 }
 EOF
