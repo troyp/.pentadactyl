@@ -5202,6 +5202,7 @@ map <site>c -ex ytcinema
 command! ytdl
     \ -description "Download video/playlist with youtube-dl"
     \ -nargs=?
+    \ -complete=file
     \ -js ytDL(args[0]);
 map <site>d -ex ytdl
 
