@@ -5176,9 +5176,14 @@ command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml
 command! wpcleanup
     \ -description "Cleanup article"
     \ removeselector #siteNotice #mw-navigation #footer .noprint .mw-editsection .navbox
+command! wpcopytablecols
+    \ -description "Copy specified columns (single digits) from table chosen by HINT"
+    \ -nargs=1
+    \ -js dactylArgsSet(args[0].split("")); hints.show('ŧ');
 
 map <site>c -ex wpcleanup
 map <site>l -ex wplatest
+map <site>t :wpcopytablecols<Space>
 
 group user
 
