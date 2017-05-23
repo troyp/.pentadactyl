@@ -3195,7 +3195,8 @@ group gclinkconvert -locations=decrypt2.safelinkconverter.com
 map <leader>hkc :map -group gclinkconvert <Lt>site
 map <site><C-h> :map -group gclinkconvert <Lt>site
 
-map <site>c -description "Convert Link" -js gcConvertLinkOrClose();
+map <site>c -description "Convert Link" -js gcConvertLink();
+map <site>d -description "Close tabs" -js gcClose();
 
 command! gcclose -js closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//, 3);
 
@@ -3208,9 +3209,18 @@ function gcConvertLinkOrClose() {
         utils.message("three")
     }
     else {
-        shortestClick();
         redirect.click();
     }
+}
+
+function gcConvertLink() {
+    var redirect = content.document.querySelector('.redirect_url div');
+    redirect.click();
+}
+
+function gcClose() {
+    var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
+    closeTabsLeftWhileMatching(URLsRegex, 3);
 }
 EOF
 
@@ -3219,7 +3229,8 @@ group shortest -locations=shorte.st,viid.me,sh.st,cllkme.com
 map <leader>hkc :map -group shortest <Lt>site
 map <site><C-h> :map -group shortest <Lt>site
 
-map <site>c -description "Close temp tabs" -js shortestClickOrClose();
+map <site>c -description "Click link or close temp tabs" -js shortestClickOrClose();
+map <site>d -description "Close temp tabs" -js shortestClose();
 
 js <<EOF
 function shortestClickOrClose() {
@@ -3234,6 +3245,10 @@ function shortestClickOrClose() {
 function shortestClick() {
     dactyl.open("javascript:app.skipClickNotify.redirectToTargetUrl();");
     void(0);
+}
+function shortestClose() {
+    var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
+    closeTabsLeftWhileMatching(URLsRegex, 3);
 }
 EOF
 
