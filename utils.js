@@ -143,6 +143,11 @@ var utils = {
     cbWrite: function (s) {
         dactyl.clipboardWrite(s);
         utils.message(s);
+    },
+
+    cbWriteWithLineLimit: function (s) {
+        dactyl.clipboardWrite(s);
+        utils.messageWithLineLimit(s);
     }
 
 // =============================================================================

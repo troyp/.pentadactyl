@@ -855,8 +855,7 @@ command! yanktextarea
 js <<EOF
 function yankTextarea(n) {
     var contents = getTextArea(n);
-    dactyl.clipboardWrite(contents);
-    utils.messageWithLineLimit(contents);
+    utils.cbWriteWithLineLimit(contents);
 }
 EOF
 
@@ -2041,8 +2040,7 @@ js <<EOF
 function yankTableCSV(n) {
     var tareas = content.document.querySelectorAll('table+textarea');
     var contents = tareas[n].textContent;
-    dactyl.clipboardWrite(contents);
-    utils.messageWithLineLimit(contents);
+    utils.cbWriteWithLineLimit(contents);
 }
 EOF
 
