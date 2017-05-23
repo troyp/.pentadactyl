@@ -2483,14 +2483,6 @@ function imgsAddAltTextToTitle() {
     }
 }
 
-function runInZSH(cmd) {
-    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
-    executable.initWithPath("/usr/bin/roxterm");
-    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
-    process.init(executable);
-    process.runAsync(["-e",`zsh -c 'source ~/.sh-aliases; source .sh-functions; ${cmd}; zsh'`], 2);
-}
-
 function rubular(regex, test) {
     var newtab = gBrowser.addTab('http://rubular.com/');
     var tb = gBrowser.getBrowserForTab(newtab);
@@ -5317,6 +5309,24 @@ function alertall(...xs) {
     alert(s);
 }
 window.alertall = alertall;
+
+function runInZSH(cmd) {
+    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
+    executable.initWithPath("/usr/bin/roxterm");
+    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
+    process.init(executable);
+    process.runAsync(["-e",`zsh -c 'source ~/.sh-aliases; source .sh-functions; ${cmd}; zsh'`], 2);
+}
+window.runInZSH = runInZSH;
+
+function runInPlainZSH(cmd) {
+    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
+    executable.initWithPath("/usr/bin/roxterm");
+    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
+    process.init(executable);
+    process.runAsync(["-e",`zsh -f --no-rcs -c '${cmd}; zsh'`], 2);
+}
+window.runInPlainZSH = runInPlainZSH;
 
 // modulus function taking negative n (base assumed to be positive)
 function mod(n,b) { return n<0 ? n%b + Number(b) : n%b; }
