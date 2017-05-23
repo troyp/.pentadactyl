@@ -5111,7 +5111,7 @@ command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyC
 command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml();
 command! wpcleanup
     \ -description "Cleanup article"
-    \ removeselector #mw-navigation #footer .noprint .mw-editsection .navbox
+    \ removeselector #siteNotice #mw-navigation #footer .noprint .mw-editsection .navbox
 
 map <site>c -ex wpcleanup
 map <site>l -ex wplatest
