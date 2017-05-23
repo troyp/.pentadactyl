@@ -833,7 +833,7 @@ command! prefsuffsearch
     \ -js prefsuffSearch(args[0]);
 
 " run shell command in terminal
-command! -nargs=1 runinterminal -js runInTerminal(args[0]);
+command! -nargs=1 runinterminal -js runInZSH(args[0]);
 
 " rubular
 command! rubular -nargs=+ -js rubular(args[0], args[1]);
@@ -2483,7 +2483,7 @@ function imgsAddAltTextToTitle() {
     }
 }
 
-function runInTerminal(cmd) {
+function runInZSH(cmd) {
     var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
     executable.initWithPath("/usr/bin/roxterm");
     var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
