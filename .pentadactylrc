@@ -2073,6 +2073,31 @@ command! tableDeleteColumns
     \ -nargs=*
     \ -js deleteCols(args.map(parseInt));
 
+js <<EOF
+
+function tableToCSV(table) {
+    var output = "";
+    for (row of table.rows) {
+        var cells = Array.from(row.cells);
+        var cellstrs = cells.map(cell=>`"${cell.innerText}"`);
+        output += cellstrs.join(", ") + "\n";
+    }
+    return output;
+}
+
+function CopyTableAsCSV(table) {
+    var csv = tableToCSV(table);
+    utils.cbWriteWithLineLimit(csv);
+}
+
+function CopyTableAsCSVbySelector(sel) {
+    var table = content.document.querySelector(sel);
+    var csv = tableToCSV(table);
+    utils.cbWriteWithLineLimit(csv);
+}
+
+EOF
+
 
 " -------------------------------------------------------------------------------
 
