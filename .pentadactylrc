@@ -537,7 +537,7 @@ map <yank>p -description "Yank paragraph"
 map <yank>a -description "Yank text area contents"
     \ :yanktextarea<Space>
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
-    \ :yanktablecsv<Space>
+    \ :yanktablecsvarea<Space>
 
 
  " =====ZOOM=====
@@ -2031,13 +2031,13 @@ map <leader>td :tableDeleteColumns<Space>
 command! table2csv
     \ -description "Convert table contents to CSV in box under table"
     \ :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
-command! yanktablecsv
+command! yanktablecsvarea
     \ -description "Yank the contents of table N's CSV. Use after :table2csv"
     \ -nargs=1
     \ yanktextarea <args>
 
 js <<EOF
-function yankTableCSV(n) {
+function yankTableCSVArea(n) {
     var tareas = content.document.querySelectorAll('table+textarea');
     var contents = tareas[n].textContent;
     utils.cbWriteWithLineLimit(contents);
