@@ -1248,6 +1248,11 @@ js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.i
 set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("ʈ", "Insert translation", elem => googleInsertTranslationForElement(elem));
 
+" Copy Table Columns "
+set eht+=[ŧ]:table
+" copySpecifiedTableColumns not defined yet, so use inline function "
+js hints.addMode("ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e));
+
 map <yank_desc> ;Y
 
 " -----------------------------------------------------------------------------
@@ -2096,7 +2101,40 @@ function CopyTableAsCSVbySelector(sel) {
     utils.cbWriteWithLineLimit(csv);
 }
 
+function extractTableColumns(table, columns) {
+    var output = "";
+    var rows = Array.from(table.rows).slice(1);
+    for (var row of rows) {
+        var cells = Array.from(row.cells);
+        function processCols(i) {
+            var cellValue = cells[i] && cells[i].innerText.trim();
+            if ( typeof(cellValue)=="string" &&
+                 cellValue.startsWith('"') &&
+                 cellValue.endsWith('"') )
+                cellValue = cellValue.slice(1, -1).trim();
+            return cellValue;
+        }
+        var colstrs = Array.from(columns).map(processCols);
+        output += colstrs.join("\t") + "\n";
+    }
+    return output;
+}
+window.extractTableColumns = extractTableColumns;
+
+function copySpecifiedTableColumns(table) {
+    utils.cbWriteWithLineLimit(extractTableColumns(table, window._dactylargs));
+}
+
 EOF
+
+command! copytablecols
+    \ -description "Copy specified columns from table chosen by HINT"
+    \ -nargs=*
+    \ -js dactylArgsSet(args); hints.show('ŧ');
+
+map <leader>tC
+    \ -description "Copy table columns"
+    \ -js hints.show("ŧ");
 
 
 " -------------------------------------------------------------------------------
@@ -5130,6 +5168,7 @@ var wpCopyHtml = function() {
     dactyl.clipboardWrite(articlehtml);
     dactyl.utils.message(`COPIED: ${articlehtml.slice(0, 20)} ... ${articlehtml.slice(-20)}`);
 }
+
 EOF
 command! wplatest -description "Go to latest revision" -js wpLatest();
 command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
