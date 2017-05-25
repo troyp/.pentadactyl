@@ -85,6 +85,29 @@ function insertAtCaret2(areaId, text) {
 
 
 // -------------------------------------------------------------------------------
+// ,-----------------------,
+// | Scrolling to Elements |
+// '-----------------------'
+
+function scrollToElement(elt) { content.window.scrollTo(0, elt.offsetTop); }
+window.scrollToElement = scrollToElement;
+
+// Comparing document position of nodes
+DOCUMENT_POSITION_IS_EARLIER = 0b1010;  // bitmask: PRECEDING|CONTAINS
+DOCUMENT_POSITION_IS_LATER =  0b10100;  // bitmask: FOLLOWING|CONTAINED_BY
+function documentPositionIsEarlier(a, b) {
+    return DOCUMENT_POSITION_IS_EARLIER & b.compareDocumentPosition(a);
+}
+function documentPositionIsLater(a, b) {
+    return DOCUMENT_POSITION_IS_LATER & b.compareDocumentPosition(a);
+}
+window.DOCUMENT_POSITION_IS_EARLIER = DOCUMENT_POSITION_IS_EARLIER;
+window.DOCUMENT_POSITION_IS_LATER = DOCUMENT_POSITION_IS_LATER;
+window.documentPositionIsEarlier = documentPositionIsEarlier;
+window.documentPositionIsLater = documentPositionIsLater;
+
+
+// -------------------------------------------------------------------------------
 // ,------------,
 // | PageZipper |
 // '------------'
