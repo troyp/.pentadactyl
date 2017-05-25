@@ -5188,7 +5188,10 @@ function wpGotoPreviousHeading() {
     var fragment = content.window.location.hash;
     if (fragment) {
         var i = headings.findIndex((e,i,a)=>e.href.match(content.window.location.hash));
-        if (i) headings[i-1].click();
+        if (i)
+            headings[i-1].click();
+        else
+            content.window.scrollTo(0, 0);
     }
 }
 
