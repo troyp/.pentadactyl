@@ -5169,6 +5169,29 @@ var wpCopyHtml = function() {
     dactyl.utils.message(`COPIED: ${articlehtml.slice(0, 20)} ... ${articlehtml.slice(-20)}`);
 }
 
+function wpGetContents() {
+    return Array.from(doc.querySelectorAll('#toc ul li a'));
+}
+function wpGotoNextHeading() {
+    var headings = wpGetContents();
+    var fragment = content.window.location.hash;
+    if (fragment) {
+        var i = headings.findIndex((e,i,a)=>e.href.match(content.window.location.hash));
+        if (i+1 < headings.length)
+            headings[i+1].click();
+    } else {
+        headings[0].click();
+    }
+}
+function wpGotoPreviousHeading() {
+    var headings = wpGetContents();
+    var fragment = content.window.location.hash;
+    if (fragment) {
+        var i = headings.findIndex((e,i,a)=>e.href.match(content.window.location.hash));
+        if (i) headings[i-1].click();
+    }
+}
+
 EOF
 command! wplatest -description "Go to latest revision" -js wpLatest();
 command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
@@ -5184,6 +5207,11 @@ command! wpcopytablecols
 map <site>c -ex wpcleanup
 map <site>l -ex wplatest
 map <site>t :wpcopytablecols<Space>
+map <site>. -js wpGotoNextHeading();
+map <site>, -js wpGotoPreviousHeading();
+
+map J -js wpGotoNextHeading();
+map K -js wpGotoPreviousHeading();
 
 group user
 
