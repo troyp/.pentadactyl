@@ -1253,6 +1253,15 @@ set eht+=[ŧ]:table
 " copySpecifiedTableColumns not defined yet, so use inline function "
 js hints.addMode("ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e));
 
+" New tab page links "
+set eht+=ņ:.newtab-link
+js hints.addMode("ņ", "Follow link", clickElement);
+set eht+=Ņ:.newtab-link
+js hints.addMode("Ņ", "Follow link in background tab", elem => buffer.followLink(elem, dactyl.BACKGROUND_TAB));
+" New tab page controls "
+set eht+=ɳ:.newtab-control
+js hints.addMode("ɳ", "Click new tab control", clickElement);
+
 map <yank_desc> ;Y
 
 " -----------------------------------------------------------------------------
@@ -2873,6 +2882,20 @@ map <site>s -js addonsClickCategory("category-service");
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,--------------,
+" | about:newtab |
+" '--------------'
+group aboutnewtab -locations=about:newtab
+map <leader>hkc :map -group aboutnewtab <Lt>site
+map <site><C-h> :map -group aboutnewtab <Lt>site
+
+map f -description "Follow link" -js hints.show('ņ');
+map F -description "Follow link in background tab" -js hints.show('Ņ');
+map gf -description "Follow multiple links in background tabs" g;Ņ
+map <site>c -description "Click control buttons (pin, remove)" -js hints.show('ɳ');
+
+group user
 " -------------------------------------------------------------------------------
 " ,-------------------,
 " | about:preferences |
