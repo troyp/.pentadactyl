@@ -5399,6 +5399,8 @@ function indexToOrdinal(n) {
     }
 }
 
+function stripBlankLines(s) { return s.replace(/\n\s*\n/gm, '\n'); }
+
 function isInView(elt) {
     var bound = elt.getBoundingClientRect();
     var viewBottom = content.window.innerHeight || content.document.documentElement.clientHeight;
