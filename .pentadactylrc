@@ -1591,6 +1591,15 @@ function toggleGCLI() {
     if (bar.visible) bar.hide();
     else bar.show(true);
 }
+
+mozdevtools = {};
+Array.from(gDevTools._tools.keys()).forEach(
+    k => { mozdevtools[k] = gDevTools._tools.get(k).url; }
+)
+window.mozdevtools = mozdevtools;
+
+devtbar = document.getElementById('developer-toolbar');
+[devtbar_stack, devtbar_tools_btn, devtbar_close_btn] = devtbar.childNodes;
 EOF
 
 
