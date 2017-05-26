@@ -1521,27 +1521,61 @@ map -modes=base <C-\\> -ex maximizeRestore
 "                                     | STYLING |
 "                                     |_________|
 
-group temp
 " define temp group for use by temp styles, etc
+group temp
 group user
 
-" Create temp style for current page. "
-map -b gc y:style -group=temp <C-v><C-v><Space>
-map <xtra>gs :emenu View.Page Style.
-" map <xtra><C-s> :emenu View.Page Style.No Style<CR>
-map <xtra><C-s> -ex set usermode!
+js <<EOF
+function narrowPage(width, lmarg, rmarg) {
+    var doc = content.document.getElementsByTagName('html')[0];
+    doc.setAttribute(
+        'style',
+        `width: ${width}px; margin-left: ${lmarg}px; margin-right: ${rmarg}px;`
+    );
+}
+EOF
 
-map <xtra>N :narrowpage<Space>
 command! narrowpage
+\   -description "Style/narrow page"
 \    -nargs=*
 \    -js narrowPage(args[0]||1000, args[1]||100, args[2]||1000);
-
 command! cssapply
 \ -nargs=*
-\ -description "Apply CSS to current page. '!;' is expanded to '!important;'"
+\ -description "Style/apply CSS to current page (!; expands to !important;)"
 \ -js dactyl.execute(`style -group temp -name ${Date().replace(/ /g,'',true)} '${buffer.URL}' ${args.join(' ').replace(/ !;/g, ' !important;')}`);
 
 style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
+
+map    <browser>sN -description "Style/narrow page" :narrowpage<Space>
+map -b <browser>st -description "Style/add temp style for page" y:style -group=temp <C-v><C-v><Space>
+map    <browser>su -description "Style/toggle usermode (minimal styling)" -ex set usermode!
+map    <browser>sv -description "Style/view:choose page style" :emenu View.Page Style.
+
+" ,---------,
+" | Stylish |
+" '---------'
+
+map <browser>sm -description "Stylish/manage styles" -ex stylishmanage
+map <browser>sn -description "Stylish/new style" -js stylishCommon.openEdit('new');
+map <browser>ss -description "Stylish/toggle overlay" -ex stylishtoggleoverlay
+
+js <<EOF
+function stylishGetOverlayStatus() {
+    var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+    return prefs.getBoolPref("extensions.stylish.styleRegistrationEnabled");
+}
+function stylishToggleOverlay() {
+    var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+    if (stylishGetOverlayStatus())
+        prefs.setBoolPref("extensions.stylish.styleRegistrationEnabled", false);
+    else
+        prefs.setBoolPref("extensions.stylish.styleRegistrationEnabled", true);
+}
+EOF
+
+command! stylishmanage -description "Stylish/manage styles" tabopen chrome://stylish-custom/content/info.xul
+command! stylishnew -description "Stylish/new style" -js stylishCommon.openEdit('new');
+command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishToggleOverlay();
 
 " =============================================================================
 "                            ___________________
@@ -1726,38 +1760,6 @@ command! gmopenscriptsdirectory -js dactyl.execute("!dolphin "+GM_util.scriptDir
 command! gmscriptsdirectory -js dactyl.open(GM_util.scriptDir().path, {where:dactyl.NEW_TAB});
 command! -bang gmnew -js dactyl.open('chrome://greasemonkey/content/newscript.xul', { where: bang ? 'here' : 'tab' });
 
-
-" -------------------------------------------------------------------------------
-" ,---------,
-" | Stylish |
-" '---------'
-
-" Manage Styles
-command! stylishmanage tabopen chrome://stylish-custom/content/info.xul
-map <goto>S -ex tabopen chrome://stylish-custom/content/info.xul
-map <browser>sm -ex tabopen chrome://stylish-custom/content/info.xul
-
-" New Style
-command! stylishnew -js stylishCommon.openEdit('new');
-map <browser>sn -js stylishCommon.openEdit('new');
-
-" Toggle Overlay "
-js <<EOF
-function stylishGetOverlayStatus() {
-    var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-    return prefs.getBoolPref("extensions.stylish.styleRegistrationEnabled");
-}
-function stylishToggleOverlay() {
-    var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-    if (stylishGetOverlayStatus())
-        prefs.setBoolPref("extensions.stylish.styleRegistrationEnabled", false);
-    else
-        prefs.setBoolPref("extensions.stylish.styleRegistrationEnabled", true);
-}
-EOF
-
-command! stylishtoggleoverlay -js stylishToggleOverlay();
-map <browser>ss -ex stylishtoggleoverlay
 
 " ,------------,
 " | HackTheWeb |
@@ -2482,12 +2484,6 @@ function convertLastSlashToHash(url) {
     var regex = /(.*)(\/)/;
     var newurl = url.replace(regex, '$1#');
     dactyl.open(newurl);
-}
-
-function narrowPage(width, lmarg, rmarg) {
-    var doc = content.document.getElementsByTagName('html')[0];
-    doc.setAttribute('style',
-                     `width: ${width}px; margin-left: ${lmarg}px; margin-right: ${rmarg}px;`);
 }
 
 function wiktionaryWordToIndexPage (word)
