@@ -2137,7 +2137,9 @@ function extractTableColumns(table, columns) {
 window.extractTableColumns = extractTableColumns;
 
 function copySpecifiedTableColumns(table) {
-    utils.cbWriteWithLineLimit(extractTableColumns(table, window._dactylargs));
+    var extracted = extractTableColumns(table, window._dactylargs);
+    var result = extracted.replace(/\n\s*\n/mg, '\n');
+    utils.cbWriteWithLineLimit(result);
 }
 
 EOF
