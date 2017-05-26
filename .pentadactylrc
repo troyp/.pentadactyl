@@ -1607,8 +1607,10 @@ Array.from(gDevTools._tools.keys()).forEach(
 )
 window.mozdevtools = mozdevtools;
 
+DeveloperToolbar.show();
 devtbar = document.getElementById('developer-toolbar');
 [devtbar_stack, devtbar_tools_btn, devtbar_close_btn] = devtbar.childNodes;
+DeveloperToolbar.hide();
 EOF
 
 
