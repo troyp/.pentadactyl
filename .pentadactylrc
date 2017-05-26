@@ -5385,8 +5385,14 @@ function isInView(elt) {
 }
 
 function clickElement(sel) {
-    var getButton = content.document.querySelector(sel);
-    getButton.click();
+    if (typeof sel == "string") {
+        // selector
+        var getButton = content.document.querySelector(sel);
+        getButton.click();
+    } else {
+        // element
+        sel.click();
+    }
 }
 window.clickElement = clickElement;
 
