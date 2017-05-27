@@ -1126,39 +1126,16 @@ map gl -ex forwardt
 map -b gf g;b
 
 " New tab
-" note: hints not working right...
-"   each site has two hints: foreground hint DELETES page; background hint: SELECTS page
 map gN  -js newTabPage();
 map gON -ex open about:newtab
 map <goto>N  -js newTabPage();
 map <goto>eN -ex open about:newtab
 
-"      gH : open home page in new tab
-
-"TODO: newTabPage: get temp (or local) hinttags value to work
 js <<EOF
-
 var newTabPage = function() {
     dactyl.open('about:newtab', {where:dactyl.NEW_TAB});
-    // var hinttags_orig = options.store.get('hinttags');
-    // options.hinttags.value = options.hinttags.value.slice(0, 0);
-    // options.hinttags.value.push();
-    // options.hinttags.value = "button[not(substring(title(),string-length(name())-1) = 'fu')]";
     dactyl.execute('normal f');
-    // options.store.set('hinttags', hinttags_orig);
 }
-
-// // FIXME:
-// var newTabPage = function() {
-//     dactyl.open('about:newtab', {where:dactyl.NEW_TAB});
-//     var hinttags_orig = options.store.get('hinttags');
-//     options.hinttags.value = options.hinttags.value.slice(0, 0);
-//     options.hinttags.value.push();
-//     options.hinttags.value = "button[not(substring(title(),string-length(name())-1) = 'fu')]";
-//     dactyl.execute('normal f');
-//     options.store.set('hinttags', hinttags_orig);
-// }
-
 EOF
 
 " -----------------------------------------------------------------------------
@@ -1234,8 +1211,15 @@ map -b vf ;F
 set eht+=[ä]:a>strong,a>b
 js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
 
-" JSBin menus: mode ï "
-" coursera: jump to match in transcript: mode ẖ "
+" === SITE-SPECIFIC === "
+" JSBin: "
+"    ï - menus"
+" coursera: "
+"    ẖ - jump to match in transcript "
+" about:newtab "
+"    ņ - follow link "
+"    Ņ - follow link (background tab) "
+"    ɳ - click button "
 
 " Copy text "
 set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre
@@ -1252,15 +1236,6 @@ js hints.addMode("ʈ", "Insert translation", elem => googleInsertTranslationForE
 set eht+=[ŧ]:table
 " copySpecifiedTableColumns not defined yet, so use inline function "
 js hints.addMode("ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e));
-
-" New tab page links "
-set eht+=ņ:.newtab-link
-js hints.addMode("ņ", "Follow link", clickElement);
-set eht+=Ņ:.newtab-link
-js hints.addMode("Ņ", "Follow link in background tab", elem => buffer.followLink(elem, dactyl.BACKGROUND_TAB));
-" New tab page controls "
-set eht+=ɳ:.newtab-control
-js hints.addMode("ɳ", "Click new tab control", clickElement);
 
 map <yank_desc> ;Y
 
@@ -2889,6 +2864,16 @@ group user
 group aboutnewtab -locations=about:newtab
 map <leader>hkc :map -group aboutnewtab <Lt>site
 map <site><C-h> :map -group aboutnewtab <Lt>site
+
+" === hint modes === "
+" links "
+set eht+=ņ:.newtab-link
+js hints.addMode("ņ", "Follow link", clickElement);
+set eht+=Ņ:.newtab-link
+js hints.addMode("Ņ", "Follow link in background tab", elem => buffer.followLink(elem, dactyl.BACKGROUND_TAB));
+" buttons "
+set eht+=ɳ:.newtab-control
+js hints.addMode("ɳ", "Click new tab control", clickElement);
 
 map f -description "Follow link" -js hints.show('ņ');
 map F -description "Follow link in background tab" -js hints.show('Ņ');
