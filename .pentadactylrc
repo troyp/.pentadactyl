@@ -4818,8 +4818,34 @@ function packtDownloadBooksByName(pattern='', format) {
     alert(buttonlist.length);
     packtClickButtons(buttonlist);
 }
+function packtToggleTopRow() {
+    var toprow = content.document.getElementsByClassName('product-top-line')[0];
+    var toggle = toprow.querySelector('.toggle-product-line');
+    toggle.click();
+}
+function packtDlLinksRow(rowelt) {
+    var links = Array.from(rowelt.nextElementSibling.querySelectorAll('.download-container a')).slice(2, 6);
+    var authordiv = rowelt.querySelector('.author');
+    links.forEach(a => authordiv.appendChild(a));
+    //links.forEach(a => dactyl.open(a.href, {where: dactyl.NEW_BACKGROUND}));
+    //links.forEach(a => setTimeout(function(){ dactyl.open(a.href, {where: dactyl.NEW_BACKGROUND}); }, 1000));
+}
+function packtDlLinksTopRow() {
+    var toprow = content.document.getElementsByClassName('product-top-line')[0];
+    packtDlLinksRow(toprow);
+}
+function packtPopLink() {
+    var links = content.document.querySelectorAll('.author a');
+    if (links.length == 0) return;
+    var elt = links[0];
+    elt.click();
+    elt.remove();
+}
 
 EOF
+
+map <site>l -description "Create download buttons for top row" -js packtDlLinksTopRow();
+map <site>c -description "Download first link" -js packtPopLink();
 
 group user
 
