@@ -1216,6 +1216,8 @@ js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dacty
 "    ï - menus"
 " coursera: "
 "    ẖ - jump to match in transcript "
+" fasttech: "
+"    🅵 - move to wish list "
 " about:newtab "
 "    ņ - follow link "
 "    Ņ - follow link (background tab) "
@@ -1226,7 +1228,7 @@ set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre
 js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
 
 " Translate text "
-" Fasttech reviews: add classes ReviewContent, ProsConsContent "
+" ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
 set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
 set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
@@ -3189,6 +3191,11 @@ group fasttech -locations=fasttech.com
 map <leader>hkc :map -group fasttech <Lt>site
 map <site><C-h> :map -group fasttech <Lt>site
 
+" === hint modes === "
+set eht+=🅵:.dropit
+js hints.addMode("🅵", "Move to wish list", e=> e.querySelector('a+ul a').click());
+map <site>w -description "Move to wish list" -js hints.show('🅵');
+
 js <<EOF
 function fasttechToggleReviews () {
     var url = buffer.URL;
@@ -3207,6 +3214,7 @@ function fasttechToggleReviews () {
 EOF
 
 map <site>c -description "Toggle reviews" -js fasttechToggleReviews();
+map <site>v -description "View cart" -ex open https://www.fasttech.com/shoppingcart
 
 group user
 
