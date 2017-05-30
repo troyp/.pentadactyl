@@ -3199,7 +3199,7 @@ map <site>w -description "Move to wish list" -js hints.show('🅵');
 js <<EOF
 function fasttechToggleReviews () {
     var url = buffer.URL;
-    var product_regex  = /https:\/\/www.fasttech.com\/p(roducts)?\/(.*\/)?([^/]+)/;
+    var product_regex  = /https:\/\/www.fasttech.com\/p(roducts?)?\/(.*\/)?([^/]+)/;
     var product_prefix = 'https://www.fasttech.com/p/';
     var reviews_regex = /https:\/\/www.fasttech.com\/reviews\/([^/]+)/;
     var reviews_prefix = 'https://www.fasttech.com/reviews/';
