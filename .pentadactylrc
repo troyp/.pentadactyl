@@ -370,6 +370,33 @@ map <leader>nr -ex removecruft
 " Remove images "
 map <leader>ni -ex removeimages
 
+" ,---------------------,
+" | <leader>t - toggles |
+" '---------------------'
+map <leader>tu -ex set usermode!
+map <leader>te -ex editcontent
+map <leader>s -js toggleHTTPS()
+map <leader>v -ex styletoggle -name visitedlinks
+
+" ,-------------------------,
+" | <leader>T - GUI toggles |
+" '-------------------------'
+" <A-Up>:     show the navigation and bookmarks toolbars:
+" <A-Down>:   hide the navigation and bookmarks toolbars:
+" <leader>Ta: toggle the navigation and bookmarks toolbars:
+map <A-Up> -ex set guioptions-=TB | set showtabline=never
+map <A-Down> -ex set guioptions+=TB | set showtabline=always
+map <leader>Ta -ex set guioptions!=TB | set showtabline!=always,never
+" <leader>T<C-m|t|e|b|d|s|o>: toggle toolbars/menubars
+"(  menu|tab|navigation|bookmark|web-developer toolbar )
+map <leader>Tm -ex set guioptions!=m
+map <leader>Tt -ex set showtabline!=always,never
+map <leader>Te -ex set guioptions!=T
+map <leader>Tb -ex set guioptions!=B
+map <leader>Td -ex toolbartoggle Web Developer Toolbar
+map <leader>Ts -ex set guioptions!=s
+map <leader>To -ex toolbartoggle Add-on Bar
+
 " =====WEBSITES/WEBAPPS=====
 js <<EOF
 function openInNewOrCurrentTab(site) {
@@ -551,12 +578,6 @@ map z; -js ZoomManager.toggleZoom();
 " ,----------------------,
 " | Option Key Sequences |
 " '----------------------'
-" <option>t - toggles
-map <option>tu -ex set usermode!
-map <option>te -ex editcontent
-map <option>s -js toggleHTTPS()
-map <option>v -ex styletoggle -name visitedlinks
-
 
 " ,--------,
 " | Search |
@@ -1311,21 +1332,6 @@ highlight -a Hint[Active]
 " | Toolbars |
 " '----------'
 
-" <A-Up>:     show the navigation and bookmarks toolbars:
-" <A-Down>:   hide the navigation and bookmarks toolbars:
-" <C-x><C-a>: toggle the navigation and bookmarks toolbars:
-map <A-Up> -ex set guioptions-=TB | set showtabline=never
-map <A-Down> -ex set guioptions+=TB | set showtabline=always
-map <C-x><C-a> -ex set guioptions!=TB | set showtabline!=always,never
-" <C-x><C-m|t|e|b|d|s|o>: toggle toolbars/menubars
-"(  menu|tab|navigation|bookmark|web-developer toolbar )
-map <C-x><C-m> -ex set guioptions!=m
-map <C-x><C-t> -ex set showtabline!=always,never
-map <C-x><C-e> -ex set guioptions!=T
-map <C-x><C-b> -ex set guioptions!=B
-map <C-x><C-d> -ex toolbartoggle Web Developer Toolbar
-map <C-x><C-s> -ex set guioptions!=s
-map <C-x><C-o> -ex toolbartoggle Add-on Bar
 "map <C-x><C-f> -ex buftabs
 
 
