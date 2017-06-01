@@ -165,6 +165,23 @@ command! firebugToggleInspecting -js eval(fbugToggleInspectCmd);
 " '---------'
 set! extensions.mozrepl.initUrl=file:///home/troy/.mozreplrc
 
+" -------------------------------------------------------------------------------
+" ,-------------------,
+" | Developer Toolbar |
+" '-------------------'
+
+js <<EOF
+function devtbarEnterCmd(s) {
+var inputBox = document.querySelector('textbox.gcli-in-input');
+var htmlInput = inputBox.boxObject.lastChild.firstChild;
+var anonDiv = htmlInput.editor.rootElement;
+anonDiv.textContent = s;
+anonDiv.focus();
+anonDiv.click();
+}
+<<EOF
+
+
 " ,---------------,
 " | OpenSeaDragon |
 " '---------------'
@@ -174,15 +191,15 @@ map <site><C-h> :map -group openseadragon <Lt>site
 
 
 js <<EOF
-
 function openseadragonGetButtons() {
     var buttons = content.document.querySelectorAll('.openseadragon-container :nth-child(2) div div div');
     return Array.from(buttons);
 }
 
 hints.addMode('ö','show buttons', elem=>alert('NOT IMPLEMENTED'));
-
 EOF
+
+map <browser>p -js devtbarEnterCmd("screenshot --fullscreen test.png");
 
 map <site>c -description "Hint buttons" -js hints.show("ő");
 
