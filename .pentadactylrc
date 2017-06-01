@@ -2020,10 +2020,10 @@ map <leader>ia -ex imgsalttotitle
 " | Table Commands |
 " '----------------'
 
-map <leader>tc -ex table2csv
-map <leader>tw -ex tablewiden
-map <leader>tW -ex tablewrap
-map <leader>td :tableDeleteColumns<Space>
+map <leader>xtc -ex table2csv
+map <leader>xtw -ex tablewiden
+map <leader>xtW -ex tablewrap
+map <leader>xtd :tableDeleteColumns<Space>
 
 " Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
