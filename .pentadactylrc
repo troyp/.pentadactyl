@@ -1297,10 +1297,10 @@ set hintkeys="jkl;fdsahgnvurieow"
 "
 highlight Hint
     \ font-family: "Droid Sans Mono Slashed";
-    \ line-height: 14px;
+    \ line-height: 10pt;
     \ text-shadow: 1px 1px 1px #888;
-    \ padding: 5px 3px 6px;
-    \ font-size: 20px;
+    \ padding: 3px 3px 3px;
+    \ font-size: 12pt;
     \ font-weight: bold;
     \ text-transform: uppercase;
     \ color: rgb(91, 58, 26);
