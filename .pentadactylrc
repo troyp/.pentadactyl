@@ -310,6 +310,12 @@ map -b <ext>a <C-v>
 map -b <C-a> <C-z>
 " Repeat last ex command
 map -modes normal -b g. @:
+
+" Save "
+map <C-x><C-s>
+\ -modes normal,insert,visual,command-line
+\ -js saveDocument(getBrowser().selectedBrowser.contentDocument);
+" \                  {mafAskSaveArchive: true});
 " Copying
 map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
