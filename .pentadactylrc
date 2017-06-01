@@ -5655,16 +5655,17 @@ EOF
 " '-----------------'
 "
 " call function defined in document: content.wrappedJSObject.page_func()
-" echo in dactyl status bar: dactyl.echo('');
-" current tab:  tabs.getTab()
-" current tab number:  tabs.getTab().dactylOrdinal
-" current selection: buffer.currentWord
-" current URL: buffer.URL
 " alternative to :execute: :js CommandExMode().open(exCommandString)
-" number of tabs: tabs.count
-" get tab with index i: tabs.getTab(i)
-" NOTE: index used in tabs.getTab is zero-based
-"       ordinal returned from .dactylOrdinal is 1-based
+" echo in dactyl status bar: dactyl.echo('');
+" current browser     getBrowser().selectedBrowser
+" current document    getBrowser().selectedBrowser.contentDocument
+"                     content.document
+" current tab:        tabs.getTab()
+" current selection:  buffer.currentWord
+" current URL:        buffer.URL
+" get tab with index i:  tabs.getTab(i)
+" number of tabs:        tabs.count
+" ordinal (one-based) of tab:   t.dactylOrdinal
+" index of tab (zero-based):    t._tPos
 "
-
 " =============================================================================
