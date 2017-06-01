@@ -3238,6 +3238,10 @@ map <site>kt -description "View tickets" -ex open https://support.fasttech.com/t
 map <site>kw -description "View account/wishlists" -ex open https://www.fasttech.com/account/wishlists
 
 
+style -name=fasttechPostSeparator https://www.fasttech.com/*
+    \ .ForumHeader { border-top: solid 1px #AAA !important; }
+styleenable https://www.fasttech.com/*
+
 group user
 
 " -------------------------------------------------------------------------------
