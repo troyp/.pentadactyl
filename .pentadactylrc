@@ -3204,6 +3204,7 @@ group user
 group fasttech -locations=fasttech.com
 map <leader>hkc :map -group fasttech <Lt>site
 map <site><C-h> :map -group fasttech <Lt>site
+map <site>k<C-h> -js CommandExMode().open("map -group fasttech <site>k")
 
 " === hint modes === "
 set eht+=🅵:.dropit
