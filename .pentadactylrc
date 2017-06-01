@@ -3227,8 +3227,16 @@ function fasttechToggleReviews () {
 }
 EOF
 
+js var fasttechAcc = "https://www.fasttech.com/account"
 map <site>c -description "Toggle reviews" -js fasttechToggleReviews();
-map <site>v -description "View cart" -ex open https://www.fasttech.com/shoppingcart
+map <site>kc -description "View cart" -ex open https://www.fasttech.com/shoppingcart
+map <site>ka -description "View account/" -ex open https://www.fasttech.com/account
+map <site>ko -description "View account/orders" -ex open https://www.fasttech.com/account/orders
+map <site>kg -description "View account/giftcertificates"
+    \ -ex open https://www.fasttech.com/account/giftcertificates
+map <site>kt -description "View tickets" -ex open https://support.fasttech.com/tickets
+map <site>kw -description "View account/wishlists" -ex open https://www.fasttech.com/account/wishlists
+
 
 group user
 
