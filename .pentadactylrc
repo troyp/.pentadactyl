@@ -935,6 +935,7 @@ command! removeimages -js removeSelectors('img');
 command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
 command! removecruft -js removeCruft();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
+command! clickselector -nargs=1 -js clickElement(content.document.querySelector(args[0]));
 
 " Page info commands "
 command! imgsalttotitle
