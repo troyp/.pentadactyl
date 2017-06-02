@@ -3227,10 +3227,19 @@ function fasttechToggleReviews () {
         newurl = reviews_prefix + p_matches[3];
     dactyl.open(newurl);
 }
+
+function fasttechToggleChat() {
+    var hiddenDiv = content.document.querySelector('div.olark-hidden.olark-size-md');
+    if (hiddenDiv)
+        content.document.querySelector('.olark-launch-button').click();
+    else
+        content.document.querySelector('.olark-top-bar-button').click();
+}
 EOF
 
 js var fasttechAcc = "https://www.fasttech.com/account"
 map <site>c -description "Toggle reviews" -js fasttechToggleReviews();
+map <site>h -description "Toggle chat" -js fasttechToggleChat()
 map <site>kc -description "View cart" -ex open https://www.fasttech.com/shoppingcart
 map <site>ka -description "View account/" -ex open https://www.fasttech.com/account
 map <site>ko -description "View account/orders" -ex open https://www.fasttech.com/account/orders
