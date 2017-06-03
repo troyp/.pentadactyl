@@ -557,6 +557,12 @@ map -description "Google translate selection" <xtra>tv -ex googletranslateselect
 map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
 map -description "Google append translation (HINTS)" <xtra>ta -js hints.show("ʈ");
 
+" ,------------,
+" | Conversion |
+" '------------'
+
+map -description "Convert inches to centimeters" <leader>ta -js hints.show("”");
+
 
 " ,------,
 " | Yank |
@@ -1277,6 +1283,16 @@ js hints.addMode("ʈ", "Insert translation", elem => googleInsertTranslationForE
 set eht+=[ŧ]:table
 " copySpecifiedTableColumns not defined yet, so use inline function "
 js hints.addMode("ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e));
+
+" Inches to Cm "
+js <<EOF
+function convertInchesToCm(elt) {
+    elt.innerText = subCmForInches(elt.innerText);
+}
+window.convertInchesToCm = convertInchesToCm;
+EOF
+set eht+=[”]:h1,h2,h3,h4,h5,h6,p,td,li,pre,.ReviewContent,.ProsConsContent
+js hints.addMode("”", "Convert Inches to centimeters", convertInchesToCm);
 
 map <yank_desc> ;Y
 
@@ -5652,6 +5668,18 @@ function concatRegex(...regexps) {
     return RegExp(regexps.map(r=>`(${r.source})`).join(""));
 }
 window.concatRegex = concatRegex;
+
+function inToCm(x) { return x * 2.54; }
+window.inToCm = inToCm;
+
+function subCmForInches(s) {
+    var regex = /(-?\d+(\.\d+)?) *("|in(ch(es)?)?)/g;
+    var replaceFn = function(m, m1, m2, m3, m4, m5, start, s, n) {
+        return inToCm(m1) + "cm";
+    };
+    return s.replace(regex, replaceFn);
+}
+window.subCmForInches = subCmForInches;
 
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
