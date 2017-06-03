@@ -405,7 +405,9 @@ map <leader>Td -ex toolbartoggle Web Developer Toolbar
 map <leader>Ts -ex set guioptions!=s
 map <leader>To -ex toolbartoggle Add-on Bar
 
-" =====WEBSITES/WEBAPPS=====
+" ,----------------------,
+" | Web Sites & Web Apps |
+" '----------------------'
 js <<EOF
 function openInNewOrCurrentTab(site) {
     "Curried function openInNewOrCurrentTab(url)(count):"
@@ -429,7 +431,9 @@ command! keepvid -js
     \ s.src="http://keepvid.com/js/bm.js";
     \ content.document.body.appendChild(s);
 
-" =====TRANSLATION=====
+" ,-------------,
+" | Translation |
+" '-------------'
 
 js <<EOF
 
@@ -542,6 +546,7 @@ command! trans
     \ -nargs=+
     \ -js googleTranslateText(args.join(" "));
 
+
 map -description "Bing translate page" <xtra>tt -ex bingtranslatepage
 map -description "Google translate page" <xtra>tg -ex googletranslatepage
 map -description "Google translate text" <xtra>tx :trans<Space>
@@ -551,8 +556,9 @@ map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
 map -description "Google append translation (HINTS)" <xtra>ta -js hints.show("ʈ");
 
 
-
-" =====YANK=====
+" ,------,
+" | Yank |
+" '------'
 map -b -description "Yank buffer URL"
     \ <yank>y y
 map <yank>t -description "Yank page title"
@@ -574,8 +580,9 @@ map <yank>a -description "Yank text area contents"
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
     \ :yanktablecsvarea<Space>
 
-
- " =====ZOOM=====
+" ,------,
+" | Zoom |
+" '------'
 " note: text and full zoom can't be used independently. Using one cancels the other
 map = +
 map <C-=> zI
