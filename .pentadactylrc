@@ -3250,6 +3250,7 @@ function fasttechToggleReviews () {
         newurl = product_prefix + r_matches[1];
     else if (p_matches)
         newurl = reviews_prefix + p_matches[3];
+    else return;
     dactyl.open(newurl);
 }
 
