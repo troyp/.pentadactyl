@@ -434,6 +434,8 @@ command! keepvid -js
 " ,-------------,
 " | Translation |
 " '-------------'
+" Translation Prefix: <xtra>t "
+map <xtra>t<C-h> -js CommandExMode().open("map <xtra>t")
 
 js <<EOF
 
