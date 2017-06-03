@@ -5648,6 +5648,11 @@ window.listNodes = listNodes;
 function matches(var_, regex) { return (var_ && var_.match && var_.match(regex)); }
 window.matches = matches;
 
+function concatRegex(...regexps) {
+    return RegExp(regexps.map(r=>`(${r.source})`).join(""));
+}
+window.concatRegex = concatRegex;
+
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
 
