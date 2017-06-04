@@ -1218,17 +1218,17 @@ js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
 set eht+=[e]:':-moz-any-link'
 js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
 " Show node (popup)"
-set eht+=[`]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[`]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('`','show node (popup)', e => alert(e.innerHTML || e));
 " Get node "
-set eht+=[1]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[1]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('1','get node', e => dactyl.stored_node=e);
 " Get selectors (uses Stylish functions) "
-set eht+=[2]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[2]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('2','get selectors', e => dactyl.stored_result = stylishCommon.generateSelectors(e));
 
 " inspect in Firebug
-set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
 " open link with wayback
 set eht+=[\]:':-moz-any-link'
@@ -1274,9 +1274,9 @@ js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
 
 " Translate text "
 " ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
-set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
+set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
-set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,tr,pre,.ReviewContent,.ProsConsContent
+set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("ʈ", "Insert translation", elem => googleInsertTranslationForElement(elem));
 
 " Copy Table Columns "
@@ -1291,7 +1291,7 @@ function convertInchesToCm(elt) {
 }
 window.convertInchesToCm = convertInchesToCm;
 EOF
-set eht+=[”]:h1,h2,h3,h4,h5,h6,p,td,li,pre,.ReviewContent,.ProsConsContent
+set eht+=[”]:h1,h2,h3,h4,h5,h6,p,li,td,dd,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("”", "Convert Inches to centimeters", convertInchesToCm);
 
 map <yank_desc> ;Y
