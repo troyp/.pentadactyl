@@ -990,9 +990,6 @@ map ! -ex pintab!
 " | Closing Tabs |
 " '--------------'
 
-" close other tabs "
-map <browser>1 -ex tabonly
-
 command! closetabstoleft
     \ -description "Close all tabs to the left of the current tab"
     \ -js
@@ -1009,31 +1006,36 @@ command! closetabstoright
     \ var numToClose = N - nextTabIndex;
     \ tabs.remove(firstTab, numToClose);
 
+" close other tabs "
+map <browser>1 -ex tabonly
 map <browser>< -ex closetabstoleft
 map <browser>> -ex closetabstoright
 " close tabs to right (inclusive) "
 map <C-k> <browser>>d
+" close tab range "
+map <browser>; :tc<SPACE>
+" close tab from list "
+map <browser>D :bdelete<SPACE>
+" undo recent closed tab from list
+map U :undo<SPACE>
+" filter tabs "
+map <browser>c :tabfilter<Space>""<C-b>
+
 
 " close tab range
 " :tc START END : close tabs starting with START and ending with the tabs before END
 " FIXME: doesn't work on last tab
-
 command! tc
     \ -description "close tab range from START to END inclusive"
     \ -nargs=+
     \ -js if (args.length==2) { closeTabRange(args[0], args[1]); }
     \     else { closeTabsFromCurrentTo(args[0]); }
-map <browser>; :tc<SPACE>
-
-" undo recent closed tab from list
-map U :undo<SPACE>
 
 " filter tabs "
 command! tabfilter
     \ -description "Close tabs that do not satisfy expression (t=tab, n=init.ord, t.ord=curr.ord, t.URL=url)"
     \ -nargs=1
     \ -js tabFilter(eval(`(t, n)=>${args[0]};`));
-map <browser>c :tabfilter<Space>""<C-b>
 
 js <<EOF
 
