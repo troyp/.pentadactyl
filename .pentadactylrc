@@ -5387,7 +5387,7 @@ var ytTogglePause = function() {
 
 function ytDL(dir="~/Downloads") {
     if (!dir) dir = "~/Downloads";
-    dactyl.execute(`!cd ${dir}; youtube-dl "${buffer.URL}"`);
+    dactyl.execute(`!cd ${dir}; youtube-dl -ci --all-subs --xattrs -o "%(title)s-%(id)s.%(ext)s" "${buffer.URL}"`);
 }
 
 EOF
