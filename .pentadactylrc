@@ -1412,8 +1412,6 @@ command! historydialog
     \ -description "Open history dialog"
     \ :feedkeys <C-S-H>
 
-" TODO: places.xul doesn't allow keyboard navigation. Can it be fixed?
-"       In the meantime, use the bookmarks dialog window instead.
 " bookmarks "
 map <goto>wk -ex dialog bookmarks | normal <Tab>
 
@@ -1442,7 +1440,10 @@ command! appcache
     \ -description "Open about:cache in new tab"
     \ :tabopen about:cache?storage=appcache
 
-" help
+set passkeys+='chrome://browser/content/bookmarks/bookmarksPanel.xul':'<Up><Down><Left><Right>'
+set passkeys+='chrome://browser/content/places/places.xul':'<Up><Down><Left><Right>'
+set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Left><Right>'
+
 map <local-help> -ex tabopen ~/.pentadactyl/docs/help/index.html
 map <goto>h <local-help>
 " single-page pentadactyl help
