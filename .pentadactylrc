@@ -3236,8 +3236,8 @@ group user
 group fasttech -locations=fasttech.com
 map <leader>hkc -js CommandExMode().open("map -group fasttech <site>")
 map <site><C-h> -js CommandExMode().open("map -group fasttech <site>")
-map <site>k<C-h> -js CommandExMode().open("map -group fasttech <site>k")
-map <site>K<C-h> -js CommandExMode().open("map -group fasttech <site>K")
+map <site>o<C-h> -js CommandExMode().open("map -group fasttech <site>o")
+map <site>t<C-h> -js CommandExMode().open("map -group fasttech <site>t")
 
 " === hint modes === "
 set eht+=🅵:.dropit
@@ -3272,21 +3272,21 @@ EOF
 
 map <site>c -description "Toggle reviews" -js fasttechToggleReviews();
 map <site>h -description "Toggle chat" -js fasttechToggleChat()
-map <site>kc -description "View cart" -ex open https://www.fasttech.com/shoppingcart
-map <site>ka -description "View account/" -ex open https://www.fasttech.com/account
-map <site>ko -description "View account/orders" -ex open https://www.fasttech.com/account/orders
-map <site>kg -description "View account/giftcertificates"
+map <site>oc -description "View cart" -ex open https://www.fasttech.com/shoppingcart
+map <site>oa -description "View account/" -ex open https://www.fasttech.com/account
+map <site>oo -description "View account/orders" -ex open https://www.fasttech.com/account/orders
+map <site>og -description "View account/giftcertificates"
     \ -ex open https://www.fasttech.com/account/giftcertificates
-map <site>kt -description "View tickets" -ex open https://support.fasttech.com/tickets
-map <site>kw -description "View account/wishlists" -ex open https://www.fasttech.com/account/wishlists
+map <site>ot -description "View tickets" -ex open https://support.fasttech.com/tickets
+map <site>ow -description "View account/wishlists" -ex open https://www.fasttech.com/account/wishlists
 
-map <site>Kc -description "View cart (new tab)" -ex tabopen https://www.fasttech.com/shoppingcart
-map <site>Ka -description "View account/ (new tab)" -ex tabopen https://www.fasttech.com/account
-map <site>Ko -description "View account/orders (new tab)" -ex tabopen https://www.fasttech.com/account/orders
-map <site>Kg -description "View account/giftcertificates (new tab)"
+map <site>tc -description "View cart (new tab)" -ex tabopen https://www.fasttech.com/shoppingcart
+map <site>ta -description "View account/ (new tab)" -ex tabopen https://www.fasttech.com/account
+map <site>to -description "View account/orders (new tab)" -ex tabopen https://www.fasttech.com/account/orders
+map <site>tg -description "View account/giftcertificates (new tab)"
     \ -ex tabopen https://www.fasttech.com/account/giftcertificates
-map <site>Kt -description "View tickets (new tab)" -ex tabopen https://support.fasttech.com/tickets
-map <site>Kw -description "View account/wishlists (new tab)" -ex tabopen https://www.fasttech.com/account/wishlists
+map <site>tt -description "View tickets (new tab)" -ex tabopen https://support.fasttech.com/tickets
+map <site>tw -description "View account/wishlists (new tab)" -ex tabopen https://www.fasttech.com/account/wishlists
 
 style -name=fasttechPostSeparator https://www.fasttech.com/*
     \ .ForumHeader { border-top: solid 1px #AAA !important; }
