@@ -1462,12 +1462,6 @@ map sp :set<SPACE>
 map sc :set!<SPACE>
 
 " List/Search:
-" Search bookmarks by keyword
-map gk<Space> :bmarks -max 45<SPACE> -keyword<SPACE>
-" List all static keyword bookmarks (keyword contains :::)
-map gkk :bmarks -max 45<SPACE> -keyword :::<CR>
-" Search bookmarks by tag
-map gkt :bmarks -max 45<SPACE> -tags<SPACE>
 map sb -description "search buffers" :buffers -max 45<SPACE>
 map sh -description "search history" :history -max 45<SPACE>
 " Search bookmarks: sk ... (see Bookmarks section) "
@@ -1803,10 +1797,17 @@ EOF
 command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0]);
 command! bookmarkExportBuku -js bookmarkExportBuku();
 command! bukurun !buku_run
-map <browser>k -ex !buku_run
+command! bookmarkpage :normal <bookmark-page>
+map -b <bookmark-page> <C-v><C-d>
+map <browser>k <bookmark-page>
+
+map sk<C-h> -description "bindings for prefix sk" -js CommandExMode().open("map sk")
 map sk<space> -description "search bookmarks" :bmarks  -max 45<SPACE>
 map skk -description "search bookmarks by keyword" :bmarks -max 45<SPACE> -keyword<SPACE>
 map skt -description "search bookmarks by title" :bmarks -max 45<SPACE> -title<SPACE>
+map skg -description "search bookmarks by tags" :bmarks -max 45<SPACE> -tags<SPACE>
+map sks -description "search static keyword bookmarks (keyword contains :::)" :bmarks -max 45<SPACE> -keyword :::<CR>
+map skw -description "search bookmarks with buku" -ex !buku_run
 
 
 " =============================================================================
