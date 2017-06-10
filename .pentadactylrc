@@ -144,8 +144,6 @@ set showstatuslinks=status
 set wildmode=list:longest,list:full
 set altwildmode=list:full
 set strictfocus=mail.google.com:laissez-faire,'chrome:*':laissez-faire,*:moderate
-" set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)" <file>'
-set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
 set scrolltime=0
 set scrollsteps=1
 
@@ -172,7 +170,8 @@ command! editorvim :set editor='gvim -f +<line> +"sil! call cursor(0, <column>)"
 command! editoremacs :set editor='emacsclient'
 command! editoremacsnewwin :set editor='emacsclient -c'
 command! editoremacsnw :set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
-
+" set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
+set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
 
 " =============================================================================
 "                                   ______________
