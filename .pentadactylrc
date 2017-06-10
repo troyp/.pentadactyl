@@ -3297,6 +3297,33 @@ styleenable https://www.fasttech.com/*
 group user
 
 " -------------------------------------------------------------------------------
+" ,--------------,
+" | GearBest.com |
+" '--------------'
+group gb -locations=gearbest.com
+map <leader>hkc -js CommandExMode().open("map -group gb <site>")
+map <site><C-h> -js CommandExMode().open("map -group gb <site>")
+
+js <<EOF
+
+function gbToggleReviews() {
+    var reviewRegex = /(.*)\/review.html(\?page=\d+)?$/;
+    var productRegex = /(.*\/pp_\d+).html$/;
+    var url = buffer.URL;
+    var matches;
+    if (matches = url.match(reviewRegex))
+        dactyl.open(matches[1]+".html");
+    else if (matches = url.match(productRegex))
+        dactyl.open(matches[1]+"/review.html?page=1");
+}
+
+EOF
+
+map <site>c -js gbToggleReviews();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,----------------,
 " | GetComics.Info |
 " '----------------'
