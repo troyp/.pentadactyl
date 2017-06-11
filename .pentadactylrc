@@ -407,18 +407,6 @@ map <leader>To -ex toolbartoggle Add-on Bar
 " ,----------------------,
 " | Web Sites & Web Apps |
 " '----------------------'
-js <<EOF
-function openInNewOrCurrentTab(site) {
-    "Curried function openInNewOrCurrentTab(url)(count):"
-    "  Open URL in new tab, or with COUNT, in current tab."
-    return function(count=false) {
-        if (typeof count == 'number')
-            dactyl.open(site, {where:dactyl.CURRENT_TAB});
-        else
-            dactyl.open(site, {where:dactyl.NEW_TAB})
-    };
-}
-EOF
 " Weather
 map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
 " Banking
@@ -5673,6 +5661,17 @@ function closeTabsLeftWhileMatching(regex, n) {
     }
 }
 window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
+
+function openInNewOrCurrentTab(site) {
+    "Curried function openInNewOrCurrentTab(url)(count):"
+    "  Open URL in new tab, or with COUNT, in current tab."
+    return function(count=false) {
+        if (typeof count == 'number')
+            dactyl.open(site, {where:dactyl.CURRENT_TAB});
+        else
+            dactyl.open(site, {where:dactyl.NEW_TAB})
+    };
+}
 
 function foreachElement(f, top=content.document) {
     Array.from(top.getElementsByTagName("*")).forEach(f);
