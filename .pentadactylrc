@@ -2072,10 +2072,13 @@ map <leader>ia -ex imgsalttotitle
 " | Table Commands |
 " '----------------'
 
-map <leader>xtc -ex table2csv
+map <leader>xt, -ex table2csv
 map <leader>xtw -ex tablewiden
 map <leader>xtW -ex tablewrap
 map <leader>xtd :tableDeleteColumns<Space>
+map <leader>xtc
+    \ -description "Copy table columns"
+    \ -js hints.show("ŧ");
 
 " Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
@@ -2086,6 +2089,12 @@ command! yanktablecsvarea
     \ -description "Yank the contents of table N's CSV. Use after :table2csv"
     \ -nargs=1
     \ yanktextarea <args>
+
+command! copytablecols
+    \ -description "Copy specified columns from table chosen by HINT"
+    \ -nargs=*
+    \ -js dactylArgsSet(args); hints.show('ŧ');
+
 
 js <<EOF
 function yankTableCSVArea(n) {
@@ -2174,15 +2183,6 @@ function copySpecifiedTableColumns(table) {
 }
 
 EOF
-
-command! copytablecols
-    \ -description "Copy specified columns from table chosen by HINT"
-    \ -nargs=*
-    \ -js dactylArgsSet(args); hints.show('ŧ');
-
-map <leader>tC
-    \ -description "Copy table columns"
-    \ -js hints.show("ŧ");
 
 
 " -------------------------------------------------------------------------------
