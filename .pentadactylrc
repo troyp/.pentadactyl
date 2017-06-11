@@ -380,6 +380,7 @@ map <leader>ni -ex removeimages
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
+map <leader>a<C-h> -js CommandExMode().open("map <leader>t")
 map <leader>tu -ex set usermode!
 map <leader>te -ex editcontent
 map <leader>s -js toggleHTTPS()
@@ -388,6 +389,7 @@ map <leader>v -ex styletoggle -name visitedlinks
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
+map <leader>a<C-h> -js CommandExMode().open("map <leader>T")
 " <A-Up>:     show the navigation and bookmarks toolbars:
 " <A-Down>:   hide the navigation and bookmarks toolbars:
 " <leader>Ta: toggle the navigation and bookmarks toolbars:
@@ -404,9 +406,10 @@ map <leader>Td -ex toolbartoggle Web Developer Toolbar
 map <leader>Ts -ex set guioptions!=s
 map <leader>To -ex toolbartoggle Add-on Bar
 
-" ,----------------------,
-" | Web Sites & Web Apps |
-" '----------------------'
+" ,----------------------, ,-----------,
+" | Web Sites & Web Apps | | <leader>a |
+" '----------------------' '-----------'
+map <leader>a<C-h> -js CommandExMode().open("map <leader>a")
 " Weather
 map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
 " Banking
@@ -417,6 +420,12 @@ command! keepvid -js
     \ s=content.document.createElement('script');
     \ s.src="http://keepvid.com/js/bm.js";
     \ content.document.body.appendChild(s);
+
+" ,------------,
+" | Conversion |
+" '------------'
+map <leader>a<C-h> -js CommandExMode().open("map <leader>c")
+map -description "Convert inches to centimeters" <leader>xci -js hints.show("”");
 
 " ,-------------,
 " | Translation |
@@ -543,12 +552,6 @@ map -description "Google translate text to clipboard" <xtra>tc :googletranslatet
 map -description "Google translate selection" <xtra>tv -ex googletranslateselection
 map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
 map -description "Google append translation (HINTS)" <xtra>ta -js hints.show("ʈ");
-
-" ,------------,
-" | Conversion |
-" '------------'
-
-map -description "Convert inches to centimeters" <leader>ta -js hints.show("”");
 
 
 " ,------,
@@ -1590,6 +1593,11 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 "                           | DEVELOPMENT TOOLS |
 "                           |___________________|
 
+" ,------------------------, ,-----------,
+" | Javascript Evalutation | | <leader>e |
+" '------------------------' '-----------'
+map <leader>a<C-h> -js CommandExMode().open("map <leader>e")
+
 " JS Repl
 command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
 map <xtra>r -ex js!
@@ -1601,9 +1609,18 @@ map <leader>em :js <<EOF
 map <leader>eb :open javascript:
 
 " -----------------------------------------------------------------------------
-" ,---------------------------------,
-" | Mozilla DevTools & DOM Inspector|
-" '---------------------------------'
+" ,---------------------------------, ,-----------,
+" | Mozilla DevTools & DOM Inspector| | <leader>d |
+" '---------------------------------' '-----------'
+map <leader>a<C-h> -js CommandExMode().open("map <leader>d")
+
+map <leader>dy -ex eyedropper
+map <leader>dw -ex webide
+map <leader>db -ex browserconsole
+map <leader>ds -ex storageinspector
+map <leader>,di -ex dominspector
+map <S-f12> -ex devtools
+
 command! webide :feedkeys! <S-f8>
 command! browserconsole :feedkeys! <C-S-J>
 command! devtools :execute "emenu Tools.Web Developer.Toggle Tools"
@@ -1616,13 +1633,6 @@ command! dominspector -js inspectDOMDocument(content.document);
 command! dominspector :dialog dominspector
 command! dominspectorchrome :js inspectDOMDocument(document.URL)
 command! browsertoolbox :feedkeys <C-A-S-I>
-
-map <leader>dy -ex eyedropper
-map <leader>dw -ex webide
-map <leader>db -ex browserconsole
-map <leader>ds -ex storageinspector
-map <leader>,di -ex dominspector
-map <S-f12> -ex devtools
 
 " Toggle FF Developer command line
 " <S-f2> requires <Esc> to enter normal mode after toggling off.
@@ -2017,6 +2027,10 @@ command! popjisyo
     \ -js bang ? popJisyoEtoJ() : popJisyo();
 
 " -----------------------------------------------------------------------------
+" ,-------, ,-----------,
+" | Links | | <leader>l |
+" '-------' '-----------'
+map <leader>a<C-h> -js CommandExMode().open("map <leader>l")
 
 map <leader>la -ex appendlinks
 map <leader>lu -ex appendlinkurls
