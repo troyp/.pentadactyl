@@ -5756,6 +5756,19 @@ window.fconst = fconst;
 window.ftrue = ftrue;
 window.ffalse = ffalse;
 
+var re_label = /(?!-)[-a-z0-9\\u00a1-\\uffff]*[a-z0-9\\u00a1-\\uffff]/;
+window.re_label = re_label;
+var re_http_url = new RegExp(
+    "(https?://|localhost:)?" +
+    `((?:${re_label.source}[.])*${re_label.source})` + "(:\\d+)?" +
+    "(/[^?# \\t]+)?" +
+    "(\\?[^# \\t]+)?" +
+    "(#\\S+)?"
+);
+window.re_http_url = re_http_url;
+var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
+window.re_http_url_groups = re_http_url_groups;
+
 function getUSDAUDexchange() { return window.AUDperUSD; }
 window.getUSDAUDexchange = getUSDAUDexchange;
 
