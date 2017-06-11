@@ -5755,7 +5755,7 @@ window.fconst = fconst;
 window.ftrue = ftrue;
 window.ffalse = ffalse;
 
-getUSDAUDexchange() { return window.AUDperUSD; }
+function getUSDAUDexchange() { return window.AUDperUSD; }
 window.getUSDAUDexchange = getUSDAUDexchange;
 
 // ,-------------------------,
