@@ -221,3 +221,24 @@ function xhr(url, cb) {
     xhr.responseType = "arraybuffer";
     xhr.send(null);
 }
+
+// -------------------------------------------------------------------------------
+// ,---------------,
+// | Exchange Rate |
+// '---------------'
+
+function updateUSDAUDexchange(context) {
+    context = context || window;
+    var url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDAUD%22%29&env=store://datatables.org/alltableswithkeys&format=json";
+    fetch(url)
+        .then(response=>response.json())
+        .then(obj => {
+            alert((parseFloat(x.query.results.rate.Ask)+parseFloat(x.query.results.rate.Bid))/2);
+            var rate = x.query.result.rate;
+            var ask = parseFloat(x.query.results.rate.Ask);
+            var bid = parseFloat(x.query.results.rate.Bid);
+            var avg = (ask+bid)/2;
+            context.AUDperUSD = avg;
+            alert(avg);
+        });
+}
