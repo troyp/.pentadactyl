@@ -1617,7 +1617,6 @@ command! dominspector :dialog dominspector
 command! dominspectorchrome :js inspectDOMDocument(document.URL)
 command! browsertoolbox :feedkeys <C-A-S-I>
 
-map <C-x>v -modes main -ex togglegcli
 map <leader>dy -ex eyedropper
 map <leader>dw -ex webide
 map <leader>db -ex browserconsole
