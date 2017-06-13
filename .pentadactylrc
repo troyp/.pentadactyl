@@ -2085,7 +2085,7 @@ map <leader>xtW -ex tablewrap
 map <leader>xtd :tableDeleteColumns<Space>
 map <leader>xtc
     \ -description "Copy table columns"
-    \ -js hints.show("ŧ");
+    \ :copytablecols<Space>
 
 " Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
