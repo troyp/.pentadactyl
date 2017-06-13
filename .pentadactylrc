@@ -1281,8 +1281,11 @@ js hints.addMode("ʈ", "Insert translation", elem => googleInsertTranslationForE
 
 " Copy Table Columns "
 set eht+=[ŧ]:table
+set eht+=[Ŧ]:table
 " copySpecifiedTableColumns not defined yet, so use inline function "
 js hints.addMode("ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e));
+" - ignore rows with too few cells "
+js hints.addMode("Ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e, true));
 
 " Inches to Cm "
 js <<EOF
@@ -2086,6 +2089,9 @@ map <leader>xtd :tableDeleteColumns<Space>
 map <leader>xtc
     \ -description "Copy table columns"
     \ :copytablecols<Space>
+map <leader>xtC
+    \ -description "Copy table columns (omit rows with too few columns)"
+    \ :copytablecols-strict<Space>
 
 " Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
@@ -2102,6 +2108,10 @@ command! copytablecols
     \ -nargs=*
     \ -js dactylArgsSet(args); hints.show('ŧ');
 
+command! copytablecols-strict
+    \ -description "Copy specified columns from table chosen by HINT (omit rows with too few columns)"
+    \ -nargs=*
+    \ -js dactylArgsSet(args); hints.show('Ŧ');
 
 js <<EOF
 function yankTableCSVArea(n) {
@@ -2163,11 +2173,13 @@ function CopyTableAsCSVbySelector(sel) {
     utils.cbWriteWithLineLimit(csv);
 }
 
-function extractTableColumns(table, columns) {
+function extractTableColumns(table, columns, strict=false) {
     var output = "";
     var rows = Array.from(table.rows).slice(1);
     for (var row of rows) {
         var cells = Array.from(row.cells);
+        if (strict && cells.length < Math.max.apply(null, columns))
+            continue;
         function processCols(i) {
             var cellValue = cells[i-1] && cells[i-1].innerText.trim();
             if ( typeof(cellValue)=="string" &&
@@ -2183,8 +2195,8 @@ function extractTableColumns(table, columns) {
 }
 window.extractTableColumns = extractTableColumns;
 
-function copySpecifiedTableColumns(table) {
-    var extracted = extractTableColumns(table, window._dactylargs);
+function copySpecifiedTableColumns(table, strict=false) {
+    var extracted = extractTableColumns(table, window._dactylargs, strict);
     var result = extracted.replace(/\n\s*\n/mg, '\n');
     utils.cbWriteWithLineLimit(result);
 }
@@ -5367,7 +5379,7 @@ command! wpcleanup
 command! wpcopytablecols
     \ -description "Copy specified columns (single digits) from table chosen by HINT"
     \ -nargs=1
-    \ -js dactylArgsSet(args[0].split("")); hints.show('ŧ');
+    \ -js dactylArgsSet(args[0].split("")); hints.show('Ŧ');
 
 map <site>c -ex wpcleanup
 map <site>l -ex wplatest
