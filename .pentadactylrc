@@ -2169,7 +2169,7 @@ function extractTableColumns(table, columns) {
     for (var row of rows) {
         var cells = Array.from(row.cells);
         function processCols(i) {
-            var cellValue = cells[i] && cells[i].innerText.trim();
+            var cellValue = cells[i-1] && cells[i-1].innerText.trim();
             if ( typeof(cellValue)=="string" &&
                  cellValue.startsWith('"') &&
                  cellValue.endsWith('"') )
