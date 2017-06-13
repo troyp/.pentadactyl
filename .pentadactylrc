@@ -2076,6 +2076,8 @@ map <leader>ia -ex imgsalttotitle
 " ,----------------,
 " | Table Commands |
 " '----------------'
+map <leader>x<C-h> -js CommandExMode().open("map <leader>x")
+map <leader>xt<C-h> -js CommandExMode().open("map <leader>xt")
 
 map <leader>xt, -ex table2csv
 map <leader>xtw -ex tablewiden
