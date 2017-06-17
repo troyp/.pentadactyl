@@ -1194,171 +1194,6 @@ command! tginit
 
 
 " =============================================================================
-"                                       _______
-"                                      |       |
-"                                      | HINTS |
-"                                      |_______|
-
-set eht=[iI]:img,[asOTvVWy]:':-moz-any-link',area[href],img[src],iframe[src],[A]:[id],a[name],[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
-js hints.addMode('m','mouseover',utils.simulateMouseover);
-
-" remove structural elements
-set eht+=[x]:div,iframe,header,footer,aside,form,'input:not([type=hidden])',textarea,img,ul,ol
-js hints.addMode('x','Remove element', e=>e.remove());
-" remove headings, paragraphs, items "
-set eht+=[X]:h1,h2,h3,h4,h5,h6,p,tr,li,pre
-js hints.addMode('X','Remove element', e=>e.remove());
-set eht+=[0]:div,iframe
-js hints.addMode('0','make div invisible', utils.undisplay);
-
-" replace ;t with function for ;b (open in background)
-js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
-set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:div/p
-js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
-set eht+=[e]:':-moz-any-link'
-js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
-" Show node (popup)"
-set eht+=[`]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
-js hints.addMode('`','show node (popup)', e => alert(e.innerHTML || e));
-" Get node "
-set eht+=[1]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
-js hints.addMode('1','get node', e => dactyl.stored_node=e);
-" Get selectors (uses Stylish functions) "
-set eht+=[2]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
-js hints.addMode('2','get selectors', e => dactyl.stored_result = stylishCommon.generateSelectors(e));
-
-" inspect in Firebug
-set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
-js hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
-" open link with wayback
-set eht+=[\]:':-moz-any-link'
-js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
-
-" svg: FIXME
-runtime! js/svg-pan-zoom.min.js
-set eht+=[G]:svg
-js hints.addMode('G','pan & zoom SVG',alert);
-" openseadragon: image zoom and pan "
-set eht+=[m]:img
-js hints.addMode('m','pan & zoom img', elem=>{ dactyl.open(`http://openseadragon.github.io/openseadragonizer/?img=${elem.src.replace(/(\?|#).*/,'')}&encoded=true`, { where: dactyl.NEW_TAB }) });
-
-
-" focus frame
-map -b vf ;F
-
-" --------------- "
-" Non-Ascii Hints "
-" --------------- "
-" These can actually be activated via ; by entering ä (via compose key, for example) "
-" Alternatively, can be bound to another binding using -js hints.open('ä') "
-
-" bold links: mode ä "
-set eht+=[ä]:a>strong,a>b
-js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
-
-" === SITE-SPECIFIC === "
-" JSBin: "
-"    ï - menus"
-" coursera: "
-"    ẖ - jump to match in transcript "
-" fasttech: "
-"    🅵 - move to wish list "
-" about:newtab "
-"    ņ - follow link "
-"    Ņ - follow link (background tab) "
-"    ɳ - click button "
-
-" Copy text "
-set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre
-js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
-
-" Translate text "
-" ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
-set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
-js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
-set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
-js hints.addMode("ʈ", "Insert translation", elem => googleInsertTranslationForElement(elem));
-
-" Copy Table Columns "
-set eht+=[ŧ]:table
-set eht+=[Ŧ]:table
-" copySpecifiedTableColumns not defined yet, so use inline function "
-js hints.addMode("ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e));
-" - ignore rows with too few cells "
-js hints.addMode("Ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e, true));
-
-" Inches to Cm "
-js <<EOF
-function convertInchesToCm(elt) {
-    elt.innerText = subCmForInches(elt.innerText);
-}
-window.convertInchesToCm = convertInchesToCm;
-EOF
-set eht+=[”]:h1,h2,h3,h4,h5,h6,p,li,td,dd,pre,.ReviewContent,.ProsConsContent
-js hints.addMode("”", "Convert Inches to centimeters", convertInchesToCm);
-
-map <yank_desc> ;Y
-
-" -----------------------------------------------------------------------------
-" ,----------,
-" | hinttags |
-" '----------'
-"
-set hinttags+='svg'
-" Add hints for anchor elements whose class attribute starts with "vote":
-set hinttags+=a[class^='vote']
-set hinttags+=a[class^='speed']
-
-" -----------------------------------------------------------------------------
-" ,------------------,
-" | extendedhinttags |
-" '------------------'
-"
-" FIXME: can't activate context menu on 'body' hint
-":set eht+=[c]:body,':-moz-any-link',area,button,iframe,input:not([type=hidden]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true]
-
-" -----------------------------------------------------------------------------
-" ,-------------------,
-" | Styling for hints |
-" '-------------------'
-"
-set hintkeys="jkl;fdsahgnvurieow"
-"
-highlight Hint
-    \ font-family: "Droid Sans Mono Slashed";
-    \ line-height: 10pt;
-    \ text-shadow: 1px 1px 1px #888;
-    \ padding: 3px 3px 3px;
-    \ font-size: 12pt;
-    \ font-weight: bold;
-    \ text-transform: uppercase;
-    \ color: rgb(91, 58, 26);
-    \ background-color: rgba(255, 255, 255, 0.45) !important;
-    \ border-radius: 5px;
-" HintImage: ?
-highlight HintImage
-    \ background-color: rgba(255, 0, 255, 1) !important;
-    \ border-radius: 5px;
-" HintElem: styling for elements when hinted
-highlight HintElem
-    \ border-radius: 2px;
-" HintActive: styling for active element when hinted
-highlight -a HintActive
-    \ background-color: rgba(255, 255, 255, 0.1) !important;
-    \ color: blue !important;
-    \ border-style: dashed;
-    \ border-color: rgba(255, 0, 0, 0.4);
-    \ border-width: 1px;
-    \ border-radius: 2px;
-" Hint[Active]: styling for hint on active element
-highlight -a Hint[Active]
-    \ background-color: rgba(255, 255, 0, 0.4) !important;
-    \ color: rgb(91, 58, 26);
-    \ border-style: solid;
-    \ border-color: rgb(91, 58, 26);
-
-
-" =============================================================================
 "       _______
 "      |       |
 "      |  GUI  |
@@ -2619,6 +2454,183 @@ function rubular(regex, test) {
 }
 
 EOF
+
+" =============================================================================
+"                                       _______
+"                                      |       |
+"                                      | HINTS |
+"                                      |_______|
+
+set eht=[iI]:img,[asOTvVWy]:':-moz-any-link',area[href],img[src],iframe[src],[A]:[id],a[name],[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
+js hints.addMode('m','mouseover',utils.simulateMouseover);
+
+set eht=[\ ]:a,img,':-moz-any-link'
+js <<EOF
+hints.addMode(
+    ' ', 'Click in new tab',
+    e=>{
+        altT = tabs.alternate;
+        tabCopyLeftBg();
+        e.click();
+        tabSelectLeft();
+    }
+);
+EOF
+
+" remove structural elements
+set eht+=[x]:div,iframe,header,footer,aside,form,'input:not([type=hidden])',textarea,img,ul,ol
+js hints.addMode('x','Remove element', e=>e.remove());
+" remove headings, paragraphs, items "
+set eht+=[X]:h1,h2,h3,h4,h5,h6,p,tr,li,pre
+js hints.addMode('X','Remove element', e=>e.remove());
+set eht+=[0]:div,iframe
+js hints.addMode('0','make div invisible', utils.undisplay);
+
+" replace ;t with function for ;b (open in background)
+js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
+set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:div/p
+js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
+set eht+=[e]:':-moz-any-link'
+js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
+" Show node (popup)"
+set eht+=[`]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('`','show node (popup)', e => alert(e.innerHTML || e));
+" Get node "
+set eht+=[1]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('1','get node', e => dactyl.stored_node=e);
+" Get selectors (uses Stylish functions) "
+set eht+=[2]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('2','get selectors', e => dactyl.stored_result = stylishCommon.generateSelectors(e));
+
+" inspect in Firebug
+set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
+" open link with wayback
+set eht+=[\]:':-moz-any-link'
+js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
+
+" svg: FIXME
+runtime! js/svg-pan-zoom.min.js
+set eht+=[G]:svg
+js hints.addMode('G','pan & zoom SVG',alert);
+" openseadragon: image zoom and pan "
+set eht+=[m]:img
+js hints.addMode('m','pan & zoom img', elem=>{ dactyl.open(`http://openseadragon.github.io/openseadragonizer/?img=${elem.src.replace(/(\?|#).*/,'')}&encoded=true`, { where: dactyl.NEW_TAB }) });
+
+
+" focus frame
+map -b vf ;F
+
+" --------------- "
+" Non-Ascii Hints "
+" --------------- "
+" These can actually be activated via ; by entering ä (via compose key, for example) "
+" Alternatively, can be bound to another binding using -js hints.open('ä') "
+
+" bold links: mode ä "
+set eht+=[ä]:a>strong,a>b
+js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
+
+" === SITE-SPECIFIC === "
+" JSBin: "
+"    ï - menus"
+" coursera: "
+"    ẖ - jump to match in transcript "
+" fasttech: "
+"    🅵 - move to wish list "
+" about:newtab "
+"    ņ - follow link "
+"    Ņ - follow link (background tab) "
+"    ɳ - click button "
+
+" Copy text "
+set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre
+js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
+
+" Translate text "
+" ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
+set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
+js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
+set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
+js hints.addMode("ʈ", "Insert translation", googleInsertTranslationForElement);
+
+" Copy Table Columns "
+set eht+=[ŧ]:table
+set eht+=[Ŧ]:table
+js hints.addMode("ŧ", "Copy Table Columns", copySpecifiedTableColumns);
+" - ignore rows with too few cells "
+js hints.addMode("Ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e, true));
+
+" Inches to Cm "
+js <<EOF
+function convertInchesToCm(elt) {
+    elt.innerText = subCmForInches(elt.innerText);
+}
+window.convertInchesToCm = convertInchesToCm;
+EOF
+set eht+=[”]:h1,h2,h3,h4,h5,h6,p,li,td,dd,pre,.ReviewContent,.ProsConsContent
+js hints.addMode("”", "Convert Inches to centimeters", convertInchesToCm);
+
+map <yank_desc> ;Y
+
+" -----------------------------------------------------------------------------
+" ,----------,
+" | hinttags |
+" '----------'
+"
+set hinttags+='svg'
+" Add hints for anchor elements whose class attribute starts with "vote":
+set hinttags+=a[class^='vote']
+set hinttags+=a[class^='speed']
+
+" -----------------------------------------------------------------------------
+" ,------------------,
+" | extendedhinttags |
+" '------------------'
+"
+" FIXME: can't activate context menu on 'body' hint
+":set eht+=[c]:body,':-moz-any-link',area,button,iframe,input:not([type=hidden]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true]
+
+" -----------------------------------------------------------------------------
+" ,-------------------,
+" | Styling for hints |
+" '-------------------'
+"
+set hintkeys="jkl;fdsahgnvurieow"
+"
+highlight Hint
+    \ font-family: "Droid Sans Mono Slashed";
+    \ line-height: 10pt;
+    \ text-shadow: 1px 1px 1px #888;
+    \ padding: 3px 3px 3px;
+    \ font-size: 12pt;
+    \ font-weight: bold;
+    \ text-transform: uppercase;
+    \ color: rgb(91, 58, 26);
+    \ background-color: rgba(255, 255, 255, 0.45) !important;
+    \ border-radius: 5px;
+" HintImage: ?
+highlight HintImage
+    \ background-color: rgba(255, 0, 255, 1) !important;
+    \ border-radius: 5px;
+" HintElem: styling for elements when hinted
+highlight HintElem
+    \ border-radius: 2px;
+" HintActive: styling for active element when hinted
+highlight -a HintActive
+    \ background-color: rgba(255, 255, 255, 0.1) !important;
+    \ color: blue !important;
+    \ border-style: dashed;
+    \ border-color: rgba(255, 0, 0, 0.4);
+    \ border-width: 1px;
+    \ border-radius: 2px;
+" Hint[Active]: styling for hint on active element
+highlight -a Hint[Active]
+    \ background-color: rgba(255, 255, 0, 0.4) !important;
+    \ color: rgb(91, 58, 26);
+    \ border-style: solid;
+    \ border-color: rgb(91, 58, 26);
+
 
 " =============================================================================
 "                                   _______________
