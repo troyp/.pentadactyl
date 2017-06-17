@@ -787,7 +787,7 @@ map -modes pass-through -b <A-;> :normal "<Esc><C-^>"<CR>
 command! undob -description "Undo tab in background" -js undob()
 command! backt -description "Create adjacent duplicate tab and go back in the browser history" -js backt()
 command! forwardt -description "Create adjacent duplicate tab and go forward in the browser history" -js forwardt()
-command! tabdupa -description "Create adjacent duplicate tab" -js tabdupa()
+command! tabdupa -description "Create adjacent duplicate tab" -js tabCopyLeftBg()
 
 command! pasteall -description "open all links in clipboard" -js openAllLinksInCB();
 map gp -ex pasteall
@@ -1175,7 +1175,7 @@ EOF
 " | New Tabs |
 " '----------'
 " Duplicate tab, Back/Forward in New Tab
-map C  -ex tabdupa
+map C  -ex tabCopyLeftBg
 map gh -ex backt
 map gl -ex forwardt
 " Open multiple hints in background tabs
@@ -2131,7 +2131,7 @@ forwardt = function() {
 }
 
 " Create adjacent duplicate tab "
-tabdupa = function() {
+tabCopyLeftBg = function() {
     var currT = gBrowser.selectedTab;
     var dupT = gBrowser.duplicateTab(currT);
     var dupTB = gBrowser.getBrowserForTab(dupT);
