@@ -431,6 +431,8 @@ command! keepvid -js
 map <leader>a<C-h> -js CommandExMode().open("map <leader>c")
 map -description "Convert inches to centimeters" <leader>xci -js hints.show("”");
 
+command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
+
 " ,-------------,
 " | Translation |
 " '-------------'
