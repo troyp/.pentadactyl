@@ -2130,7 +2130,13 @@ forwardt = function() {
     dupTB.addEventListener("DOMContentLoaded", forwardtListener);
 }
 
-" Create adjacent duplicate tab "
+" Create adjacent duplicate tab to right "
+tabCopyRight = function() {
+    var currT = gBrowser.selectedTab;
+    var dupT = gBrowser.duplicateTab(currT);
+    gBrowser.selectedTab = dupT;
+}
+" ...basically equivalent to tabCopyRight, but without waiting for the new tab to load. "
 tabCopyLeftBg = function() {
     var currT = gBrowser.selectedTab;
     var dupT = gBrowser.duplicateTab(currT);
