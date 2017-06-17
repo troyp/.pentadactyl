@@ -975,6 +975,15 @@ map -modes input -b <A-;> <Esc><C-^>
 map -modes command,embed -b <A-:> d<C-^>
 map -modes input -b <A-:> <Esc>d<C-^>
 
+js <<EOF
+function tabSelectLeft(n=1, wrap=true) {
+    var currIdx = tabs.getTab()._tPos;
+    targetIdx = currIdx - n;
+    tabs.select(targetIdx);
+    return targetIdx;
+}
+EOF
+
 " -----------------------------------------------------------------------------
 " ,--------------,
 " | Pinning Tabs |
