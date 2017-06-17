@@ -2469,6 +2469,18 @@ function rubular(regex, test) {
     tb.addEventListener("DOMContentLoaded", rubularCB);
 }
 
+function clickElement(sel) {
+    if (typeof sel == "string") {
+        // selector
+        var getButton = content.document.querySelector(sel);
+        getButton.click();
+    } else {
+        // element
+        sel.click();
+    }
+}
+window.clickElement = clickElement;
+
 EOF
 
 " =============================================================================
@@ -5583,18 +5595,6 @@ function isInView(elt) {
     var inview = bound.top >= 0 && bound.left >= 0 && bound.bottom <= viewBottom && bound.right <= viewRight;
     return inview;
 }
-
-function clickElement(sel) {
-    if (typeof sel == "string") {
-        // selector
-        var getButton = content.document.querySelector(sel);
-        getButton.click();
-    } else {
-        // element
-        sel.click();
-    }
-}
-window.clickElement = clickElement;
 
 function getTextArea(n) {
     var tareas = content.document.querySelectorAll('textarea');
