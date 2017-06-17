@@ -2134,7 +2134,6 @@ forwardt = function() {
 tabCopyLeftBg = function() {
     var currT = gBrowser.selectedTab;
     var dupT = gBrowser.duplicateTab(currT);
-    var dupTB = gBrowser.getBrowserForTab(dupT);
     getBrowser().moveTabForward();
 }
 
