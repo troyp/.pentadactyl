@@ -18,6 +18,7 @@ runtime! personal.js
 js var user = dactyl.utils.getPlugin("personal");
 
 runtime! js/jquery.min.js
+runtime! js/sprintf.js
 set passkeys=
 
 " -------------------------------------------------------------------------------
@@ -1175,7 +1176,7 @@ EOF
 " | New Tabs |
 " '----------'
 " Duplicate tab, Back/Forward in New Tab
-map C  -ex tabCopyLeftBg
+map C  -ex tabdupa
 map gh -ex backt
 map gl -ex forwardt
 " Open multiple hints in background tabs
