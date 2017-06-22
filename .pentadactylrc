@@ -3302,6 +3302,30 @@ command! crdl -js crDL();
 group user
 
 " -------------------------------------------------------------------------------
+" ,------,
+" | eBay |
+" '------'
+group ebay -locations=ebay.com,ebay.com.*
+map <leader>hkc -js CommandExMode().open("map -group ebay <site>")
+map <site><C-h> -js CommandExMode().open("map -group ebay <site>")
+
+js <<EOF
+
+function ebayToAU() {
+    var url = content.location.href.toLowerCase();
+    var ebayRegex = /https?:\/\/www.ebay.com(\.\w\w)?\/(.*)/;
+    var matches = url.match(ebayRegex);
+    if (matches[1] != '.au')
+        dactyl.open("https://www.ebay.com.au/" + matches[2])
+}
+
+EOF
+
+map <site>a -description "Go to Australian site" -js ebayToAU();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,--------------,
 " | Fasttech.com |
 " '--------------'
