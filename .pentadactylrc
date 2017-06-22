@@ -1982,8 +1982,14 @@ style -name=table_wrap
     \ td:first-of-type { white-space: pre-wrap !important; }
 command! tablewrap -description "wrap text in table cells" styletoggle -name table_wrap
 
+command! tableDeleteColumns
+    \ -description "Delete given columns from all tables."
+    \ -nargs=*
+    \ -js tableDeleteCols(args.map(parseInt));
+
 js <<EOF
-function deleteCols(cols) {
+
+function tableDeleteCols(cols) {
     var tables = content.document.getElementsByTagName('table');
     for (var t of Array.from(tables))
         for (var r of Array.from(t.rows))
@@ -1992,14 +1998,6 @@ function deleteCols(cols) {
                 if (cell) cell.remove();
             }
 }
-EOF
-
-command! tableDeleteColumns
-    \ -description "Delete given columns from all tables."
-    \ -nargs=*
-    \ -js deleteCols(args.map(parseInt));
-
-js <<EOF
 
 function tableToCSV(table) {
     var output = "";
