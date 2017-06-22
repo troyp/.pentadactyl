@@ -558,7 +558,9 @@ map -description "Google translate text" <xtra>tx :trans<Space>
 map -description "Google translate text to clipboard" <xtra>tc :googletranslatetextcb<Space>
 map -description "Google translate selection" <xtra>tv -ex googletranslateselection
 map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
+map -description "Google translate element (HINTS)" <xtra>td -js hints.show("Ţ");
 map -description "Google append translation (HINTS)" <xtra>ta -js hints.show("ʈ");
+map -description "Google append translation (div) (HINTS)" <xtra>tb -js hints.show("Ʈ");
 
 
 " ,------,
@@ -2580,8 +2582,12 @@ js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
 " ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
 set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
+set eht+=[Ţ]:div,code,pre,table,input,.ReviewContent,.ProsConsContent
+js hints.addMode("Ţ", "Translate element", elem => googleTranslateText(elem.innerText));
 set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("ʈ", "Insert translation", googleInsertTranslationForElement);
+set eht+=[Ʈ]:div,code,pre,table,input,.ReviewContent,.ProsConsContent
+js hints.addMode("Ʈ", "Insert translation (div)", googleInsertTranslationForElement);
 
 " Copy Table Columns "
 set eht+=[ŧ]:table
