@@ -385,7 +385,7 @@ map <leader>ni -ex removeimages
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
-map <leader>a<C-h> -js CommandExMode().open("map <leader>t")
+map <leader>t<C-h> -js CommandExMode().open("map <leader>t")
 map <leader>tu -ex set usermode!
 map <leader>te -ex editcontent
 map <leader>s -js toggleHTTPS()
@@ -394,7 +394,7 @@ map <leader>v -ex styletoggle -name visitedlinks
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
-map <leader>a<C-h> -js CommandExMode().open("map <leader>T")
+map <leader>T<C-h> -js CommandExMode().open("map <leader>T")
 " <A-Up>:     show the navigation and bookmarks toolbars:
 " <A-Down>:   hide the navigation and bookmarks toolbars:
 " <leader>Ta: toggle the navigation and bookmarks toolbars:
@@ -429,7 +429,7 @@ command! keepvid -js
 " ,------------,
 " | Conversion |
 " '------------'
-map <leader>a<C-h> -js CommandExMode().open("map <leader>c")
+map <leader>c<C-h> -js CommandExMode().open("map <leader>c")
 map -description "Convert inches to centimeters" <leader>xci -js hints.show("”");
 
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
@@ -1452,7 +1452,7 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 " ,------------------------, ,-----------,
 " | Javascript Evalutation | | <leader>e |
 " '------------------------' '-----------'
-map <leader>a<C-h> -js CommandExMode().open("map <leader>e")
+map <leader>e<C-h> -js CommandExMode().open("map <leader>e")
 
 " JS Repl
 command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
@@ -1468,7 +1468,7 @@ map <leader>eb :open javascript:
 " ,---------------------------------, ,-----------,
 " | Mozilla DevTools & DOM Inspector| | <leader>d |
 " '---------------------------------' '-----------'
-map <leader>a<C-h> -js CommandExMode().open("map <leader>d")
+map <leader>d<C-h> -js CommandExMode().open("map <leader>d")
 
 map <leader>dy -ex eyedropper
 map <leader>dw -ex webide
@@ -1886,7 +1886,7 @@ command! popjisyo
 " ,-------, ,-----------,
 " | Links | | <leader>l |
 " '-------' '-----------'
-map <leader>a<C-h> -js CommandExMode().open("map <leader>l")
+map <leader>l<C-h> -js CommandExMode().open("map <leader>l")
 
 map <leader>la -ex appendlinks
 map <leader>lu -ex appendlinkurls
