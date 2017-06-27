@@ -1962,6 +1962,9 @@ map <leader>xtc
 map <leader>xtC
     \ -description "Copy table columns (omit rows with too few columns)"
     \ :copytablecols-strict<Space>
+map <leader>xt/
+    \ -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
+    \ :filtertablerows<Space>
 
 " Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
@@ -1972,6 +1975,12 @@ command! yanktablecsvarea
     \ -description "Yank the contents of table N's CSV. Use after :table2csv"
     \ -nargs=1
     \ yanktextarea <args>
+
+command! filtertablerows
+    \ -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
+    \ -complete javascript
+    \ -nargs=1
+    \ -js dactylArgsSet(args); hints.show('Ⓣ');
 
 command! copytablecols
     \ -description "Copy specified columns from table chosen by HINT"
@@ -2018,6 +2027,18 @@ function tableDeleteCols(cols) {
                 var cell = r.children[i];
                 if (cell) cell.remove();
             }
+}
+
+function tableFilterRows(table, filter) {
+    /* first row is column headings */
+    /* filter takes one argument for each column */
+    var rows = Array.from(table.rows).slice(1);
+    for (var row of rows) {
+        var cells = Array.from(row.cells);
+        var cellsText = cells.map(c=>c.innerText);
+        if (!filter.apply(null, cellsText))
+            row.remove();
+    }
 }
 
 function tableToCSV(table) {
@@ -2614,6 +2635,9 @@ set eht+=[Ŧ]:table
 js hints.addMode("ŧ", "Copy Table Columns", copySpecifiedTableColumns);
 " - ignore rows with too few cells "
 js hints.addMode("Ŧ", "Copy Table Columns", e=>copySpecifiedTableColumns(e, true));
+" Filter Table Rows "
+set eht+=[Ⓣ]:table
+js hints.addMode("Ⓣ", "Filter Table Rows", e=>tableFilterRows(e, eval(window._dactylargs[0])));
 
 " Inches to Cm "
 js <<EOF
