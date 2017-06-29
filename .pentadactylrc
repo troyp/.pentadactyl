@@ -5571,7 +5571,7 @@ command! ytshowrate
     \ -js dactyl.utils.message(ytGetSpeed());
 
 command! ytrate
-    \ -description "set playback rate"
+    \ -description "set playback rate (normal rate = 10)"
     \ -nargs=1
     \ -js ytSetSpeed(args[0]/10);
 
