@@ -3165,6 +3165,65 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,--------------,
+" | BangGood.com |
+" '--------------'
+group banggood -locations=banggood.com
+map <leader>hkc -js CommandExMode().open("map -group banggood <site>")
+map <site><C-h> -js CommandExMode().open("map -group banggood <site>")
+
+js <<EOF
+
+function bgToggleReviews() {
+    var url = buffer.URL;
+    var product_regex  = /https:\/\/www.banggood.com\/(.*)-p-(\d+)\.html([?#].*)?/;
+    var reviews_regex  = /https:\/\/www.banggood.com\/(.*)-reviews-p(\d+)\.html([?#].*)?/;
+    var p_matches = url.match(product_regex);
+    var r_matches = url.match(reviews_regex);
+    if (r_matches)
+        newurl = `https://www.banggood.com/${r_matches[1]}-p-${r_matches[2]}.html`;
+    else if (p_matches)
+        newurl = `https://www.banggood.com/${p_matches[1]}-reviews-p${p_matches[2]}.html`;
+    else return;
+    dactyl.open(newurl);
+}
+
+function bgNextPage(n=1) {
+    n = n || 1;
+    var url = buffer.URL;
+    var regex = /(.*)\?page=(\d+)$/;
+    var matches = url.match(regex);
+    if (matches) {
+        var p = parseInt(matches[2]);
+        dactyl.open(matches[1] + "?page=" + (p+n));
+    } else {
+        dactyl.open(url + "?page=2");
+    }
+}
+
+function bgPreviousPage(n=1) {
+    n = n || 1;
+    var url = buffer.URL;
+    var regex = /(.*)\?page=(\d+)$/;
+    var matches = url.match(regex);
+    if (matches) {
+        var p = parseInt(matches[2]);
+        if (p-n <= 1)
+            dactyl.open(matches[1]);
+        else
+            dactyl.open(matches[1] + "?page=" + (p-n));
+    }
+}
+
+EOF
+
+map ]] -count -js bgNextPage(count);
+map [[ -count -js bgPreviousPage(count);
+map <site>c -description "Toggle reviews" -js bgToggleReviews();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,---------,
 " | Bato.to |
 " '---------'
