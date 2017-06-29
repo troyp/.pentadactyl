@@ -131,6 +131,8 @@ Number.prototype.inRange = function (a, b) {
     return (a <= this && this < b);
 }
 
+window.AUDperUSD = 1.32;
+
 EOF
 
 " -----------------------------------------------------------------------------
@@ -433,6 +435,15 @@ command! keepvid -js
 " '------------'
 map <leader>c<C-h> -js CommandExMode().open("map <leader>c")
 map -description "Convert inches to centimeters" <leader>xci -js hints.show("”");
+
+command! usd2aud
+    \ -nargs *
+    \ -description "convert $US prices to $AU"
+    \ -js utils.message(args.map(USDtoAUD).join(" "));
+command! sumusd2aud
+    \ -nargs *
+    \ -description "Sum $US prices and convert to $AU"
+    \ -js utils.message(USDtoAUD(args.reduce((a,b)=>parseFloat(a)+parseFloat(b))));
 
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
 
@@ -5865,6 +5876,18 @@ function subCmForInches(s) {
     return s.replace(regex, replaceFn);
 }
 window.subCmForInches = subCmForInches;
+
+function USDtoAUD(x) { return parseFloat(x) * getUSDAUDexchange(); }
+window.USDtoAUD = USDtoAUD;
+
+function subAUDforUSD(s) {
+    var regex = RegExp(/(?!AU)(?:US)?\$(\d+[.]\d\d)/g);
+    var replaceFn = function(m, m1, start, s, n) {
+        return sprintf("AU$%.2f", USDtoAUD(m1));
+    };
+    return s.replace(regex, replaceFn);
+}
+window.subAUDforUSD = subAUDforUSD;
 
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
