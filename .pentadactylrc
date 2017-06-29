@@ -1927,13 +1927,13 @@ function dlLinks(dir=null) {
     var title = buffer.title;
     var newdir = `${dir}/${title}`;
     if (title)
-        dactyl.execute(`!mkdir "${newdir}" && cd "${newdir}"`);
+        dactyl.execute(`!mkdir "${newdir}"`);
     s = '';
     for (var l of content.document.links) {
         var title = l.parentElement.parentElement.getAttribute('data-title');
         s += l.href + "\\\\n";
     }
-    dactyl.execute(`!roxterm -e zsh -c 'echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
+    dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
 }
 EOF
 command! appendlinksandalt -js appendLinksAndAlt();
