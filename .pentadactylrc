@@ -5542,21 +5542,21 @@ map <leader>hkc -js CommandExMode().open("map -group youtube <site>")
 map <site><C-h> -js CommandExMode().open("map -group youtube <site>")
 
 js <<EOF
-var ytplayer = function () {
+ytplayer() {
     return content.document.getElementById("movie_player").wrappedJSObject;
 }
 var ytMinSpeed = 0.25;
-var ytGetSpeed = function() { return ytplayer().getPlaybackRate(); }
-var ytSetSpeed = function(r) { ytplayer().setPlaybackRate(Math.max(r, ytMinSpeed)); }
+ytGetSpeed() { return ytplayer().getPlaybackRate(); }
+ytSetSpeed(r) { ytplayer().setPlaybackRate(Math.max(r, ytMinSpeed)); }
 function ytAdjustSpeed(delta) {
     var newspeed = ytGetSpeed()+delta;
     ytSetSpeed(newspeed);
     utils.cbWrite(`speed: ${newspeed}`);
 }
-var ytPlay = function() { ytplayer().playVideo(); }
-var ytPause = function() { ytplayer().pauseVideo(); }
-var ytIsPaused = function() { return (ytplayer().getPlayerState() == 2); }
-var ytTogglePause = function() {
+ytPlay() { ytplayer().playVideo(); }
+ytPause() { ytplayer().pauseVideo(); }
+ytIsPaused() { return (ytplayer().getPlayerState() == 2); }
+ytTogglePause() {
     if (ytIsPaused()) ytPlay();
     else ytPause();
 }
