@@ -3191,27 +3191,51 @@ function bgToggleReviews() {
 function bgNextPage(n=1) {
     n = n || 1;
     var url = buffer.URL;
-    var regex = /(.*)\?page=(\d+)$/;
-    var matches = url.match(regex);
-    if (matches) {
-        var p = parseInt(matches[2]);
-        dactyl.open(matches[1] + "?page=" + (p+n));
-    } else {
-        dactyl.open(url + "?page=2");
+    var search_regex = /https:\/\/www.banggood.com\/search\/([^/]+)\/([a-zA-Z0-9-]*)(_p-(\d+))?\.html/;
+    var search_matches = url.match(search_regex);
+    var review_regex = /https:\/\/www.banggood.com\/(.*)-reviews-p(\d+)\.html(\?page=(\d+))?$/;
+    var review_matches = url.match(review_regex);
+    if (search_matches) {
+        var searchterm = search_matches[1];
+        var searchparams = search_matches[2];
+        var page_expr = search_matches[3];
+        var p = page_expr ? parseInt(search_matches[4]) : 1;
+        dactyl.open(`https://www.banggood.com/search/${searchterm}/${searchparams}_p-${p+n}.html`);
+    } else if (review_matches) {
+        var itemname = review_matches[1];
+        var itemnumber = review_matches[2];
+        var page_expr = review_matches[3];
+        var p = page_expr ? parseInt(review_matches[4]) : 1;
+        dactyl.open(`https://www.banggood.com/${itemname}-reviews-p${itemnumber}.html?page=${p+n}`);
     }
 }
 
 function bgPreviousPage(n=1) {
     n = n || 1;
     var url = buffer.URL;
-    var regex = /(.*)\?page=(\d+)$/;
-    var matches = url.match(regex);
-    if (matches) {
-        var p = parseInt(matches[2]);
+    var search_regex = /https:\/\/www.banggood.com\/search\/([^/]+)\/([a-zA-Z0-9-]*)(_p-(\d+))?\.html/;
+    var search_matches = url.match(search_regex);
+    var review_regex = /https:\/\/www.banggood.com\/(.*)-reviews-p(\d+)\.html(\?page=(\d+))?$/;
+    var review_matches = url.match(review_regex);
+    if (search_matches) {
+        var searchterm = search_matches[1];
+        var searchparams = search_matches[2];
+        var page_expr = search_matches[3];
+        var p = page_expr ? parseInt(search_matches[4]) : 1;
+        dactyl.open(`https://www.banggood.com/search/${searchterm}/${searchparams}_p-${p+n}.html`);
         if (p-n <= 1)
-            dactyl.open(matches[1]);
+            dactyl.open(`https://www.banggood.com/search/${searchterm}/${searchparams}.html`);
         else
-            dactyl.open(matches[1] + "?page=" + (p-n));
+            dactyl.open(`https://www.banggood.com/search/${searchterm}/${searchparams}_p-${p-n}.html`);
+    } else if (review_matches) {
+        var itemname = review_matches[1];
+        var itemnumber = review_matches[2];
+        var page_expr = review_matches[3];
+        var p = page_expr ? parseInt(review_matches[4]) : 1;
+        if (p-n <= 1)
+            dactyl.open(`https://www.banggood.com/${itemname}-reviews-p${itemnumber}.html`);
+        else
+            dactyl.open(`https://www.banggood.com/${itemname}-reviews-p${itemnumber}.html?page=${p-n}`);
     }
 }
 
