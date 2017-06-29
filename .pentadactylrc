@@ -5986,3 +5986,17 @@ EOF
 " index of tab (zero-based):    t._tPos
 "
 " =============================================================================
+" ,-------------------,
+" | PENTADACTYL NOTES |
+" '-------------------'
+" * If we want to pass a count to a javascript mapping, it will be null if no
+"   count is provided. Eg.:
+"       map x -count -js myFunc(count)
+"   A default argument isn't enough, since it only handles missing (undefined)
+"   arguments.We can handle this with:
+"       function myFunc(n="default") {
+"           n = n || "default";
+"           // ....
+"       }
+"   This also redefines the argument when zero is passed, but if it's only meant
+"   to take a count, it's okay, since counts can't be zero.
