@@ -3169,6 +3169,8 @@ group user
 " | Bato.to |
 " '---------'
 group batoto -locations=bato.to
+map <leader>hkc -js CommandExMode().open("map -group batoto <site>")
+map <site><C-h> -js CommandExMode().open("map -group batoto <site>")
 
 js <<EOF
 function batoDecorateLinks() {
