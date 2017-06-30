@@ -4855,10 +4855,47 @@ function genlibGetTitle() {
     return title;
 }
 
+function genlibNextPage(k=1) {
+    k = k || 1;
+    var url = buffer.URL;
+    var page_regex = /\Wpage=(\d+)/;
+    var page_matches = url.match(page_regex);
+    if (page_matches) {
+        var page_expr = page_matches[0];
+        var n_str = page_matches[1];
+        var n = parseInt(n_str);
+        var next_page_expr = page_expr.replace(n_str, String(n+k));
+        var next_page = url.replace(page_expr, next_page_expr);
+    } else if (url.includes("?")) {
+        next_page = `${url}&page=${k+1}`;
+    }
+    else {
+        next_page = `${url}?page=${k+1}`;
+    }
+    dactyl.open(next_page);
+}
+
+function genlibPreviousPage(k=1) {
+    k = k || 1;
+    var url = buffer.URL;
+    var page_regex = /\Wpage=(\d+)/;
+    var page_matches = url.match(page_regex);
+    if (page_matches) {
+        var page_expr = page_matches[0];
+        var n_str = page_matches[1];
+        var n = parseInt(n_str);
+        var next_page_expr = n-k>1 ? page_expr.replace(n_str, String(n-k)) : "";
+        var next_page = url.replace(page_expr, next_page_expr);
+        dactyl.open(next_page);
+    }
+}
+
 EOF
 
 map <site>c -js genlibLibgen();
 map <yank>t -js utils.cbWrite(genlibGetTitle());
+map ]] -count -js genlibNextPage(count);
+map [[ -count -js genlibPreviousPage(count);
 
 group user
 
