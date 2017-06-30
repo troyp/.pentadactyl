@@ -4840,9 +4840,25 @@ function genlibLibgen() {
     link.click();
 }
 
+function genlibGetTitle() {
+    var rawtitle = buffer.title;
+    var title_regex = /Library Genesis:[^-]+-(.*[^(])(\(\.*, (\d\d\d\d)\))?$/;
+    var start_regex = /Library Genesis:[^-]+- (.*)$/;
+    var title = rawtitle.match(start_regex)[1];
+    var end_regex = /(.*\S) *\(.*, (\d\d\d\d)\)$/;
+    var end_matches = title.match(end_regex);
+    if (end_matches) {
+        var book_title = end_matches[1];
+        var book_year  = end_matches[2];
+        title = `${book_title} (${book_year})`;
+    }
+    return title;
+}
+
 EOF
 
 map <site>c -js genlibLibgen();
+map <yank>t -js utils.cbWrite(genlibGetTitle());
 
 group user
 
