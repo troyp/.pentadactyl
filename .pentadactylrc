@@ -6076,6 +6076,16 @@ function wget1(url=null, optstr="", dirpref="~/Downloads") {
     wget(url, "wget -kKpEHN -rl 1 "+optstr, dirpref);
 }
 
+function formatSeconds(n) {
+    var hours = Math.floor(n/3600);
+    n -= hours*3600;
+    var mins = Math.floor(n/60);
+    n -= mins*60;
+    var secs = n;
+    if (hours) return sprintf("%d:%02d:%02d", hours, mins, secs);
+    else return sprintf("%d:%02d", mins, secs);
+}
+
 // ,-------------------------,
 // | variables for temp data |
 // '-------------------------'
