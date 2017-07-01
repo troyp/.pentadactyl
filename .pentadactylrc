@@ -5711,6 +5711,19 @@ function ytTogglePause() {
     if (ytIsPaused()) ytPlay();
     else ytPause();
 }
+function ytToggleMute() {
+    var p = ytplayer();
+    if (p.isMuted()) p.unMute();
+    else p.mute();
+}
+
+function ytGetTime() { return ytplayer().getCurrentTime(); }
+
+function ytForward(n) {
+    var p = ytplayer();
+    p.seekBy(n);
+    utils.message(formatSeconds(ytGetTime()));
+}
 
 function ytDL(dir="~/Downloads") {
     if (!dir) dir = "~/Downloads";
@@ -5732,6 +5745,7 @@ command! ytrate
 
 command! ytfullscreen -description "toggle fullscreen" -js clickElement('.ytp-fullscreen-button');
 command! ytcinema -description "toggle cinema mode" -js clickElement('.ytp-size-button');
+command! ytmute -description "toggle mute" -js ytToggleMute();
 
 map <site>r :ytrate<Space>
 map <site>R -ex ytshowrate
@@ -5739,6 +5753,13 @@ map <site>\> -count -js ytAdjustSpeed(0.25 * (count || 1));
 map <site>\< -count -js ytAdjustSpeed(-0.25 * (count || 1));
 map <site>f -ex ytfullscreen
 map <site>c -ex ytcinema
+map <site>m -ex ytmute
+map <S-right> -js ytForward(3);
+map <S-left>  -js ytForward(-3);
+map <A-right> -js ytForward(10);
+map <A-left>  -js ytForward(-10);
+map <C-right> -js ytForward(60);
+map <C-left>  -js ytForward(-60);
 
 command! ytdl
     \ -description "Download video/playlist with youtube-dl"
