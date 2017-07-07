@@ -717,6 +717,7 @@ execute "map -modes command-line,insert -b <C-S-D> " + user.myaddress
 execute "map -modes command-line,insert -b <C-S-P> " + user.myphone
 execute "map -modes command-line,insert -b <C-S-Z> " + user.mypostcode
 execute "map -modes command-line,insert -b <C-S-Q> " + user.mymasterpw
+execute "map -modes command-line,insert -b <C-S-C> " + user.mycreditcard
 map -modes insert <C-S-W> <pwhashsite>
 
 " ,---------------------------------------,
