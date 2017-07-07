@@ -4783,7 +4783,7 @@ group user
 " ,--------,
 " | Libgen |
 " '--------'
-group libgen -locations=libgen.io
+group libgen -locations=libgen.io,libgen.pw
 map <leader>hkc -js CommandExMode().open("map -group libgen <site>")
 map <site><C-h> -js CommandExMode().open("map -group libgen <site>")
 
@@ -4800,19 +4800,29 @@ function libgenGetDetails(field) {
 }
 
 function libgenCopyFileNameAndDownload() {
-    var name = libgenGetDetails('title');
-    var ed_raw = libgenGetDetails('edition') || "1";
-    var ed_match = ed_raw.trim().match(/\d+/);
-    var ed = ed_match ? indexToOrdinal(ed_match[0]) : "1st";
-    if (typeof ed == 'undefined') ed="1st";
-    var year = libgenGetDetails('year');
-    var filename = name +
-                   (ed=="1st" ? '' : `, ${ed} ed`) +
-                   (year ? ` (${year})` : '');
-    utils.cbWrite(filename);
-    utils.cbWrite(filename);
-    var link = content.document.querySelector('a h2');
-    dactyl.open(link.parentNode.href);
+    var bibtextElt = content.document.getElementById('bibtext');
+    if (bibtextElt) {
+        // "libgen.io or libgen.pw second page"
+        var name = libgenGetDetails('title');
+        var ed_raw = libgenGetDetails('edition') || "1";
+        var ed_match = ed_raw.trim().match(/\d+/);
+        var ed = ed_match ? indexToOrdinal(ed_match[0]) : "1st";
+        if (typeof ed == 'undefined') ed="1st";
+        var year = libgenGetDetails('year');
+        var filename = name +
+                      (ed=="1st" ? '' : `, ${ed} ed`) +
+                      (year ? ` (${year})` : '');
+        utils.cbWrite(filename);
+        utils.cbWrite(filename);
+        var links = Array.from(content.document.querySelectorAll('a h2'));
+        var link = links.find(a=>a.innerText.toLowerCase()=="download");
+        dactyl.open(link.parentNode.href);
+    } else {
+        // "libgen.pw first page"
+        var cellLink = content.document.querySelector('td h2 a');
+        if (cellLink && cellLink.innerText == "Open download page")
+            cellLink.click();
+    }
 }
 
 EOF
