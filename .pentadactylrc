@@ -1049,6 +1049,7 @@ map <browser>D :bdelete<SPACE>
 " undo recent closed tab from list
 map U :undo<SPACE>
 " filter tabs "
+map <browser>f :tabfilter<Space>""<C-b>
 map <browser>c :tabremoveregex<Space>""<C-b>
 map <browser>C :tabremove<Space>""<C-b>
 
