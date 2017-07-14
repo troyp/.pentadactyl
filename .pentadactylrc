@@ -1064,14 +1064,14 @@ command! tc
 
 " filter tabs "
 command! tabfilter
-    \ -description "Close tabs that do not satisfy expression (t=tab, n=init.ord, t.ord=curr.ord, t.URL=url)"
+    \ -description "Close tabs that do not satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
     \ -nargs=1
-    \ -js tabFilter(eval(`(t, n)=>${args[0]};`));
+    \ -js tabFilter(eval(`(t, n, n0)=>${args[0]};`));
 
 command! tabremove
-    \ -description "Close tabs that satisfy expression (t=tab, n=init.ord, t.ord=curr.ord, t.URL=url)"
+    \ -description "Close tabs that satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
     \ -nargs=1
-    \ -js tabRemove(eval(`(t, n)=>${args[0]};`));
+    \ -js tabRemove(eval(`(t, n, n0)=>${args[0]};`));
 
 command! tabremoveregex
     \ -description "Close tabs that satisfy regex"
@@ -1115,19 +1115,19 @@ function tabURL(t) {
 }
 
 function tabCount() { return tabs.allTabs.length; }
+window.tabCount = tabCount;
 
 function tabRemove(f) {
-    // takes a function of 1 or 2 args (current tab, [original ordinal])
+    // takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]])
+    var currentOrd = tabs.getTab().dactylOrdinal;
     var alltabs = Array.from(tabs.allTabs);
-    var N_0 = alltabs.length;
+    var N_0 = alltabs.length;  // initial number of tabs
     var i, t;
     for (i=0; i<N_0; ++i) {
-        t = alltabs[i];
-        t.URL = tabURL(t);
-        // t.dactylOrdinal doesn't seem to update properly: use ._tPos+1
-        t.ord = t._tPos+1;
+        tab_i = alltabs[i];
+        t = tab_i.linkedBrowser.contentDocument;
         // alert(`${f}\n${f(t, i+1)}\n${i+1}\n${t.ord}`); // debug
-        if (f(t, i+1)) tabs.remove(t);
+        if (f(t, i+1, currentOrd)) tabs.remove(tab_i);
     }
     var N_closed = N_0 - tabCount();
     utils.message(`${N_closed} tabs closed`);
@@ -1135,8 +1135,8 @@ function tabRemove(f) {
 }
 
 function tabFilter(f) {
-    // takes a function of 1 or 2 args (current tab, [original ordinal])
-    return tabRemove((t,n)=>!f(t,n));
+    // takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]])
+    return tabRemove((t,n,n0)=>!f(t,n,n0));
 }
 
 function tabRemoveUrlRegex(regex) {
