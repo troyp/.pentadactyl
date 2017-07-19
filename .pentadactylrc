@@ -998,6 +998,7 @@ map <browser>mn :moventabs<Space>
 map <browser>m> -arg -ex moverighttabs <arg>
 map <browser>m.  -arg -count -ex movelastntabs <count> <arg>
 map <browser>m\' -arg -count -ex moventabs <count> <arg>
+map <browser>ma -description "Move tab after alternate" -js moveTabAfterAlternate();
 
 " tile tabs "
 map <browser>t -description "View Tiled" -js tileTabs.Tile();
@@ -1223,6 +1224,12 @@ moveRightTabs = function (fromOrd, toOrd, wrap=false) {
     fromOrd = fromOrd || tabs.getTab().dactylOrdinal;
     var N = tabs.allTabs.length;
     moveLastNTabs(N-fromOrd+1, toOrd, wrap);
+}
+
+function moveTabAfterAlternate() {
+    var thisTab = tabs.getTab();
+    var altOrd = tabs.alternate.dactylOrdinal;
+    tabs.move(thisTab, altOrd+1);
 }
 
 EOF
