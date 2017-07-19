@@ -985,9 +985,60 @@ command! updateUSDAUDexchange -js fetch("http://query.yahooapis.com/v1/public/yq
 "                                      |______|
 "
 " -----------------------------------------------------------------------------
-" ,------------------,
-" | Buffer Selection |
-" '------------------'
+
+" <browser> prefix: "
+" k    :  bookmark "
+" r R  :  pentadactylrc "
+" s    :  styling "
+" x    :  restore window "
+
+" move tabs "
+map <browser>mm :tabmove<SPACE>
+map <browser>mn :moventabs<Space>
+map <browser>m> -arg -ex moverighttabs <arg>
+map <browser>m.  -arg -count -ex movelastntabs <count> <arg>
+map <browser>m\' -arg -count -ex moventabs <count> <arg>
+
+" tile tabs "
+map <browser>t -description "View Tiled" -js tileTabs.Tile();
+
+" close other tabs "
+map <browser>1 -ex tabonly
+map <browser>< -ex closetabstoleft
+map <browser>> -ex closetabstoright
+" close tab range "
+map <browser>cr :tc<SPACE>
+" close tab from list "
+map <browser>cb :bdelete<SPACE>
+" remove tabs "
+map <browser>cc :tabremoveregex<Space>""<C-b>
+map <browser>c<Space> :tabremove<Space>""<C-b>
+" filter tabs "
+map <browser>f :tabfilter<Space>""<C-b>
+
+map gm :tabmove!<SPACE>
+map <C-S-P> -ex tabmove! -1
+map <C-S-N> -ex tabmove! +1
+map <C-h> -ex tabmove! -1
+map <C-l> -ex tabmove! +1
+map <C-Left> -ex tabmove! -1
+map <C-Right> -ex tabmove! +1
+map <C-\<> -ex tabmove! 1
+map <C-\>> -ex tabmove! $
+map g\> -ex tabmove! $
+map <A-S-1> -ex tabmove! 1
+map <A-S-2> -ex tabmove! 2
+map <A-S-3> -ex tabmove! 3
+map <A-S-4> -ex tabmove! 4
+map <A-S-5> -ex tabmove! 5
+map <A-S-6> -ex tabmove! 6
+map <A-S-7> -ex tabmove! 7
+map <A-S-8> -ex tabmove! 8
+map <A-S-9> -ex tabmove! $
+" close tabs to right (inclusive) "
+map <C-k> <browser>>d
+" undo recent closed tab from list
+map U :undo<SPACE>
 " Select buffer:  b  (cycle with gb, gB)
 map -b \< g0
 map -b \> g$
@@ -997,6 +1048,12 @@ map -modes input -b <A-;> <Esc><C-^>
 " delete and switch to alternate
 map -modes command,embed -b <A-:> d<C-^>
 map -modes input -b <A-:> <Esc>d<C-^>
+map ! -ex pintab!
+
+
+" ,------------------,
+" | Buffer Selection |
+" '------------------'
 
 js <<EOF
 function tabSelectLeft(n=1, wrap=true) {
@@ -1013,7 +1070,6 @@ EOF
 " '--------------'
 command! unpinall tabdo unpintab
 " toggle pinning of current tab
-map ! -ex pintab!
 
 " -----------------------------------------------------------------------------
 " ,--------------,
@@ -1035,23 +1091,6 @@ command! closetabstoright
     \ var N = tabs.allTabs.length;
     \ var numToClose = N - nextTabIndex;
     \ tabs.remove(firstTab, numToClose);
-
-" close other tabs "
-map <browser>1 -ex tabonly
-map <browser>< -ex closetabstoleft
-map <browser>> -ex closetabstoright
-" close tabs to right (inclusive) "
-map <C-k> <browser>>d
-" close tab range "
-map <browser>; :tc<SPACE>
-" close tab from list "
-map <browser>D :bdelete<SPACE>
-" undo recent closed tab from list
-map U :undo<SPACE>
-" filter tabs "
-map <browser>f :tabfilter<Space>""<C-b>
-map <browser>c :tabremoveregex<Space>""<C-b>
-map <browser>C :tabremove<Space>""<C-b>
 
 
 " close tab range
@@ -1157,30 +1196,6 @@ command! tt -nargs=1 -bang
 command! moverighttabs -nargs ? -js moveRightTabs(null, args[0]||1);
 command! movelastntabs -nargs + -js moveLastNTabs(args[0], args[1]||1);
 command! moventabs -nargs + -js moveNTabs(tabs.getTab().dactylOrdinal, args[0], args[1]||1);
-map <browser>m :tabmove<SPACE>
-map <browser>M :moventabs<Space>
-map -arg <browser>, -ex moverighttabs <arg>
-map -arg -count <browser>. -ex movelastntabs <count> <arg>
-map -arg -count <browser>\' -ex moventabs <count> <arg>
-map gm :tabmove!<SPACE>
-map <C-S-P> -ex tabmove! -1
-map <C-S-N> -ex tabmove! +1
-map <C-h> -ex tabmove! -1
-map <C-l> -ex tabmove! +1
-map <C-Left> -ex tabmove! -1
-map <C-Right> -ex tabmove! +1
-map <C-\<> -ex tabmove! 1
-map <C-\>> -ex tabmove! $
-map g\> -ex tabmove! $
-map <A-S-1> -ex tabmove! 1
-map <A-S-2> -ex tabmove! 2
-map <A-S-3> -ex tabmove! 3
-map <A-S-4> -ex tabmove! 4
-map <A-S-5> -ex tabmove! 5
-map <A-S-6> -ex tabmove! 6
-map <A-S-7> -ex tabmove! 7
-map <A-S-8> -ex tabmove! 8
-map <A-S-9> -ex tabmove! $
 
 js <<EOF
 
@@ -1244,6 +1259,12 @@ EOF
 command! tginit
     \ description "Initialize pentadactyl tabgroups commands"
     \ :runtime! tabgroups.penta
+
+" ,-----------,
+" | Tile Tabs |
+" '-----------'
+
+command! tabtile -description "View Tiled" -js tileTabs.Tile();
 
 
 " =============================================================================
