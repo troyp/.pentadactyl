@@ -6174,6 +6174,10 @@ function formatSeconds(n) {
     else return sprintf("%d:%02d", mins, secs);
 }
 
+function stringToSmartCaseRegExp(s) {
+    return RegExp(s, s.match(/[A-Z]/) ? '' : 'i' );
+}
+
 // ,-------------------------,
 // | variables for temp data |
 // '-------------------------'
