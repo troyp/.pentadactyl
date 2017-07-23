@@ -6100,6 +6100,9 @@ function subCmForInches(s) {
 }
 window.subCmForInches = subCmForInches;
 
+function FtoC(tempF) { return (tempF-32)/1.8; }
+window.FtoC = FtoC;
+
 function USDtoAUD(x) { return parseFloat(x) * getUSDAUDexchange(); }
 window.USDtoAUD = USDtoAUD;
 
