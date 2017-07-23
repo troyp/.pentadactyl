@@ -3522,12 +3522,25 @@ function ebayRemoveByTitle(regex) {
     toRemove.forEach(div=>div.remove());
 }
 
+function ebayFilterByTitle(regex) {
+    var results = Array.from(content.document.getElementsByClassName('lvresult'));
+    var toRemove = results.filter(
+        div=>!div.getElementsByClassName('lvtitle')[0].innerText.match(regex)
+    );
+    toRemove.forEach(div=>div.remove());
+}
+
 EOF
 
 command! ebayremovebytitle
     \ -description "Remove entries whose titles matches a smart-case regex."
     \ -nargs=1
     \ -js ebayRemoveByTitle(stringToSmartCaseRegExp(args[0]));
+
+command! ebayfilterbytitle
+    \ -description "Remove entries whose titles fail to match a smart-case regex."
+    \ -nargs=1
+    \ -js ebayFilterByTitle(stringToSmartCaseRegExp(args[0]));
 
 map <site>a -description "Go to Australian site" -js ebayToAU();
 
