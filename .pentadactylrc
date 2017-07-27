@@ -3302,6 +3302,18 @@ map ]] -count -js bgNextPage(count);
 map [[ -count -js bgPreviousPage(count);
 map <site>c -description "Toggle reviews" -js bgToggleReviews();
 
+map <site>oc -description "View cart" -ex open https://www.banggood.com/shopping_cart_new.php
+map <site>oa -description "View account" -ex open https://www.banggood.com/index.php?com=account
+map <site>oo -description "View account/orders" -ex open https://www.banggood.com/index.php?com=account&t=ordersList
+map <site>og -description "View account/giftcards" -ex open https://www.banggood.com/index.php?com=account&t=giftcard
+map <site>ow -description "View account/wishlist" -ex open https://www.banggood.com/index.php?com=account&t=wishlist
+
+map <site>tc -description "View cart (new tab)" -ex tabopen https://www.banggood.com/shopping_cart_new.php
+map <site>ta -description "View account (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account
+map <site>to -description "View account/orders (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=ordersList
+map <site>tg -description "View account/giftcards (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=giftcard
+map <site>tw -description "View account/wishlist (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=wishlist
+
 group user
 
 " -------------------------------------------------------------------------------
