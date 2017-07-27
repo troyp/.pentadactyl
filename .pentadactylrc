@@ -2687,13 +2687,14 @@ js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
 
 " Translate text "
 " ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
-set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
+" ( .info - banggood reviews ) "
+set eht+=[ţ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent,.info
 js hints.addMode("ţ", "Translate paragraph", elem => googleTranslateText(elem.innerText));
-set eht+=[Ţ]:div,code,pre,table,input,.ReviewContent,.ProsConsContent
+set eht+=[Ţ]:div,code,pre,table,input,.ReviewContent,.ProsConsContent,.info
 js hints.addMode("Ţ", "Translate element", elem => googleTranslateText(elem.innerText));
-set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent
+set eht+=[ʈ]:h1,h2,h3,h4,h5,h6,p,li,tr,dd,pre,.ReviewContent,.ProsConsContent,.info
 js hints.addMode("ʈ", "Insert translation", googleInsertTranslationForElement);
-set eht+=[Ʈ]:div,code,pre,table,input,.ReviewContent,.ProsConsContent
+set eht+=[Ʈ]:div,code,pre,table,input,.ReviewContent,.ProsConsContent,.info
 js hints.addMode("Ʈ", "Insert translation (div)", googleInsertTranslationForElement);
 
 " Copy Table Columns "
