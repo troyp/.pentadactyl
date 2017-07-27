@@ -3226,6 +3226,9 @@ group banggood -locations=banggood.com
 map <leader>hkc -js CommandExMode().open("map -group banggood <site>")
 map <site><C-h> -js CommandExMode().open("map -group banggood <site>")
 
+" .preference>li allows hints for the selection boxes on the settings page "
+set hinttags=:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],svg,a[class^=vote],a[class^=speed],div.ita-hwt-candidate,.preference>li
+
 js <<EOF
 
 function bgToggleReviews() {
