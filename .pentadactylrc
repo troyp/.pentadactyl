@@ -3303,11 +3303,19 @@ function bgNumEntries(n=3) {
     buttons[n-1].click();
 }
 
+function bgTogglePhotoZoom() {
+    if (content.document.getElementsByClassName('module').length)
+        content.document.querySelector('.good_photo_zoom>.close').click();
+    else
+        content.document.querySelector('.good_photo img').click();
+}
+
 EOF
 
 map ]] -count -js bgNextPage(count);
 map [[ -count -js bgPreviousPage(count);
-map <site>c -description "Toggle reviews" -js bgToggleReviews();
+map <site><Space> -description "Toggle reviews" -js bgToggleReviews();
+map <site>c -description "Toggle photo zoom" -js bgTogglePhotoZoom();
 map <site>x -description "Maximum entries per page" -js bgNumEntries();
 
 map <site>oc -description "View cart" -ex open https://www.banggood.com/shopping_cart_new.php
