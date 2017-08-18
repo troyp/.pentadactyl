@@ -5755,6 +5755,19 @@ function wpGotoPreviousHeading() {
     }
 }
 
+function wpGetTopic() {
+    var url = buffer.URL;
+    var regex = /https:\/\/([^./]+)\.wikipedia\.org\/wiki\/([^/]+)/i;
+    var match = url.match(regex);
+    if (match) return match[2];
+    else return null;
+}
+
+function wpGotoWiktionary(where='here', lang='en') {
+    var topic = wpGetTopic().toLowerCase();
+    dactyl.open(`https://${lang}.wiktionary.org/wiki/${topic}`, where);
+}
+
 EOF
 command! wplatest -description "Go to latest revision" -js wpLatest();
 command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
@@ -5768,6 +5781,8 @@ command! wpcopytablecols
     \ -js dactylArgsSet(args[0].split("")); hints.show('Ŧ');
 
 map <site>c -ex wpcleanup
+map <site>d -js wpGotoWiktionary();
+map <site>D -js wpGotoWiktionary('tab');
 map <site>l -ex wplatest
 map <site>t :wpcopytablecols<Space>
 map <site>. -js wpGotoNextHeading();
