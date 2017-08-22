@@ -393,8 +393,8 @@ map <leader>ni -ex removeimages
 map <leader>t<C-h> -js CommandExMode().open("map <leader>t")
 map <leader>tu -ex set usermode!
 map <leader>te -ex editcontent
-map <leader>s -js toggleHTTPS()
-map <leader>v -ex styletoggle -name visitedlinks
+map <leader>ts -js toggleHTTPS()
+map <leader>tv -ex styletoggle -name visitedlinks
 
 " ,-------------------------,
 " | <leader>T - GUI toggles |
