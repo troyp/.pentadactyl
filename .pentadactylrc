@@ -4322,6 +4322,40 @@ map cc -ex hovshowprices
 group user
 
 " -------------------------------------------------------------------------------
+" ,-------,
+" | Imgur |
+" '-------'
+group imgur -locations=imgur.com
+map <leader>hkc -js CommandExMode().open("map -group imgur <site>")
+map <site><C-h> -js CommandExMode().open("map -group imgur <site>")
+
+js <<EOF
+
+function imgurDL() {
+    var url = buffer.URL;
+    var urlRegex = /https?:\/\/imgur.com\/([^/]+)\/(.+)/;
+    var match = url.match(urlRegex);
+    if (match) {
+        var title = content.document.querySelector('.post-title').innerText;
+        utils.cbWrite(title);
+        var optionLinks = Array.from(content.document.querySelectorAll('.post-action-option'));
+        var dlLink = optionLinks.filter(l=>l.innerText.match(/Download Post/))[0];
+        if (dlLink) dlLink.click();
+        return true;
+    } else return false;
+}
+
+EOF
+
+command! imgurdl
+    \ -description "Copy title to clipboard and download album / gallery image"
+    \ -js imgurDL();
+
+map <site>d -ex imgurdl
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-----------,
 " | JapanDict |
 " '-----------'
