@@ -5948,6 +5948,12 @@ function getSelectionText() {
     return content.getSelection().text;
 }
 
+function openHTML(html, where='tab') {
+    var dataURI = "data:text/html," + encodeURIComponent(html);
+    dactyl.open(dataURI, where);
+}
+window.openHTML = openHTML;
+
 function isAscii(s) {
     return Array.from(s).every(c=>c.charCodeAt(0) <= 128);
 }
