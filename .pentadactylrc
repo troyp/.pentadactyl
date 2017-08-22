@@ -5948,6 +5948,27 @@ function getSelectionText() {
     return content.getSelection().text;
 }
 
+// author: Tim Down. see: https://stackoverflow.com/a/4652824/1261964
+function getSelectionHtml() {
+    var html = "";
+    if (typeof content.window.getSelection != "undefined") {
+        var sel = content.window.getSelection();
+        if (sel.rangeCount) {
+            var container = content.document.createElement("div");
+            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                container.appendChild(sel.getRangeAt(i).cloneContents());
+            }
+            html = container.innerHTML;
+        }
+    } else if (typeof content.document.selection != "undefined") {
+        if (content.document.selection.type == "Text") {
+            html = content.document.selection.createRange().htmlText;
+        }
+    }
+    return html;
+}
+window.getSelectionHtml = getSelectionHtml;
+
 function openHTML(html, where='tab') {
     var dataURI = "data:text/html," + encodeURIComponent(html);
     dactyl.open(dataURI, where);
