@@ -416,6 +416,12 @@ map <leader>Td -ex toolbartoggle Web Developer Toolbar
 map <leader>Ts -ex set guioptions!=s
 map <leader>To -ex toolbartoggle Add-on Bar
 
+" ,-----------------,
+" | Manipulate Page |
+" '-----------------'
+map <leader>ms -js openHTML(getSelectionHtml(), 'tab');
+map <leader>mS -js openHTML(getSelectionHtml(), 'here');
+
 " ,----------------------, ,-----------,
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
