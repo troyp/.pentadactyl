@@ -1042,6 +1042,7 @@ map <A-S-8> -ex tabmove! 8
 map <A-S-9> -ex tabmove! $
 " close tabs to right (inclusive) "
 map <C-k> <browser>>d
+map <C-S-K> <browser><d
 " undo recent closed tab from list
 map U :undo<SPACE>
 " Select buffer:  b  (cycle with gb, gB)
