@@ -3243,10 +3243,14 @@ function bgToggleReviews() {
     var url = buffer.URL;
     var product_regex  = /https:\/\/www.banggood.com\/(.*)-p-(\d+)\.html([?#].*)?/;
     var reviews_regex  = /https:\/\/www.banggood.com\/(.*)-reviews-p(\d+)\.html([?#].*)?/;
+    var q_index_regex  = /https:\/\/www.banggood.com\/(.*)-qc-p(\d+)\.html([?#].*)?/;
     var p_matches = url.match(product_regex);
     var r_matches = url.match(reviews_regex);
+    var qi_matches = url.match(q_index_regex);
     if (r_matches)
         newurl = `https://www.banggood.com/${r_matches[1]}-p-${r_matches[2]}.html`;
+    else if (qi_matches)
+        newurl = `https://www.banggood.com/${qi_matches[1]}-p-${qi_matches[2]}.html`;
     else if (p_matches)
         newurl = `https://www.banggood.com/${p_matches[1]}-reviews-p${p_matches[2]}.html`;
     else return;
