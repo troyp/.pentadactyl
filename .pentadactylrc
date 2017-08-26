@@ -3237,6 +3237,12 @@ map <site><C-h> -js CommandExMode().open("map -group banggood <site>")
 " .preference>li allows hints for the selection boxes on the settings page "
 set hinttags=:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],svg,a[class^=vote],a[class^=speed],div.ita-hwt-candidate,.preference>li
 
+" === hint modes === "
+set eht+=🅱:div.item_box.attr>a
+js hints.addMode("🅱", "Select attribute", e=> e.click());
+map <site>a -description "Select attribute" ;🅱
+map <site>A -description "Select attribute" g;🅱
+
 js <<EOF
 
 function bgToggleReviews() {
