@@ -5917,6 +5917,20 @@ function ytDL(dir="~/Downloads") {
     dactyl.execute(`!cd ${dir}; youtube-dl -ci --all-subs --xattrs -o "%(title)s-%(id)s.%(ext)s" "${buffer.URL}"`);
 }
 
+function ytAdjustVolume(dvol) {
+    var p = ytplayer();
+    volCurr = p.getVolume();
+    volNew = cutoff(volCurr + dvol, 0, 100);
+    ytShowVolumeSlider();
+    p.setVolume(volNew);
+    return volNew;
+}
+
+function ytShowVolumeSlider() {
+    var controlsDiv = content.document.querySelector('.ytp-chrome-bottom');
+    controlsDiv.classList.add('ytp-volume-slider-active');
+}
+
 EOF
 
 command! ytincrate -description "increase playback rate" -js ytAdjustSpeed(0.25);
@@ -5933,6 +5947,8 @@ command! ytrate
 command! ytfullscreen -description "toggle fullscreen" -js clickElement('.ytp-fullscreen-button');
 command! ytcinema -description "toggle cinema mode" -js clickElement('.ytp-size-button');
 command! ytmute -description "toggle mute" -js ytToggleMute();
+command! ytlowervolume -description "lower volume" -nargs=? -js ytAdjustVolume(-5 * (args[0] || 1));
+command! ytraisevolume -description "raise volume" -nargs=? -js ytAdjustVolume(5 * (args[0] || 1));
 
 map <site>r :ytrate<Space>
 map <site>R -ex ytshowrate
@@ -5947,6 +5963,11 @@ map <A-right> -js ytForward(10);
 map <A-left>  -js ytForward(-10);
 map <C-right> -js ytForward(60);
 map <C-left>  -js ytForward(-60);
+map <PageDown> -count -ex ytlowervolume <count>
+map <PageUp>   -count -ex ytraisevolume <count>
+map <XF86AudioMute> -ex ytmute
+map <XF86AudioLowerVolume> -count -ex ytlowervolume <count>
+map <XF86AudioRaiseVolume> -count -ex ytraisevolume <count>
 
 command! ytdl
     \ -description "Download video/playlist with youtube-dl"
