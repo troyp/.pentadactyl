@@ -5883,6 +5883,8 @@ js <<EOF
 function ytplayer() {
     return content.document.getElementById("movie_player").wrappedJSObject;
 }
+window.ytplayer = ytplayer;
+
 var ytMinSpeed = 0.25;
 function ytGetSpeed() { return ytplayer().getPlaybackRate(); }
 function ytSetSpeed(r) { ytplayer().setPlaybackRate(Math.max(r, ytMinSpeed)); }
