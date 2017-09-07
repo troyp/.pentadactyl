@@ -4382,6 +4382,7 @@ group user
 group jserver -locations=http://127.0.0.1:65001/jijx,http://127.0.0.1:65001/jfile,http://127.0.0.1:65001/jfiles,http://127.0.0.1:65001/jijs,http://127.0.0.1:65001/jfif,http://127.0.0.1:65001/jal,http://127.0.0.1:65001/jhelp
 map <leader>hkc -js CommandExMode().open("map -group jserver <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group jserver <site>")
+map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("map -group jserver <site>o")
 
 js <<EOF
 
@@ -4409,6 +4410,14 @@ map <site>c
 map -modes normal,insert <A-p> -description "Previous cell" -js jCopyPreviousCellToPrompt();
 map -modes normal,insert <A-n> -description "Next cell" -js jCopyNextCellToPrompt();
 map -modes insert <C-u> -description "Clear prompt" -js jClearPrompt();
+
+map <site>oo -description "Goto JIJX" -ex open http://127.0.0.1:65001/jijx
+map <site>of -description "Goto jfile" -ex open http://127.0.0.1:65001/jfile
+map <site>oF -description "Goto jfiles" -ex open http://127.0.0.1:65001/jfiles
+map <site>oj -description "Goto JIJS" -ex open http://127.0.0.1:65001/jijs
+map <site>o/ -description "Goto JFIF (search)" -ex open http://127.0.0.1:65001/jfif
+map <site>ok -description "Goto JAL (packages)" -ex open http://127.0.0.1:65001/jal
+map <site>oh -description "Goto jhelp" -ex open http://127.0.0.1:65001/jhelp
 
 js <<EOF
 
