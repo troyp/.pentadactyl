@@ -607,6 +607,27 @@ map <yank>a -description "Yank text area contents"
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
     \ :yanktablecsvarea<Space>
 
+" Yank commands "
+command! yanktrueURL
+    \ -description "Yank the uncoded URL of the current buffer"
+    \ -js var text=decodeURIComponent(buffer.URL);
+    \     utils.cbWrite(text);
+command! yankfilenameorURL
+    \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
+    \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    \     utils.cbWrite(text);
+command! yanktextarea
+    \ -description "Yank the contents of textarea N."
+    \ -nargs=1
+    \ -js yankTextarea(Number(args[0]));
+
+js <<EOF
+function yankTextarea(n) {
+    var contents = getTextArea(n);
+    utils.cbWriteWithLineLimit(contents);
+}
+EOF
+
 " ,------,
 " | Zoom |
 " '------'
@@ -901,27 +922,6 @@ command! -nargs=1 runinterminal -js runInZSH(args[0]);
 
 " rubular
 command! rubular -nargs=+ -js rubular(args[0], args[1]);
-
-" Yank commands "
-command! yanktrueURL
-    \ -description "Yank the uncoded URL of the current buffer"
-    \ -js var text=decodeURIComponent(buffer.URL);
-    \     utils.cbWrite(text);
-command! yankfilenameorURL
-    \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
-    \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    \     utils.cbWrite(text);
-command! yanktextarea
-    \ -description "Yank the contents of textarea N."
-    \ -nargs=1
-    \ -js yankTextarea(Number(args[0]));
-
-js <<EOF
-function yankTextarea(n) {
-    var contents = getTextArea(n);
-    utils.cbWriteWithLineLimit(contents);
-}
-EOF
 
 " Open in Emacs "
 command! openDirectoryInDired
