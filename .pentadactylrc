@@ -2606,10 +2606,16 @@ EOF
 "                                      | HINTS |
 "                                      |_______|
 
-set eht=[iI]:img,[asOTvVWy]:':-moz-any-link',area[href],img[src],iframe[src],[A]:[id],a[name],[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
+set eht=[asOTvVWy]:':-moz-any-link','area[href]','img[src]','iframe[src]'
+set eht+=[iI]:img
+set eht+=[A]:'[id]','a[name]'
+set eht+=[f]:body
+set eht+=[F]:body,code,div,html,p,pre,span
+set eht+=[S]:'input:not([type=hidden])',textarea,button,select
+" set eht=[iI]:img,[asOTvVWy]:':-moz-any-link','area[href]','img[src]','iframe[src]',[A]:'[id]','a[name]',[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
 js hints.addMode('m','mouseover',utils.simulateMouseover);
 
-set eht=[\ ]:a,img,':-moz-any-link'
+set eht='[ ]':a,img,':-moz-any-link'
 js <<EOF
 hints.addMode(
     ' ', 'Click in new tab',
