@@ -2628,6 +2628,9 @@ hints.addMode(
 );
 EOF
 
+" Re-add [iI] tags: broken by preceding code for [ ] (not sure why) "
+set eht+=[iI]:img
+
 " remove structural elements
 set eht+=[x]:div,iframe,header,footer,aside,form,'input:not([type=hidden])',textarea,img,ul,ol
 js hints.addMode('x','Remove element', e=>e.remove());
