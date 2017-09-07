@@ -4379,7 +4379,7 @@ group user
 " | J HTML SERVER (JHS) |
 " '---------------------'
 
-group jserver -locations=http://127.0.0.1:65001/jijx
+group jserver -locations=http://127.0.0.1:65001/jijx,http://127.0.0.1:65001/jfile,http://127.0.0.1:65001/jfiles,http://127.0.0.1:65001/jijs,http://127.0.0.1:65001/jfif,http://127.0.0.1:65001/jal,http://127.0.0.1:65001/jhelp
 map <leader>hkc -js CommandExMode().open("map -group jserver <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group jserver <site>")
 
