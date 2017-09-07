@@ -2642,7 +2642,7 @@ js hints.addMode('0','make div invisible', utils.undisplay);
 
 " replace ;t with function for ;b (open in background)
 js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
-set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,xpath:div/p
+set eht+=[p]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,'xpath:div/p'
 js hints.addMode('p','lmnpop',elem => { lmnpop(elem); });
 set eht+=[e]:':-moz-any-link'
 js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
