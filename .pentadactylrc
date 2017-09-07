@@ -4525,7 +4525,7 @@ function toggleMenu() {
 
 EOF
 
-set eht+=[ï]:.menu,select[id=library]
+set eht+=[ï]:.menu,'select[id=library]'
 
 js <<EOF
 
