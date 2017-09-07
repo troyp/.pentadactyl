@@ -590,6 +590,14 @@ map -b -description "Yank buffer URL"
     \ <yank>y y
 map <yank>t -description "Yank page title"
     \ -js utils.cbWrite(buffer.title)
+map <yank>l -description "Yank link reference (page title and url)"
+    \ -js utils.cbWrite(`${buffer.title}: ${buffer.URL}`)
+map <yank>m -description "Yank markdown link"
+    \ -js utils.cbWrite(`[${buffer.title}](${buffer.URL})`)
+map <yank>L -description "Yank link reference (page title and heading)"
+    \ -js utils.cbWrite(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
+map <yank>M -description "Yank markdown link (using H1 heading as title)"
+    \ -js utils.cbWrite(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
 map <yank>u -description "Yank buffer URL (unencoded)"
     \ -ex yanktrueURL
 map <yank>d -description "Yank page domain"
