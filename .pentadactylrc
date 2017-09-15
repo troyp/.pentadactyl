@@ -4692,21 +4692,31 @@ command! cbjishomultisearch
 group jisho -locations=jisho.org
 map <leader>hkc -js CommandExMode().open("map -group jisho <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group jisho <site>")
+map <site>g<C-h> -description "(show bindings)" -js CommandExMode().open("map -group jisho <site>g")
+map <site>k<C-h> -description "(show bindings)" -js CommandExMode().open("map -group jisho <site>k")
+map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("map -group jisho <site>t")
+map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group jisho <site>y")
 
 " remove all existing jisho autocmds
 autocmd! -group jisho
 
-map <site>s -ex jishoshrinksod
-map <site>M -ex jishofixmodal
-map <site>R -ex jishotoggleromaji
-map <site>k -ex jishotogglekanji
-map <site>r -ex jishotoggleradicalinput
-map <site>l -ex jishotogglelinklists
-map <site>x -ex jishotogglesentences
-map <site>y -ex jishoyanksearchterm
-map <site>Y -ex jishokanjiyankparts
-map <site>b -ex jishokanjitogglestyle
-map <site>* :jishoscalesod<Space>
+map <site>fl -ex jishohintclicklinks
+map <site>gm -ex jishofixmodal
+map <site>gs -ex jishoshrinksod
+map <site>gS :jishoscalesod<Space>
+map <site>ko -ex jishohintopenkanji
+map <site>kt -ex jishohintopenkanjiinnewtab
+map <site>kr -ex jishohintselectradical
+map <site>oe -ex jishohintopensentences
+map <site>te -ex jishotogglesentences
+map <site>tk -ex jishotogglekanji
+map <site>tl -ex jishotogglelinklists
+map <site>tr -ex jishotoggleradicalinput
+map <site>tR -ex jishotoggleromaji
+map <site>ts -ex jishokanjitogglestyle
+map <site>ye -ex jishohintyankentry
+map <site>yy -ex jishoyanksearchterm
+map <site>yp -ex jishokanjiyankparts
 
 imap <A-k> <Space>#kanji
 
@@ -4849,40 +4859,45 @@ command! jishokanjiyankparts -js utils.cbWrite(jishoKanjiParts().join(''));
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
 "
-set eht+=[kKE\']:div.concept_light-representation>span.text
-set eht+=[l]:a[class="concept_light-status_link"]
-set eht+=[r]:li.radical.available,li.radical.selected
+set eht+=[かがたヤ]:div.concept_light-representation>span.text
+set eht+=[リ]:a[class="concept_light-status_link"]
+set eht+=[ぶ]:li.radical.available,li.radical.selected
 
 js <<EOF
-
 var dec = decodeURIComponent;
 
-hints.addMode('r','select kanji radical', e => e.click());
-hints.addMode('\'','yank entry', e => dactyl.clipboardWrite(e.innerText));
+hints.addMode('ヤ','yank entry', e => dactyl.clipboardWrite(e.innerText));
+hints.addMode('ぶ','select kanji radical', e => e.click());
 hints.addMode(
-    'k','open kanji details',
+    'か','open kanji details',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`)));
 hints.addMode(
-    'K','open kanji details in new tab',
+    'が','open kanji details in new tab',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`), {where:dactyl.NEW_TAB}));
 hints.addMode(
-    'E','open sentence examples',
+    'た','open sentence examples',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`)));
 hints.addMode(
-  'l','links drop down',
-  function(e) {
-    var dd_id = e.getAttribute("data-dropdown");
-    var dd = content.document.getElementById(dd_id);
-    dactyl.echo(dd.style.left);
-    if (parseInt(dd.style.left) < -100) {
-      dd.style.left = "0px";
-    } else {
-      dd.style.left = "-99999px";
+    'リ','links drop down',
+    function(e) {
+      var dd_id = e.getAttribute("data-dropdown");
+      var dd = content.document.getElementById(dd_id);
+      dactyl.echo(dd.style.left);
+      if (parseInt(dd.style.left) < -100) {
+        dd.style.left = "0px";
+      } else {
+        dd.style.left = "-99999px";
+      }
     }
-  }
 );
-
 EOF
+
+command! jishohintopenkanji         -js hints.show("か");
+command! jishohintopenkanjiinnewtab -js hints.show("が");
+command! jishohintselectradical     -js hints.show("ぶ");
+command! jishohintopensentences     -js hints.show("た");
+command! jishohintyankentry         -js hints.show("ヤ");
+command! jishohintclicklinks        -js hints.show("リ");
 
 " -----------
 " Kanji style
