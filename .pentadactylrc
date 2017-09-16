@@ -3785,7 +3785,7 @@ function gcClose() {
 EOF
 
 " =====SHORTE.ST=====
-group shortest -locations=shorte.st,viid.me,sh.st,cllkme.com
+group shortest -locations=shorte.st,viid.me,sh.st,cllkme.com,clkmein.com
 map <leader>hkc -js CommandExMode().open("map -group shortest <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group shortest <site>")
 
