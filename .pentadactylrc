@@ -386,6 +386,8 @@ map <leader>nn :removeselector<Space>
 map <leader>nr -ex removecruft
 " Remove images "
 map <leader>ni -ex removeimages
+" Enable Right-click "
+map <leader>vr -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
 
 " ,---------------------,
 " | <leader>t - toggles |
