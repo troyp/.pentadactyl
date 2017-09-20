@@ -1071,7 +1071,9 @@ map -modes input -b <A-;> <Esc><C-^>
 " delete and switch to alternate
 map -modes command,embed -b <A-:> d<C-^>
 map -modes input -b <A-:> <Esc>d<C-^>
+" pin tabs "
 map ! -ex pintab!
+map <browser>p -ex pintab!
 
 
 " ,------------------,
