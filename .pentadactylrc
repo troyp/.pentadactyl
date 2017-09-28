@@ -169,9 +169,6 @@ set newtab=all
 js editor.defaultRegister="+"
 
 set! browser.tabs.closeWindowWithLastTab=false
-set! zoom.minPercent=10
-set! zoom.maxPercent=1000
-set! toolkit.zoomManager.zoomValues=.1,.2,.3,.5,.67,.8,.9,1,1.1,1.2,1.33,1.5,1.7,2,2.4,3,4,5,6,7,8,9
 
 command! editorvim :set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
 command! editoremacs :set editor='emacsclient'
@@ -641,12 +638,22 @@ EOF
 " ,------,
 " | Zoom |
 " '------'
+set! zoom.minPercent=10
+set! zoom.maxPercent=1000
+set! toolkit.zoomManager.zoomValues=.1,.2,.3,.5,.67,.8,.9,1,1.1,1.2,1.33,1.5,1.7,2,2.4,3,4,5,6,7,8,9
+
 " note: text and full zoom can't be used independently. Using one cancels the other
 map = +
 map <C-=> zI
 map <C--> zO
-" toggle text/full zoom
-map z; -js ZoomManager.toggleZoom();
+map z; -description "Toggle Text/Full Zoom" -js zoomToggle();
+
+js <<EOF
+function zoomToggle() {
+    ZoomManager.toggleZoom();
+    utils.message(`Full Zoom: ${ZoomManager.useFullZoom ? 'ON':'OFF'}`);
+}
+EOF
 
 " ,----------------------,
 " | Option Key Sequences |
