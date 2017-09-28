@@ -3394,12 +3394,35 @@ function bgTogglePhotoZoom() {
         content.document.querySelector('.good_photo img').click();
 }
 
+function bgGetProductPhotoList() {
+    var doc = content.document;
+    if (content.document.getElementsByClassName('module').length) {
+        return Array.from(doc.querySelectorAll('.good_photo_zoom_list>ul>li'));
+    } else {
+        return Array.from(doc.querySelectorAll('.good_photo_min>ul>li'));
+    }
+}
+
+function bgGetNthProductPhoto(n) { return bgGetProductPhotoList()[n]; }
+function bgGetNthProductPhotoRef(n) {
+    return bgGetProductPhotoList()[n].firstChild.getAttribute('ref');
+}
+function bgGetNthProductPhotoBigRef(n) {
+    return bgGetProductPhotoList()[n].firstChild.getAttribute('big');
+}
+
+function bgSelectNthProductPhoto(n) {
+    var mainPhoto = content.document.querySelector('.good_photo_max img');
+    mainPhoto.setAttribute('src', bgGetNthProductPhotoBigRef(n));
+}
+
 EOF
 
 command! bgnextpage -nargs=? -js bgNextPage(args[0]||1);
 command! bgpreviouspage -nargs=? -js bgPreviousPage(args[0]||1);
 command! bgnextpagebyurl -nargs=? -js bgNextPageByURL(args[0]||1);
 command! bgpreviouspagebyurl -nargs=? -js bgPreviousPageByURL(args[0]||1);
+command! bgselectproductphoto -nargs=1 -js bgSelectNthProductPhoto(args[0]);
 
 map ]] -count -ex bgnextpage <count>
 map [[ -count -ex bgpreviouspage <count>
@@ -3418,6 +3441,14 @@ map <site>ta -description "View account (new tab)" -ex tabopen https://www.bangg
 map <site>to -description "View account/orders (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=ordersList
 map <site>tg -description "View account/giftcards (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=giftcard
 map <site>tw -description "View account/wishlist (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=wishlist
+
+map <site>1 -description "View first photo"   -js bgSelectNthProductPhoto(0);
+map <site>2 -description "View second photo"  -js bgSelectNthProductPhoto(1);
+map <site>3 -description "View third photo"   -js bgSelectNthProductPhoto(2);
+map <site>4 -description "View fourth photo"  -js bgSelectNthProductPhoto(3);
+map <site>5 -description "View fifth photo"   -js bgSelectNthProductPhoto(4);
+map <site>6 -description "View sixth photo"   -js bgSelectNthProductPhoto(5);
+map <site>7 -description "View seventh photo" -js bgSelectNthProductPhoto(6);
 
 group user
 
