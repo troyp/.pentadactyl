@@ -613,6 +613,8 @@ map <yank>a -description "Yank text area #N contents"
     \ :yanktextarea<Space>
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
     \ :yanktablecsvarea<Space>
+map <yank>s -description "Yank element content by selector"
+    \ :yankselectorcontent<Space>
 
 " Yank commands "
 command! yanktrueURL
@@ -627,6 +629,12 @@ command! yanktextarea
     \ -description "Yank the contents of textarea N."
     \ -nargs=1
     \ -js yankTextarea(Number(args[0]));
+
+" yankselectorcontent - note: if second arg contains quotes, they must be escaped (or the whole argument quoted) "
+command! yankselectorcontent
+    \ -description "Yank the contents of an element by selector."
+    \ -nargs=+
+    \ -js yankSelectorContent(args[0], evalStringOrFunction(args[1])||'innerText');
 
 js <<EOF
 function yankTextarea(n) {
@@ -6341,6 +6349,19 @@ function isolateSelectors(...sels) {
     );
 }
 
+function yankSelectorContent(sel, target='innerText') {
+    "target may be:";
+    "     * a string, naming an attribute";
+    "     * a function taking an element and returning a string.";
+    selectedElt = content.document.querySelector(sel);
+    if (typeof target === 'string')
+        selectedContent = selectedElt[target];
+    else
+        selectedContent = target(selectedElt);
+    utils.cbWriteWithMessageLimit(selectedContent);
+}
+window.yankSelectorContent = yankSelectorContent;
+
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
     "n = max tabs to close";
@@ -6356,6 +6377,14 @@ function closeTabsLeftWhileMatching(regex, n) {
     }
 }
 window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
+
+function evalStringOrFunction(s) {
+    "String s represents either a string (itself) or a function.";
+    if (s.match(/\(.*\)|=>/)) {
+        return eval(s);
+    } else { return s; }
+}
+window.evalStringOrFunction = evalStringOrFunction;
 
 function openInNewOrCurrentTab(site) {
     "Curried function openInNewOrCurrentTab(url)(count):"
