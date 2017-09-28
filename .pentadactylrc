@@ -3311,6 +3311,26 @@ function bgToggleReviews() {
 }
 
 function bgNextPage(n=1) {
+    if (n<=0) return;
+    var doc = content.document;
+    var nextbutton = doc.querySelector('.page_num a .arrow_d').parentElement;
+    if (nextbutton) {
+        nextbutton.click();
+        bgNextPage(n-1);
+    } else utils.message('selector not found');
+}
+
+function bgPreviousPage(n=1) {
+    if (n<=0) return;
+    var doc = content.document;
+    var nextbutton = doc.querySelector('.page_num a .arrow_c').parentElement;
+    if (nextbutton) {
+        nextbutton.click();
+        bgNextPage(n-1);
+    } else utils.message('selector not found');
+}
+
+function bgNextPageByURL(n=1) {
     n = n || 1;
     var url = buffer.URL;
     var search_regex = /https:\/\/www.banggood.com\/search\/([^/]+)\/([a-zA-Z0-9-]*)(_p-(\d+))?\.html/;
@@ -3332,7 +3352,7 @@ function bgNextPage(n=1) {
     }
 }
 
-function bgPreviousPage(n=1) {
+function bgPreviousPageByURL(n=1) {
     n = n || 1;
     var url = buffer.URL;
     var search_regex = /https:\/\/www.banggood.com\/search\/([^/]+)\/([a-zA-Z0-9-]*)(_p-(\d+))?\.html/;
@@ -3376,8 +3396,13 @@ function bgTogglePhotoZoom() {
 
 EOF
 
-map ]] -count -js bgNextPage(count);
-map [[ -count -js bgPreviousPage(count);
+command! bgnextpage -nargs=? -js bgNextPage(args[0]||1);
+command! bgpreviouspage -nargs=? -js bgPreviousPage(args[0]||1);
+command! bgnextpagebyurl -nargs=? -js bgNextPageByURL(args[0]||1);
+command! bgpreviouspagebyurl -nargs=? -js bgPreviousPageByURL(args[0]||1);
+
+map ]] -count -ex bgnextpage <count>
+map [[ -count -ex bgpreviouspage <count>
 map <site><Space> -description "Toggle reviews" -js bgToggleReviews();
 map <site>c -description "Toggle photo zoom" -js bgTogglePhotoZoom();
 map <site>x -description "Maximum entries per page" -js bgNumEntries();
