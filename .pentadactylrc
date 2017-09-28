@@ -3917,6 +3917,7 @@ map <site>h -ex ghtogglehtmlview
 map <site>y -js ghCopyRepoLinkHttps();
 map <site>Y -js ghCopyRepoLinkGit();
 map <site>u -js ghCopyUserAndRepo();
+map <site>p -description "Permanent link" -js ghGetPermalink();
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -4023,6 +4024,10 @@ function ghFileFinder(where=dactyl.CURRENT_TAB) {
     [user, repo] = ghGetUserAndRepo();
     var ffurl = `https://github.com/${user}/${repo}/find/master`;
     dactyl.open(ffurl, {where:where});
+}
+
+function ghGetPermalink() {
+    content.document.querySelector('.js-permalink-shortcut').click();
 }
 
 EOF
