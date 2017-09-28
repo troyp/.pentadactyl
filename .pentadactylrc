@@ -607,9 +607,9 @@ map <yank>x -description "Yank page text"
     \ -js utils.cbWrite(content.document.body.innerText);
 map <yank>h -description "Yank page heading (<H1>)"
     \ -js utils.cbWrite(content.document.querySelector('h1').innerText);
-map <yank>p -description "Yank paragraph"
+map <yank>p -description "Yank paragraph by hints"
     \ -js hints.show("ÿ");
-map <yank>a -description "Yank text area contents"
+map <yank>a -description "Yank text area #N contents"
     \ :yanktextarea<Space>
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
     \ :yanktablecsvarea<Space>
