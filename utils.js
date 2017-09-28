@@ -145,7 +145,7 @@ var utils = {
         utils.message(s);
     },
 
-    cbWriteWithLineLimit: function (s) {
+    cbWriteWithMessageLimit: function (s) {
         dactyl.clipboardWrite(s);
         utils.messageWithLineLimit(s);
     }

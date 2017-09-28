@@ -631,7 +631,7 @@ command! yanktextarea
 js <<EOF
 function yankTextarea(n) {
     var contents = getTextArea(n);
-    utils.cbWriteWithLineLimit(contents);
+    utils.cbWriteWithMessageLimit(contents);
 }
 EOF
 
@@ -2100,7 +2100,7 @@ js <<EOF
 function yankTableCSVArea(n) {
     var tareas = content.document.querySelectorAll('table+textarea');
     var contents = tareas[n].textContent;
-    utils.cbWriteWithLineLimit(contents);
+    utils.cbWriteWithMessageLimit(contents);
 }
 EOF
 
@@ -2157,13 +2157,13 @@ function tableToCSV(table) {
 
 function CopyTableAsCSV(table) {
     var csv = tableToCSV(table);
-    utils.cbWriteWithLineLimit(csv);
+    utils.cbWriteWithMessageLimit(csv);
 }
 
 function CopyTableAsCSVbySelector(sel) {
     var table = content.document.querySelector(sel);
     var csv = tableToCSV(table);
-    utils.cbWriteWithLineLimit(csv);
+    utils.cbWriteWithMessageLimit(csv);
 }
 
 function extractTableColumns(table, columns, strict=false) {
@@ -2191,7 +2191,7 @@ window.extractTableColumns = extractTableColumns;
 function copySpecifiedTableColumns(table, strict=false) {
     var extracted = extractTableColumns(table, window._dactylargs, strict);
     var result = extracted.replace(/\n\s*\n/mg, '\n');
-    utils.cbWriteWithLineLimit(result);
+    utils.cbWriteWithMessageLimit(result);
 }
 
 EOF
