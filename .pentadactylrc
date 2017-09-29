@@ -607,7 +607,7 @@ map <yank>x -description "Yank page text"
     \ -js utils.cbWrite(content.document.body.innerText);
 map <yank>h -description "Yank page heading (<H1>)"
     \ -js utils.cbWrite(content.document.querySelector('h1').innerText);
-map <yank>p -description "Yank paragraph by hints"
+map <yank>p -description "Yank paragraph (HINTS)"
     \ -js hints.show("ÿ");
 map <yank>a -description "Yank text area #N contents"
     \ :yanktextarea<Space>
@@ -615,6 +615,7 @@ map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
     \ :yanktablecsvarea<Space>
 map <yank>s -description "Yank element content by selector"
     \ :yankselectorcontent<Space>
+map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
 
 " Yank commands "
 command! yanktrueURL
@@ -2712,6 +2713,17 @@ js hints.addMode('m','pan & zoom img', elem=>{ dactyl.open(`http://openseadragon
 
 " focus frame
 map -b vf ;F
+
+" ===== "
+" Kanji "
+" ===== "
+" .w-kanji -- rikaisama "
+" .furigana+span.text -- jisho result term with kanji "
+" .furigana+.unlinked -- jisho term in examples with kanji "
+" .character.literal>a -- jisho kanji link on right "
+" .ja-text -- japanese.stackexchange kanji/kana term "
+set eht+=[字]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text'
+js hints.addMode('字', 'copy kanji', elem=>utils.cbWrite(elem.innerText));
 
 " --------------- "
 " Non-Ascii Hints "
