@@ -1931,33 +1931,71 @@ EOF
 "   rcxMain.showPopup(text)               // show text using Rikaisama popup
 map <xtra>x -js rcxMain.saveToFile()
 command! riklbaron -description "Rikaisama lookupbar on"
-    \ -js rcxMain.lbToggle()
+    \ -js rcxMain.lbToggle();
 command! riklbaroff -description "Rikaisama lookupbar off"
-    \ -js rcxMain.lbHide()
+    \ -js rcxMain.lbHide();
+command! riklbartoggle -description "Rikaisama lookupbar toggle"
+    \ -js rikLBToggle();
 command! rikplayaudio -bang -js rcxMain.playJDicAudio(bang);
 command! rikcopydef -description "Rikaisama: copy definition to clipboard"
     \ -js rcxMain.copyToClip();
 command! rikcopy -description "Rikaisama: copy word to clipboard"
     \ -js rikCopyWordToClipboard();
-command! rikstick  -description "Rikaisama: make current popup sticky"
+command! rikstick -description "Rikaisama: make current popup sticky"
     \ -js rcxMain.allowOneTimeSuperSticky();
+command! rikstickytoggle -description "Rikaisama: toggle sticky popups"
+    \ -js rikStickyToggle();
+command! riksetpos -description "Rikaisama: set popup position (normal, top, bottom)"
+    \ -nargs=? -js rikSetPosition(args[0]||0);
 command! rikEpwingToggle -description "Rikaisama: toggle epwing mode"
     \ -js rikEpwingToggle();
 command! rikSanseidoToggle -description "Rikaisama: toggle sanseido mode"
     \ -js rikSanseidoToggle();
 
-map <ext>r -ex rikLbOn
-map <ext>R -ex rikLbOff
-map <ext>s -ex rikSanseidoToggle
+map <ext>r<C-h> -js CommandExMode().open("map <ext>r");
+map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
+map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex rikSanseidoToggle
+map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
+map <ext>tk -ex styletoggle -name rikaisama-bigkanji
+
 js <<EOF
+function rikLBIsVisible() {
+    var lbar = document.querySelector('#rikaichan-lbar');
+    return lbar && !lbar.getAttribute('hidden');
+}
+function rikLBToggle() {
+    if (rikLBIsVisible())
+        rcxMain.lbHide();
+    else
+        rcxMain.lbToggle();
+}
+function rikStickyToggle() {
+    var newval =  !rcxMain.sticky;
+    rcxMain.sticky = newval;
+    utils.message(`rikai: sticky = ${newval ? 'ON':'OFF'}`);
+}
+function rikStick() {
+    rcxMain.allowOneTimeSuperSticky();
+}
+function rikSetPosition(pos=0) {
+    switch (pos) {
+        case 'normal':
+            pos = 0;
+            break;
+        case 'top':
+            pos = 1;
+            break;
+        case 'bottom':
+            pos = 2;
+            break;
+    }
+    rcxMain.altView = pos;
+}
 function rikPlayAudio() {
     rcxMain.playJDicAudio();
 }
 function rikCopyWordToClipboard() {
     dactyl.clipboardWrite(rcxMain.word);
-}
-function rikStick() {
-    rcxMain.allowOneTimeSuperSticky();
 }
 function rikEpwingToggle() {
     if (rcxMain.epwingMode) {
@@ -1978,6 +2016,9 @@ function rikSanseidoToggle() {
     }
 }
 EOF
+
+style -name=rikaisama-bigkanji *
+    \ .w-kanji { font-size: 200% !important; }
 
 " -------------------------------------------------------------------------------
 " ,-------,
