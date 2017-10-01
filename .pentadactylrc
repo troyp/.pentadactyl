@@ -395,6 +395,7 @@ map <leader>j<C-h> -description "(show bindings)" -js CommandExMode().open("map 
 map <leader>jm :cbjishomultisearch<Space>
 map <leader>jj -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
 map <leader>jk -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <leader>jf -count -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ');
 
 " ,---------------------,
 " | <leader>t - toggles |
