@@ -2759,11 +2759,12 @@ map -b vf ;F
 " Kanji "
 " ===== "
 " .w-kanji -- rikaisama "
-" .furigana+span.text -- jisho result term with kanji "
-" .furigana+.unlinked -- jisho term in examples with kanji "
+" .furigana+span.text  -- jisho result term with kanji "
+" .furigana+.unlinked  -- jisho term in examples with kanji "
 " .character.literal>a -- jisho kanji link on right "
+" .break-unit          -- jisho 'other forms'
 " .ja-text -- japanese.stackexchange kanji/kana term "
-set eht+=[字]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text'
+set eht+=[字]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text,.break-unit'
 js hints.addMode('字', 'copy kanji', elem=>utils.cbWrite(elem.innerText));
 
 " --------------- "
