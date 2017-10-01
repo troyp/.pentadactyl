@@ -4800,12 +4800,12 @@ group user
 
 js <<EOF
 
-function jishoSearch(s, where, keepCase) {
+function jishoSearch(s, where='here', keepCase) {
     s = keepCase ? s : s.toLowerCase();
     dactyl.open(`http://jisho.org/search/${s}`, where);
 }
 
-function jishoKanjiSearch(s, where) {
+function jishoKanjiSearch(s, where='here') {
     dactyl.open(`http://jisho.org/search/${s}%20%23kanji`, where);
 }
 
