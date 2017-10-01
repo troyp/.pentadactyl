@@ -366,8 +366,6 @@ map <C-j> -ex jumps
 map <xtra>P -ex pwhash
 " password hasher: hash site domain
 map <xtra>p -ex pwhashsite
-" Popjisyo SearchJapanese hints
-map <leader>jp -ex popjisyo
 " Google Translate handwritten input
 map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 " word highlight
@@ -385,6 +383,18 @@ map <leader>nr -ex removecruft
 map <leader>ni -ex removeimages
 " Enable Right-click "
 map <leader>vr -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
+
+" -------------------------------------------------------------------------------
+" ,-----------------,
+" | Japanese Search |
+" '-----------------'
+" Popjisyo SearchJapanese hints "
+map <leader>jp -ex popjisyo
+" Jisho.org "
+map <leader>j<C-h> -description "(show bindings)" -js CommandExMode().open("map <leader>j")
+map <leader>jm :cbjishomultisearch<Space>
+map <leader>jj -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <leader>jk -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
 
 " ,---------------------,
 " | <leader>t - toggles |
@@ -4816,9 +4826,6 @@ function jishoMultiSearch(...ss) {
 
 EOF
 
-map <leader>jj :cbjishomultisearch<Space>
-map <xtra>j -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <xtra>k -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
 command! cbjishosearch
     \ -bang -description "search on jisho.org"
     \ -js jishoSearch(dactyl.clipboardRead(), bang?'here':'tab');
