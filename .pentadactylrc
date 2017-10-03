@@ -4541,10 +4541,10 @@ group user
 
 " -------------------------------------------------------------------------------
 " ,---------------------,
-" | J HTML SERVER (JHS) |
+" | J HTTP SERVER (JHS) |
 " '---------------------'
 
-group jserver -locations=http://127.0.0.1:65001/jijx,http://127.0.0.1:65001/jfile,http://127.0.0.1:65001/jfiles,http://127.0.0.1:65001/jijs,http://127.0.0.1:65001/jfif,http://127.0.0.1:65001/jal,http://127.0.0.1:65001/jhelp
+group jserver -locations=http://127.0.0.1:65001/jijx,http://127.0.0.1:65001/jfile,http://127.0.0.1:65001/jfiles,http://127.0.0.1:65001/jijs,http://127.0.0.1:65001/jfif,http://127.0.0.1:65001/jal,http://127.0.0.1:65001/jhelp,http://localhost:65001/jijx,http://localhost:65001/jfile,http://localhost:65001/jfiles,http://localhost:65001/jijs,http://localhost:65001/jfif,http://localhost:65001/jal,http://localhost:65001/jhelp
 map <leader>hkc -js CommandExMode().open("map -group jserver <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group jserver <site>")
 map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("map -group jserver <site>o")
