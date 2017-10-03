@@ -200,6 +200,7 @@ map s <Nop>
 " Map prefix keys to prefix pseudokeys
 map e <goto>
 map c <site>
+imap <A-return> <Esc><site>
 " " The <sel> and <sidebar> pseudokeys were broken for some reason
 " map s <sel>
 " map S <sidebar>
