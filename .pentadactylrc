@@ -1929,7 +1929,6 @@ EOF
 "   rcxMain.htmlParser(aHTMLString)
 "   rcxMain.lookupSearch(text)            // perform lookupbar search (results in popup)
 "   rcxMain.showPopup(text)               // show text using Rikaisama popup
-map <xtra>x -js rcxMain.saveToFile()
 command! riklbaron -description "Rikaisama lookupbar on"
     \ -js rcxMain.lbToggle();
 command! riklbaroff -description "Rikaisama lookupbar off"
@@ -1956,7 +1955,8 @@ map <ext>r<C-h> -js CommandExMode().open("map <ext>r");
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
 map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
-map <ext>tk -ex styletoggle -name rikaisama-bigkanji
+map <ext>rs -js rcxMain.saveToFile()
+map <ext>rtk -ex styletoggle -name rikaisama-bigkanji
 
 js <<EOF
 function rikLBIsVisible() {
