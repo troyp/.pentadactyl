@@ -226,30 +226,18 @@ map <leader>hk, :map <Lt>leader
 map <leader>hk<C-x> :map <Lt>C-x
 map <leader>hk<A-enter> :map <Lt>option
 
-map <ext><C-h> -description "Show key completions"
-    \ :map <Lt>ext
-map <site><C-h> -description "(show bindings)" -description "Show key completions"
-    \ :map <Lt>site
-map g<C-h> -description "Show key completions"
-    \ :map g
-map <goto><><C-h> -description "Show key completions"
-    \ :map <Lt>goto
-map s<C-h> -description "Show key completions"
-    \ :map s
-map <xtra><C-h> -description "Show key completions"
-    \ :map <Lt>xtra
-map <S-xtra><C-h> -description "Show key completions"
-    \ :map <Lt>S-xtra
-map <browser><C-h> -description "Show key completions"
-    \ :map <Lt>browser
-map <yank><C-h> -description "Show key completions"
-    \ :map <Lt>yank
-map <leader><C-h> -description "Show key completions"
-    \ :map <Lt>leader
-map <C-x><C-h> -description "Show key completions"
-    \ :map <Lt>C-x
-map <A-enter><C-h> -description "Show key completions"
-    \ :map <Lt>option
+map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("map <site>")
+map <leader><C-h>  -description "(show bindings)" -js CommandExMode().open("map <leader>")
+map <goto><C-h>    -description "(show bindings)" -js CommandExMode().open("map <goto>")
+map <ext><C-h>     -description "(show bindings)" -js CommandExMode().open("map <ext>")
+map <xtra><C-h>    -description "(show bindings)" -js CommandExMode().open("map <xtra>")
+map <S-xtra><C-h>  -description "(show bindings)" -js CommandExMode().open("map <S-xtra>")
+map <browser><C-h> -description "(show bindings)" -js CommandExMode().open("map <browser>")
+map <yank><C-h>    -description "(show bindings)" -js CommandExMode().open("map <yank>")
+map <option><C-h>  -description "(show bindings)" -js CommandExMode().open("map <option>")
+map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("map <C-x>")
+map g<C-h>         -description "(show bindings)" -js CommandExMode().open("map g")
+map s<C-h>         -description "(show bindings)" -js CommandExMode().open("map s")
 
 " -------------------------------------------------------------------------------
 " ,------------------,
