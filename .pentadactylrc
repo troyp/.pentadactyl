@@ -4411,6 +4411,22 @@ function gtrImeGetWidth() {
     return hwBox.style.width;
 }
 
+function gtrGetSource() {
+    var textarea = content.document.getElementById('source');
+    return textarea.value;
+}
+
+function gtrJishoSearchSource() {
+    var src = gtrGetSource();
+    var ss = src.split(/\s+/);
+    jishoMultiSearch.apply(null, ss);
+}
+
+function gtrJishoKanjiSearchSource(where='tab') {
+    var src = gtrGetSource();
+    jishoKanjiSearch(src, where);
+}
+
 EOF
 
 command! handwrite -description "Show Handwritten Input box. With [!], toggle."
@@ -4422,18 +4438,25 @@ command! hwgetwidth -js dactyl.utils.message(gtrImeGetWidth());
 command! hwsetwidth -nargs=? -js gtrImeSetWidth((args[0] || "425") + "px");
 command! hwtogglewidth -description "Toggle normal-width/wide IME box"
     \ -js if (gtrImeGetWidth() != "800px") gtrImeSetWidth("800px"); else gtrImeSetWidth("425px");
+command! hwyanksource -description "Copy contents of source area to clipboard" -js utils.cbWrite(gtrGetSource());
+command! hwjishosearch -description "Search jisho for words in source" -js gtrJishoSearchSource();
+command! hwjishokanjisearch -bang -description "Search jisho for kanji in source" -js gtrJishoKanjiSearchSource(bang?'here':'tab');
+
 map <site><C-l> -js gtrImeMoveHandWriteBox();
 map <site><C-S-L> -ex hwtogglewidth
-map <site>l -js gtrImeMoveHandWriteBox();
-map <site>w -ex hwtogglewidth
 map <site>h -js gtrImeToggleHandWriteInput()
+map <site>l -js gtrImeMoveHandWriteBox();
 map <site>k
     \ -description "Open Jisho.org kanji page (new tab)"
     \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`, {where:dactyl.NEW_TAB})
 map <site>K
     \ -description "Open Jisho.org kanji page (current tab)"
     \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`)
-
+map <site>sk -description "Search jisho for kanji in source (new tab)" -ex hwjishokanjisearch
+map <site>sK -description "Search jisho for kanji in source (this tab)" -ex hwjishokanjisearch!
+map <site>ss -description "Search jisho for words in source" -ex hwjishosearch
+map <site>w -ex hwtogglewidth
+map <site>y -description "Copy contents of source area to clipboard" -ex hwyanksource
 
 " map -b <SPACE><SPACE> <SPACE><SPACE>
 " unmap -group gtransja <SPACE><SPACE>
