@@ -1947,14 +1947,14 @@ command! rikstickytoggle -description "Rikaisama: toggle sticky popups"
     \ -js rikStickyToggle();
 command! riksetpos -description "Rikaisama: set popup position (normal, top, bottom)"
     \ -nargs=? -js rikSetPosition(args[0]||0);
-command! rikEpwingToggle -description "Rikaisama: toggle epwing mode"
+command! rikepwing -description "Rikaisama: toggle epwing mode"
     \ -js rikEpwingToggle();
-command! rikSanseidoToggle -description "Rikaisama: toggle sanseido mode"
+command! riksanseido -description "Rikaisama: toggle sanseido mode"
     \ -js rikSanseidoToggle();
 
 map <ext>r<C-h> -js CommandExMode().open("map <ext>r");
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
-map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex rikSanseidoToggle
+map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
 map <ext>tk -ex styletoggle -name rikaisama-bigkanji
 
