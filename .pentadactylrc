@@ -994,9 +994,12 @@ command! hidefooter -js toggleFooter();
 command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
 command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
+command! removefirstselector  -nargs=1 -js removeFirstSelector.call(null, args[0]);
 command! removecruft -js removeCruft();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
 command! clickselector -nargs=1 -js clickElement(content.document.querySelector(args[0]));
+command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
+command! hidefirstselector  -nargs=1 -js hideFirstSelector.call(null, args[0]);
 
 " Page info commands "
 command! imgsalttotitle
@@ -6454,6 +6457,13 @@ function removeSelectors(...sels) {
     });
 }
 
+function removeFirstSelector(sel) {
+    "Remove the first element matching sel."
+    var doc = content.document;
+    var elt = doc.querySelector(sel);
+    elt.remove && elt.remove();
+}
+
 "remove each matching element, plus immediately preceding heading (H1-H6)"
 function removeSelectorsWithPrecedingElt(...sels) {
     var doc = content.document;
@@ -6484,6 +6494,24 @@ function isolateSelectors(...sels) {
     selectedElts.forEach(elt =>
         content.document.body.appendChild(elt)
     );
+}
+
+function hideSelectors(...sels) {
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=>{
+            var css = e.getAttribute('style') || '';
+            e.setAttribute('style', css+" display: none !important;");
+        });
+    });
+}
+
+function hideFirstSelector(sel) {
+    "Hide the first element matching sel."
+    var doc = content.document;
+    var elt = doc.querySelector(sel);
+    e.setAttribute('style', css+" display: none !important;");
 }
 
 function yankSelectorContent(sel, target='innerText') {
