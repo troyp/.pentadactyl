@@ -4008,10 +4008,11 @@ map <leader>hkc -js CommandExMode().open("map -group github <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>")
 
 map <site>h -ex ghtogglehtmlview
-map <site>y -js ghCopyRepoLinkHttps();
-map <site>Y -js ghCopyRepoLinkGit();
-map <site>u -js ghCopyUserAndRepo();
 map <site>p -description "Permanent link" -js ghGetPermalink();
+map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>y")
+map <site>yy -description "yank https repos link" -js ghCopyRepoLinkHttps();
+map <site>yg -description "yank git repos link" -js ghCopyRepoLinkGit();
+map <site>yu -description "yank user/repo name" -js ghCopyUserAndRepo();
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
