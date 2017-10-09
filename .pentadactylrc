@@ -2809,6 +2809,10 @@ js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>windo
 " These can actually be activated via ; by entering ä (via compose key, for example) "
 " Alternatively, can be bound to another binding using -js hints.open('ä') "
 
+" copy link url to dactylresult "
+set eht+=[α]:':-moz-any-link','area[href]','img[src]','iframe[src]'
+js hints.addMode("α", "Copy href to dactylresult", e=>{ window.dactylresult = e.href; });
+
 " bold links: mode ä "
 set eht+=[ä]:a>strong,a>b
 js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
