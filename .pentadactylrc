@@ -2050,6 +2050,16 @@ command! popjisyo
     \ -description "Add hints for Japanese via POPjisyo.com. With !, adds hints for English"
     \ -js bang ? popJisyoEtoJ() : popJisyo();
 
+style -name=popjisyo
+    \ www.popjisyo.com
+    \ td.charDat2,td.charDat3 { display: none !important; }
+command! popjisyochinesecolumns
+    \ -description "toggle display of chinese data"
+    \ styletoggle -name popjisyo
+
+map <ext>jp -ex popjisyo
+map <ext>jtc -ex popjisyochinesecolumns
+
 " -----------------------------------------------------------------------------
 " ,-------, ,-----------,
 " | Links | | <leader>l |
@@ -2399,12 +2409,27 @@ function popJisyo(url) {
     if (!url)
         url = content.location.href;
     content.location.href = `${popJisyoUrl}&d=7&u=${encodeURIComponent(url)}`;
+    var tb = gBrowser.selectedBrowser;
+    function popJisyoRemoveCruft () {
+        hideSelectors('#Table1', '#Table2', '.pqpControlBar');
+        removeFirstSelector('hr');
+        "TODO: removal not working?";
+        tb.removeEventListener(popJisyoRemoveCruft);
+    }
+    tb.addEventListener('DOMContentLoaded', popJisyoRemoveCruft);
 }
 
 function popJisyoEtoJ(url) {
     if (!url)
         url = content.location.href;
     content.location.href = `${popJisyoUrl}&d=1&u=${encodeURIComponent(url)}`;
+    var tb = gBrowser.selectedBrowser;
+    function popJisyoRemoveCruft () {
+        hideSelectors('#Table1', '#Table2', '.pqpControlBar');
+        removeFirstSelector('hr');
+        tb.removeEventListener(popJisyoRemoveCruft);
+    }
+    tb.addEventListener('DOMContentLoaded', popJisyoRemoveCruft);
 }
 
 function toggleHTTPS () {
