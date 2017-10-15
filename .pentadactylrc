@@ -1808,6 +1808,11 @@ command! acsetstrictorigin   :set! security.fileuri.strict_origin_policy=true
 command! acunsetstrictorigin :set! security.fileuri.strict_origin_policy=false
 command! actogglestrictorigin -ex toggleconfig security.fileuri.strict_origin_policy
 
+" OCSP stapling "
+command! acsetocspstapling   :set! security.ssl.enable_ocsp_stapling=true
+command! acunsetocspstapling :set! security.ssl.enable_ocsp_stapling=false
+command! actoggleocspstapling -ex toggleconfig security.ssl.enable_ocsp_stapling
+
 " =============================================================================
 "                                      _________
 "                                     |         |
