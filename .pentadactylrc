@@ -3825,6 +3825,12 @@ map <site>t<C-h> -js CommandExMode().open("map -group fasttech <site>t")
 set eht+=🅵:.dropit
 js hints.addMode("🅵", "Move to wish list", e=> e.querySelector('a+ul a').click());
 map <site>w -description "Move to wish list" -js hints.show('🅵');
+set eht+=🄵:td.MediumLabel
+js hints.addMode("🄵", "Copy Gift Card", e=> utils.cbWrite(e.innerText.trim()));
+map <site>g
+    \ -description "Copy Gift Card"
+    \ -js if (buffer.URL.match(/giftcertificates/)) hints.show('🄵');
+    \     else dactyl.open('https://www.fasttech.com/account/giftcertificates', 'tab');
 
 js <<EOF
 function fasttechToggleReviews () {
