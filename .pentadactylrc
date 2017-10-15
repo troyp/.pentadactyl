@@ -79,6 +79,14 @@ window.env = env;
 var nsIFilePicker = Ci.nsIFilePicker;
 var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
 
+"Firefox Preferences"
+var prefservice = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+function prefbranch(branch) { return prefservice.getBranch(branch); }
+var prefroot = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+window.prefservice = prefservice
+window.prefbranch = prefbranch
+window.prefroot = prefroot
+
 "utility functions"
 // Array methods for other collections
 A = {
