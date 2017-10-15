@@ -880,13 +880,6 @@ command! loadutils runtime! utils.js | js var utils = dactyl.utils.getPlugin("ut
 
 command! showsource -nargs=1 -js (alert(self[args[0]].toString()))
 
-" enable/disable javascript
-command! jsenable  :set! javascript.enabled=true
-command! jsdisable :set! javascript.enabled=false
-
-command! strictorigin :set! security.fileuri.strict_origin_policy=true
-command! strictoriginoff :set! security.fileuri.strict_origin_policy=false
-
 " enable jQuery in content document
 command! jQueryLoad -js <<EOF
     var scripttag = content.document.createElement('script');
@@ -936,12 +929,6 @@ command! listhintmodes :echo hints.modes
 command! encuni :emenu View.Text Encoding.Unicode
 command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
 command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
-
-" about:config settings
-command! toggleconfig
-    \ -description "Toggle boolean about:config setting."
-    \ -nargs=1
-    \ -js dactyl.utils.togglePref(args[0]);
 
 " Search commands "
 command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
@@ -1800,6 +1787,26 @@ map skg -description "search bookmarks by tags" :bmarks -max 45<SPACE> -tags<SPA
 map sks -description "search static keyword bookmarks (keyword contains :::)" :bmarks -max 45<SPACE> -keyword :::<CR>
 map skw -description "search bookmarks with buku" -ex !buku_run
 
+" ===============================================================================
+"                               _______________________
+"                              |                       |
+"                              | about:config SETTINGS |
+"                              |_______________________|
+
+command! toggleconfig
+    \ -description "Toggle boolean about:config setting."
+    \ -nargs=1
+    \ -js dactyl.utils.togglePref(args[0]);
+
+" enable/disable javascript
+command! acsetjs             :set! javascript.enabled=true
+command! acunsetjs           :set! javascript.enabled=false
+command! actogglejs           -ex toggleconfig javascript.enabled
+
+" strict origin "
+command! acsetstrictorigin   :set! security.fileuri.strict_origin_policy=true
+command! acunsetstrictorigin :set! security.fileuri.strict_origin_policy=false
+command! actogglestrictorigin -ex toggleconfig security.fileuri.strict_origin_policy
 
 " =============================================================================
 "                                      _________
