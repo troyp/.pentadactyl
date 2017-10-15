@@ -135,6 +135,9 @@ var utils = {
     },
 
     togglePref: function (pref) {
+        var prefManager =
+            Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch);
         var currentval = prefManager.getBoolPref(pref);
         prefManager.setBoolPref(pref, !currentval);
         this.message(`${pref}=${!currentval}`);
