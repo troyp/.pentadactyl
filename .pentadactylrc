@@ -3858,13 +3858,13 @@ function fasttechToggleChat() {
 }
 EOF
 
-map <site>c -description "Toggle reviews" -js fasttechToggleReviews();
-map <site>h -description "Toggle chat" -js fasttechToggleChat()
+map <site>c  -description "Toggle reviews" -js fasttechToggleReviews();
+map <site>h  -description "Toggle chat" -js fasttechToggleChat()
 map <site>oc -description "View cart" -ex open https://www.fasttech.com/shoppingcart
 map <site>oa -description "View account/" -ex open https://www.fasttech.com/account
 map <site>oo -description "View account/orders" -ex open https://www.fasttech.com/account/orders
 map <site>og -description "View account/giftcertificates"
-    \ -ex open https://www.fasttech.com/account/giftcertificates
+    \        -ex open https://www.fasttech.com/account/giftcertificates
 map <site>ot -description "View tickets" -ex open https://support.fasttech.com/tickets
 map <site>ow -description "View account/wishlists" -ex open https://www.fasttech.com/account/wishlists
 
@@ -3872,7 +3872,7 @@ map <site>tc -description "View cart (new tab)" -ex tabopen https://www.fasttech
 map <site>ta -description "View account/ (new tab)" -ex tabopen https://www.fasttech.com/account
 map <site>to -description "View account/orders (new tab)" -ex tabopen https://www.fasttech.com/account/orders
 map <site>tg -description "View account/giftcertificates (new tab)"
-    \ -ex tabopen https://www.fasttech.com/account/giftcertificates
+    \        -ex tabopen https://www.fasttech.com/account/giftcertificates
 map <site>tt -description "View tickets (new tab)" -ex tabopen https://support.fasttech.com/tickets
 map <site>tw -description "View account/wishlists (new tab)" -ex tabopen https://www.fasttech.com/account/wishlists
 
