@@ -3856,8 +3856,19 @@ function fasttechToggleChat() {
     else
         content.document.querySelector('.olark-top-bar-button').click();
 }
+
+function fasttechApplyGiftCertificate(gc) {
+    var expandLink = content.document.querySelector('#GCExpand');
+    if (expandLink) expandLink.click();
+    window.setTimeout(
+        ()=>{content.document.querySelector('#content_GiftCertificateCode').value=gc;},
+        500
+    );
+}
 EOF
 
+map <site>ag -description "Apply Gift Certificate from clipboard"
+    \        -js fasttechApplyGiftCertificate(dactyl.clipboardRead());
 map <site>c  -description "Toggle reviews" -js fasttechToggleReviews();
 map <site>h  -description "Toggle chat" -js fasttechToggleChat()
 map <site>oc -description "View cart" -ex open https://www.fasttech.com/shoppingcart
