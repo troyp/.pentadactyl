@@ -5173,9 +5173,9 @@ command! jishokanjitogglestyle
     \ styletoggle -group jisho -name kanji_light
 
 
-" -------------------------------------------------------------
-" jishoshrinksod: Halve the dimensions of stroke order diagrams
-" -------------------------------------------------------------
+" ---------------------
+" Stroke order diagrams
+" ---------------------
 js <<EOF
 
 function jishoScaleSOD(scale=0.5, ignore_min=false) {
@@ -5222,9 +5222,9 @@ command! ss
 
 autocmd PageLoad jisho.org :jishoshrinksod
 
-" ----------------------------------------------------
-" jishofixmodal: fix position of modal box in viewport
-" ----------------------------------------------------
+" ---------
+" Modal Box
+" ---------
 " TODO: have :jishofixmodal applied automatically.
 
 js <<EOF
@@ -5244,9 +5244,9 @@ command! jishofixmodal
      \ -description "Fix modal in viewport"
      \ -js jishoFixModal();
 
-" --------------------
-" jishotogglelinklists
-" --------------------
+" -----------
+" Entry Links
+" -----------
 js <<EOF
 
 function jishoToggleAllLinkULs() {
