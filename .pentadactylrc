@@ -5120,6 +5120,7 @@ var dec = decodeURIComponent;
 
 hints.addMode('ヤ','yank entry', e => dactyl.clipboardWrite(e.innerText));
 hints.addMode('ぶ','select kanji radical', e => e.click());
+hints.addMode('リ','links drop down', e=>jishoToggleLinksUL(e.nextSibling));
 hints.addMode(
     'か','open kanji details',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`)));
@@ -5129,19 +5130,6 @@ hints.addMode(
 hints.addMode(
     'た','open sentence examples',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`)));
-hints.addMode(
-    'リ','links drop down',
-    function(e) {
-      var dd_id = e.getAttribute("data-dropdown");
-      var dd = content.document.getElementById(dd_id);
-      dactyl.echo(dd.style.left);
-      if (parseInt(dd.style.left) < -100) {
-        dd.style.left = "0px";
-      } else {
-        dd.style.left = "-99999px";
-      }
-    }
-);
 EOF
 
 command! jishohintopenkanji         -js hints.show("か");
@@ -5260,6 +5248,17 @@ function jishoToggleAllLinkULs() {
         } else {
             llstyle.cssText = "position: relative; left: -120px; top: 0;";
         }
+    }
+}
+
+function jishoToggleLinksUL(ul) {
+    ul.focus();
+    var llstyle = ul.style;
+    leftvalmatch = llstyle.cssText.match(/left: *(-?\d+\w*);/);
+    if (leftvalmatch && parseInt(leftvalmatch[1])>-200) {
+        llstyle.cssText = "";
+    } else {
+        llstyle.cssText = "position: relative; left: -120px; top: 0;";
     }
 }
 
