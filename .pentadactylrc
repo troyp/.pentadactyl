@@ -4393,26 +4393,8 @@ map <site>u -ex gnugoup
 
 autocmd! -group gnu
 
-" Add << >> symbols to prev/next links so pentadactyl can recognize them
-" for reference: implemented as GM script
-command! gnuDecorateLinks -js gnuDecorateLinks();
 command! gnugoup -js gnuGoUp();
 js <<EOF
-function gnuDecorateLinks() {
-    var header = content.document.getElementsByClassName("header")[0];
-    var headerchildnodes = header.getElementsByTagName('p')[0].childNodes;
-    var headerlinks = Array.from(headerchildnodes).filter((_)=>_.tagName=='A');
-    for (l of headerlinks) {
-        switch (l.getAttribute("rel")) {
-            case "next":
-                l.innerText = ">> " + l.innerText;
-                break;
-            case "prev":
-                l.innerText = "<< " + l.innerText;
-                break;
-        }
-    }
-}
 function gnuGoUp() {
     var links = Array.from(content.document.getElementsByTagName('a'));
     var uplink = links.filter(e=>e.accessKey=="u")[0];
@@ -5036,21 +5018,6 @@ function jishoGetCorrectedSearchText() {
     return jishoGetSearchedForText() || jishoGetSearchText();
 }
 
-function jishoKanjiAddSimilarLink() {
-    "for reference: added to GM script"
-    var kanjiDetails = Array.from(content.document.getElementsByClassName("kanji details"));
-    for (kanjidiv of kanjiDetails) {
-        var links = kanjidiv.getElementsByClassName("inline-list")[0];
-        var kanji = kanjidiv.getElementsByClassName('character')[0].innerText;
-        var new_li = content.document.createElement("li");
-        var new_a = content.document.createElement("a");
-        new_a.href = `http://similarity.gakusha.info/?kanji=${kanji}`;
-        new_a.innerText = `Similar to ${kanji}`;
-        new_li.appendChild(new_a);
-        links.appendChild(new_li);
-    }
-}
-
 function jishoKanjiAddLink(location, text) {
     var kanjiDetails = Array.from(content.document.getElementsByClassName("kanji details"));
     for (kanjidiv of kanjiDetails) {
@@ -5098,7 +5065,6 @@ command! jishotogglesentences
      \ -description "Toggle between sentences page and regular results"
      \ -js jishoToggleSentences();
 
-command! jishokanjisimilarlink -js jishoKanjiAddSimilarLink();
 command! jishokanjiaddlink
     \ -description "args: HREF, TEXT. Add link to kanji. (%s is replaced by kanji)"
     \ -nargs=+ -js jishoKanjiAddLink(args[0], args[1]);
