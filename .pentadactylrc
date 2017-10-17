@@ -5172,25 +5172,6 @@ command! jishokanjitogglestyle
     \ -description "Toggle heavy/light kanji style"
     \ styletoggle -group jisho -name kanji_light
 
-" --------------------------------
-" Remove arrows from details links
-" --------------------------------
-js <<EOF
-
-function jishoFixDetailsLinks() {
-    "for reference: added to GM script"
-    var links = content.document.getElementsByClassName("light-details_link")
-    for (i=0; i<links.length; ++i)
-        links[i].textContent = links[i].textContent.slice(0, -2);
-}
-
-EOF
-
-command! jishofixdetailslinks
-     \ -description "Remove arrows from `details' links"
-     \ -js jishoFixDetailsLinks();
-" autocmd DOMLoad jisho.org :jishofixdetailslinks
-
 
 " -------------------------------------------------------------
 " jishoshrinksod: Halve the dimensions of stroke order diagrams
