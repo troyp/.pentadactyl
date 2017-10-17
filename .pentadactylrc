@@ -5268,7 +5268,7 @@ command! jishofixmodal
 " --------------------
 js <<EOF
 
-function jishoToggleLinkLists() {
+function jishoToggleAllLinkULs() {
     var linklists = content.document.getElementsByClassName("f-dropdown");
     for (i=0; i<linklists.length; ++i) {
         linklists[i].focus();
@@ -5286,7 +5286,7 @@ EOF
 
 command! jishotogglelinklists
      \ -description "Show all link lists"
-     \ -js jishoToggleLinkLists();
+     \ -js jishoToggleAllLinkULs();
 
 
 group user
