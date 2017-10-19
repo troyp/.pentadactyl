@@ -4956,12 +4956,14 @@ map <site>ko -ex jishohintopenkanji
 map <site>kt -ex jishohintopenkanjiinnewtab
 map <site>kr -ex jishohintselectradical
 map <site>oe -ex jishohintopensentences
+map <site>ow -ex jishohintopenweblio
 map <site>te -ex jishotogglesentences
 map <site>tk -ex jishotogglekanji
 map <site>tl -ex jishotogglelinklists
 map <site>tr -ex jishotoggleradicalinput
 map <site>tR -ex jishotoggleromaji
 map <site>ts -ex jishokanjitogglestyle
+map <site>tw -ex jishohintopenweblionewtab
 map <site>ye -ex jishohintyankentry
 map <site>yy -ex jishoyanksearchterm
 map <site>yp -ex jishokanjiyankparts
@@ -5091,7 +5093,7 @@ command! jishokanjiyankparts -js utils.cbWrite(jishoKanjiParts().join(''));
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
 "
-set eht+=[かがたヤ]:div.concept_light-representation>span.text
+set eht+=[かがたヤヱヹ]:div.concept_light-representation>span.text
 set eht+=[リ]:a[class="concept_light-status_link"]
 set eht+=[ぶ]:li.radical.available,li.radical.selected
 
@@ -5101,6 +5103,10 @@ var dec = decodeURIComponent;
 hints.addMode('ヤ','yank entry', e => dactyl.clipboardWrite(e.innerText));
 hints.addMode('ぶ','select kanji radical', e => e.click());
 hints.addMode('リ','links drop down', e=>jishoToggleLinksUL(e.nextSibling));
+hints.addMode('ヱ','search entry in Weblio',
+              e => dactyl.open(`http://ejje.weblio.jp/content/${e.innerText}`, 'here'));
+hints.addMode('ヹ','search entry in Weblio (new tab)',
+              e => dactyl.open(`http://ejje.weblio.jp/content/${e.innerText}`, 'tab'));
 hints.addMode(
     'か','open kanji details',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`)));
@@ -5118,6 +5124,8 @@ command! jishohintselectradical     -js hints.show("ぶ");
 command! jishohintopensentences     -js hints.show("た");
 command! jishohintyankentry         -js hints.show("ヤ");
 command! jishohintclicklinks        -js hints.show("リ");
+command! jishohintopenweblio        -js hints.show("ヱ");
+command! jishohintopenweblionewtab  -js hints.show("ヹ");
 
 " -----------
 " Kanji style
