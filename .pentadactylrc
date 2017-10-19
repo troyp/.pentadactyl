@@ -4048,11 +4048,14 @@ map <site>h -ex ghtogglehtmlview
 map <site>p -description "Permanent link" -js ghGetPermalink();
 map <site>r -description "open raw file" -js hints.show("🄶");
 map <site>R -description "open raw file (new tab)" -js hints.show("🅶");
+map <site>ow -description "open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
+map <site>tw -description "open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
 map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>y")
-map <site>yy -description "yank https repos link" -js ghCopyRepoLinkHttps();
 map <site>yg -description "yank git repos link" -js ghCopyRepoLinkGit();
-map <site>yu -description "yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yr -description "yank raw file URL" -js hints.show("Ⓖ");
+map <site>yu -description "yank user/repo name" -js ghCopyUserAndRepo();
+map <site>yw -description "yank wiki git URL" -js ghCopyWikiGitURL();
+map <site>yy -description "yank https repos link" -js ghCopyRepoLinkHttps();
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -4123,12 +4126,23 @@ function ghGetUserAndRepo() {
     var repo = match[2];
     return [user, repo];
 }
+function ghGetWikiURL() {
+    [user, repo] = ghGetUserAndRepo();
+    return `https://github.com/${user}/${repo}/wiki`;
+}
+
+function ghGetWikiGitURL() {
+    [user, repo] = ghGetUserAndRepo();
+    return `https://github.com/${user}/${repo}.wiki.git`;
+}
 
 function ghCopyUserAndRepo() {
     [user, repo] = ghGetUserAndRepo();
     var url = ghGetCloneUrl("https");
     dactyl.utils.cbWrite(`${user}/${repo}`);
 }
+
+function ghCopyWikiGitURL() { dactyl.utils.cbWrite(ghGetWikiGitURL()); }
 
 function ghDownloadReadmeToDoc(repo, name, ext, overwrite) {
     var overwrite = overwrite ? 't' : '';    // to be interpolated into shell script
