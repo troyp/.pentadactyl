@@ -402,6 +402,7 @@ map <leader>tu -ex set usermode!
 map <leader>te -ex editcontent
 map <leader>ts -js toggleHTTPS()
 map <leader>tv -ex styletoggle -name visitedlinks
+map <leader>ta -description "Toggle User Agent Override" -ex actoggleuaoverride
 
 " ,-------------------------,
 " | <leader>T - GUI toggles |
@@ -1812,6 +1813,11 @@ command! actogglestrictorigin -ex toggleconfig security.fileuri.strict_origin_po
 command! acsetocspstapling   :set! security.ssl.enable_ocsp_stapling=true
 command! acunsetocspstapling :set! security.ssl.enable_ocsp_stapling=false
 command! actoggleocspstapling -ex toggleconfig security.ssl.enable_ocsp_stapling
+
+" User Agent "
+command! acsetuaoverride :set! general.useragent.override='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
+command! acunsetuaoverride :set! general.useragent.override=''
+command! actoggleuaoverride -js utils.toggleCharPref('general.useragent.override', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
 
 " =============================================================================
 "                                      _________
