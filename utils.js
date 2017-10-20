@@ -143,6 +143,31 @@ var utils = {
         this.message(`${pref}=${!currentval}`);
     },
 
+    toggleCharPref: function (pref, s) {
+        var prefManager =
+            Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch);
+        var currentVal = prefManager.getCharPref(pref);
+        var newVal = currentVal==='' ? s : '';
+        prefManager.setCharPref(pref, newVal);
+        this.message(`${pref}=${newVal}`);
+    },
+
+    toggleNsISupportStrPref: function (pref, s) {
+        var prefManager =
+            Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch);
+        var currentVal = prefManager.getComplexValue(pref, Components.interfaces.nsISupportsString).data;
+        var nsiStrCls = Components.classes["@mozilla.org/supports-string;1"];
+        var nsiStr = nsiStrCls.createInstance(Components.interfaces.nsISupportsString);
+        nsiStr.data = s;
+        var nsiNullStr = nsiStrCls.createInstance(Components.interfaces.nsISupportsString);
+        nsiNullStr.data = '';
+        var newVal = currentVal==='' ? nsiStr : nsiNullStr;
+        prefManager.setComplexValue(pref, Components.interfaces.nsISupportsString, newVal);
+        this.message(`${pref}=${!newVal}`);
+    },
+
     cbWrite: function (s) {
         dactyl.clipboardWrite(s);
         utils.message(s);
