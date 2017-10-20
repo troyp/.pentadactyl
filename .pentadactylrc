@@ -398,11 +398,12 @@ map <leader>jf -count -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ
 " | <leader>t - toggles |
 " '---------------------'
 map <leader>t<C-h> -js CommandExMode().open("map <leader>t")
-map <leader>tu -ex set usermode!
-map <leader>te -ex editcontent
-map <leader>ts -js toggleHTTPS()
-map <leader>tv -ex styletoggle -name visitedlinks
 map <leader>ta -description "Toggle User Agent Override" -ex actoggleuaoverride
+map <leader>te -description "Toggle Edit Content" -ex editcontent
+map <leader>ts -description "Toggle HTTPS" -js toggleHTTPS()
+map <leader>tu -description "Toggle User Mode" -ex set usermode!
+map <leader>tv -description "Toggle Visited Links Styling" -ex styletoggle -name visitedlinks
+map <leader>tw -description "Toggle Wayback Machine" -ex waybacktoggle
 
 " ,-------------------------,
 " | <leader>T - GUI toggles |
