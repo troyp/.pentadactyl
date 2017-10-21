@@ -5340,10 +5340,11 @@ function libgenCopyFileNameAndDownload() {
         var link = links.find(a=>["download", "get"].includes(a.innerText.toLowerCase()));
         dactyl.open(link.parentNode.href);
     } else {
-        // "libgen.pw first page"
-        var cellLink = content.document.querySelector('td h2 a');
-        if (cellLink && cellLink.innerText == "Open download page")
-            cellLink.click();
+        // "first page"
+        var cellLink = content.document.querySelector('td h2 a') ||
+                       content.document.querySelector('body>table>tbody>tr>td>b>a');
+        // if (cellLink && cellLink.innerText == "Open download page")
+        if (cellLink) cellLink.click();
     }
 }
 
