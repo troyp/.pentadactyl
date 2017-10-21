@@ -86,6 +86,11 @@ var prefroot = Cc["@mozilla.org/preferences-service;1"].getService(Components.in
 window.prefservice = prefservice
 window.prefbranch = prefbranch
 window.prefroot = prefroot
+" String Preferences: prefroot.(g|s)etCharPref for ASCII, prefroot.getComplexValue for unicode... "
+function getStrPref(pref) { return prefroot.getComplexValue(pref, Components.interfaces.nsISupportsString); }
+function setStrPref(pref, value) {
+    prefroot.setComplexValue(pref, Components.interfaces.nsISupportsString, value);
+}
 
 "utility functions"
 // Array methods for other collections
