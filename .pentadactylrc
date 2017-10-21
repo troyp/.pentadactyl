@@ -1806,19 +1806,19 @@ command! toggleconfig
     \ -js dactyl.utils.togglePref(args[0]);
 
 " enable/disable javascript
-command! acsetjs             :set! javascript.enabled=true
-command! acunsetjs           :set! javascript.enabled=false
-command! actogglejs           -ex toggleconfig javascript.enabled
+command! acsetjs    :set! javascript.enabled=true
+command! acunsetjs  :set! javascript.enabled=false
+command! actogglejs toggleconfig javascript.enabled
 
 " strict origin "
 command! acsetstrictorigin   :set! security.fileuri.strict_origin_policy=true
 command! acunsetstrictorigin :set! security.fileuri.strict_origin_policy=false
-command! actogglestrictorigin -ex toggleconfig security.fileuri.strict_origin_policy
+command! actogglestrictorigin toggleconfig security.fileuri.strict_origin_policy
 
 " OCSP stapling "
 command! acsetocspstapling   :set! security.ssl.enable_ocsp_stapling=true
 command! acunsetocspstapling :set! security.ssl.enable_ocsp_stapling=false
-command! actoggleocspstapling -ex toggleconfig security.ssl.enable_ocsp_stapling
+command! actoggleocspstapling toggleconfig security.ssl.enable_ocsp_stapling
 
 " User Agent "
 command! acsetuaoverride :set! general.useragent.override='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
