@@ -402,7 +402,7 @@ map <leader>jf -count -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
-map <leader>t<C-h> -js CommandExMode().open("map <leader>t")
+map <leader>t<C-h> -js CommandExMode().open("map <Leader>t")
 map <leader>ta -description "Toggle User Agent Override" -ex actoggleuaoverride
 map <leader>te -description "Toggle Edit Content" -ex editcontent
 map <leader>ts -description "Toggle HTTPS" -js toggleHTTPS()
