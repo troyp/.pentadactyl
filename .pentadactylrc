@@ -5874,7 +5874,7 @@ function seCleanup(showSnippetResults) {
         '.vt',    //  share-edit-flag
         '.vote-up-off', '.vote-down-off', '.js-add-link',
         '.user-gravatar32', '.-flair',
-        '.bottom-notice', 'form', '#footer', '#feed-link',
+        '.bottom-notice', 'form', '#footer', '#feed-link'
     );
 }
 
