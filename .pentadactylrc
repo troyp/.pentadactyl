@@ -354,8 +354,14 @@ map <browser>x -js window.restore(); window.maximize();
 map -modes normal -b <C-x>h iGvggy
 " second input area
 map -modes normal -b <xtra>gi 2gi
+" open in google chrome "
+map <xtra>c -ex ochrome
+" open in firefox "
+map <xtra>f -ex ofox
+" open in qutebrowser "
+map <xtra>q -ex oqute
 " open local file with xdg-open
-map <xtra>f :xopen<Space>
+map <xtra>x :xopen<Space>
 " open file in Emacs
 map <xtra>e -ex openFileInEmacs
 " open page in EWW
@@ -905,9 +911,12 @@ command! nointercept -js document.addEventListener('keydown', function(e) { e.st
 " FIXME: issue with maff files with spaces in directory (not name)
 command! xopen -nargs=1 -complete=file !xdg-open <args>
 
-" Open in Google Chrome:
+" Open in Google Chrome "
 command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}"`
-map <xtra>c -ex ochrome
+" Open in Firefox "
+command! ofox :exec `!/opt/firefox/firefox -new-tab "${buffer.URL}"`
+" Open in Qutebrowser "
+command! oqute :exec `!qutebrowser "${buffer.URL}"`
 
 " Show all marks (quickmarks and url/local marks)
 command! allmarks,amarks,am :qmarks | marks
