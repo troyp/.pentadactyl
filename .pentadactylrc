@@ -906,7 +906,7 @@ command! nointercept -js document.addEventListener('keydown', function(e) { e.st
 command! xopen -nargs=1 -complete=file !xdg-open <args>
 
 " Open in Google Chrome:
-command! ochrome :exec `!google-chrome "${buffer.URL}"`
+command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}"`
 map <xtra>c -ex ochrome
 
 " Show all marks (quickmarks and url/local marks)
