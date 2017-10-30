@@ -414,7 +414,7 @@ map <leader>tw -description "Toggle Wayback Machine" -ex waybacktoggle
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
-map <leader>T<C-h> -js CommandExMode().open("map <leader>T")
+map <leader>T<C-h> -js CommandExMode().open("map <Leader>T")
 " <A-Up>:     show the navigation and bookmarks toolbars:
 " <A-Down>:   hide the navigation and bookmarks toolbars:
 " <leader>Ta: toggle the navigation and bookmarks toolbars:
