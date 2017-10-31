@@ -1442,7 +1442,14 @@ map s;h :history! -max 30<SPACE>
 map s;k :bmarks!  -max 30<SPACE>
 map sj -ex jumps
 map sa -ex addons
-map sm :emenu<SPACE>
+map smm :emenu<SPACE>
+map smf :emenu File.
+map sme :emenu Edit.
+map smv :emenu View.
+map smh :emenu History.
+map smb :emenu Bookmarks.
+map smt :emenu Tools.
+map sm/ :emenu Help.
 map sp :set<SPACE>
 map sc :set!<SPACE>
 
