@@ -915,11 +915,11 @@ command! nointercept -js document.addEventListener('keydown', function(e) { e.st
 command! xopen -nargs=1 -complete=file !xdg-open <args>
 
 " Open in Google Chrome "
-command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}"`
+command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}" &`
 " Open in Firefox "
-command! ofox :exec `!/opt/firefox/firefox -new-tab "${buffer.URL}"`
+command! ofox :exec `!/opt/firefox/firefox -new-tab "${buffer.URL}" &`
 " Open in Qutebrowser "
-command! oqute :exec `!qutebrowser "${buffer.URL}"`
+command! oqute :exec `!qutebrowser "${buffer.URL}" &`
 
 " Show all marks (quickmarks and url/local marks)
 command! allmarks,amarks,am :qmarks | marks
