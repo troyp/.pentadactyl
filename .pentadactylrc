@@ -251,6 +251,7 @@ map <option><C-h>  -description "(show bindings)" -js CommandExMode().open("map 
 map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("map <C-x>")
 map g<C-h>         -description "(show bindings)" -js CommandExMode().open("map g")
 map s<C-h>         -description "(show bindings)" -js CommandExMode().open("map s")
+map z<C-h>         -description "(show bindings)" -js CommandExMode().open("map z")
 
 " -------------------------------------------------------------------------------
 " ,------------------,
