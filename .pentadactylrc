@@ -327,6 +327,8 @@ map <C-x><C-S-S>
 \ -modes normal,insert,visual,command-line
 \ -js saveDocument(getBrowser().selectedBrowser.contentDocument,
 \                  {mafAskSaveArchive: true});
+" Close browser "
+map <C-x><C-c> -description "Quit browser" -ex quitall
 " Copying
 map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
