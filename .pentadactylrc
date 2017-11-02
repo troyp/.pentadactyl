@@ -2838,6 +2838,17 @@ js hints.addMode('G','pan & zoom SVG',alert);
 set eht+=[m]:img
 js hints.addMode('m','pan & zoom img', elem=>{ dactyl.open(`http://openseadragon.github.io/openseadragonizer/?img=${elem.src.replace(/(\?|#).*/,'')}&encoded=true`, { where: dactyl.NEW_TAB }) });
 
+" kanji "
+set eht+=[kK]:div.concept_light-representation>span.text
+js <<EOF
+hints.addMode(
+    'k','open kanji details in new tab',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`), {where:'tab'}));
+hints.addMode(
+    'K','open kanji details',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`), {where:'here'}));
+EOF
+
 
 " focus frame
 map -b vf ;F
