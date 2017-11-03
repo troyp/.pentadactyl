@@ -438,6 +438,7 @@ map <leader>Te -ex set guioptions!=T
 map <leader>Tb -ex set guioptions!=B
 map <leader>Ts -ex set guioptions!=s
 map <leader>To -ex toolbartoggle Add-on Bar
+map <leader>Td -ex toolbartoggle Web Developer Toolbar
 
 " ,-----------------,
 " | Manipulate Page |
