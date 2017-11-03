@@ -2859,8 +2859,9 @@ EOF
 " --------------- "
 " Non-Ascii Hints "
 " --------------- "
-" These can actually be activated via ; by entering ä (via compose key, for example) "
-" Alternatively, can be bound to another binding using -js hints.open('ä') "
+" These can actually be triggered normally (eg. via ;ä) if the character is entered using the compose key, IME, etc. "
+" However, they are intended to be activated by another binding using hints.open().                                  "
+" eg.  map <binding> -js hints.open('ä')                                                                             "
 
 " Completion list divider [HACK] - separates ascii from non-ascii hints (uses dummy hint modes) "
 js hints.addMode('', '', e=>utils.message(e));
