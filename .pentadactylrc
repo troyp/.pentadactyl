@@ -1439,7 +1439,7 @@ map <goto><f1> <local-help-all>
 map <goto>D -ex tabopen resource://dactyl/
 
 " Select:
-map s;h :history! -max 30<SPACE>
+map s;h :history! -max 30 -sort -date<SPACE>
 map s;k :bmarks!  -max 30<SPACE>
 map sj -ex jumps
 map sa -ex addons
@@ -1448,7 +1448,7 @@ map sc :set!<SPACE>
 
 " List/Search:
 map sb -description "search buffers" :buffers -max 45<SPACE>
-map sh -description "search history" :history -max 45<SPACE>
+map sh -description "search history" :history -max 45 -sort -date<SPACE>
 " Search bookmarks: sk ... (see Bookmarks section) "
 
 " Menu access: "
