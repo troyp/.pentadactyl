@@ -2869,16 +2869,18 @@ js hints.addMode('', '━━━━━━━━━━━━━━━━━━�
 \                e=>utils.message(e));
 js hints.addMode(' ', '', e=>utils.message(e));           "no-break space 00A0"
 
-" ===== "
-" Kanji "
-" ===== "
-" .w-kanji -- rikaisama "
-" .furigana+span.text  -- jisho result term with kanji "
-" .furigana+.unlinked  -- jisho term in examples with kanji "
-" .character.literal>a -- jisho kanji link on right "
-" .break-unit          -- jisho 'other forms'
-" .ja-text -- japanese.stackexchange kanji/kana term "
-set eht+=[字カ]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text,.break-unit'
+" =====                                                          "
+" Kanji                                                          "
+" =====                                                          "
+" .w-kanji             -- rikaisama                              "
+" .furigana+span.text  -- jisho result term with kanji           "
+" .furigana+.unlinked  -- jisho term in examples with kanji      "
+" .character.literal>a -- jisho kanji link on right              "
+" .break-unit          -- jisho 'other forms'                    "
+" .ja-text             -- japanese.stackexchange kanji/kana term "
+" .t_nihongo_kanji     -- wikia span class                       "
+" #japanese-name       -- wikia with support GM script           "
+set eht+=[字カ]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text,.break-unit,.t_nihongo_kanji,span[lang=ja],#japanese-name'
 js hints.addMode('字', 'copy kanji', elem=>utils.cbWrite(elem.innerText));
 js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>window._dactylargs[0](e.innerText));
 
