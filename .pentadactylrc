@@ -1015,7 +1015,7 @@ command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
 command! removefirstselector  -nargs=1 -js removeFirstSelector.call(null, args[0]);
 command! removecruft -js removeCruft();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
-command! clickselector -nargs=1 -js clickElement(content.document.querySelector(args[0]));
+command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
 command! hidefirstselector  -nargs=1 -js hideFirstSelector.call(null, args[0]);
 
@@ -2760,7 +2760,7 @@ function rubular(regex, test) {
     tb.addEventListener("DOMContentLoaded", rubularCB);
 }
 
-function clickElement(sel) {
+function clickSelector(sel) {
     if (typeof sel == "string") {
         // selector
         var getButton = content.document.querySelector(sel);
@@ -2770,7 +2770,7 @@ function clickElement(sel) {
         sel.click();
     }
 }
-window.clickElement = clickElement;
+window.clickSelector = clickSelector;
 
 EOF
 
@@ -3322,12 +3322,12 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -gr
 " === hint modes === "
 " links "
 set eht+=ņ:.newtab-link
-js hints.addMode("ņ", "Follow link", clickElement);
+js hints.addMode("ņ", "Follow link", clickSelector);
 set eht+=Ņ:.newtab-link
 js hints.addMode("Ņ", "Follow link in background tab", elem => buffer.followLink(elem, dactyl.BACKGROUND_TAB));
 " buttons "
 set eht+=ɳ:.newtab-control
-js hints.addMode("ɳ", "Click new tab control", clickElement);
+js hints.addMode("ɳ", "Click new tab control", clickSelector);
 
 map f -description "Follow link" -js hints.show('ņ');
 map F -description "Follow link in background tab" -js hints.show('Ņ');
@@ -3345,14 +3345,14 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -gr
 
 map <site>z <pass-all-keys>
 
-command! aprefsgeneral      -js clickElement("#category-general");
-command! aprefssearch       -js clickElement("#category-search");
-command! aprefscontent      -js clickElement("#category-content");
-command! aprefsapplications -js clickElement("#category-application");
-command! aprefsprivacy      -js clickElement("#category-privacy");
-command! aprefssecurity     -js clickElement("#category-security");
-command! aprefssync         -js clickElement("#category-sync");
-command! aprefsadvanced     -js clickElement("#category-advanced");
+command! aprefsgeneral      -js clickSelector("#category-general");
+command! aprefssearch       -js clickSelector("#category-search");
+command! aprefscontent      -js clickSelector("#category-content");
+command! aprefsapplications -js clickSelector("#category-application");
+command! aprefsprivacy      -js clickSelector("#category-privacy");
+command! aprefssecurity     -js clickSelector("#category-security");
+command! aprefssync         -js clickSelector("#category-sync");
+command! aprefsadvanced     -js clickSelector("#category-advanced");
 map <site>g -ex aprefsgeneral
 map <site>/ -ex aprefssearch
 map <site>c -ex aprefscontent
@@ -6369,8 +6369,8 @@ command! ytrate
     \ -nargs=1
     \ -js ytSetSpeed(args[0]/10);
 
-command! ytfullscreen -description "toggle fullscreen" -js clickElement('.ytp-fullscreen-button');
-command! ytcinema -description "toggle cinema mode" -js clickElement('.ytp-size-button');
+command! ytfullscreen -description "toggle fullscreen" -js clickSelector('.ytp-fullscreen-button');
+command! ytcinema -description "toggle cinema mode" -js clickSelector('.ytp-size-button');
 command! ytmute -description "toggle mute" -js ytToggleMute();
 command! ytlowervolume -description "lower volume" -nargs=? -js ytAdjustVolume(-5 * (args[0] || 1));
 command! ytraisevolume -description "raise volume" -nargs=? -js ytAdjustVolume(5 * (args[0] || 1));
