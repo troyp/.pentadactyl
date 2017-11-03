@@ -2772,6 +2772,13 @@ function clickSelector(sel) {
 }
 window.clickSelector = clickSelector;
 
+function dispatchClickEvent(elt) {
+   var ev = document.createEvent("MouseEvents");
+   ev.initEvent("click", true, true);
+   elt.dispatchEvent(ev);
+}
+window.dispatchClickEvent = dispatchClickEvent;
+
 EOF
 
 " =============================================================================
