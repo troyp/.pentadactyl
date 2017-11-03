@@ -1381,8 +1381,8 @@ map <C-f10> -js showContextMenu();
 " | Dialogs |
 " '---------'
 
-map <leader>hke :map <Lt>goto
-map <goto><C-h> :map <Lt>goto
+map <leader>hke -description "(Show bindings)" -js CommandExMode().open("map <goto>")
+map <goto><C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>")
 
 " downloads
 map <goto>wd -ex dialog downloads
