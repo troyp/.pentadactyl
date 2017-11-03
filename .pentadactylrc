@@ -295,6 +295,9 @@ map -modes normal -b <A-.> l
 " free C-N, C-P bindings for tab movement
 map <C-S-P> <Nop>
 map <C-S-N> <Nop>
+" focus frame
+map -modes normal -b vf ;F
+
 " bind gs as :viewpagesource, free gf for g;b
 map gf <Nop>
 map gs -ex viewpagesource
@@ -2854,8 +2857,6 @@ hints.addMode(
 EOF
 
 
-" focus frame
-map -b vf ;F
 
 " ===== "
 " Kanji "
