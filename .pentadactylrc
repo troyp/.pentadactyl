@@ -2856,7 +2856,17 @@ hints.addMode(
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`), {where:'here'}));
 EOF
 
+" --------------- "
+" Non-Ascii Hints "
+" --------------- "
+" These can actually be activated via ; by entering ä (via compose key, for example) "
+" Alternatively, can be bound to another binding using -js hints.open('ä') "
 
+" Completion list divider [HACK] - separates ascii from non-ascii hints (uses dummy hint modes) "
+js hints.addMode('', '', e=>utils.message(e));
+js hints.addMode('', '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+\                e=>utils.message(e));
+js hints.addMode(' ', '', e=>utils.message(e));           "no-break space 00A0"
 
 " ===== "
 " Kanji "
@@ -2870,12 +2880,6 @@ EOF
 set eht+=[字カ]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text,.break-unit'
 js hints.addMode('字', 'copy kanji', elem=>utils.cbWrite(elem.innerText));
 js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>window._dactylargs[0](e.innerText));
-
-" --------------- "
-" Non-Ascii Hints "
-" --------------- "
-" These can actually be activated via ; by entering ä (via compose key, for example) "
-" Alternatively, can be bound to another binding using -js hints.open('ä') "
 
 " copy link url to dactylresult "
 set eht+=[α]:':-moz-any-link','area[href]','img[src]','iframe[src]'
