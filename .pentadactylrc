@@ -944,9 +944,6 @@ command! uni
 
 command! yanktitle js dactyl.clipboardWrite(buffer.title)
 
-" Show extended hints modes
-command! listhintmodes :echo hints.modes
-
 " Text encodings
 "command! encuni :execute "emenu View.Text Encoding.Unicode"
 "command! encjis :execute "emenu View.Text Encoding.Japanese (Shift_JIS)"
@@ -2786,6 +2783,11 @@ EOF
 "                                      |       |
 "                                      | HINTS |
 "                                      |_______|
+
+set ht=:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],svg,a[class^=vote],a[class^=speed],div.ita-hwt-candidate,.preference>li
+
+" Show extended hints modes
+command! listhintmodes :echo hints.modes
 
 set eht=[asOTvVWy]:':-moz-any-link','area[href]','img[src]','iframe[src]'
 set eht+=[iI]:img
