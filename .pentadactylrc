@@ -6094,6 +6094,28 @@ autocmd! -group wikia
 map <leader>hkc -js CommandExMode().open("map -group wikia <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group wikia <site>")
 
+" ,- - - - - - - - - - - - - - - - - - - - - - - - - ,
+" ' override f to work on Wikia collapsible sections '
+" '- - - - - - - - - - - - - - - - - - - - - - - - - '
+set eht+=🅆:':-moz-any-link',area,button,iframe,'input:not([type=hidden]):not([disabled])','label[for]',select,textarea,'[onclick]','[onmouseover]','[onmousedown]','[onmouseup]','[oncommand]','[tabindex]','[role=link]','[role=button]','[contenteditable=true]',svg,'a[class^=vote]','a[class^=speed]',div.ita-hwt-candidate,.preference>li,section.pi-collapse
+js <<EOF
+hints.addMode(
+    '🅆',
+    'Click link/button',
+    function(elt) {
+        ' handle normal links, buttons, etc. '
+        dispatchClickEvent(elt);
+        ' toggle a section by adding/removing the class .pi-collapse-closed '
+        ' trying to abstract this into a function and run it via a hint results in an error: Permission denied to access property "type" '
+        if (elt.classList.contains('pi-collapse')) {
+            if (elt.classList.contains('pi-collapse-closed'))
+                elt.classList.remove('pi-collapse-closed');
+            else elt.classList.add('pi-collapse-closed');
+        }
+    });
+EOF
+map f -js hints.show('🅆');
+
 js <<EOF
 
 function wikiaRemoveCruft() {
