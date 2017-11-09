@@ -1715,6 +1715,7 @@ map <ext>dww
     \ -description "Web Developer Extension commands"
     \ -js CommandExMode().open("emenu Tools.Web Developer Extension.")
 map <ext>dwt -ex toolbartoggle Web Developer Toolbar
+map <ext>dwr -ex ruler
 
 command! magnifier
     \ -bang
@@ -1731,6 +1732,9 @@ command! magnifierzoom
     \ -description "Sets magnifier zoom level"
     \ -nargs=1
     \ -js wdtSetMagnification(args[0])
+command! ruler
+    \ -description "Toggle Web Developer Toolbar's ruler"
+    \ emenu Tools.Web Developer Extension.Miscellaneous.Display Ruler
 command! stylesoff
     \ -description "Turns off styles via Web Developer 'Toggle all Stylesheets'"
     \ -js WebDeveloper.CSS.toggleAllStyleSheets(true, content.document);
