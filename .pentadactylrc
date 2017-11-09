@@ -5052,6 +5052,7 @@ map <site>tl -ex jishotogglelinklists
 map <site>tr -ex jishotoggleradicalinput
 map <site>tR -ex jishotoggleromaji
 map <site>ts -ex jishokanjitogglestyle
+map <site>te -ex jishohintopensentencesnewtab
 map <site>tw -ex jishohintopenweblionewtab
 map <site>ye -ex jishohintyankentry
 map <site>yy -ex jishoyanksearchterm
@@ -5205,6 +5206,9 @@ hints.addMode(
 hints.addMode(
     'た','open sentence examples',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`)));
+hints.addMode(
+    'た','open sentence examples in new tab',
+    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
 EOF
 
 command! jishohintopenkanji         -js hints.show("か");
@@ -5215,6 +5219,7 @@ command! jishohintyankentry         -js hints.show("ヤ");
 command! jishohintclicklinks        -js hints.show("リ");
 command! jishohintopenweblio        -js hints.show("ヱ");
 command! jishohintopenweblionewtab  -js hints.show("ヹ");
+command! jishohintopensentencesnewtab -js hints.show("だ");
 
 " -----------
 " Kanji style
