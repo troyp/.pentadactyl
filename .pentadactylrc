@@ -381,6 +381,8 @@ map <C-j> -ex jumps
 map <xtra>P -ex pwhash
 " password hasher: hash site domain
 map <xtra>p -ex pwhashsite
+" open www.packtpub.com/packt/offers/free-learning in google chrome "
+map <xtra>op -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
 " Google Translate handwritten input
 map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 " word highlight
