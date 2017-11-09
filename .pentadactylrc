@@ -4123,13 +4123,13 @@ map <site>p -description "Permanent link" -js ghGetPermalink();
 map <site>r -description "open raw file" -js hints.show("🄶");
 map <site>R -description "open raw file (new tab)" -js hints.show("🅶");
 map <site>oh -description "open help" -js ghOpenHelp('here');
-map <site>og -description "my gists" -js dactyl.open('https://help.github.com/', 'here');
+map <site>og -description "my gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
 map <site>oG
     \ -description "starred gists"
     \ -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
 map <site>ow -description "open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
 map <site>th -description "open help (new tab)" -js ghOpenHelp('tab');
-map <site>tg -description "my gists (new tab)" -js dactyl.open(`https://gist.github.com/${ghusername}`, 'tab');
+map <site>tg -description "my gists (new tab)" -js dactyl.open('https://gist.github.com/'+ghusername, 'tab');
 map <site>tG
     \ -description "starred gists"
     \ -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'tab');
