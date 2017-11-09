@@ -5038,21 +5038,21 @@ map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -g
 autocmd! -group jisho
 
 map <site>fl -ex jishohintclicklinks
+map <site>gc -ex jishokanjitogglestyle
+map <site>ge -ex jishotogglesentences
+map <site>gk -ex jishotogglekanji
+map <site>gl -ex jishotogglelinklists
 map <site>gm -ex jishofixmodal
+map <site>gr -ex jishotoggleradicalinput
+map <site>gR -ex jishotoggleromaji
 map <site>gs -ex jishoshrinksod
 map <site>gS :jishoscalesod<Space>
-map <site>ko -ex jishohintopenkanji
-map <site>kt -ex jishohintopenkanjiinnewtab
-map <site>kr -ex jishohintselectradical
+map <site>;  -ex jishohintselectradical
 map <site>oe -ex jishohintopensentences
+map <site>ok -ex jishohintopenkanji
 map <site>ow -ex jishohintopenweblio
-map <site>te -ex jishotogglesentences
-map <site>tk -ex jishotogglekanji
-map <site>tl -ex jishotogglelinklists
-map <site>tr -ex jishotoggleradicalinput
-map <site>tR -ex jishotoggleromaji
-map <site>ts -ex jishokanjitogglestyle
 map <site>te -ex jishohintopensentencesnewtab
+map <site>tk -ex jishohintopenkanjinewtab
 map <site>tw -ex jishohintopenweblionewtab
 map <site>ye -ex jishohintyankentry
 map <site>yy -ex jishoyanksearchterm
@@ -5211,15 +5211,15 @@ hints.addMode(
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
 EOF
 
-command! jishohintopenkanji         -js hints.show("か");
-command! jishohintopenkanjiinnewtab -js hints.show("が");
-command! jishohintselectradical     -js hints.show("ぶ");
-command! jishohintopensentences     -js hints.show("た");
-command! jishohintyankentry         -js hints.show("ヤ");
-command! jishohintclicklinks        -js hints.show("リ");
-command! jishohintopenweblio        -js hints.show("ヱ");
-command! jishohintopenweblionewtab  -js hints.show("ヹ");
+command! jishohintopenkanji           -js hints.show("か");
+command! jishohintopenkanjinewtab     -js hints.show("が");
+command! jishohintopensentences       -js hints.show("た");
 command! jishohintopensentencesnewtab -js hints.show("だ");
+command! jishohintopenweblio          -js hints.show("ヱ");
+command! jishohintopenweblionewtab    -js hints.show("ヹ");
+command! jishohintselectradical       -js hints.show("ぶ");
+command! jishohintyankentry           -js hints.show("ヤ");
+command! jishohintclicklinks          -js hints.show("リ");
 
 " -----------
 " Kanji style
