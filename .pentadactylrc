@@ -6100,6 +6100,50 @@ command! userscriptsmirror -nargs=?
 
 " -------------------------------------------------------------------------------
 " ,-----------,
+" | Weblio.jp |
+" '-----------'
+group weblio -locations=weblio.jp,ejje.weblio.jp
+map <leader>hkc -js CommandExMode().open("map -group weblio <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group weblio <site>")
+
+map <site>c -ex webliotidy
+
+command! webliotidy -js weblioTidy();
+
+js <<EOF
+function weblioTidy() {
+    weblioRemoveAds();
+    removeSelectors(
+        '#footFixBar',    // popup footer
+        '.topicR',        // social buttons
+    );
+}
+function weblioRemoveAds() {
+    removeSelectors(
+    '.ad', '.ad1',
+    '.adGH','.adsbygoogle',
+    );
+    weblioCleanSidebar();
+}
+function weblioCleanSidebar() {
+    var sb = content.document.getElementById('side');
+    var sbBlocks = Array.from(content.document.getElementsByClassName('sideBlock'));
+    var textTrans = sbBlocks.filter(d=>d.firstElementChild.nodeName.toLowerCase() == 'form')[0];
+    var browserHistory = content.document.getElementById('sideBHModule');
+    var neighbouringKeywords = sbBlocks.filter(d=>d.firstElementChild.nodeName.toLowerCase() == 'table')[0];
+    var otherDicts = content.document.querySelector('.sideBlock.otherDict');
+    while (sb.children.length > 0) sb.children[0].remove();
+    sb.appendChild(textTrans);
+    sb.appendChild(browserHistory);
+    sb.appendChild(neighbouringKeywords);
+    sb.appendChild(otherDicts);
+}
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,-----------,
 " | Wikia.com |
 " '-----------'
 group wikia -locations='.*\.wikia\.com/'
