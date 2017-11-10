@@ -4601,10 +4601,10 @@ function gtrJishoKanjiSearchSource(where='tab') {
 
 EOF
 
-command! handwrite -description "Show Handwritten Input box. With [!], toggle."
+command! hwon -description "Show Handwritten Input box. With [!], toggle."
     \ -bang
     \ -js bang ? gtrImeToggleHandWriteInput() : gtrImeShowHandWriteInput();
-command! nohandwrite -description "Hide Handwritten Input box." -js gtrImeHideHandWriteInput();
+command! hwoff -description "Hide Handwritten Input box." -js gtrImeHideHandWriteInput();
 command! hwboxrepos -description "Reposition Handwritten Input box." -js gtrImeMoveHandWriteBox();
 command! hwgetwidth -js dactyl.utils.message(gtrImeGetWidth());
 command! hwsetwidth -nargs=? -js gtrImeSetWidth((args[0] || "425") + "px");
