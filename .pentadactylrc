@@ -6210,6 +6210,21 @@ function wikiaRemoveCruft() {
     );
 }
 
+function wikiaSimplePage() {
+    wikiaRemoveCruft();
+    removeSelectors(
+        'header',
+        '.page-header__categories',
+        '.page-header__contribution',
+    );
+    hideSelectors(
+        '.page-header__subtitle',
+    );
+    removeSelectorsFiltered(
+        '.contains',
+        e=>e.firstElementChild.classList.contains('special-categories'));
+}
+
 function wikiaRemoveImages() {
     removeSelectors('img', '#Gallery');
     removeSelectorsWithPrecedingHeading('.wikia-gallery');
@@ -6230,6 +6245,7 @@ command! wikiaremovefandomads
     \ -description "Remove 'Trending Fandom' ads"
     \ removeselector '#recirculation-rail' '.recirculation-rail'
 command! wikiaremovecruft -js wikiaRemoveCruft();
+command! wikiasimplepage -js wikiaSimplePage();
 command! wikiaremoveimages -js wikiaRemoveImages();
 command! -bang wikianext
     \ -js dactyl.open(wikiaGetNext(), { where: bang?'tab':'here' });
@@ -6239,6 +6255,7 @@ command! -bang wikiaprevious
 map <site>c -ex wikiaremovefandomads
 map <site>a -ex wikiaremovefandomads
 map <site>r -ex wikiaremovecruft
+map <site>s -ex wikiasimplepage
 map <site>i -ex wikiaremoveimages
 map <site>] -ex wikianext
 map <site>[ -ex wikiaprevious
