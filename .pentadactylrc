@@ -4599,6 +4599,20 @@ function gtrJishoKanjiSearchSource(where='tab') {
     jishoKanjiSearch(src, where);
 }
 
+function gtrTextBoxFontSize(fontsize) {
+    var tarea = content.document.getElementById('source');
+    tarea.style['font-size']=`${fontsize}pt`;
+}
+
+function gtrTextBoxToggleFontSize() {
+    var tarea = content.document.getElementById('source');
+    var oldsize = tarea.style['font-size'];
+    if (isNaN(parseInt(oldsize)) || parseInt(oldsize)<16)
+        tarea.style['font-size']=`16pt`;
+    else
+        tarea.style['font-size']=`12pt`;
+}
+
 EOF
 
 command! hwon -description "Show Handwritten Input box. With [!], toggle."
@@ -4613,10 +4627,14 @@ command! hwtogglewidth -description "Toggle normal-width/wide IME box"
 command! hwyanksource -description "Copy contents of source area to clipboard" -js utils.cbWrite(gtrGetSource());
 command! hwjishosearch -description "Search jisho for words in source" -js gtrJishoSearchSource();
 command! hwjishokanjisearch -bang -description "Search jisho for kanji in source" -js gtrJishoKanjiSearchSource(bang?'here':'tab');
+command! gtrfontsize -nargs=1 -description "Set font size for textarea" -js gtrTextBoxFontSize(parseInt(args[0]));
+command! gtrtogglefontsize -description "Toggle font size for textarea" -js gtrTextBoxToggleFontSize();
 
 map <site><C-l> -js gtrImeMoveHandWriteBox();
 map <site><C-S-L> -ex hwtogglewidth
 map <site>h -js gtrImeToggleHandWriteInput()
+map <site>if -ex gtrtogglefontsize
+map <site>iF :gtrfontsize<Space>
 map <site>l -js gtrImeMoveHandWriteBox();
 map <site>k
     \ -description "Open Jisho.org kanji page (new tab)"
