@@ -6689,6 +6689,12 @@ function removeSelectors(...sels) {
     });
 }
 
+function removeSelectorsFiltered(sel, pred) {
+    var doc = content.document;
+    var elts = Array.from(doc.querySelectorAll(sel)).filter(pred);
+    elts.forEach(e=>e.remove && e.remove());
+}
+
 function removeFirstSelector(sel) {
     "Remove the first element matching sel."
     var doc = content.document;
@@ -6744,6 +6750,16 @@ function hideFirstSelector(sel) {
     var doc = content.document;
     var elt = doc.querySelector(sel);
     e.setAttribute('style', css+" display: none !important;");
+}
+
+function setSelectorOpacity(opacity, ...sels) {
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=>{
+            e.style.opacity = opacity;
+        });
+    });
 }
 
 function yankSelectorContent(sel, target='innerText') {
