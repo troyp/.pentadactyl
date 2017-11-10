@@ -6135,6 +6135,14 @@ function weblioTidy() {
         '#footFixBar',    // popup footer
         '.topicR',        // social buttons
     );
+    setSelectorOpacity(
+        0.3,
+        '.summaryR',
+        '#headTurboLink',
+        '.pin-icon-cell',
+        '#leadToVocabIndexBtnWrp',
+        '#leadToSpeakingTestIndexBtnWrp',
+    );
 }
 function weblioRemoveAds() {
     removeSelectors(
