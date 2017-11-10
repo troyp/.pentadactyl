@@ -6186,7 +6186,7 @@ function wikiaRemoveCruft() {
 
 function wikiaRemoveImages() {
     removeSelectors('img', '#Gallery');
-    removeSelectorsWithPrecedingElt('.wikia-gallery');
+    removeSelectorsWithPrecedingHeading('.wikia-gallery');
 }
 
 function wikiaGetNext() {
@@ -6679,7 +6679,7 @@ function removeFirstSelector(sel) {
 }
 
 "remove each matching element, plus immediately preceding heading (H1-H6)"
-function removeSelectorsWithPrecedingElt(...sels) {
+function removeSelectorsWithPrecedingHeading(...sels) {
     var doc = content.document;
     sels.forEach(sel=>{
         var elts = Array.from(doc.querySelectorAll(sel));
@@ -6691,7 +6691,7 @@ function removeSelectorsWithPrecedingElt(...sels) {
         });
     });
 }
-window.removeSelectorsWithPrecedingElt = removeSelectorsWithPrecedingElt;
+window.removeSelectorsWithPrecedingHeading = removeSelectorsWithPrecedingHeading;
 
 function isolateSelector(sel) {
     selectedElt = content.document.querySelector(sel);
