@@ -7019,6 +7019,7 @@ EOF
 " number of tabs:        tabs.count
 " ordinal (one-based) of tab:   t.dactylOrdinal
 " index of tab (zero-based):    t._tPos
+" capture output of shell command:    io.system('command').output
 "
 " =============================================================================
 " ,-------------------,
