@@ -1804,10 +1804,24 @@ command! hacktheweb -js hacktheweb.start();
 " '-----------'
 
 js <<EOF
+" Buku "
 function bookmarkExportBuku() {
     var filename = `/tmp/firefox-buku-${(new Date).toISOString()}`;
     BookmarkHTMLUtils.exportToFile(filename);
     runProcess("/usr/local/bin/buku", "--import", filename);
+}
+
+" bm : https://github.com/cym13/bookmark "
+var bm_db = '~/.bookmarks';
+
+function bmResolveKeymark(kw, searchterm) {
+    var tag = 'kw:' + kw;
+    var bmk = io.system(`bm -f ${bm_db} ${tag}`);
+    var url = bmk.replace('%s', encodeURIComponent(searchterm)).replace('%S', searchterm);
+    return url;
+}
+function bmRunKeymark(kw, searchterm, where='here') {
+    dactyl.open(bmResolveKeymark(kw, searchterm), {where:where});
 }
 EOF
 
@@ -1815,6 +1829,8 @@ command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0])
 command! bookmarkExportBuku -js bookmarkExportBuku();
 command! bukurun !buku_run
 command! bookmarkpage :normal <bookmark-page>
+command! bmrunkw -nargs + -js bmRunKeymark(args[0], args[1]);
+command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
 map -b <bookmark-page> <C-v><C-d>
 map <browser>k <bookmark-page>
 
