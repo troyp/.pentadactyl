@@ -4138,6 +4138,7 @@ map <site>h -ex ghtogglehtmlview
 map <site>p -description "Permanent link" -js ghGetPermalink();
 map <site>r -description "open raw file" -js hints.show("🄶");
 map <site>R -description "open raw file (new tab)" -js hints.show("🅶");
+map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>o")
 map <site>oh -description "open help" -js ghOpenHelp('here');
 map <site>og -description "my gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
 map <site>oi -description "open issues" -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
@@ -4146,6 +4147,7 @@ map <site>oG
     \ -description "starred gists"
     \ -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
 map <site>ow -description "open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
+map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>t")
 map <site>th -description "open help (new tab)" -js ghOpenHelp('tab');
 map <site>ti -description "open issues" -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
 map <site>tI -description "open issues.csv" -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
