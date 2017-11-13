@@ -4135,6 +4135,7 @@ map <leader>hkc -js CommandExMode().open("map -group github <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>")
 
 map <site>h -ex ghtogglehtmlview
+map <site>ir -ex ghlistrepos
 map <site>p -description "Permanent link" -js ghGetPermalink();
 map <site>r -description "open raw file" -js hints.show("🄶");
 map <site>R -description "open raw file (new tab)" -js hints.show("🅶");
@@ -4168,6 +4169,8 @@ command! ghtogglehtmlview
      \ -js ghToggleHTMLView();
 
 command! ghgotolines -nargs=+ -js ghGgoToLines(args);
+
+command! ghlistrepos -js var u = ghGetUserAndRepo()[0]; dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
 
 command! ghfilefinder -js ghFileFinder();
 map <site>/ -ex ghfilefinder
