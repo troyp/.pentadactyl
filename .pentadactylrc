@@ -4159,7 +4159,9 @@ map <site>tG
 map <site>tw -description "open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
 map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>y")
 map <site>yg -description "yank git repos link" -js ghCopyRepoLinkGit();
+map <site>yn -description "yank repo name" -js ghCopyRepoName();
 map <site>yr -description "yank raw file URL" -js hints.show("Ⓖ");
+map <site>yR -description "yank repo name with URL" -js ghCopyRepoNameWithURL();
 map <site>yu -description "yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yw -description "yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy -description "yank https repos link" -js ghCopyRepoLinkHttps();
@@ -4235,6 +4237,12 @@ function ghGetUserAndRepo() {
     var repo = match[2];
     return [user, repo];
 }
+function ghGetRepoName() {
+    var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/#?]+)(\/.*)?/;
+    var match = buffer.URL.match(regex);
+    var repo = match[2];
+    return repo;
+}
 function ghGetWikiURL() {
     [user, repo] = ghGetUserAndRepo();
     return `https://github.com/${user}/${repo}/wiki`;
@@ -4249,6 +4257,12 @@ function ghCopyUserAndRepo() {
     [user, repo] = ghGetUserAndRepo();
     var url = ghGetCloneUrl("https");
     dactyl.utils.cbWrite(`${user}/${repo}`);
+}
+
+function ghCopyRepoNameWithURL() {
+    repo = ghGetRepoName();
+    var url = buffer.URL;
+    dactyl.utils.cbWrite(`${repo} (${url})`);
 }
 
 function ghCopyWikiGitURL() { dactyl.utils.cbWrite(ghGetWikiGitURL()); }
