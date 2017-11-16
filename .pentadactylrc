@@ -367,6 +367,9 @@ map <xtra>C :ochromeurl
 map <xtra>f -ex ofox
 " open in qutebrowser "
 map <xtra>q -ex oqute
+" open local file "
+map <leader>o :openf<Space>
+map <leader>O :tabopenf<Space>
 " open local file with xdg-open
 map <xtra>x :xopen<Space>
 " open file in Emacs
@@ -980,6 +983,23 @@ command! openFileInEmacs
 command! openUrlInEWW -description "Open in EWW in Emacsclient"
     \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
 
+" Open File/Directory "
+command! openf
+    \ -description "Open a file/directory."
+    \ -complete file
+    \ -nargs 1
+    \ -js var file = args[0].replace(/^~/, '/home/troy');
+    \     if (!file.startsWith('/')) file = '/home/troy/' + file;
+    \     file = 'file://' + file;
+    \     dactyl.open(file);
+command! tabopenf
+    \ -description "Open a file/directory in a new tab."
+    \ -complete file
+    \ -nargs 1
+    \ -js var file = args[0].replace(/^~/, '/home/troy');
+    \     if (!file.startsWith('/')) file = '/home/troy/' + file;
+    \     file = 'file://' + file;
+    \     dactyl.open(file, {where: 'tab'});
 
 " Password Hasher "
 command! pwhash
