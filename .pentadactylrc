@@ -3783,6 +3783,60 @@ map <site>c :batogotochapterindex<Space>
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,---------------,
+" | BitBucket.org |
+" '---------------'
+group bitbucket -locations=bitbucket.org
+map <leader>hkc -js CommandExMode().open("map -group bitbucket <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group bitbucket <site>")
+
+js var bbusername = 'tpracy';
+
+map <site>og
+    \ -description "open snippets"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/snippets', 'here');
+map <site>oi
+    \ -description "open issues"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/issues', 'here');
+map <site>or
+    \ -description "open my repositories"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/repositories?owner=tpracy', 'here');
+map <site>oR
+    \ -description "open repositories"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/repositories', 'here');
+
+map <site>tg
+    \ -description "open snippets (new tab)"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/snippets', 'tab');
+map <site>ti
+    \ -description "open issues (new tab)"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/issues', 'tab');
+map <site>tr
+    \ -description "open my repositories (new tab)"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/repositories?owner='+bbusername, 'tab');
+map <site>tR
+    \ -description "open repositories (new tab)"
+    \ -js dactyl.open('https://bitbucket.org/dashboard/repositories', 'tab');
+
+map <site>yg -description "yank git repos link" -js bbCopyRepoLinkGit();
+map <site>yy -description "yank https repos link" -js bbCopyRepoLinkHttps();
+
+js <<EOF
+
+function bbCopyRepoLinkHttps() {
+    var auibutton = content.document.querySelector('.clone-url .aui-button');
+    utils.cbWrite(auibutton.getAttribute('data-primary-https'));
+}
+function bbCopyRepoLinkGit() {
+    var auibutton = content.document.querySelector('.clone-url .aui-button');
+    utils.cbWrite(auibutton.getAttribute('data-primary-ssh'));
+}
+
+EOF
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,--------,
 " | BookZZ |
