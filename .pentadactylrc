@@ -4195,6 +4195,8 @@ js hints.addMode("Ⓖ", "copy raw file url", e=>utils.cbWrite(e.href+'?raw=true'
 
 js <<EOF
 
+function ghGetUser() { return content.document.querySelector('.avatar').getAttribute('alt').slice(1); }
+
 function ghToggleHTMLView() {
     var url = buffer.URL.toLowerCase();
     var newurl;
