@@ -4147,6 +4147,7 @@ map <site>oI -description "open issues.csv" -js dactyl.open(`https://api.github.
 map <site>oG
     \ -description "starred gists"
     \ -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
+map <site>op -description "my profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
 map <site>ow -description "open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
 map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>t")
 map <site>th -description "open help (new tab)" -js ghOpenHelp('tab');
@@ -4156,6 +4157,7 @@ map <site>tg -description "my gists (new tab)" -js dactyl.open('https://gist.git
 map <site>tG
     \ -description "starred gists"
     \ -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'tab');
+map <site>tp -description "my profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'here');
 map <site>tw -description "open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
 map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>y")
 map <site>yg -description "yank git repos link" -js ghCopyRepoLinkGit();
