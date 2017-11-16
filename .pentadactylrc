@@ -983,6 +983,13 @@ command! openFileInEmacs
 command! openUrlInEWW -description "Open in EWW in Emacsclient"
     \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
 
+" Open in Dolphin "
+command! openDirectoryInDolphin
+    \ -description "Open the current file's directory in Dolphin."
+    \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    \     var dir = file.replace(/[^/]*$/,'');
+    \     dactyl.execute(`!dolphin "${dir}"`);
+
 " Open File/Directory "
 command! openf
     \ -description "Open a file/directory."
