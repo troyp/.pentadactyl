@@ -6018,6 +6018,19 @@ set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" 
 group user
 
 " -------------------------------------------------------------------------------
+" ,------------------,
+" | StackPrinter.com |
+" '------------------'
+group stackprinter -locations=stackprinter.com
+map <leader>hkc -js CommandExMode().open("map -group stackprinter <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group stackprinter <site>")
+autocmd! -group stackprinter
+
+autocmd PageLoad stackprinter.com :removeselector #adsense
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-------------,
 " | Subs.com.ru |
 " '-------------'
