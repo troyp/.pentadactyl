@@ -297,6 +297,8 @@ map <C-S-P> <Nop>
 map <C-S-N> <Nop>
 " focus frame
 map -modes normal -b vf ;F
+" visual mode "
+map -modes normal V -ex feedkeys iv
 
 " bind gs as :viewpagesource, free gf for g;b
 map gf <Nop>
