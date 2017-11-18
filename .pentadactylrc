@@ -6253,6 +6253,49 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,---------------------,
+" | ThingsAndStuff Wiki |
+" '---------------------'
+group thingstuff -locations=wiki.thingsandstuff.org
+autocmd! -group thingstuff
+map <leader>hkc -js CommandExMode().open("map -group thingstuff <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group thingstuff <site>")
+
+map <site>c -description "remove cruft" -js taswTidy();
+map <site>op
+    \ -description "open printable version"
+    \ -js dactyl.open(taswGetPrintableVersion(), {where: 'here'});
+map <site>tp
+    \ -description "open printable version (new tab)"
+    \ -js dactyl.open(taswGetPrintableVersion(), {where: 'tab'});
+
+js <<EOF
+function taswTidy() {
+    removeSelectors(
+        '#mw-navigation',
+        '#mw-content-text>p:first-of-type',
+        '#contentSub',
+        '#jump-to-nav',
+        '#articlemenu'
+    );
+    var heading = content.document.getElementById('firstHeading');
+    heading.innerText = heading.innerText.replace(/( -- Things and Stuff Wiki)?$/,
+                                                  ' -- Things and Stuff Wiki');
+    dactyl.execute("cssapply '.firstHeading { position: static !important; } .mw-body { margin-top: 0 !important; }'");
+}
+
+function taswGetPrintableVersion(url=null) {
+    url = url || buffer.URL;
+    if (url.includes('?'))
+        return url + '&printable=yes';
+    else
+        return url + '?printable=yes';
+}
+EOF
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-----------------,
 " | Userscripts.org |
