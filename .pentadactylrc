@@ -3145,6 +3145,26 @@ map -b <site>gc O&cr=
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,----------------,
+" | ArchLinux Wiki |
+" '----------------'
+group archwiki -locations=wiki.archlinux.org
+autocmd! -group archwiki
+map <leader>hkc -js CommandExMode().open("map -group archwiki <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group archwiki <site>")
+
+map <site>c -description "Remove cruft" -js archwikiTidy();
+
+js <<EOF
+function archwikiTidy() {
+    isolateSelector('#content');
+    dactyl.execute('cssapply ".mw-body { margin-left: 0 !important; }"');
+}
+EOF
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-----,
 " | EdX |
