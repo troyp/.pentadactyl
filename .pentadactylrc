@@ -463,6 +463,8 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
 map <leader>a<C-h> -js CommandExMode().open("map <leader>a")
+" Time
+map <leader>at -count -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
 " Weather
 map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
 " Banking
@@ -6319,6 +6321,42 @@ command! userscriptsmirror -nargs=?
     \         userscriptsMirror(dactyl.clipboardRead());
     \     else
     \         userscriptsMirror(args[0]);
+
+" -------------------------------------------------------------------------------
+" ,--------------,
+" | TutsPlus.com |
+" '--------------'
+
+group tutsplus -locations=code.tutsplus.com
+map <leader>hkc -js CommandExMode().open("map -group tutsplus <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group tutsplus <site>")
+autocmd! -group tutsplus
+
+autocmd DOMload code.tutsplus.com :js tutsplusTidy()
+
+map <site>c -description "Remove cruft" -js tutsplusTidy();
+
+js <<EOF
+function tutsplusTidy() {
+    removeSelectors(
+        '.global-nav',
+        '.layout__sidebar',
+        '.avert',
+        '.content-banner__icon',
+        '.content-heading__item:last-child',
+        '.content-heading__secondary',
+        '.content-heading__secondary-categories',
+        '.free-trial-highlight',
+        '.announcement-bar',
+        '.post_image',
+        '.ecosystem-highlight',
+        '.market-highlight',
+        'footer'
+    );
+}
+EOF
+
+group user
 
 " -------------------------------------------------------------------------------
 " ,-----------,
