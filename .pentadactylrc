@@ -1461,6 +1461,8 @@ map -b <goto>s tabout:support<CR>
 map -b <goto>es oabout:support<CR>
 map -b <goto>s tabout:support<CR>
 map -b <goto>es oabout:support<CR>
+map -b <goto>` tfile:///home/troy/<CR>
+map -b <goto>e` ofile:///home/troy/<CR>
 command! appcache
     \ -description "Open about:cache in new tab"
     \ :tabopen about:cache?storage=appcache
