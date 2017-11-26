@@ -1925,7 +1925,13 @@ command! acunsetuaoverride :set! general.useragent.override=''
 command! actoggleuaoverride -js utils.toggleCharPref('general.useragent.override', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
 command! acgetuaoverride getcharpref general.useragent.override
 
-" =============================================================================
+" Addon auto-updates "
+command! acsetextupdate   :set! extensions.update.enabled
+command! acunsetextupdate :set! extensions.update.enabled
+command! actoggleextupdate toggleconfig extensions.update.enabled
+command! acgetextupdate getboolpref extensions.update.enabled
+
+" ============================================================================
 "                                      _________
 "                                     |         |
 "                                     | CONTENT |
