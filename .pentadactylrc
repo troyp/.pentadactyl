@@ -476,11 +476,11 @@ command! keepvid -js
     \ s.src="http://keepvid.com/js/bm.js";
     \ content.document.body.appendChild(s);
 
-" ,------------,
-" | Conversion |
-" '------------'
+" ,---------------------------,
+" | Conversion and Arithmetic |
+" '---------------------------'
 map <leader>c<C-h> -js CommandExMode().open("map <leader>c")
-map -description "Convert inches to centimeters" <leader>xci -js hints.show("”");
+map -description "Convert inches to centimeters (by hints)" <leader>xci -js hints.show("”");
 
 command! usd2aud
     \ -nargs *
@@ -492,6 +492,9 @@ command! sumusd2aud
     \ -js utils.message(USDtoAUD(args.reduce((a,b)=>parseFloat(a)+parseFloat(b))));
 
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
+command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
+map <leader>+ :sum<Space>
+map <leader>* :product<Space>
 
 " ,-------------,
 " | Translation |
