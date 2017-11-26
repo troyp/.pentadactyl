@@ -1891,25 +1891,39 @@ command! toggleconfig
     \ -nargs=1
     \ -js dactyl.utils.togglePref(args[0]);
 
+command! getboolpref
+    \ -description "Show value of boolean about:config setting."
+    \ -nargs=1
+    \ -js utils.message(dactyl.utils.getBoolPref(args[0]));
+
+command! getcharpref
+    \ -description "Show value of string about:config setting."
+    \ -nargs=1
+    \ -js utils.message(dactyl.utils.getCharPref(args[0]));
+
 " enable/disable javascript
 command! acsetjs    :set! javascript.enabled=true
 command! acunsetjs  :set! javascript.enabled=false
 command! actogglejs toggleconfig javascript.enabled
+command! acgetjs getboolpref javascript.enabled
 
 " strict origin "
 command! acsetstrictorigin   :set! security.fileuri.strict_origin_policy=true
 command! acunsetstrictorigin :set! security.fileuri.strict_origin_policy=false
 command! actogglestrictorigin toggleconfig security.fileuri.strict_origin_policy
+command! acgetstrictorigin getboolpref security.fileuri.strict_origin_policy
 
 " OCSP stapling "
 command! acsetocspstapling   :set! security.ssl.enable_ocsp_stapling=true
 command! acunsetocspstapling :set! security.ssl.enable_ocsp_stapling=false
 command! actoggleocspstapling toggleconfig security.ssl.enable_ocsp_stapling
+command! acgetocspstapling getboolpref security.ssl.enable_ocsp_stapling
 
 " User Agent "
 command! acsetuaoverride :set! general.useragent.override='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 command! acunsetuaoverride :set! general.useragent.override=''
 command! actoggleuaoverride -js utils.toggleCharPref('general.useragent.override', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
+command! acgetuaoverride getcharpref general.useragent.override
 
 " =============================================================================
 "                                      _________

@@ -153,6 +153,20 @@ var utils = {
         this.message(`${pref}=${newVal}`);
     },
 
+    getCharPref: function (pref) {
+        var prefManager =
+            Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch);
+        return prefManager.getCharPref(pref);
+    },
+
+    getBoolPref: function (pref) {
+        var prefManager =
+            Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch);
+        return prefManager.getBoolPref(pref);
+    },
+
     toggleNsISupportStrPref: function (pref, s) {
         var prefManager =
             Components.classes["@mozilla.org/preferences-service;1"].getService(
