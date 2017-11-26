@@ -1463,6 +1463,8 @@ map -b <goto>s tabout:support<CR>
 map -b <goto>es oabout:support<CR>
 map -b <goto>s tabout:support<CR>
 map -b <goto>es oabout:support<CR>
+map -b <goto>w tabout:profiles<CR>
+map -b <goto>ew oabout:profiles<CR>
 map -b <goto>` tfile:///home/troy/<CR>
 map -b <goto>e` ofile:///home/troy/<CR>
 command! appcache
