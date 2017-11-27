@@ -90,3 +90,13 @@ function doXulCommand2(id) {
 var contextmenu = document.getElementById('contentAreaContextMenu');
 var contextmenuitems = Array.from(contextmenu.getElementsByTagName('menuitem'));
 function chooseItem(id) { document.getElementById(id).click(); }
+
+
+// -------------------------------------------------------------------------------
+// ,--------,
+// | Places |
+// '--------'
+var placesView = content.document.getElementById('placesView');         // xul:hbox
+var placesDoc = placesView.ownerDocument;                               // XUL Document
+var placesContentView = content.document.getElementById('contentView'); // xul:vbox
+var placeContent = content.document.getElementById('placeContent');     // xul:tree
