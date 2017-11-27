@@ -1541,6 +1541,23 @@ map sI -ex sbclose
 " map sP -ex sidebar! Preferences
 " map <sidebar>P :sidebar! Preferences<CR><f6><f6><C-z>
 
+js <<EOF
+
+var sidebarDoc = sidebar.document;
+" OR: var sidebarDoc = document.getElementById('sidebar').contentDocument; "
+
+function showHistorySidebar() { SidebarUI.show('viewHistorySidebar'); }
+function hideHistorySidebar() { SidebarUI.hide(); }
+function toggleHistorySidebar() {
+    if (SidebarUI.isOpen) SidebarUI.hide();
+    else SidebarUI.show('viewHistorySidebar');
+    return SidebarUI.isOpen;
+}
+
+EOF
+
+map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
+
 " -----------------------------------------------------------------------------
 " ,---------------------,
 " | Resizing and moving |
