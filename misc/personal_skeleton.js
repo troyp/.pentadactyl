@@ -12,4 +12,5 @@ var personal = {
     myemail2:     "",
     mybankurl:    "",
     mycreditcard: "",
+    myopenexchangeratesappid: "",
 }

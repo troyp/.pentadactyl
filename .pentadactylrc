@@ -1071,8 +1071,7 @@ command! wgetm -nargs=* -js wgetm(args[0], args[1], args[2]);
 command! wget1 -nargs=* -js wget1(args[0], args[1], args[2]);
 
 " Exchange Rate Info "
-" command! updateUSDAUDexchange -js updateUSDAUDexchange();
-command! updateUSDAUDexchange -js fetch("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDAUD%22%29&env=store://datatables.org/alltableswithkeys&format=json").then(response=>response.json()).then(obj => window.AUDperUSD=(parseFloat(obj.query.results.rate.Ask)+parseFloat(obj.query.results.rate.Bid)/2));
+command! updateUSDAUDexchange -js updateUSDAUDexchange();
 
 " =============================================================================
 "                                       ______
@@ -7265,6 +7264,21 @@ function subAUDforUSD(s) {
 }
 window.subAUDforUSD = subAUDforUSD;
 
+function updateUSDAUDexchange() {
+    var url = `http://openexchangerates.org/latest.json?app_id=${dactyl.user.myopenexchangeratesappid}`;
+    fetch(url)
+        .then(response=>response.json())
+        .then(obj => {
+            var base = obj.rates.base;
+            var rate = obj.rates.AUD;
+            window.AUDperUSD = rate;
+            utils.message(rate);
+        });
+}
+
+function getUSDAUDexchange() { return window.AUDperUSD; }
+window.getUSDAUDexchange = getUSDAUDexchange;
+
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
 function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
 
@@ -7292,9 +7306,6 @@ var re_http_url = new RegExp(
 window.re_http_url = re_http_url;
 var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
 window.re_http_url_groups = re_http_url_groups;
-
-function getUSDAUDexchange() { return window.AUDperUSD; }
-window.getUSDAUDexchange = getUSDAUDexchange;
 
 function wget(url=null, optstr="", dirpref="~/Downloads") {
     if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
