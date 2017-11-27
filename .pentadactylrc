@@ -7265,7 +7265,7 @@ function subAUDforUSD(s) {
 window.subAUDforUSD = subAUDforUSD;
 
 function updateUSDAUDexchange() {
-    var url = `http://openexchangerates.org/latest.json?app_id=${dactyl.user.myopenexchangeratesappid}`;
+    var url=`http://openexchangerates.org/latest.json?app_id=${dactyl.user.myopenexchangeratesappid}&base=USD`;
     fetch(url)
         .then(response=>response.json())
         .then(obj => {
