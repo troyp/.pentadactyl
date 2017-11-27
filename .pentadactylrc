@@ -246,6 +246,9 @@ map <ext><C-h>     -description "(show bindings)" -js CommandExMode().open("map 
 map <xtra><C-h>    -description "(show bindings)" -js CommandExMode().open("map <xtra>")
 map <S-xtra><C-h>  -description "(show bindings)" -js CommandExMode().open("map <S-xtra>")
 map <browser><C-h> -description "(show bindings)" -js CommandExMode().open("map <browser>")
+map   -modes normal <browser><C-h>
+    \ -description "(show bindings)"
+    \ -js CommandExMode().open("map -modes normal <browser>")
 map <yank><C-h>    -description "(show bindings)" -js CommandExMode().open("map <yank>")
 map <option><C-h>  -description "(show bindings)" -js CommandExMode().open("map <option>")
 map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("map <C-x>")
