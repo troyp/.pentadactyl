@@ -9,6 +9,8 @@
 
 // jshint esversion: 6
 
+var REMOVE_ADS = false;
+
 var page = document.getElementById('page_container');
 
 // fix details links
@@ -37,3 +39,16 @@ for (var l of links) {
     if (match) l.href = match[1];
 }
 
+// move/remove sidebar ad
+var sidebar = document.getElementById('secondary');
+var sidebar_ad = sidebar && sidebar.querySelector('.search-results__sidebar-ad');
+if (sidebar_ad) {
+    sidebar_ad.remove();
+    if (!REMOVE_ADS) sidebar.appendChild(sidebar_ad);
+}
+
+// remove footer ad
+if (REMOVE_ADS) {
+    var footer_ad = document.querySelector('.footer-ad');
+    footer_ad && footer_ad.remove();
+}
