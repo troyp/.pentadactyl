@@ -1719,7 +1719,66 @@ command! firebug :feedkeys! <C-f12>
 command! firebugShow -js Firebug.showBar(true);
 command! firebugHide -js Firebug.showBar(null);
 
+" -------------------------------------------------------------------------------
+" ,-----------------,
+" | Jash JS Console |
+" '-----------------'
+command! jash -js jashToggle();
+
+map <ext>jj -ex jash
+map <ext>je -js jashEvalTab();
+map <ext>js -js jashCssTab();
+map <ext>jm -js jashMouseoverTab();
+map <ext>ji -js jashInspectTab();
+map <ext>jc -js jashClearTab();
+map <ext>jh -js jashHelpTab();
+
+js <<EOF
+function jashRun() {
+    var jashElt = content.document.createElement('script');
+    jashElt.src = 'http://www.billyreisinger.com/jash/source/latest/Jash.js';
+    content.document.body.appendChild(jashElt);
+    //content.document.body.appendChild(document.createElement('script')).src='http://www.billyreisinger.com/jash/source/latest/Jash.js'
+}
+
+function jashHide() {
+    var jashParent = content.document.getElementById('JashParent');
+    jashParent.style.display = 'none';
+}
+
+function getJash() { return content.document.getElementById('JashParent'); }
+
+function jashToggle() {
+    var jashParent = content.document.getElementById('JashParent');
+    if (jashParent) {
+        jashParent.style.display = jashParent.style.display=='none' ? 'block' : 'none';
+    } else {
+        jashRun();
+    }
+}
+
+function jashTabs() {
+    var jashTabList = content.document.querySelectorAll('#JashBottomBar>.JashButton');
+    var jashtabs = new Object();
+    jashtabs.evaluate  = jashTabList[0];
+    jashtabs.css       = jashTabList[1];
+    jashtabs.mouseover = jashTabList[2];
+    jashtabs.inspect   = jashTabList[3];
+    jashtabs.clear     = jashTabList[4];
+    jashtabs.help      = jashTabList[5];
+    return jashtabs
+}
+
+function jashEvalTab()      { jashTabs().evaluate.click();  }
+function jashCssTab()       { jashTabs().css.click();       }
+function jashMouseoverTab() { jashTabs().mouseover.click(); }
+function jashInspectTab()   { jashTabs().inspect.click();   }
+function jashClearTab()     { jashTabs().clear.click();     }
+function jashHelpTab()      { jashTabs().help.click();      }
+
+EOF
 " -----------------------------------------------------------------------------
+
 " ,----------,
 " | TileView |
 " '----------'
