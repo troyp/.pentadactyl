@@ -301,9 +301,9 @@ map <C-S-N> <Nop>
 " focus frame
 map -modes normal -b vf ;F
 " visual mode "
-map -modes normal <browser>v -ex feedkeys iv
+map -modes normal <browser>v -description "Visual mode" -ex feedkeys iv
 " visual (pseudo-)line mode "
-map -modes normal V -ex feedkeys i<C-a>vj
+map -modes normal V  -description "Pseudo-visual-line mode"-ex feedkeys i<C-a>vj
 
 " bind gs as :viewpagesource, free gf for g;b
 map gf <Nop>
