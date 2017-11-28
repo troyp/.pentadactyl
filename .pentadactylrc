@@ -3256,6 +3256,33 @@ map -b <site>gc O&cr=
 group user
 
 " -------------------------------------------------------------------------------
+" ,--------------------,
+" | Addons.Mozilla.org |
+" '--------------------'
+group ffaddons -locations=addons.mozilla.org
+map <leader>hkc -js CommandExMode().open("map -group ffaddons <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group ffaddons <site>")
+
+map <site>c -description "Download XPI" -js ffaddonDlToDir();
+map <site>i -description "Install XPI" -js ffaddonInstall();
+
+js <<EOF
+function ffaddonDlToDir(dir="/opt/ff-addons/") {
+    var btn = content.document.querySelector('.InstallButton-button');
+    var url = btn.getAttribute('href');
+    dactyl.execute(`!(cd ${dir} && wget '${url}')`);
+}
+
+function ffaddonInstall(dir="/opt/ff-addons/") {
+    var btn = content.document.querySelector('.InstallButton-button');
+    var url = btn.getAttribute('href');
+    dactyl.execute(`open ${url}`);
+}
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,----------------,
 " | ArchLinux Wiki |
 " '----------------'
