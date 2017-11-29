@@ -2937,6 +2937,18 @@ function clickSelector(sel) {
 }
 window.clickSelector = clickSelector;
 
+function dispatchClickSelector(sel) {
+    if (typeof sel == "string") {
+        // selector
+        var elt = content.document.querySelector(sel);
+        dispatchClickEvent(elt);
+    } else {
+        // element
+        dispatchClickEvent(sel);
+    }
+}
+window.dispatchClickSelector = dispatchClickSelector;
+
 function dispatchClickEvent(elt) {
    var ev = document.createEvent("MouseEvents");
    ev.initEvent("click", true, true);
@@ -7418,6 +7430,7 @@ EOF
 " ordinal (one-based) of tab:   t.dactylOrdinal
 " index of tab (zero-based):    t._tPos
 " capture output of shell command:    io.system('command').output
+" simulate mouse event: elt.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}))
 "
 " =============================================================================
 " ,-------------------,
