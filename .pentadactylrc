@@ -1449,29 +1449,38 @@ map <goto>wk -ex dialog bookmarks | normal <Tab>
 
 map <goto>a -ex dialog addons
 map -b <goto>c tabout:config<CR>
-map -b <goto>ec oabout:config<CR>
 map -b <goto>d tabout:downloads<CR><C-z>
-map -b <goto>ed oabout:downloads<CR><C-z>
 map -b <goto>k tchrome://browser/content/places/places.xul<CR>gi<C-z>
-map -b <goto>ek ochrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>K tchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
-map -b <goto>eK ochrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
 map -b <goto>l tchrome://passwordmgr/content/passwordManager.xul<CR>
-map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
 map -b <goto>p tabout:plugins<CR>
-map -b <goto>ep oabout:plugins<CR>
 map -b <goto>P tabout:preferences<CR><C-z>
-map -b <goto>eP oabout:preferences<CR><C-z>
 map -b <goto>r tabout:sessionrestore<CR>
-map -b <goto>er oabout:sessionrestore<CR>
 map -b <goto>s tabout:support<CR>
-map -b <goto>es oabout:support<CR>
-map -b <goto>s tabout:support<CR>
-map -b <goto>es oabout:support<CR>
-map -b <goto>w tabout:profiles<CR>
-map -b <goto>ew oabout:profiles<CR>
+map -b <goto>i tabout:profiles<CR>
 map -b <goto>` tfile:///home/troy/<CR>
+map -b <goto>ec oabout:config<CR>
+map -b <goto>ed oabout:downloads<CR><C-z>
+map -b <goto>ek ochrome://browser/content/places/places.xul<CR>gi<C-z>
+map -b <goto>eK ochrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
+map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
+map -b <goto>ep oabout:plugins<CR>
+map -b <goto>eP oabout:preferences<CR><C-z>
+map -b <goto>er oabout:sessionrestore<CR>
+map -b <goto>es oabout:support<CR>
+map -b <goto>ei oabout:profiles<CR>
 map -b <goto>e` ofile:///home/troy/<CR>
+map -b <goto>wc wabout:config<CR>
+map -b <goto>wd wabout:downloads<CR><C-z>
+map -b <goto>wk wchrome://browser/content/places/places.xul<CR>gi<C-z>
+map -b <goto>wK wchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
+map -b <goto>wl wchrome://passwordmgr/content/passwordManager.xul<CR>
+map -b <goto>wp wabout:plugins<CR>
+map -b <goto>wP wabout:preferences<CR><C-z>
+map -b <goto>wr wabout:sessionrestore<CR>
+map -b <goto>ws wabout:support<CR>
+map -b <goto>wi wabout:profiles<CR>
+map -b <goto>w` wfile:///home/troy/<CR>
 command! appcache
     \ -description "Open about:cache in new tab"
     \ :tabopen about:cache?storage=appcache
