@@ -6509,6 +6509,25 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------------,
+" | VapeKing.com.au |
+" '-----------------'
+group vapeking -locations=vapeking.com.au
+map <leader>hkc -js CommandExMode().open("map -group vapeking <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group vapeking <site>")
+
+map <site>c -description "enter" -js vkEnter();
+
+js <<EOF
+
+function vkEnter() { clickSelector('#AVenterLink'); }
+
+EOF
+
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-----------,
 " | Weblio.jp |
 " '-----------'
