@@ -19,6 +19,7 @@ js var user = dactyl.utils.getPlugin("personal");
 
 runtime! js/jquery.min.js
 runtime! js/sprintf.js
+runtime! js/simulateHtmlMouseEvents.js
 set passkeys=
 
 " -------------------------------------------------------------------------------
