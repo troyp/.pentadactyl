@@ -467,6 +467,8 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
 map <leader>a<C-h> -js CommandExMode().open("map <leader>a")
+" Paypal "
+map <leader>ap -count -ex js openInNewOrCurrentTab('https://www.paypal.com/myaccount/home')(<count>)
 " Time
 map <leader>at -count -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
 " Weather
