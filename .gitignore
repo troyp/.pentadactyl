@@ -20,6 +20,6 @@ temp.*
 info/
 scratch.*
 personal.js
-/docs/firefox-devtools-kb-shortcuts.html
-/docs/firefox-kb-shortcuts.html
-/docs/firefox-mouse-shortcuts.html
+/doc/firefox-devtools-kb-shortcuts.html
+/doc/firefox-kb-shortcuts.html
+/doc/firefox-mouse-shortcuts.html

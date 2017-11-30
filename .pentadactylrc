@@ -1447,6 +1447,11 @@ command! historydialog
 " bookmarks "
 map <goto>wk -ex dialog bookmarks | normal <Tab>
 
+" pentadactyl help
+map <local-help> -ex tabopen ~/.pentadactyl/doc/help/index.html
+" single-page pentadactyl help
+map <local-help-all> -ex tabopen ~/.pentadactyl/doc/all.html
+
 map <goto>a -ex dialog addons
 map -b <goto>c tabout:config<CR>
 map -b <goto>d tabout:downloads<CR><C-z>
@@ -1489,10 +1494,7 @@ set passkeys+='chrome://browser/content/bookmarks/bookmarksPanel.xul':'<Up><Down
 set passkeys+='chrome://browser/content/places/places.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Left><Right>'
 
-map <local-help> -ex tabopen ~/.pentadactyl/docs/help/index.html
 map <goto>h <local-help>
-" single-page pentadactyl help
-map <local-help-all> -ex tabopen ~/.pentadactyl/docs/all.html
 map <goto><f1> <local-help-all>
 
 " Pentadactyl source
