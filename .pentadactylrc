@@ -1455,6 +1455,7 @@ map <local-help-all> -ex tabopen ~/.pentadactyl/doc/all.html
 map <goto>a -ex dialog addons
 map -b <goto>c tabout:config<CR>
 map -b <goto>d tabout:downloads<CR><C-z>
+map -b <goto>h<f1> :tfile:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>k tchrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>K tchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
 map -b <goto>l tchrome://passwordmgr/content/passwordManager.xul<CR>
@@ -1464,8 +1465,10 @@ map -b <goto>r tabout:sessionrestore<CR>
 map -b <goto>s tabout:support<CR>
 map -b <goto>i tabout:profiles<CR>
 map -b <goto>` tfile:///home/troy/<CR>
+map -b <goto>e<f1> :tfile:///home/troy/.pentadactyl/doc/all.html
 map -b <goto>ec oabout:config<CR>
 map -b <goto>ed oabout:downloads<CR><C-z>
+map -b <goto>eh<f1> :ofile:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>ek ochrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>eK ochrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
 map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
@@ -1475,8 +1478,10 @@ map -b <goto>er oabout:sessionrestore<CR>
 map -b <goto>es oabout:support<CR>
 map -b <goto>ei oabout:profiles<CR>
 map -b <goto>e` ofile:///home/troy/<CR>
+map -b <goto>e<f1> :ofile:///home/troy/.pentadactyl/doc/all.html
 map -b <goto>wc wabout:config<CR>
 map -b <goto>wd wabout:downloads<CR><C-z>
+map -b <goto>wh<f1> :wfile:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>wk wchrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>wK wchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
 map -b <goto>wl wchrome://passwordmgr/content/passwordManager.xul<CR>
@@ -1486,6 +1491,12 @@ map -b <goto>wr wabout:sessionrestore<CR>
 map -b <goto>ws wabout:support<CR>
 map -b <goto>wi wabout:profiles<CR>
 map -b <goto>w` wfile:///home/troy/<CR>
+map -b <goto>e<f1> :wfile:///home/troy/.pentadactyl/doc/all.html
+
+" Pentadactyl source
+map <goto>D -ex tabopen resource://dactyl/
+
+
 command! appcache
     \ -description "Open about:cache in new tab"
     \ :tabopen about:cache?storage=appcache
@@ -1493,12 +1504,6 @@ command! appcache
 set passkeys+='chrome://browser/content/bookmarks/bookmarksPanel.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://browser/content/places/places.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Left><Right>'
-
-map <goto>h <local-help>
-map <goto><f1> <local-help-all>
-
-" Pentadactyl source
-map <goto>D -ex tabopen resource://dactyl/
 
 " Select:
 map s;h :history! -max 30 -sort -date<SPACE>
