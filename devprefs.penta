@@ -1,12 +1,12 @@
-"  _____________________________ 
+"  _____________________________
 " |                             |
 " | Set Development Preferences |
 " |_____________________________|
-" 
+"
 " Sets the development preferences recommended by
 " https://developer.mozilla.org/en-US/Add-ons/Setting_up_extension_development_environment#Development_preferences
-" 
-set! javascript.options.showInConsole = true 
+"
+set! javascript.options.showInConsole = true
 " Logs errors in chrome files to the Error Console.
 
 set! nglayout.debug.disable_xul_cache = true
