@@ -7543,3 +7543,4 @@ EOF
 "       }
 "   This also redefines the argument when zero is passed, but if it's only meant
 "   to take a count, it's okay, since counts can't be zero.
+" * To override user agent for specific domain, use general.useragent.override.example.com
