@@ -68,6 +68,12 @@ style -name=fixruby japanese.stackexchange.com
 \     white-space: nowrap !important;
 \ }
 
+" ,-----,
+" | XUL |
+" '-----'
+
+" not working
+style highlight-tree-row * treechildren::-moz-tree-row(selected) { bg-color: #ABD0ED !important; }
 
 " -------------------------------------------------------------------------------
 " ,---------------,
@@ -347,3 +353,36 @@ style -group stackexchange -name=seruby https?://japanese.stackexchange.com/.*
     \     display:ruby-text-container !important;
     \ }
 styleenable -group stackexchange -name seruby
+
+" -------------------------------------------------------------------------------
+" ,--------------------,
+" | OnePiece.Wikia.com |
+" '--------------------'
+group wikiaonep -locations='onepiece\.wikia\.com/wiki/'
+map <leader>hkc -js CommandExMode().open("map -group wikiaonep <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group wikiaonep <site>")
+
+js <<EOF
+/*
+stripNonCanon() {
+    var spanElts = Array.from(content.document.getElementsByTagName('span'));
+    var noncanonHeading = spanElts.filter(e=>e.innerText.match('The following events are Non-Canon'));
+
+    var content = content.document.getElementById('mw-content-text');
+    regex = /<p>[\s\S]*?The following events are <[^>]+>Non-Canon[\s\S]*?Concludes non-canon section[\s\S]*?<\/p>[\s\S]*?<hr>/;
+    content.innerHTML = content.innerHTML.replace
+}
+*/
+EOF
+
+" Repeat wikia bindings so <site><C-h> works "
+map <site>a -ex wikiaremovefandomads
+map <site>r -ex wikiaremovecruft
+map <site>i -ex wikiaremoveimages
+map <site>] -ex wikianext
+map <site>[ -ex wikiaprevious
+
+command! advtimeToggleTranscript -js advtimeToggleTranscript();
+map <site>c -ex advtimeToggleTranscript
+
+group user
