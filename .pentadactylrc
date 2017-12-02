@@ -6562,7 +6562,7 @@ function weblioTidy() {
     weblioRemoveAds();
     removeSelectors(
         '#footFixBar',    // popup footer
-        '.topicR',        // social buttons
+        '.topicR'         // social buttons
     );
     setSelectorOpacity(
         0.3,
@@ -6570,13 +6570,13 @@ function weblioTidy() {
         '#headTurboLink',
         '.pin-icon-cell',
         '#leadToVocabIndexBtnWrp',
-        '#leadToSpeakingTestIndexBtnWrp',
+        '#leadToSpeakingTestIndexBtnWrp'
     );
 }
 function weblioRemoveAds() {
     removeSelectors(
     '.ad', '.ad1',
-    '.adGH','.adsbygoogle',
+    '.adGH','.adsbygoogle'
     );
     weblioCleanSidebar();
 }
@@ -6644,10 +6644,10 @@ function wikiaSimplePage() {
     removeSelectors(
         'header',
         '.page-header__categories',
-        '.page-header__contribution',
+        '.page-header__contribution'
     );
     hideSelectors(
-        '.page-header__subtitle',
+        '.page-header__subtitle'
     );
     removeSelectorsFiltered(
         '.contains',
