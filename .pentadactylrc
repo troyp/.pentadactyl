@@ -3051,7 +3051,7 @@ set eht+=[\]:':-moz-any-link'
 js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
 
 " svg: FIXME
-runtime! js/svg-pan-zoom.min.js
+runtime! js/libs/svg-pan-zoom.min.js
 set eht+=[G]:svg
 js hints.addMode('G','pan & zoom SVG',alert);
 " openseadragon: image zoom and pan "
