@@ -3316,6 +3316,65 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,-------------------,
+" | AnimatedKnots.com |
+" '-------------------'
+group animatedknots -locations=animatedknots.com
+map <leader>hkc -js CommandExMode().open("map -group animatedknots <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group animatedknots <site>")
+
+set passkeys+='https?://animatedknots.com/.*':'<left><right>'
+
+command! aknotadjust -js animKnotsAdjustments();
+autocmd DOMload animatedknots.com :aknotadjust
+
+map <site>c -ex aknotadjust
+map <site>h -js animKnotsShowInstructions();
+
+js <<EOF
+
+function animKnotsGoToFrame(n) {
+    dactyl.open(`javascript:picMouseOver(${n})`);
+}
+
+function animKnotsRemoveAds() {
+    removeSelectors('.tl-ad-tag');
+}
+
+function animKnotsShowInstructions() {
+    var instructDiv = content.document.querySelector('#TheKnotDescription');
+    var instructions = instructDiv.innerText;
+    alert(instructions);
+}
+
+function animKnotsHideInstructions() { hideSelectors('#TheKnotDescription', 'div.tablecenter.Cell6'); }
+
+function animKnotsRemoveAds() {
+    "Remove large ad"
+    removeSelectors('.borderstopbottom', '#ad_unit', '.tl-ad-tag');
+    "Remove banner ad iframes"
+    removeSelectors('iframe');
+}
+
+function animKnotsMakeHeaderScrollable() {
+    var header = content.document.querySelector('body>div:first-of-type');
+    header.style.position = 'static';
+    var divider = content.document.querySelector('body>div:first-of-type>hr:first-of-type');
+    divider.style.position = 'static';
+}
+
+function animKnotsAdjustments() {
+    animKnotsMakeHeaderScrollable();
+    animKnotsHideInstructions();
+    animKnotsRemoveAds();
+}
+
+EOF
+
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,----------------,
 " | ArchLinux Wiki |
 " '----------------'
