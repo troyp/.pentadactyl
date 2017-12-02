@@ -17,8 +17,8 @@ js var utils = dactyl.utils.getPlugin("utils");
 runtime! personal.js
 js var user = dactyl.utils.getPlugin("personal");
 
-runtime! js/jquery.min.js
-runtime! js/sprintf.js
+runtime! js/libs/jquery.min.js
+runtime! js/libs/sprintf.js
 runtime! js/simulateHtmlMouseEvents.js
 set passkeys=
 
@@ -1380,7 +1380,7 @@ EOF
 
 command! tginit
     \ description "Initialize pentadactyl tabgroups commands"
-    \ :runtime! tabgroups.penta
+    \ :runtime! config/tabgroups.penta
 
 " ,-----------,
 " | Tile Tabs |
@@ -3405,7 +3405,7 @@ autocmd! -group edx
 map <leader>hkc -js CommandExMode().open("map -group edx <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group edx <site>")
 
-command! edx :runtime! edx.penta
+command! edx :runtime! config/edx.penta
 autocmd DOMload courses.edx.org :edx
 
 " if syllabus won't stay open "
