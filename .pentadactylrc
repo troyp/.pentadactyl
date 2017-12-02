@@ -3020,6 +3020,12 @@ EOF
 " Re-add [iI] tags: broken by preceding code for [ ] (not sure why) "
 set eht+=[iI]:img
 
+" Search for link text "
+set eht=[pP]:':-moz-any-link','area[href]','img[src]','iframe[src]'
+js function search(s, opts={}) { dactyl.open('http://www.google.com/search?q='+s, opts); }
+js hints.addMode('p','Search for link text', e=>search(e.innerText, {where: 'tab'}))
+js hints.addMode('P','Search for link text', e=>search(e.innerText, {where: 'here'}))
+
 " remove structural elements
 set eht+=[x]:div,iframe,header,footer,aside,form,'input:not([type=hidden])',textarea,img,ul,ol
 js hints.addMode('x','Remove element', e=>e.remove());
