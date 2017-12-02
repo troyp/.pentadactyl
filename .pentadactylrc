@@ -6777,6 +6777,7 @@ EOF
 " Repeat wikia bindings so <site><C-h> works "
 map <site>a -ex wikiaremovefandomads
 map <site>r -ex wikiaremovecruft
+map <site>s -ex wikiasimplepage
 map <site>i -ex wikiaremoveimages
 map <site>] -ex wikianext
 map <site>[ -ex wikiaprevious
