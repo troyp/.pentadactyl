@@ -228,3 +228,122 @@ group user
 js AddonManager.getAddonByID('toktogi@toktogi.com', a=>{ window.toktogi = a; })
 
 " -------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
+" ,----------------------------------------------,
+" | Rikaisama with Google Translate HW Input Box |
+" '----------------------------------------------'
+
+style -name=gtr-under-rikaichan https://translate.google.com.au,https://translate.google.com
+    \ .ita-hwt-ime { z-index: 2 !important; }
+map <site>tr -ex styletoggle gtr-under-rikaichan
+
+style -name=rikaisama-on-top * #rikaichan-window { z-index: 8888888888 !important; }
+map <ext>rto -ex styletoggle -name rikaisama-on-top
+
+js <<EOF
+function gtrToggleRikaichanOnTop() {
+    var div = content.document.getElementsByClassName('ita-hwt-ime')[0];
+    var css = div.getAttribute('style');
+    var zre = /z-index: (\d+)/;
+    var zmatch = css.match(zre);
+    var newcss;
+    if (zmatch) {
+        var zval = parseInt(zmatch[1]);
+        if (zval > 2)
+            newcss = css.replace(zre, 'z-index: 2');
+        else
+            newcss = css.replace(zre, 'z-index: 3');
+    } else {
+        newcss = css+'z-index: 2 !important';
+    }
+    div.setAttribute('style', newcss);
+    utils.message(newcss.match(zre)[0]);
+}
+EOF
+command! hwtogglerikaichanontop -js gtrToggleRikaichanOnTop();
+map <site>tr -ex hwtogglerikaichanontop
+
+" -------------------------------------------------------------------------------
+" ,------,
+" | eBay |
+" '------'
+
+style -group ebay -name=ebaystyle https?://www.ebay.com.au/.*
+\ .im-idp>p>a { font-size: 80% !important; }
+styleenable -group ebay -name ebaystyle
+
+" -------------------------------------------------------------------------------
+" ,---------------,
+" | StackExchange |
+" '---------------'
+
+style -group stackexchange -name=seruby https?://japanese.stackexchange.com/.*
+    \ rt,ruby,rb,span.rt,span.rb{
+    \     text-align:center !important;
+    \     ruby-align:end !important;
+    \     ruby-position:under !important;
+    \ }
+    \ ruby,p ruby,ruby.ruby-rp.popups {
+    \     display:inline-block !important;
+    \     text-indent:0 !important;
+    \     white-space:nowrap !important;
+    \     line-height:1em !important;
+    \     position:relative !important;
+    \     vertical-align:baseline !important;
+    \     // margin:-1px !important;
+    \     margin: 0 !important;
+    \     border: 1px solid transparent !important;
+    \     border-collapse: collapse !important;
+    \     margin-bottom: 0 !important;
+    \     padding-bottom: 0 !important;
+    \     border-bottom: 0 !important;
+    \     ruby-align:end !important;
+    \     ruby-position:over !important;
+    \     height: 2em !important;
+    \ ruby:before, ruby:after {
+    \     content: "\00200B"
+    \ }
+    \ strong.ja-text {
+    \     margin: 0 !important;
+    \     padding: 0 !important;
+    \     border: 0 !important;
+    \     margin-bottom: 0 !important;
+    \     padding-bottom: 0 !important;
+    \     border-bottom: 0 !important;
+    \
+    \ }
+    \ rb,span.rb{
+    \     display:ruby-base !important;
+    \     line-height:1em !important;
+    \     height:1em !important;
+    \     font-size:1em !important;
+    \     border:none !important;
+    \     margin:0 !important;
+    \     padding:0 !important;
+    \     white-space:nowrap !important;
+    \     //padding-top: 0.5em !important;
+    \     padding-top: 1em !important;
+    \     vertical-align: bottom !important;
+    \ }
+    \ rt,span.rt{
+    \     position:relative !important;
+    \     display:ruby-text !important;
+    \     font-size:0.75em !important;
+    \     line-height:1.3em !important;
+    \     height:1.3em !important;
+    \     white-space:nowrap !important;
+    \     border:none !important;
+    \     margin:0 !important;
+    \     padding:0 !important;
+    \     padding-top: 1em !important;
+    \     top: 0 !important;
+    \     vertical-align: top !important;
+    \ }
+    \ rbc {
+    \     display:ruby-base-container !important;
+    \ }
+    \ rtc {
+    \     vertical-align: top !important;
+    \     display:ruby-text-container !important;
+    \ }
+styleenable -group stackexchange -name seruby

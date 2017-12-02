@@ -227,8 +227,7 @@ function xhr(url, cb) {
 // | Exchange Rate |
 // '---------------'
 
-function updateUSDAUDexchange(context) {
-    context = context || window;
+function updateUSDAUDexchange() {
     var url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDAUD%22%29&env=store://datatables.org/alltableswithkeys&format=json";
     fetch(url)
         .then(response=>response.json())
@@ -238,7 +237,41 @@ function updateUSDAUDexchange(context) {
             var ask = parseFloat(x.query.results.rate.Ask);
             var bid = parseFloat(x.query.results.rate.Bid);
             var avg = (ask+bid)/2;
-            context.AUDperUSD = avg;
+            window.AUDperUSD = avg;
             alert(avg);
         });
+}
+
+// -------------------------------------------------------------------------------
+// ,--------,
+// | Tables |
+// '--------'
+
+function deleteCol(cols) {
+    var tables = document.getElementsByTagName('table');
+    for (var t of Array.from(tables))
+        for (var r of Array.from(t.rows))
+            for (var i of cols) {
+                var cell = r.children[i];
+                if (cell) cell.remove();
+            }
+}
+
+// -------------------------------------------------------------------------------
+// ,-----------,
+// | Rikaisama |
+// '-----------'
+
+window._rikaiPrefService = XpcService("@mozilla.org/preferences-service;1", "nsIPrefBranch");
+_rikaiPrefService.setCharPref('extensions.rikaisama.toggle.key', 'F1');
+_rikaiPrefService.setCharPref('extensions.rikaisama.toggle.mod', 'accel');
+window._rikaiDefaultPrefs = "/home/troy/.moonchild productions/pale moon/n8pdu9nh.default/extensions/{697F6AFE-5321-4DE1-BFE6-4471C3721BD4}/defaults/preferences/rikaichan.js"
+
+
+// -------------------------------------------------------------------------------
+// ,-------,
+// | Jisho |
+// '-------'
+function showDropdown(linkelt) {
+    linkelt.style.left = "0px";
 }
