@@ -1688,6 +1688,8 @@ command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
 map <xtra>r -ex js!
 map <leader>ee :echo<Space>
 map <leader>eE :echo doc=content.document;<Space>$=jQuery;<Space>
+map <leader>ef :echo doc=content.window.frames[0].document;<Space>$=jQuery;<Space>
+map -count <leader>eF :echo doc=content.window.frames[0<count>].document;<Space>$=jQuery;<Space>
 map <leader>er -ex js!
 map <leader>eR -js dactyl.execute("js doc=content.document; $=jQuery;"); dactyl.execute("js!");
 map <leader>em :js <<EOF
