@@ -2035,6 +2035,12 @@ command! acunsetextupdate :set! extensions.update.enabled
 command! actoggleextupdate toggleconfig extensions.update.enabled
 command! acgetextupdate getboolpref extensions.update.enabled
 
+" Open related tab after current "
+command! acsetrelatedtabaftercurrent   :set! browser.tabs.insertRelatedAfterCurrent
+command! acunsetrelatedtabaftercurrent :set! browser.tabs.insertRelatedAfterCurrent
+command! actogglerelatedtabaftercurrent toggleconfig browser.tabs.insertRelatedAfterCurrent
+command! acgetrelatedtabaftercurrent getboolpref browser.tabs.insertRelatedAfterCurrent
+
 " ============================================================================
 "                                      _________
 "                                     |         |
