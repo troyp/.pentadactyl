@@ -1,4 +1,4 @@
-/* global window, exports, define */
+/* global window, exports, define */ /* https://github.com/alexei/sprintf.js/tree/master/ *
 
 !function() {
     'use strict'
