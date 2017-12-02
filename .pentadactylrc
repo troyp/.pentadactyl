@@ -3296,6 +3296,8 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -gr
 
 map <site>c -description "Download XPI" -js ffaddonDlToDir();
 map <site>i -description "Install XPI" -js ffaddonInstall();
+map <site>v -description "Show all versions" -js clickSelector('.AddonMoreInfo-version-history-link');
+map <site>b -description "Show beta versions" -js clickSelector('..AddonMoreInfo-beta-versions-link');
 
 js <<EOF
 function ffaddonDlToDir(dir="/opt/ff-addons/") {
