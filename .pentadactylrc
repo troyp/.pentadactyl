@@ -36,6 +36,8 @@ var Cu = Components.utils;
 "imports"
 Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
 Cu.import("resource://gre/modules/FileUtils.jsm");
+Cu.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
+
 
 "components"
 var Cc = Components.classes;
@@ -78,7 +80,10 @@ var env = XpcService("@mozilla.org/process/environment;1",
 window.env = env;
 
 var nsIFilePicker = Ci.nsIFilePicker;
-var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
+window.nsIFilePicker = nsIFilePicker;
+var WebBrowserPersist = Components.Constructor("@mozilla.org/embedding/browser/nsWebBrowserPersist;1",
+                                                 "nsIWebBrowserPersist");
+window.WebBrowserPersist = WebBrowserPersist;
 
 "Firefox Preferences"
 var prefservice = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
@@ -7501,6 +7506,21 @@ function stringToSmartCaseRegExp(s) {
 function cutoff(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
+
+function savePageDialog(uriToSave) {
+    var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
+    fp.init(content.window, "save file", nsIFilePicker.modeSave);
+    fp.appendFilters(nsIFilePicker.filterText);
+    fp.appendFilters(nsIFilePicker.filterAll);
+    fp.open(function(rv) {
+        var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1']
+                  .createInstance(Components.interfaces.nsIWebBrowserPersist);
+        if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
+            wbp.saveDocument(content.document, fp.file, null, null, null, null);
+        }
+    });
+}
+window.savePageDialog = savePageDialog;
 
 // ,-------------------------,
 // | variables for temp data |
