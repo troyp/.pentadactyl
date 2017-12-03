@@ -2995,18 +2995,18 @@ EOF
 "                                      | HINTS |
 "                                      |_______|
 
-set ht=:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],svg,a[class^=vote],a[class^=speed],div.ita-hwt-candidate,.preference>li
+set ht=a,:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],svg,a[class^=vote],a[class^=speed],div.ita-hwt-candidate,.preference>li
 
 " Show extended hints modes
 command! listhintmodes :echo hints.modes
 
-set eht=[asOTvVWy]:':-moz-any-link','area[href]','img[src]','iframe[src]'
+set eht=[asOTvVWy]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 set eht+=[iI]:img
 set eht+=[A]:'[id]','a[name]'
 set eht+=[f]:body
 set eht+=[F]:body,code,div,html,p,pre,span
 set eht+=[S]:'input:not([type=hidden])',textarea,button,select
-" set eht=[iI]:img,[asOTvVWy]:':-moz-any-link','area[href]','img[src]','iframe[src]',[A]:'[id]','a[name]',[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
+" set eht=[iI]:img,[asOTvVWy]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]',[A]:'[id]','a[name]',[f]:body,[F]:body,code,div,html,p,pre,span,[S]:'input:not([type=hidden])',textarea,button,select
 js hints.addMode('m','mouseover',utils.simulateMouseover);
 
 set eht='[ ]':a,img,':-moz-any-link'
@@ -3026,7 +3026,7 @@ EOF
 set eht+=[iI]:img
 
 " Search for link text "
-set eht=[pP]:':-moz-any-link','area[href]','img[src]','iframe[src]'
+set eht=[pP]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js function search(s, opts={}) { dactyl.open('http://www.google.com/search?q='+s, opts); }
 js hints.addMode('p','Search for link text', e=>search(e.innerText, {where: 'tab'}))
 js hints.addMode('P','Search for link text', e=>search(e.innerText, {where: 'here'}))
@@ -3042,23 +3042,23 @@ js hints.addMode('0','make div invisible', utils.undisplay);
 
 " replace ;t with function for ;b (open in background)
 js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
-set eht+=[e]:':-moz-any-link'
+set eht+=[e]:'a',':-moz-any-link'
 js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
 " Show node (popup)"
-set eht+=[`]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[`]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('`','show node (popup)', e => alert(e.innerHTML || e));
 " Get node "
-set eht+=[1]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[1]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('1','get node', e => dactyl.stored_node=e);
 " Get selectors (uses Stylish functions) "
-set eht+=[2]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[2]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('2','get selectors', e => dactyl.stored_result = stylishCommon.generateSelectors(e));
 
 " inspect in Firebug
-set eht+=[\.]:':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[\.]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
 " open link with wayback
-set eht+=[\]:':-moz-any-link'
+set eht+=[\]:'a',':-moz-any-link'
 js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
 
 " svg: FIXME
@@ -3115,7 +3115,7 @@ js hints.addMode('字', 'copy kanji', elem=>utils.cbWrite(elem.innerText));
 js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>window._dactylargs[0](e.innerText));
 
 " copy link url to dactylresult "
-set eht+=[α]:':-moz-any-link','area[href]','img[src]','iframe[src]'
+set eht+=[α]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("α", "Copy href to dactylresult", e=>{ window.dactylresult = e.href; });
 
 " bold links: mode ä "
@@ -3188,7 +3188,7 @@ set hinttags+=a[class^='speed']
 " '------------------'
 "
 " FIXME: can't activate context menu on 'body' hint
-":set eht+=[c]:body,':-moz-any-link',area,button,iframe,input:not([type=hidden]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true]
+":set eht+=[c]:body,'a',':-moz-any-link',area,button,iframe,input:not([type=hidden]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true]
 
 " -----------------------------------------------------------------------------
 " ,-------------------,
@@ -4547,12 +4547,12 @@ map <site>r -ex ghsavethisreadmetodoc
 map <site>c -js ghClickReadme();
 
 " === hint modes === "
-set eht+=🄶:':-moz-any-link','area[href]','img[src]','iframe[src]'
+set eht+=🄶:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("🄶", "open raw file", e=>dactyl.open(e.href+'?raw=true', where='here'));
-set eht+=🅶:':-moz-any-link','area[href]','img[src]','iframe[src]'
+set eht+=🅶:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("🅶", "open raw file (new tab)", e=>dactyl.open(e.href+'?raw=true', where='tab'));
-set eht+=Ⓖ:':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("Ⓖ", "copy raw file url", e=>utils.cbWrite(e.href+'?raw=true', where='tab'));
+set eht+=Ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 
 js <<EOF
 
@@ -6712,7 +6712,7 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -gr
 " ,- - - - - - - - - - - - - - - - - - - - - - - - - ,
 " ' override f to work on Wikia collapsible sections '
 " '- - - - - - - - - - - - - - - - - - - - - - - - - '
-set eht+=🅆:':-moz-any-link',area,button,iframe,'input:not([type=hidden]):not([disabled])','label[for]',select,textarea,'[onclick]','[onmouseover]','[onmousedown]','[onmouseup]','[oncommand]','[tabindex]','[role=link]','[role=button]','[contenteditable=true]',svg,'a[class^=vote]','a[class^=speed]',div.ita-hwt-candidate,.preference>li,section.pi-collapse
+set eht+=🅆:'a',':-moz-any-link',area,button,iframe,'input:not([type=hidden]):not([disabled])','label[for]',select,textarea,'[onclick]','[onmouseover]','[onmousedown]','[onmouseup]','[oncommand]','[tabindex]','[role=link]','[role=button]','[contenteditable=true]',svg,'a[class^=vote]','a[class^=speed]',div.ita-hwt-candidate,.preference>li,section.pi-collapse
 js <<EOF
 hints.addMode(
     '🅆',
