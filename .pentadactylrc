@@ -4638,10 +4638,12 @@ function ghDownloadReadmeToDoc(repo, name, ext, overwrite) {
 }
 function ghSaveThisReadmeToDoc(overwrite) {
     var matches = buffer.URL.match(/github.com\/([^/]+\/([^/]+))\/blob\/master\/README\.(.+)/);
-    var repo = matches[1];
-    var name = matches[2];
-    var ext = matches[3];
-    ghDownloadReadmeToDoc(repo, name, ext, overwrite);
+    if (matches) {
+        var repo = matches[1];
+        var name = matches[2];
+        var ext = matches[3];
+        ghDownloadReadmeToDoc(repo, name, ext, overwrite);
+    }
 }
 
 function ghClickReadme() {
