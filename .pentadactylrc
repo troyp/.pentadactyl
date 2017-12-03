@@ -4493,11 +4493,13 @@ group github -locations=github.com,githubusercontent.com,rawgit.com
 map <leader>hkc -js CommandExMode().open("map -group github <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>")
 
+map <site>c -js ghClickReadme();
 map <site>h -ex ghtogglehtmlview
 map <site>ir -ex ghlistrepos
 map <site>p -description "Permanent link" -js ghGetPermalink();
 map <site>r -description "open raw file" -js hints.show("🄶");
 map <site>R -description "open raw file (new tab)" -js hints.show("🅶");
+map <site>sR -ex "save this README to /opt/doc/" ghsavethisreadmetodoc
 map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>o")
 map <site>oh -description "open help" -js ghOpenHelp('here');
 map <site>og -description "my gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
@@ -4542,17 +4544,14 @@ command! ghsavethisreadmetodoc
     \ -bang
     \ -description "Download README for current repo to /opt/doc/"
     \ -js ghSaveThisReadmeToDoc(bang);
-map <site>r -ex ghsavethisreadmetodoc
-
-map <site>c -js ghClickReadme();
 
 " === hint modes === "
 set eht+=🄶:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("🄶", "open raw file", e=>dactyl.open(e.href+'?raw=true', where='here'));
 set eht+=🅶:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("🅶", "open raw file (new tab)", e=>dactyl.open(e.href+'?raw=true', where='tab'));
-js hints.addMode("Ⓖ", "copy raw file url", e=>utils.cbWrite(e.href+'?raw=true', where='tab'));
 set eht+=Ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
+js hints.addMode("Ⓖ", "copy raw file url", e=>utils.cbWrite(ghConvertUrlToRaw(e.href), where='tab'));
 
 js <<EOF
 
