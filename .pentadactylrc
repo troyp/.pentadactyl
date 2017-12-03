@@ -4600,6 +4600,14 @@ function ghGetUserAndRepo() {
     var repo = match[2];
     return [user, repo];
 }
+function ghGetUrlComponents(url=buffer.URL) {
+    var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/#?]+)(\/.*)?/;
+    var match = url.match(regex);
+    var user = match[1];
+    var repo = match[2];
+    var relpath = match[3];
+    return [user, repo, relpath];
+}
 function ghGetRepoName() {
     var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/#?]+)(\/.*)?/;
     var match = buffer.URL.match(regex);
@@ -4678,6 +4686,13 @@ function ghGetPermalink() {
 function ghOpenHelp(where='here') {
     dactyl.open('https://help.github.com/', where);
     window.setTimeout(()=>dactyl.execute('normal gi'), 1200);
+}
+
+function ghConvertUrlToRaw(url) {
+    [user, repo, relpath] = ghGetUrlComponents(url);
+    raw_relpath = relpath.replace(/^\/(blob|tree)\//, '/');
+    var rawurl = `https://raw.githubusercontent.com/${user}/${repo}${raw_relpath}`
+    return rawurl;
 }
 
 EOF
