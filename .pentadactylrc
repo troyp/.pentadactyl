@@ -5812,15 +5812,34 @@ map <leader>hkc -js CommandExMode().open("map -group libgen <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group libgen <site>")
 
 command! libgendl -js libgenCopyFileNameAndDownload();
+command! libgendetails -nargs 1 -js utils.cbWrite(libgenGetDetails(args[0]));
 map <site>c -ex libgendl
 
 js <<EOF
 
 function libgenGetDetails(field) {
-    var bibtext = content.document.getElementById('bibtext').value;
-    var regex = RegExp(`${field} = +{([^}]+)}`)
-    var match = bibtext.match(regex);
-    return match ? match[1] : '';
+    var bibtextDiv = content.document.getElementById('bibtext');
+    if (bibtextDiv) {
+        var bibtext = bibtextDiv.value;
+        var regex = RegExp(`${field} = +{([^}]+)}`)
+        var match = bibtext.match(regex);
+        return match ? match[1] : '';
+    } else {
+        var info = content.document.getElementById('info');
+        switch(field) {
+            case 'title':
+                return info.querySelector('h1').innerText;
+                break;
+            case 'edition':
+                break;
+            case 'year':
+                return info.querySelector('p:nth-of-type(2)').innerText.match(/Publisher.*Year: (\d\d\d\d)/)[1];
+                break;
+            case 'author':
+                return info.querySelector('p:first-of-type').innerText.replace(/Author\(s\): */, '');
+                break;
+        }
+    }
 }
 
 function libgenCopyFileNameAndDownload() {
