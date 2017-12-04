@@ -160,7 +160,7 @@ EOF
 " '---------'
 "
 set runtimepath=/home/troy/.pentadactyl
-set guioptions=bBCrmNsT
+set guioptions=bBcCrmNsT
 set incfind
 set hlfind
 set findcase=smart
@@ -195,6 +195,11 @@ command! editoremacsnewwin :set editor='emacsclient -c'
 command! editoremacsnw :set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
 " set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
 set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
+
+" ,---------------------,
+" | Pentadactyl Styling |
+" '---------------------'
+highlight CmdLine height: 15px
 
 " =============================================================================
 "                                   ______________
