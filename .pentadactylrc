@@ -6364,10 +6364,20 @@ function packtPopLink() {
     elt.remove();
 }
 
+function packtLoginLogout() {
+    var loginDiv = content.document.getElementById('account-bar-login-register');
+    if (loginDiv.style.display == 'none')
+        var link = content.document.getElementById('account-bar-sign-out');
+    else
+        var link = loginDiv.querySelector('.login-popup');
+    link.click();
+}
+
 EOF
 
 map <site>l -description "Create download buttons for top row" -js packtDlLinksTopRow();
 map <site>c -description "Download first link" -js packtPopLink();
+map <site>i -description "Login/logout" -js packtLoginLogout();
 
 group user
 
