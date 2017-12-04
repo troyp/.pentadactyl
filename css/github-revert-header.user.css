@@ -5,6 +5,11 @@
         color: #8E73E6 !important;
     }
 
+    Header input {
+        color: #333333 !important;
+        background-color: #FFFFFF !important;
+    }
+
     .header,.Header {
     padding-top: 12px !important;
     padding-bottom: 12px !important;
