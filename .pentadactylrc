@@ -374,8 +374,8 @@ map -modes normal -b <C-x>h iGvggy
 " second input area
 map -modes normal -b <xtra>gi 2gi
 " open in google chrome "
-map <xtra>c -ex ochrome
-map <xtra>C :ochromeurl
+map <xtra>c -ex ochromemin
+map <xtra>C :ochromeminurl
 " open in firefox "
 map <xtra>f -ex ofox
 " open in qutebrowser "
@@ -951,6 +951,8 @@ command! xopen -nargs=1 -complete=file !xdg-open <args>
 " Open in Google Chrome "
 command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}" &`
 command! ochromeurl -nargs 1 :exec `!google-chrome --disable-infobars "<args>" &`
+command! ochromemin :exec `!google-chrome --profile-directory='Profile 1' "${buffer.URL}" &`
+command! ochromeminurl -nargs 1 :exec `!google-chrome --profile-directory='Profile 1' "<args>" &`
 " Open in Firefox "
 command! ofox :exec `!/opt/firefox/firefox -new-tab "${buffer.URL}" &`
 " Open in Qutebrowser "
