@@ -1479,6 +1479,7 @@ map -b <goto>r tabout:sessionrestore<CR>
 map -b <goto>s tabout:support<CR>
 map -b <goto>i tabout:profiles<CR>
 map -b <goto>` tfile:///home/troy/<CR>
+map -b <goto>/ tfile:///<CR>
 map -b <goto>e<f1> :tfile:///home/troy/.pentadactyl/doc/all.html
 map -b <goto>ec oabout:config<CR>
 map -b <goto>ed oabout:downloads<CR><C-z>
@@ -1492,6 +1493,7 @@ map -b <goto>er oabout:sessionrestore<CR>
 map -b <goto>es oabout:support<CR>
 map -b <goto>ei oabout:profiles<CR>
 map -b <goto>e` ofile:///home/troy/<CR>
+map -b <goto>e/ ofile:///<CR>
 map -b <goto>e<f1> :ofile:///home/troy/.pentadactyl/doc/all.html
 map -b <goto>wc wabout:config<CR>
 map -b <goto>wd wabout:downloads<CR><C-z>
@@ -1505,6 +1507,7 @@ map -b <goto>wr wabout:sessionrestore<CR>
 map -b <goto>ws wabout:support<CR>
 map -b <goto>wi wabout:profiles<CR>
 map -b <goto>w` wfile:///home/troy/<CR>
+map -b <goto>w/ wfile:///<CR>
 map -b <goto>e<f1> :wfile:///home/troy/.pentadactyl/doc/all.html
 
 " Pentadactyl source
