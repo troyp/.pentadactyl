@@ -3022,6 +3022,18 @@ hints.addMode(
 );
 EOF
 
+set eht=[d]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
+js <<EOF
+hints.addMode(
+    'd',
+    'Yank hint description and save from command line',
+    e => {
+        editor.setRegister(null, e.textContent, true);
+        buffer.saveLink(e, false);
+    }
+);
+EOF
+
 " Re-add [iI] tags: broken by preceding code for [ ] (not sure why) "
 set eht+=[iI]:img
 
