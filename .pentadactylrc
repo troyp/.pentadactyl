@@ -160,7 +160,6 @@ EOF
 " '---------'
 "
 set runtimepath=/home/troy/.pentadactyl
-set guioptions=bBcCrmNsT
 set incfind
 set hlfind
 set findcase=smart
@@ -189,6 +188,7 @@ js editor.defaultRegister="+"
 
 set! browser.tabs.closeWindowWithLastTab=false
 
+command! guioptionsreset set guioptions=bBcCrmNsT
 command! editorvim :set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
 command! editoremacs :set editor='emacsclient'
 command! editoremacsnewwin :set editor='emacsclient -c'
