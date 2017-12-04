@@ -535,7 +535,7 @@ function googleFetchTranslation(s) {
     tb.addEventListener("DOMContentLoaded", function () {
         window.setTimeout(()=>{
             var translation = content.document.getElementById('gt-res-content').innerText;
-            utils.cbWrite(translation);
+            utils.yankWithMsg(translation);
             gBrowser.selectedTab = fromtab;
             newtab.remove();
         }, 1000);
@@ -646,25 +646,25 @@ map -description "Google append translation (div) (HINTS)" <xtra>tb -js hints.sh
 map -b -description "Yank buffer URL"
     \ <yank>y y
 map <yank>t -description "Yank page title"
-    \ -js utils.cbWrite(buffer.title)
+    \ -js utils.yankWithMsg(buffer.title)
 map <yank>l -description "Yank link reference (page title and url)"
-    \ -js utils.cbWrite(`${buffer.title}: ${buffer.URL}`)
+    \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
 map <yank>m -description "Yank markdown link"
-    \ -js utils.cbWrite(`[${buffer.title}](${buffer.URL})`)
+    \ -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
 map <yank>L -description "Yank link reference (page title and heading)"
-    \ -js utils.cbWrite(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
+    \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
 map <yank>M -description "Yank markdown link (using H1 heading as title)"
-    \ -js utils.cbWrite(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
+    \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
 map <yank>u -description "Yank buffer URL (unencoded)"
     \ -ex yanktrueURL
 map <yank>d -description "Yank page domain"
-    \ -js utils.cbWrite(buffer.URL.match(/:\/+([^/]+)/)[1])
+    \ -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
 map <yank>f -description "Yank filename or buffer URL (unencoded)"
     \ -ex yankfilenameorURL
 map <yank>x -description "Yank page text"
-    \ -js utils.cbWrite(content.document.body.innerText);
+    \ -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>h -description "Yank page heading (<H1>)"
-    \ -js utils.cbWrite(content.document.querySelector('h1').innerText);
+    \ -js utils.yankWithMsg(content.document.querySelector('h1').innerText);
 map <yank>p -description "Yank paragraph (HINTS)"
     \ -js hints.show("ÿ");
 map <yank>a -description "Yank text area #N contents"
@@ -679,11 +679,11 @@ map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
 command! yanktrueURL
     \ -description "Yank the uncoded URL of the current buffer"
     \ -js var text=decodeURIComponent(buffer.URL);
-    \     utils.cbWrite(text);
+    \     utils.yankWithMsg(text);
 command! yankfilenameorURL
     \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
     \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    \     utils.cbWrite(text);
+    \     utils.yankWithMsg(text);
 command! yanktextarea
     \ -description "Yank the contents of textarea N."
     \ -nargs=1
@@ -2827,7 +2827,7 @@ function pwHashGen(s, fromtab) {
         shortPWButton = content.document.getElementsByTagName("details")[0].getElementsByTagName("button")[0];
         shortPWButton.click();
         var pw = content.document.getElementById("hash-word").value;
-        utils.cbWrite(pw);
+        utils.yankWithMsg(pw);
         if (fromtab!==undefined)
             gBrowser.selectedTab = fromtab;
     });
@@ -3123,7 +3123,7 @@ js hints.addMode('🄿','lmnpop',elem => { lmnpop(elem); });
 " .t_nihongo_kanji     -- wikia span class                       "
 " #japanese-name       -- wikia with support GM script           "
 set eht+=[字カ]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text,.break-unit,.t_nihongo_kanji,span[lang=ja],#japanese-name'
-js hints.addMode('字', 'copy kanji', elem=>utils.cbWrite(elem.innerText));
+js hints.addMode('字', 'copy kanji', elem=>utils.yankWithMsg(elem.innerText));
 js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>window._dactylargs[0](e.innerText));
 
 " copy link url to dactylresult "
@@ -3148,7 +3148,7 @@ js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dacty
 
 " Copy text "
 set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre,ul,ol,li
-js hints.addMode("ÿ", "Copy paragraph", elem => utils.cbWrite(elem.innerText));
+js hints.addMode("ÿ", "Copy paragraph", elem => utils.yankWithMsg(elem.innerText));
 
 " Translate text "
 " ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
@@ -4091,9 +4091,9 @@ function batoPreviousChapter(where=dactyl.CURRENT_TAB) {
 EOF
 
 command! batodecoratelinks -js batoDecorateLinks();
-command! batoyankimgurl -js utils.cbWrite(batoGetImgURL());
+command! batoyankimgurl -js utils.yankWithMsg(batoGetImgURL());
 command! batonumpages -js utils.message(batoGetNumPages());
-command! batoyankinfo -js utils.cbWrite(batoGetImgURLandNumPages());
+command! batoyankinfo -js utils.yankWithMsg(batoGetImgURLandNumPages());
 command! batonextpage -js batoNextPage();
 command! batopreviouspage -js batoPreviousPage();
 command! -bang batonextchapter -js batoNextChapter(bang?'tab':'here');
@@ -4157,11 +4157,11 @@ js <<EOF
 
 function bbCopyRepoLinkHttps() {
     var auibutton = content.document.querySelector('.clone-url .aui-button');
-    utils.cbWrite(auibutton.getAttribute('data-primary-https'));
+    utils.yankWithMsg(auibutton.getAttribute('data-primary-https'));
 }
 function bbCopyRepoLinkGit() {
     var auibutton = content.document.querySelector('.clone-url .aui-button');
-    utils.cbWrite(auibutton.getAttribute('data-primary-ssh'));
+    utils.yankWithMsg(auibutton.getAttribute('data-primary-ssh'));
 }
 
 EOF
@@ -4299,7 +4299,7 @@ set eht+=🅵:.dropit
 js hints.addMode("🅵", "Move to wish list", e=> e.querySelector('a+ul a').click());
 map <site>w -description "Move to wish list" -js hints.show('🅵');
 set eht+=🄵:td.MediumLabel
-js hints.addMode("🄵", "Copy Gift Card", e=> utils.cbWrite(e.innerText.trim()));
+js hints.addMode("🄵", "Copy Gift Card", e=> utils.yankWithMsg(e.innerText.trim()));
 map <site>g
     \ -description "Copy Gift Card"
     \ -js if (buffer.URL.match(/giftcertificates/)) hints.show('🄵');
@@ -4580,7 +4580,7 @@ js hints.addMode("🅶", "open raw file (new tab)", e=>dactyl.open(e.href+'?raw=
 set eht+=ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("ⓖ", "download raw file", e=>savePageDialog(ghConvertUrlToRaw(e.href)));
 set eht+=Ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
-js hints.addMode("Ⓖ", "copy raw file url", e=>utils.cbWrite(ghConvertUrlToRaw(e.href), where='tab'));
+js hints.addMode("Ⓖ", "copy raw file url", e=>utils.yankWithMsg(ghConvertUrlToRaw(e.href), where='tab'));
 
 js <<EOF
 
@@ -4615,10 +4615,10 @@ function ghGoToLines(args) {
 }
 
 function ghCopyRepoLinkHttps() {
-    dactyl.utils.cbWrite(ghGetCloneUrl("https"))
+    dactyl.utils.yankWithMsg(ghGetCloneUrl("https"))
 }
 function ghCopyRepoLinkGit() {
-    dactyl.utils.cbWrite(ghGetCloneUrl("git"))
+    dactyl.utils.yankWithMsg(ghGetCloneUrl("git"))
 }
 function ghGetUserAndRepo() {
     // var url = ghGetCloneUrl("https");
@@ -4655,16 +4655,16 @@ function ghGetWikiGitURL() {
 function ghCopyUserAndRepo() {
     [user, repo] = ghGetUserAndRepo();
     var url = ghGetCloneUrl("https");
-    dactyl.utils.cbWrite(`${user}/${repo}`);
+    dactyl.utils.yankWithMsg(`${user}/${repo}`);
 }
 
 function ghCopyRepoNameWithURL() {
     repo = ghGetRepoName();
     var url = buffer.URL;
-    dactyl.utils.cbWrite(`${repo} (${url})`);
+    dactyl.utils.yankWithMsg(`${repo} (${url})`);
 }
 
-function ghCopyWikiGitURL() { dactyl.utils.cbWrite(ghGetWikiGitURL()); }
+function ghCopyWikiGitURL() { dactyl.utils.yankWithMsg(ghGetWikiGitURL()); }
 
 function ghDownloadReadmeToDoc(repo, name, ext, overwrite) {
     var overwrite = overwrite ? 't' : '';    // to be interpolated into shell script
@@ -5071,7 +5071,7 @@ command! hwgetwidth -js dactyl.utils.message(gtrImeGetWidth());
 command! hwsetwidth -nargs=? -js gtrImeSetWidth((args[0] || "425") + "px");
 command! hwtogglewidth -description "Toggle normal-width/wide IME box"
     \ -js if (gtrImeGetWidth() != "800px") gtrImeSetWidth("800px"); else gtrImeSetWidth("425px");
-command! hwyanksource -description "Copy contents of source area to clipboard" -js utils.cbWrite(gtrGetSource());
+command! hwyanksource -description "Copy contents of source area to clipboard" -js utils.yankWithMsg(gtrGetSource());
 command! hwjishosearch -description "Search jisho for words in source" -js gtrJishoSearchSource();
 command! hwjishokanjisearch -bang -description "Search jisho for kanji in source" -js gtrJishoKanjiSearchSource(bang?'here':'tab');
 command! gtrfontsize -nargs=1 -description "Set font size for textarea" -js gtrTextBoxFontSize(parseInt(args[0]));
@@ -5171,7 +5171,7 @@ function imgurDL() {
     var match = url.match(urlRegex);
     if (match) {
         var title = content.document.querySelector('.post-title').innerText;
-        utils.cbWrite(title);
+        utils.yankWithMsg(title);
         var optionLinks = Array.from(content.document.querySelectorAll('.post-action-option'));
         var dlLink = optionLinks.filter(l=>l.innerText.match(/Download Post/))[0];
         if (dlLink) dlLink.click();
@@ -5215,7 +5215,7 @@ set eht+=🅹:.log
 js hints.addMode("🅹", "Select Cell", jCopyCellToPrompt);
 map <site>v -description "Copy cell to prompt" -js hints.show('🅹');
 set eht+=🄹:.log
-js hints.addMode("🄹", "Select Cell", e=>utils.cbWrite(e.innerText));
+js hints.addMode("🄹", "Select Cell", e=>utils.yankWithMsg(e.innerText));
 
 " === bindings === "
 map <site>y -description "Copy cell to clipboard" -js hints.show('🄹');
@@ -5618,7 +5618,7 @@ EOF
 
 command! jishoyanksearchterm
     \ -description "Yank search term to clipboard"
-    \ -js dactyl.utils.cbWrite(jishoGetCorrectedSearchText());
+    \ -js dactyl.utils.yankWithMsg(jishoGetCorrectedSearchText());
 
 command! jishotoggleromaji
      \ -description "Toggle between kana and romaji"
@@ -5639,7 +5639,7 @@ command! jishotogglesentences
 command! jishokanjiaddlink
     \ -description "args: HREF, TEXT. Add link to kanji. (%s is replaced by kanji)"
     \ -nargs=+ -js jishoKanjiAddLink(args[0], args[1]);
-command! jishokanjiyankparts -js utils.cbWrite(jishoKanjiParts().join(''));
+command! jishokanjiyankparts -js utils.yankWithMsg(jishoKanjiParts().join(''));
 
 " ----------
 " Hint modes
@@ -5857,7 +5857,7 @@ map <leader>hkc -js CommandExMode().open("map -group libgen <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group libgen <site>")
 
 command! libgendl -js libgenCopyFileNameAndDownload();
-command! libgendetails -nargs 1 -js utils.cbWrite(libgenGetDetails(args[0]));
+command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
 map <site>c -ex libgendl
 
 js <<EOF
@@ -5900,8 +5900,8 @@ function libgenCopyFileNameAndDownload() {
         var filename = name +
                       (ed=="1st" ? '' : `, ${ed} ed`) +
                       (year ? ` (${year})` : '');
-        utils.cbWrite(filename);
-        utils.cbWrite(filename);
+        utils.yankWithMsg(filename);
+        utils.yankWithMsg(filename);
         var links = Array.from(content.document.querySelectorAll('a h2'));
         var link = links.find(a=>["download", "get"].includes(a.innerText.toLowerCase()));
         dactyl.open(link.parentNode.href);
@@ -5937,7 +5937,7 @@ function genlibLibgen() {
     var filename = title +
                    (ed=="1st" ? '' : `, ${ed} ed`) +
                    (year ? ` (${year})` : '');
-    utils.cbWrite(filename);
+    utils.yankWithMsg(filename);
     link.click();
 }
 
@@ -5994,7 +5994,7 @@ function genlibPreviousPage(k=1) {
 EOF
 
 map <site>c -js genlibLibgen();
-map <yank>t -js utils.cbWrite(genlibGetTitle());
+map <yank>t -js utils.yankWithMsg(genlibGetTitle());
 map ]] -count -js genlibNextPage(count);
 map [[ -count -js genlibPreviousPage(count);
 
@@ -6142,7 +6142,7 @@ function malGetHeading() {
 
 EOF
 
-command! malyanktitle -js utils.cbWrite(malGetHeading());
+command! malyanktitle -js utils.yankWithMsg(malGetHeading());
 
 map <site>y -ex malyanktitle
 
@@ -6552,7 +6552,7 @@ function hyliaGenerateCurlCommand(linkURL, filename) {
             var curlCmd = `curl '${linkURL}' `;
         else
             var curlCmd = `curl '${linkURL}' > '${filename}';`;
-        dactyl.utils.cbWrite(curlCmd);
+        dactyl.utils.yankWithMsg(curlCmd);
 }
 function hyliaGetAlbumName() {
     var hdg = content.document.getElementsByTagName('h2')[0];
@@ -6565,8 +6565,8 @@ function hyliaGetTrackName() {
     var track = lines[1].replace(/Song name:\s+/i,'');
     return track;
 }
-function hyliaCopyAlbumName() { dactyl.utils.cbWrite(hyliaGetAlbumName()); }
-function hyliaCopyTrackName() { dactyl.utils.cbWrite(hyliaGetTrackName()); }
+function hyliaCopyAlbumName() { dactyl.utils.yankWithMsg(hyliaGetAlbumName()); }
+function hyliaCopyTrackName() { dactyl.utils.yankWithMsg(hyliaGetTrackName()); }
 EOF
 
 group user
@@ -6990,7 +6990,7 @@ js <<EOF
 function wolframGetResult() {
     var ptdiv = content.document.getElementById('plaintext');
     if (ptdiv)
-        utils.cbWrite(ptdiv.innerText);
+        utils.yankWithMsg(ptdiv.innerText);
     else
         content.document.querySelector('#Result .plaintext').click();
 }
@@ -7023,7 +7023,7 @@ function ytSetSpeed(r) { ytplayer().setPlaybackRate(Math.max(r, ytMinSpeed)); }
 function ytAdjustSpeed(delta) {
     var newspeed = ytGetSpeed()+delta;
     ytSetSpeed(newspeed);
-    utils.cbWrite(`speed: ${newspeed}`);
+    utils.yankWithMsg(`speed: ${newspeed}`);
 }
 function ytPlay() { ytplayer().playVideo(); }
 function ytPause() { ytplayer().pauseVideo(); }
@@ -7508,7 +7508,7 @@ function getUSDAUDexchange() { return window.AUDperUSD; }
 window.getUSDAUDexchange = getUSDAUDexchange;
 
 function arrayWriteItems(a) { utils.message(a.join('\n')); };
-function arrayCbWriteItems(a)  { utils.cbWrite(a.join('\n')); };
+function arrayCbWriteItems(a)  { utils.yankWithMsg(a.join('\n')); };
 
 function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
 window.seq = seq;

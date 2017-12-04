@@ -190,6 +190,10 @@ var utils = {
     cbWriteWithMessageLimit: function (s) {
         dactyl.clipboardWrite(s);
         utils.messageWithLineLimit(s);
+    },
+
+    yankWithMsg: function (s) {
+        editor.setRegister(null, s, true)
     }
 
 // =============================================================================
