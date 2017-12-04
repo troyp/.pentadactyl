@@ -3611,6 +3611,19 @@ map -b <Return> <C-v><Return>
 
 group user
 
+" ,--------,
+" | places |
+" '--------'
+group places -locations=chrome://browser/content/places/places.xul
+map <leader>hkc -js CommandExMode().open("map -group places <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group places <site>")
+
+map <site>c -description "Focus Left Panel" <Escape>gi<Tab>
+map <site>v -description "Focus Right Panel" <Escape>gi<Tab><Tab>
+
+group user
+
+
 " -------------------------------------------------------------------------------
 " ,--------------,
 " | About:addons |
