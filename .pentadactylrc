@@ -3598,15 +3598,16 @@ group about -locations=chrome:*,about:addons,about:config,about:cache,about:debu
 map <leader>hkc -js CommandExMode().open("map -group about <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group about <site>")
 
-map -g about -b j <C-v><Down>
-map -g about -b k <C-v><Up>
+map -b j <C-v><Down>
+map -b k <C-v><Up>
 "
-map -g about -b J <C-v><PageDown>
-map -g about -b K <C-v><PageUp>
-map -g about -b <C-d> <C-v><PageDown>
-map -g about -b <C-u> <C-v><PageUp>
-map -g about -b gg <C-v><Home>
-map -g about -b G <C-v><End>
+map -b J <C-v><PageDown>
+map -b K <C-v><PageUp>
+map -b <C-d> <C-v><PageDown>
+map -b <C-u> <C-v><PageUp>
+map -b gg <C-v><Home>
+map -b G <C-v><End>
+map -b <Return> <C-v><Return>
 
 group user
 
