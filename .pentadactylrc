@@ -1531,8 +1531,14 @@ map sp :set<SPACE>
 map sc :set!<SPACE>
 
 " List/Search:
-map sb -description "search buffers" :buffers -max 41<SPACE>
-map sh -description "search history" :history -max 41 -sort -date<SPACE>
+:if options.get('guioptions').value.includes('c')
+    map sb -description "search buffers" :buffers -max 41<SPACE>
+    map sh -description "search history" :history -max 41 -sort -date<SPACE>
+:else
+    map sb -description "search buffers" :buffers<SPACE>
+    map sh -description "search history" :history -sort -date<SPACE>
+:endif
+
 " Search bookmarks: sk ... (see Bookmarks section) "
 
 " Menu access: "
@@ -1992,13 +1998,21 @@ command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
 map -b <bookmark-page> <C-v><C-d>
 map <browser>k <bookmark-page>
 
-map sk<C-h> -description "bindings for prefix sk" -js CommandExMode().open("map sk")
-map sk<space> -description "search bookmarks" :bmarks  -max 41<SPACE>
-map skk -description "search bookmarks by keyword" :bmarks -max 41<SPACE> -keyword<SPACE>
-map skt -description "search bookmarks by title" :bmarks -max 41<SPACE> -title<SPACE>
-map skg -description "search bookmarks by tags" :bmarks -max 41<SPACE> -tags<SPACE>
-map sks -description "search static keyword bookmarks (keyword contains :::)" :bmarks -max 41<SPACE> -keyword :::<CR>
-map skw -description "search bookmarks with buku" -ex !buku_run
+map sk<C-h>   -description "bindings for prefix sk"      -js CommandExMode().open("map sk")
+:if options.get('guioptions').value.includes('c')
+    map sk<space> -description "search bookmarks"            :bmarks<SPACE>
+    map skk       -description "search bookmarks by keyword" :bmarks -keyword<SPACE>
+    map skt       -description "search bookmarks by title"   :bmarks -title<SPACE>
+    map skg       -description "search bookmarks by tags"    :bmarks -tags<SPACE>
+    map sks       -description "search static kword bmarks (with :::)" :bmarks -keyword :::<CR>
+:else
+    map sk<space> -description "search bookmarks"            :bmarks -max 41<SPACE>
+    map skk       -description "search bookmarks by keyword" :bmarks -max 41 -keyword<SPACE>
+    map skt       -description "search bookmarks by title"   :bmarks -max 41 -title<SPACE>
+    map skg       -description "search bookmarks by tags"    :bmarks -max 41 -tags<SPACE>
+    map sks       -description "search static kword bmarks (with :::)" :bmarks -max 41 -keyword :::<CR>
+:endif
+map skw       -description "search bookmarks with buku"  -ex !buku_run
 
 " ===============================================================================
 "                               _______________________
