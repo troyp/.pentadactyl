@@ -3658,8 +3658,20 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -gr
 
 map <site>c -description "Focus Left Panel" <Escape>gi<Tab>
 map <site>v -description "Focus Right Panel" <Escape>gi<Tab><Tab>
+map <site>y -description "Yank Location" -js placesGetLocation();
 map -b H <C-v><Left>
 map -b L <C-v><Right>
+
+js <<EOF
+
+function placesGetLocation() {
+    var placesView = content.document.getElementById('placesView');
+    var url = placesView.querySelector('#editBMPanel_locationField').value;
+    utils.yankWithMsg(url);
+}
+
+EOF
+
 
 group user
 
