@@ -193,7 +193,8 @@ var utils = {
     },
 
     yankWithMsg: function (s) {
-        editor.setRegister(null, s, true)
+        editor.setRegister(null, s, false);
+        utils.message(s);
     }
 
 // =============================================================================
