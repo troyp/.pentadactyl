@@ -3655,10 +3655,27 @@ group user
 group places -locations=chrome://browser/content/places/places.xul
 map <leader>hkc -js CommandExMode().open("map -group places <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group places <site>")
+map <site>f<C-h> -description "(show bindings)" -js CommandExMode().open("map -group places <site>f")
+map <site>s<C-h> -description "(show bindings)" -js CommandExMode().open("map -group places <site>s")
 
-map <site>c -description "Focus Left Panel" <Escape>gi<Tab>
-map <site>v -description "Focus Right Panel" <Escape>gi<Tab><Tab>
-map <site>y -description "Yank Location" -js placesGetLocation();
+map <site>c  -description "Focus Left Panel"        <Escape>gi<Tab>
+map <site>f/ -description "Focus search input"      -js placesFocusSearch();
+map <site>fn -description "Focus name input"        -js placesFocusName();
+map <site>fl -description "Focus location input"    -js placesFocusLocation();
+map <site>ft -description "Focus tags input"        -js placesFocusTags();
+map <site>fk -description "Focus keyword input"     -js placesFocusKeyword();
+map <site>fd -description "Focus description input" -js placesFocusDescription();
+map <site>i  -description "Toggle info box"         -js placesToggleInfobox();
+map <site>so -description "Sort by none"            -js placesSortByNone();
+map <site>sn -description "Sort by name"            -js placesSortByName();
+map <site>sk -description "Sort by keyword"         -js placesSortByKeyword();
+map <site>st -description "Sort by tags"            -js placesSortByTags();
+map <site>sl -description "Sort by location"        -js placesSortByLocation();
+map <site>sa -description "Sort by date added"      -js placesSortByDateAdded();
+map <site>sp -description "Sort by path"            -js placesSortByPath();
+map <site>sm -description "Sort by last modified"   -js placesSortByLastModified();
+map <site>v  -description "Focus Right Panel"       <Escape>gi<Tab><Tab>
+map <site>y  -description "Yank Location"           -js placesGetLocation();
 map -b H <C-v><Left>
 map -b L <C-v><Right>
 
@@ -3668,6 +3685,55 @@ function placesGetLocation() {
     var placesView = content.document.getElementById('placesView');
     var url = placesView.querySelector('#editBMPanel_locationField').value;
     utils.yankWithMsg(url);
+}
+
+function placesToggleInfobox() {
+    content.document.getElementById('infoBoxExpander').click();
+}
+
+function placesFocusName() {
+    content.document.getElementById('editBMPanel_namePicker').focus();
+}
+
+function placesFocusSearch() {
+    content.document.getElementById('searchFilter').focus();
+}
+function placesFocusLocation() {
+    content.document.getElementById('editBMPanel_locationField').focus();
+}
+function placesFocusTags() {
+    content.document.getElementById('editBMPanel_tagsField').focus();
+}
+function placesFocusKeyword() {
+    content.document.getElementById('editBMPanel_keywordField').focus();
+}
+function placesFocusDescription() {
+    content.document.getElementById('editBMPanel_descriptionField').focus();
+}
+
+function placesSortByNone() {
+    content.document.getElementById('viewUnsorted').click();
+}
+function placesSortByName() {
+    content.document.getElementById('placesContentTitle').click();
+}
+function placesSortByKeyword() {
+    content.document.getElementById('placesContentKeyword').click();
+}
+function placesSortByTags() {
+    content.document.getElementById('placesContentTags').click();
+}
+function placesSortByLocation() {
+    content.document.getElementById('placesContentUrl').click();
+}
+function placesSortByDateAdded() {
+    content.document.getElementById('placesContentDateAdded').click();
+}
+function placesSortByPath() {
+    content.document.getElementById('placesContentParentFolderPath').click();
+}
+function placesSortByLastModified() {
+    content.document.getElementById('placesContentLastModified').click();
 }
 
 EOF
