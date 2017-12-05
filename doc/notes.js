@@ -96,7 +96,9 @@ function chooseItem(id) { document.getElementById(id).click(); }
 // ,--------,
 // | Places |
 // '--------'
-var placesView = content.document.getElementById('placesView');         // xul:hbox
-var placesDoc = placesView.ownerDocument;                               // XUL Document
-var placesContentView = content.document.getElementById('contentView'); // xul:vbox
-var placeContent = content.document.getElementById('placeContent');     // xul:tree
+var placesView = content.document.getelementbyid('placesView');           // xul:hbox
+var placesDoc = placesView.ownerDocument;                                 // XUL Document
+var placesContentView = content.document.getElementById('contentView');   // xul:vbox
+var placeContent = content.document.getElementById('placeContent');       // xul:tree
+var detailsDeck = content.document.getElementById('detailsDeck');         // xul:deck
+var placesViewsDeck = content.document.getElementById('placesViewsDeck'); // xul:deck
