@@ -368,10 +368,12 @@ map -modes normal -b J <C-d>
 map -modes normal -b K <C-u>
 " Restart with C-x C-x:
 map <C-x><C-x> -ex restart
-" reload .pentadactylrc
-map <browser>r -ex rc
-" edit .pentadactylrc
-map <browser>R -ex rce
+map <browser>r
+    \ -description "Reload .pentadactylrc"
+    \ -ex rc
+map <browser>R
+    \ -description "Edit .pentadactylrc"
+    \ -ex rce
 " hide messages
 map <C-x>; :<Esc>
 " hide and clear messages
@@ -383,33 +385,49 @@ map <browser>x -js window.restore(); window.maximize();
 " select all
 map -modes normal -b <C-x>h iGvggy
 " second input area
-map -modes normal -b <xtra>gi 2gi
-" open in google chrome "
-map <xtra>c -ex ochromemin
-map <xtra>C :ochromeminurl
-" open in firefox "
-map <xtra>f -ex ofox
-" open in qutebrowser "
-map <xtra>q -ex oqute
-" open local file "
-map <leader>o :openf<Space>
-map <leader>O :tabopenf<Space>
-" open local file with xdg-open
-map <xtra>x :xopen<Space>
-" open file in Emacs
-map <xtra>e -ex openFileInEmacs
-" open page in EWW
-map <xtra>E -ex openUrlInEWW
-" open directory in Dired
-map <xtra>d -ex openDirectoryInDired
+map -modes normal -b <xtra>gi -description "Focus 2nd input area" 2gi
+map <xtra>c
+    \ -description "Open in Google Chrome (minimal profile)"
+    \ -ex ochromemin
+map <xtra>C
+    \ -description "Open URL in Google Chrome (minimal profile)"
+    \ -ex ochromeminurl
+map <xtra>f
+    \ -description "Open in Firefox"
+    \ -ex ofox
+map <xtra>q
+    \ -description "Open in Qutebrowser"
+    \ -ex oqute
+map <leader>o
+    \ -description "Open local file"
+    \ -openf<Space>
+map <leader>O
+    \ -description "Open local file (new tab)"
+    \ -tabopenf<Space>
+map <xtra>x
+    \ -description "Open local file with xdg-open"
+    \ -ex xopen<Space>
+map <xtra>e
+    \ -description "Open file in Emacs"
+    \ -ex openFileInEmacs
+map <xtra>E
+    \ -description "Open page in EWW"
+    \ -ex openUrlInEWW
+map <xtra>d
+    \ -description "Open directory in Dired"
+    \ -ex openDirectoryInDired
 " jumplist
-map <C-j> -ex jumps
-" password hasher
-map <xtra>P -ex pwhash
-" password hasher: hash site domain
-map <xtra>p -ex pwhashsite
+map <C-j> -description "Show jump list" -ex jumps
+map <xtra>P
+    \ -description "Password hasher"
+    \ -ex pwhash
+map <xtra>p
+    \ -description "Password hasher: hash site domain"
+    \ -ex pwhashsite
 " open www.packtpub.com/packt/offers/free-learning in google chrome "
-map <xtra>op -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
+map <xtra>op
+    \ -description "Visit Packt Free Learning site in Google Chrome"
+    \ -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
 " Google Translate handwritten input
 map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 " word highlight
@@ -438,12 +456,19 @@ map <leader>np -js hints.show('🄿');
 map <leader>jp -ex popjisyo
 " Jisho.org "
 map <leader>j<C-h> -description "(show bindings)" -js CommandExMode().open("map <leader>j")
-map <leader>jj -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <leader>jk -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <leader>jf -count -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ');
-map <leader>jm
-    \ -description "Jisho multiword search"
-    :jishomultisearch<Space>
+map <leader>jm -description "Jisho multiword search" :jishomultisearch<Space>
+map <leader>jj
+    \ -description "Jisho search (clipboard)"
+    \ -count
+    \ -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <leader>jk
+    \ -description "Jisho kanji search (clipboard)"
+    \ -count
+    \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <leader>jf
+    \ -description "Jisho kanji search (hints)"
+    \ -count
+    \ -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ');
 
 " ,---------------------,
 " | <leader>t - toggles |
