@@ -438,10 +438,12 @@ map <leader>np -js hints.show('🄿');
 map <leader>jp -ex popjisyo
 " Jisho.org "
 map <leader>j<C-h> -description "(show bindings)" -js CommandExMode().open("map <leader>j")
-map <leader>jm :cbjishomultisearch<Space>
 map <leader>jj -count -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
 map <leader>jk -count -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
 map <leader>jf -count -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ');
+map <leader>jm
+    \ -description "Jisho multiword search"
+    :jishomultisearch<Space>
 
 " ,---------------------,
 " | <leader>t - toggles |
@@ -5596,7 +5598,7 @@ command! cbjishosearch
 command! cbkanjisearch
     \ -bang -description "kanji search on jisho.org"
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), bang?'here':'tab');
-command! cbjishomultisearch
+command! jishomultisearch
     \ -nargs=* -description "search multiple words on jisho.org"
     \ -js jishoMultiSearch.apply(null, args);
 
