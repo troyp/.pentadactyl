@@ -170,6 +170,7 @@ set altwildmode=list:full
 set strictfocus=mail.google.com:laissez-faire,'chrome:*':laissez-faire,*:moderate
 set scrolltime=0
 set scrollsteps=1
+set defsearch=g
 
 " nextpattern, previouspattern
 " default: '^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bmore\b',
