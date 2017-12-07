@@ -486,22 +486,23 @@ map <leader>tw -description "Toggle Wayback Machine" -ex waybacktoggle
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
-map <leader>T<C-h> -js CommandExMode().open("map <Leader>T")
-" <A-Up>:     show the navigation and bookmarks toolbars:
-" <A-Down>:   hide the navigation and bookmarks toolbars:
-" <leader>Ta: toggle the navigation and bookmarks toolbars:
-map <A-Up> -ex set guioptions-=TB | set showtabline=never
-map <A-Down> -ex set guioptions+=TB | set showtabline=always
-map <leader>Ta -ex set guioptions!=TB | set showtabline!=always,never
-" <leader>T<C-m|t|e|b|d|s|o>: toggle toolbars/menubars
-"(  menu|tab|navigation|bookmark|web-developer toolbar )
-map <leader>Tm -ex set guioptions!=m
-map <leader>Tt -ex set showtabline!=always,never
-map <leader>Te -ex set guioptions!=T
-map <leader>Tb -ex set guioptions!=B
-map <leader>Ts -ex set guioptions!=s
-map <leader>To -ex toolbartoggle Add-on Bar
-map <leader>Td -ex toolbartoggle Web Developer Toolbar
+map <leader>T<C-h> -description "(show bindings)" -js CommandExMode().open("map <Leader>T")
+map <A-Up>
+    \ -description "Show the navigation and bookmarks toolbars"
+    \ -ex set guioptions-=TB | set showtabline=never
+map <A-Down>
+    \ -description "Hide the navigation and bookmarks toolbars"
+    \ -ex set guioptions+=TB | set showtabline=always
+map <leader>Ta
+    \ -description "Toggle the navigation and bookmarks toolbars"
+    \ -ex set guioptions!=TB | set showtabline!=always,never
+map <leader>Tm -description "Toggle menu bar"           -ex set guioptions!=m
+map <leader>Tt -description "Toggle tab bar"            -ex set showtabline!=always,never
+map <leader>Te -description "Toggle navigation toolbar" -ex set guioptions!=T
+map <leader>Tb -description "Toggle bookmark bar"       -ex set guioptions!=B
+map <leader>Ts -description "Toggle status bar"         -ex set guioptions!=s
+map <leader>To -description "Toggle add-on bar"         -ex toolbartoggle Add-on Bar
+map <leader>Td -description "Toggle webdev toolbar"     -ex toolbartoggle Web Developer Toolbar
 
 " ,-----------------,
 " | Manipulate Page |
