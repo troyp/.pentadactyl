@@ -1903,6 +1903,29 @@ command! firebugShow -js Firebug.showBar(true);
 command! firebugHide -js Firebug.showBar(null);
 
 " -------------------------------------------------------------------------------
+" ,---------,
+" | MozRepl |
+" '---------'
+js <<EOF
+
+function mozReplToggle() {
+    var svr = mozrepl.server;
+    if (svr.isActive())
+        svr.stop();
+    else
+        svr.start();
+}
+
+EOF
+
+command! mozrepltoggle -js mozReplToggle();
+
+map <ext>m<C-h> -description "(show bindings)" -js CommandExMode().open("map <ext>m")
+map <ext>mm -description "MozREPL toggle" -js mozReplToggle();
+map <ext>mr -description "MozREPL reload" -js mozrepl.server.reload();
+map <ext>ma -description "MozREPL toggle autostart" -ex toggleconfig extensions.mozrepl.autoStart
+
+" -------------------------------------------------------------------------------
 " ,-----------------,
 " | Jash JS Console |
 " '-----------------'
