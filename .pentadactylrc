@@ -1501,49 +1501,131 @@ map <local-help> -ex tabopen ~/.pentadactyl/doc/help/index.html
 " single-page pentadactyl help
 map <local-help-all> -ex tabopen ~/.pentadactyl/doc/all.html
 
-map <goto>a -ex dialog addons
-map -b <goto>c tabout:config<CR>
-map -b <goto>d tabout:downloads<CR><C-z>
-map -b <goto>h tfile:///home/troy/.pentadactyl/doc/help/index.html<CR>
-map -b <goto>k tchrome://browser/content/places/places.xul<CR>gi<C-z>
-map -b <goto>K tchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
-map -b <goto>l tchrome://passwordmgr/content/passwordManager.xul<CR>
-map -b <goto>p tabout:plugins<CR>
-map -b <goto>P tabout:preferences<CR><C-z>
-map -b <goto>r tabout:sessionrestore<CR>
-map -b <goto>s tabout:support<CR>
-map -b <goto>i tabout:profiles<CR>
-map -b <goto>` tfile:///home/troy/<CR>
-map -b <goto>/ tfile:///<CR>
-map -b <goto>e<f1> tfile:///home/troy/.pentadactyl/doc/all.html<CR>
-map -b <goto>ec oabout:config<CR>
-map -b <goto>ed oabout:downloads<CR><C-z>
-map -b <goto>eh ofile:///home/troy/.pentadactyl/doc/help/index.html<CR>
-map -b <goto>ek ochrome://browser/content/places/places.xul<CR>gi<C-z>
-map -b <goto>eK ochrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
-map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
-map -b <goto>ep oabout:plugins<CR>
-map -b <goto>eP oabout:preferences<CR><C-z>
-map -b <goto>er oabout:sessionrestore<CR>
-map -b <goto>es oabout:support<CR>
-map -b <goto>ei oabout:profiles<CR>
-map -b <goto>e` ofile:///home/troy/<CR>
-map -b <goto>e/ ofile:///<CR>
-map -b <goto>e<f1> ofile:///home/troy/.pentadactyl/doc/all.html<CR>
-map -b <goto>wc wabout:config<CR>
-map -b <goto>wd wabout:downloads<CR><C-z>
-map -b <goto>wh<f1> wfile:///home/troy/.pentadactyl/doc/help/index.html<CR>
-map -b <goto>wk wchrome://browser/content/places/places.xul<CR>gi<C-z>
-map -b <goto>wK wchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
-map -b <goto>wl wchrome://passwordmgr/content/passwordManager.xul<CR>
-map -b <goto>wp wabout:plugins<CR>
-map -b <goto>wP wabout:preferences<CR><C-z>
-map -b <goto>wr wabout:sessionrestore<CR>
-map -b <goto>ws wabout:support<CR>
-map -b <goto>wi wabout:profiles<CR>
-map -b <goto>w` wfile:///home/troy/<CR>
-map -b <goto>w/ wfile:///<CR>
-map -b <goto>e  wfile:///home/troy/.pentadactyl/doc/all.html<CR>
+map <goto>a
+    \ -description "Addons"
+    \ -ex dialog addons
+map -b <goto>c
+    \ -description "about:config (new tab)"
+    \ -ex tabopen about:config
+map -b <goto>d
+    \ description "Downloads (new tab)"
+    \ tabout:downloads<CR><C-z>
+map -b <goto>h
+    \ -description "Pentadactyl help (new tab)"
+    \ -ex tabopen file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>k
+    \ -description "places (new tab)" tchrome://browser/content/places/places.xul<CR>gi<C-z>
+map -b <goto>K
+    \ -description "Bookmarks (new tab)"
+    \ -ex tabopen chrome://browser/content/bookmarks/bookmarksPanel.xul
+map -b <goto>l
+    \ -description "Password manager (new tab)"
+    \ -ex tabopen chrome://passwordmgr/content/passwordManager.xul
+map -b <goto>p
+    \ -description "Plugins (new tab)"
+    \ -ex tabopen about:plugins
+map -b <goto>P
+    \ -description "Preferences (new window)"
+    \ tabout:preferences<CR><C-z>
+map -b <goto>r
+    \ -description "Session restore (new tab)"
+    \ -ex tabopen about:sessionrestore
+map -b <goto>s
+    \ -description "Support (new tab)"
+    \ -ex tabopen about:support
+map -b <goto>i
+    \ -description "Profiles (new tab)"
+    \ -ex tabopen about:profiles
+map -b <goto>`
+    \ -description "Home directory (new tab)"
+    \ -ex tabopen file:///home/troy/
+map -b <goto>/
+    \ -description "Root directory (new tab)"
+    \ -ex tabopen file:///
+map -b <goto>e<f1>
+    \ -description "Pentadactyl help - single page (new tab)"
+    \ -ex tabopen file:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>ec
+    \ -description "about:config"
+    \ -ex open about:config
+map -b <goto>ed
+    \ -description "Downloads"
+    \ oabout:downloads<CR><C-z>
+map -b <goto>eh
+    \ -description "Pentadactyl help"
+    \ -ex open file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>ek
+    \ -description "places" ochrome://browser/content/places/places.xul<CR>gi<C-z>
+map -b <goto>eK
+    \ -description "Bookmarks"
+    \ -ex open chrome://browser/content/bookmarks/bookmarksPanel.xul
+map -b <goto>el
+    \ -description "Password manager"
+    \ -ex open chrome://passwordmgr/content/passwordManager.xul
+map -b <goto>ep
+    \ -description "Plugins"
+    \ -ex open about:plugins
+map -b <goto>eP
+    \ -description "Preferences" oabout:preferences<CR><C-z>
+map -b <goto>er
+    \ -description "Session restore"
+    \ -ex open about:sessionrestore
+map -b <goto>es
+    \ -description "Support"
+    \ -ex open about:support
+map -b <goto>ei
+    \ -description "Profiles"
+    \ -ex open about:profiles
+map -b <goto>e`
+    \ -description "Home directory"
+    \ -ex open file:///home/troy/
+map -b <goto>e/
+    \ -description "Root directory"
+    \ -ex open file:///
+map -b <goto>e<f1>
+    \ -description "Pentadactyl help -single page"
+    \ -ex open file:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>wc
+    \ -description "about:config (new window)"
+    \ -ex winopen about:config
+map -b <goto>wd
+    \ -description "Downloads (new window)" wabout:downloads<CR><C-z>
+map -b <goto>wh<f1>
+    \ -description "Pentadactyl help (new window)"
+    \ -ex winopen file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>wk
+    \ -description "places (new window)"
+    \ wchrome://browser/content/places/places.xul<CR>gi<C-z>
+map -b <goto>wK
+    \ -description "Bookmarks (new window)"
+    \ -ex winopen chrome://browser/content/bookmarks/bookmarksPanel.xul
+map -b <goto>wl
+    \ -description "Password manager (new window)"
+    \ -ex winopen chrome://passwordmgr/content/passwordManager.xul
+map -b <goto>wp
+    \ -description "Plugins  (new window)"
+    \ -ex winopen about:plugins
+map -b <goto>wP
+    \ -description "Preferences (new window)"
+    \ wabout:preferences<CR><C-z>
+map -b <goto>wr
+    \ -description "Session restore (new window)"
+    \ -ex winopen about:sessionrestore
+map -b <goto>ws
+    \ -description "Support (new window)"
+    \ -ex winopen about:support
+map -b <goto>wi
+    \ -description "Profiles (new window)"
+    \ -ex winopen about:profiles
+map -b <goto>w`
+    \ -description "Home directory (new window)"
+    \ -ex winopen file:///home/troy/
+map -b <goto>w/
+    \ -description "Root directory (new window)"
+    \ -ex winopen file:///
+map -b <goto>e
+    \ -description "Pentadactyl help -single page (new window)"
+    \ -ex winopen file:///home/troy/.pentadactyl/doc/all.html
 
 " Pentadactyl source
 map <goto>D -ex tabopen resource://dactyl/
