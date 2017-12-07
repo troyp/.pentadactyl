@@ -387,6 +387,9 @@ map <browser>x -js window.restore(); window.maximize();
 map -modes normal -b <C-x>h iGvggy
 " second input area
 map -modes normal -b <xtra>gi -description "Focus 2nd input area" 2gi
+" Shell command "
+map ! :!<Space>
+
 map <xtra>c
     \ -description "Open in Google Chrome (minimal profile)"
     \ -ex ochromemin
@@ -1167,6 +1170,8 @@ map <browser>c<Space> -description "Close tabs satisfying EXPR"     :tabremove<S
 " filter tabs "
 map <browser>co       -description "Close tabs not matching REGEX"  :tabfilterregex<Space>""<C-b>
 map <browser>cf       -description "Close tabs not satisfying EXPR" :tabfilter<Space>""<C-b>
+" pin tabs "
+map <browser>p -ex pintab!
 
 map gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
@@ -1201,9 +1206,6 @@ map -modes input -b <A-;> <Esc><C-^>
 " delete and switch to alternate
 map -modes command,embed -b <A-:> d<C-^>
 map -modes input -b <A-:> <Esc>d<C-^>
-" pin tabs "
-map ! -ex pintab!
-map <browser>p -ex pintab!
 
 
 " ,------------------,
