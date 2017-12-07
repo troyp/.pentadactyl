@@ -1502,7 +1502,7 @@ map <local-help-all> -ex tabopen ~/.pentadactyl/doc/all.html
 map <goto>a -ex dialog addons
 map -b <goto>c tabout:config<CR>
 map -b <goto>d tabout:downloads<CR><C-z>
-map -b <goto>h<f1> :tfile:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>h tfile:///home/troy/.pentadactyl/doc/help/index.html<CR>
 map -b <goto>k tchrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>K tchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
 map -b <goto>l tchrome://passwordmgr/content/passwordManager.xul<CR>
@@ -1513,10 +1513,10 @@ map -b <goto>s tabout:support<CR>
 map -b <goto>i tabout:profiles<CR>
 map -b <goto>` tfile:///home/troy/<CR>
 map -b <goto>/ tfile:///<CR>
-map -b <goto>e<f1> :tfile:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>e<f1> tfile:///home/troy/.pentadactyl/doc/all.html<CR>
 map -b <goto>ec oabout:config<CR>
 map -b <goto>ed oabout:downloads<CR><C-z>
-map -b <goto>eh<f1> :ofile:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>eh ofile:///home/troy/.pentadactyl/doc/help/index.html<CR>
 map -b <goto>ek ochrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>eK ochrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
 map -b <goto>el ochrome://passwordmgr/content/passwordManager.xul<CR>
@@ -1527,10 +1527,10 @@ map -b <goto>es oabout:support<CR>
 map -b <goto>ei oabout:profiles<CR>
 map -b <goto>e` ofile:///home/troy/<CR>
 map -b <goto>e/ ofile:///<CR>
-map -b <goto>e<f1> :ofile:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>e<f1> ofile:///home/troy/.pentadactyl/doc/all.html<CR>
 map -b <goto>wc wabout:config<CR>
 map -b <goto>wd wabout:downloads<CR><C-z>
-map -b <goto>wh<f1> :wfile:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>wh<f1> wfile:///home/troy/.pentadactyl/doc/help/index.html<CR>
 map -b <goto>wk wchrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>wK wchrome://browser/content/bookmarks/bookmarksPanel.xul<CR>
 map -b <goto>wl wchrome://passwordmgr/content/passwordManager.xul<CR>
@@ -1541,7 +1541,7 @@ map -b <goto>ws wabout:support<CR>
 map -b <goto>wi wabout:profiles<CR>
 map -b <goto>w` wfile:///home/troy/<CR>
 map -b <goto>w/ wfile:///<CR>
-map -b <goto>e<f1> :wfile:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>e  wfile:///home/troy/.pentadactyl/doc/all.html<CR>
 
 " Pentadactyl source
 map <goto>D -ex tabopen resource://dactyl/
