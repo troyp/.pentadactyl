@@ -516,12 +516,13 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 map <leader>a<C-h> -js CommandExMode().open("map <leader>a")
 " Paypal "
 map <leader>ap -count -ex js openInNewOrCurrentTab('https://www.paypal.com/myaccount/home')(<count>)
-" Time
+" Time "
 map <leader>at -count -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
-" Weather
+" Weather "
 map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
-" Banking
+" Banking "
 map <leader>ab -count -ex js openInNewOrCurrentTab(user.mybankurl)(<count>);
+" Repos "
 map <leader>agh -count -ex js openInNewOrCurrentTab('https://github.com/troyp')(<count>);
 map <leader>agb -count -ex js openInNewOrCurrentTab('https://bitbucket.org/')(<count>);
 
