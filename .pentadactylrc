@@ -1407,8 +1407,8 @@ EOF
 " '----------'
 " Duplicate tab, Back/Forward in New Tab
 map C  -ex tabdupa
-map gh -ex backt
-map gl -ex forwardt
+map gh -js backt();
+map gl -js forwardt();
 " Open multiple hints in background tabs
 map -b gf g;b
 
@@ -2763,7 +2763,8 @@ backt = function () {
 
 " Create adjacent duplicate tab and go forward in the browser history "
 forwardt = function() {
-    tabs.cloneTab(tabs.getTab(), true);
+    var dupT = tabs.cloneTab(tabs.getTab(), true);
+    var dupTB = gBrowser.getBrowserForTab(dupT);
     var forwardtListener = function () {
         gBrowser.goForward();
         dupTB.removeEventListener("DOMContentLoaded", forwardtListener);
