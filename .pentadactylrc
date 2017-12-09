@@ -7143,7 +7143,9 @@ map <site>[ -ex wikiaprevious
 group wikiaadvtime -locations='adventuretime\.wikia\.com/wiki/'
 autocmd! -group wikiaadvtime
 map <leader>hkc -js CommandExMode().open("map -group wikiaadvtime <site>")
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group wikiaadvtime <site>")
+map <site><C-h>
+    \ -description "(show bindings)"
+    \ -js CommandExMode().open("map -group wikiaadvtime -group wikia <site>")
 
 js <<EOF
 
@@ -7162,14 +7164,6 @@ function advtimeToggleTranscript() {
 }
 
 EOF
-
-" Repeat wikia bindings so <site><C-h> works "
-map <site>a -ex wikiaremovefandomads
-map <site>r -ex wikiaremovecruft
-map <site>s -ex wikiasimplepage
-map <site>i -ex wikiaremoveimages
-map <site>] -ex wikianext
-map <site>[ -ex wikiaprevious
 
 command! advtimeToggleTranscript -js advtimeToggleTranscript();
 map <site>c -ex advtimeToggleTranscript
