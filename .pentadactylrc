@@ -4019,6 +4019,8 @@ map <site>T -js waybackToggleToolbarUrl();
 " ( Searches for a year (starting with '20' using FF link search,
 "   then tabs backwards twice to land on back link and activates )
 map -b <site>b <C-v>'20<S-Tab><S-Tab><CR>
+map -b <site>b -js waybackPrevious();
+map -b <site>f -js waybackNext();
 
 command! waybacktoggletoolbar
     \ -bang
@@ -4053,6 +4055,17 @@ function waybackToggleToolbarUrl() {
     else {
         dactyl.open(match[1] + "id_" + match[3]);
     }
+}
+
+// FIXME
+function waybackPrevious() {
+    var link = content.document.querySelector('.b>a');
+    dactyl.open(link.href, { where: 'here' });
+}
+
+function waybackNext() {
+    var link = content.document.querySelector('.f>a');
+    dactyl.open(link.href, { where: 'here' });
 }
 
 EOF
