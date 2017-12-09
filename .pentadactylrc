@@ -2481,8 +2481,8 @@ command! popjisyochinesecolumns
     \ -description "toggle display of chinese data"
     \ styletoggle -name popjisyo
 
-map <ext>jp -ex popjisyo
-map <ext>jtc -ex popjisyochinesecolumns
+map <ext>npp -ex popjisyo
+map <ext>npc -ex popjisyochinesecolumns
 
 " -----------------------------------------------------------------------------
 " ,-------, ,-----------,
