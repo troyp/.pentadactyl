@@ -5013,22 +5013,6 @@ function ghConvertUrlToRaw(url) {
 
 EOF
 
-
-" ===== Spacemacs GROUP START =====
-group spacemacs -locations https://github.com/syl20bnr/*
-map <leader>hkc -js CommandExMode().open("map -group spacemacs <site>")
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group spacemacs <site>")
-
-command! markdowntoorg -nargs=? -js convertMdUrlToOrg(args.length ? args[0] : null);
-map <site>o -js convertMdUrlToOrg();
-command! slashtohash -nargs=? -js convertLastSlashToHash(args.length ? args[0] : null);
-map <site>O -js convertLastSlashToHash();
-" To use navigation menu when there are no ids:
-"     use ;; to focus the link, then * to jump to it.
-autocmd! -group spacemacs
-" FIXME!
-" autocmd PageLoad https://github.com/syl20bnr/spacemacs -javascript convertMdUrlToOrg(buffer.URL);
-
 group user
 
 " -------------------------------------------------------------------------------
