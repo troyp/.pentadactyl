@@ -108,6 +108,22 @@ window.documentPositionIsLater = documentPositionIsLater;
 
 
 // -------------------------------------------------------------------------------
+// ,------,
+// | Tabs |
+// '------'
+
+// Tried to write a backt that's faster in Pale Moon, but about the same
+function backt2() {
+    var tabstate = JSON.parse(nsISessionStore.getTabState(tabs.getTab()));
+    tabstate.index = Math.max(tabstate.index-1, 0);
+    var newtabstate = JSON.stringify(tabstate);
+    var newtab = gBrowser.addTab('');
+    var newtab_pos = newtab._tPos;
+    nsISessionStore.setTabState(tabs.getTab(newtab_pos), newtabstate);
+    gBrowser.selectedTab = newtab;
+}
+
+// -------------------------------------------------------------------------------
 // ,------------,
 // | PageZipper |
 // '------------'
