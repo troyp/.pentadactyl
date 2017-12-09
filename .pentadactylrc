@@ -1933,6 +1933,7 @@ map <ext>ma -description "MozREPL toggle autostart" -ex toggleconfig extensions.
 " '-----------------'
 command! jash -js jashToggle();
 
+map <ext>j<C-h> -description "(show bindings)" -js CommandExMode().open("map <ext>j")
 map <ext>jj -ex jash
 map <ext>je -js jashEvalTab();
 map <ext>js -js jashCssTab();
