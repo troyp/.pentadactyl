@@ -4777,44 +4777,58 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
 map <leader>hkc -js CommandExMode().open("map -group github <site>")
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>")
+map <site><C-h>  -description "(show bindings)" -js CommandExMode().open("map -group github <site>")
 
-map <site>c -js ghClickReadme();
+map <site>c      -description "Click README.md" -js ghClickReadme();
 map <site>h -ex ghtogglehtmlview
-map <site>ir -ex ghlistrepos
-map <site>p -description "Permanent link" -js ghGetPermalink();
-map <site>r -description "open raw file" -js hints.show("🄶");
-map <site>R -description "open raw file (new tab)" -js hints.show("🅶");
-map <site>sr -description "save raw file (hints)" -js hints.show("ⓖ");
-map <site>sR -ex "save this README to /opt/doc/" ghsavethisreadmetodoc
+
+map <site>ir     -description "List user's repos in mow" -ex ghlistrepos
+map <site>p      -description "Permanent link" -js ghGetPermalink();
+map <site>r      -description "Open raw file (hints)" -js hints.show("🄶");
+map <site>R      -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
+map <site>sr     -description "Save raw file (hints)" -js hints.show("ⓖ");
+map <site>sR     -description "save this README to /opt/doc/" -ex ghsavethisreadmetodoc
+map <site>m<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>m")
+map <site>mg     -description "My gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
+map <site>mG     -description "My starred gists"
+ \               -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
+map <site>mp     -description "My profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mr     -description "My repositories"
+ \               -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
+map <site>mmg    -description "My gists (new tab)"
+ \               -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
+map <site>mmG    -description "My starred gists (new tab)"
+ \               -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'tab');
+map <site>mmp    -description "My profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mmr    -description "My repositories (new tab)"
+ \               -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
 map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>o")
-map <site>oh -description "open help" -js ghOpenHelp('here');
-map <site>og -description "my gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
-map <site>oi -description "open issues" -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
-map <site>oI -description "open issues.csv" -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'here');
-map <site>oG
-    \ -description "starred gists"
-    \ -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
-map <site>op -description "my profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
-map <site>ow -description "open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
+map <site>oh     -description "Open help" -js ghOpenHelp('here');
+map <site>og     -description "Open gists" -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'here');
+map <site>oi     -description "Open issues"
+ \               -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
+map <site>oI     -description "Open issues.csv"
+ \               -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'here');
+map <site>or     -description "Open repositories"
+ \               -js dactyl.open(`https://github.com/${ghGetRepoUser()}?tab=repositories`, 'here');
+map <site>ow     -description "Open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
 map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>t")
-map <site>th -description "open help (new tab)" -js ghOpenHelp('tab');
-map <site>ti -description "open issues" -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
-map <site>tI -description "open issues.csv" -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
-map <site>tg -description "my gists (new tab)" -js dactyl.open('https://gist.github.com/'+ghusername, 'tab');
-map <site>tG
-    \ -description "starred gists"
-    \ -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'tab');
-map <site>tp -description "my profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'here');
-map <site>tw -description "open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
+map <site>tg     -description "Open gists (new tab)"
+ \               -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'tab');
+map <site>th     -description "Open help (new tab)" -js ghOpenHelp('tab');
+map <site>ti     -description "Open issues"
+ \               -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
+map <site>tI     -description "Open issues.csv"
+ \               -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
+map <site>tw     -description "Open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
 map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>y")
-map <site>yg -description "yank git repos link" -js ghCopyRepoLinkGit();
-map <site>yn -description "yank repo name" -js ghCopyRepoName();
-map <site>yr -description "yank raw file URL" -js hints.show("Ⓖ");
-map <site>yR -description "yank repo name with URL" -js ghCopyRepoNameWithURL();
-map <site>yu -description "yank user/repo name" -js ghCopyUserAndRepo();
-map <site>yw -description "yank wiki git URL" -js ghCopyWikiGitURL();
-map <site>yy -description "yank https repos link" -js ghCopyRepoLinkHttps();
+map <site>yg     -description "Yank git repos link" -js ghCopyRepoLinkGit();
+map <site>yn     -description "Yank repo name" -js ghCopyRepoName();
+map <site>yr     -description "Yank raw file URL" -js hints.show("Ⓖ");
+map <site>yR     -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
+map <site>yu     -description "Yank user/repo name" -js ghCopyUserAndRepo();
+map <site>yw     -description "Yank wiki git URL" -js ghCopyWikiGitURL();
+map <site>yy     -description "Yank https repos link" -js ghCopyRepoLinkHttps();
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -4822,7 +4836,7 @@ command! ghtogglehtmlview
 
 command! ghgotolines -nargs=+ -js ghGgoToLines(args);
 
-command! ghlistrepos -js var u = ghGetUserAndRepo()[0]; dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
+command! ghlistrepos -js var u = ghGetRepoUser(); dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
 
 command! ghfilefinder -js ghFileFinder();
 map <site>/ -ex ghfilefinder
@@ -4844,7 +4858,8 @@ js hints.addMode("Ⓖ", "copy raw file url", e=>utils.yankWithMsg(ghConvertUrlTo
 
 js <<EOF
 
-function ghGetUser() { return content.document.querySelector('.avatar').getAttribute('alt').slice(1); }
+function ghGetRepoUser() { return ghGetUserAndRepo()[0]; }
+function ghGetAccountUser() { return content.document.querySelector('.avatar').getAttribute('alt').slice(1); }
 
 function ghToggleHTMLView() {
     var url = buffer.URL.toLowerCase();
