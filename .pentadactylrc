@@ -5319,42 +5319,60 @@ function gtrTextBoxToggleFontSize() {
 
 EOF
 
-command! hwon -description "Show Handwritten Input box. With [!], toggle."
+command! hwon
+    \ -description "Show Handwritten Input box. With [!], toggle"
     \ -bang
     \ -js bang ? gtrImeToggleHandWriteInput() : gtrImeShowHandWriteInput();
-command! hwoff -description "Hide Handwritten Input box." -js gtrImeHideHandWriteInput();
-command! hwboxrepos -description "Reposition Handwritten Input box." -js gtrImeMoveHandWriteBox();
-command! hwgetwidth -js dactyl.utils.message(gtrImeGetWidth());
-command! hwsetwidth -nargs=? -js gtrImeSetWidth((args[0] || "425") + "px");
-command! hwtogglewidth -description "Toggle normal-width/wide IME box"
+command! hwoff
+    \ -description "Hide Handwritten Input box"
+    \ -js gtrImeHideHandWriteInput();
+command! hwboxrepos
+    \ -description "Reposition Handwritten Input box"
+    \ -js gtrImeMoveHandWriteBox();
+command! hwgetwidth
+    \ -description "Show width of Handwritten input box"
+    \ -js dactyl.utils.message(gtrImeGetWidth());
+command! hwsetwidth
+    \ -description "Set width of Handwritten Input box"
+    \ -nargs=?
+    \ -js gtrImeSetWidth((args[0] || "425") + "px");
+command! hwtogglewidth
+    \ -description "Toggle normal-width/wide IME box"
     \ -js if (gtrImeGetWidth() != "800px") gtrImeSetWidth("800px"); else gtrImeSetWidth("425px");
-command! hwyanksource -description "Copy contents of source area to clipboard" -js utils.yankWithMsg(gtrGetSource());
-command! hwjishosearch -description "Search jisho for words in source" -js gtrJishoSearchSource();
-command! hwjishokanjisearch -bang -description "Search jisho for kanji in source" -js gtrJishoKanjiSearchSource(bang?'here':'tab');
-command! gtrfontsize -nargs=1 -description "Set font size for textarea" -js gtrTextBoxFontSize(parseInt(args[0]));
-command! gtrtogglefontsize -description "Toggle font size for textarea" -js gtrTextBoxToggleFontSize();
+command! hwyanksource
+    \ -description "Copy contents of source area to clipboard"
+    \ -js utils.yankWithMsg(gtrGetSource());
+command! hwjishosearch
+    \ -description "Search jisho for words in source"
+    \ -js gtrJishoSearchSource();
+command! hwjishokanjisearch
+    \ -bang
+    \ -description "Search jisho for kanji in source"
+    \ -js gtrJishoKanjiSearchSource(bang?'here':'tab');
+command! gtrfontsize
+    \ -nargs=1
+    \ -description "Set font size for textarea"
+    \ -js gtrTextBoxFontSize(parseInt(args[0]));
+command! gtrtogglefontsize
+    \ -description "Toggle font size for textarea"
+    \ -js gtrTextBoxToggleFontSize();
 
-map <site><C-l> -js gtrImeMoveHandWriteBox();
-map <site><C-S-L> -ex hwtogglewidth
-map <site>h -js gtrImeToggleHandWriteInput()
-map <site>if -ex gtrtogglefontsize
-map <site>iF :gtrfontsize<Space>
-map <site>l -js gtrImeMoveHandWriteBox();
-map <site>k
-    \ -description "Open Jisho.org kanji page (new tab)"
+map <site>h        -description "HW input box: toggle" -js gtrImeToggleHandWriteInput()
+map <site>if       -description "Toggle font size" -ex gtrtogglefontsize
+map <site>iF       -description "Set font size" :gtrfontsize<Space>
+map <site>k        -description "Open Jisho.org kanji page (new tab)"
     \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`, {where:dactyl.NEW_TAB})
-map <site>K
-    \ -description "Open Jisho.org kanji page (current tab)"
+map <site>K        -description "Open Jisho.org kanji page (current tab)"
     \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`)
-map <site>sk -description "Search jisho for kanji in source (new tab)" -ex hwjishokanjisearch
-map <site>sK -description "Search jisho for kanji in source (this tab)" -ex hwjishokanjisearch!
-map <site>ss -description "Search jisho for words in source" -ex hwjishosearch
-map <site>w -ex hwtogglewidth
-map <site>y -description "Copy contents of source area to clipboard" -ex hwyanksource
-
-" map -b <SPACE><SPACE> <SPACE><SPACE>
-" unmap -group gtransja <SPACE><SPACE>
-map <SPACE><SPACE> -js gtrImeShowHandWriteInput();
+map <site>l        -description "HW input box: reposition"                    -js gtrImeMoveHandWriteBox();
+map <site>sk       -description "Search jisho for kanji in source (new tab)"  -ex hwjishokanjisearch
+map <site>sK       -description "Search jisho for kanji in source (this tab)" -ex hwjishokanjisearch!
+map <site>ss       -description "Search jisho for words in source"            -ex hwjishosearch
+map <site>w        -description "HW input box: toggle width"                  -ex hwtogglewidth
+map <site>y        -description "Copy contents of source area to clipboard"   -ex hwyanksource
+map <SPACE><SPACE> -description "HW input box: show"                          -js gtrImeShowHandWriteInput();
+map <site><C-l>    -description "HW input box: reposition"                    -js gtrImeMoveHandWriteBox();
+map <site><C-S-L>  -description "HW input box: toggle width"                  -ex hwtogglewidth
 
 group user
 
