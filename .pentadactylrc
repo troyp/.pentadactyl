@@ -6184,7 +6184,7 @@ function libgenCopyFileNameAndDownload() {
         var name = libgenGetDetails('title');
         var ed_raw = libgenGetDetails('edition') || "1";
         var ed_match = ed_raw.trim().match(/\d+/);
-        var ed = ed_match ? indexToOrdinal(ed_match[0]) : "1st";
+        var ed = ed_match ? indexToOrdinalString(ed_match[0]) : "1st";
         if (typeof ed == 'undefined') ed="1st";
         var year = libgenGetDetails('year');
         var filename = name +
@@ -6222,7 +6222,7 @@ function genlibLibgen() {
     var year = content.document.querySelector('tbody :nth-child(6) :nth-child(2)').innerText;
     var ed_raw = content.document.querySelector('tbody :nth-child(6) :nth-child(4)').innerText;
     var ed_match = ed_raw.trim().match(/\d+/);
-    var ed = ed_match ? indexToOrdinal(ed_match[0]) : "1st";
+    var ed = ed_match ? indexToOrdinalString(ed_match[0]) : "1st";
     if (typeof ed == 'undefined') ed="1st";
     var filename = title +
                    (ed=="1st" ? '' : `, ${ed} ed`) +
@@ -7487,7 +7487,7 @@ function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
 }
 
-function indexToOrdinal(n) {
+function indexToOrdinalString(n) {
     // trim in case n is a string to start with
     var nstr = n.trim().toString();
     var lastDigit = nstr.slice(-1);
