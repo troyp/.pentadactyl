@@ -1112,7 +1112,7 @@ command! hidefooter -js toggleFooter();
 command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
 command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
-command! removefirstselector  -nargs=1 -js removeFirstSelector.call(null, args[0]);
+command! removefirstselector -nargs=1 -js removeFirstSelector.call(null, args[0]);
 command! removecruft -js removeCruft();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
 command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
@@ -6733,10 +6733,7 @@ command! secleanup
     \ -bang
     \ -js seExpandAllComments(); seCleanup(bang);
 
-map <site>c
-    \ -count
-    \ -description "Expand links and remove cruft."
-    \ -js  seExpandAllComments(); seCleanup(count);
+map <site>c -count -description "Expand links and remove cruft." -js  seExpandAllComments(); seCleanup(count);
 
 map -modes insert -b <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
 
