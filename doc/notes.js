@@ -56,6 +56,13 @@ hints.addMode("tablelink_follow", "Follow table link", elem => buffer.followLink
 // map <site>f -description "Hints mode: follow links in table" -js hints.show("tablelink_follow");
 
 // -------------------------------------------------------------------------------
+// ,-----------,
+// | documents |
+// '-----------'
+gBrowser == top.document.getElementById('content');
+content.document == gBrowser.contentDocument == gBrowser.selectedBrowser.contentDocument;
+
+// -------------------------------------------------------------------------------
 // ,------------,
 // | status bar |
 // '------------'
