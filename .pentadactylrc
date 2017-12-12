@@ -1832,6 +1832,15 @@ map <leader>e<C-h> -js CommandExMode().open("map <leader>e")
 
 " JS Repl
 command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
+command! evalwithscripttag
+    \ -nargs *
+    \ -complete javascript
+    \ :js evalWithScriptTag(<args>);
+command! evalwithjsscheme
+    \ -nargs *
+    \ -complete javascript
+    \ :open javascript:<args>; void(0);
+
 map <xtra>r -ex js!
 map <leader>ee :echo<Space>
 map <leader>eE :echo doc=content.document;<Space>$=jQuery;<Space>
@@ -7903,6 +7912,17 @@ function savePageDialog(uriToSave) {
     });
 }
 window.savePageDialog = savePageDialog;
+
+function evalWithScriptTag(code, doc) {
+    var script = content.document.createElement("script");
+    try { script.innerText = code; }
+    catch(e) {
+        script.appendChild(content.document.createTextNode(code));
+    }
+    content.document.head.appendChild(script);
+    script.parentNode.removeChild(script);
+}
+window.evalWithScriptTag = evalWithScriptTag;
 
 // ,-------------------------,
 // | variables for temp data |
