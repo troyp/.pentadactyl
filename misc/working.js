@@ -291,3 +291,13 @@ window._rikaiDefaultPrefs = "/home/troy/.moonchild productions/pale moon/n8pdu9n
 function showDropdown(linkelt) {
     linkelt.style.left = "0px";
 }
+
+// -------------------------------------------------------------------------------
+// ,------------------,
+// | Helper Functions |
+// '------------------'
+
+// alternative implementation of removeXPath
+function removeXPath(xpathexpr) {
+    dactyl.open(`javascript:var elts=document.evaluate(${xpathexpr},document,null,XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,null);for (var i=0; i < elts.snapshotLength; i++){var elt=elts.snapshotItem(i);elt.parentNode.removeChild(elt);}; void(0)`)
+}
