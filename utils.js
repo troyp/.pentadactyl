@@ -77,10 +77,10 @@ var utils = {
         elem.style = "left: -99999px !important";
     },
 
-    getPlugin: function(s) {
+    getPlugin: function(fname, objname=fname) {
         for (var x in plugins.contexts) {
-            if (x.indexOf(s) !== -1)    // if x contains s
-                return plugins.contexts[x][s];
+            if (x.indexOf(fname) !== -1)    // if x contains s
+                return plugins.contexts[x][objname];
         }
         return null;
     },
