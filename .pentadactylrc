@@ -1113,6 +1113,7 @@ command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
 command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
 command! removefirstselector -nargs=1 -js removeFirstSelector.call(null, args[0]);
+command! removeselectorwithmatchingattribute -nargs=+ -js removeSelectorWithMatchingAttribute.call(null, ...args);
 command! removecruft -js removeCruft();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
 command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
@@ -7672,6 +7673,20 @@ function yankSelectorContent(sel, target='innerText') {
     utils.cbWriteWithMessageLimit(selectedContent);
 }
 window.yankSelectorContent = yankSelectorContent;
+
+function getSelectorWithMatchingAttribute(sel, att, expr) {
+    var all_elts = Array.from(content.document.querySelectorAll(sel));
+    var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
+    return matching;
+}
+window.getSelectorWithMatchingAttribute = getSelectorWithMatchingAttribute;
+
+function removeSelectorWithMatchingAttribute(sel, att, expr) {
+    var all_elts = Array.from(content.document.querySelectorAll(sel));
+    var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
+    matching.forEach(e => e.parentNode.removeChild(e));
+}
+window.removeSelectorWithMatchingAttribute = removeSelectorWithMatchingAttribute;
 
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
