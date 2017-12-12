@@ -1115,6 +1115,7 @@ command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
 command! removefirstselector -nargs=1 -js removeFirstSelector.call(null, args[0]);
 command! removeselectorwithmatchingattribute -nargs=+ -js removeSelectorWithMatchingAttribute.call(null, ...args);
 command! removecruft -js removeCruft();
+command! removeiframes -js removeIFrames();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
 command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
@@ -2972,6 +2973,11 @@ function removeCruft() {
         if (elts[i])
             elts[i].remove();
     }
+}
+
+function removeIFrames() {
+    var iframes = Array.from(content.document.getElementsByTagName('iframe'));
+    iframes.forEach(f=>f.parentNode.removeChild(f));
 }
 
 function pwHash() {
