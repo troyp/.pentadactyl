@@ -7685,6 +7685,13 @@ function yankSelectorContent(sel, target='innerText') {
 }
 window.yankSelectorContent = yankSelectorContent;
 
+function getLinksWithMatchingUrl(s) {
+    var links = Array.from(content.document.getElementsByTagName('a'));
+    var matching = links.filter(l=>l.href.match(s));
+    return matching;
+}
+window.getLinksWithMatchingUrl = getLinksWithMatchingUrl;
+
 function getSelectorWithMatchingAttribute(sel, att, expr) {
     var all_elts = Array.from(content.document.querySelectorAll(sel));
     var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
