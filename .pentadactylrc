@@ -6733,6 +6733,10 @@ function seCleanup(showSnippetResults) {
     );
 }
 
+function seRemoveAds() {
+    removeSelectorWithMatchingAttribute('div', 'id', 'google_ad');
+}
+
 EOF
 
 command! secleanup
@@ -6740,6 +6744,7 @@ command! secleanup
     \ -bang
     \ -js seExpandAllComments(); seCleanup(bang);
 
+map <site>a        -description "Remove ads" -js seRemoveAds();
 map <site>c -count -description "Expand links and remove cruft." -js  seExpandAllComments(); seCleanup(count);
 
 map -modes insert -b <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
