@@ -1171,7 +1171,7 @@ map <browser>cr       -description "Close tab range"                :tc<SPACE>
 map <browser>cb       -description "Close tab from list"            :bdelete<SPACE>
 " remove tabs "
 map <browser>cc       -description "Close tabs matching REGEX"      :tabremoveregex<Space>""<C-b>
-map <browser>c<Space> -description "Close tabs satisfying EXPR"     :tabremove<Space><C-b>
+map <browser>c<Space> -description "Close tabs satisfying EXPR"     :tabremove<Space>""<C-b>
 " filter tabs "
 map <browser>co       -description "Close tabs not matching REGEX"  :tabfilterregex<Space>""<C-b>
 map <browser>cf       -description "Close tabs not satisfying EXPR" :tabfilter<Space>""<C-b>
