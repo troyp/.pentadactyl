@@ -7939,6 +7939,14 @@ function evalWithScriptTag(code, doc) {
 }
 window.evalWithScriptTag = evalWithScriptTag;
 
+function newTab(url="about:newtab") {
+    var browser = getBrowser();
+    var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
+    var tab = browser.addTab(url, referrer, "utf-8");
+    return tab;
+}
+window.newTab = newTab;
+
 // ,-------------------------,
 // | variables for temp data |
 // '-------------------------'
