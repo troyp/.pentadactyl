@@ -423,7 +423,7 @@ map <xtra>d
     \ -description "Open directory in Dired"
     \ -ex openDirectoryInDired
 " jumplist
-map <C-j> -description "Show jump list" -ex jumps
+map <C-j> -description "Show jump list" :jumps<CR>f
 map <xtra>P
     \ -description "Password hasher"
     \ -ex pwhash
