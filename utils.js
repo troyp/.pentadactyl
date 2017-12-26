@@ -96,6 +96,7 @@ var utils = {
     },
 
     messageWithLineLimit: function(s, maxL=30) {
+        s = String(s);
         var lines = s.split('\n');
         if (lines.length < maxL) {
             utils.message(s);
