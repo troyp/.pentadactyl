@@ -1121,6 +1121,7 @@ command! clickselector -nargs=1 -js clickSelector(content.document.querySelector
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
 command! hidefirstselector  -nargs=1 -js hideFirstSelector.call(null, args[0]);
 command! removexpath -nargs=1 open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
+command! countselector -nargs=1 -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelector(args[0])}`);
 
 " Page info commands "
 command! imgsalttotitle
@@ -2507,6 +2508,7 @@ map <ext>npc -ex popjisyochinesecolumns
 map <leader>l<C-h> -js CommandExMode().open("map <leader>l")
 
 map <leader>la -ex appendlinks
+map <leader>lc -ex countlinks
 map <leader>lu -ex appendlinkurls
 map <leader>ll -ex listlinks
 map <leader>ls -ex dlselectlinks
@@ -2520,6 +2522,9 @@ command! appendlinkurls
 command! listlinks
     \ -description "List all links in page"
     \ :open listalllinks
+command! countlinks
+    \ -description "Count links"
+    \ -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelector('a'));
 
 js <<EOF
 appendLinksAndAlt = function() {
@@ -7730,6 +7735,13 @@ function removeXPath(xpathexpr) {
         elt.parentNode.removeChild(elt);
     }
 }
+
+// TODO: allow multiple selectors (prevent duplication of elements)
+function countSelector(sel) {
+    var elts = content.document.querySelectorAll(sel);
+    return elts.length;
+}
+window.countSelector = countSelector;
 
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
