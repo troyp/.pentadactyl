@@ -2179,6 +2179,7 @@ map skw       -description "search bookmarks with buku"  -ex !buku_run
 "                              |_______________________|
 
 set! browser.tabs.closeWindowWithLastTab=false
+set! general.autoScroll=true
 
 command! toggleconfig
     \ -description "Toggle boolean about:config setting."
