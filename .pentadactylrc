@@ -2196,6 +2196,11 @@ command! getcharpref
     \ -nargs=1
     \ -js utils.message(dactyl.utils.getCharPref(args[0]));
 
+command! getintpref
+    \ -description "Show value of integer about:config setting."
+    \ -nargs=1
+    \ -js utils.message(dactyl.utils.getIntPref(args[0]));
+
 " enable/disable javascript
 command! acsetjs    :set! javascript.enabled=true
 command! acunsetjs  :set! javascript.enabled=false

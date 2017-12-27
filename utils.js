@@ -168,6 +168,28 @@ var utils = {
         return prefManager.getBoolPref(pref);
     },
 
+    getIntPref: function (pref) {
+        var prefManager =
+            Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch);
+        return prefManager.getIntPref(pref);
+    },
+
+    toggleIntPrefBetween: function (pref, val1, val2) {
+        // if preference is val1, set to val2, else set to val1
+        var prefManager =
+            Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch);
+        var currentval = prefManager.getIntPref(pref);
+        var newval;
+        if (prefManager.getIntPref(pref) == val1)
+            newval = val2;
+        else
+            newval = val1;
+        prefManager.setIntPref(pref, newval);
+        this.message(`${pref}=${newval}`);
+    },
+
     toggleNsISupportStrPref: function (pref, s) {
         var prefManager =
             Components.classes["@mozilla.org/preferences-service;1"].getService(
