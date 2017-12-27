@@ -3513,7 +3513,7 @@ EOF
 
 " ===== GROUP START =====
 
-group google -locations=google.com,google.com.*
+group google -locations=https://www.google.com*
 map <leader>hkc -js CommandExMode().open("map -group google <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group google <site>")
 
@@ -4320,7 +4320,7 @@ group user
 " ,---------,
 " | Bato.to |
 " '---------'
-group batoto -locations=bato.to
+group batoto -locations=www.bato.to
 map <leader>hkc -js CommandExMode().open("map -group batoto <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group batoto <site>")
 
@@ -5117,7 +5117,7 @@ group user
 " '-------'
 " For the old-style GMail interface. "
 
-group gmail -locations=mail.google.com
+group gmail -locations='https://www.google.com/gmail/*'
 map <leader>hkc -js CommandExMode().open("map -group gmail <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group gmail <site>")
 
@@ -5300,7 +5300,7 @@ group user
 " - S-Enter copies top candidate to input field.
 " - Esc clears the box.
 
-group gtransja -locations=translate.google.com/#ja,translate.google.com.au/#ja,translate.google.com/#zh-CN,translate.google.com.au/#zh-CN
+group gtransja -locations='https://translate.google.com/#ja/en/','https://translate.google.com.au/#ja/en/','https://translate.google.com/#zh-CN/en/','https://translate.google.com.au/#zh-CN/en/'
 map <leader>hkc -js CommandExMode().open("map -group gtransja <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group gtransja <site>")
 
