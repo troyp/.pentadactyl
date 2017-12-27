@@ -2244,6 +2244,37 @@ command! acunsetclosewinwithlasttab   :set! browser.tabs.closeWindowWithLastTab
 command! actoggleclosewinwithlasttab  toggleconfig browser.tabs.closeWindowWithLastTab
 command! acgetclosewinwithlasttab     getboolpref  browser.tabs.closeWindowWithLastTab
 
+" Links opening in new windows "
+" open_newwindow: divert links that would normally open in a new window "
+"     1: divert to current tab and window "
+"     2: don't divert "
+"     3: divert to a new tab in the current window "
+command! acsetopennewwin
+    \ set! browser.link.open_newwindow=3 |
+    \ set! extensions.dactyl.saved.browser.link.open_newwindow=3
+command! acunsetopennewwin
+    \ set! browser.link.open_newwindow=2 |
+    \ set! extensions.dactyl.saved.browser.link.open_newwindow=2
+command! actoggleopennewwin
+    \ -js utils.toggleIntPrefBetween('browser.link.open_newwindow', 2, 3);
+    \     utils.toggleIntPrefBetween('extensions.dactyl.saved.browser.link.open_newwindow', 2, 3);
+command! acgetopennewwin getintpref extensions.dactyl.saved.browser.link.open_newwindow
+" open_newwindow.restriction: "
+"     0 divert all links, incl. HTML with target '_blank' and JS window.open() calls "
+"     1 divert none "
+"     2 divert links unless specifying how to display: "
+"       excludes JS window.open() calls with the third parameter (features) specified "
+command! acsetopennewwinrestriction
+    \ set! browser.link.open_newwindow.restriction=2 |
+    \ set! extensions.dactyl.saved.browser.link.open_newwindow.restriction=2
+command! acunsetopennewwinrestriction
+    \ set! browser.link.open_newwindow.restriction=0 |
+    \ set! extensions.dactyl.saved.browser.link.open_newwindow.restriction=0
+command! actoggleopennewwinrestriction
+    \ -js utils.toggleIntPrefBetween('browser.link.open_newwindow.restriction', 0, 2);
+    \     utils.toggleIntPrefBetween('extensions.dactyl.saved.browser.link.open_newwindow.restriction', 0, 2);
+command! acgetopennewwinrestriction getintpref extensions.dactyl.saved.browser.link.open_newwindow.restriction
+
 " ============================================================================
 "                                      _________
 "                                     |         |
