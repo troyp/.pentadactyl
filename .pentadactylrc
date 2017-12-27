@@ -2179,7 +2179,6 @@ map skw       -description "search bookmarks with buku"  -ex !buku_run
 "                              | about:config SETTINGS |
 "                              |_______________________|
 
-set! browser.tabs.closeWindowWithLastTab=false
 set! general.autoScroll=true
 
 command! toggleconfig
@@ -2233,6 +2232,12 @@ command! acsetrelatedtabaftercurrent   :set! browser.tabs.insertRelatedAfterCurr
 command! acunsetrelatedtabaftercurrent :set! browser.tabs.insertRelatedAfterCurrent
 command! actogglerelatedtabaftercurrent toggleconfig browser.tabs.insertRelatedAfterCurrent
 command! acgetrelatedtabaftercurrent getboolpref browser.tabs.insertRelatedAfterCurrent
+
+" Close window with last tab "
+command! acsetclosewinwithlasttab     :set! browser.tabs.closeWindowWithLastTab
+command! acunsetclosewinwithlasttab   :set! browser.tabs.closeWindowWithLastTab
+command! actoggleclosewinwithlasttab  toggleconfig browser.tabs.closeWindowWithLastTab
+command! acgetclosewinwithlasttab     getboolpref  browser.tabs.closeWindowWithLastTab
 
 " ============================================================================
 "                                      _________
