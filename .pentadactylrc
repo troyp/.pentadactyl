@@ -3715,7 +3715,8 @@ js <<EOF
 
 function courseraTogglePaused() {
     var vid = content.document.getElementById('c-video_html5_api');
-    if (vid && vid.paused) vid.play(); else vid.pause();
+    if (!vid) return;
+    if (vid.paused) vid.play(); else vid.pause();
 }
 function courseraRateDec() {
     var buttons = content.document.getElementsByClassName('c-playback-rate-button');
