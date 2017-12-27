@@ -519,6 +519,16 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
 map <leader>a<C-h> -js CommandExMode().open("map <leader>a")
+" Email "
+map <leader>amm -description "Open Gmail Basic"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('https://mail.google.com/mail/h/1f0xqcpo2pdl3/?f=1')(<count>)
+map <leader>amg -description "Open Gmail"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('https://mail.google.com/mail/u/0/#inbox')(<count>)
+map <leader>amy -description "Open Y7Mail"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('https://mg.mail.yahoo.com/')(<count>)
 " Paypal "
 map <leader>ap -count -ex js openInNewOrCurrentTab('https://www.paypal.com/myaccount/home')(<count>)
 " Time "
