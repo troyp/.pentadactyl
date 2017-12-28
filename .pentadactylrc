@@ -398,6 +398,12 @@ map <xtra>c
 map <xtra>C
     \ -description "Open URL in Google Chrome (minimal profile)"
     \ -ex ochromeminurl
+map <xtra>;c
+    \ -description "Open in Google Chrome (default profile)"
+    \ -ex ochrome
+map <xtra>;C
+    \ -description "Open URL in Google Chrome (default profile)"
+    \ -ex ochromeurl
 map <xtra>f
     \ -description "Open in Firefox"
     \ -ex ofox
