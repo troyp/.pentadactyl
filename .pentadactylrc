@@ -4845,7 +4845,7 @@ map <site>tw -description "View account/wishlists (new tab)" -ex tabopen https:/
 
 style -name=fasttechPostSeparator https://www.fasttech.com/*
     \ .ForumHeader { border-top: solid 1px #AAA !important; }
-styleenable https://www.fasttech.com/*
+styleenable https://www.fasttech.com/* fasttechPostSeparator
 
 group user
 
