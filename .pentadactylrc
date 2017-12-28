@@ -1565,6 +1565,9 @@ map -b <goto>r
 map -b <goto>s
     \ -description "Support (new tab)"
     \ -ex tabopen about:support
+map -b <goto>xe
+    \ -description "Epub Catalog (new tab)"
+    \ -ex tabopen about:epubcatalog
 map -b <goto>`
     \ -description "Home directory (new tab)"
     \ -ex tabopen file:///home/troy/
@@ -1617,6 +1620,9 @@ map -b <goto>er
 map -b <goto>es
     \ -description "Support"
     \ -ex open about:support
+map -b <goto>exe
+    \ -description "Epub Catalog"
+    \ -ex open about:epubcatalog
 map -b <goto>e`
     \ -description "Home directory"
     \ -ex open file:///home/troy/
@@ -1676,6 +1682,9 @@ map -b <goto>wr
 map -b <goto>ws
     \ -description "Support (new window)"
     \ -ex winopen about:support
+map -b <goto>wxe
+    \ -description "Epub Catalog (new window)"
+    \ -ex winopen about:epubcatalog
 map -b <goto>w`
     \ -description "Home directory (new window)"
     \ -ex winopen file:///home/troy/
