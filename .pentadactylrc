@@ -1940,7 +1940,9 @@ command! dominspector :feedkeys <C-S-I>
 command! dominspector -js inspectDOMDocument(content.document);
 command! dominspector :dialog dominspector
 command! dominspectorchrome :js inspectDOMDocument(document.URL)
-command! browsertoolbox :feedkeys <C-A-S-I>
+command! browsertoolboxinit -js browserToolboxOn();
+command! browsertoolboxperm -js browserToolboxPermissionBoxInit();
+command! browsertoolbox browsertoolboxinit | browsertoolboxperm
 
 " Toggle FF Developer command line
 " <S-f2> requires <Esc> to enter normal mode after toggling off.
@@ -1965,12 +1967,22 @@ Array.from(gDevTools._tools.keys()).forEach(
 )
 window.mozdevtools = mozdevtools;
 
+function browserToolboxOn() {
+    window.browsertoolbox = new BrowserToolboxProcess();
+}
+function browserToolboxPermissionBoxInit() {
+    // FIXME: xdotool call is not working
+    // * adding a sleep 2 command before it stops the box from even being raised
+    // * wrapping it in a window.setTimeout has no effect
+    dactyl.execute('!wmctrl -F -a "Incoming Connection"');
+    dactyl.execute('!xdotool key Tab');
+}
+
 DeveloperToolbar.show();
 devtbar = document.getElementById('developer-toolbar');
 [devtbar_stack, devtbar_tools_btn, devtbar_close_btn] = devtbar.childNodes;
 DeveloperToolbar.hide();
 EOF
-
 
 " -----------------------------------------------------------------------------
 " ,---------,
