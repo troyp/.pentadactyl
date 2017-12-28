@@ -1506,37 +1506,32 @@ EOF
 map <C-f10> -js showContextMenu();
 
 " -----------------------------------------------------------------------------
-" ,---------,
-" | Dialogs |
-" '---------'
+" ,-------------------------,
+" | Dialogs & Special Pages |
+" '-------------------------'
 
 map <leader>hke -description "(Show bindings)" -js CommandExMode().open("map <goto>")
 map <goto><C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>")
-
-" downloads
-map <goto>wd -ex dialog downloads
-" about:config
-command! ac
-    \ -description "Open about:config in new window"
-    \ :winopen about:config
+map <goto>e<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>e")
+map <goto>w<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>w")
 
 " history (better dialog than `:dialog history`)
-map <goto>wh -ex historydialog | ! wmctrl -F -r "Library" -b add,above,sticky
-command! historydialog
+command! library
     \ -description "Open history dialog"
     \ :feedkeys <C-S-H>
+command! librarysticky silent library |
+    \ silent ! wmctrl -F -r "Library" -e 0,1081,216,812,815
+    \ silent ! wmctrl -F -a "Library" -r "Library" -b add,above,sticky;
 
-" bookmarks "
-map <goto>wk -ex dialog bookmarks | normal <Tab>
-
-" pentadactyl help
-map <local-help> -ex tabopen ~/.pentadactyl/doc/help/index.html
-" single-page pentadactyl help
-map <local-help-all> -ex tabopen ~/.pentadactyl/doc/all.html
-
-map <goto>a
-    \ -description "Addons"
+map -b <goto>a
+    \ -description "Addons (switch to or open in new tab)"
     \ -ex dialog addons
+map -b <goto>A
+    \ -description "Palemoon Extensions (new tab)"
+    \ -ex tabopen https://addons.palemoon.org/extensions/
+map -b <goto>;a
+    \ -description "Addons Directory (new tab)"
+    \ -ex tabopen file:///opt/ff-addons/
 map -b <goto>c
     \ -description "about:config (new tab)"
     \ -ex tabopen about:config
@@ -1545,21 +1540,22 @@ map -b <goto>d
     \ tabout:downloads<CR><C-z>
 map -b <goto>h
     \ -description "Pentadactyl help (new tab)"
-    \ -ex tabopen file:///home/troy/.pentadactyl/doc/help/index.html
+    \ -ex help
+    " \ -ex tabopen file:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>k
     \ -description "places (new tab)" tchrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>K
     \ -description "Bookmarks (new tab)"
     \ -ex tabopen chrome://browser/content/bookmarks/bookmarksPanel.xul
-map -b <goto>l
-    \ -description "Password manager (new tab)"
-    \ -ex tabopen chrome://passwordmgr/content/passwordManager.xul
 map -b <goto>p
     \ -description "Plugins (new tab)"
     \ -ex tabopen about:plugins
 map -b <goto>P
     \ -description "Preferences (new window)"
     \ tabout:preferences<CR><C-z>
+map -b <goto>q
+    \ -description "Password manager (new tab)"
+    \ -ex tabopen chrome://passwordmgr/content/passwordManager.xul
 map -b <goto>r
     \ -description "Session restore (new tab)"
     \ -ex tabopen about:sessionrestore
@@ -1575,9 +1571,20 @@ map -b <goto>`
 map -b <goto>/
     \ -description "Root directory (new tab)"
     \ -ex tabopen file:///
-map -b <goto>e<f1>
+map -b <goto><f1>
     \ -description "Pentadactyl help - single page (new tab)"
-    \ -ex tabopen file:///home/troy/.pentadactyl/doc/all.html
+    \ -ex helpall
+    " \ -ex tabopen file:///home/troy/.pentadactyl/doc/all.html
+
+map -b <goto>ea
+    \ -description "Addons"
+    \ -ex open about:addons
+map -b <goto>eA
+    \ -description "Palemoon Extensions"
+    \ -ex open https://addons.palemoon.org/extensions/
+map -b <goto>e;a
+    \ -description "Addons Directory"
+    \ -ex open file:///opt/ff-addons/
 map -b <goto>ec
     \ -description "about:config"
     \ -ex open about:config
@@ -1586,20 +1593,21 @@ map -b <goto>ed
     \ oabout:downloads<CR><C-z>
 map -b <goto>eh
     \ -description "Pentadactyl help"
-    \ -ex open file:///home/troy/.pentadactyl/doc/help/index.html
+    \ -ex open dactyl://help/intro
+    " \ -ex open file:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>ek
     \ -description "places" ochrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>eK
     \ -description "Bookmarks"
     \ -ex open chrome://browser/content/bookmarks/bookmarksPanel.xul
-map -b <goto>el
-    \ -description "Password manager"
-    \ -ex open chrome://passwordmgr/content/passwordManager.xul
 map -b <goto>ep
     \ -description "Plugins"
     \ -ex open about:plugins
 map -b <goto>eP
     \ -description "Preferences" oabout:preferences<CR><C-z>
+map -b <goto>eq
+    \ -description "Password manager"
+    \ -ex open chrome://passwordmgr/content/passwordManager.xul
 map -b <goto>er
     \ -description "Session restore"
     \ -ex open about:sessionrestore
@@ -1616,31 +1624,49 @@ map -b <goto>e/
     \ -description "Root directory"
     \ -ex open file:///
 map -b <goto>e<f1>
-    \ -description "Pentadactyl help -single page"
-    \ -ex open file:///home/troy/.pentadactyl/doc/all.html
+    \ -description "Pentadactyl help - single page"
+    \ -ex open dactyl://help/all
+    " \ -ex open file:///home/troy/.pentadactyl/doc/all.html
+
+map -b <goto>wa
+    \ -description "Addons (new window)"
+    \ -ex winopen about:addons
+map -b <goto>wA
+    \ -description "Palemoon Extensions (new window)"
+    \ -ex winopen https://addons.palemoon.org/extensions/
+map -b <goto>w;a
+    \ -description "Addons Directory (new window)"
+    \ -ex winopen file:///opt/ff-addons/
 map -b <goto>wc
     \ -description "about:config (new window)"
     \ -ex winopen about:config
 map -b <goto>wd
     \ -description "Downloads (new window)" wabout:downloads<CR><C-z>
-map -b <goto>wh<f1>
+map -b <goto>wh
     \ -description "Pentadactyl help (new window)"
-    \ -ex winopen file:///home/troy/.pentadactyl/doc/help/index.html
+    \ -ex winopen dactyl://help/intro
+    " \ -ex winopen file:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>wk
     \ -description "places (new window)"
     \ wchrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>wK
     \ -description "Bookmarks (new window)"
     \ -ex winopen chrome://browser/content/bookmarks/bookmarksPanel.xul
+map -b <goto>w;k
+    \ -description "Bookmarks Dialog"
+    \ -ex dialog bookmarks
 map -b <goto>wl
-    \ -description "Password manager (new window)"
-    \ -ex winopen chrome://passwordmgr/content/passwordManager.xul
+    \ -description "Library Dialog (sticky)"
+    \ -ex librarysticky
 map -b <goto>wp
     \ -description "Plugins  (new window)"
     \ -ex winopen about:plugins
 map -b <goto>wP
     \ -description "Preferences (new window)"
     \ wabout:preferences<CR><C-z>
+map -b <goto>wq
+    \ -description "Password manager (new window)"
+    \ -ex winopen chrome://passwordmgr/content/passwordManager.xul
 map -b <goto>wr
     \ -description "Session restore (new window)"
     \ -ex winopen about:sessionrestore
@@ -1656,9 +1682,10 @@ map -b <goto>w`
 map -b <goto>w/
     \ -description "Root directory (new window)"
     \ -ex winopen file:///
-map -b <goto>e
-    \ -description "Pentadactyl help -single page (new window)"
-    \ -ex winopen file:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>w<f1>
+    \ -description "Pentadactyl help - single page (new window)"
+    \ -ex winopen dactyl://help/all
+    " \ -ex winopen file:///home/troy/.pentadactyl/doc/all.html
 
 " Pentadactyl source
 map <goto>D -ex tabopen resource://dactyl/
