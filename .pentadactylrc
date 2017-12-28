@@ -2648,12 +2648,10 @@ EOF
 style -name=bmarksbarbutton
     \ *
     \ #personal-bookmarks-menu-button {
-    \     list-style-image: url("chrome://test-24.png");
     \     -moz-image-region: rect(0px 24px 24px 0px);
     \     -moz-box-orient: horizontal !important;
     \ }
     \ toolbar[iconsize="small"] #personal-bookmarks-menu-button {
-    \     list-style-image: url("chrome://test-16.png");
     \     -moz-image-region: rect(0px 16px 16px 0px);
     \     -moz-box-orient: horizontal !important;
     \ }
