@@ -8103,3 +8103,14 @@ EOF
 "   This also redefines the argument when zero is passed, but if it's only meant
 "   to take a count, it's okay, since counts can't be zero.
 " * To override user agent for specific domain, use general.useragent.override.example.com
+" * When defining a command, if | cannot be used, you can use a new command on each line
+"   (using the line continuation character \).
+"       command! foo feedkeys l
+"           \ feedkeys l
+"           \ feedkeys l
+"   * The downside is that sometimes a single command cannot be split. Eg.:
+"           command! librarysticky silent library |
+"               \ silent ! wmctrl -F -r "Library" -e 0,1081,216,812,815;
+"               \          wmctrl -F -a "Library" -r "Library" -b add,above,sticky;
+"     gives a "not a pentadactyl command" error. You must use a single line, or (when possible,
+"     as in this case) split it into two individual commands.
