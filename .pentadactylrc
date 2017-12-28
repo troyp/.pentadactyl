@@ -2243,6 +2243,8 @@ map skw       -description "search bookmarks with buku"  -ex !buku_run
 "                              |_______________________|
 
 set! general.autoScroll=true
+set! devtools.chrome.enabled=true
+set! devtools.debugger.remote-enabled=true
 
 command! toggleconfig
     \ -description "Toggle boolean about:config setting."
