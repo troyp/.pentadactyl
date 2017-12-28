@@ -1514,6 +1514,9 @@ map <leader>hke -description "(Show bindings)" -js CommandExMode().open("map <go
 map <goto><C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>")
 map <goto>e<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>e")
 map <goto>w<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>w")
+map <goto>x<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>x")
+map <goto>ex<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>ex")
+map <goto>wx<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>wx")
 
 " history (better dialog than `:dialog history`)
 command! library
