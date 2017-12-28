@@ -1542,6 +1542,9 @@ map -b <goto>h
     \ -description "Pentadactyl help (new tab)"
     \ -ex help
     " \ -ex tabopen file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>i
+    \ -description "Profiles (new tab)"
+    \ -ex tabopen about:profiles
 map -b <goto>k
     \ -description "places (new tab)" tchrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>K
@@ -1562,9 +1565,6 @@ map -b <goto>r
 map -b <goto>s
     \ -description "Support (new tab)"
     \ -ex tabopen about:support
-map -b <goto>i
-    \ -description "Profiles (new tab)"
-    \ -ex tabopen about:profiles
 map -b <goto>`
     \ -description "Home directory (new tab)"
     \ -ex tabopen file:///home/troy/
@@ -1595,6 +1595,9 @@ map -b <goto>eh
     \ -description "Pentadactyl help"
     \ -ex open dactyl://help/intro
     " \ -ex open file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>ei
+    \ -description "Profiles"
+    \ -ex open about:profiles
 map -b <goto>ek
     \ -description "places" ochrome://browser/content/places/places.xul<CR>gi<C-z>
 map -b <goto>eK
@@ -1614,9 +1617,6 @@ map -b <goto>er
 map -b <goto>es
     \ -description "Support"
     \ -ex open about:support
-map -b <goto>ei
-    \ -description "Profiles"
-    \ -ex open about:profiles
 map -b <goto>e`
     \ -description "Home directory"
     \ -ex open file:///home/troy/
@@ -1646,6 +1646,9 @@ map -b <goto>wh
     \ -description "Pentadactyl help (new window)"
     \ -ex winopen dactyl://help/intro
     " \ -ex winopen file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>wi
+    \ -description "Profiles (new window)"
+    \ -ex winopen about:profiles
 map -b <goto>wk
     \ -description "places (new window)"
     \ wchrome://browser/content/places/places.xul<CR>gi<C-z>
@@ -1673,9 +1676,6 @@ map -b <goto>wr
 map -b <goto>ws
     \ -description "Support (new window)"
     \ -ex winopen about:support
-map -b <goto>wi
-    \ -description "Profiles (new window)"
-    \ -ex winopen about:profiles
 map -b <goto>w`
     \ -description "Home directory (new window)"
     \ -ex winopen file:///home/troy/
