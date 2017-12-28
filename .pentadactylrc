@@ -2380,6 +2380,10 @@ EOF
 "                                  | EXTENSIONS |
 "                                  |____________|
 
+map <ext>s<C-h> -js CommandExMode().open("map <ext>s");
+map <ext>n<C-h> -js CommandExMode().open("map <ext>n");
+map <ext>st -ex dialog customizetoolbar
+
 js <<EOF
 
 function toggleAddon(id) {
