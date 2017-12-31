@@ -418,7 +418,7 @@ map <leader>O
     \ -tabopenf<Space>
 map <xtra>x
     \ -description "Open local file with xdg-open"
-    \ -ex xopen<Space>
+    \ -js xopenMaybeFromBufferDir();
 map <xtra>e
     \ -description "Open file in Emacs"
     \ -ex openFileInEmacs
@@ -459,6 +459,22 @@ map <leader>ni -ex removeimages
 map <leader>vr -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
 " lmnpop "
 map <leader>np -js hints.show('🄿');
+
+js <<EOF
+
+function xopenMaybeFromBufferDir() {
+    var localDirRegex = /^file:\/\/(.*)/;
+    var localDirMatch = buffer.URL.match(localDirRegex);
+    if (localDirMatch) {
+        var localDir = decodeURIComponent(localDirMatch[1]).replace(' ', '\\ ');
+        CommandExMode().open('xopen ' + localDir);
+    } else {
+        CommandExMode().open('xopen ');
+    }
+}
+
+EOF
+
 
 " -------------------------------------------------------------------------------
 " ,-----------------,
