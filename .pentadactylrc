@@ -2373,6 +2373,17 @@ command! actoggleopennewwinrestriction
     \     utils.toggleIntPrefBetween('extensions.dactyl.saved.browser.link.open_newwindow.restriction', 0, 2);
 command! acgetopennewwinrestriction getintpref extensions.dactyl.saved.browser.link.open_newwindow.restriction
 
+" Media Autoplay "
+command! acsetautoplay    :set! media.autoplay.enable
+command! acunsetautoplay  :set! media.autoplay.enable
+command! actoggleautoplay toggleconfig media.autoplay.enable
+command! acgetautoplay    getboolpref  media.autoplay.enable
+command! acsetautoplayscripted    :set! media.autoplay.allowscripted
+command! acunsetautoplayscripted  :set! media.autoplay.allowscripted
+command! actoggleautoplayscripted toggleconfig media.autoplay.allowscripted
+command! acgetautoplayscripted    getboolpref  media.autoplay.allowscripted
+
+
 " ============================================================================
 "                                      _________
 "                                     |         |
