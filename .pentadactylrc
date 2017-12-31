@@ -526,26 +526,47 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 " '----------------------' '-----------'
 map <leader>a<C-h> -js CommandExMode().open("map <leader>a")
 " Email "
-map <leader>amm -description "Open Gmail Basic"
+map <leader>amm
+    \ -description "Open Gmail Basic"
     \ -count
     \ -ex js openInNewOrCurrentTab('https://mail.google.com/mail/h/1f0xqcpo2pdl3/?f=1')(<count>)
-map <leader>amg -description "Open Gmail"
+map <leader>amg
+    \ -description "Open Gmail"
     \ -count
     \ -ex js openInNewOrCurrentTab('https://mail.google.com/mail/u/0/#inbox')(<count>)
-map <leader>amy -description "Open Y7Mail"
+map <leader>amy
+    \ -description "Open Y7Mail"
     \ -count
     \ -ex js openInNewOrCurrentTab('https://mg.mail.yahoo.com/')(<count>)
 " Paypal "
-map <leader>ap -count -ex js openInNewOrCurrentTab('https://www.paypal.com/myaccount/home')(<count>)
+map <leader>ap
+    \ -description "Open Paypal"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('https://www.paypal.com/myaccount/home')(<count>)
 " Time "
-map <leader>at -count -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
+map <leader>at
+    \ -description "Open Time Server"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
 " Weather "
-map <leader>aw -count -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
+map <leader>aw
+    \ -description "Open Lismore Weather"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
 " Banking "
-map <leader>ab -count -ex js openInNewOrCurrentTab(user.mybankurl)(<count>);
+map <leader>ab
+    \ -description "Open Banking"
+    \ -count
+    \ -ex js openInNewOrCurrentTab(user.mybankurl)(<count>);
 " Repos <leader>ag "
-map <leader>agh -count -ex js openInNewOrCurrentTab('https://github.com/troyp')(<count>);
-map <leader>agb -count -ex js openInNewOrCurrentTab('https://bitbucket.org/')(<count>);
+map <leader>agh
+    \ -description "Open My Github"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('https://github.com/troyp')(<count>);
+map <leader>agb
+    \ -description "Open My Bitbucket"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('https://bitbucket.org/')(<count>);
 
 " | Keepvid |
 command! keepvid open javascript:document.location='http://keepvid.com/?url='+escape(window.location);
