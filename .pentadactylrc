@@ -16,6 +16,7 @@ js var utils = dactyl.utils.getPlugin("utils");
 " load personal details
 runtime! personal.js
 js var user = dactyl.utils.getPlugin("personal");
+js var homedir = "/home/troy";
 
 runtime! js/libs/jquery.min.js
 runtime! js/libs/sprintf.js
@@ -1128,16 +1129,16 @@ command! openf
     \ -description "Open a file/directory."
     \ -complete file
     \ -nargs 1
-    \ -js var file = args[0].replace(/^~/, '/home/troy');
-    \     if (!file.startsWith('/')) file = '/home/troy/' + file;
+    \ -js var file = args[0].replace(/^~/, homedir);
+    \     if (!file.startsWith('/')) file = homedir + file;
     \     file = 'file://' + file;
     \     dactyl.open(file);
 command! tabopenf
     \ -description "Open a file/directory in a new tab."
     \ -complete file
     \ -nargs 1
-    \ -js var file = args[0].replace(/^~/, '/home/troy');
-    \     if (!file.startsWith('/')) file = '/home/troy/' + file;
+    \ -js var file = args[0].replace(/^~/, homedir);
+    \     if (!file.startsWith('/')) file = homedir + file;
     \     file = 'file://' + file;
     \     dactyl.open(file, {where: 'tab'});
 
@@ -1610,7 +1611,7 @@ map -b <goto>xe
     \ -ex tabopen about:epubcatalog
 map -b <goto>`
     \ -description "Home directory (new tab)"
-    \ -ex tabopen file:///home/troy/
+    \ -js dactyl.open(`file://${homedir}`, {where: 'tab'});
 map -b <goto>/
     \ -description "Root directory (new tab)"
     \ -ex tabopen file:///
@@ -1665,7 +1666,7 @@ map -b <goto>exe
     \ -ex open about:epubcatalog
 map -b <goto>e`
     \ -description "Home directory"
-    \ -ex open file:///home/troy/
+    \ -js dactyl.open(`file://${homedir}`, {where: 'here'});
 map -b <goto>e/
     \ -description "Root directory"
     \ -ex open file:///
@@ -1727,7 +1728,7 @@ map -b <goto>wxe
     \ -ex winopen about:epubcatalog
 map -b <goto>w`
     \ -description "Home directory (new window)"
-    \ -ex winopen file:///home/troy/
+    \ -js dactyl.open(`file://${homedir}`, {where: 'window'});
 map -b <goto>w/
     \ -description "Root directory (new window)"
     \ -ex winopen file:///
