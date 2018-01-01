@@ -5088,14 +5088,14 @@ map <site>mmp    -description "My profile (new tab)" -js dactyl.open('https://gi
 map <site>mmr    -description "My repositories (new tab)"
  \               -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
 map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>o")
-map <site>oh     -description "Open help" -js ghOpenHelp('here');
 map <site>og     -description "Open gists" -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'here');
+map <site>oh     -description "Open help" -js ghOpenHelp('here');
 map <site>oi     -description "Open issues"
  \               -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
 map <site>oI     -description "Open issues.csv"
  \               -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'here');
 map <site>or     -description "Open repositories"
- \               -js dactyl.open(`https://github.com/${ghGetRepoUser()}?tab=repositories`, 'here');
+ \               -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'here');
 map <site>ow     -description "Open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
 map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>t")
 map <site>tg     -description "Open gists (new tab)"
@@ -5105,6 +5105,8 @@ map <site>ti     -description "Open issues"
  \               -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
 map <site>tI     -description "Open issues.csv"
  \               -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
+map <site>tr     -description "Open repositories (new tab)"
+ \               -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'tab');
 map <site>tw     -description "Open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
 map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>y")
 map <site>yg     -description "Yank git repos link" -js ghCopyRepoLinkGit();
@@ -5121,7 +5123,7 @@ command! ghtogglehtmlview
 
 command! ghgotolines -nargs=+ -js ghGgoToLines(args);
 
-command! ghlistrepos -js var u = ghGetRepoUser(); dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
+command! ghlistrepos -js var u = ghGetUser(); dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
 
 command! ghfilefinder -js ghFileFinder();
 map <site>/ -ex ghfilefinder
@@ -5145,6 +5147,7 @@ js <<EOF
 
 function ghGetRepoUser() { return ghGetUserAndRepo()[0]; }
 function ghGetAccountUser() { return content.document.querySelector('.avatar').getAttribute('alt').slice(1); }
+function ghGetUser() { return ghGetUserAndRepo()[0] || ghGetAccountUser(); }
 
 function ghToggleHTMLView() {
     var url = buffer.URL.toLowerCase();
@@ -5184,8 +5187,8 @@ function ghGetUserAndRepo() {
     // var url = ghGetCloneUrl("https");
     var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/#?]+)(\/.*)?/;
     var match = buffer.URL.match(regex);
-    var user = match[1];
-    var repo = match[2];
+    var user = match && match[1];
+    var repo = match && match[2];
     return [user, repo];
 }
 function ghGetUrlComponents(url=buffer.URL) {
