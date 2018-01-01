@@ -4781,6 +4781,48 @@ command! crdl -js crDL();
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------------,
+" | Chrome Webstore |
+" '-----------------'
+
+js <<EOF
+function chromeGetExtensionDirById(id, profileDir='') {
+    var base = `${homedir}/.config/google-chrome`;
+    var profileDir = profileDir.trim();
+    var prof = profileDir ? `"${profileDir}"` : '*';
+    var dirs = io.system(`for d in ${base}/${prof}/Extensions/${id}; do echo "$d"; done`).output;
+    return dirs.split('\n')[0];
+}
+EOF
+
+command! chromeopenextensiondir
+    \ -nargs=+
+    \ -js dactyl.execute(`!dolphin '${chromeGetExtensionDirById(args[0], args[1])}'`)
+
+" ===== GROUP START =====
+
+group chromestore -locations=chrome.google.com/webstore/
+map <leader>hkc -js CommandExMode().open("map -group chromestore <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group chromestore <site>")
+
+map <site>yn -description "Yank extension name" -js utils.yankWithMsg(chromeGetExtensionNameAndId()[0]);
+map <site>yy -description "Yank extension ID"   -js utils.yankWithMsg(chromeGetExtensionNameAndId()[1]);
+
+js <<EOF
+
+function chromeGetExtensionNameAndId(url=buffer.URL) {
+    var regex = /[^:]+:\/\/chrome.google.com\/webstore\/detail\/([^/]+)\/([^/#?]+)(\/.*)?/;
+    var match = buffer.URL.match(regex);
+    var name = match && match[1];
+    var id = match && match[2];
+    return [name, id];
+}
+
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,------,
 " | eBay |
 " '------'
