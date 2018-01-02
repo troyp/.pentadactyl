@@ -2624,8 +2624,17 @@ map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
 map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
 map <ext>rs -js rcxMain.saveToFile()
+map <ext>rt<C-h> -js CommandExMode().open("map <ext>rt");
 map <ext>rtk -ex styletoggle -name rikaisama-bigkanji
+map <ext>rtm -ex riktogglemergedivs
 map <ext>rto -ex styletoggle -name rikaisama-on-top
+
+" preferences "
+command! riksetmergedivs    :set! extensions.rikaisama.mergedivs=true
+command! rikunsetmergedivs  :set! extensions.rikaisama.mergedivs=false
+command! riktogglemergedivs toggleconfig extensions.rikaisama.mergedivs
+command! rikgetmergedivs    getboolpref  extensions.rikaisama.mergedivs
+
 
 js <<EOF
 function rikLBIsVisible() {
