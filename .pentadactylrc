@@ -2609,6 +2609,11 @@ command! rikepwing -description "Rikaisama: toggle epwing mode"
     \ -js rikEpwingToggle();
 command! riksanseido -description "Rikaisama: toggle sanseido mode"
     \ -js rikSanseidoToggle();
+command! rikprefs -description "Rikaisama: preferences"
+    \ open chrome://rikaichan/content/options.xul
+command! rikprefspopup -description "Rikaisama: preferences (popup)"
+    \ emenu Tools.Extension Preferences.Rikaisama  22.9.3
+
 
 style -name=rikaisama-bigkanji * .w-kanji { font-size: 200% !important; }
 style -name=rikaisama-on-top * #rikaichan-window { z-index: 8888888888 !important; }
@@ -2616,6 +2621,7 @@ style -name=rikaisama-on-top * #rikaichan-window { z-index: 8888888888 !importan
 map <ext>r<C-h> -js CommandExMode().open("map <ext>r");
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
 map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
+map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
 map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
 map <ext>rs -js rcxMain.saveToFile()
 map <ext>rtk -ex styletoggle -name rikaisama-bigkanji
