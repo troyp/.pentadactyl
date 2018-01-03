@@ -1988,13 +1988,15 @@ map <leader>eb :open javascript:
 " ,---------------------------------, ,-----------,
 " | Mozilla DevTools & DOM Inspector| | <leader>d |
 " '---------------------------------' '-----------'
-map <leader>d<C-h> -js CommandExMode().open("map <leader>d")
+map <leader>d<C-h>  -js CommandExMode().open("map <leader>d")
+map <leader>di<C-h> -js CommandExMode().open("map <leader>di")
 
-map <leader>dy -ex eyedropper
-map <leader>dw -ex webide
 map <leader>db -ex browserconsole
-map <leader>ds -ex storageinspector
-map <leader>,di -ex dominspector
+map <leader>dii -ex dominspector
+map <leader>dis -ex storageinspector
+map <leader>dss -js buffer.viewSelectionSource();
+map <leader>dw -ex webide
+map <leader>dy -ex eyedropper
 map <S-f12> -ex devtools
 
 command! webide :feedkeys! <S-f8>
@@ -2049,6 +2051,7 @@ DeveloperToolbar.show();
 devtbar = document.getElementById('developer-toolbar');
 [devtbar_stack, devtbar_tools_btn, devtbar_close_btn] = devtbar.childNodes;
 DeveloperToolbar.hide();
+
 EOF
 
 " -----------------------------------------------------------------------------
