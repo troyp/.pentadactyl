@@ -101,6 +101,11 @@ function setStrPref(pref, value) {
     prefroot.setComplexValue(pref, Components.interfaces.nsISupportsString, value);
 }
 
+
+var isPalemoon = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('palemoon');
+var isBasilisk = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('basilisk');
+var isFirefox  = prefs.has('app.feedback.baseURL') && prefroot.getCharPref('app.feedback.baseURL').includes('mozilla');
+
 "utility functions"
 // Array methods for other collections
 A = {
