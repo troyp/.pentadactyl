@@ -5212,13 +5212,13 @@ map <site>tr     -description "Open repositories (new tab)"
  \               -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'tab');
 map <site>tw     -description "Open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
 map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("map -group github <site>y")
-map <site>yg     -description "Yank git repos link" -js ghCopyRepoLinkGit();
+map <site>yh     -description "Yank https repos link" -js ghCopyRepoLinkHttps();
 map <site>yn     -description "Yank repo name" -js ghCopyRepoName();
 map <site>yr     -description "Yank raw file URL" -js hints.show("Ⓖ");
 map <site>yR     -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
 map <site>yu     -description "Yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yw     -description "Yank wiki git URL" -js ghCopyWikiGitURL();
-map <site>yy     -description "Yank https repos link" -js ghCopyRepoLinkHttps();
+map <site>yy     -description "Yank git repos link" -js ghCopyRepoLinkGit();
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -5357,10 +5357,9 @@ function ghClickReadme() {
 }
 
 function ghGetCloneUrl(urltype) {
-    var linkColl = content.document.getElementsByClassName('js-url-field');
-    var links = Array.from(linkColl).map((_)=>_.value);
-    var httpslink = links.filter((_)=> /^https/.test(_))[0];
-    var gitlink = links.filter((_)=> /^git/.test(_))[0];
+    var [user,repo]= ghGetUserAndRepo();
+    var gitlink =   user && repo && `git@github.com:${user}/${repo}.git`;
+    var httpslink = user && repo && `https://github.com/${user}/${repo}.git`;
     switch (urltype) {
         case "git":   return gitlink;
         case "https": return httpslink;
