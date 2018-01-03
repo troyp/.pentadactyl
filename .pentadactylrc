@@ -2346,20 +2346,20 @@ command! actoggleuaoverride -js utils.toggleCharPref('general.useragent.override
 command! acgetuaoverride    getcharpref general.useragent.override
 
 " Addon auto-updates "
-command! acsetextupdate    :set! extensions.update.enabled
-command! acunsetextupdate  :set! extensions.update.enabled
+command! acsetextupdate    :set! extensions.update.enabled=true
+command! acunsetextupdate  :set! extensions.update.enabled=false
 command! actoggleextupdate toggleconfig extensions.update.enabled
 command! acgetextupdate    getboolpref  extensions.update.enabled
 
 " Open related tab after current "
-command! acsetrelatedtabaftercurrent    :set! browser.tabs.insertRelatedAfterCurrent
-command! acunsetrelatedtabaftercurrent  :set! browser.tabs.insertRelatedAfterCurrent
+command! acsetrelatedtabaftercurrent    :set! browser.tabs.insertRelatedAfterCurrent=true
+command! acunsetrelatedtabaftercurrent  :set! browser.tabs.insertRelatedAfterCurrent=false
 command! actogglerelatedtabaftercurrent toggleconfig browser.tabs.insertRelatedAfterCurrent
 command! acgetrelatedtabaftercurrent    getboolpref  browser.tabs.insertRelatedAfterCurrent
 
 " Close window with last tab "
-command! acsetclosewinwithlasttab     :set! browser.tabs.closeWindowWithLastTab
-command! acunsetclosewinwithlasttab   :set! browser.tabs.closeWindowWithLastTab
+command! acsetclosewinwithlasttab     :set! browser.tabs.closeWindowWithLastTab=true
+command! acunsetclosewinwithlasttab   :set! browser.tabs.closeWindowWithLastTab=false
 command! actoggleclosewinwithlasttab  toggleconfig browser.tabs.closeWindowWithLastTab
 command! acgetclosewinwithlasttab     getboolpref  browser.tabs.closeWindowWithLastTab
 
