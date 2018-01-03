@@ -2056,10 +2056,20 @@ command! firebugHide -js Firebug.showBar(null);
 " '---------'
 js <<EOF
 
+function mozReplGetPort() {
+    return prefservice.getIntPref('extensions.mozrepl.port');
+}
 function mozReplToggle() {
     var svr = mozrepl.server;
-    if (svr.isActive())
+    if (svr.isActive()) {
         svr.stop();
+        utils.message("MozREPL server STOPPED");
+    }
+    else {
+        svr.start(mozReplGetPort(), false);
+        utils.message(`MozREPL server STARTED on port ${mozReplGetPort()}`);
+    }
+}
     else
         svr.start();
 }
