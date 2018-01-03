@@ -2029,10 +2029,9 @@ function toggleGCLI() {
     else bar.show(true);
 }
 
-mozdevtools = {};
-Array.from(gDevTools._tools.keys()).forEach(
-    k => { mozdevtools[k] = gDevTools._tools.get(k).url; }
-)
+var mozdevtools = {};
+for (tool of Array.from(gDevTools._tools))
+    mozdevtools[tool[0]] = tool[1];
 window.mozdevtools = mozdevtools;
 
 function browserToolboxOn() {
