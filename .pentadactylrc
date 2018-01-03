@@ -1587,6 +1587,9 @@ map -b <goto>h
     \ -description "Pentadactyl help (new tab)"
     \ -ex help
     " \ -ex tabopen file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>H
+    \ -description "about:about (new tab)"
+    \ -ex tabopen about:about
 map -b <goto>i
     \ -description "Profiles (new tab)"
     \ -ex tabopen about:profiles
@@ -1643,6 +1646,9 @@ map -b <goto>eh
     \ -description "Pentadactyl help"
     \ -ex open dactyl://help/intro
     " \ -ex open file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>eH
+    \ -description "about:about"
+    \ -ex open about:about
 map -b <goto>ei
     \ -description "Profiles"
     \ -ex open about:profiles
@@ -1697,6 +1703,9 @@ map -b <goto>wh
     \ -description "Pentadactyl help (new window)"
     \ -ex winopen dactyl://help/intro
     " \ -ex winopen file:///home/troy/.pentadactyl/doc/help/index.html
+map -b <goto>wH
+    \ -description "about:about (new window)"
+    \ -ex winopen about:about
 map -b <goto>wi
     \ -description "Profiles (new window)"
     \ -ex winopen about:profiles
