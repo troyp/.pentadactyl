@@ -429,6 +429,9 @@ map <xtra>E
 map <xtra>d
     \ -description "Open directory in Dired"
     \ -ex openDirectoryInDired
+map <xtra>D
+    \ -description "Open directory in Dolphin"
+    \ -ex openDirectoryInDolphin
 " jumplist
 map <C-j> -description "Show jump list" :jumps<CR>f
 map <xtra>P
