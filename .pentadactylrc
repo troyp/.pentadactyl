@@ -124,6 +124,16 @@ A = {
 }
 window.A = A;
 
+// Object methods
+Object.prototype.map = function(f) {
+    var result = {};
+    for (var key in this) {
+        if (this.hasOwnProperty(key))
+            result[key] = f(this[key]);
+    }
+    return result;
+}
+
 function runProcess(exec, ...args) {
     var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
     executable.initWithPath(exec);
