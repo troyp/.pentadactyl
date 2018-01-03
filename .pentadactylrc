@@ -2494,9 +2494,15 @@ EOF
 "                                  | EXTENSIONS |
 "                                  |____________|
 
-map <ext>s<C-h> -js CommandExMode().open("map <ext>s");
+map <ext>e<C-h> -js CommandExMode().open("map <ext>e");
 map <ext>n<C-h> -js CommandExMode().open("map <ext>n");
+map <ext>s<C-h> -js CommandExMode().open("map <ext>s");
 map <ext>st -ex dialog customizetoolbar
+map <ext>ee       :extenable<Space>
+map <ext>ed       :extdisable<Space>
+map <ext>eo       :extoptions<Space>
+map <ext>er       :extrehash<Space>
+map <ext>e<Space> :exttoggle<Space>
 
 js <<EOF
 
