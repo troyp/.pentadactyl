@@ -2054,10 +2054,14 @@ command! firebugHide -js Firebug.showBar(null);
 " ,---------,
 " | MozRepl |
 " '---------'
-js <<EOF
+" If telnet session if broken, use another port "
 
+js <<EOF
 function mozReplGetPort() {
     return prefservice.getIntPref('extensions.mozrepl.port');
+}
+function mozReplSetPort(port) {
+    return prefservice.setIntPref('extensions.mozrepl.port', port);
 }
 function mozReplToggle() {
     var svr = mozrepl.server;
@@ -2070,17 +2074,22 @@ function mozReplToggle() {
         utils.message(`MozREPL server STARTED on port ${mozReplGetPort()}`);
     }
 }
+function mozReplShowStatus() {
+    var svr = mozrepl.server;
+    if (svr.isActive())
+        utils.message(`MozREPL server is ON: port ${mozReplGetPort()}`);
     else
-        svr.start();
+        utils.message("MozREPL server is OFF");
 }
-
 EOF
 
 command! mozrepltoggle -js mozReplToggle();
 
 map <ext>m<C-h> -description "(show bindings)" -js CommandExMode().open("map <ext>m")
 map <ext>mm -description "MozREPL toggle" -js mozReplToggle();
+map <ext>mp -description "MozREPL set port" -js mozrepl.changePort();
 map <ext>mr -description "MozREPL reload" -js mozrepl.server.reload();
+map <ext>ms -description "MozREPL server status" -js mozReplShowStatus();
 map <ext>ma -description "MozREPL toggle autostart" -ex toggleconfig extensions.mozrepl.autoStart
 
 " -------------------------------------------------------------------------------
