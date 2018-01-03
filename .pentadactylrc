@@ -1601,9 +1601,11 @@ map -b <goto>K
 map -b <goto>p
     \ -description "Plugins (new tab)"
     \ -ex tabopen about:plugins
-map -b <goto>P
-    \ -description "Preferences (new window)"
-    \ tabout:preferences<CR><C-z>
+:if isPalemoon
+    map -b <goto>P -description "Preferences (new tab)" tchrome://browser/content/preferences/preferences.xul<CR>
+:else
+    map -b <goto>P -description "Preferences (new tab)" tabout:preferences<CR><C-z>
+:endif
 map -b <goto>q
     \ -description "Password manager (new tab)"
     \ -ex tabopen chrome://passwordmgr/content/passwordManager.xul
@@ -1660,8 +1662,11 @@ map -b <goto>eK
 map -b <goto>ep
     \ -description "Plugins"
     \ -ex open about:plugins
-map -b <goto>eP
-    \ -description "Preferences" oabout:preferences<CR><C-z>
+:if isPalemoon
+    map -b <goto>eP -description "Preferences" ochrome://browser/content/preferences/preferences.xul<CR>
+:else
+    map -b <goto>eP -description "Preferences" oabout:preferences<CR><C-z>
+:endif
 map -b <goto>eq
     \ -description "Password manager"
     \ -ex open chrome://passwordmgr/content/passwordManager.xul
@@ -1724,9 +1729,11 @@ map -b <goto>wl
 map -b <goto>wp
     \ -description "Plugins  (new window)"
     \ -ex winopen about:plugins
-map -b <goto>wP
-    \ -description "Preferences (new window)"
-    \ wabout:preferences<CR><C-z>
+:if isPalemoon
+    map -b <goto>wP -description "Preferences (new window)" wchrome://browser/content/preferences/preferences.xul<CR>
+:else
+    map -b <goto>wP -description "Preferences (new window)" wabout:preferences<CR><C-z>
+:endif
 map -b <goto>wq
     \ -description "Password manager (new window)"
     \ -ex winopen chrome://passwordmgr/content/passwordManager.xul
