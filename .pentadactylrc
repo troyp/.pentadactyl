@@ -1229,13 +1229,14 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
 
 " move tabs "
 map <browser>m<C-h> -description "Show bindings" -js CommandExMode().open("showkeys <browser>m")
-map <browser>mm :tabmove<SPACE>
-map <browser>mn :moventabs<Space>
-map <browser>mr -arg -ex movealltabsrightofn <arg>
-map <browser>m> -count -ex movetabstoend <count>
+map <browser>mm  :tabmove<SPACE>
+map <browser>mn  :moventabs<Space>
+map <browser>mr  -arg -ex movealltabsrightofn <arg>
+map <browser>m>  -count -ex movetabstoend <count>
+map <browser>m<  -count -ex movetabstostart <count>
 map <browser>m.  -arg -count -ex movelastntabs <count> <arg>
 map <browser>m\' -arg -count -ex moventabs <count> <arg>
-map <browser>ma -description "Move tab after alternate" -js moveTabAfterAlternate();
+map <browser>ma  -description "Move tab after alternate" -js moveTabAfterAlternate();
 
 " tile tabs "
 map <browser>t -description "View Tiled" -js tileTabs.Tile();
@@ -1442,15 +1443,15 @@ EOF
 " | Moving Tabs |
 " '-------------'
 " alias tt=tabmove
-command! tt -nargs=1 -bang
-    \ -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
+command! tt -nargs=1 -bang -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
+
 command! movealltabsrightofn -nargs ? -js moveAllTabsRightOfN(null, args[0]||1);
-command! movetabstoend -nargs ? -js moveNTabs(tabs.getTab().dactylOrdinal, args[0]||1, "$");
-command! movelastntabs -nargs + -js moveLastNTabs(args[0], args[1]||1);
-command! moventabs -nargs + -js moveNTabs(tabs.getTab().dactylOrdinal, args[0], args[1]||1);
+command! movetabstoend       -nargs ? -js moveNTabs(tabs.getTab().dactylOrdinal, args[0]||1, "$");
+command! movetabstostart     -nargs ? -js moveNTabs(tabs.getTab().dactylOrdinal, args[0]||1, "1");
+command! movelastntabs       -nargs + -js moveLastNTabs(args[0], args[1]||1);
+command! moventabs           -nargs + -js moveNTabs(tabs.getTab().dactylOrdinal, args[0], args[1]||1);
 
 js <<EOF
-
 moveNTabs = function (start, n, toOrd=1, wrap=false) {
     // we don't know which way tabs will move, so we can't predict how tab
     // numbers may change - thus, have to get references to each tab first
@@ -1482,7 +1483,6 @@ function moveTabAfterAlternate() {
     var altOrd = tabs.alternate.dactylOrdinal;
     tabs.move(thisTab, altOrd+1);
 }
-
 EOF
 
 " -----------------------------------------------------------------------------
