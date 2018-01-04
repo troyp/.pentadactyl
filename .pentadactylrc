@@ -5675,7 +5675,8 @@ group user
 " - S-Enter copies top candidate to input field.
 " - Esc clears the box.
 
-group gtransja -locations='https://translate.google.com/#ja/en/','https://translate.google.com.au/#ja/en/','https://translate.google.com/#zh-CN/en/','https://translate.google.com.au/#zh-CN/en/'
+group gtransja -locations='.*://translate.google.com.*/#ja/en/.*'
+" group gtransja -locations='https://translate.google.com/#ja/en/*','https://translate.google.com.au/#ja/en/*','https://translate.google.com/#zh-CN/en/*','https://translate.google.com.au/#zh-CN/en/*'
 map <leader>hkc -js CommandExMode().open("map -group gtransja <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group gtransja <site>")
 
