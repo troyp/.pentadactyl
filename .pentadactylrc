@@ -286,7 +286,7 @@ map <S-xtra><C-h>  -description "(show bindings)" -js CommandExMode().open("show
 map <browser><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>")
 map   -modes normal <browser><C-h>
     \ -description "(show bindings)"
-    \ -js CommandExMode().open("showkeys -modes normal <browser>")
+    \ -js CommandExMode().open("showkeys <browser>")
 map <yank><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <yank>")
 map <option><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <option>")
 map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("showkeys <C-x>")
