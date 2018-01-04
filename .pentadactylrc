@@ -240,6 +240,8 @@ unmap!
 " | Prefix Keys |
 " '-------------'
 
+command! showkeys -nargs 1 -complete mapping :feedkeys -mode normal <args>
+
 " Unmap prefix keys
 map s <Nop>
 " map S <Nop>
@@ -275,22 +277,22 @@ map <leader>hk, :map <Lt>leader
 map <leader>hk<C-x> :map <Lt>C-x
 map <leader>hk<A-enter> :map <Lt>option
 
-map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("map <site>")
-map <leader><C-h>  -description "(show bindings)" -js CommandExMode().open("map <leader>")
-map <goto><C-h>    -description "(show bindings)" -js CommandExMode().open("map <goto>")
-map <ext><C-h>     -description "(show bindings)" -js CommandExMode().open("map <ext>")
-map <xtra><C-h>    -description "(show bindings)" -js CommandExMode().open("map <xtra>")
-map <S-xtra><C-h>  -description "(show bindings)" -js CommandExMode().open("map <S-xtra>")
-map <browser><C-h> -description "(show bindings)" -js CommandExMode().open("map <browser>")
+map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
+map <leader><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <leader>")
+map <goto><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <goto>")
+map <ext><C-h>     -description "(show bindings)" -js CommandExMode().open("showkeys <ext>")
+map <xtra><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <xtra>")
+map <S-xtra><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <S-xtra>")
+map <browser><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>")
 map   -modes normal <browser><C-h>
     \ -description "(show bindings)"
-    \ -js CommandExMode().open("map -modes normal <browser>")
-map <yank><C-h>    -description "(show bindings)" -js CommandExMode().open("map <yank>")
-map <option><C-h>  -description "(show bindings)" -js CommandExMode().open("map <option>")
-map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("map <C-x>")
-map g<C-h>         -description "(show bindings)" -js CommandExMode().open("map g")
-map s<C-h>         -description "(show bindings)" -js CommandExMode().open("map s")
-map z<C-h>         -description "(show bindings)" -js CommandExMode().open("map z")
+    \ -js CommandExMode().open("showkeys -modes normal <browser>")
+map <yank><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <yank>")
+map <option><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <option>")
+map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("showkeys <C-x>")
+map g<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys g")
+map s<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys s")
+map z<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys z")
 
 " -------------------------------------------------------------------------------
 " ,------------------,
@@ -502,7 +504,7 @@ EOF
 " Popjisyo SearchJapanese hints "
 map <leader>jp -ex popjisyo
 " Jisho.org "
-map <leader>j<C-h> -description "(show bindings)" -js CommandExMode().open("map <leader>j")
+map <leader>j<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <leader>j")
 map <leader>jm -description "Jisho multiword search" :jishomultisearch<Space>
 map <leader>jj
     \ -description "Jisho search (clipboard)"
@@ -520,7 +522,7 @@ map <leader>jf
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
-map <leader>t<C-h> -js CommandExMode().open("map <Leader>t")
+map <leader>t<C-h> -js CommandExMode().open("showkeys <Leader>t")
 map <leader>ta -description "Toggle User Agent Override" -ex actoggleuaoverride
 map <leader>te -description "Toggle Edit Content" -ex editcontent
 map <leader>tj -description "Toggle Javascript" -ex actogglejs
@@ -532,7 +534,7 @@ map <leader>tw -description "Toggle Wayback Machine" -ex waybacktoggle
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
-map <leader>T<C-h> -description "(show bindings)" -js CommandExMode().open("map <Leader>T")
+map <leader>T<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <Leader>T")
 map <A-Up>
     \ -description "Show the navigation and bookmarks toolbars"
     \ -ex set guioptions-=TB | set showtabline=never
@@ -559,7 +561,7 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 " ,----------------------, ,-----------,
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
-map <leader>a<C-h> -js CommandExMode().open("map <leader>a")
+map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 " Email "
 map <leader>amm
     \ -description "Open Gmail Basic"
@@ -620,7 +622,7 @@ command! printfriendly -description "Run Print Friendly" open javascript:(functi
 " ,---------------------------,
 " | Conversion and Arithmetic |
 " '---------------------------'
-map <leader>c<C-h> -js CommandExMode().open("map <leader>c")
+map <leader>c<C-h> -js CommandExMode().open("showkeys <leader>c")
 map -description "Convert inches to centimeters (by hints)" <leader>xci -js hints.show("”");
 
 command! usd2aud
@@ -641,7 +643,7 @@ map <leader>* :product<Space>
 " | Translation |
 " '-------------'
 " Translation Prefix: <xtra>t "
-map <xtra>t<C-h> -js CommandExMode().open("map <xtra>t")
+map <xtra>t<C-h> -js CommandExMode().open("showkeys <xtra>t")
 
 js <<EOF
 
@@ -1226,7 +1228,7 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
 " x    :  restore window "
 
 " move tabs "
-map <browser>m<C-h> -description "Show bindings" -js CommandExMode().open("map <browser>m")
+map <browser>m<C-h> -description "Show bindings" -js CommandExMode().open("showkeys <browser>m")
 map <browser>mm :tabmove<SPACE>
 map <browser>mn :moventabs<Space>
 map <browser>mr -arg -ex movealltabsrightofn <arg>
@@ -1239,7 +1241,7 @@ map <browser>ma -description "Move tab after alternate" -js moveTabAfterAlternat
 map <browser>t -description "View Tiled" -js tileTabs.Tile();
 
 "close tabs"
-map <browser>c<C-h> -description "Show bindings" -js CommandExMode().open("map <browser>c")
+map <browser>c<C-h> -description "Show bindings" -js CommandExMode().open("showkeys <browser>c")
 " close other tabs "
 map <browser>1        -description "Close all other tabs"           -ex tabonly
 map <browser><        -description "Close tabs to left"             -ex closetabstoleft
@@ -1562,13 +1564,13 @@ map <C-f10> -js showContextMenu();
 " | Dialogs & Special Pages |
 " '-------------------------'
 
-map <leader>hke -description "(Show bindings)" -js CommandExMode().open("map <goto>")
-map <goto><C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>")
-map <goto>e<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>e")
-map <goto>w<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>w")
-map <goto>x<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>x")
-map <goto>ex<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>ex")
-map <goto>wx<C-h> -description "(Show bindings)" -js CommandExMode().open("map <goto>wx")
+map <leader>hke -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>")
+map <goto><C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>")
+map <goto>e<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>e")
+map <goto>w<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>w")
+map <goto>x<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>x")
+map <goto>ex<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>ex")
+map <goto>wx<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>wx")
 
 " history (better dialog than `:dialog history`)
 command! library
@@ -1799,7 +1801,7 @@ map sc :set!<SPACE>
 " Search bookmarks: sk ... (see Bookmarks section) "
 
 " Menu access: "
-map sm<C-h> -description "(Show bindings)" -js CommandExMode().open("map sm")
+map sm<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
 map smm :emenu<SPACE>
 map smf :emenu File.
 map sme :emenu Edit.
@@ -1961,7 +1963,7 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 " ,------------------------, ,-----------,
 " | Javascript Evalutation | | <leader>e |
 " '------------------------' '-----------'
-map <leader>e<C-h> -js CommandExMode().open("map <leader>e")
+map <leader>e<C-h> -js CommandExMode().open("showkeys <leader>e")
 
 " JS Repl
 command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
@@ -1988,8 +1990,8 @@ map <leader>eb :open javascript:
 " ,---------------------------------, ,-----------,
 " | Mozilla DevTools & DOM Inspector| | <leader>d |
 " '---------------------------------' '-----------'
-map <leader>d<C-h>  -js CommandExMode().open("map <leader>d")
-map <leader>di<C-h> -js CommandExMode().open("map <leader>di")
+map <leader>d<C-h>  -js CommandExMode().open("showkeys <leader>d")
+map <leader>di<C-h> -js CommandExMode().open("showkeys <leader>di")
 
 map <leader>db -ex browserconsole
 map <leader>dii -ex dominspector
@@ -2097,7 +2099,7 @@ EOF
 
 command! mozrepltoggle -js mozReplToggle();
 
-map <ext>m<C-h> -description "(show bindings)" -js CommandExMode().open("map <ext>m")
+map <ext>m<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <ext>m")
 map <ext>mm -description "MozREPL toggle" -js mozReplToggle();
 map <ext>mp -description "MozREPL set port" -js mozrepl.changePort();
 map <ext>mr -description "MozREPL reload" -js mozrepl.server.reload();
@@ -2110,7 +2112,7 @@ map <ext>ma -description "MozREPL toggle autostart" -ex toggleconfig extensions.
 " '-----------------'
 command! jash -js jashToggle();
 
-map <ext>j<C-h> -description "(show bindings)" -js CommandExMode().open("map <ext>j")
+map <ext>j<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <ext>j")
 map <ext>jj -ex jash
 map <ext>je -js jashEvalTab();
 map <ext>js -js jashCssTab();
@@ -2321,7 +2323,7 @@ command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
 map -b <bookmark-page> <C-v><C-d>
 map <browser>k <bookmark-page>
 
-map sk<C-h>   -description "bindings for prefix sk"      -js CommandExMode().open("map sk")
+map sk<C-h>   -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
 :if options.get('guioptions').value.includes('c')
     map sk<space> -description "search bookmarks"            :bmarks<SPACE>
     map skk       -description "search bookmarks by keyword" :bmarks -keyword<SPACE>
@@ -2506,9 +2508,9 @@ EOF
 "                                  | EXTENSIONS |
 "                                  |____________|
 
-map <ext>e<C-h> -js CommandExMode().open("map <ext>e");
-map <ext>n<C-h> -js CommandExMode().open("map <ext>n");
-map <ext>s<C-h> -js CommandExMode().open("map <ext>s");
+map <ext>e<C-h> -js CommandExMode().open("showkeys <ext>e");
+map <ext>n<C-h> -js CommandExMode().open("showkeys <ext>n");
+map <ext>s<C-h> -js CommandExMode().open("showkeys <ext>s");
 map <ext>st -ex dialog customizetoolbar
 map <ext>ee       :extenable<Space>
 map <ext>ed       :extdisable<Space>
@@ -2675,13 +2677,13 @@ command! rikprefspopup -description "Rikaisama: preferences (popup)"
 style -name=rikaisama-bigkanji * .w-kanji { font-size: 200% !important; }
 style -name=rikaisama-on-top * #rikaichan-window { z-index: 8888888888 !important; }
 
-map <ext>r<C-h> -js CommandExMode().open("map <ext>r");
+map <ext>r<C-h> -js CommandExMode().open("showkeys <ext>r");
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
 map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
 map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
 map <ext>rs -js rcxMain.saveToFile()
-map <ext>rt<C-h> -js CommandExMode().open("map <ext>rt");
+map <ext>rt<C-h> -js CommandExMode().open("showkeys <ext>rt");
 map <ext>rtk -ex styletoggle -name rikaisama-bigkanji
 map <ext>rtm -ex riktogglemergedivs
 map <ext>rto -ex styletoggle -name rikaisama-on-top
@@ -2826,7 +2828,7 @@ map <ext>npc -ex popjisyochinesecolumns
 " ,-------, ,-----------,
 " | Links | | <leader>l |
 " '-------' '-----------'
-map <leader>l<C-h> -js CommandExMode().open("map <leader>l")
+map <leader>l<C-h> -js CommandExMode().open("showkeys <leader>l")
 
 map <leader>la -ex appendlinks
 map <leader>lc -ex countlinks
@@ -2889,8 +2891,8 @@ map <leader>ia -ex imgsalttotitle
 " ,----------------,
 " | Table Commands |
 " '----------------'
-map <leader>x<C-h> -js CommandExMode().open("map <leader>x")
-map <leader>xt<C-h> -js CommandExMode().open("map <leader>xt")
+map <leader>x<C-h> -js CommandExMode().open("showkeys <leader>x")
+map <leader>xt<C-h> -js CommandExMode().open("showkeys <leader>xt")
 
 map <leader>xt, -ex table2csv
 map <leader>xtw -ex tablewiden
