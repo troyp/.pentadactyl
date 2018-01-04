@@ -172,6 +172,53 @@ window.AUDperUSD = 1.32;
 
 EOF
 
+" ,-------------------------------,
+" | Pentadactyl Utility Functions |
+" '-------------------------------'
+
+js <<EOF
+function getMappings() { return Array.from(mappings); }
+window.getMappings = getMappings;
+
+mappingsArray = getMappings();
+window.mappingsArray = mappingsArray;
+
+" matchMappingsByKey: key may be a string or regex "
+function matchMappingsByKey(key) {
+    return getMappings().filter(m=>m.keys.map(k=>k.match(key)).reduce((x,y)=>(x||y), false));
+}
+" matchMappingsByKeyAndMode: mode may be a string, regex or Mode instance "
+function matchMappingsByKeyAndMode(key, mode=modes.NORMAL) {
+    return getMappings().filter(
+        function(m) {
+            return m.keys.map(k=>k.match(key)).reduce((x,y)=>(x||y), false) &&
+                   ( m.modes.map(md=>md.toString()).join(" ").match(mode) ||
+                     m.modes.includes(mode) );
+        });
+}
+function matchMappingsByDescription(desc) {
+    return getMappings().filter(m=>m.description.match(desc));
+}
+window.matchMappingsByKey = matchMappingsByKey;
+window.matchMappingsByKeyAndMode = matchMappingsByKeyAndMode;
+window.matchMappingsByDescription = matchMappingsByDescription;
+
+" mappingsByGroup: only works when group is active "
+function mappingsByGroup(name) {
+    return getMappings().filter((m)=>m.hive.name==name);
+}
+window.mappingsByGroup = mappingsByGroup;
+
+" eg. getHive('jisho', MapHive) "
+function getHive(name, type) {
+    var groupByName = group.children.filter(g=>g.name==name)[0];
+    var matchesType = (hive) =>
+        isinstance(hive, type) || hive._class_.toString()==`[class ${type}]`;
+    return groupByName.hives.filter(matchesType)[0];
+}
+window.getHive = getHive;
+EOF
+
 " -----------------------------------------------------------------------------
 " ,---------,
 " | Options |
@@ -8394,6 +8441,7 @@ EOF
 " index of tab (zero-based):    t._tPos
 " capture output of shell command:    io.system('command').output
 " simulate mouse event: elt.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}))
+" to override user agent for specific domain, use general.useragent.override.example.com
 "
 " =============================================================================
 " ,-------------------,
@@ -8410,7 +8458,6 @@ EOF
 "       }
 "   This also redefines the argument when zero is passed, but if it's only meant
 "   to take a count, it's okay, since counts can't be zero.
-" * To override user agent for specific domain, use general.useragent.override.example.com
 " * When defining a command, if | cannot be used, you can use a new command on each line
 "   (using the line continuation character \).
 "       command! foo feedkeys l
@@ -8422,3 +8469,9 @@ EOF
 "               \          wmctrl -F -a "Library" -r "Library" -b add,above,sticky;
 "     gives a "not a pentadactyl command" error. You must use a single line, or (when possible,
 "     as in this case) split it into two individual commands.
+" * io.run(prog, [arg1, ...]) will run an external program.
+" * io.system(cmd, input="", async=false) will run a command in a subshell and return output.
+"   * prog can be a string or an array of strings [prog, arg1, ...].
+"   * input is sent on stdin.
+"   * async may be a callback to be run when command returns or boolean (whether to return a promise).
+
