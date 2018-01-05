@@ -486,7 +486,7 @@ map <xtra>x
     \ -js xopenMaybeFromBufferDir();
 map <xtra>e
     \ -description "Open file in Emacs"
-    \ -ex openFileInEmacs
+    \ -ex openurlinemacs
 map <xtra>E
     \ -description "Open page in EWW"
     \ -ex openUrlInEWW
@@ -1174,9 +1174,9 @@ command! openDirectoryInDired
     \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     \     var dir = file.replace(/[^/]*$/,'');
     \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`);
-command! openFileInEmacs
+command! openurlinemacs
     \ -description "Open the current file for editing in Emacs."
-    \ -js dactyl.execute('!emacsclient "' + getFilenameOrURL() + '"');
+    \ -js openUrlInEmacs();
 command! openUrlInEWW -description "Open in EWW in Emacsclient"
     \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
 
@@ -3305,9 +3305,27 @@ function filenameOrURL(s) {
     return text;
 }
 
-function getFilenameOrURL() {
-    var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+function getFilenameOrURL(url=buffer.URL) {
+    var text=decodeURIComponent(url.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     return text;
+}
+
+function getFilenameOrUrlAsFile(url=buffer.URL) {
+    var url = decodeURIComponent(buffer.URL);
+    if (url.match(/^https?:/)) {
+        var tempf = io.system('tempfile').output;
+        io.system(`curl ${url} > ${tempf};`);
+        return tempf;
+    } else if (url.match(/^file:/)) {
+        return url.replace(/^file:\/\//,'').replace(/[?#].*/,'');
+    } else {
+        utils.message('protocol not supported');
+    }
+}
+
+function openUrlInEmacs(url=buffer.URL) {
+    var file = getFilenameOrUrlAsFile(url);
+    io.system(`emacsclient "${file}"`);
 }
 
 function toggleFooter() {
