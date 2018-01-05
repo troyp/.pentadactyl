@@ -486,7 +486,7 @@ map <xtra>x
     \ -js xopenMaybeFromBufferDir();
 map <xtra>e
     \ -description "Open file in Emacs"
-    \ -ex openurlinemacs
+    \ -ex openinemacs
 map <xtra>E
     \ -description "Open page in EWW"
     \ -ex openUrlInEWW
@@ -1174,9 +1174,10 @@ command! openDirectoryInDired
     \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     \     var dir = file.replace(/[^/]*$/,'');
     \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`);
-command! openurlinemacs
+command! openinemacs
     \ -description "Open the current file for editing in Emacs."
     \ -nargs=?
+    \ -complete=file
     \ -js openUrlInEmacs(args[0]);
 command! openUrlInEWW -description "Open in EWW in Emacsclient"
     \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
