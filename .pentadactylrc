@@ -1176,7 +1176,8 @@ command! openDirectoryInDired
     \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`);
 command! openurlinemacs
     \ -description "Open the current file for editing in Emacs."
-    \ -js openUrlInEmacs();
+    \ -nargs=?
+    \ -js openUrlInEmacs(args[0]);
 command! openUrlInEWW -description "Open in EWW in Emacsclient"
     \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
 
