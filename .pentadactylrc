@@ -3311,13 +3311,13 @@ function getFilenameOrURL(url=buffer.URL) {
 }
 
 function getFilenameOrUrlAsFile(url=buffer.URL) {
-    var url = decodeURIComponent(buffer.URL);
+    var url = decodeURIComponent(url);
     if (url.match(/^https?:/)) {
         var tempf = io.system('tempfile').output;
         io.system(`curl "${url}" > ${tempf};`);
         return tempf;
     } else if (url.match(/^file:/)) {
-        return url.replace(/^file:\/\//,'').replace(/[?#].*/,'');
+        return url.replace(/^file:\/\//,'');
     } else {
         utils.message('protocol not supported');
     }
