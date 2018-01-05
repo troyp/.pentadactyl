@@ -3319,6 +3319,8 @@ function getFilenameOrUrlAsFile(url=buffer.URL) {
         return tempf;
     } else if (url.match(/^file:/)) {
         return url.replace(/^file:\/\//,'');
+    } else if (url.match(/^[/~]/)) {
+        return url;
     } else {
         utils.message('protocol not supported');
     }
