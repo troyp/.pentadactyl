@@ -101,7 +101,27 @@ function setStrPref(pref, value) {
     prefroot.setComplexValue(pref, Components.interfaces.nsISupportsString, value);
 }
 
+"Bookmarks"
+var nsINavBookmarksService = XpcService("@mozilla.org/browser/nav-bookmarks-service;1", Components.interfaces.nsINavBookmarksService);
+var bmarksMenuFolder = nsINavBookmarksService.bookmarksMenuFolder;
+window.nsINavBookmarksService = nsINavBookmarksService;
+window.bmarksMenuFolder = bmarksMenuFolder;
 
+var nsIIOService = XpcService("@mozilla.org/network/io-service;1", Components.interfaces.nsIIOService);
+function createURI(url) { return nsIIOService.newURI(url, null, null); }
+window.nsIIOService = nsIIOService;
+window.createURI = createURI;
+
+function createBmark(url, title, folderId=bmarksMenuFolder) {
+    return nsINavBookmarksService.insertBookmark(
+        folderId,
+        createURI(url),
+        nsINavBookmarksService.DEFAULT_INDEX,
+        title);
+}
+window.createBmark = createBmark;
+
+"Application"
 var isPalemoon = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('palemoon');
 var isBasilisk = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('basilisk');
 var isFirefox  = prefs.has('app.feedback.baseURL') && prefroot.getCharPref('app.feedback.baseURL').includes('mozilla');
