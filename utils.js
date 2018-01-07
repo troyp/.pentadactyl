@@ -90,6 +90,7 @@ var utils = {
     },
 
     message: function (s) {
+        s = String(s);
         commandline.echo(s,
                          commandline.HL_INFOMSG,
                          commandline.APPEND_TO_MESSAGES);
