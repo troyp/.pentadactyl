@@ -252,7 +252,10 @@ window.listGroupMappings = listGroupMappings;
 " listActiveGroupMappings: list mappings and descriptions for active groups "
 function listActiveGroupMappings() {
     var activegroups = contexts.activeGroups();
-    var activemappings = activegroups.flatMap(g=>Array.from(g.mappings.iterate([modes.NORMAL])));
+    var activemappings = activegroups.flatMap(
+        g => Array.from(g.mappings.iterate([modes.NORMAL])).concat(
+             Array.from(g.mappings.iterate([modes.INSERT])))
+        );
     return activemappings.map(m=>[m.name, m.description+':  '+m.action]);
 }
 window.listActiveGroupMappings = listActiveGroupMappings;
