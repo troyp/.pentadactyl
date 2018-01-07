@@ -267,6 +267,24 @@ function getHive(name, type) {
     return groupByName.hives.filter(matchesType)[0];
 }
 window.getHive = getHive;
+
+function searchMappings(...pats) {
+    var activegroups = contexts.activeGroups();
+    var activemappings = activegroups.flatMap(
+        g => Array.from(g.mappings.iterate([modes.NORMAL])).concat(
+             Array.from(g.mappings.iterate([modes.INSERT])))
+        );
+    var filtered = activemappings.filter(m => pats.every(p => m.name.match(p) ||
+                                                              m.description.match(p) ||
+                                                              m.action.toString().match(p)));
+    var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur));
+    var maxlendesc = Math.min(50, filtered.map(m=>m.description.length).reduce((acc,cur)=>Math.max(acc,cur)));
+    utils.message(
+        filtered.map(
+            m=>`${S.padEnd(m.name, maxlen)}\t${S.padEnd(m.description+':', maxlendesc)}\t${m.action}\n`));
+    return filtered;
+}
+window.searchMappings = searchMappings;
 EOF
 
 " -----------------------------------------------------------------------------
@@ -392,6 +410,9 @@ map <leader>hky :map <Lt>yank
 map <leader>hk, :map <Lt>leader
 map <leader>hk<C-x> :map <Lt>C-x
 map <leader>hk<A-enter> :map <Lt>option
+map <leader>hm  -description "search mappings" :searchmappings<Space>
+
+command! searchmappings -nargs + -complete mapping -js searchMappings.call(null, ...args);
 
 " -------------------------------------------------------------------------------
 " ,------------------,
