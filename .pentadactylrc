@@ -660,6 +660,11 @@ map <leader>at
     \ -description "Open Time Server"
     \ -count
     \ -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
+" Video: <leader>av "
+map <leader>avn
+    \ -description "Open Netflix (Chrome)"
+    \ -count
+    \ -ex ochromeurl "https://www.netflix.com/browse/my-list"
 " Weather "
 map <leader>aw
     \ -description "Open Lismore Weather"
