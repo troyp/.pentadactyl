@@ -339,19 +339,6 @@ map <A-enter> <option>
 map y <yank>
 
 " List mappings by prefix (using commandline completion)
-map <leader>hka :map <Lt>ext
-map <leader>hkc :map <Lt>site
-map <leader>hkg :map g
-map <leader>hke :map <Lt>goto
-map <leader>hks :map s
-map <leader>hkx :map <Lt>xtra
-map <leader>hkX :map <Lt>S-xtra
-map <leader>hkv :map <Lt>browser
-map <leader>hky :map <Lt>yank
-map <leader>hk, :map <Lt>leader
-map <leader>hk<C-x> :map <Lt>C-x
-map <leader>hk<A-enter> :map <Lt>option
-
 map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <leader><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <leader>")
 map <goto><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <goto>")
@@ -368,6 +355,21 @@ map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("show
 map g<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys g")
 map s<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys s")
 map z<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys z")
+
+map <leader>h<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <leader>h")
+map <leader>hk<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <leader>hk")
+map <leader>hka :map <Lt>ext
+map <leader>hkc :map <Lt>site
+map <leader>hke :map <Lt>goto
+map <leader>hkg :map g
+map <leader>hks :map s
+map <leader>hkv :map <Lt>browser
+map <leader>hkx :map <Lt>xtra
+map <leader>hkX :map <Lt>S-xtra
+map <leader>hky :map <Lt>yank
+map <leader>hk, :map <Lt>leader
+map <leader>hk<C-x> :map <Lt>C-x
+map <leader>hk<A-enter> :map <Lt>option
 
 " -------------------------------------------------------------------------------
 " ,------------------,
