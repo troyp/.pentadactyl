@@ -144,6 +144,25 @@ A = {
 }
 window.A = A;
 
+// String methods
+// adapted from github.com/uxitten/polyfill
+S = {
+    padEnd: function (s, targetLength, padString) {
+                targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+                padString = String((typeof padString !== 'undefined' ? padString : ' '));
+                if (s.length > targetLength) {
+                    return String(s);
+                } else {
+                    targetLength = targetLength - s.length;
+                    if (targetLength > padString.length) {
+                        padString += padString.repeat(targetLength / padString.length);
+                    }
+                    return String(s) + padString.slice(0, targetLength);
+                }
+    }
+}
+window.S = S;
+
 // Object methods
 Object.prototype.map = function(f) {
     var result = {};
