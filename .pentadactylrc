@@ -200,13 +200,11 @@ js <<EOF
 function getMappings() { return Array.from(mappings); }
 window.getMappings = getMappings;
 
-mappingsArray = getMappings();
-window.mappingsArray = mappingsArray;
-
 " matchMappingsByKey: key may be a string or regex "
 function matchMappingsByKey(key) {
     return getMappings().filter(m=>m.keys.map(k=>k.match(key)).reduce((x,y)=>(x||y), false));
 }
+window.matchMappingsByKey = matchMappingsByKey;
 " matchMappingsByKeyAndMode: mode may be a string, regex or Mode instance "
 function matchMappingsByKeyAndMode(key, mode=modes.NORMAL) {
     return getMappings().filter(
@@ -216,19 +214,29 @@ function matchMappingsByKeyAndMode(key, mode=modes.NORMAL) {
                      m.modes.includes(mode) );
         });
 }
+window.matchMappingsByKeyAndMode = matchMappingsByKeyAndMode;
+" matchMappingsByDescription: desc may be a string or regex "
 function matchMappingsByDescription(desc) {
     return getMappings().filter(m=>m.description.match(desc));
 }
-window.matchMappingsByKey = matchMappingsByKey;
-window.matchMappingsByKeyAndMode = matchMappingsByKeyAndMode;
 window.matchMappingsByDescription = matchMappingsByDescription;
-
-" mappingsByGroup: only works when group is active "
+" mappingsByGroup: name is a string matching the name of an active group "
 function mappingsByGroup(name) {
     return getMappings().filter((m)=>m.hive.name==name);
 }
 window.mappingsByGroup = mappingsByGroup;
-
+" listGroupMappings: name is a string matching the name of an active group "
+function listGroupMappings(name) {
+    return mappingsByGroup(name).map(m=>[m.name, m.description+':  '+m.action]);
+}
+window.listGroupMappings = listGroupMappings;
+" listActiveGroupMappings: list mappings and descriptions for active groups "
+function listActiveGroupMappings() {
+    var activegroups = contexts.activeGroups();
+    var activemappings = activegroups.flatMap(g=>Array.from(g.mappings.iterate([modes.NORMAL])));
+    return activemappings.map(m=>[m.name, m.description+':  '+m.action]);
+}
+window.listActiveGroupMappings = listActiveGroupMappings;
 " eg. getHive('jisho', MapHive) "
 function getHive(name, type) {
     var groupByName = group.children.filter(g=>g.name==name)[0];
