@@ -292,9 +292,11 @@ function searchMappings(...pats) {
     var maxlendesc = Math.min(
                          50,
                          filtered.map(m=>m.description.length).reduce((acc,cur)=>Math.max(acc,cur), 0));
-    utils.message(
+    dactyl.utils.message(
         filtered.map(
-            m=>`${S.padEnd(m.name, maxlen)}\t${S.padEnd(m.description+':', maxlendesc)}\t${m.action}\n`));
+            m=>`${S.padEnd(m.name, maxlen)}\t${S.padEnd(m.description+':', maxlendesc)}\t${m.action}\n`
+        ).join('')
+    );
     return filtered;
 }
 window.searchMappings = searchMappings;
