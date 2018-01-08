@@ -4317,6 +4317,7 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkey
 map <site>f<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
 map <site>s<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>s")
 
+map <site>b        -description "Open in background tab"  -js placesOpenInBackground();
 map <site>c  -description "Focus Left Panel"        <Escape>gi<Tab>
 map <site>f/ -description "Focus search input"      -js placesFocusSearch();
 map <site>fn -description "Focus name input"        -js placesFocusName();
@@ -4352,6 +4353,10 @@ function placesCopyLocation() {
     utils.yankWithMsg(placesGetLocation());
 }
 
+function placesOpenInBackground() {
+    var url = placesGetLocation();
+    " for some reason, dactyl.open(url, {where: dactyl.NEW_BACKGROUND_TAB}) isn't working "
+    dactyl.execute('background tabopen ' + placesGetLocation());
 }
 
 function placesToggleInfobox() {
