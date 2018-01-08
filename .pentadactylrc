@@ -216,6 +216,17 @@ EOF
 " '-------------------------------'
 
 js <<EOF
+" readStringOrRegex: converts a string to a regex if possible, else returns the string "
+" Can be used to accept either a string or regex argument for a command:               "
+" -js doSomething(args.readStringOrRegex)                                              "
+function readStringOrRegex(s) {
+    var matches = s.match(/^\/([^/]*)\/([gimuy]*)$/);
+    if (matches)
+        return RegExp(matches[1], matches[2]);
+    else
+        return s;
+}
+
 function getMappings() { return Array.from(mappings); }
 window.getMappings = getMappings;
 
