@@ -7797,7 +7797,7 @@ var wpCopyHtml = function() {
 }
 
 function wpGetContents() {
-    return Array.from(doc.querySelectorAll('#toc ul li a'));
+    return Array.from(content.document.querySelectorAll('#toc ul li a'));
 }
 function wpGotoNextHeading() {
     var headings = wpGetContents();
