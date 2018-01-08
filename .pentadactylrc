@@ -289,7 +289,9 @@ function searchMappings(...pats) {
                                                               m.description.match(p) ||
                                                               m.action.toString().match(p)));
     var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur));
-    var maxlendesc = Math.min(50, filtered.map(m=>m.description.length).reduce((acc,cur)=>Math.max(acc,cur)));
+    var maxlendesc = Math.min(
+                         50,
+                         filtered.map(m=>m.description.length).reduce((acc,cur)=>Math.max(acc,cur), 0));
     utils.message(
         filtered.map(
             m=>`${S.padEnd(m.name, maxlen)}\t${S.padEnd(m.description+':', maxlendesc)}\t${m.action}\n`));
