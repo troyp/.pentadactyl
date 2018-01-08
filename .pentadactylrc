@@ -4334,7 +4334,7 @@ map <site>sa -description "Sort by date added"      -js placesSortByDateAdded();
 map <site>sp -description "Sort by path"            -js placesSortByPath();
 map <site>sm -description "Sort by last modified"   -js placesSortByLastModified();
 map <site>v  -description "Focus Right Panel"       <Escape>gi<Tab><Tab>
-map <site>y  -description "Yank Location"           -js placesGetLocation();
+map <site>y        -description "Yank Location"           -js placesCopyLocation();
 map -b H <C-v><Left>
 map -b L <C-v><Right>
 
@@ -4343,7 +4343,14 @@ js <<EOF
 function placesGetLocation() {
     var placesView = content.document.getElementById('placesView');
     var url = placesView.querySelector('#editBMPanel_locationField').value;
-    utils.yankWithMsg(url);
+    return url;
+}
+window.placesGetLocation = placesGetLocation;
+
+function placesCopyLocation() {
+    utils.yankWithMsg(placesGetLocation());
+}
+
 }
 
 function placesToggleInfobox() {
