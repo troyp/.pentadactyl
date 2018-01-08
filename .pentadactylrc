@@ -4325,6 +4325,7 @@ map <site>ft -description "Focus tags input"        -js placesFocusTags();
 map <site>fk -description "Focus keyword input"     -js placesFocusKeyword();
 map <site>fd -description "Focus description input" -js placesFocusDescription();
 map <site>i  -description "Toggle info box"         -js placesToggleInfobox();
+map <site>oh       -description "Open history"            gi<Tab><C-v><Home><Right><Right><Up><Up><Right><Right>
 map <site>so -description "Sort by none"            -js placesSortByNone();
 map <site>sn -description "Sort by name"            -js placesSortByName();
 map <site>sk -description "Sort by keyword"         -js placesSortByKeyword();
