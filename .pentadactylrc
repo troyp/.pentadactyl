@@ -232,22 +232,22 @@ window.getMappings = getMappings;
 
 " matchMappingsByKey: key may be a string or regex "
 function matchMappingsByKey(key) {
-    return getMappings().filter(m=>m.keys.map(k=>k.match(key)).reduce((x,y)=>(x||y), false));
+    return getMappings().filter(m=>m.keys.map(k=>k.search(key)>=0).reduce((x,y)=>(x||y), false));
 }
 window.matchMappingsByKey = matchMappingsByKey;
 " matchMappingsByKeyAndMode: mode may be a string, regex or Mode instance "
 function matchMappingsByKeyAndMode(key, mode=modes.NORMAL) {
     return getMappings().filter(
         function(m) {
-            return m.keys.map(k=>k.match(key)).reduce((x,y)=>(x||y), false) &&
-                   ( m.modes.map(md=>md.toString()).join(" ").match(mode) ||
-                     m.modes.includes(mode) );
+            return m.keys.map(k=>k.search(key)>=0).reduce((x,y)=>(x||y), false) &&
+                   ( m.modes.map(md=>md.toString()).join(" ").search(mode)>=0 ||
+                     m.modes.includes(mode)>=0 );
         });
 }
 window.matchMappingsByKeyAndMode = matchMappingsByKeyAndMode;
 " matchMappingsByDescription: desc may be a string or regex "
 function matchMappingsByDescription(desc) {
-    return getMappings().filter(m=>m.description.match(desc));
+    return getMappings().filter(m=>m.description.search(desc)>=0);
 }
 window.matchMappingsByDescription = matchMappingsByDescription;
 " mappingsByGroup: name is a string matching the name of an active group "
@@ -285,10 +285,10 @@ function searchMappings(...pats) {
         g => Array.from(g.mappings.iterate([modes.NORMAL])).concat(
              Array.from(g.mappings.iterate([modes.INSERT])))
         );
-    var filtered = activemappings.filter(m => pats.every(p => m.name.match(p) ||
-                                                              m.description.match(p) ||
-                                                              m.action.toString().match(p)));
-    var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur));
+    var filtered = activemappings.filter( m => pats.every(p => m.name.search(p)>=0 ||
+                                                               m.description.search(p)>=0 ||
+                                                               m.action.toString().search(p)>=0) );
+    var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur), 0);
     var maxlendesc = Math.min(
                          50,
                          filtered.map(m=>m.description.length).reduce((acc,cur)=>Math.max(acc,cur), 0));
@@ -425,7 +425,7 @@ map <leader>hk<C-x> :map <Lt>C-x
 map <leader>hk<A-enter> :map <Lt>option
 map <leader>hm  -description "search mappings" :searchmappings<Space>
 
-command! searchmappings -nargs + -complete mapping -js searchMappings.call(null, ...args);
+command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
 
 " -------------------------------------------------------------------------------
 " ,------------------,
