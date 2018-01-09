@@ -478,6 +478,28 @@ map -modes normal <browser>v -description "Visual mode" -ex feedkeys iv
 " visual (pseudo-)line mode "
 map -modes normal V  -description "Pseudo-visual-line mode"-ex feedkeys i<C-a>vj
 
+" next/previous heading or paragraph "
+map <C-A-n>
+\   -description "Jump to next heading"
+\   -modes normal,visual
+\   -count
+\   -js buffer.findJump('h', count, false);
+map <C-A-p>
+\   -description "Jump to previous heading"
+\   -modes normal,visual
+\   -count
+\   -js buffer.findJump('h', count, true);
+map <A-S-n>
+\   -description "Jump to next paragraph"
+\   -modes normal,visual
+\   -count
+\   -js buffer.findJump('p', count, false);
+map <A-S-p>
+\   -description "Jump to previous paragraph"
+\   -modes normal,visual
+\   -count
+\   -js buffer.findJump('p', count, true);
+
 " bind gs as :viewpagesource, free gf for g;b
 map gf <Nop>
 map gs -ex viewpagesource
