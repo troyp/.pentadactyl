@@ -689,6 +689,7 @@ map <leader>t<C-h> -js CommandExMode().open("showkeys <Leader>t")
 map <leader>ta -description "Toggle User Agent Override" -ex actoggleuaoverride
 map <leader>te -description "Toggle Edit Content" -ex editcontent
 map <leader>tj -description "Toggle Javascript" -ex actogglejs
+map <leader>to -description "Toggle Online" -ex toggleoption online
 map <leader>ts -description "Toggle HTTPS" -js toggleHTTPS()
 map <leader>tu -description "Toggle User Mode" -ex set usermode!
 map <leader>tv -description "Toggle Visited Links Styling" -ex styletoggle -name visitedlinks
