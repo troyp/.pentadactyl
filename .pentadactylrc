@@ -7821,6 +7821,11 @@ function wpGotoPreviousHeading() {
             content.window.scrollTo(0, 0);
     }
 }
+function wpGetSections() {
+    return wpGetContents().map(
+        e => [ S.padEnd(e.innerText.match(/[0-9.]+/)[0], 10, '…') + e.href.replace(/[^#]+#/, ''),
+               e.innerText ]);
+}
 
 function wpGetTopic() {
     var url = buffer.URL;
@@ -7846,8 +7851,12 @@ command! wpcopytablecols
     \ -description "Copy specified columns (single digits) from table chosen by HINT"
     \ -nargs=1
     \ -js dactylArgsSet(args[0].split("")); hints.show('Ŧ');
+command! wpsection
+\   -nargs=1
+\   -complete custom,' (context) => {context.completions = wpGetSections()}'
+\   -js content.window.location.hash = '#' + args[0].replace(/.*…+/, '');
 
-map <site>c -ex wpcleanup
+map <site>c :wpsection<Space>
 map <site>d -js wpGotoWiktionary();
 map <site>D -js wpGotoWiktionary('tab');
 map <site>l -ex wplatest
