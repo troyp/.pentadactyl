@@ -7854,6 +7854,7 @@ map <site>l -ex wplatest
 map <site>t :wpcopytablecols<Space>
 map <site>. -js wpGotoNextHeading();
 map <site>, -js wpGotoPreviousHeading();
+map <site><Space> -ex wpcleanup
 
 map J -js wpGotoNextHeading();
 map K -js wpGotoPreviousHeading();
