@@ -206,6 +206,12 @@ var utils = {
         this.message(`${pref}=${!newVal}`);
     },
 
+    toggleOption: function (optname) {
+        var opt = options.get(optname);
+        opt.value = !opt.value;
+        this.message(`${opt.name}=${opt.value}`);
+    },
+
     cbWrite: function (s) {
         dactyl.clipboardWrite(s);
         utils.message(s);

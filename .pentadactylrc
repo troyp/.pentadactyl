@@ -307,6 +307,12 @@ EOF
 " | Options |
 " '---------'
 "
+command! toggleoption
+    \ -description "Toggle boolean option."
+    \ -nargs=1
+    \ -complete option
+    \ -js utils.toggleOption(args[0]);
+
 set runtimepath=/home/troy/.pentadactyl
 set incfind
 set hlfind
