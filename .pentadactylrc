@@ -971,6 +971,7 @@ map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
 map <yank>s -description "Yank element content by selector"
     \ :yankselectorcontent<Space>
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
+map <yank>i -description "Yank text input fields" -js yankInputFields();
 
 " Yank commands "
 command! yanktrueURL
@@ -8564,6 +8565,30 @@ function newTab(url="about:newtab") {
     return tab;
 }
 window.newTab = newTab;
+
+function getInputFields() {
+    var inputElts = Array.from(content.document.getElementsByTagName("input"));
+    var textFields = inputElts.filter(
+        e => [
+            "text", "search", "email", "url", "file",
+            "time", "date", "color", "number"
+        ].includes(e.type));
+    var textInput = textFields.filter(e => e.value!="");
+    return textInput;
+}
+function yankInputFieldsRec(textInput) {
+    if (textInput.length == 0) return;
+    dactyl.clipboardWrite(textInput[0].value);
+    window.setTimeout(
+        () => yankInputFieldsRec(textInput.slice(1)),
+        250
+    );
+}
+function yankInputFields() {
+    var textInput = getInputFields();
+    yankInputFieldsRec(textInput);
+    utils.message("Copied\n" + textInput.map(f=>"    "+f.value).join("\n"));
+}
 
 // ,-------------------------,
 // | variables for temp data |
