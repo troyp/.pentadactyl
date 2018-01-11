@@ -940,38 +940,27 @@ map -description "Google append translation (div) (HINTS)" <xtra>tb -js hints.sh
 " ,------,
 " | Yank |
 " '------'
-map -b -description "Yank buffer URL"
-    \ <yank>y y
-map <yank>t -description "Yank page title"
-    \ -js utils.yankWithMsg(buffer.title)
-map <yank>l -description "Yank link reference (page title and url)"
-    \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
-map <yank>m -description "Yank markdown link"
-    \ -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
-map <yank>L -description "Yank link reference (page title and heading)"
-    \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
-map <yank>M -description "Yank markdown link (using H1 heading as title)"
-    \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
-map <yank>u -description "Yank buffer URL (unencoded)"
-    \ -ex yanktrueURL
-map <yank>d -description "Yank page domain"
-    \ -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
-map <yank>f -description "Yank filename or buffer URL (unencoded)"
-    \ -ex yankfilenameorURL
-map <yank>x -description "Yank page text"
-    \ -js utils.yankWithMsg(content.document.body.innerText);
+map <yank>a -description "Yank text area #N contents" :yanktextarea<Space>
+map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." :yanktablecsvarea<Space>
+map <yank>d -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
+map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>h -description "Yank page heading (<H1>)"
     \ -js utils.yankWithMsg(content.document.querySelector('h1').innerText);
-map <yank>p -description "Yank paragraph (HINTS)"
-    \ -js hints.show("ÿ");
-map <yank>a -description "Yank text area #N contents"
-    \ :yanktextarea<Space>
-map <yank>c -description "Yank a table's CSV contents (use after :table2csv)."
-    \ :yanktablecsvarea<Space>
-map <yank>s -description "Yank element content by selector"
-    \ :yankselectorcontent<Space>
-map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
 map <yank>i -description "Yank text input fields" -js yankInputFields();
+map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
+map <yank>l -description "Yank link reference (page title and url)"
+    \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
+map <yank>L -description "Yank link reference (page title and heading)"
+    \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
+map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
+map <yank>M -description "Yank markdown link (using H1 heading as title)"
+    \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
+map <yank>p -description "Yank paragraph (HINTS)" -js hints.show("ÿ");
+map <yank>s -description "Yank element content by selector" :yankselectorcontent<Space>
+map <yank>t -description "Yank page title" -js utils.yankWithMsg(buffer.title)
+map <yank>u -description "Yank buffer URL (unencoded)" -ex yanktrueURL
+map <yank>x -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
+map <yank>y -description "Yank buffer URL" -b y
 
 " Yank commands "
 command! yanktrueURL
