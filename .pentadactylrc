@@ -5501,10 +5501,10 @@ function ghCopyRepoLinkGit() {
 }
 function ghGetUserAndRepo() {
     // var url = ghGetCloneUrl("https");
-    var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/#?]+)(\/.*)?/;
+    var regex = /[^:]+:\/\/(gist.)?github.com\/([^/]+)\/?([^/#?]+)?(\/.*)?/;
     var match = buffer.URL.match(regex);
-    var user = match && match[1];
-    var repo = match && match[2];
+    var user = match && match[2];
+    var repo = match && match[3];
     return [user, repo];
 }
 function ghGetUrlComponents(url=buffer.URL) {
