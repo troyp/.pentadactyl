@@ -1247,9 +1247,10 @@ command! xopen -nargs=1 -complete=file !xdg-open <args>
 
 " Open in Google Chrome "
 command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}" &`
-command! ochromeurl -nargs 1 :exec `!google-chrome --disable-infobars "<args>" &`
+command! ochromeurl -nargs + :exec `!google-chrome --disable-infobars "<args>" &`
+command! ochromesearch -nargs + :exec `!google-chrome --disable-infobars "? <args>" &`
 command! ochromemin :exec `!google-chrome --profile-directory='Profile 1' "${buffer.URL}" &`
-command! ochromeminurl -nargs 1 :exec `!google-chrome --profile-directory='Profile 1' "<args>" &`
+command! ochromeminurl -nargs + :exec `!google-chrome --profile-directory='Profile 1' "<args>" &`
 " Open in Firefox "
 command! ofox :exec `!/opt/firefox/firefox -new-tab "${buffer.URL}" &`
 " Open in Qutebrowser "
