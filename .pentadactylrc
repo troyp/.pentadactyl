@@ -400,7 +400,7 @@ map <A-enter> <option>
 map y <yank>
 
 " List mappings by prefix (using commandline completion)
-map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>         -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <leader><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <leader>")
 map <leader>       -description "(show bindings)" -js CommandExMode().open("showkeys <leader>")
@@ -5412,7 +5412,7 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
 map <site>       -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>       -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c      -description "Click README.md" -js ghClickReadme();
@@ -7798,10 +7798,8 @@ map <site>[ -ex wikiaprevious
 " '-------------------------'
 group wikiaadvtime -locations='adventuretime\.wikia\.com/wiki/'
 autocmd! -group wikiaadvtime
-map <site><C-h>
-map <site     >
-    \ -description "(show bindings)"
-    \ -js CommandExMode().open("showkeys <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
+map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
