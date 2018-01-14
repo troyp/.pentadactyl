@@ -1600,11 +1600,11 @@ function tabFilter(f) {
 
 " Note: :bdelete! does the same thing, but is much slower for some reason. "
 function tabRemoveUrlRegex(regex) {
-    return tabRemove((t)=>t.URL.match(regex));
+    return tabRemove((t)=>t.URL.match(regex)||t.title.match(regex));
 }
 
 function tabFilterUrlRegex(regex) {
-    return tabFilter((t)=>t.URL.match(regex));
+    return tabFilter((t)=>t.URL.match(regex)||t.title.match(regex));
 }
 
 EOF
