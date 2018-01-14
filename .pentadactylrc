@@ -1180,7 +1180,6 @@ map -modes menu -b <C-p> <Up>
 map -modes menu -b <C-j> <Down>
 map -modes menu -b <C-k> <Up>
 map -modes menu -b <C-h> <Left>
-map -modes menu -b       <Left>
 map -modes menu -b <C-l> <Right>
 
 " -----------------------------------------------------------------------------
