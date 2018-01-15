@@ -1762,6 +1762,9 @@ map -b <goto>a
 map -b <goto>A
     \ -description "Palemoon Extensions (new tab)"
     \ -ex tabopen https://addons.palemoon.org/extensions/
+map -b <goto><C-a>
+    \ -description "Palemoon Incompatible Extensions (new tab)"
+    \ -ex tabopen https://addons.palemoon.org/incompatible/
 map -b <goto>;a
     \ -description "Addons Directory (new tab)"
     \ -ex tabopen file:///opt/ff-addons/
@@ -1786,6 +1789,9 @@ map -b <goto>k
 map -b <goto>K
     \ -description "Bookmarks (new tab)"
     \ -ex tabopen chrome://browser/content/bookmarks/bookmarksPanel.xul
+map -b <goto>o
+    \ -description "/opt/ directory (new tab)"
+    \ -ex tabopen file:///opt
 map -b <goto>p
     \ -description "Plugins (new tab)"
     \ -ex tabopen about:plugins
@@ -1823,6 +1829,9 @@ map -b <goto>ea
 map -b <goto>eA
     \ -description "Palemoon Extensions"
     \ -ex open https://addons.palemoon.org/extensions/
+map -b <goto>e<C-a>
+    \ -description "Palemoon Incompatible Extensions"
+    \ -ex open https://addons.palemoon.org/incompatible/
 map -b <goto>e;a
     \ -description "Addons Directory"
     \ -ex open file:///opt/ff-addons/
@@ -1847,6 +1856,9 @@ map -b <goto>ek
 map -b <goto>eK
     \ -description "Bookmarks"
     \ -ex open chrome://browser/content/bookmarks/bookmarksPanel.xul
+map -b <goto>eo
+    \ -description "/opt/ directory"
+    \ -ex open file:///opt
 map -b <goto>ep
     \ -description "Plugins"
     \ -ex open about:plugins
@@ -1884,6 +1896,9 @@ map -b <goto>wa
 map -b <goto>wA
     \ -description "Palemoon Extensions (new window)"
     \ -ex winopen https://addons.palemoon.org/extensions/
+map -b <goto>w<C-a>
+    \ -description "Palemoon Incompatible Extensions (new window)"
+    \ -ex winopen https://addons.palemoon.org/incompatible/
 map -b <goto>w;a
     \ -description "Addons Directory (new window)"
     \ -ex winopen file:///opt/ff-addons/
@@ -1914,6 +1929,9 @@ map -b <goto>w;k
 map -b <goto>wl
     \ -description "Library Dialog (sticky)"
     \ -ex librarysticky
+map -b <goto>wo
+    \ -description "/opt/ directory (new window)"
+    \ -ex winopen file:///opt
 map -b <goto>wp
     \ -description "Plugins  (new window)"
     \ -ex winopen about:plugins
