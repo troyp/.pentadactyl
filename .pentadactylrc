@@ -1064,6 +1064,16 @@ map -modes normal -b "<C-'>" <C-v>'
 " | Command mode and insert mode bindings |  cmap: command-line mode
 " '---------------------------------------'  imap: insert mode
 
+js <<EOF
+function getCmdline() { return CommandExMode().command; }
+function copyCmdlineOrJS() {
+    var cmd = getCmdline();
+    var cmdOrJS = cmd.replace(/^ec(ho)? +|^js +|^javas(cript)? +/, '');
+    utils.cbWrite(cmdOrJS);
+}
+EOF
+
+
 " Useful pseudo-keys
 map -modes command-line -b <copy-command-to-cb> <A-a><C-v><C-c><End>
 map -modes command-line -b <cut-command-to-cb> <A-a><C-v><C-x>
@@ -1077,6 +1087,8 @@ map -modes command-line -b <insert-after-command> <Home><C-Right><Space>
 map -modes command-line <A-b> <backward-word>
 map -modes command-line <A-f> <forward-word>
 
+" copy command-line "
+map -modes command-line <C-A-y> -js copyCmdlineOrJS();
 " select all
 map -modes command-line -b <C-x>h <Home><S-End><C-v><C-c>
 " use c_<C-,>, c_<C-.> for cycling WildMode completion
