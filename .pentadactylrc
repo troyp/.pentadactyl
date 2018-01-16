@@ -1795,8 +1795,8 @@ map -b <goto>c
     \ -description "about:config (new tab)"
     \ -ex tabopen about:config
 map -b <goto>d
-    \ description "Downloads (new tab)"
-    \ tabout:downloads<CR><C-z>
+    \ -description "Downloads (new tab)"
+    \ -ex tabout:downloads<CR><C-z>
 map -b <goto>f
     \ -description "about:about (new tab)"
     \ -ex tabopen about:about
