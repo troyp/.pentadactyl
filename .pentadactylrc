@@ -1065,7 +1065,7 @@ map -modes normal -b "<C-'>" <C-v>'
 " '---------------------------------------'  imap: insert mode
 
 " Useful pseudo-keys
-map -modes command-line -b <copy-command-to-cb> <A-a><C-v><C-c>
+map -modes command-line -b <copy-command-to-cb> <A-a><C-v><C-c><End>
 map -modes command-line -b <cut-command-to-cb> <A-a><C-v><C-x>
 map -modes command-line -b <paste> <C-v><C-v>
 map -modes command-line -b <copy> <C-v><C-c>
