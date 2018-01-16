@@ -1039,8 +1039,13 @@ findbarToggle = function() {
         gFindBar.close();
 }
 EOF
+map <hide-inputs> -ex hideselector input
+map <unhide-inputs> -ex unhideselector input
 " clear the search term highlighting
+map / <hide-inputs><find-forward>
+map ? <hide-inputs><find-backward>
 map <C-/> -ex noh
+map <C-?> <unhide-inputs>
 " Regex search
 map -modes normal -b g/ /\r
 map -modes normal -b g? ?\r
