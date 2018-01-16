@@ -380,6 +380,7 @@ command! showkeys -nargs=? -complete custom,' (context) => {context.completions 
 
 " Unmap prefix keys
 map s <Nop>
+map b <Nop>
 " map S <Nop>
 " map <C-x><C-h> <Nop>
 " map <C-x> <Nop>
@@ -395,6 +396,7 @@ map x <xtra>
 map X <S-xtra>
 map , <leader>
 map v <browser>
+map b <buffer>
 map a <ext>
 map <A-enter> <option>
 map y <yank>
@@ -434,6 +436,12 @@ map <leader>h       -description "(show bindings)" -js CommandExMode().open("sho
 map <leader>hm  -description "search mappings" :searchmappings<Space>
 
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
+
+" <browser> prefix: "
+" k    :  bookmark "
+" r R  :  pentadactylrc "
+" s    :  styling "
+" x    :  restore window "
 
 " -------------------------------------------------------------------------------
 " ,------------------,
@@ -1389,44 +1397,44 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
 "
 " -----------------------------------------------------------------------------
 
-" <browser> prefix: "
-" k    :  bookmark "
-" r R  :  pentadactylrc "
-" s    :  styling "
-" x    :  restore window "
+" filter & select buffer "
+map bb -builtin b
 
 " move tabs "
-map <browser>m<C-h> -description "Show bindings" -js CommandExMode().open("showkeys <browser>m")
-map <browser>m      -description "Show bindings" -js CommandExMode().open("showkeys <browser>m")
-map <browser>mm  :tabmove<SPACE>
-map <browser>mn  :moventabs<Space>
-map <browser>mr  -arg -ex movealltabsrightofn <arg>
-map <browser>m>  -count -ex movetabstoend <count>
-map <browser>m<  -count -ex movetabstostart <count>
-map <browser>m.  -arg -count -ex movelastntabs <count> <arg>
-map <browser>m\' -arg -count -ex moventabs <count> <arg>
-map <browser>ma  -description "Move tab after alternate" -js moveTabAfterAlternate();
+map <buffer>m<C-h> -description "Show bindings" -js CommandExMode().open("showkeys <buffer>m")
+map <buffer>m      -description "Show bindings" -js CommandExMode().open("showkeys <buffer>m")
+map <buffer>mm  :tabmove<SPACE>
+map <buffer>mn  :moventabs<Space>
+map <buffer>mr  -arg -ex movealltabsrightofn <arg>
+map <buffer>m>  -count -ex movetabstoend <count>
+map <buffer>m<  -count -ex movetabstostart <count>
+map <buffer>m.  -arg -count -ex movelastntabs <count> <arg>
+map <buffer>m\' -arg -count -ex moventabs <count> <arg>
+map <buffer>ma  -description "Move tab after alternate" -js moveTabAfterAlternate();
 
 " tile tabs "
-map <browser>t -description "View Tiled" -js tileTabs.Tile();
+map <buffer>t -description "View Tiled" -js tileTabs.Tile();
 
 "close tabs"
-map <browser>c<C-h> -description "Show bindings" -js CommandExMode().open("showkeys <browser>c")
-map <browser>c      -description "Show bindings" -js CommandExMode().open("showkeys <browser>c")
+map <buffer>c<C-h> -description "Show bindings"                   -js CommandExMode().open("showkeys <buffer>c")
+map <buffer>c      -description "Show bindings"                   -js CommandExMode().open("showkeys <buffer>c")
 " close other tabs "
-map <browser>1        -description "Close all other tabs"           -ex tabonly
-map <browser><        -description "Close tabs to left"             -ex closetabstoleft
-map <browser>>        -description "Close tabs to right"            -ex closetabstoright
-map <browser>cr       -description "Close tab range"                :tc<SPACE>
-map <browser>cb       -description "Close tab from list"            :bdelete<SPACE>
+map <buffer>1      -description "Close all other tabs"            -ex tabonly
+map <buffer><      -description "Close tabs to left"              -ex closetabstoleft
+map <buffer>>      -description "Close tabs to right"             -ex closetabstoright
+map <buffer>cr     -description "Close tab range"                 :tc<SPACE>
+map <buffer>cb     -description "Close tab from list"             :bdelete<SPACE>
 " filter/remove tabs: JS expr "
-map <browser>c;o      -description "Close tabs not satisfying EXPR" :tabfilter<Space>""<C-b>
-map <browser>c;c      -description "Close tabs satisfying EXPR"     :tabremove<Space>""<C-b>
+map <buffer>c;o    -description "Close tabs not satisfying EXPR"  :tabfilter<Space>""<C-b>
+map <buffer>c;c    -description "Close tabs satisfying EXPR"      :tabremove<Space>""<C-b>
 " filter/remove tabs: regex "
-map <browser>co       -description "Close tabs not matching REGEX"  :tabfilterregex<Space>""<C-b>
-map <browser>cc       -description "Close tabs matching REGEX"      :tabremoveregex<Space>""<C-b>
+map <buffer>co     -description "Close tabs not matching REGEX"   :tabfilterregex<Space>""<C-b>
+map <buffer>cc     -description "Close tabs matching REGEX"       :tabremoveregex<Space>""<C-b>
 " pin tabs "
-map <browser>p -ex pintab!
+map <buffer>p                                                     -ex pintab!
+" reload tabs "
+map <buffer>r      -description "Reload all tabs"                 -ex reloadall
+map <buffer>R      -description "Reload all tabs (without cache)" -ex reloadall!
 
 map gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
