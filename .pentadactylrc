@@ -1385,6 +1385,7 @@ command! removeiframes -js removeIFrames();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
 command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
+command! unhideselector  -nargs=* -js unhideSelectors.call(null, ...args);
 command! hidefirstselector  -nargs=1 -js hideFirstSelector.call(null, args[0]);
 command! removexpath -nargs=1 open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
 command! countselector -nargs=1 -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelector(args[0])}`);
@@ -8351,6 +8352,18 @@ function hideSelectors(...sels) {
         elts.forEach(e=>{
             var css = e.getAttribute('style') || '';
             e.setAttribute('style', css+" display: none !important;");
+        });
+    });
+}
+
+function unhideSelectors(...sels) {
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=>{
+            var css = e.getAttribute('style') || '';
+            var hideregex = /(^|;| ) *display: *none *(!important)? *;/;
+            e.setAttribute('style', css.replace(hideregex, ''));
         });
     });
 }
