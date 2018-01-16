@@ -8370,7 +8370,7 @@ function unhideSelectors(...sels) {
         var elts = Array.from(doc.querySelectorAll(sel));
         elts.forEach(e=>{
             var css = e.getAttribute('style') || '';
-            var hideregex = /(^|;| ) *display: *none *(!important)? *;/;
+            var hideregex = /(^|;| ) *display: *none *(!important)? *;/g;
             e.setAttribute('style', css.replace(hideregex, ''));
         });
     });
