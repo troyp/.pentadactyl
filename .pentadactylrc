@@ -1794,13 +1794,20 @@ map -b <goto>c
 map -b <goto>d
     \ description "Downloads (new tab)"
     \ tabout:downloads<CR><C-z>
+map -b <goto>f
+    \ -description "about:about (new tab)"
+    \ -ex tabopen about:about
 map -b <goto>h
     \ -description "Pentadactyl help (new tab)"
     \ -ex help
     " \ -ex tabopen file:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>H
-    \ -description "about:about (new tab)"
-    \ -ex tabopen about:about
+    \ -description "Pentadactyl help - single page (new tab)"
+    \ -ex helpall
+    " \ -ex tabopen file:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>;h
+    \ -description "Pentadactyl help - index (new tab)"
+    \ -ex tabopen dactyl://help/index
 map -b <goto>i
     \ -description "Profiles (new tab)"
     \ -ex tabopen about:profiles
@@ -1838,10 +1845,6 @@ map -b <goto>`
 map -b <goto>/
     \ -description "Root directory (new tab)"
     \ -ex tabopen file:///
-map -b <goto><f1>
-    \ -description "Pentadactyl help - single page (new tab)"
-    \ -ex helpall
-    " \ -ex tabopen file:///home/troy/.pentadactyl/doc/all.html
 
 map -b <goto>ea
     \ -description "Addons"
@@ -1861,13 +1864,20 @@ map -b <goto>ec
 map -b <goto>ed
     \ -description "Downloads"
     \ oabout:downloads<CR><C-z>
+map -b <goto>ef
+    \ -description "about:about"
+    \ -ex open about:about
 map -b <goto>eh
     \ -description "Pentadactyl help"
     \ -ex open dactyl://help/intro
     " \ -ex open file:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>eH
-    \ -description "about:about"
-    \ -ex open about:about
+    \ -description "Pentadactyl help - single page"
+    \ -ex open dactyl://help/all
+    " \ -ex open file:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>e;h
+    \ -description "Pentadactyl help - index"
+    \ -ex open dactyl://help/index
 map -b <goto>ei
     \ -description "Profiles"
     \ -ex open about:profiles
@@ -1905,10 +1915,6 @@ map -b <goto>e`
 map -b <goto>e/
     \ -description "Root directory"
     \ -ex open file:///
-map -b <goto>e<f1>
-    \ -description "Pentadactyl help - single page"
-    \ -ex open dactyl://help/all
-    " \ -ex open file:///home/troy/.pentadactyl/doc/all.html
 
 map -b <goto>wa
     \ -description "Addons (new window)"
@@ -1927,13 +1933,20 @@ map -b <goto>wc
     \ -ex winopen about:config
 map -b <goto>wd
     \ -description "Downloads (new window)" wabout:downloads<CR><C-z>
+map -b <goto>wf
+    \ -description "about:about (new window)"
+    \ -ex winopen about:about
 map -b <goto>wh
     \ -description "Pentadactyl help (new window)"
     \ -ex winopen dactyl://help/intro
     " \ -ex winopen file:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>wH
-    \ -description "about:about (new window)"
-    \ -ex winopen about:about
+    \ -description "Pentadactyl help - single page (new window)"
+    \ -ex winopen dactyl://help/all
+    " \ -ex winopen file:///home/troy/.pentadactyl/doc/all.html
+map -b <goto>w;h
+    \ -description "Pentadactyl help - index (new window)"
+    \ -ex winopen dactyl://help/index
 map -b <goto>wi
     \ -description "Profiles (new window)"
     \ -ex winopen about:profiles
@@ -1978,10 +1991,6 @@ map -b <goto>w`
 map -b <goto>w/
     \ -description "Root directory (new window)"
     \ -ex winopen file:///
-map -b <goto>w<f1>
-    \ -description "Pentadactyl help - single page (new window)"
-    \ -ex winopen dactyl://help/all
-    " \ -ex winopen file:///home/troy/.pentadactyl/doc/all.html
 
 " Pentadactyl source
 map <goto>D -ex tabopen resource://dactyl/
