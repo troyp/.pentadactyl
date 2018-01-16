@@ -1696,8 +1696,6 @@ map -b gf g;b
 " New tab
 map gN  -js newTabPage();
 map gON -ex open about:newtab
-map <goto>N  -js newTabPage();
-map <goto>eN -ex open about:newtab
 
 js <<EOF
 var newTabPage = function() {
@@ -1822,6 +1820,9 @@ map -b <goto>k
 map -b <goto>K
     \ -description "Bookmarks (new tab)"
     \ -ex tabopen chrome://browser/content/bookmarks/bookmarksPanel.xul
+map <goto>N
+    \ -description "New Tab Page (new tab)"
+    \ -js newTabPage();
 map -b <goto>o
     \ -description "/opt/ directory (new tab)"
     \ -ex tabopen file:///opt
@@ -1895,6 +1896,9 @@ map -b <goto>eK
 map -b <goto>eo
     \ -description "/opt/ directory"
     \ -ex open file:///opt
+map <goto>eN
+    \ -description "New Tab Page"
+    \ -ex open about:newtab
 map -b <goto>ep
     \ -description "Plugins"
     \ -ex open about:plugins
