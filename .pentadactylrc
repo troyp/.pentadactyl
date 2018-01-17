@@ -5486,6 +5486,8 @@ map <site>mG     -description "My starred gists"
 map <site>mp     -description "My profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
 map <site>mr     -description "My repositories"
  \               -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
+map <site>mm<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>mm")
+map <site>mm      -description "(show bindings)" -js CommandExMode().open("showkeys <site>mm")
 map <site>mmg    -description "My gists (new tab)"
  \               -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
 map <site>mmG    -description "My starred gists (new tab)"
