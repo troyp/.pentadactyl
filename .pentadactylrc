@@ -7534,30 +7534,6 @@ EOF
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-----------------,
-" | Userscripts.org |
-" '-----------------'
-
-js <<EOF
-
-function userscriptsMirror(url) {
-    var rx = /https?:\/\/(www.)?userscripts.org\/(.*)/;
-    var match = rx.exec(url.toLowerCase());
-    if (match)
-        dactyl.open(`http://userscripts-mirror.org/${match[2]}`);
-    else
-        dactyl.utils.message(`userScriptsMirror: Address doesn't match: ${url}`);
-}
-
-EOF
-
-command! userscriptsmirror -nargs=?
-    \ -js if (args.length==0)
-    \         userscriptsMirror(dactyl.clipboardRead());
-    \     else
-    \         userscriptsMirror(args[0]);
-
 " -------------------------------------------------------------------------------
 " ,--------------,
 " | TutsPlus.com |
@@ -7593,6 +7569,30 @@ function tutsplusTidy() {
 EOF
 
 group user
+
+" -----------------------------------------------------------------------------
+" ,-----------------,
+" | Userscripts.org |
+" '-----------------'
+
+js <<EOF
+
+function userscriptsMirror(url) {
+    var rx = /https?:\/\/(www.)?userscripts.org\/(.*)/;
+    var match = rx.exec(url.toLowerCase());
+    if (match)
+        dactyl.open(`http://userscripts-mirror.org/${match[2]}`);
+    else
+        dactyl.utils.message(`userScriptsMirror: Address doesn't match: ${url}`);
+}
+
+EOF
+
+command! userscriptsmirror -nargs=?
+    \ -js if (args.length==0)
+    \         userscriptsMirror(dactyl.clipboardRead());
+    \     else
+    \         userscriptsMirror(args[0]);
 
 " -------------------------------------------------------------------------------
 " ,-----------------,
