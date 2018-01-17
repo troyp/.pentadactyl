@@ -740,9 +740,9 @@ map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 map <leader>a      -js CommandExMode().open("showkeys <leader>a")
 " Banking "
 map <leader>ab
-    \ -description "Open Banking"
+    \ -description "Open Banking (Chrome)"
     \ -count
-    \ -ex js openInNewOrCurrentTab(user.mybankurl)(<count>);
+    \ -js dactyl.execute(`ochromeurl ${user.mybankurl}`);
 " Repos: <leader>ag "
 map <leader>agh
     \ -description "Open My Github"
