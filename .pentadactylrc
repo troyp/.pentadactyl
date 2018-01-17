@@ -1488,6 +1488,11 @@ map -modes input -b <A-;> <Esc><C-^>
 map -modes command,embed -b <A-:> d<C-^>
 map -modes input -b <A-:> <Esc>d<C-^>
 
+" Background Tabs "
+map    C  -description "Duplicate current tab"                           -js tabCopyLeftBg();
+map    gh -description "Open previous page in history in background tab" -js backt();
+map    gl -description "Open next page in history in background tab"     -js forwardt();
+map -b gf -description "Open multiple links in background tabs (HINTS)"  g;b
 
 " ,------------------,
 " | Buffer Selection |
@@ -1682,28 +1687,6 @@ function moveTabAfterAlternate() {
 EOF
 
 " -----------------------------------------------------------------------------
-" ,----------,
-" | New Tabs |
-" '----------'
-" Duplicate tab, Back/Forward in New Tab
-map C  -ex tabdupa
-map gh -js backt();
-map gl -js forwardt();
-" Open multiple hints in background tabs
-map -b gf g;b
-
-" New tab
-map gN  -js newTabPage();
-map gON -ex open about:newtab
-
-js <<EOF
-var newTabPage = function() {
-    dactyl.open('about:newtab', {where:dactyl.NEW_TAB});
-    dactyl.execute('normal f');
-}
-EOF
-
-" -----------------------------------------------------------------------------
 " ,------------,
 " | Tab Groups |
 " '------------'
@@ -1803,6 +1786,13 @@ map -b <goto>f
 map -b <goto>h
     \ -description "Pentadactyl help (new tab)"
     \ -ex help
+js <<EOF
+var newTabPage = function(where=dactyl.NEW_TAB) {
+    dactyl.open('about:newtab', {where:where});
+    findbarToggle();
+}
+EOF
+
     " \ -ex tabopen file:///home/troy/.pentadactyl/doc/help/index.html
 map -b <goto>H
     \ -description "Pentadactyl help - single page (new tab)"
