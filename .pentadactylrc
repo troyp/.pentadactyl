@@ -1391,6 +1391,7 @@ command! clickselector -nargs=1 -js clickSelector(content.document.querySelector
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
 command! unhideselector  -nargs=* -js unhideSelectors.call(null, ...args);
 command! hidefirstselector  -nargs=1 -js hideFirstSelector.call(null, args[0]);
+command! blankselector  -nargs=* -js blankSelectors.call(null, ...args);
 command! removexpath -nargs=1 open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
 command! countselector -nargs=1 -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelector(args[0])}`);
 
@@ -8308,6 +8309,17 @@ function hideFirstSelector(sel) {
     var doc = content.document;
     var elt = doc.querySelector(sel);
     e.setAttribute('style', css+" display: none !important;");
+}
+
+function blankSelectors(...sels) {
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=>{
+            var css = e.getAttribute('style') || '';
+            e.setAttribute('style', css+" visibility: hidden !important;");
+        });
+    });
 }
 
 function setSelectorOpacity(opacity, ...sels) {
