@@ -5468,7 +5468,6 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 group github -locations=github.com,githubusercontent.com,rawgit.com
 map <site>       -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>       -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c      -description "Click README.md" -js ghClickReadme();
 map <site>h -ex ghtogglehtmlview
