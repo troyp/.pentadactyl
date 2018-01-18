@@ -712,6 +712,9 @@ map <leader>T        -description "(show bindings: GUI Toggles)"       -js Comma
 map <leader>T<C-h>   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
 map <leader>Ta       -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
 map <leader>Tb       -description "Toggle bookmark bar"                -ex set guioptions!=B
+map <leader>Tc       -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
+map <leader>Tc<C-h>  -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
+map <leader>Tct      -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
 map <leader>Td       -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
 map <leader>Te       -description "Toggle navigation toolbar"          -ex set guioptions!=T
 map <leader>Tm       -description "Toggle menu bar"                    -ex set guioptions!=m
