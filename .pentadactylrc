@@ -2083,6 +2083,14 @@ command! cssapply
 
 style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
 
+" style taken from http://forums.mozillazine.org/viewtopic.php?f=38&t=2799203#p13349801 "
+style -name=activetabhighlight * .tabbrowser-tab[selected="true"] {
+\   font-weight: bold !important;
+\   color: rgba(255,255,255,1) !important;
+\   background-image: linear-gradient(rgba(102,51,102,.85), rgba(102,51,102,.85) 50%),
+\                     linear-gradient(-moz-dialog, -moz-dialog) !important;
+\ }
+
 map    <browser>sN -description "Style/narrow page" :narrowpage<Space>
 map -b <browser>st -description "Style/add temp style for page" y:style -group=temp <C-v><C-v><Space>
 map    <browser>su -description "Style/toggle usermode (minimal styling)" -ex set usermode!
