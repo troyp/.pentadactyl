@@ -694,38 +694,35 @@ map <leader>jf
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
-map <leader>t<C-h> -js CommandExMode().open("showkeys <Leader>t")
-map <leader>t      -js CommandExMode().open("showkeys <Leader>t")
-map <leader>ta -description "Toggle User Agent Override" -ex actoggleuaoverride
-map <leader>te -description "Toggle Edit Content" -ex editcontent
-map <leader>tj -description "Toggle Javascript" -ex actogglejs
-map <leader>to -description "Toggle Online" -ex toggleoption online
-map <leader>ts -description "Toggle HTTPS" -js toggleHTTPS()
-map <leader>tu -description "Toggle User Mode" -ex set usermode!
-map <leader>tv -description "Toggle Visited Links Styling" -ex styletoggle -name visitedlinks
-map <leader>tw -description "Toggle Wayback Machine" -ex waybacktoggle
+map <leader>t<C-h>   -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
+map <leader>t        -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
+map <leader>ta       -description "Toggle User Agent Override"    -ex actoggleuaoverride
+map <leader>te       -description "Toggle Edit Content"           -ex editcontent
+map <leader>tj       -description "Toggle Javascript"             -ex actogglejs
+map <leader>to       -description "Toggle Online"                 -ex toggleoption online
+map <leader>ts       -description "Toggle HTTPS"                  -js toggleHTTPS()
+map <leader>tu       -description "Toggle User Mode"              -ex set usermode!
+map <leader>tv       -description "Toggle Visited Links Styling"  -ex styletoggle  -name visitedlinks
+map <leader>tw       -description "Toggle Wayback Machine"        -ex waybacktoggle
 
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
-map <leader>T<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <Leader>T")
-map <leader>T      -description "(show bindings)" -js CommandExMode().open("showkeys <Leader>T")
-map <A-Up>
-    \ -description "Show the navigation and bookmarks toolbars"
-    \ -ex set guioptions-=TB | set showtabline=never
-map <A-Down>
-    \ -description "Hide the navigation and bookmarks toolbars"
-    \ -ex set guioptions+=TB | set showtabline=always
-map <leader>Ta
-    \ -description "Toggle the navigation and bookmarks toolbars"
-    \ -ex set guioptions!=TB | set showtabline!=always,never
-map <leader>Tm -description "Toggle menu bar"           -ex set guioptions!=m
-map <leader>Tt -description "Toggle tab bar"            -ex set showtabline!=always,never
-map <leader>Te -description "Toggle navigation toolbar" -ex set guioptions!=T
-map <leader>Tb -description "Toggle bookmark bar"       -ex set guioptions!=B
-map <leader>Ts -description "Toggle status bar"         -ex set guioptions!=s
-map <leader>To -description "Toggle add-on bar"         -ex toolbartoggle Add-on Bar
-map <leader>Td -description "Toggle webdev toolbar"     -ex toolbartoggle Web Developer Toolbar
+map <leader>T        -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
+map <leader>T<C-h>   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
+map <leader>Ta       -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
+map <leader>Tb       -description "Toggle bookmark bar"                -ex set guioptions!=B
+map <leader>Td       -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
+map <leader>Te       -description "Toggle navigation toolbar"          -ex set guioptions!=T
+map <leader>Tm       -description "Toggle menu bar"                    -ex set guioptions!=m
+map <leader>To       -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
+map <leader>Ts       -description "Toggle status bar"                  -ex set guioptions!=s
+map <leader>Tt       -description "Toggle tab bar"                     -ex set showtabline!=always,never
+
+map <A-Up>      -description "Show navigation & bookmarks toolbars"
+\               -ex set guioptions-=TB | set showtabline=never
+map <A-Down>    -description "Hide navigation & bookmarks toolbars"
+\               -ex set guioptions+=TB | set showtabline=always
 
 " ,-----------------,
 " | Manipulate Page |
