@@ -1248,6 +1248,21 @@ command! loadutils runtime! utils.js | js var utils = dactyl.utils.getPlugin("ut
 
 command! showsource -nargs=1 -js (alert(self[args[0]].toString()))
 
+command! saveindir
+\    -nargs=1
+\    -complete dir
+\    -js dactyl.execute(`saveas ${joinFilePathFromDactylArgs(args[0])}`);
+js <<EOF
+function joinFilePathFromDactylArgs(dir) {
+    var name = window._dactylargs && window._dactylargs[0];
+    if (!name || typeof name != "string") {
+        " default name "
+        name = getDate();
+    }
+    return dir+'/'+name;
+}
+EOF
+
 " enable jQuery in content document
 command! jQueryLoad -js <<EOF
     var scripttag = content.document.createElement('script');
