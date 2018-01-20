@@ -973,6 +973,7 @@ map <yank>M -description "Yank markdown link (using H1 heading as title)"
 map <yank>p -description "Yank paragraph (HINTS)" -js hints.show("ÿ");
 map <yank>s -description "Yank element content by selector" :yankselectorcontent<Space>
 map <yank>t -description "Yank page title" -js utils.yankWithMsg(buffer.title)
+map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
 map <yank>u -description "Yank buffer URL (unencoded)" -ex yanktrueURL
 map <yank>x -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>y -description "Yank buffer URL" -b y
@@ -990,6 +991,9 @@ command! yanktextarea
     \ -description "Yank the contents of textarea N."
     \ -nargs=1
     \ -js yankTextarea(Number(args[0]));
+command! yanktitleanddate
+\    -description "Yank: pagetitle (date-time)"
+\    -js utils.yankWithMsg(`${buffer.title} (${getDate()})`);
 
 " yankselectorcontent - note: if second arg contains quotes, they must be escaped (or the whole argument quoted) "
 command! yankselectorcontent
