@@ -5402,7 +5402,6 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
 map <site>p      -description "Permanent link" -js ghGetPermalink();
-map <site>yy     -description "Yank git repos link" -js ghCopyRepoLinkGit();
 map <site>         -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
@@ -5456,12 +5455,14 @@ map <site>tr       -description "Open repositories (new tab)"
 map <site>tw       -description "Open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 map <site>y<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>yg       -description "Yank git repo link" -js ghCopyRepoLinkGit();
 map <site>yh       -description "Yank https repo link" -js ghCopyRepoLinkHttps();
 map <site>yn       -description "Yank repo name" -js ghCopyRepoName();
 map <site>yr       -description "Yank raw file URL" -js hints.show("Ⓖ");
 map <site>yR       -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
 map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
+map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
 map <site>*        -description "Star/Unstar repo" -js content.document.querySelector('form.starred .btn').click();
 
 command! ghtogglehtmlview
@@ -5525,10 +5526,13 @@ function ghGoToLines(args) {
 }
 
 function ghCopyRepoLinkHttps() {
-    dactyl.utils.yankWithMsg(ghGetCloneUrl("https"))
+    dactyl.utils.yankWithMsg(ghGetCloneUrl("https"));
+}
+function ghCopyRepoLinkSSH() {
+    dactyl.utils.yankWithMsg(ghGetCloneUrl("ssh"));
 }
 function ghCopyRepoLinkGit() {
-    dactyl.utils.yankWithMsg(ghGetCloneUrl("git"))
+    dactyl.utils.yankWithMsg(ghGetCloneUrl("git"));
 }
 function ghGetUserAndRepo(useronly=false) {
     // var url = ghGetCloneUrl("https");
@@ -5603,11 +5607,13 @@ function ghClickReadme() {
 
 function ghGetCloneUrl(urltype) {
     var [user,repo]= ghGetUserAndRepo();
-    var gitlink =   user && repo && `git@github.com:${user}/${repo}.git`;
+    var sshlink =   user && repo && `git@github.com:${user}/${repo}.git`;
     var httpslink = user && repo && `https://github.com/${user}/${repo}.git`;
+    var gitlink =   user && repo && `git://github.com/${user}/${repo}.git`;
     switch (urltype) {
-        case "git":   return gitlink;
+        case "ssh":   return sshlink;
         case "https": return httpslink;
+        case "git":   return gitlink;
     }
 }
 
