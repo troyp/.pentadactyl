@@ -7732,12 +7732,11 @@ function wikiaRemoveAds() {
 function wikiaRemoveCruft() {
     wikiaRemoveAds();
     removeSelectors(
-        '.wds-global-navigation-wrapper', '#WikiHeader',
-        '.header-tally', '.wikia-button', '.wikia-menu-button', '.editsection', '.WikiaRail',
-        '.navbox', '.WikiaArticleInterlang', '.refpopups-configure-page', '#WikiaArticleFooter',
-        'footer', '#WikiaFooter', '.wds-global-footer', '#WikiaBar', 'script','#WikiaNotifications',
-        'iframe', '#ad-skin'
+        '#WikiHeader', '.header-tally', '.wikia-button', '.wikia-menu-button', '.editsection', '.WikiaRail',
+        '.navbox', '.WikiaArticleInterlang', '.refpopups-configure-page', '#WikiaArticleFooter', 'footer',
+        '#WikiaFooter', '.wds-global-footer', '#WikiaBar', 'script','#WikiaNotifications', 'iframe', '#ad-skin'
     );
+    hideSelectors('.wds-global-navigation-wrapper');
 }
 
 function wikiaSimplePage() {
