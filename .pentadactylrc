@@ -8661,6 +8661,19 @@ function yankInputFields() {
     utils.message("Copied\n" + textInput.map(f=>"    "+f.value).join("\n"));
 }
 
+function getDate(fmt='%y-%m-%d-%T') {
+    return io.system(`date '+${fmt}'`).output;
+}
+
+function getHomeDirAsFileURL() {
+    var homedir = io.system('echo $HOME').output;
+    return `file://${homedir}/`;
+}
+function getHomeDir() {
+    var homedir = io.system('echo $HOME').output;
+    return homedir+'/';
+}
+
 // ,-------------------------,
 // | variables for temp data |
 // '-------------------------'
