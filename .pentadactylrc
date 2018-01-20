@@ -4162,12 +4162,22 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkey
 map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "Remove cruft" -js archwikiTidy();
+map <site>s -description "Save file in directory" -js archwikiSavePageInDir();
 
 js <<EOF
 function archwikiTidy() {
     isolateSelector('#content');
     dactyl.execute('cssapply ".mw-body { margin-left: 0 !important; }"');
 }
+function archwikiSavePageInDir() {
+    var name = `${buffer.title} (${getDate()})`;
+    window._dactylargs = [name];
+    dactyl.execute('feedkeys :saveindir<Space>');
+}
+EOF
+
+group user
+
 EOF
 
 group user
