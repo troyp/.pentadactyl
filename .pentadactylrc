@@ -7788,13 +7788,13 @@ command! wikiaprevious
     \ -bang
     \ -js dactyl.open(wikiaGetPrevious(), { where: bang?'tab':'here' });
 
-map <site>c -ex wikiaremovecruft
-map <site>aa -ex wikiaremoveads
-map <site>af -ex wikiaremovefandomads
 map <site>s -ex wikiasimplepage
-map <site>i -ex wikiaremoveimages
-map <site>] -ex wikianext
-map <site>[ -ex wikiaprevious
+map <site>c   -ex wikiaremovecruft
+map <site>aa  -ex wikiaremoveads
+map <site>af  -ex wikiaremovefandomads
+map <site>i   -ex wikiaremoveimages
+map <site>]   -ex wikianext
+map <site>[   -ex wikiaprevious
 
 " autocmd DOMload 'https?://.*\.wikia.com/\.*' wikiaremovecruft
 
