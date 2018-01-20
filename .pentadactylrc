@@ -8812,4 +8812,4 @@ EOF
 "   * prog can be a string or an array of strings [prog, arg1, ...].
 "   * input is sent on stdin.
 "   * async may be a callback to be run when command returns or boolean (whether to return a promise).
-
+" * Error reporting: use dactyl.reportError(e) in catch block.
