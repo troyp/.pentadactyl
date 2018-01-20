@@ -5462,6 +5462,7 @@ map <site>yn       -description "Yank repo name" -js ghCopyRepoName();
 map <site>yr       -description "Yank raw file URL" -js hints.show("Ⓖ");
 map <site>yR       -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
 map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
+map <site>yU       -description "Yank user name" -js ghCopyUser();
 map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
 map <site>*        -description "Star/Unstar repo" -js content.document.querySelector('form.starred .btn').click();
@@ -5572,6 +5573,11 @@ function ghCopyUserAndRepo() {
     [user, repo] = ghGetUserAndRepo();
     var url = ghGetCloneUrl("https");
     dactyl.utils.yankWithMsg(`${user}/${repo}`);
+}
+
+function ghCopyUser() {
+    user = ghGetUserAndRepo(true);
+    dactyl.utils.yankWithMsg(user);
 }
 
 function ghCopyRepoNameWithURL() {
