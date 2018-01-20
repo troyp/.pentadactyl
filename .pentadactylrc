@@ -5401,7 +5401,6 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
-map <site>p      -description "Permanent link" -js ghGetPermalink();
 map <site>         -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
@@ -5434,6 +5433,7 @@ map <site>oi       -description "Open issues"
 \                  -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
 map <site>oI       -description "Open issues.csv"
 \                  -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'here');
+map <site>op       -description "Permanent link" -js dactyl.open(ghGetPermalink(), {where: 'here'});
 map <site>or       -description "Open repositories"
 \                  -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'here');
 map <site>ow       -description "Open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
@@ -5450,6 +5450,7 @@ map <site>ti       -description "Open issues"
 \                  -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
 map <site>tI       -description "Open issues.csv"
 \                  -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
+map <site>tp       -description "Permanent link (new tab)" -js dactyl.open(ghGetPermalink(), {where: 'tab'});
 map <site>tr       -description "Open repositories (new tab)"
 \                  -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'tab');
 map <site>tw       -description "Open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
@@ -5624,7 +5625,7 @@ function ghFileFinder(where=dactyl.CURRENT_TAB) {
 }
 
 function ghGetPermalink() {
-    content.document.querySelector('.js-permalink-shortcut').click();
+    return content.document.querySelector('.js-permalink-shortcut').href;
 }
 
 function ghOpenHelp(where='here') {
