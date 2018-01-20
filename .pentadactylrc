@@ -957,6 +957,7 @@ map -description "Google append translation (div) (HINTS)" <xtra>tb -js hints.sh
 map <yank>a -description "Yank text area #N contents" :yanktextarea<Space>
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." :yanktablecsvarea<Space>
 map <yank>d -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
+map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>h -description "Yank page heading (<H1>)"
     \ -js utils.yankWithMsg(content.document.querySelector('h1').innerText);
