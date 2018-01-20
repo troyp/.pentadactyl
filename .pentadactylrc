@@ -4178,6 +4178,35 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,----------------------,
+" | Dactyl Resource URLs |
+" '----------------------'
+group dactylres -locations=resource://dactyl*
+map <leader>hkc -js CommandExMode().open("map -group dactylres <site>")
+map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group dactylres <site>")
+
+map <site>e -description "Open my fork in Emacsclient" -js dactylresOpenMyForkInEmacsclient();
+map <site>E -description "Open in Emacsclient" -js dactylresOpenInEmacsclient();
+
+js <<EOF
+function dactylresGetRelativeFilePath() {
+    var modulesMatch = buffer.URL.match('^resource://dactyl/(.*)$');
+    var otherMatch = buffer.URL.match('^resource://dactyl-([^/]+)/(.*)$');
+    if (modulesMatch) {
+        return `common/modules/${modulesMatch[1]}`;
+    } else if (otherMatch) {
+        return `common/${otherMatch[1]}/${otherMatch[2]}`;
+    }
+}
+function dactylresOpenInEmacsclient() {
+    var path = getHomeDir() + 'source/git-repos/dactyl/' + dactylresGetRelativeFilePath();
+    dactyl.execute(`!emacsclient ${path}`);
+}
+function dactylresOpenMyForkInEmacsclient() {
+    var path = getHomeDir() + 'repos/dactyl/' + dactylresGetRelativeFilePath();
+    dactyl.execute(`!emacsclient ${path}`);
+}
 EOF
 
 group user
