@@ -5401,68 +5401,68 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
-map <site>       -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-
-map <site>c      -description "Click README.md" -js ghClickReadme();
-map <site>h -ex ghtogglehtmlview
-
-map <site>ir     -description "List user's repos in mow" -ex ghlistrepos
 map <site>p      -description "Permanent link" -js ghGetPermalink();
-map <site>r      -description "Open raw file (hints)" -js hints.show("🄶");
-map <site>R      -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
-map <site>sr     -description "Save raw file (hints)" -js hints.show("ⓖ");
-map <site>sR     -description "save this README to /opt/doc/" -ex ghsavethisreadmetodoc
-map <site>m<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
-map <site>m      -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
-map <site>mg     -description "My gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
-map <site>mG     -description "My starred gists"
- \               -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
-map <site>mp     -description "My profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
-map <site>mr     -description "My repositories"
- \               -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
-map <site>mm<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>mm")
-map <site>mm      -description "(show bindings)" -js CommandExMode().open("showkeys <site>mm")
-map <site>mmg    -description "My gists (new tab)"
- \               -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
-map <site>mmG    -description "My starred gists (new tab)"
- \               -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'tab');
-map <site>mmp    -description "My profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'here');
-map <site>mmr    -description "My repositories (new tab)"
- \               -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
-map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
-map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
-map <site>og     -description "Open gists" -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'here');
-map <site>oh     -description "Open help" -js ghOpenHelp('here');
-map <site>oi     -description "Open issues"
- \               -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
-map <site>oI     -description "Open issues.csv"
- \               -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'here');
-map <site>or     -description "Open repositories"
- \               -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'here');
-map <site>ow     -description "Open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
-map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
-map <site>t      -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
-map <site>tg     -description "Open gists (new tab)"
- \               -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'tab');
-map <site>th     -description "Open help (new tab)" -js ghOpenHelp('tab');
-map <site>ti     -description "Open issues"
- \               -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
-map <site>tI     -description "Open issues.csv"
- \               -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
-map <site>tr     -description "Open repositories (new tab)"
- \               -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'tab');
-map <site>tw     -description "Open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
-map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
-map <site>y      -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
-map <site>yh     -description "Yank https repos link" -js ghCopyRepoLinkHttps();
-map <site>yn     -description "Yank repo name" -js ghCopyRepoName();
-map <site>yr     -description "Yank raw file URL" -js hints.show("Ⓖ");
-map <site>yR     -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
-map <site>yu     -description "Yank user/repo name" -js ghCopyUserAndRepo();
-map <site>yw     -description "Yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy     -description "Yank git repos link" -js ghCopyRepoLinkGit();
-map <site>*      -description "Star/Unstar repo" -js content.document.querySelector('form.starred .btn').click();
+map <site>         -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
+map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
+
+map <site>c        -description "Click README.md" -js ghClickReadme();
+map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
+
+map <site>ir       -description "List user's repos in mow" -ex ghlistrepos
+map <site>m<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
+map <site>m        -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
+map <site>mg       -description "My gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
+map <site>mG       -description "My starred gists"
+\                  -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
+map <site>mp       -description "My profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mr       -description "My repositories"
+\                  -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
+map <site>mm<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <site>mm")
+map <site>mm       -description "(show bindings)" -js CommandExMode().open("showkeys <site>mm")
+map <site>mmg      -description "My gists (new tab)"
+\                  -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
+map <site>mmG      -description "My starred gists (new tab)"
+\                  -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'tab');
+map <site>mmp      -description "My profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mmr      -description "My repositories (new tab)"
+\                  -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
+map <site>o<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>o        -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>og       -description "Open gists" -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'here');
+map <site>oh       -description "Open help" -js ghOpenHelp('here');
+map <site>oi       -description "Open issues"
+\                  -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
+map <site>oI       -description "Open issues.csv"
+\                  -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'here');
+map <site>or       -description "Open repositories"
+\                  -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'here');
+map <site>ow       -description "Open wiki" -js dactyl.open(ghGetWikiURL(), 'here');
+map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
+map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
+map <site>sr       -description "Save raw file (hints)" -js hints.show("ⓖ");
+map <site>sR       -description "save this README to /opt/doc/" -ex ghsavethisreadmetodoc
+map <site>t<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
+map <site>t        -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
+map <site>tg       -description "Open gists (new tab)"
+\                  -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'tab');
+map <site>th       -description "Open help (new tab)" -js ghOpenHelp('tab');
+map <site>ti       -description "Open issues"
+\                  -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
+map <site>tI       -description "Open issues.csv"
+\                  -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
+map <site>tr       -description "Open repositories (new tab)"
+\                  -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'tab');
+map <site>tw       -description "Open wiki (new tab)" -js dactyl.open(ghGetWikiURL(), 'tab');
+map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>y<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>yh       -description "Yank https repo link" -js ghCopyRepoLinkHttps();
+map <site>yn       -description "Yank repo name" -js ghCopyRepoName();
+map <site>yr       -description "Yank raw file URL" -js hints.show("Ⓖ");
+map <site>yR       -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
+map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
+map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
+map <site>*        -description "Star/Unstar repo" -js content.document.querySelector('form.starred .btn').click();
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -5476,8 +5476,8 @@ command! ghfilefinder -js ghFileFinder();
 map <site>/ -ex ghfilefinder
 
 command! ghsavethisreadmetodoc
-    \ -bang
     \ -description "Download README for current repo to /opt/doc/"
+    \ -bang
     \ -js ghSaveThisReadmeToDoc(bang);
 
 " === hint modes === "
