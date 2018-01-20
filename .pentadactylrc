@@ -7769,11 +7769,22 @@ function wikiaGetPrevious() {
     return nextprevLinks[0].href;
 }
 
+function wikiaSearchbar() {
+    unhideSelectors('.wds-global-navigation-wrapper');
+    window.setTimeout(
+        () => {
+            content.document.getElementById('searchInput').focus();
+        },
+        250
+    );
+}
+
 EOF
 
 command! wikiaremovefandomads
     \ -description "Remove 'Trending Fandom' ads"
     \ removeselector '#recirculation-rail' '.recirculation-rail'
+command! wikiasearchbar    -description "Search in search bar"      -js wikiaSearchbar();
 command! wikiaremoveads    -description "Remove ads"                -js wikiaRemoveAds();
 command! wikiaremovecruft  -description "Remove clutter"            -js wikiaRemoveCruft();
 command! wikiasimplepage   -description "Remove clutter/decoration" -js wikiaSimplePage();
@@ -7787,10 +7798,11 @@ command! wikiaprevious
     \ -bang
     \ -js dactyl.open(wikiaGetPrevious(), { where: bang?'tab':'here' });
 
-map <site>s -ex wikiasimplepage
 map <site>c   -ex wikiaremovecruft
 map <site>aa  -ex wikiaremoveads
 map <site>af  -ex wikiaremovefandomads
+map <site>r   -ex wikiasimplepage
+map <site>s   -ex wikiasearchbar
 map <site>i   -ex wikiaremoveimages
 map <site>]   -ex wikianext
 map <site>[   -ex wikiaprevious
