@@ -8427,16 +8427,26 @@ function setSelectorOpacity(opacity, ...sels) {
     });
 }
 
-function yankSelectorContent(sel, target='innerText') {
+function getSelectorContent(sel, target='innerText') {
     "target may be:";
     "     * a string, naming an attribute";
     "     * a function taking an element and returning a string.";
-    selectedElt = content.document.querySelector(sel);
-    if (typeof target === 'string')
-        selectedContent = selectedElt[target];
-    else
-        selectedContent = target(selectedElt);
-    utils.cbWriteWithMessageLimit(selectedContent);
+    selectedElts = Array.from(content.document.querySelectorAll(sel));
+    result = [];
+    selectedElts.forEach(
+        selectedElt => {
+            if (typeof target === 'string')
+                selectedContent = selectedElt[target];
+            else
+                selectedContent = target(selectedElt);
+            result.push(selectedContent);
+        }
+    )
+    return result;
+}
+
+function yankSelectorContent(sel, target='innerText') {
+    utils.cbWriteWithMessageLimit(getSelectorContent(sel, target).join("\n"));
 }
 window.yankSelectorContent = yankSelectorContent;
 
