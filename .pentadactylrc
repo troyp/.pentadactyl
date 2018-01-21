@@ -386,20 +386,20 @@ map b <Nop>
 " map <C-x> <Nop>
 
 " Map prefix keys to prefix pseudokeys
-map e <goto>
-map c <site>
-imap <A-return> <Esc><site>
+map e         <goto>
+map c         <site>
+map x         <xtra>
+map X         <S-xtra>
+map ,         <leader>
+map v         <browser>
+map b         <buffer>
+map a         <ext>
+map <A-enter> <option>
+map y         <yank>
 " " The <sel> and <sidebar> pseudokeys were broken for some reason
 " map s <sel>
 " map S <sidebar>
-map x <xtra>
-map X <S-xtra>
-map , <leader>
-map v <browser>
-map b <buffer>
-map a <ext>
-map <A-enter> <option>
-map y <yank>
+imap <A-return> <Esc><site>
 
 " List mappings by prefix (using commandline completion)
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
@@ -433,7 +433,7 @@ map z              -description "(show bindings)" -js CommandExMode().open("show
 
 map <leader>h<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <leader>h")
 map <leader>h       -description "(show bindings)" -js CommandExMode().open("showkeys <leader>h")
-map <leader>hm  -description "search mappings" :searchmappings<Space>
+map <leader>hm      -description "search mappings" :searchmappings<Space>
 
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
 
@@ -465,32 +465,32 @@ map <link_desc> ;Y
 
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
-map -modes normal -b <C-,> <Left>
-map -modes normal -b <C-.> <Right>
+map <C-,>   -modes normal -b <Left>
+map <C-.>   -modes normal -b <Right>
 " use h, l for tab changing
 "   note: <C-n>,gT are opposite motions. gt with arg goes to arg'th tab
-map -modes normal -b h gT
-map -modes normal -b l <C-n>
+map h       -modes normal -b gT
+map l       -modes normal -b <C-n>
 " <C-n> and <C-p> for down and up
-map -modes normal -b <C-n> <C-v><down>
-map -modes normal -b <C-p> <C-v><up>
+map <C-n>   -modes normal -b <C-v><down>
+map <C-p>   -modes normal -b <C-v><up>
 " replace h, l with A-k, A-j for horizontal movement
-map -modes normal -b <C-A-h> h
-map -modes normal -b <C-A-l> l
+map <C-A-h> -modes normal -b h
+map <C-A-l> -modes normal -b l
 " A-k/j and A-,/. can be reused...
-map -modes normal -b <A-k> h
-map -modes normal -b <A-j> l
-map -modes normal -b <A-,> h
-map -modes normal -b <A-.> l
+map <A-k>   -modes normal -b h
+map <A-j>   -modes normal -b l
+map <A-,>   -modes normal -b h
+map <A-.>   -modes normal -b l
 " free C-N, C-P bindings for tab movement
 map <C-S-P> <Nop>
 map <C-S-N> <Nop>
 " focus frame
-map -modes normal -b vf ;F
+map vf      -modes normal -b ;F
 " visual mode "
-map -modes normal <browser>v -description "Visual mode" -ex feedkeys iv
+map <browser>v -modes normal -description "Visual mode" -ex feedkeys iv
 " visual (pseudo-)line mode "
-map -modes normal V  -description "Pseudo-visual-line mode"-ex feedkeys i<C-a>vj
+map V          -modes normal -description "Pseudo-visual-line mode"-ex feedkeys i<C-a>vj
 
 " next/previous heading or paragraph "
 map <C-A-n>
@@ -519,15 +519,15 @@ map gf <Nop>
 map gs -ex viewpagesource
 " replace builtin <C-a> and <C-x> bindings (inrease/decrease URL by 1)
 map <C-a> <Nop>
-map -modes normal -b <A-=> <C-a>
-map -modes normal -b <A--> <C-x>
+map <A-=> -modes normal -b <C-a>
+map <A--> -modes normal -b <C-x>
 " passthrough
 map \\ -b <C-v>
 
 " Paste and Search
 " swap p and P
-map -modes normal -b p P
-map -modes normal -b P p
+map p -modes normal -b P
+map P -modes normal -b p
 
 " disable <C-q> for quitting
 map -modes main <C-q> <Nop>
@@ -555,9 +555,9 @@ map <A-Esc> -b <C-v><Esc>
 " C-w closes tab; if last in window closes window.
 map <C-w> :q<CR>
 " movement
-map -modes normal -b <C-S-D> <C-u>
-map -modes normal -b J <C-d>
-map -modes normal -b K <C-u>
+map <C-S-D> -modes normal -b <C-u>
+map J       -modes normal -b <C-d>
+map K       -modes normal -b <C-u>
 " Restart with C-x C-x:
 map <C-x><C-x> -ex restart
 map <browser>r
@@ -694,38 +694,38 @@ map <leader>jf
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
-map <leader>t<C-h>   -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
-map <leader>t        -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
-map <leader>ta       -description "Toggle User Agent Override"    -ex actoggleuaoverride
-map <leader>te       -description "Toggle Edit Content"           -ex editcontent
-map <leader>tj       -description "Toggle Javascript"             -ex actogglejs
-map <leader>to       -description "Toggle Online"                 -ex toggleoption online
-map <leader>ts       -description "Toggle HTTPS"                  -js toggleHTTPS()
-map <leader>tu       -description "Toggle User Mode"              -ex set usermode!
-map <leader>tv       -description "Toggle Visited Links Styling"  -ex styletoggle  -name visitedlinks
-map <leader>tw       -description "Toggle Wayback Machine"        -ex waybacktoggle
+map <leader>t<C-h> -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
+map <leader>t      -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
+map <leader>ta     -description "Toggle User Agent Override"    -ex actoggleuaoverride
+map <leader>te     -description "Toggle Edit Content"           -ex editcontent
+map <leader>tj     -description "Toggle Javascript"             -ex actogglejs
+map <leader>to     -description "Toggle Online"                 -ex toggleoption online
+map <leader>ts     -description "Toggle HTTPS"                  -js toggleHTTPS()
+map <leader>tu     -description "Toggle User Mode"              -ex set usermode!
+map <leader>tv     -description "Toggle Visited Links Styling"  -ex styletoggle  -name visitedlinks
+map <leader>tw     -description "Toggle Wayback Machine"        -ex waybacktoggle
 
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
-map <leader>T        -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
-map <leader>T<C-h>   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
-map <leader>Ta       -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
-map <leader>Tb       -description "Toggle bookmark bar"                -ex set guioptions!=B
-map <leader>Tc       -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
-map <leader>Tc<C-h>  -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
-map <leader>Tct      -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
-map <leader>Td       -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
-map <leader>Te       -description "Toggle navigation toolbar"          -ex set guioptions!=T
-map <leader>Tm       -description "Toggle menu bar"                    -ex set guioptions!=m
-map <leader>To       -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
-map <leader>Ts       -description "Toggle status bar"                  -ex set guioptions!=s
-map <leader>Tt       -description "Toggle tab bar"                     -ex set showtabline!=always,never
+map <leader>T       -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
+map <leader>T<C-h>  -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
+map <leader>Ta      -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
+map <leader>Tb      -description "Toggle bookmark bar"                -ex set guioptions!=B
+map <leader>Tc      -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
+map <leader>Tc<C-h> -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
+map <leader>Tct     -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
+map <leader>Td      -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
+map <leader>Te      -description "Toggle navigation toolbar"          -ex set guioptions!=T
+map <leader>Tm      -description "Toggle menu bar"                    -ex set guioptions!=m
+map <leader>To      -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
+map <leader>Ts      -description "Toggle status bar"                  -ex set guioptions!=s
+map <leader>Tt      -description "Toggle tab bar"                     -ex set showtabline!=always,never
 
-map <A-Up>      -description "Show navigation & bookmarks toolbars"
-\               -ex set guioptions-=TB | set showtabline=never
-map <A-Down>    -description "Hide navigation & bookmarks toolbars"
-\               -ex set guioptions+=TB | set showtabline=always
+map <A-Up>   -description "Show navigation & bookmarks toolbars"
+\            -ex set guioptions-=TB | set showtabline=never
+map <A-Down> -description "Hide navigation & bookmarks toolbars"
+\            -ex set guioptions+=TB | set showtabline=always
 
 " ,-----------------,
 " | Manipulate Page |
