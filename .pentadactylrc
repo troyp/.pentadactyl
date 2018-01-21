@@ -1515,6 +1515,9 @@ map    gh -description "Open previous page in history in background tab" -js bac
 map    gl -description "Open next page in history in background tab"     -js forwardt();
 map -b gf -description "Open multiple links in background tabs (HINTS)"  g;b
 
+" Awesome Bar "
+map -b ga -description "Open new tab, search in Awesome Bar" <C-v><C-t>
+
 " ,------------------,
 " | Buffer Selection |
 " '------------------'
