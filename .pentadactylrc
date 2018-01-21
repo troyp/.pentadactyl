@@ -1048,7 +1048,6 @@ EOF
 " ,--------,
 " | Search |
 " '--------'
-map <findbarOpenFocus> <C-v><C-f>
 js <<EOF
 findbarToggle = function() {
     if (gFindBar.hidden)
@@ -1057,6 +1056,10 @@ findbarToggle = function() {
         gFindBar.close();
 }
 EOF
+
+command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '))
+
+map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
 map <unhide-inputs> -ex unhideselector input
 " clear the search term highlighting
@@ -1072,6 +1075,7 @@ map <A-/> -modes base     -description "Toggle Firefox Find Box"        -js find
 map "<C-'>" -modes normal -description "Firefox Quick Find Link Search" -b <C-v>'
 
 map sf     -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
+map sg     -description "Google Search (pagezipper)" :openwithpagezipper<Space>
 map sr     -description "Regex search: Forward" -modes normal -b /\r
 map sR     -description "Regex search: Backward" -modes normal -b ?\r
 map sw     -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
