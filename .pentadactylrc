@@ -1085,47 +1085,46 @@ EOF
 
 
 " Useful pseudo-keys
-map -modes command-line -b <copy-command-to-cb> <A-a><C-v><C-c><End>
-map -modes command-line -b <cut-command-to-cb> <A-a><C-v><C-x>
-map -modes command-line -b <paste> <C-v><C-v>
-map -modes command-line -b <copy> <C-v><C-c>
-map -modes command-line -b <cut> <C-v><C-x>
-map -modes command-line -b <forward-word> <C-Right>
-map -modes command-line -b <backward-word> <C-Left>
-map -modes command-line -b <insert-after-command> <Home><C-Right><Space>
+map <copy-command-to-cb>   -modes command-line -b <A-a><C-v><C-c><End>
+map <cut-command-to-cb>    -modes command-line -b <A-a><C-v><C-x>
+map <paste>                -modes command-line -b <C-v><C-v>
+map <copy>                 -modes command-line -b <C-v><C-c>
+map <cut>                  -modes command-line -b <C-v><C-x>
+map <forward-word>         -modes command-line -b <C-Right>
+map <backward-word>        -modes command-line -b <C-Left>
+map <insert-after-command> -modes command-line -b <Home><C-Right><Space>
+map <cb-change-first-arg>  -modes command-line  -js var cmd=dactyl.clipboardRead(0).split(/\s+/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
+map <change-first-arg> -modes command-line <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
 
-map -modes command-line <A-b> <backward-word>
-map -modes command-line <A-f> <forward-word>
+map <A-b>   -modes command-line <backward-word>
+map <A-f>   -modes command-line <forward-word>
 
 " copy command-line "
-map -modes command-line <C-A-y> -js copyCmdlineOrJS();
+map <C-A-y> -modes command-line        -js copyCmdlineOrJS();
 " select all
-map -modes command-line -b <C-x>h <Home><S-End><C-v><C-c>
+map <C-x>h  -modes command-line        -b <Home><S-End><C-v><C-c>
 " use c_<C-,>, c_<C-.> for cycling WildMode completion
-map -modes command-line <C-,> -b <Tab>
-map -modes command-line <C-.> -b <S-Tab>
+map <C-,>   -modes command-line        -b <Tab>
+map <C-.>   -modes command-line        -b <S-Tab>
 " use c_<A-/> for AltWildMode completion
-map -modes command-line -b <A-/> <A-Tab>
-map -modes command-line -b <A-S-/> <A-S-Tab>
+map <A-/>   -modes command-line        -b <A-Tab>
+map <A-S-/> -modes command-line        -b <A-S-Tab>
 
-map -modes command-line,insert -b <C-y> <C-v><C-v>
-map -modes command-line,insert -b <C-p> <Up>
-map -modes command-line,insert -b <C-n> <Down>
-map -modes command-line,insert -b <C-S-P> <S-Up>
-map -modes command-line,insert -b <C-S-N> <S-Down>
-map -modes command-line,insert -b <C-f> <Right>
-map -modes command-line,insert -b <C-b> <Left>
-map -modes command-line,insert -b <C-g> <C-u><Escape>
+map <C-y>   -modes command-line,insert -b <C-v><C-v>
+map <C-p>   -modes command-line,insert -b <Up>
+map <C-n>   -modes command-line,insert -b <Down>
+map <C-S-P> -modes command-line,insert -b <S-Up>
+map <C-S-N> -modes command-line,insert -b <S-Down>
+map <C-f>   -modes command-line,insert -b <Right>
+map <C-b>   -modes command-line,insert -b <Left>
+map <C-g>   -modes command-line,insert -b <C-u><Escape>
 
 " repeat last search with a new keyword:
 "   uses clipboard and javascript to do text processing, since <C-Del>, <C-BS>, <C-S-Left>, etc aren't working in map commands
 "   TODO: remove dependence on clipboard and ad-hoc pseudo-keyword (either by getting delete-word keys working in `map`, or finding
 "         javascript commands for retrieving command history and entering text in command line)
-map <cb-change-first-arg> -js var cmd=dactyl.clipboardRead(0).split(/\s+/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
-map -modes command-line <cb-change-first-arg> -js var cmd=dactyl.clipboardRead(0).split(/\s+/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
-map -modes command-line <C-r> <up><A-a><C-v><C-c><down><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
-map -modes command-line <change-first-arg> <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
-map -modes command-line <C-s> <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
+map <C-r> -modes command-line <up><A-a><C-v><C-c><down><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
+map <C-s> -modes command-line <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
 " map -modes command-line <C-s> <change-first-arg>
 
 " SPACES (TODO)
@@ -1141,19 +1140,19 @@ map -modes command-line,insert <C-S-s> -js alert("not implemented");
 "map -modes insert -b <C-s> \u2003
 "execute "map -modes insert -b <C-s> \u2003"
 
-execute "map -modes command-line,insert -b <C-m> " + user.myemail
-execute "map -modes command-line,insert -b <C-S-m> " + user.myemail2
-execute "map -modes command-line,insert -b <C-S-I> " + user.myname
-execute "map -modes command-line,insert -b <C-S-T> " + user.myfirstname
-execute "map -modes command-line,insert -b <C-S-L> " + user.mylastname
-execute "map -modes command-line,insert -b <C-S-A> " + user.mystreet
-execute "map -modes command-line,insert -b <C-S-S> " + user.mysuburb
-execute "map -modes command-line,insert -b <C-S-D> " + user.myaddress
-execute "map -modes command-line,insert -b <C-S-P> " + user.myphone
-execute "map -modes command-line,insert -b <C-S-Z> " + user.mypostcode
-execute "map -modes command-line,insert -b <C-S-Q> " + user.mymasterpw
-execute "map -modes command-line,insert -b <C-S-C> " + user.mycreditcard
-map -modes insert <C-S-W> <pwhashsite>
+execute "map <C-m>   -modes command-line,insert -b " + user.myemail
+execute "map <C-S-m> -modes command-line,insert -b " + user.myemail2
+execute "map <C-S-I> -modes command-line,insert -b " + user.myname
+execute "map <C-S-T> -modes command-line,insert -b " + user.myfirstname
+execute "map <C-S-L> -modes command-line,insert -b " + user.mylastname
+execute "map <C-S-A> -modes command-line,insert -b " + user.mystreet
+execute "map <C-S-S> -modes command-line,insert -b " + user.mysuburb
+execute "map <C-S-D> -modes command-line,insert -b " + user.myaddress
+execute "map <C-S-P> -modes command-line,insert -b " + user.myphone
+execute "map <C-S-Z> -modes command-line,insert -b " + user.mypostcode
+execute "map <C-S-Q> -modes command-line,insert -b " + user.mymasterpw
+execute "map <C-S-C> -modes command-line,insert -b " + user.mycreditcard
+map <C-S-W> -modes insert <pwhashsite>
 
 " ,---------------------------------------,
 " | Normal mode bindings for Command-line |
@@ -1170,8 +1169,8 @@ map <leader>R :<up><Home><forward-word><Space>
 " | Command-line only |
 " '-------------------'
 " regex search: word boundary
-map -modes command-line <C-1> (?= |^)
-map -modes command-line <C-2> (?= |$)
+map <C-1> -modes command-line (?= |^)
+map <C-2> -modes command-line (?= |$)
 
 " -----------------------------------------------------------------------------
 " ,--------------------------------,  MAP COMMANDS.
@@ -1181,15 +1180,15 @@ map -modes command-line <C-2> (?= |$)
 " Caret and Visual mode:
 " C-e end of line, C-a start of line.
 " C-y scroll down, C-Y scroll up.
-map -modes caret,visual -b <C-a> 0
-map -modes caret,visual -b <C-e> $
-map -modes caret,visual -b <C-S-Y> <C-e>
+map <C-a>   -modes caret,visual -b 0
+map <C-e>   -modes caret,visual -b $
+map <C-S-Y> -modes caret,visual -b <C-e>
 
 " select from caret mode "
-map -modes caret H <S-left>
-map -modes caret L <S-right>
-map -modes caret J <S-down>
-map -modes caret K <S-up>
+map H -modes caret <S-left>
+map L -modes caret <S-right>
+map J -modes caret <S-down>
+map K -modes caret <S-up>
 
 " to search and select:
 " 1. press / and type search term
@@ -1205,22 +1204,22 @@ map -modes caret K <S-up>
 " | Menu mode bindings |
 " '--------------------'
 
-map -modes menu -b <C-n> <Down>
-map -modes menu -b <C-p> <Up>
-map -modes menu -b <C-j> <Down>
-map -modes menu -b <C-k> <Up>
-map -modes menu -b <C-h> <Left>
-map -modes menu -b <C-l> <Right>
+map <C-n> -modes menu -b <Down>
+map <C-p> -modes menu -b <Up>
+map <C-j> -modes menu -b <Down>
+map <C-k> -modes menu -b <Up>
+map <C-h> -modes menu -b <Left>
+map <C-l> -modes menu -b <Right>
 
 " -----------------------------------------------------------------------------
 " ,--------------------------------------,
 " | Text-edit and operator mode bindings |
 " '--------------------------------------'
 
-map -modes text-edit,operator -b <C-a> ^
-map -modes text-edit,operator -b <C-e> $
-map -modes text-edit,operator -b <A-=> <C-a>
-map -modes text-edit,operator -b <A--> <C-x>
+map <C-a> -modes text-edit,operator -b ^
+map <C-e> -modes text-edit,operator -b $
+map <A-=> -modes text-edit,operator -b <C-a>
+map <A--> -modes text-edit,operator -b <C-x>
 
 
 " -----------------------------------------------------------------------------
@@ -1228,7 +1227,7 @@ map -modes text-edit,operator -b <A--> <C-x>
 " | Pass-through mode bindings |
 " '----------------------------'
 
-map -modes pass-through -b <A-;> :normal "<Esc><C-^>"<CR>
+map <A-;> -modes pass-through -b :normal "<Esc><C-^>"<CR>
 
 
 " -----------------------------------------------------------------------------
