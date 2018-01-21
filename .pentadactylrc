@@ -1435,44 +1435,50 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
 "
 " -----------------------------------------------------------------------------
 
-" filter & select buffer "
-map bb -builtin b
 
-" move tabs "
-map <buffer>m<C-h> -description "Show bindings" -js CommandExMode().open("showkeys <buffer>m")
-map <buffer>m      -description "Show bindings" -js CommandExMode().open("showkeys <buffer>m")
-map <buffer>mm  :tabmove<SPACE>
-map <buffer>mn  :moventabs<Space>
-map <buffer>mr  -arg -ex movealltabsrightofn <arg>
-map <buffer>m>  -count -ex movetabstoend <count>
-map <buffer>m<  -count -ex movetabstostart <count>
-map <buffer>m.  -arg -count -ex movelastntabs <count> <arg>
-map <buffer>m\' -arg -count -ex moventabs <count> <arg>
-map <buffer>ma  -description "Move tab after alternate" -js moveTabAfterAlternate();
+" all tabs: <buffer>a "
+map <buffer>a       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
+map <buffer>a<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
+map <buffer>aP      -description "Unpin all tabs" -ex unpinall
+map <buffer>ar      -description "Reload all tabs"                  -ex reloadall
+map <buffer>aR      -description "Reload all tabs (without cache)"  -ex reloadall!
+map <buffer>b       -description "Switch to buffer matching PATTERN" -builtin b
+" delete tabs: <buffer>d "
+map <buffer>d       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
+map <buffer>d<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
+map <buffer>db      -description "Close tab from list"             :bdelete<SPACE>
+map <buffer>dc      -description "Close tabs matching REGEX" :tabremoveregex<Space>""<C-b>
+map <buffer>do      -description "Close tabs not matching REGEX" :tabfilterregex<Space>""<C-b>
+map <buffer>dr      -description "Close tab range" :tc<SPACE>
+map <buffer>d;      -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d;")
+map <buffer>d;<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d;")
+map <buffer>d;o     -description "Close tabs not satisfying EXPR"  :tabfilter<Space>""<C-b>
+map <buffer>d;c     -description "Close tabs satisfying EXPR" :tabremove<Space>""<C-b>
+" move tabs: <buffer>m "
+map <buffer>m       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
+map <buffer>m<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
+map <buffer>mm      -description "Move tab to ordinal P" :tabmove<SPACE>
+map <buffer>mn      -description "Move N tabs to start or ordinal P" :moventabs<Space>
+map <buffer>mr      -description "Move tabs right of N to ordinal P" -arg -ex movealltabsrightofn <arg>
+map <buffer>m>      -description "Move COUNT tabs to end" -count -ex movetabstoend <count>
+map <buffer>m<      -description "Move COUNT tabs to start" -count -ex movetabstostart <count>
+map <buffer>m.      -description "Move last COUNT tabs to ordinal ARG"
+\                   -arg -count -ex movelastntabs <count> <arg>
+map <buffer>m\'     -description "Move COUNT tabs to ordianl ARG" -arg -count -ex moventabs <count> <arg>
+map <buffer>ma      -description "Move tab after alternate" -js moveTabAfterAlternate();
+map <buffer>t       -description "View Tiled" -js tileTabs.Tile();
+map <buffer>p       -description "Toggle pin tab" -ex pintab!
 
-" tile tabs "
-map <buffer>t -description "View Tiled" -js tileTabs.Tile();
+" undo recent closed tab from list
+map U :undo<SPACE>
 
-"close tabs"
-map <buffer>c<C-h> -description "Show bindings"                   -js CommandExMode().open("showkeys <buffer>c")
-map <buffer>c      -description "Show bindings"                   -js CommandExMode().open("showkeys <buffer>c")
+" close tabs to right (inclusive) "
+map <C-k>   <buffer>>d
+map <C-S-K> <buffer><d
 " close other tabs "
-map <buffer>1      -description "Close all other tabs"            -ex tabonly
-map <buffer><      -description "Close tabs to left"              -ex closetabstoleft
-map <buffer>>      -description "Close tabs to right"             -ex closetabstoright
-map <buffer>cr     -description "Close tab range"                 :tc<SPACE>
-map <buffer>cb     -description "Close tab from list"             :bdelete<SPACE>
-" filter/remove tabs: JS expr "
-map <buffer>c;o    -description "Close tabs not satisfying EXPR"  :tabfilter<Space>""<C-b>
-map <buffer>c;c    -description "Close tabs satisfying EXPR"      :tabremove<Space>""<C-b>
-" filter/remove tabs: regex "
-map <buffer>co     -description "Close tabs not matching REGEX"   :tabfilterregex<Space>""<C-b>
-map <buffer>cc     -description "Close tabs matching REGEX"       :tabremoveregex<Space>""<C-b>
-" pin tabs "
-map <buffer>p                                                     -ex pintab!
-" reload tabs "
-map <buffer>r      -description "Reload all tabs"                 -ex reloadall
-map <buffer>R      -description "Reload all tabs (without cache)" -ex reloadall!
+map <buffer>1 -description "Close all other tabs" -ex tabonly
+map <buffer>< -description "Close tabs to left"   -ex closetabstoleft
+map <buffer>> -description "Close tabs to right"  -ex closetabstoright
 
 map gm :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
@@ -1494,11 +1500,6 @@ map <A-S-6> -ex tabmove! 6
 map <A-S-7> -ex tabmove! 7
 map <A-S-8> -ex tabmove! 8
 map <A-S-9> -ex tabmove! $
-" close tabs to right (inclusive) "
-map <C-k> <buffer>>d
-map <C-S-K> <buffer><d
-" undo recent closed tab from list
-map U :undo<SPACE>
 " Select buffer:  b  (cycle with gb, gB)
 map \< -b g0
 map \> -b g$
@@ -1531,14 +1532,11 @@ function tabSelectLeft(n=1, wrap=true) {
 }
 EOF
 
-" -----------------------------------------------------------------------------
 " ,--------------,
 " | Pinning Tabs |
 " '--------------'
 command! unpinall tabdo unpintab
-" toggle pinning of current tab
 
-" -----------------------------------------------------------------------------
 " ,--------------,
 " | Closing Tabs |
 " '--------------'
@@ -1567,7 +1565,7 @@ command! tc
     \ -description "close tab range from START to END inclusive"
     \ -nargs=+
     \ -js if (args.length==2) { closeTabRange(args[0], args[1]); }
-    \     else { closeTabsFromCurrentTo(args[0]); }
+    \     else { closeTabsBetweenHereAndNExclusive(args[0]); }
 
 " filter tabs "
 command! tabfilter
@@ -1591,8 +1589,7 @@ command! tabfilterregex
     \ -js tabFilterUrlRegex(RegExp(args[0]));
 
 js <<EOF
-
-var closeTabRange = function (firstOrd, endOrd) {
+function closeTabRange(firstOrd, endOrd) {
     if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  // current
     firstSpec = firstOrd - 1;
     if (endOrd === '$') endOrd = 0;  // last tab
@@ -1601,16 +1598,13 @@ var closeTabRange = function (firstOrd, endOrd) {
     endSpecExc = endSpecInc +1;    // incl -> excl
     utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
 }
-
-var closeTabsFromCurrentTo = function (endOrd) {
+function closeTabsBetweenHereAndNExclusive(endOrd) {
     // start with next tab after current
     // ends with endOrd (closeTabRange endpoint is exclusive, but endOrd is spec+1)
     closeTabRange(gBrowser.mCurrentTab.dactylOrdinal, endOrd);
 }
-
 function tabIdxToOrd (idx) { return idx+1; }
 function tabOrdToIdx (ord) { return ord-1; }
-
 function tabNormalizeOrdinal (ord) {
     var N = tabs.allTabs.length;
     if (ord <= 0)
@@ -1618,17 +1612,14 @@ function tabNormalizeOrdinal (ord) {
     else
         return ord%N;
 }
-
 function tabURL(t) {
     "URL of t, where t is a tab or a tab index";
     if (Number.isInteger(t))
         t = tabs.getTab(t);
     return gBrowser.getBrowserForTab(t).contentDocument.URL;
 }
-
 function tabCount() { return tabs.allTabs.length; }
 window.tabCount = tabCount;
-
 function tabRemove(f) {
     // takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]])
     var currentOrd = tabs.getTab().dactylOrdinal;
@@ -1645,25 +1636,19 @@ function tabRemove(f) {
     utils.message(`${N_closed} tabs closed`);
     return N_closed;
 }
-
 function tabFilter(f) {
     // takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]])
     return tabRemove((t,n,n0)=>!f(t,n,n0));
 }
-
-" Note: :bdelete! does the same thing, but is much slower for some reason. "
 function tabRemoveUrlRegex(regex) {
+    " Note: :bdelete! does the same thing, but is much slower for some reason. "
     return tabRemove((t)=>t.URL.match(regex)||t.title.match(regex));
 }
-
 function tabFilterUrlRegex(regex) {
     return tabFilter((t)=>t.URL.match(regex)||t.title.match(regex));
 }
-
 EOF
 
-"
-" -----------------------------------------------------------------------------
 " ,-------------,
 " | Moving Tabs |
 " '-------------'
@@ -1688,7 +1673,6 @@ moveNTabs = function (start, n, toOrd=1, wrap=false) {
     for (var target of targets)
         tabs.move(target, toOrd, wrap);
 }
-
 moveLastNTabs = function (n, toOrd, wrap=false) {
     var N = tabs.allTabs.length;
     for (var i = 1; i <= n; ++i) {
@@ -1696,13 +1680,11 @@ moveLastNTabs = function (n, toOrd, wrap=false) {
         tabs.move(target, toOrd, wrap)
     }
 }
-
 moveAllTabsRightOfN = function (fromOrd, toOrd, wrap=false) {
     fromOrd = fromOrd || tabs.getTab().dactylOrdinal;
     var N = tabs.allTabs.length;
     moveLastNTabs(N-fromOrd+1, toOrd, wrap);
 }
-
 function moveTabAfterAlternate() {
     var thisTab = tabs.getTab();
     var altOrd = tabs.alternate.dactylOrdinal;
@@ -1710,7 +1692,6 @@ function moveTabAfterAlternate() {
 }
 EOF
 
-" -----------------------------------------------------------------------------
 " ,------------,
 " | Tab Groups |
 " '------------'
