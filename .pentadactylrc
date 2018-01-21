@@ -8510,9 +8510,9 @@ window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
 
 function evalStringOrFunction(s) {
     "String s represents either a string (itself) or a function.";
-    if (s.match(/\(.*\)|=>/)) {
+    if (s && s.match(/\(.*\)|=>/)) {
         return eval(s);
-    } else { return s; }
+    } else { return s || null; }
 }
 window.evalStringOrFunction = evalStringOrFunction;
 
