@@ -3054,6 +3054,9 @@ command! listlinks
 command! countlinks
     \ -description "Count links"
     \ -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelector('a'));
+command! listlinktext
+    \ -description "List the text of all links in page"
+    \ -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
 
 js <<EOF
 appendLinksAndAlt = function() {
