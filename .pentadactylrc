@@ -522,7 +522,7 @@ map <C-a> <Nop>
 map -modes normal -b <A-=> <C-a>
 map -modes normal -b <A--> <C-x>
 " passthrough
-map -b \\ <C-v>
+map \\ -b <C-v>
 
 " Paste and Search
 " swap p and P
@@ -533,8 +533,8 @@ map -modes normal -b P p
 map -modes main <C-q> <Nop>
 
 " Passthrough
-map -b <ext>a <C-v>
-map -b <C-a> <C-z>
+map <ext>a -b <C-v>
+map <C-a>  -b <C-z>
 " Repeat last ex command
 map -modes normal -b g. @:
 
@@ -551,7 +551,7 @@ map <C-x><C-c> -description "Quit browser" -ex quitall
 " Copying
 map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
-map -b <A-Esc> <C-v><Esc>
+map <A-Esc> -b <C-v><Esc>
 " C-w closes tab; if last in window closes window.
 map <C-w> :q<CR>
 " movement
@@ -2113,10 +2113,10 @@ style -name=activetabhighlight * .tabbrowser-tab[selected="true"] {
 \                     linear-gradient(-moz-dialog, -moz-dialog) !important;
 \ }
 
-map    <browser>sN -description "Style/narrow page" :narrowpage<Space>
-map -b <browser>st -description "Style/add temp style for page" y:style -group=temp <C-v><C-v><Space>
-map    <browser>su -description "Style/toggle usermode (minimal styling)" -ex set usermode!
-map    <browser>sv -description "Style/view:choose page style" :emenu View.Page Style.
+map <browser>sN -description "Style/narrow page" :narrowpage<Space>
+map <browser>st -description "Style/add temp style for page" -b y:style -group=temp <C-v><C-v><Space>
+map <browser>su -description "Style/toggle usermode (minimal styling)" -ex set usermode!
+map <browser>sv -description "Style/view:choose page style" :emenu View.Page Style.
 
 " ,---------,
 " | Stylish |
@@ -2516,7 +2516,7 @@ command! bukurun !buku_run
 command! bookmarkpage :normal <bookmark-page>
 command! bmrunkw -nargs + -js bmRunKeymark(args[0], args[1]);
 command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
-map -b <bookmark-page> <C-v><C-d>
+map <bookmark-page> -b <C-v><C-d>
 map <browser>k <bookmark-page>
 
 map sk<C-h>   -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
@@ -4067,9 +4067,9 @@ map <site>d -js googleDefExpand();
 map <site>c -ex pagezipper
 
 " restrict search to pages in a specific language
-map -b <site>gl O&lr=lang_
+map <site>gl -b O&lr=lang_
 " restrict search to pages originating in a specific country
-map -b <site>gc O&cr=
+map <site>gc -b O&cr=
 
 group user
 
@@ -4390,7 +4390,7 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkey
 map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " Go to "Print view with kanji" if it exists, or else "Print view"
-map -b <site>P <C-v>'Print<Space>view<f3><CR>
+map <site>P -b <C-v>'Print<Space>view<f3><CR>
 
 " -----------------------------------------------------------------------------
 " ,----------,
@@ -4400,16 +4400,16 @@ group about -locations=chrome:*,about:addons,about:config,about:cache,about:debu
 map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
-map -b j <C-v><Down>
-map -b k <C-v><Up>
+map j        -b <C-v><Down>
+map k        -b <C-v><Up>
 "
-map -b J <C-v><PageDown>
-map -b K <C-v><PageUp>
-map -b <C-d> <C-v><PageDown>
-map -b <C-u> <C-v><PageUp>
-map -b gg <C-v><Home>
-map -b G <C-v><End>
-map -b <Return> <C-v><Return>
+map J        -b <C-v><PageDown>
+map K        -b <C-v><PageUp>
+map <C-d>    -b <C-v><PageDown>
+map <C-u>    -b <C-v><PageUp>
+map gg       -b <C-v><Home>
+map G        -b <C-v><End>
+map <Return> -b <C-v><Return>
 
 group user
 
@@ -4444,8 +4444,8 @@ map <site>sp  -description "Sort by path"            -js placesSortByPath();
 map <site>sm  -description "Sort by last modified"   -js placesSortByLastModified();
 map <site>v   -description "Focus Right Panel"       <Escape>gi<Tab><Tab>
 map <site>y   -description "Yank Location"           -js placesCopyLocation();
-map -b H <C-v><Left>
-map -b L <C-v><Right>
+map H -b <C-v><Left>
+map L -b <C-v><Right>
 
 js <<EOF
 
@@ -4650,9 +4650,9 @@ map <site>T -js waybackToggleToolbarUrl();
 " Wayback Toolbar Go To Previous Capture:
 " ( Searches for a year (starting with '20' using FF link search,
 "   then tabs backwards twice to land on back link and activates )
-map -b <site>b <C-v>'20<S-Tab><S-Tab><CR>
-map -b <site>b -js waybackPrevious();
-map -b <site>f -js waybackNext();
+map <site>b -b <C-v>'20<S-Tab><S-Tab><CR>
+map <site>b -js waybackPrevious();
+map <site>f -js waybackNext();
 
 command! waybacktoggletoolbar
     \ -bang
@@ -7373,7 +7373,7 @@ map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkey
 map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " Key Help (id: keyHelp) "
-map -b <site>? <C-v>?
+map <site>? -b <C-v>?
 
 " Commandline (id: keyCommandLineWidget) "
 map <site>x -b <C-v>.
