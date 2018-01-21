@@ -1063,9 +1063,11 @@ map -modes normal -b s0 /\r\w*<Left><Left><left>
 " Search for word containing...
 map -modes normal sw /\r\w*\w*<Left><Left><left>
 " Firefox find box
-map -mode base <A-/> -js findbarToggle();
+map -modes base <A-/>     -description "Toggle Firefox Find Box"        -js findbarToggle();
 " C-' Firefox link search
-map -modes normal -b "<C-'>" <C-v>'
+map -modes normal "<C-'>" -description "Firefox Quick Find Link Search" -b <C-v>'
+" Firefox search-bar "
+map -modes normal sf      -description "Firefox Search-bar"             -b <C-v><C-j>
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
