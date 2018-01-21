@@ -793,6 +793,20 @@ command! keepvid open javascript:document.location='http://keepvid.com/?url='+es
 command! pagezipper :open javascript:(function(){if(window['pgzp']){_pgzpToggleBookmarklet();}else{window._page_zipper_is_bookmarklet=true;window._page_zipper=document.createElement('script');window._page_zipper.type='text/javascript';window._page_zipper.src='//www.printwhatyoulike.com/static/pagezipper/pagezipper_10.js';document.getElementsByTagName('head')[0].appendChild(window._page_zipper);}})();
 map <C-Space> -description "Page Zipper" -ex pagezipper
 
+js <<EOF
+function openWithPagezipper(url) {
+    var newtab = gBrowser.addTab(url);
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        window.setTimeout(()=>{
+            dactyl.execute('pagezipper');
+        }, 1300);
+    });
+}
+EOF
+command! openwithpagezipper -nargs 1 -js openWithPagezipper(args[0]);
+
 " | Print What You Like |
 command! prwul -description "run PrintWhatYouLike" open javascript:(function(){if(window['ppw']&&ppw['bookmarklet']){ppw.bookmarklet.toggle();}else{window._pwyl_home=%22http://www.printwhatyoulike.com/%22;_pwyl_bmkl=document.createElement('script');_pwyl_bmkl.setAttribute('type','text/javascript');_pwyl_bmkl.setAttribute('src',_pwyl_home+'static/compressed/pwyl_bookmarklet_10.js');_pwyl_bmkl.setAttribute('pwyl','true');document.getElementsByTagName('head')[0].appendChild(_pwyl_bmkl);}})();
 
