@@ -939,16 +939,15 @@ command! trans
     \ -nargs=+
     \ -js googleTranslateText(args.join(" "));
 
-
-map -description "Bing translate page" <xtra>tt -ex bingtranslatepage
-map -description "Google translate page" <xtra>tg -ex googletranslatepage
-map -description "Google translate text" <xtra>tx :trans<Space>
-map -description "Google translate text to clipboard" <xtra>tc :googletranslatetextcb<Space>
-map -description "Google translate selection" <xtra>tv -ex googletranslateselection
-map -description "Google translate text (HINTS)" <xtra>tf -js hints.show("ţ");
-map -description "Google translate element (HINTS)" <xtra>td -js hints.show("Ţ");
-map -description "Google append translation (HINTS)" <xtra>ta -js hints.show("ʈ");
-map -description "Google append translation (div) (HINTS)" <xtra>tb -js hints.show("Ʈ");
+map <xtra>tt -description "Bing translate page" -ex bingtranslatepage
+map <xtra>tg -description "Google translate page" -ex googletranslatepage
+map <xtra>tx -description "Google translate text" :trans<Space>
+map <xtra>tc -description "Google translate text to clipboard" :googletranslatetextcb<Space>
+map <xtra>tv -description "Google translate selection" -ex googletranslateselection
+map <xtra>tf -description "Google translate text (HINTS)" -js hints.show("ţ");
+map <xtra>td -description "Google translate element (HINTS)" -js hints.show("Ţ");
+map <xtra>ta -description "Google append translation (HINTS)" -js hints.show("ʈ");
+map <xtra>tb -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
 
 
 " ,------,
