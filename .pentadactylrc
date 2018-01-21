@@ -1050,24 +1050,20 @@ map / <hide-inputs><find-forward>
 map ? <hide-inputs><find-backward>
 map <C-/> -ex noh
 map <C-?> <unhide-inputs>
-" Regex search
-map -modes normal -b sr /\r
-map -modes normal -b sR ?\r
-" Link search
-map -modes normal -b s\' /\l
-map -modes normal -b s\" ?\l
 " Search from top of page
-map -modes normal -b g/ gg/
-" Search for word starting with...
-map -modes normal -b s0 /\r\w*<Left><Left><left>
-" Search for word containing...
-map -modes normal sw /\r\w*\w*<Left><Left><left>
+map g/ -modes normal -b gg/
 " Firefox find box
-map -modes base <A-/>     -description "Toggle Firefox Find Box"        -js findbarToggle();
+map <A-/> -modes base     -description "Toggle Firefox Find Box"        -js findbarToggle();
 " C-' Firefox link search
-map -modes normal "<C-'>" -description "Firefox Quick Find Link Search" -b <C-v>'
-" Firefox search-bar "
-map -modes normal sf      -description "Firefox Search-bar"             -b <C-v><C-j>
+map "<C-'>" -modes normal -description "Firefox Quick Find Link Search" -b <C-v>'
+
+map sf     -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
+map sr     -description "Regex search: Forward" -modes normal -b /\r
+map sR     -description "Regex search: Backward" -modes normal -b ?\r
+map sw     -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
+map s0     -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
+map s\'    -description "Link Search: Forward" -modes normal -b /\l
+map 's\"'  -description "Link Search: Backward" -modes normal -b ?\l
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
