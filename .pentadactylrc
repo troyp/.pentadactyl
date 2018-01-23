@@ -2265,6 +2265,16 @@ EOF
 command! firebug :feedkeys! <C-f12>
 command! firebugShow -js Firebug.showBar(true);
 command! firebugHide -js Firebug.showBar(null);
+command! firebugInspectElt -js fbInspectElt();
+
+map -modes=base <C-\\> -js fbInspectElt();
+
+js <<EOF
+function fbInspectElt() {
+    if (!Firebug.currentContext) Firebug.toggleBar(true);
+    Firebug.Inspector.toggleInspecting(Firebug.currentContext);
+}
+EOF
 
 " -------------------------------------------------------------------------------
 " ,---------,
