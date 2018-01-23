@@ -2083,8 +2083,6 @@ command! moveBL -description "Move window to bottom left"
 command! moveBR -description "Move window to bottom right"
     \ :js self.moveTo(screen.availWidth-self.window.outerWidth, screen.availHeight-self.window.outerHeight)
 
-map -modes=base <C-\\> -ex maximizeRestore
-
 " =============================================================================
 "                                      _________
 "                                     |         |
