@@ -2180,6 +2180,7 @@ map <leader>ee -description "Evaluate JS expression"                            
 map <leader>eE -description "Evaluate JS expression: doc=content doc, $=jQuery"    -b :echo doc=content.document;<Space>$=jQuery;<Space>
 map <leader>ef -description "Evaluate JS expression: doc=1st frame doc, $=jQuery"  -b :echo doc=content.window.frames[0].document;<Space>$=jQuery;<Space>
 map <leader>eF -description "Evaluate JS expression: doc=Nth frame doc, $=jQuery"  -count :echo doc=content.window.frames[0<count>].document;<Space>$=jQuery;<Space>
+map <leader>ei -description "Evaluate JS expression by injecting into a script tag" -b :evalwithscripttag<Space>
 map <leader>er -description "JS REPL"                                              -ex js!
 map <leader>eR -description "JS REPL: doc=content doc, $=jQuery"                   -js dactyl.execute("js doc=content.document; $=jQuery;"); dactyl.execute("js!");
 map <leader>em -description "Evaluate JS expression (end with EOF)"                -b :js <<EOF
