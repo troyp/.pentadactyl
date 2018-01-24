@@ -562,6 +562,7 @@ map g. -description "Repeat last ex command" -modes normal -b @:
 map <browser>r -description "Reload .pentadactylrc"                 -ex rc
 map <browser>R -description "Edit .pentadactylrc"                   -ex rce
 map <browser>x -description "Maximize/Remaximize window"            -js window.restore(); window.maximize();
+map <browser>. -description "Stop loading"                          -js BrowserStop();
 map <C-x>h     -description "Select all text"                       -modes normal -b iGvggy
 map <C-x><C-c> -description "Quit browser"    -modes base  -ex quitall
 map <C-x><C-x> -description "Restart browser" -modes base  -ex restart
