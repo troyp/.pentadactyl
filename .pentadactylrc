@@ -209,6 +209,27 @@ Number.prototype.inRange = function (a, b) {
 
 window.AUDperUSD = 1.32;
 
+" Eval Functions "
+
+function evalStringOrFunction(s) {
+    "String s represents either a string (itself) or a function.";
+    if (s && s.match(/\(.*\)|=>/)) {
+        return eval(s);
+    } else { return s || null; }
+}
+window.evalStringOrFunction = evalStringOrFunction;
+
+function evalWithScriptTag(code, doc) {
+    var script = content.document.createElement("script");
+    try { script.innerText = code; }
+    catch(e) {
+        script.appendChild(content.document.createTextNode(code));
+    }
+    content.document.head.appendChild(script);
+    script.parentNode.removeChild(script);
+}
+window.evalWithScriptTag = evalWithScriptTag;
+
 EOF
 
 " ,-------------------------------,
@@ -8529,14 +8550,6 @@ function closeTabsLeftWhileMatching(regex, n) {
 }
 window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
 
-function evalStringOrFunction(s) {
-    "String s represents either a string (itself) or a function.";
-    if (s && s.match(/\(.*\)|=>/)) {
-        return eval(s);
-    } else { return s || null; }
-}
-window.evalStringOrFunction = evalStringOrFunction;
-
 function openInNewOrCurrentTab(site) {
     "Curried function openInNewOrCurrentTab(url)(count):"
     "  Open URL in new tab, or with COUNT, in current tab."
@@ -8710,17 +8723,6 @@ function savePageDialog(uriToSave) {
     });
 }
 window.savePageDialog = savePageDialog;
-
-function evalWithScriptTag(code, doc) {
-    var script = content.document.createElement("script");
-    try { script.innerText = code; }
-    catch(e) {
-        script.appendChild(content.document.createTextNode(code));
-    }
-    content.document.head.appendChild(script);
-    script.parentNode.removeChild(script);
-}
-window.evalWithScriptTag = evalWithScriptTag;
 
 function newTab(url="about:newtab") {
     var browser = getBrowser();
