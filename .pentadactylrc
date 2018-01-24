@@ -4607,10 +4607,35 @@ js hints.addMode("Ņ", "Follow link in background tab", elem => buffer.followLin
 set eht+=ɳ:.newtab-control
 js hints.addMode("ɳ", "Click new tab control", clickSelector);
 
+style -name=newtabstyle about:newtab
+\     .newtab-title {
+\         background: #eeeeff !important;
+\         border: solid #42428D 1px;
+\         border-radius: 15px;
+\         margin: 5px;
+\         text-align: center;
+\     }
+\     div.newtab-cell, div.newtab-site, a.newtab-link, span.newtab-thumbnail {
+\         border: 1px solid #;
+\         border-radius: 18px !important;
+\     }
+\     a {
+\         border-radius: 18px !important;
+\     }
+styleenable about:newtab newtabstyle
+style -name=newtabselectionstyle about:newtab
+\     a:focus {
+\         border: solid #7B4F7B 3px !important; border-radius: 3px !important;
+\     }
+styleenable about:newtab newtabselectionstyle
+
 map f -description "Follow link" -js hints.show('ņ');
 map F -description "Follow link in background tab" -js hints.show('Ņ');
 map gf -description "Follow multiple links in background tabs" g;Ņ
+map <site>b -description "Toggle selection border"  -ex styletoggle -name newtabselectionstyle
 map <site>c -description "Click control buttons (pin, remove)" -js hints.show('ɳ');
+map <site>s -description "Toggle custom style"  -ex styletoggle -name newtabstyle
+map <C-return> -modes base -description "Toggle Find Bar" -js findbarToggle();
 
 group user
 " -------------------------------------------------------------------------------
