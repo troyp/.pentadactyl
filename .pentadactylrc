@@ -7852,9 +7852,14 @@ function wikiaRemoveCruft() {
     removeSelectors(
         '#WikiHeader', '.header-tally', '.wikia-button', '.wikia-menu-button', '.editsection', '.WikiaRail',
         '.navbox', '.WikiaArticleInterlang', '.refpopups-configure-page', '#WikiaArticleFooter', 'footer',
-        '#WikiaFooter', '.wds-global-footer', '#WikiaBar', 'script','#WikiaNotifications', 'iframe', '#ad-skin'
+        '#WikiaFooter', '.wds-global-footer', '#WikiaBar', 'script','#WikiaNotifications', 'iframe', '#ad-skin',
+        '.featured-video__wrapper'
     );
     hideSelectors('.wds-global-navigation-wrapper');
+
+    var divs = Array.from(content.document.getElementsByTagName('div'));
+    var videodivs = divs.filter(e=>e.getAttribute("itemtype")=="http://schema.org/VideoObject");
+    videodivs.forEach(e=>e.parentNode.removeChild(e));
 }
 
 function wikiaSimplePage() {
