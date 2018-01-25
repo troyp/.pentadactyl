@@ -424,8 +424,8 @@ map y         <yank>
 imap <A-return> <Esc><site>
 
 " List mappings by prefix (using commandline completion)
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>         -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
+map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <leader><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <leader>")
 map <leader>       -description "(show bindings)" -js CommandExMode().open("showkeys <leader>")
 map <goto><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <goto>")
@@ -4075,8 +4075,6 @@ EOF
 " ===== GROUP START =====
 
 group google -locations=https://www.google.com*
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " FIXME: completion drop-down remains open after search
 js <<EOF
@@ -4126,8 +4124,6 @@ group user
 " | Addons.Mozilla.org |
 " '--------------------'
 group ffaddons -locations=addons.mozilla.org
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "Download XPI" -js ffaddonDlToDir();
 map <site>i -description "Install XPI" -js ffaddonInstall();
@@ -4155,8 +4151,6 @@ group user
 " | AnimatedKnots.com |
 " '-------------------'
 group animatedknots -locations=animatedknots.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 set passkeys+='https?://animatedknots.com/.*':'<left><right>'
 
@@ -4215,8 +4209,6 @@ group user
 " '----------------'
 group archwiki -locations=wiki.archlinux.org
 autocmd! -group archwiki
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "Remove cruft" -js archwikiTidy();
 map <site>s -description "Save file in directory" -js archwikiSavePageInDir();
@@ -4240,8 +4232,6 @@ group user
 " | Dactyl Resource URLs |
 " '----------------------'
 group dactylres -locations=resource://dactyl*
-map <leader>hkc -js CommandExMode().open("map -group dactylres <site>")
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group dactylres <site>")
 
 map <site>e -description "Open my fork in Emacsclient" -js dactylresOpenMyForkInEmacsclient();
 map <site>E -description "Open in Emacsclient" -js dactylresOpenInEmacsclient();
@@ -4274,8 +4264,6 @@ group user
 " '-----'
 group edx -locations=edx.org
 autocmd! -group edx
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 command! edx :runtime! config/edx.penta
 autocmd DOMload courses.edx.org :edx
@@ -4306,8 +4294,6 @@ group user
 " | Coursera |
 " '----------'
 group coursera -locations=www.coursera.org
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
 
@@ -4434,8 +4420,6 @@ group user
 " | AnimeLyrics.com |
 " '-----------------'
 group animelyrics -locations=animelyrics.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " Go to "Print view with kanji" if it exists, or else "Print view"
 map <site>P -b <C-v>'Print<Space>view<f3><CR>
@@ -4445,8 +4429,6 @@ map <site>P -b <C-v>'Print<Space>view<f3><CR>
 " | about: * |
 " '----------'
 group about -locations=chrome:*,about:addons,about:config,about:cache,about:debugging,about:downloads,about:performance,about:plugins,about:support
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map j        -b <C-v><Down>
 map k        -b <C-v><Up>
@@ -4465,8 +4447,6 @@ group user
 " | places |
 " '--------'
 group places -locations=chrome://browser/content/places/places.xul
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>f<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
 map <site>f      -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
 map <site>s<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>s")
@@ -4574,8 +4554,6 @@ group user
 " | About:addons |
 " '--------------'
 group aboutaddons -locations=about:addons
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -4613,8 +4591,6 @@ group user
 " | about:newtab |
 " '--------------'
 group aboutnewtab -locations=about:newtab
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " === hint modes === "
 " links "
@@ -4662,8 +4638,6 @@ group user
 " | about:preferences |
 " '-------------------'
 group aboutpreferences -locations=about:preferences,about:preferences#*
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>z <pass-all-keys>
 
@@ -4714,8 +4688,6 @@ map <xtra>w -ex waybacktoggle
 " ===== GROUP START =====
 
 group wayback -locations=archive.org
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>t -ex waybacktoggletoolbar
 map <site>T -js waybackToggleToolbarUrl();
@@ -4782,8 +4754,6 @@ group user
 " | BangGood.com |
 " '--------------'
 group banggood -locations=banggood.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " .preference>li allows hints for the selection boxes on the settings page "
 set hinttags=:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],svg,a[class^=vote],a[class^=speed],div.ita-hwt-candidate,.preference>li
@@ -4961,8 +4931,6 @@ group user
 " | Bato.to |
 " '---------'
 group batoto -locations=www.bato.to
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 function batoDecorateLinks() {
@@ -5090,8 +5058,6 @@ group user
 " | BitBucket.org |
 " '---------------'
 group bitbucket -locations=bitbucket.org
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js var bbusername = 'tpracy';
 
@@ -5144,8 +5110,6 @@ group user
 " | BookZZ |
 " '--------'
 group bookzz -locations=bookzz.org
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>z -ex loginAndSearch
 
@@ -5183,8 +5147,6 @@ group user
 " | Crunchyroll |
 " '-------------'
 group crunchyroll -locations=crunchyroll.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -5234,8 +5196,6 @@ command! chromeopenextensiondir
 " ===== GROUP START =====
 
 group chromestore -locations=chrome.google.com/webstore/
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c  -description "Open in Chrome (default profile)" -ex ochrome
 map <site>yn -description "Yank extension name"              -js utils.yankWithMsg(chromeGetExtensionNameAndId()[0]);
@@ -5260,8 +5220,6 @@ group user
 " | eBay |
 " '------'
 group ebay -locations=ebay.com,ebay.com.*
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -5310,8 +5268,6 @@ group user
 " | Fasttech.com |
 " '--------------'
 group fasttech -locations=fasttech.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>o<C-h> -js CommandExMode().open("showkeys <site>o")
 map <site>o      -js CommandExMode().open("showkeys <site>o")
 map <site>t<C-h> -js CommandExMode().open("showkeys <site>t")
@@ -5394,8 +5350,6 @@ group user
 " | GearBest.com |
 " '--------------'
 group gb -locations=gearbest.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -5422,8 +5376,6 @@ group user
 " '----------------'
 " =====GETCOMICS.INFO=====
 group gci -locations=getcomics.info
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 function gciNextPageURL() {
@@ -5456,15 +5408,11 @@ map <site>c -description "Download" -js content.document.querySelector('.aio-red
 
 " =====GETCOMICS.GQ=====
 group gcgq -locations=getcomics.gq,getcomics.ga
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "Get Link" -js content.document.querySelector('.button.green').click();
 
 " =====SAFELINKCONVERTER.COM=====
 group gclinkconvert -locations=decrypt2.safelinkconverter.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "Convert Link" -js gcConvertLink();
 map <site>d -description "Close tabs" -js gcClose();
@@ -5497,8 +5445,6 @@ EOF
 
 " =====SHORTE.ST=====
 group shortest -locations=shorte.st,viid.me,sh.st,cllkme.com,clkmein.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "Click link or close temp tabs" -js shortestClickOrClose();
 map <site>d -description "Close temp tabs" -js shortestClose();
@@ -5539,8 +5485,6 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com
-map <site>         -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c        -description "Click README.md" -js ghClickReadme();
 map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
@@ -5803,8 +5747,6 @@ group user
 " | GoGoAnime |
 " '-----------'
 group gogoanime -locations=gogoanime.io
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -5836,8 +5778,6 @@ group user
 " For the old-style GMail interface. "
 
 group gmail -locations='https://www.google.com/gmail/*'
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -5992,8 +5932,6 @@ command! -nargs=1 gmailremovelabel -js gmailSelectedAction('rc_'+args[0]); gmail
 " | GNU.org |
 " '---------'
 group gnu -locations=www.gnu.org/*
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>u -ex gnugoup
 
 autocmd! -group gnu
@@ -6020,8 +5958,6 @@ group user
 
 group gtransja -locations='.*://translate.google.com.*/#ja/en/.*'
 " group gtransja -locations='https://translate.google.com/#ja/en/*','https://translate.google.com.au/#ja/en/*','https://translate.google.com/#zh-CN/en/*','https://translate.google.com.au/#zh-CN/en/*'
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 set hinttags+="div.ita-hwt-candidate"
 
@@ -6204,8 +6140,6 @@ command! graphemicacharselect
 " | HouseOfVape.com.au |
 " '--------------------'
 group houseofvape -locations=houseofvape.com.au
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -6234,8 +6168,6 @@ group user
 " | Imgur |
 " '-------'
 group imgur -locations=imgur.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -6269,8 +6201,6 @@ group user
 " '---------------------'
 
 group jserver -locations=http://127.0.0.1:65001/jijx,http://127.0.0.1:65001/jfile,http://127.0.0.1:65001/jfiles,http://127.0.0.1:65001/jijs,http://127.0.0.1:65001/jfif,http://127.0.0.1:65001/jal,http://127.0.0.1:65001/jhelp,http://localhost:65001/jijx,http://localhost:65001/jfile,http://localhost:65001/jfiles,http://localhost:65001/jijs,http://localhost:65001/jfif,http://localhost:65001/jal,http://localhost:65001/jhelp
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 
@@ -6364,8 +6294,6 @@ group user
 " | JapanDict |
 " '-----------'
 group japandict -locations=japandict.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map ck -js japandictToggleKanji();
 
@@ -6446,8 +6374,6 @@ command! jdocompvb2
 
 " -------------------------------------------------------------------------------
 group vvlex -locations=vvlexicon.ninjal.ac.jp
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 function vvlexSearchV1(s) {
@@ -6489,8 +6415,6 @@ group user
 " | JSBin.com |
 " '-----------'
 group jsbin -locations=jsbin.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " remove all existing jsbin autocmds
 autocmd! -group jsbin
@@ -6567,8 +6491,6 @@ command! jishomultisearch
 " =====GROUP START=====
 
 group jisho -locations=jisho.org
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <site>g<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
 map <site>g      -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
 map <site>k<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
@@ -6902,8 +6824,6 @@ group user
 " | JPopAsia |
 " '----------'
 group jpopasia -locations=jpopasia.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 command! jpopcleanlyrics -js jpopasiaCleanLyrics();
 
@@ -6932,8 +6852,6 @@ group user
 " | Libgen |
 " '--------'
 group libgen -locations=libgen.io,libgen.pw
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 command! libgendl -js libgenCopyFileNameAndDownload();
 command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
@@ -6999,8 +6917,6 @@ EOF
 " | gen.lib.rus.ec |
 " '----------------'
 group genlib -locations=gen.lib.rus.ec
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -7085,8 +7001,6 @@ group user
 " '-----------------'
 group maggiesensei -locations=maggiesensei.com
 autocmd! -group maggiesensei
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " For now, use :togglestylesembedded
 " TODO: work out how to fix the style (the '.post-content' class has post in it).
@@ -7210,8 +7124,6 @@ group user
 " | MyAnimeList.net |
 " '-----------------'
 group mal -locations=myanimelist.net
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -7237,8 +7149,6 @@ group user
 " '-------------'
 
 group netflix -locations=netflix.com
-map <leader>hkc -js CommandExMode().open("map -group netflix` <site>")
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("map -group netflix` <site>")
 
 map <site>c  -description "Cleanup"                -js netflixCleanup();
 map <site>ol -description "Open My List"           -ex open https://www.netflix.com/browse/my-list
@@ -7275,8 +7185,6 @@ group user
 " | OReilly.com |
 " '-------------'
 group oreilly -locations=oreilly.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 function oreillyFreeEbookFillForm() {
@@ -7322,8 +7230,6 @@ group user
 " | PacktPub.com |
 " '--------------'
 group packt -locations=packtpub.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " takes too long!
 command! packttoggleallbookdetails -js packtToggleAllBookDetails();
@@ -7477,8 +7383,6 @@ group user
 " | Ptable.com |
 " '------------'
 group ptable -locations=ptable.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 var ptableToggleWP = makeDisplayToggle('#WikiBox');
@@ -7493,8 +7397,6 @@ group user
 " | Reddit.com |
 " '------------'
 group reddit -locations=reddit.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " Key Help (id: keyHelp) "
 map <site>? -b <C-v>?
@@ -7518,8 +7420,6 @@ styleenable -name scriptular
 " | StackOverflow.com |
 " '-------------------'
 group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -7580,8 +7480,6 @@ group user
 " | StackPrinter.com |
 " '------------------'
 group stackprinter -locations=stackprinter.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 autocmd! -group stackprinter
 
 autocmd PageLoad stackprinter.com :removeselector #adsense
@@ -7625,8 +7523,6 @@ command! subsrusearch
 " | TheHylia.com |
 " '--------------'
 group hylia -locations=anime.thehylia.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 command! hyliacurlallsongs
   \ -description "Generate curl commands to download song links and copy to clipboard."
@@ -7708,8 +7604,6 @@ group user
 " '---------------------'
 group thingstuff -locations=wiki.thingsandstuff.org
 autocmd! -group thingstuff
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "remove cruft" -js taswTidy();
 map <site>op
@@ -7751,8 +7645,6 @@ group user
 " '--------------'
 
 group tutsplus -locations=code.tutsplus.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 autocmd! -group tutsplus
 
 autocmd DOMload code.tutsplus.com :js tutsplusTidy()
@@ -7810,8 +7702,6 @@ command! userscriptsmirror -nargs=?
 " | VapeKing.com.au |
 " '-----------------'
 group vapeking -locations=vapeking.com.au
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -description "enter" -js vkEnter();
 
@@ -7829,8 +7719,6 @@ group user
 " | Weblio.jp |
 " '-----------'
 group weblio -locations=weblio.jp,ejje.weblio.jp
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 map <site>c -ex webliotidy
 
@@ -7882,8 +7770,6 @@ group user
 " '-----------'
 group wikia -locations='.*\.wikia\.com/'
 autocmd! -group wikia
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " ,- - - - - - - - - - - - - - - - - - - - - - - - - ,
 " ' override f to work on Wikia collapsible sections '
@@ -8007,8 +7893,6 @@ map <site>[   -ex wikiaprevious
 " '-------------------------'
 group wikiaadvtime -locations='adventuretime\.wikia\.com/wiki/'
 autocmd! -group wikiaadvtime
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 
@@ -8038,8 +7922,6 @@ group user
 " | Wikipedia.org |
 " '---------------'
 group wikipedia -locations=wikipedia.org
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 
@@ -8147,8 +8029,6 @@ group user
 " | WolframAlpha.com |
 " '------------------'
 group wolfram -locations=wolframalpha.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 " warning: wolframalpha.com uses multiple 'plaintext' ids when more than one box is showing"
 
@@ -8174,8 +8054,6 @@ group user
 " | Youtube.com |
 " '-------------'
 group youtube -locations=youtube.com
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 
 js <<EOF
 function ytplayer() {
@@ -8298,8 +8176,6 @@ group user
 " '-------------'
 
 group tipsonjap -locations=meadowlake001.blogspot.jp
-map <site><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
-map <site>      -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 " Tips on Japanese
 " http://meadowlake001.blogspot.jp
 command! widenSidebar -group tipsonjap
