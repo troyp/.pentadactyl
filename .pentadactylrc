@@ -2238,8 +2238,11 @@ command! browsertoolbox browsertoolboxinit | browsertoolboxperm
 " <S-f2><Tab> is mostly fine, but has the drawback that when
 "             restoring focus, it will select the current
 "             tab-completion candidate, if one is visible.
-" map -modes base -b <A-x> <S-f2><Tab>
-map -modes base <A-x> -ex togglegcli
+:if isFirefox
+    map -modes base <A-x> -ex togglegcli
+:else
+    map -modes base -b <A-x> <S-f2><Tab>
+:endif
 
 js <<EOF
 
@@ -2265,10 +2268,14 @@ function browserToolboxPermissionBoxInit() {
     dactyl.execute('!xdotool key Tab');
 }
 
-DeveloperToolbar.show();
+" Show developer toolbar so we can define devtbar "
+if (typeof DeveloperToolbar !== 'undefined')
+    DeveloperToolbar.show();
+ else if (!document.getElementById('developer-toolbar'))
+    dactyl.execute("feedkeys <S-f2>");
 devtbar = document.getElementById('developer-toolbar');
 [devtbar_stack, devtbar_tools_btn, devtbar_close_btn] = devtbar.childNodes;
-DeveloperToolbar.hide();
+devtbar_close_btn.click();
 
 EOF
 
