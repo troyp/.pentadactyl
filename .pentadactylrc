@@ -2597,6 +2597,9 @@ map skw       -description "search bookmarks with buku"  -ex !buku_run
 "                              |_______________________|
 
 set! general.autoScroll=true
+" show previous session at start "
+set! browser.startup.page=3
+set! browser.urlbar.maxRichResults=25
 set! devtools.chrome.enabled=true
 set! devtools.debugger.remote-enabled=true
 " enable webextensions on Mozilla pages (hidden setting) "
