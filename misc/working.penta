@@ -386,3 +386,17 @@ command! advtimeToggleTranscript -js advtimeToggleTranscript();
 map <site>c -ex advtimeToggleTranscript
 
 group user
+
+" -------------------------------------------------------------------------------
+" ,-------------------,
+" | Developer Toolbar |
+" '-------------------'
+
+" Show developer toolbar so we can define devtbar "
+if (typeof DeveloperToolbar !== 'undefined')
+    DeveloperToolbar.show();
+ else if (!document.getElementById('developer-toolbar'))
+    dactyl.execute("feedkeys <S-f2>");
+devtbar = document.getElementById('developer-toolbar');
+[devtbar_stack, devtbar_tools_btn, devtbar_close_btn] = devtbar.childNodes;
+devtbar_close_btn.click();
