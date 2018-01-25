@@ -125,6 +125,7 @@ window.createBmark = createBmark;
 var isPalemoon = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('palemoon');
 var isBasilisk = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('basilisk');
 var isFirefox  = prefs.has('app.feedback.baseURL') && prefroot.getCharPref('app.feedback.baseURL').includes('mozilla');
+var isWaterfox = prefs.has('app.update.url') && prefroot.getCharPref('app.update.url').includes('waterfox');
 
 "utility functions"
 // Array methods for other collections
@@ -2576,6 +2577,10 @@ set! devtools.chrome.enabled=true
 set! devtools.debugger.remote-enabled=true
 " enable webextensions on Mozilla pages (hidden setting) "
 set! privacy.resistFingerprinting.block_mozAddonManager=true
+" disable multiprocessing (Waterfox) "
+:if isWaterfox
+    set! browser.tabs.remote.autostart=false
+:endif
 
 command! toggleconfig
     \ -description "Toggle boolean about:config setting."
