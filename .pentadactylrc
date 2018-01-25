@@ -122,10 +122,10 @@ function createBmark(url, title, folderId=bmarksMenuFolder) {
 window.createBmark = createBmark;
 
 "Application"
-var isPalemoon = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('palemoon');
-var isBasilisk = prefs.has('app.vendorURL') && prefroot.getCharPref('app.vendorURL').includes('basilisk');
-var isFirefox  = prefs.has('app.feedback.baseURL') && prefroot.getCharPref('app.feedback.baseURL').includes('mozilla');
-var isWaterfox = prefs.has('app.update.url') && prefroot.getCharPref('app.update.url').includes('waterfox');
+var isPalemoon = prefs.has("app.vendorURL") && prefroot.getCharPref("app.vendorURL").includes("palemoon");
+var isBasilisk = prefs.has("app.vendorURL") && prefroot.getCharPref("app.vendorURL").includes("basilisk");
+var isFirefox  = prefs.has("app.update.url") && prefroot.getCharPref("app.update.url").includes("mozilla");
+var isWaterfox = prefs.has("app.update.url") && prefroot.getCharPref("app.update.url").includes("waterfox");
 
 "utility functions"
 // Array methods for other collections
