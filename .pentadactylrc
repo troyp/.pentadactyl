@@ -5588,6 +5588,7 @@ map <site>yg       -description "Yank git repo link" -js ghCopyRepoLinkGit();
 map <site>yh       -description "Yank https repo link" -js ghCopyRepoLinkHttps();
 map <site>yn       -description "Yank repo name" -js ghCopyRepoName();
 map <site>yr       -description "Yank raw file URL" -js hints.show("Ⓖ");
+map <site>ys       -description "Yank SHA" -js hints.show("🄪");
 map <site>yR       -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
 map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yU       -description "Yank user name" -js ghCopyUser();
@@ -5620,6 +5621,8 @@ set eht+=ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("ⓖ", "download raw file", e=>savePageDialog(ghConvertUrlToRaw(e.href)));
 set eht+=Ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("Ⓖ", "copy raw file url", e=>utils.yankWithMsg(ghConvertUrlToRaw(e.href), where='tab'));
+set eht+=🄪:'.js-zeroclipboard','.sha'
+js hints.addMode("🄪", "copy SHA", e=>ghYankSHA(e));
 
 js <<EOF
 
@@ -5772,6 +5775,13 @@ function ghConvertUrlToRaw(url) {
     raw_relpath = relpath.replace(/^\/(blob|tree)\//, '/');
     var rawurl = `https://raw.githubusercontent.com/${user}/${repo}${raw_relpath}`
     return rawurl;
+}
+
+function ghYankSHA(elt) {
+    if (elt.classList.contains('js-zeroclipboard'))
+        utils.yankWithMsg(elt.getAttribute('data-clipboard-text'));
+    else
+        utils.yankWithMsg(elt.textContent.trim());
 }
 
 EOF
