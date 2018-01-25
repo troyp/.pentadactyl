@@ -7198,7 +7198,76 @@ function netflixToggleTextLinks() {
             card.removeChild(alreadyAdded[0]);
     });
 }
+EOF
 
+group netflixwatch -locations=https://www.netflix.com/watch/*
+
+map <site>c -description "Toggle subtitles"       -js netflixToggleSubs();
+map <site>d -description "Download subtitle"      -js document.querySelector('.track.download').click();
+map <site>D -description "Download all subtitles" -js document.querySelector('.track.download-all').click();
+map ]]      -description "Next episode"           -js netflixNextEpisode();
+map [[      -description "Previous episode"       -js netflixPreviousEpisode();
+map <Space> -description "Play/Pause" -js netflixPlayPause();
+
+js <<EOF
+function netflixPreviousEpisode() {
+    var title = content.document.getElementsByClassName('player-status')[0].innerText;
+    var match = title.match(/season *(\d+).*ep(?:isode)?\.? *(\d+)/i);
+    var season = parseInt(match[1]);
+    var ep = parseInt(match[2]);
+    if (ep == 1) {
+        content.document.getElementsByClassName('back-to-seasons')[0].click();
+        var seasonlist = content.document.querySelectorAll('.season-list li');
+        var newSeason = Math.max(1, season - 1);
+        seasonlist[newSeason - 1].click();
+        var epList = content.document.getElementsByClassName('episode-list-item');
+        var newEpId = epList[epList.length - 1].getAttribute('data-episode-id');
+    } else {
+        var newEp = ep - 1;
+        var epList = content.document.getElementsByClassName('episode-list-item');
+        var newEpId = epList[newEp - 1].getAttribute('data-episode-id');
+    }
+    dactyl.open(`https://www.netflix.com/watch/${newEpId}`, {where: 'here'});
+}
+function netflixNextEpisode() {
+    var nextep = content.document.querySelector('.postplay-button') ||
+                 content.document.querySelector('.player-postplay-still-hover-container') ||
+                 content.document.querySelector('.player-next-episode').children[0];
+    nextep.click();
+}
+function netflixToggleSubs() {
+    var subOpts = Array.from(content.document.querySelector('.player-timed-text-tracks').children);
+    if (subOpts[1].classList.contains("player-track-selected")) {
+        subOpts.find(e=>e.innerText.match(/english/i)).click();
+    } else {
+        subOpts[1].click();
+    }
+    var optDisplay = content.document.getElementById('player-menu-track-settings');
+    optDisplay.classList.remove('player-visible');
+    optDisplay.classList.remove('player-active');
+}
+function netflixSeek() {
+    /* https://gist.github.com/dannyid/52775a76f2a8738334d3 */
+    var player    = netflix.cadmium.objects.videoPlayer();
+    /* Metadata about current episode -- ID and url to get frame at a specific time */
+    var episodeId = netflix.cadmium.metadata.getActiveVideo().episodeId;
+    var imgRoot   = netflix.cadmium.metadata.getActiveVideo().progressImageRoot;
+    /* Generates URL of preview image for given timestamp */
+    function getFrame(timestamp) {
+      var t = Math.floor(timestamp/10000).toString(10);
+      var f = '00000'.slice(t.length) + t;
+      return imgRoot + f +'.jpg';
+    };
+    /* Seek to time in milliseconds */
+    player.seek(343931);
+    /* Example: Get image of current time */
+    getFrame(player.getCurrentTime());
+}
+function netflixPlayPause() {
+    var playpause = content.document.querySelector('.player-play-pause');
+    if (playpause) playpause.click();
+    else content.document.querySelector('.icon-play').click();
+}
 EOF
 
 group user
