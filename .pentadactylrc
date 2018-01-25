@@ -2154,12 +2154,23 @@ command! cssapply
 style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
 
 " style taken from http://forums.mozillazine.org/viewtopic.php?f=38&t=2799203#p13349801 "
-style -name=activetabhighlight * .tabbrowser-tab[selected="true"] {
-\   font-weight: bold !important;
-\   color: rgba(255,255,255,1) !important;
-\   background-image: linear-gradient(rgba(102,51,102,.85), rgba(102,51,102,.85) 50%),
-\                     linear-gradient(-moz-dialog, -moz-dialog) !important;
-\ }
+:if isFirefox || isPalemoon
+    style -name=activetabhighlight * .tabbrowser-tab[selected="true"] {
+    \   font-weight: bold !important;
+    \   color: rgba(255,255,255,1) !important;
+    \   background-image: linear-gradient(rgba(102,51,102,.85), rgba(102,51,102,.85) 50%),
+    \                     linear-gradient(-moz-dialog, -moz-dialog) !important;
+    \ }
+:endif
+:if isWaterfox
+    style -name=activetabhighlight * .tab-content[selected="true"] {
+    \   font-weight: bold !important;
+    \   background: rgba(100, 255, 0, 0.3) !important;
+    \   margin: 5px;
+    \   border: solid grey 1px;
+    \   border-radius: 15px;
+    \ }
+:endif
 
 map <browser>sN -description "Style/narrow page" :narrowpage<Space>
 map <browser>st -description "Style/add temp style for page" -b y:style -group=temp <C-v><C-v><Space>
@@ -4619,22 +4630,33 @@ js hints.addMode("Ņ", "Follow link in background tab", elem => buffer.followLin
 set eht+=ɳ:.newtab-control
 js hints.addMode("ɳ", "Click new tab control", clickSelector);
 
-style -name=newtabstyle about:newtab
-\     .newtab-title {
-\         background: #eeeeff !important;
-\         border: solid #42428D 1px;
-\         border-radius: 15px;
-\         margin: 5px;
-\         text-align: center;
-\     }
-\     div.newtab-cell, div.newtab-site, a.newtab-link, span.newtab-thumbnail {
-\         border: 1px solid #;
-\         border-radius: 18px !important;
-\     }
-\     a {
-\         border-radius: 18px !important;
-\     }
-styleenable about:newtab newtabstyle
+:if isPalemoon
+    style -name=newtabstyle about:newtab
+    \     .newtab-title {
+    \         background: #eeeeff !important;
+    \         border: solid #42428D 1px;
+    \         border-radius: 15px;
+    \         margin: 5px;
+    \         text-align: center;
+    \     }
+    \     div.newtab-cell, div.newtab-site, a.newtab-link, span.newtab-thumbnail {
+    \         border: 1px solid #;
+    \         border-radius: 18px !important;
+    \     }
+    \     a {
+    \         border-radius: 18px !important;
+    \     }
+    styleenable about:newtab newtabstyle
+:endif
+
+:if isWaterfox
+    style -name=newtabstyle about:newtab
+    \     .newtab-title {
+    \         background: #eeeeff !important;
+    \     }
+    styleenable about:newtab newtabstyle
+:endif
+
 style -name=newtabselectionstyle about:newtab
 \     a:focus {
 \         border: solid #7B4F7B 3px !important; border-radius: 3px !important;
