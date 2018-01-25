@@ -1851,7 +1851,7 @@ map <goto>;a      -description "Addons Directory (new tab)"
 map <goto>c       -description "about:config (new tab)"
 \                 -ex tabopen about:config
 map <goto>d       -description "Downloads (new tab)"
-\                 -ex tabout:downloads<CR><C-z>
+\                 -b tabout:downloads<CR><C-z>
 map <goto>f       -description "about:about (new tab)"
 \                 -ex tabopen about:about
 map <goto>h       -description "Pentadactyl help (new tab)"
@@ -1902,7 +1902,8 @@ map <goto>e;a     -description "Addons Directory"
 \                 -ex open file:///opt/ff-addons/
 map <goto>ec      -description "about:config"
 \                 -ex open about:config
-map <goto>ed      -description "Downloads" oabout:downloads<CR><C-z>
+map <goto>ed      -description "Downloads"
+\                 -b oabout:downloads<CR><C-z>
 map <goto>ef      -description "about:about"
 \                 -ex open about:about
 map <goto>eh      -description "Pentadactyl help"
@@ -1913,7 +1914,8 @@ map <goto>e;h     -description "Pentadactyl help - index"
 \                 -ex open dactyl://help/index
 map <goto>ei      -description "Profiles"
 \                 -ex open about:profiles
-map <goto>ek      -description "places" ochrome://browser/content/places/places.xul<CR>gi<C-z>
+map <goto>ek      -description "places"
+\                 -b ochrome://browser/content/places/places.xul<CR>gi<C-z>
 map <goto>eK      -description "Bookmarks"
 \                 -ex open chrome://browser/content/bookmarks/bookmarksPanel.xul
 map <goto>eo      -description "/opt/ directory"
