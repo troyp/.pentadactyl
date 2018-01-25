@@ -584,6 +584,29 @@ map <C-x><C-S-S>
 \ -modes normal,insert,visual,command-line
 \ -js saveDocument(getBrowser().selectedBrowser.contentDocument,
 \                  {mafAskSaveArchive: true});
+
+map <browser>d      -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
+map <browser>d<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
+map <browser>ddw -description "Download to ~/Downloads/" -ex dlto ~/Downloads
+map <browser>ddc -description "Download to ~/Documents/" -ex dlto ~/Documents
+map <browser>ddr -description "Download to ~/Documents/receipts" -ex dlto ~/Documents/receipts
+map <browser>de/ -description "Download to ~/ebooks/" -ex dlto ~/ebooks
+map <browser>dec -description "Download to ~/ebooks/coding" -ex dlto ~/ebooks/coding
+map <browser>des -description "Download to ~/ebooks/css" -ex dlto ~/ebooks/css
+map <browser>dea -description "Download to ~/ebooks/articles" -ex dlto ~/ebooks/articles
+map <browser>dhe -description "Download to ~/.emacs.d/private" -ex dlto ~/.emacs.d/private
+map <browser>dhp -description "Download to ~/.pentadactyl" -ex dlto ~/.pentadactyl
+map <browser>dhr -description "Download to ~/repos" -ex dlto ~/repos
+map <browser>dhs -description "Download to ~/source" -ex dlto ~/source
+map <browser>doc -description "Download to /opt/chrome-extensions" -ex dlto /chrome-extensions
+map <browser>dod -description "Download to /opt/deb" -ex dlto /deb
+map <browser>dof -description "Download to /opt/ff-addons" -ex dlto /opt/ff-addons
+map <browser>dos -description "Download to /opt/scripts" -ex dlto /scripts
+map <browser>dow -description "Download to /opt/webapps" -ex dlto /webapps
+map <browser>do/ -description "Download to /opt/" -ex dlto /opt
+
+command! dlto -nargs=1 -complete dir set! browser.download.lastDir=<args> | feedkeys <C-x><C-s>
+
 " Copying
 map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
