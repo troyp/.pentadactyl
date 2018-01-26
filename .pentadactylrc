@@ -773,13 +773,18 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 " ,----------------------, ,-----------,
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
-map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 map <leader>a      -js CommandExMode().open("showkeys <leader>a")
+map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
     \ -count
     \ -js dactyl.execute(`ochromeurl ${user.mybankurl}`);
+" Diagrams: <leader>ad "
+map <leader>ada
+    \ -description "Open AsciiFlow"
+    \ -count
+    \ -ex js openInNewOrCurrentTab('http://asciiflow.com/')(<count>);
 " Repos: <leader>ag "
 map <leader>agh
     \ -description "Open My Github"
