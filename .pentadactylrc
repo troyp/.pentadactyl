@@ -5564,6 +5564,7 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 group github -locations=github.com,githubusercontent.com,rawgit.com
 
 map <site>c        -description "Click README.md" -js ghClickReadme();
+map <site>f        -description "Fork repo" -js ghFork();
 map <site>g        -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
 map <site>g<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
 map <site>gc       -description "(show bindings)" -js CommandExMode().open("showkeys <site>gc")
@@ -5843,6 +5844,11 @@ function ghYankSHA(elt) {
         utils.yankWithMsg(elt.getAttribute('data-clipboard-text'));
     else
         utils.yankWithMsg(elt.textContent.trim());
+}
+
+function ghFork() {
+    var button = getSelectorWithMatchingAttribute('button', 'title', /^fork/i)[0];
+    button.click();
 }
 
 EOF
