@@ -1886,6 +1886,10 @@ map <goto>r       -description "Session restore (new tab)"
 \                 -ex tabopen about:sessionrestore
 map <goto>s       -description "Support (new tab)"
 \                 -ex tabopen about:support
+map <goto>u       -description "/opt/userscripts/ directory (new tab)"
+\                 -ex tabopen file:///opt/userscripts
+map <goto>U       -description "/opt/userstyles/ directory (new tab)"
+\                 -ex tabopen file:///opt/userstyles
 map <goto>xe      -description "Epub Catalog (new tab)"
 \                 -ex tabopen about:epubcatalog
 map <goto>`       -description "Home directory (new tab)"
@@ -1938,6 +1942,10 @@ map <goto>er      -description "Session restore"
 \                 -ex open about:sessionrestore
 map <goto>es      -description "Support"
 \                 -ex open about:support
+map <goto>eu      -description "/opt/userscripts/ directory"
+\                 -ex open file:///opt/userscripts
+map <goto>eU      -description "/opt/userstyles/ directory"
+\                 -ex open file:///opt/userstyles
 map <goto>exe     -description "Epub Catalog"
 \                 -ex open about:epubcatalog
 map <goto>e`      -description "Home directory"
@@ -1994,6 +2002,10 @@ map <goto>wr      -description "Session restore (new window)"
 \                 -ex winopen about:sessionrestore
 map <goto>ws      -description "Support (new window)"
 \                 -ex winopen about:support
+map <goto>wu      -description "/opt/userscripts/ directory (new window)"
+\                 -ex winopen file:///opt/userscripts
+map <goto>wU      -description "/opt/userstyles/ directory (new window)"
+\                 -ex winopen file:///opt/userstyles
 map <goto>wxe     -description "Epub Catalog (new window)"
 \                 -ex winopen about:epubcatalog
 map <goto>w`      -description "Home directory (new window)"
