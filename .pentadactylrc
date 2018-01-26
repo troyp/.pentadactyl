@@ -7803,6 +7803,16 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,---------,
+" | Time.Is |
+" '---------'
+group timeis -locations=time.is
+
+map <site>c -description "Toggle simple" -js content.document.getElementById('twd').click();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,--------------,
 " | TutsPlus.com |
 " '--------------'
