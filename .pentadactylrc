@@ -5564,8 +5564,12 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 group github -locations=github.com,githubusercontent.com,rawgit.com
 
 map <site>c        -description "Click README.md" -js ghClickReadme();
-map <site>gc       -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
-map <site>gs       -description "Clone repo via SSH" -b :ghclonessh<Space>
+map <site>g        -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
+map <site>g<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
+map <site>gc       -description "(show bindings)" -js CommandExMode().open("showkeys <site>gc")
+map <site>gc<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <site>gc")
+map <site>gch      -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
+map <site>gcs      -description "Clone repo via SSH" -b :ghclonessh<Space>
 map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
 map <site>ir       -description "List user's repos in mow" -ex ghlistrepos
 map <site>m<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
