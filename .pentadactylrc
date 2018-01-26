@@ -5557,8 +5557,9 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 group github -locations=github.com,githubusercontent.com,rawgit.com
 
 map <site>c        -description "Click README.md" -js ghClickReadme();
+map <site>gc       -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
+map <site>gs       -description "Clone repo via SSH" -b :ghclonessh<Space>
 map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
-
 map <site>ir       -description "List user's repos in mow" -ex ghlistrepos
 map <site>m<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
 map <site>m        -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
@@ -5635,6 +5636,17 @@ command! ghsavethisreadmetodoc
     \ -description "Download README for current repo to /opt/doc/"
     \ -bang
     \ -js ghSaveThisReadmeToDoc(bang);
+
+command! ghclonehttps
+\    -description "Clone repo via HTTPS"
+\    -nargs 1
+\    -complete dir
+\    -js ghClone(args[0], 'https');
+command! ghclonessh
+\    -description "Clone repo via SSH"
+\    -nargs 1
+\    -complete dir
+\    -js ghClone(args[0], 'ssh');
 
 " === hint modes === "
 set eht+=🄶:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
@@ -5777,6 +5789,11 @@ function ghGetCloneUrl(urltype) {
         case "https": return httpslink;
         case "git":   return gitlink;
     }
+}
+
+function ghClone(dir, urltype) {
+    var url = ghGetCloneUrl(urltype);
+    dactyl.execute(`!cd ${dir} && git clone ${url}`);
 }
 
 function ghFileFinder(where=dactyl.CURRENT_TAB) {
