@@ -1890,6 +1890,8 @@ map <goto>u       -description "/opt/userscripts/ directory (new tab)"
 \                 -ex tabopen file:///opt/userscripts
 map <goto>U       -description "/opt/userstyles/ directory (new tab)"
 \                 -ex tabopen file:///opt/userstyles
+map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory (new tab)"
+\                 -js dactyl.open(`file://${homedir}/.pentadactyl/gmscripts`, {where: 'tab'});
 map <goto>xc      -description "ChromEdit (new tab)"
 \                 -ex tabopen chrome://chromedit/content/ChromEdit.xul
 map <goto>xe      -description "Epub Catalog (new tab)"
@@ -1950,6 +1952,8 @@ map <goto>eu      -description "/opt/userscripts/ directory"
 \                 -ex open file:///opt/userscripts
 map <goto>eU      -description "/opt/userstyles/ directory"
 \                 -ex open file:///opt/userstyles
+map <goto>e;u     -description "~/.pentadactyl/gmscripts/ directory"
+\                 -js dactyl.open(`file://${homedir}/.pentadactyl/gmscripts`, {where: 'here'});
 map <goto>exc     -description "ChromEdit"
 \                 -ex open chrome://chromedit/content/ChromEdit.xul
 map <goto>exe     -description "Epub Catalog"
@@ -2014,6 +2018,8 @@ map <goto>wu      -description "/opt/userscripts/ directory (new window)"
 \                 -ex winopen file:///opt/userscripts
 map <goto>wU      -description "/opt/userstyles/ directory (new window)"
 \                 -ex winopen file:///opt/userstyles
+map <goto>w;u     -description "~/.pentadactyl/gmscripts/ directory (new window)"
+\                 -js dactyl.open(`file://${homedir}/.pentadactyl/gmscripts`, {where: 'window'});
 map <goto>wxc     -description "ChromEdit (new window)"
 \                 -ex winopen chrome://chromedit/content/ChromEdit.xul
 map <goto>wxe     -description "Epub Catalog (new window)"
