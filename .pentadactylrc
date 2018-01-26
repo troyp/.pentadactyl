@@ -5569,6 +5569,7 @@ map <site>g<C-h>   -description "(show bindings)" -js CommandExMode().open("show
 map <site>gc       -description "(show bindings)" -js CommandExMode().open("showkeys <site>gc")
 map <site>gc<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <site>gc")
 map <site>gch      -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
+map <site>gcc      -description "Clone repo to ~/source/git-repos or ~/repos" -js ghCloneRepoToMyDir();
 map <site>gcs      -description "Clone repo via SSH" -b :ghclonessh<Space>
 map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
 map <site>ir       -description "List user's repos in mow" -ex ghlistrepos
@@ -5805,6 +5806,14 @@ function ghGetCloneUrl(urltype) {
 function ghClone(dir, urltype) {
     var url = ghGetCloneUrl(urltype);
     dactyl.execute(`!cd ${dir} && git clone ${url}`);
+}
+
+function ghCloneRepoToMyDir() {
+    var [user, repo] = ghGetUserAndRepo();
+    if (user == ghusername)
+        ghClone('~/repos', 'ssh');
+    else
+        ghClone('~/source/git-repos', 'https');
 }
 
 function ghFileFinder(where=dactyl.CURRENT_TAB) {
