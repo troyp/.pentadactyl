@@ -813,10 +813,11 @@ map <leader>at
     \ -count
     \ -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
 " Video: <leader>av "
-map <leader>avn
-    \ -description "Open Netflix (Chrome)"
-    \ -count
-    \ -ex ochromeurl "https://www.netflix.com/browse/my-list"
+:if isPalemoon
+    map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse/my-list"
+:else
+    map <leader>avn -description "Open Netflix (Chrome)" -ex tabopen https://www.netflix.com/browse/my-list
+:endif
 " Weather "
 map <leader>aw
     \ -description "Open Lismore Weather"
