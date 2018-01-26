@@ -790,6 +790,8 @@ map <leader>agb
     \ -count
     \ -ex js openInNewOrCurrentTab('https://bitbucket.org/')(<count>);
 " Email: <leader>am "
+map <leader>am      -js CommandExMode().open("showkeys <leader>am")
+map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am")
 map <leader>amm
     \ -description "Open Gmail Basic"
     \ -count
