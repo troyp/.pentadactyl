@@ -6940,15 +6940,19 @@ function libgenGetDetails(field) {
         var info = content.document.getElementById('info');
         switch(field) {
             case 'title':
-                return info.querySelector('h1').innerText;
+                var elt = info.querySelector('h1');
+                return elt && elt.innerText;
                 break;
             case 'edition':
                 break;
             case 'year':
-                return info.querySelector('p:nth-of-type(2)').innerText.match(/Publisher.*Year: (\d\d\d\d)/)[1];
+                var elt = info.querySelector('p:nth-of-type(2)');
+                var match = elt && elt.innerText.match(/Publisher.*Year: (\d\d\d\d)/);
+                return match && match[1];
                 break;
             case 'author':
-                return info.querySelector('p:first-of-type').innerText.replace(/Author\(s\): */, '');
+                var elt = info.querySelector('p:first-of-type');
+                return elt && elt.innerText.replace(/Author\(s\): */, '');
                 break;
         }
     }
