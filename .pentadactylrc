@@ -1584,6 +1584,8 @@ map ga -description "Open new tab, search in Awesome Bar" -b <C-v><C-t>
 " | Buffer Selection |
 " '------------------'
 
+command! openorselect -nargs=+ -complete=url -js openOrSelectTab(args[0], args[1]?"here":"tab");
+
 js <<EOF
 function tabSelectLeft(n=1, wrap=true) {
     var currIdx = tabs.getTab()._tPos;
@@ -8744,6 +8746,15 @@ function openInNewOrCurrentTab(site) {
         else
             dactyl.open(site, {where:dactyl.NEW_TAB})
     };
+}
+
+function openOrSelectTab(url, where='tab') {
+    var alltabs = Array.from(tabs.allTabs);
+    var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(url));
+    if (existingTab)
+        tabs.select(existingTab);
+    else
+        dactyl.open(url, {where: where});
 }
 
 function foreachElement(f, top=content.document) {
