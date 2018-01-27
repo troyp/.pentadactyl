@@ -778,58 +778,61 @@ map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
-    \ -count
-    \ -js dactyl.execute(`ochromeurl ${user.mybankurl}`);
+    \ -count -js openOrSelectTab(`ochromeurl ${user.mybankurl}`, count?"here":"tab");
 " Diagrams: <leader>ad "
 map <leader>ada
     \ -description "Open AsciiFlow"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('http://asciiflow.com/')(<count>);
+    \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
 " Repos: <leader>ag "
 map <leader>agh
     \ -description "Open My Github"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('https://github.com/troyp')(<count>);
+    \ -count -js openOrSelectTab('https://github.com/troyp', count?"here":"tab");
 map <leader>agb
     \ -description "Open My Bitbucket"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('https://bitbucket.org/')(<count>);
+    \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
 " Email: <leader>am "
-map <leader>am      -js CommandExMode().open("showkeys <leader>am")
-map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am")
+map <leader>am      -js CommandExMode().open("showkeys <leader>am");
+map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am");
 map <leader>amm
     \ -description "Open Gmail Basic"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('https://mail.google.com/mail/h/1f0xqcpo2pdl3/?f=1')(<count>)
+    \ -count -js openOrSelectTab('https://mail.google.com/mail/h/1f0xqcpo2pdl3/?f=1', count?"here":"tab");
 map <leader>amg
     \ -description "Open Gmail"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('https://mail.google.com/mail/u/0/#inbox')(<count>)
+    \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"tab");
 map <leader>amy
     \ -description "Open Y7Mail"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('https://mg.mail.yahoo.com/')(<count>)
+    \ -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
 " Paypal "
 map <leader>ap
     \ -description "Open Paypal"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('https://www.paypal.com/myaccount/home')(<count>)
+    \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
 " Time "
 map <leader>at
     \ -description "Open Time Server"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('https://time.is/Sydney')(<count>)
+    \ -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab");
 " Video: <leader>av "
 :if isPalemoon
-    map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse/my-list"
+    map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
 :else
-    map <leader>avn -description "Open Netflix (Chrome)" -ex tabopen https://www.netflix.com/browse/my-list
+    map <leader>avn -description "Open Netflix"
+    \ -count -js openOrSelectNetflix(count?"here":"tab");
 :endif
 " Weather "
 map <leader>aw
     \ -description "Open Lismore Weather"
-    \ -count
-    \ -ex js openInNewOrCurrentTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml')(<count>)
+    \ -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
+
+js <<EOF
+function openOrSelectNetflix(where='tab') {
+    var alltabs = Array.from(tabs.allTabs);
+    var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(/https:\/\/www.netflix.com\//));
+    if (existingTab)
+        tabs.select(existingTab);
+    else
+        dactyl.open('https://www.netflix.com/browse', {where: where});
+}
+EOF
+
 
 " | Keepvid |
 command! keepvid open javascript:document.location='http://keepvid.com/?url='+escape(window.location);
