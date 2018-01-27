@@ -5457,7 +5457,7 @@ map <site>m        -description "(show bindings)" -js CommandExMode().open("show
 map <site>mg       -description "My gists" -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
 map <site>mG       -description "My starred gists"
 \                  -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'here');
-map <site>mp       -description "My profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mo       -description "My profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
 map <site>mr       -description "My repositories"
 \                  -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
 map <site>mm<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <site>mm")
@@ -5466,9 +5466,10 @@ map <site>mmg      -description "My gists (new tab)"
 \                  -js dactyl.open('https://gist.github.com/'+ghusername, 'here');
 map <site>mmG      -description "My starred gists (new tab)"
 \                  -js dactyl.open(`https://gist.github.com/${ghusername}/starred`, 'tab');
-map <site>mmp      -description "My profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mmo      -description "My profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'tab');
+map <site>mmp      -description "My profile (new tab)" -js dactyl.open('https://github.com/'+ghusername, 'tab');
 map <site>mmr      -description "My repositories (new tab)"
-\                  -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'here');
+\                  -js dactyl.open(`https://github.com/${ghusername}?tab=repositories`, 'tab');
 map <site>o<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>o        -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>og       -description "Open gists" -js dactyl.open('https://gist.github.com/'+ghGetUser(), 'here');
@@ -5477,6 +5478,8 @@ map <site>oi       -description "Open issues"
 \                  -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'here');
 map <site>oI       -description "Open issues.csv"
 \                  -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'here');
+map <site>oo       -description "Open profile (overview)"
+\                  -js dactyl.open(`https://github.com/${ghGetUser()}`, 'here');
 map <site>op       -description "Permanent link" -js dactyl.open(ghGetPermalink(), {where: 'here'});
 map <site>or       -description "Open repositories"
 \                  -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'here');
@@ -5494,6 +5497,8 @@ map <site>ti       -description "Open issues"
 \                  -js dactyl.open(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
 map <site>tI       -description "Open issues.csv"
 \                  -js dactyl.open(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, 'tab');
+map <site>to       -description "Open profile (overview) (new tab)"
+\                  -js dactyl.open(`https://github.com/${ghGetUser()}`, 'tab');
 map <site>tp       -description "Permanent link (new tab)" -js dactyl.open(ghGetPermalink(), {where: 'tab'});
 map <site>tr       -description "Open repositories (new tab)"
 \                  -js dactyl.open(`https://github.com/${ghGetUser()}?tab=repositories`, 'tab');
