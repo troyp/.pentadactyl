@@ -1850,198 +1850,74 @@ var newTabPage = function(where=dactyl.NEW_TAB) {
 }
 EOF
 
-map <goto>a       -description "Addons (switch to or open in new tab)"
+map <goto>a       -description "Addons"
 \                 -ex dialog addons
-map <goto>A       -description "Palemoon Extensions (new tab)"
-\                 -ex tabopen https://addons.palemoon.org/extensions/
-map <goto><C-a>   -description "Palemoon Incompatible Extensions (new tab)"
-\                 -ex tabopen https://addons.palemoon.org/incompatible/
-map <goto>;a      -description "Addons Directory (new tab)"
-\                 -ex tabopen file:///opt/ff-addons/
-map <goto>c       -description "about:config (new tab)"
-\                 -ex tabopen about:config
-map <goto>d       -description "Downloads (new tab)"
-\                 -b tabout:downloads<CR><C-z>
-map <goto>f       -description "about:about (new tab)"
-\                 -ex tabopen about:about
-map <goto>h       -description "Pentadactyl help (new tab)"
+map <goto>A       -description "Palemoon Extensions"
+\                 -count -js openOrSelectTab("https://addons.palemoon.org/extensions/", count?"here":"tab");
+map <goto><C-a>   -description "Palemoon Incompatible Extensions"
+\                 -count -js openOrSelectTab("https://addons.palemoon.org/incompatible/", count?"here":"tab");
+map <goto>;a      -description "Addons Directory"
+\                 -count -js openOrSelectTab("file:///opt/ff-addons/", count?"here":"tab");
+map <goto>c       -description "about:config (existing or new tab)"
+\                 -count -js openOrSelectTab("about:config", count?"here":"tab");
+map <goto>d       -description "Downloads"
+\                 -count -b openorselect about:downloads <count><CR><C-z>
+map <goto>D       -description "Pentadactyl Source"
+\                 -count -js openOrSelectTab("resource://dactyl/", count?"here":"tab");
+map <goto>f       -description "about:about"
+\                 -count -js openOrSelectTab("tabopen about:about", count?"here":"tab");
+map <goto>h       -description "Pentadactyl help"
 \                 -ex help
-map <goto>H       -description "Pentadactyl help - single page (new tab)"
+map <goto>H       -description "Pentadactyl help - single page"
 \                 -ex helpall
-map <goto>;h      -description "Pentadactyl help - index (new tab)"
-\                 -ex tabopen dactyl://help/index
-map <goto>i       -description "Profiles (new tab)"
-\                 -ex tabopen about:profiles
-map <goto>k       -description "places (new tab)"
-\                 -b tchrome://browser/content/places/places.xul<CR>gi<C-z>
-map <goto>K       -description "Bookmarks (new tab)"
-\                 -ex tabopen chrome://browser/content/bookmarks/bookmarksPanel.xul
-map <goto>N       -description "New Tab Page (new tab)"
+map <goto>;h      -description "Pentadactyl help - index"
+\                 -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+map <goto>i       -description "Profiles"
+\                 -count -js openOrSelectTab("about:profiles", count?"here":"tab");
+map <goto>k       -description "places"
+\                 -count -b :openorselect chrome://browser/content/places/places.xul <count><CR>gi<C-z>
+map <goto>K       -description "Bookmarks"
+\                 -count -js openOrSelectTab("chrome://browser/content/bookmarks/bookmarksPanel.xul", count?"here":"tab");
+map <goto>N       -description "New Tab Page"
 \                 -js newTabPage();
-map <goto>o       -description "/opt/ directory (new tab)"
-\                 -ex tabopen file:///opt
-map <goto>p       -description "Plugins (new tab)"
-\                 -ex tabopen about:plugins
+map <goto>o       -description "/opt/ directory"
+\                 -count -js openOrSelectTab("file:///opt", count?"here":"tab");
+map <goto>p       -description "Plugins"
+\                 -count -js openOrSelectTab("about:plugins", count?"here":"tab");
 :if isPalemoon
-    map <goto>P   -description "Preferences (new tab)"
-\                 -b tchrome://browser/content/preferences/preferences.xul<CR>
+    map <goto>P   -description "Preferences"
+\                 -count -js openOrSelectTab("tchrome://browser/content/preferences/preferences.xul", count?"here":"tab");
 :else
-    map <goto>P   -description "Preferences (new tab)"
-\                 -b tabout:preferences<CR><C-z>
+    map <goto>P   -description "Preferences"
+\                 -count -b openorselect about:preferences <count><CR><C-z>
 :endif
-map <goto>q       -description "Password manager (new tab)"
-\                 -ex tabopen chrome://passwordmgr/content/passwordManager.xul
-map <goto>r       -description "Session restore (new tab)"
-\                 -ex tabopen about:sessionrestore
-map <goto>s       -description "Support (new tab)"
-\                 -ex tabopen about:support
-map <goto>u       -description "/opt/userscripts/ directory (new tab)"
-\                 -ex tabopen file:///opt/userscripts
-map <goto>U       -description "/opt/userstyles/ directory (new tab)"
-\                 -ex tabopen file:///opt/userstyles
-map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory (new tab)"
-\                 -js dactyl.open(`file://${homedir}/.pentadactyl/gmscripts`, {where: 'tab'});
-map <goto>xc      -description "ChromEdit (new tab)"
-\                 -ex tabopen chrome://chromedit/content/ChromEdit.xul
-map <goto>xe      -description "Epub Catalog (new tab)"
-\                 -ex tabopen about:epubcatalog
-map <goto>xx      -description "XPCOM Viewer (new tab)"
-\                 -ex tabopen chrome://xpcomviewer/content/xpcomviewer.xul
-map <goto>`       -description "Home directory (new tab)"
-\                 -js dactyl.open(`file://${homedir}`, {where: 'tab'});
-map <goto>/       -description "Root directory (new tab)"
-\                 -ex tabopen file:///
+map <goto>q       -description "Password manager"
+\                 -count -js openOrSelectTab("chrome://passwordmgr/content/passwordManager.xul", count?"here":"tab");
+map <goto>r       -description "Session restore"
+\                 -count -js openOrSelectTab("about:sessionrestore", count?"here":"tab");
+map <goto>s       -description "Support"
+\                 -count -js openOrSelectTab("about:support", count?"here":"tab");
+map <goto>u       -description "/opt/userscripts/ directory"
+\                 -count -js openOrSelectTab("file:///opt/userscripts", count?"here":"tab");
+map <goto>U       -description "/opt/userstyles/ directory"
+\                 -count -js openOrSelectTab("file:///opt/userstyles", count?"here":"tab");
+map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
+map <goto>xc      -description "ChromEdit"
+\                 -count -js openOrSelectTab("chrome://chromedit/content/ChromEdit.xul", count?"here":"tab");
+map <goto>xe      -description "Epub Catalog"
+\                 -count -js openOrSelectTab("about:epubcatalog", count?"here":"tab");
+map <goto>xx      -description "XPCOM Viewer"
+\                 -count -js openOrSelectTab("chrome://xpcomviewer/content/xpcomviewer.xul", count?"here":"tab");
+map <goto>`       -description "Home directory"
+\                 -count -js openOrSelectTab("dactyl.open(`file://${homedir}`,", count?"here":"tab");
+map <goto>/       -description "Root directory"
+\                 -count -js openOrSelectTab("file:///", count?"here":"tab");
 
-map <goto>ea      -description "Addons"
-\                 -ex open about:addons
-map <goto>eA      -description "Palemoon Extensions"
-\                 -ex open https://addons.palemoon.org/extensions/
-map <goto>e<C-a>  -description "Palemoon Incompatible Extensions"
-\                 -ex open https://addons.palemoon.org/incompatible/
-map <goto>e;a     -description "Addons Directory"
-\                 -ex open file:///opt/ff-addons/
-map <goto>ec      -description "about:config"
-\                 -ex open about:config
-map <goto>ed      -description "Downloads"
-\                 -b oabout:downloads<CR><C-z>
-map <goto>ef      -description "about:about"
-\                 -ex open about:about
-map <goto>eh      -description "Pentadactyl help"
-\                 -ex open dactyl://help/intro
-map <goto>eH      -description "Pentadactyl help - single page"
-\                 -ex open dactyl://help/all
-map <goto>e;h     -description "Pentadactyl help - index"
-\                 -ex open dactyl://help/index
-map <goto>ei      -description "Profiles"
-\                 -ex open about:profiles
-map <goto>ek      -description "places"
-\                 -b ochrome://browser/content/places/places.xul<CR>gi<C-z>
-map <goto>eK      -description "Bookmarks"
-\                 -ex open chrome://browser/content/bookmarks/bookmarksPanel.xul
-map <goto>eo      -description "/opt/ directory"
-\                 -ex open file:///opt
-map <goto>eN      -description "New Tab Page"
-\                 -js newTabPage('here');
-map <goto>ep      -description "Plugins"
-\                 -ex open about:plugins
-:if isPalemoon
-    map <goto>eP  -description "Preferences"
-\                 -b ochrome://browser/content/preferences/preferences.xul<CR>
-:else
-    map <goto>eP  -description "Preferences"
-\                 -b oabout:preferences<CR><C-z>
-:endif
-map <goto>eq      -description "Password manager"
-\                 -ex open chrome://passwordmgr/content/passwordManager.xul
-map <goto>er      -description "Session restore"
-\                 -ex open about:sessionrestore
-map <goto>es      -description "Support"
-\                 -ex open about:support
-map <goto>eu      -description "/opt/userscripts/ directory"
-\                 -ex open file:///opt/userscripts
-map <goto>eU      -description "/opt/userstyles/ directory"
-\                 -ex open file:///opt/userstyles
-map <goto>e;u     -description "~/.pentadactyl/gmscripts/ directory"
-\                 -js dactyl.open(`file://${homedir}/.pentadactyl/gmscripts`, {where: 'here'});
-map <goto>exc     -description "ChromEdit"
-\                 -ex open chrome://chromedit/content/ChromEdit.xul
-map <goto>exe     -description "Epub Catalog"
-\                 -ex open about:epubcatalog
-map <goto>exx     -description "XPCOM Viewer"
-\                 -ex open chrome://xpcomviewer/content/xpcomviewer.xul
-map <goto>e`      -description "Home directory"
-\                 -js dactyl.open(`file://${homedir}`, {where: 'here'});
-map <goto>e/      -description "Root directory"
-\                 -ex open file:///
-
-map <goto>wa      -description "Addons (new window)"
-\                 -ex winopen about:addons
-map <goto>wA      -description "Palemoon Extensions (new window)"
-\                 -ex winopen https://addons.palemoon.org/extensions/
-map <goto>w<C-a>  -description "Palemoon Incompatible Extensions (new window)"
-\                 -ex winopen https://addons.palemoon.org/incompatible/
-map <goto>w;a     -description "Addons Directory (new window)"
-\                 -ex winopen file:///opt/ff-addons/
-map <goto>wc      -description "about:config (new window)"
-\                 -ex winopen about:config
-map <goto>wd      -description "Downloads (new window)"
-\                 -b wabout:downloads<CR><C-z>
-map <goto>wf      -description "about:about (new window)"
-\                 -ex winopen about:about
-map <goto>wh      -description "Pentadactyl help (new window)"
-\                 -ex winopen dactyl://help/intro
-map <goto>wH      -description "Pentadactyl help - single page (new window)"
-\                 -ex winopen dactyl://help/all
-map <goto>w;h     -description "Pentadactyl help - index (new window)"
-\                 -ex winopen dactyl://help/index
-map <goto>wi      -description "Profiles (new window)"
-\                 -ex winopen about:profiles
-map <goto>wk      -description "places (new window)"
-\                 -b wchrome://browser/content/places/places.xul<CR>gi<C-z>
-map <goto>wK      -description "Bookmarks (new window)"
-\                 -ex winopen chrome://browser/content/bookmarks/bookmarksPanel.xul
 map <goto>w;k     -description "Bookmarks Dialog"
 \                 -ex dialog bookmarks
 map <goto>wl      -description "Library Dialog (sticky)"
 \                 -ex librarysticky
-map <goto>wN      -description "New Tab Page (new window)"
-\                 -js newTabPage('window');
-map <goto>wo      -description "/opt/ directory (new window)"
-\                 -ex winopen file:///opt
-map <goto>wp      -description "Plugins  (new window)"
-\                 -ex winopen about:plugins
-:if isPalemoon
-    map <goto>wP  -description "Preferences (new window)"
-\                 -b wchrome://browser/content/preferences/preferences.xul<CR>
-:else
-    map <goto>wP  -description "Preferences (new window)"
-\                 -b wabout:preferences<CR><C-z>
-:endif
-map <goto>wq      -description "Password manager (new window)"
-\                 -ex winopen chrome://passwordmgr/content/passwordManager.xul
-map <goto>wr      -description "Session restore (new window)"
-\                 -ex winopen about:sessionrestore
-map <goto>ws      -description "Support (new window)"
-\                 -ex winopen about:support
-map <goto>wu      -description "/opt/userscripts/ directory (new window)"
-\                 -ex winopen file:///opt/userscripts
-map <goto>wU      -description "/opt/userstyles/ directory (new window)"
-\                 -ex winopen file:///opt/userstyles
-map <goto>w;u     -description "~/.pentadactyl/gmscripts/ directory (new window)"
-\                 -js dactyl.open(`file://${homedir}/.pentadactyl/gmscripts`, {where: 'window'});
-map <goto>wxc     -description "ChromEdit (new window)"
-\                 -ex winopen chrome://chromedit/content/ChromEdit.xul
-map <goto>wxe     -description "Epub Catalog (new window)"
-\                 -ex winopen about:epubcatalog
-map <goto>wxx     -description "XPCOM Viewer (new window)"
-\                 -ex winopen chrome://xpcomviewer/content/xpcomviewer.xul
-map <goto>w`      -description "Home directory (new window)"
-\                 -js dactyl.open(`file://${homedir}`, {where: 'window'});
-map <goto>w/      -description "Root directory (new window)"
-\                 -ex winopen file:///
-
-" Pentadactyl source
-map <goto>D -ex tabopen resource://dactyl/
 
 
 command! appcache
