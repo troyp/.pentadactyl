@@ -5596,6 +5596,8 @@ function ghCopyRepoLinkGit() {
 }
 function ghGetUserAndRepo(useronly=false) {
     // var url = ghGetCloneUrl("https");
+    if (buffer.URL.match(/https:\/\/github.com\/search/))
+        return [null, null];
     var regex = /[^:]+:\/\/(gist.)?github.com\/([^/]+)\/?([^/#?]+)?(\/.*)?/;
     var match = buffer.URL.match(regex);
     var user = match && match[2];
