@@ -1,7 +1,22 @@
 * Keybinding
     * A heirarchy of modes, with 18 "leaf" modes plus parent modes.
       Can be used to define keys in a wide variety of contexts.
-    * Ability to define pseudokeys, eg. <mypseudokey>.
+
+          base (
+            main (
+              command (
+                normal (caret, output multiline), text edit, visual),
+                embed,
+                input (
+                  command-line (
+                    ex, file input, find (find backward, find forward), hints, prompt, repl),
+                insert (autocomplete, input multiline),
+                menu)),
+            pass through,
+            quote),
+          operator
+
+    * Ability to define pseudokeys, eg. `<mypseudokey>`.
       Useful for abstraction and composition
     * Passthrough: `<pass-next-key>`, `<pass-all-keys>`
     * Access builtin dactyl bindings: `<pass-next-key-builtin>`
