@@ -778,7 +778,7 @@ map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
-    \ -count -js openOrSelectTab(`ochromeurl ${user.mybankurl}`, count?"here":"tab");
+    \ -ex ochromeurl ${user.mybankurl}
 " Diagrams: <leader>ad "
 map <leader>ada
     \ -description "Open AsciiFlow"
