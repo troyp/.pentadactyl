@@ -62,3 +62,20 @@
     * A file can conditionally execute ex commands based on the value of a
       javascript expression using `:if`, `:else`, `elseif` and `:endif`.
 
+* Hints
+    * Hints created through `hints.addMode()`, which takes 5 arguments:
+        * `__mode__   : string` - A unique string (normally a single letter)
+                     identifying the mode (used with `;`)
+            * note: multiletter modes don't work properly with
+                     the `extendedhinttags` list
+        * `__prompt__ : string` - The description displayed to the user
+        * `__action__ : function(Node)` - A function called on the matched element
+        * `__filter__ : function(Node) : boolean` - A predicate filtering the
+                       returned node set
+        * `__tags__   : string (optional)` - An array of CSS selectors and/or
+                       XPath expressions to be used as the default
+                       `extendedhinttags` value for this mode
+    * Hints triggered through `hints.show(hintmode)`
+    * __MISFEATURE:__ All hint modes must be associated with a string and included
+      under the `;` prefix binding. Multiletter mode names are not fully supported.
+      
