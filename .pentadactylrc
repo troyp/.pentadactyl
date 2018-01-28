@@ -7270,8 +7270,9 @@ function netflixSeek() {
 }
 function netflixPlayPause() {
     var playpause = content.document.querySelector('.player-play-pause');
+    var iconplay = content.document.querySelector('.icon-play');
     if (playpause) playpause.click();
-    else content.document.querySelector('.icon-play').click();
+    else if (iconplay) iconplay.click();
 }
 EOF
 
