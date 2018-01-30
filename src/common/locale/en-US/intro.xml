@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="dactyl://content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "dactyl://content/dtd">
+
+<document
+    name="intro"
+    title="&dactyl.appName; Introduction"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+
+<html:div style="text-align: center; clear: right; margin-bottom: -2.2em; padding-right: 4em;"><logo/></html:div>
+
+<h1 tag="intro">Introduction</h1>
+
+<p tag="intro-text"></p>
+
+<p tag="first-run">
+    If this is your first time running &dactyl.appName;, you may need some
+    time to adjust to the standard interface, which hides the menu,
+    navigation, and tool bars by default. If you find it uncomfortable to work
+    without them, you can re-enable them by typing
+</p>
+<set opt="guioptions" op="+="><str delim="">mT</str><k name="CR"/></set>
+<p>
+    If you have trouble remembering commands or keyboard shortcuts, you can
+    bring up this help page at any time by typing <ex>:help</ex>.  If you find
+    that you don't like &dactyl.appName; at all, you can disable it by typing
+    <ex>:extdisable <str delim="">&dactyl.appName;</str></ex> or delete it
+    entirely by typing <ex>:extdelete <str delim="">&dactyl.appName;</str></ex>
+</p>
+
+<h2 tag="overview">Help topics</h2>
+
+<ol tag="topics-list"></ol>
+
+<p>
+    You can also jump directly to the help of a specific command,
+    key mapping, or topic via the <ex>:help</ex> command.
+</p>
+
+<example><ex>:help :help</ex></example>
+
+<h2 tag="features">Features</h2>
+
+<ul tag="features-list"></ul>
+
+<h2 tag="official-plugins">Official Plugins</h2>
+
+<p>
+    In case you're not sufficiently overwhelmed by &dactyl.appName;'s default
+    feature set, don't despair. You can find more entertainment in the
+    officially supported (read: you can flame us when they stop working)
+    <link topic="&dactyl.plugins;">plugins</link>.
+</p>
+
+<h2 tag="contact bugs">Contact</h2>
+
+<p>
+    Please send comments, questions, or patches to the
+    <link topic="&dactyl.list.href;">mailing list</link>,
+    where we will do our best to answer any inquiries. You can also
+    find more information on the <link topic="&dactyl.home;">homepage</link>.
+    Issue reports can be entered in the
+    <link topic="&dactyl.issues;">issue tracker</link>.
+</p>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

@@ -1,0 +1,286 @@
+@namespace dactyl url("http://vimperator.org/namespaces/liberator");
+@namespace html url("http://www.w3.org/1999/xhtml");
+@namespace xul url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* Applied to all content */
+[dactyl|activeframe] {
+    -moz-binding: url(resource://dactyl-content/bindings.xml#frame) !important;
+}
+
+[dactyl|modifiable][dactyl|modifiable] {
+    -moz-user-input: enabled !important;
+}
+
+[dactyl|highlight~=hints] {
+    -moz-binding: url(resource://dactyl-content/bindings.xml#hints) !important;
+    position: static !important;
+}
+
+[dactyl|highlight~=HintImage],
+[dactyl|highlight~=Hint] {
+    z-index: 50000;
+    position: absolute !important;
+}
+input[type=file][dactyl|highlight~=HintActive],
+input[type=file][dactyl|highlight~=HintElem] {
+    opacity: 1 !important;
+}
+
+@-moz-document
+    url-prefix(dactyl:) {
+
+[dactyl|highlight~=HelpDefault] {
+    -moz-binding: url(resource://dactyl-content/bindings.xml#compitem-td);
+}
+[dactyl|highlight~=HelpDefault] > .td-span {
+    width: auto;
+}
+
+}
+
+/* Applied only to completion buffer and MOW */
+@-moz-document
+    url-prefix(dactyl:),
+    url-prefix(resource://dactyl) {
+
+*:-moz-loading, *:-moz-broken { display: none !important; }
+
+[dactyl|highlight~=Completions] {
+    width: 100%;
+    display: table;
+}
+[dactyl|highlight~=CompItem],
+[dactyl|highlight~=CompTitle] {
+    display: table-row;
+}
+[dactyl|highlight~=Completions] > ul {
+    display: table-row;
+}
+[dactyl|highlight~=CompItem] > *,
+[dactyl|highlight~=CompTitle] > * {
+    -moz-binding: url(resource://dactyl-content/bindings.xml#compitem-td);
+    display: table-cell;
+    vertical-align: middle;
+}
+
+[dactyl|highlight~=CompMsg] {
+    height: 1.5em;
+    line-height: 1.5em !important;
+}
+
+.completion-items-container {
+    overflow: hidden;
+}
+
+.td-span {
+    display: inline-block;
+    overflow: visible;
+    width: 0px;
+    height: 1.5em;
+    line-height: 1.5em !important;
+}
+.td-strut {
+    display: inline-block;
+    vertical-align: middle;
+    height: 16px;
+    width: 0px;
+}
+
+.times-executed, .time-average { color: green; }
+.time-total { color: red; }
+
+}
+
+@-moz-document
+    url-prefix(dactyl:),
+    url-prefix(resource://dactyl) {
+
+*:-moz-any-link {
+    color: green;
+}
+*:-moz-any-link:hover {
+    text-decoration: underline;
+}
+}
+
+/* Applied to completion buffer, MOW, browser window */
+@-moz-document
+    url-prefix(chrome:),
+    url-prefix(dactyl:),
+    url-prefix(resource:) {
+
+#TabsToolbar .tab-icon-image, .tab-throbber { -moz-box-ordinal-group: 10; }
+[dactyl|highlight~=tab-number]              { -moz-box-ordinal-group: 20; }
+.tab-text, .tab-label, .tab-close-button    { -moz-box-ordinal-group: 50; }
+
+[dactyl|highlight~=Bell] {
+    -moz-appearance: none !important;
+}
+window[dactyl|highlight~=Bell] > * {
+    opacity: 0 !important;
+}
+
+[dactyl|highlight~=CmdLine] {
+    color: inherit !important;
+}
+
+.dactyl-status-field-url {
+    color: inherit !important;
+}
+
+[dactyl|highlight~=CmdLine],
+[dactyl|highlight~=CmdLine] > [dactyl|highlight~=CmdLine] {
+    padding: 0px !important;
+}
+
+label[collapsed=true] {
+    height: 0px;
+    width: 0px;
+}
+
+.dactyl-container > * {
+    font-family: inherit;
+}
+
+.dactyl-completions {
+    -moz-user-focus: ignore;
+    border-width: 0px !important;
+    border-top: 1px solid black !important;
+}
+
+/* fixes the min-height: 22px from firefox */
+statusbarpanel {
+    -moz-appearance: none !important;
+    border: 0 !important;
+	min-height: 18px !important;
+    background: transparent;
+    text-shadow: inherit !important;
+}
+
+/* no longer at the window's bottom right corner */
+.statusbar-resizerpanel {
+    display: none;
+}
+#statusbar-display,
+#statusbar-progresspanel,
+#status-bar > #statusTextBox > #statusText {
+    display: none;
+    visibility: collapse;
+}
+
+#brower-bottombox > #addon-bar .toolbarbutton-1 > xul|dropmarker,
+#dactyl-addon-bar .toolbarbutton-1 > xul|dropmarker {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+#dactyl-addon-bar .toolbarbutton-1 > xul|dropmarker::after {
+    content: "▾";
+    color: white;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+#nav-bar {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.dactyl-commandline-prompt {
+    /* background-color: inherit; */
+    margin: 0px;
+    padding: 0px;
+}
+.dactyl-commandline-command {
+    /* background-color: inherit !important; */
+    color: inherit !important;
+    margin: 0px;
+}
+.dactyl-commandline-command html|*:focus {
+    outline-width: 0px !important
+}
+.dactyl-commandline-command .textbox-search-icons {
+    visibility: collapse !important;
+}
+#dactyl-message {
+    margin: 0px;
+}
+
+#sidebar {
+    max-width: 90% !important;
+    min-width: 10% !important;
+}
+
+/* MOW */
+
+#dactyl-commandline-prompt *,
+#dactyl-commandline-command {
+    font: inherit;
+}
+
+/* for Teledactyl's composer */
+#content-frame, #appcontent {
+    border: 0px;
+}
+
+}
+
+@-moz-document url(chrome://browser/content/browser.xul) {
+
+/* Fix ginormous Australis tabs. */
+[dactyl-australis=true] :-moz-any(xul|tab.tabbrowser-tab, .tabs-newtab-button)
+        .tab-background > * {
+    min-height: 24px !important;
+    max-height: 24px !important;
+}
+
+[dactyl-australis=true] :-moz-any(xul|tab.tabbrowser-tab, .tabs-newtab-button)
+    .tab-background > :-moz-any(.tab-background-start, .tab-background-end)::after {
+    background-size: 30px 24px !important;
+    max-height: 24px !important;
+    min-height: 24px !important;
+}
+
+[dactyl-australis=true] .tabbrowser-tabs {
+    min-height: 0 !important;
+    max-height: 24px !important;
+}
+
+/* Fix stupid line... */
+[dactyl-australis=true] #navigator-toolbox::after {
+    height: 0 !important;
+}
+
+#nav-bar-customization-target > .toolbarbutton-1 {
+    margin-top: -5px !important;
+    margin-bottom: -5px !important;
+}
+
+/*
+#PanelUI-button,
+#PanelUI-menu-button,
+#nav-bar-customization-target > .toolbarbutton-1,
+#nav-bar-customization-target > .toolbarbutton-1 > xul|toolbarbutton {
+    padding: 0 !important;
+}
+
+#nav-bar-customization-target > xul|toolbaritem > .toolbarbutton-1 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#nav-bar-customization-target > .toolbarbutton-1,
+#nav-bar-customization-target > .toolbarbutton-1 > xul|dropmarker > xul|image {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    max-height: 24px !important;
+}
+
+#nav-bar-customization-target #urlbar {
+    margin-bottom: 0 !important;
+}
+*/
+
+}
+
+/* vim: set fdm=marker sw=4 ts=4 et: */

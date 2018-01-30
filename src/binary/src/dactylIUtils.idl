@@ -1,0 +1,38 @@
+/* Public Domain */
+
+#include "nsISupports.idl"
+#include "nsIDOMElement.idl"
+
+%{C++
+#include "jsapi.h"
+%}
+
+
+[scriptable, uuid(d8ef4492-8f4a-4f5d-8f19-1d71f7f895ed)]
+interface dactylIUtils : nsISupports
+{
+    const PRUint32 DIRECTION_HORIZONTAL = 1 << 0;
+    const PRUint32 DIRECTION_VERTICAL   = 1 << 1;
+
+    [implicit_jscontext]
+    jsval createGlobal();
+
+    [implicit_jscontext]
+    jsval evalInContext(in AString source,
+                        in jsval target,
+                        [optional] in ACString filename,
+                        [optional] in PRInt32 lineNumber);
+
+    void createContents(in nsIDOMElement element);
+
+    [implicit_jscontext]
+    jsval getGlobalForObject(in jsval object);
+
+    PRUint32 getScrollable(in nsIDOMElement element);
+
+    void loadSubScript (in wstring url
+                        /* [optional] in jsval context, */
+                        /* [optional] in wstring charset */);
+};
+
+/* vim:se sts=4 sw=4 et ft=idl: */

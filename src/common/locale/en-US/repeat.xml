@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="dactyl://content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "dactyl://content/dtd">
+
+<document
+    name="repeat"
+    title="&dactyl.appName; Repeating Commands"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+
+<h1 tag="repeating">Repeating commands</h1>
+<toc start="2"/>
+
+<p>
+    &dactyl.appName; can repeat commands in a number of ways, from repeating
+    the last command, to recording and playing macros, to saving its state and
+    executing scripts.
+</p>
+
+<h2 tag="single-repeat">Single repeats</h2>
+
+<item>
+    <tags>&lt;repeat-key> .</tags>
+    <strut/>
+    <spec><oa>count</oa>.</spec>
+    <description>
+        <p>
+            Repeat the last keyboard mapping <oa>count</oa> times. Note that,
+            unlike in Vim, this also applies to other than editing commands.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>@:</tags>
+    <strut/>
+    <spec><oa>count</oa>@:</spec>
+    <description>
+        <p>Repeat the last Ex command <oa>count</oa> times.</p>
+    </description>
+</item>
+
+<h2 tag="macros complex-repeat">Macros</h2>
+
+<item>
+    <tags>&lt;record-macro> q</tags>
+    <strut/>
+    <spec>q<a>a-zA-Z</a></spec>
+    <description>
+        <p>
+            Record a key sequence as a macro. Available macros are
+            <a>a-zA-Z</a>. If the macro is an uppercase letter, the
+            recorded keys are appended to the lowercase macro of the same
+            name. Typing <k>q</k> again stops the recording.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:macros</tags>
+    <spec>:mac<oa>ros</oa> <oa>pat</oa></spec>
+    <description>
+        <p>
+            List recorded macros matching the optional regular expression
+            <oa>pat</oa>. If no regexp is given, list all macros.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:delmac :delmacros</tags>
+    <spec>:delmac<oa>ros</oa> <a>pat</a></spec>
+    <spec>:delmac<oa>ros</oa>!</spec>
+    <description>
+        <p>
+            Delete recorded macros matching the regular expression
+            <a>pat</a>. If <em>!</em> is given, all macros are deleted.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>&lt;play-macro> @</tags>
+    <spec><oa>count</oa>@<a>a-z</a></spec>
+    <description>
+        <p>
+            Plays the contents of macro with name <a>a-z</a> <oa>count</oa>
+            times.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>@@</tags>
+    <spec><oa>count</oa>@@</spec>
+    <description short="true">
+        <p>Replay the last executed macro <oa>count</oa> times.</p>
+    </description>
+</item>
+
+<h2 tag="macro-utilities">Macro utilities</h2>
+
+<p>
+    The following key bindings facilitate the recording of efficient
+    macros. They have no effect when typed normally, but are
+    recorded and take effect during macro playback.
+</p>
+
+<item>
+    <tags><![CDATA[<sleep> <A-m>s]]></tags>
+    <spec><a>count</a><![CDATA[<A-m>s]]></spec>
+    <description short="true">
+        <p>
+            Sleep for <a>count</a> milliseconds before resuming playback.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags><![CDATA[<wait-for-page-load> <A-m>l]]></tags>
+    <strut/>
+    <spec><oa>count</oa><![CDATA[<A-m>l]]></spec>
+    <description>
+        <p>
+            Wait for the current page to finish loading before resuming
+            playback. If <oa>count</oa> is given, wait no more than
+            <oa>count</oa> seconds. Otherwise wait no more than 25 seconds.
+        </p>
+    </description>
+</item>
+
+
+<h2 tag="group groups">Groups</h2>
+
+<p>
+    In order to facilitate script writing, especially scripts which only
+    apply to certain web sites, many types of commands and mappings can
+    be assigned to a named group. In addition to helping identify the
+    source of such mappings in listings, and aiding in the cleanup of
+    scripts, these groups can be configured to apply only to certain web
+    sites.
+</p>
+
+<item>
+    <tags>:gr :group</tags>
+    <spec>:gr<oa>oup</oa></spec>
+    <description>
+        <p>List all active <t>groups</t>.</p>
+    </description>
+</item>
+
+<item>
+    <spec>:gr<oa>oup</oa><oa>!</oa> <a>group</a> …</spec>
+    <description>
+        <p>
+            Select, create, or modify a <t>group</t>. After invocation,
+            <a>group</a> becomes the default group for all further commands
+            issued in the current script. If <oa>!</oa> is given the group is
+            cleared of all mappings, commands, and any other entries bound to
+            it before making the specified additions (if any).
+        </p>
+
+        <p>The following <a>group</a> names have special meanings:</p>
+
+        <dl>
+            <dt>builtin</dt> <dd>The default group for builtin items. Can not be modified in any way by scripts.</dd>
+            <dt>default</dt> <dd>The default group for the script containing this <tt>:group</tt> command.</dd>
+            <dt>user</dt> <dd>The default group for the command line and <t>&dactyl.name;rc</t>.</dd>
+        </dl>
+
+        <p>The following arguments are available:</p>
+
+        <dl>
+            <dt>-args=<a>javascript</a></dt> <dd>JavaScript Object which
+                augments the arguments passed to commands, mappings, and
+                autocommands, e.g., given <str delim="">{ foo: "bar" }</str>,
+                <tt>foo</tt> (<tt>&lt;foo></tt> if the Ex syntax is used) will
+                be replaced by <str delim="">bar</str> inside the definitions
+                (short name: <em>-a</em>)</dd>
+            <dt>-description</dt> <dd>A description of this group (short names: <em>-desc</em>, <em>-d</em>)</dd>
+            <dt>-locations=<a>filters</a></dt> <dd>The URLs for which this
+                group should be active. See <t>site-filters</t> (short names:
+                <em>-locs</em>, <em>-loc</em>, <em>-l</em>)</dd>
+            <dt>-nopersist</dt> <dd>Do not save this group to an auto-generated RC file (short name: <em>-n</em>)</dd>
+        </dl>
+    </description>
+</item>
+
+<item>
+    <tags>:delgr :delgroup</tags>
+    <spec>:delgr<oa>oup</oa> <a>group</a></spec>
+    <spec>:delgr<oa>oup</oa>!</spec>
+    <description>
+        <p>
+            Delete the specified <a>group</a>. With <oa>!</oa> delete all
+            user groups.
+        </p>
+    </description>
+</item>
+
+<h2 tag="site-filter site-filters">Site Filters</h2>
+
+<p>
+    Many &dactyl.appName; commands accept filters so that they may be applied
+    only to specific sites. Most of these commands accept filters in any of the
+    following formats:
+</p>
+
+<dl>
+    <dt>domain</dt>
+    <dd>
+        Any filter which is a valid domain name will match any site on that
+        domain or any sub-domain thereof. These filters may contain any letter
+        of the Roman alphabet, Arabic numerals, hyphens, and full stops.
+        Non-Latin domain names must be punycode encoded.
+    </dd>
+
+    <dt>URL prefix</dt>
+    <dd>
+        Any URL beginning with a valid protocol name and ending with a
+        <tt>*</tt> is treated as a URL prefix. It will match any URL which
+        begins with the given filter sans the trailing asterisk.
+    </dd>
+
+    <dt>Full URL</dt>
+    <dd>
+        Any URL beginning with a valid protocol name and not ending with an
+        asterisk is treated as a full URL match. It will match any page which
+        has a URL identical to the filter.
+    </dd>
+
+    <dt>Regular expression</dt>
+    <dd>
+        Any filter which does not fall into one of the above categories is
+        treated as a case-sensitive regular expression.
+    </dd>
+</dl>
+
+<p>
+    In most cases, any of the above may be prefixed with a <tt>!</tt> character
+    to exclude matching sites.
+</p>
+
+<h2 tag="using-scripts">Using scripts</h2>
+
+<item>
+    <tags>:so :source</tags>
+    <spec>:so<oa>urce</oa><oa>!</oa> <a>file</a></spec>
+    <description>
+        <p>
+            Read Ex commands, JavaScript, or CSS from <a>file</a>. Files are
+            interpreted based on their extensions. Files which end in
+            <em>.js</em> are executed as JavaScript, while those ending in
+            <em>.css</em> are loaded as Cascading Stylesheets, and anything
+            else is interpreted as Ex commands. In normal cases, any errors
+            generated by the execution or non-existence of <a>file</a> are
+            printed to the <t>command-line</t> area.  When <oa>!</oa> is
+            provided, these are suppressed.
+        </p>
+
+        <p>
+            Environment variables in <a>file</a> are expanded to their current
+            value, and the prefix <em>~</em> is replaced with the value of
+            <em>$HOME</em>. See <t>expand-env</t> and <t>initialization</t>
+            for more information.
+        </p>
+
+        <h3 tag=":source-contexts">Script Contexts</h3>
+
+        <p>
+            Each script executes in its own JavaScript context. This means that
+            any global variable or function, including those defined by
+            <ex>:javascript</ex> and the <tt>-javascript</tt> flag of
+            <ex>:map</ex>, <ex>:command</ex>, and <ex>:autocmd</ex>,
+            is directly available only within the current script. Outside of the
+            current script, they can only be accessed as properties of the
+            script's global object, which is stored in the <tt>plugins</tt>
+            global under the script's full path.
+        </p>
+
+        <h3 tag=":source-groups">Script Groups</h3>
+
+        <p>
+            In addition to its own JavaScript context, each script is executed
+            with its own default <link topic="groups">group</link> into which
+            its styles, mappings, commands, abbreviations and autocommands are
+            placed. This means that commands such as <ex>:delcommand!</ex> can
+            be issued without fear of trampling other user-defined mappings.
+            The command <ex>:group! default</ex> can be issued to clear all
+            such items at once, and should be placed at the head of most
+            scripts to prevent the accumulation of stale items when the script
+            is re-sourced.
+        </p>
+
+        <h3 tag=":source-css">Cascading Stylesheets</h3>
+
+        <p>
+            When a CSS file is sourced, its contents are applied to every web
+            page and every chrome document, including all browser windows and
+            dialogs. If the same file is sourced more than once, its previous
+            rules are cleared before it is applied again. Rules can be
+            restricted to specific documents by enclosing them in
+            <link topic="https://developer.mozilla.org/en/CSS/@-moz-document">@-moz-document</link>
+            blocks.
+        </p>
+
+        <h3 tag=":source-javascript">JavaScript</h3>
+
+        <p>
+            JavaScript files are executed with full chrome privileges in their
+            own global namespaces. These namespaces are stored as objects in
+            the <em>plugins</em> object, in the property named after the full
+            path of the sourced file. This means that any variables or
+            functions created by your script are stored as properties of that
+            object. Additionally, all properties of the global <em>window</em>
+            and <em>modules</em> objects are accessible to your script as
+            global variables.
+        </p>
+
+        <p>
+            Files in <em>~/.&dactyl.name;/plugins</em> may additionally be
+            accessed in <em>plugins.<a>filename</a></em> where <a>filename</a>
+            is the last component of the file's path stripped of any
+            extensions, with all hyphens stripped and any letter following a
+            hyphen capitalized.  So, the file
+            <em>~/.&dactyl.name;/plugins/foo-bar.js</em> may be accessed as
+            <em>plugins.fooBar</em>. See also <t>writing-plugins</t>.
+        </p>
+
+        <h3 tag=":source-ex">Ex commands</h3>
+
+        <p>
+            Ex command files are executed as if each line were entered into
+            the &tag.command-line; individually.
+            Additionally, certain commands support the same ‘here document’
+            syntax supported by most Unix shells and by the &tag.command-line;.
+            So, to execute a JavaScript statement which does not comfortably fit
+            on a single line, you can use:
+        </p>
+
+        <code><ex>:js</ex> &lt;&lt;<em>EOF</em>
+<kwd><hl key="Object">var</hl></kwd> hello = <kwd>function</kwd> () {
+    alert(<str>Hello world</str>);
+}
+<em>EOF</em></code>
+
+        <p>See also <t>ex-scripts</t> below.</p>
+    </description>
+</item>
+
+
+<item>
+    <tags>:lpl :loadplugins</tags>
+    <strut/>
+    <spec>:loadplugins[!] <oa>pattern</oa> …</spec>
+    <description>
+        <p>
+            Immediately load all plugins which have yet to be loaded. Because
+            plugins are not automatically loaded until after <tt><t>&dactyl.name;rc</t></tt>
+            is sourced, this command must be placed early in the
+            <tt>&dactyl.name;rc</tt> file if <tt>&dactyl.name;rc</tt> uses commands or options
+            which are defined by plugins. Additionally, this command allows
+            newly installed plugins to be easily loaded without restarting
+            &dactyl.appName;. See also <o>loadplugins</o>.
+        </p>
+        <p>
+            If <oa>pattern</oa>s are provided, the given regular expressions are
+            used as filters rather than those in <o>loadplugins</o>.
+        </p>
+        <p>
+            If <oa>!</oa> is given the plugins are forcibly loaded.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>:runt :runtime</tags>
+    <spec>:runt<oa>ime</oa><oa>!</oa> <a>file</a> …</spec>
+    <description>
+        <p>
+            Source the specified file from the first directory in
+            <o>runtimepath</o> in which it exists. When <oa>!</oa> is given,
+            source the file from all directories in <o>runtimepath</o> in
+            which it exists.
+        </p>
+        <example><ex>:runtime plugins/foobar.js</ex></example>
+    </description>
+</item>
+
+<item>
+    <tags>:scrip :scriptnames</tags>
+    <spec>:scrip<oa>tnames</oa></spec>
+    <description>
+        <p>List all sourced script names, in the order they were first sourced.</p>
+    </description>
+</item>
+
+<item>
+    <tags>:fini :finish</tags>
+    <strut/>
+    <spec>:fini<oa>sh</oa></spec>
+    <description>
+        <p>
+            Stop sourcing a script file. This can only be called from within a
+            &dactyl.appName; script file.
+        </p>
+    </description>
+</item>
+
+<h3 tag="ex-scripts">Ex Command Scripts</h3>
+
+<p>
+    Ex command scripts are similar to both entering commands on the
+    &tag.command-line; and to Vim
+    scripts, but with some notable differences.
+</p>
+
+<p tag="multiline-commands">
+    Commands in Ex command scripts can span multiple lines by
+    prefixing the second and further lines with a <em>\</em>
+    character. For instance, the following all define commands whose
+    definitions span multiple lines.
+</p>
+
+<code><ex>:command!</ex> <str delim="">foo</str>
+        \ <em>-description</em> <str>A command that frobs bars</str>
+        \ <ex>:javascript</ex> frob(content.bar)</code>
+
+<code><ex>:style</ex> <em>-name</em> <str delim="'">foo</str>
+     \ <str delim="'">foobar.com</str>
+     \ p<str delim="">:first-line</str> { <em>font-variant</em>: <str delim="">small-caps</str>; }
+     \ div<em>#side-bar</em> > <str delim="">:first-child</str> { <em>display</em>: <str delim="">none</str>; }</code>
+
+<code><ex>:command!</ex> <str delim="">do-some-stuff</str>
+        \ <em>-description</em> <str>A command which does some stuff in JavaScript</str>
+        \ <ex>:javascript</ex> &lt;&lt;<em>EOF</em>
+        \     window.do(<str>some</str>);
+        \     window.do(<str>stuff</str>);
+        \<em>EOF</em></code>
+
+<code><ex>:command!</ex> <str delim="">do-some-stuff</str>
+        \ <em>-description</em> <str>A command which does some stuff in JavaScript</str>
+        \ <ex>:javascript</ex>
+        \\    window.do(<str>some</str>);
+        \\    window.do(<str>stuff</str>);</code>
+
+<p tag="comments">
+    Lines may be commented out by prefixing them with a <em>"</em>
+    character. Comments and commands cannot both occur in a single command
+    line.
+</p>
+
+<code>            <hl style="color: #444">" This is a comment</hl>
+    foo bar " This is a syntax error
+            <str> This is not a comment</str>
+    foo bar <str> This is not a comment</str>
+</code>
+
+<h2 tag="profile profiling">Profiling</h2>
+
+<item>
+    <tags>:time</tags>
+    <spec>:<oa>count</oa>time<oa>!</oa> <a>code|:command</a></spec>
+    <description>
+        <p>
+            Profile a piece of JavaScript code or an Ex command. Run
+            <a>code</a> <oa>count</oa> times and print the elapsed time.
+            If <a>code</a> begins with a <ex>:</ex>, it is executed as an Ex
+            command. Otherwise, it is executed as JavaScript, in which case it
+            is evaluated only once and stored as a function which is executed
+            <oa>count</oa> times.
+        </p>
+
+        <p>
+            When <oa>!</oa> is given, <a>code</a> is executed <oa>count</oa>
+            times, but no statistics are printed.
+        </p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

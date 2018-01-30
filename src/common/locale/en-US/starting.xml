@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="dactyl://content/help.xsl"?>
+
+<!DOCTYPE document SYSTEM "dactyl://content/dtd">
+
+<document
+    name="starting"
+    title="&dactyl.appName; Starting"
+    xmlns="&xmlns.dactyl;"
+    xmlns:html="&xmlns.html;">
+
+<h1 tag="starting">Starting &dactyl.appName;</h1>
+<toc start="2"/>
+
+<h2 tag="startup-options">Command-line options</h2>
+
+<p>
+    Command-line options can be passed to &dactyl.appName; via the <em>-&dactyl.name;</em> &dactyl.host;
+    option. These are passed as single string argument.
+    E.g., <tt>&dactyl.hostbin; -&dactyl.name; <str><t>++cmd</t> 'set exrc' <t>+u</t> 'tempRcFile' <t>++noplugin</t></str></tt>
+</p>
+
+<p>
+    The <em>-&dactyl.name;-remote</em> command-line option can be used to
+    execute a single Ex command in an already running Pentadactyl instance.
+</p>
+
+<item>
+    <tags>+c</tags>
+    <strut/>
+    <spec>+c <a>command</a></spec>
+    <description>
+        <p>
+            Execute a single Ex command after all initialization has been performed. See
+            <t>initialization</t>.
+        </p>
+
+        <p>This option can be specified multiple times.</p>
+    </description>
+</item>
+
+<item>
+    <tags>++cmd</tags>
+    <strut/>
+    <spec>++cmd <a>command</a></spec>
+    <description>
+        <p>
+            Execute a single Ex command before any initialization has been performed. See
+            <t>initialization</t>.
+        </p>
+
+        <p>This option can be specified multiple times.</p>
+    </description>
+</item>
+
+<item>
+    <tags>+u</tags>
+    <strut/>
+    <spec>+u <a>rcfile</a></spec>
+    <description>
+        <p>
+            The file <a>rcfile</a> is used for user initialization commands. If <a>rcfile</a> is
+            <str>NORC</str> then no startup initialization is performed except for the loading of
+            plugins, i.e., steps 1. and 2. in <t>initialization</t> are skipped. If <a>rcfile</a>
+            is <str>NONE</str> then plugin loading is also skipped.
+        </p>
+    </description>
+</item>
+
+<item>
+    <tags>++noplugin</tags>
+    <strut/>
+    <spec>++noplugin</spec>
+    <description>
+        <p>Prevents plugin scripts from being loaded at startup. See <o>loadplugins</o>.</p>
+    </description>
+</item>
+
+<item>
+    <tags>+purgecaches</tags>
+    <strut/>
+    <spec>+purgecaches</spec>
+    <description>
+        <p>
+            Purges &dactyl.appName; caches at startup. May occasionally be
+            necessary after making local changes to the source tree.
+        </p>
+    </description>
+</item>
+
+<h2 tag="initialization startup">Initialization</h2>
+
+<p>At startup, &dactyl.appName; completes the following tasks in order. </p>
+
+<ol>
+    <li>
+        <p>
+            &dactyl.appName; first searches for user initialization commands in
+            the following locations. The first of these to be found is executed,
+            after which no further locations are searched.
+        </p>
+
+        <ol>
+            <li tag="$&dactyl.idName;_INIT">
+                <em>$&dactyl.idName;_INIT</em>
+                <strut/>
+                May contain a single Ex command (e.g., "<ex>:source <a>file</a></ex>").
+            </li>
+            <li tag="$MY_&dactyl.idName;RC">
+                <em>~/_&dactyl.name;rc</em>
+                <strut/>
+                Windows only. If this file exists, its contents
+                are executed and <tt>$MY_&dactyl.idName;RC</tt> set to its path.
+            </li>
+            <li tag="&dactyl.name;rc ">
+                <em>~/.&dactyl.name;rc</em>
+                <strut/>
+                If this file exists, its contents are executed.
+            </li>
+        </ol>
+    </li>
+    <li>
+        <p>
+            If <o>exrc</o> is set and the <t>+u</t> command-line option was not
+            specified, then any RC file in the current directory is also
+            sourced.
+        </p>
+    </li>
+    <li>
+        <p>
+            All directories in <o>runtimepath</o> are searched for a
+            ‘plugins’ subdirectory and all yet unloaded plugins are loaded.
+            For each plugins directory, all <tt>*.{js,&dactyl.fileExt;}</tt>
+            files (including those in further subdirectories) are sourced
+            alphabetically. No plugins will be sourced if,
+        </p>
+
+        <ul>
+            <li><o>loadplugins</o> is unset,</li>
+            <li>the <t>++noplugin</t> command-line option was specified, or</li>
+            <li>the <tt><t>+u</t>=NONE</tt> command-line option was specified.</li>
+        </ul>
+
+        <p>
+            Any plugin which was already loaded (e.g., by an earlier
+            invocation of the <ex>:loadplugins</ex> command) will be skipped.
+        </p>
+    </li>
+</ol>
+
+<p>
+    The user's home directory is determined as follows:
+</p>
+
+<ul>
+    <li>On Unix and Mac, the environment variable <tt>$HOME</tt> is used.</li>
+    <li>
+        On Windows, &dactyl.appName; checks for the existence of
+        <tt>%HOME%</tt>, then <tt>%USERPROFILE%</tt>, and then
+        <tt>%HOMEDRIVE%%HOMEPATH%</tt>. It uses the first one it
+        finds.
+    </li>
+</ul>
+
+<h2 tag="save-settings">Saving settings</h2>
+
+<item>
+    <tags>:mkp :mk&dactyl.name;rc</tags>
+    <spec>:mkp<oa>entadactylrc</oa><oa>!</oa> <oa>file</oa></spec>
+    <description>
+        <p>
+            Write current key mappings and changed options to <oa>file</oa>. If no
+            <oa>file</oa> is specified then <em>~/.&dactyl.name;rc</em> is written unless this file
+            already exists. The special version <ex>:mk&dactyl.name;rc!</ex> will overwrite
+            <oa>file</oa> if it exists.
+        </p>
+
+        <warning>
+            This behavior differs from that of Vim, which defaults to
+            writing the file in the current directory.
+        </warning>
+    </description>
+</item>
+
+<h2 tag="restarting">Restarting</h2>
+
+<item>
+    <tags>:reh :rehash</tags>
+    <spec>:reh<oa>ash</oa> <oa>arg</oa> …</spec>
+    <description>
+        <p>
+            Reload the &dactyl.appName; add-on, including all code, plugins,
+            and configuration. For users running directly from the development
+            repository, this is a good way to update to the latest version or
+            to test your changes.
+        </p>
+
+        <p>
+            Any arguments supplied are parsed as command-line arguments as
+            specified in <t>startup-options</t>.
+        </p>
+
+        <warning>
+            Not all plugins are designed to cleanly un-apply during a rehash.
+            While official plugins are safe, beware of possible instability
+            if you rehash while running third-party plugins.
+        </warning>
+    </description>
+</item>
+
+<item>
+    <tags>:res :restart</tags>
+    <spec>:res<oa>tart</oa> <oa>arg</oa> …</spec>
+    <description short="true">
+        <p>Force &dactyl.host; to restart. Useful when installing extensions.</p>
+
+        <p>
+            Any arguments supplied are parsed as command-line arguments as
+            specified in <t>startup-options</t>.
+        </p>
+    </description>
+</item>
+
+</document>
+
+<!-- vim:se sts=4 sw=4 et: -->

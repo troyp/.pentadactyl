@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="resource://dactyl-local-skin/about.css" type="text/css"?>
+<!DOCTYPE page SYSTEM "dactyl://content/dtd">
+
+<page id="about-&dactyl.name;" orient="vertical" title="About &dactyl.appName;"
+      xmlns="&xmlns.xul;" xmlns:html="&xmlns.html;">
+
+  <html:link rel="icon" href="resource://dactyl-local-skin/icon.png"
+             type="image/png" style="display: none;"/>
+
+  <spring flex="1"/>
+  <hbox>
+    <spring flex="1"/>
+      <div xmlns="&xmlns.html;" style="text-align: center" id="text-container">
+<img src="chrome://&dactyl.name;/content/logo.png" alt="&dactyl.appName;" />
+
+version &dactyl.version;
+by Kris Maglione, Doug Kearns, et al.
+&dactyl.appName; is open source and freely distributable
+
+type :q&lt;<span class="key">Enter</span>>                 to exit         <!---->
+type :help&lt;<span class="key">Enter</span>>              for on-line help
+type :help faq&lt;<span class="key">Enter</span>>          for the FAQ page
+type :help versions&lt;<span class="key">Enter</span>>     for version info
+      </div>
+    <spring flex="1"/>
+  </hbox>
+  <spring flex="1"/>
+</page>
+
+<!-- vim: set sw=2 sts=2 et: -->
