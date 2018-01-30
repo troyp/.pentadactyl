@@ -5498,6 +5498,7 @@ map <site>yU       -description "Yank user name" -js ghCopyUser();
 map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
 map <site>*        -description "Star/Unstar repo" -js content.document.querySelector('form.starred .btn').click();
+map <site>/ -ex ghfilefinder
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -5508,7 +5509,6 @@ command! ghgotolines -nargs=+ -js ghGgoToLines(args);
 command! ghlistrepos -js var u = ghGetUser(); dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
 
 command! ghfilefinder -js ghFileFinder();
-map <site>/ -ex ghfilefinder
 
 command! ghsavethisreadmetodoc
     \ -description "Download README for current repo to /opt/doc/"
