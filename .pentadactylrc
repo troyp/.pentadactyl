@@ -8622,12 +8622,12 @@ function openInNewOrCurrentTab(site) {
 }
 
 function openOrSelectTab(url, where='tab') {
-    var alltabs = Array.from(tabs.allTabs);
-    var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(url));
-    if (existingTab)
-        tabs.select(existingTab);
-    else
-        dactyl.open(url, {where: where});
+    if (url) {
+        var alltabs = Array.from(tabs.allTabs);
+        var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(url));
+        if (existingTab) tabs.select(existingTab);
+        else dactyl.open(url, {where: where});
+    }
 }
 
 function foreachElement(f, top=content.document) {
