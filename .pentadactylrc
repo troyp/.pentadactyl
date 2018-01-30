@@ -5442,7 +5442,7 @@ map <goto>gh :tabopen https://github.com/troyp?tab=repositories
 map <goto>gH :open https://github.com/troyp?tab=repositories
 
 " ===== GROUP START =====
-group github -locations=github.com,githubusercontent.com,rawgit.com
+group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com
 
 map <site>c        -description "Click README.md" -js ghClickReadme();
 map <site>f        -description "Fork repo" -js ghFork();
@@ -5468,6 +5468,10 @@ map <site>og       -description "Open gists" -js openOrSelectTab('https://gist.g
 map <site>o        -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc       -description "Open code"
 \                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}`, count?"tab":"here");
+map <site>od       -description "Open PR patch"
+\                  -count -js openOrSelectTab(`${ghprGetPatchURL()}`, count?"tab":"here");
+map <site>oD       -description "Open PR diff"
+\                  -count -js openOrSelectTab(`${ghprGetDiffURL()}`, count?"tab":"here");
 map <site>oh       -description "Open help" -count -js ghOpenHelp(count?"here":"tab");
 map <site>oi       -description "Open issues"
 \                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, count?"tab":"here");
@@ -5614,6 +5618,34 @@ function ghGetWikiURL() {
 function ghGetWikiGitURL() {
     [user, repo] = ghGetUserAndRepo();
     return `https://github.com/${user}/${repo}.wiki.git`;
+}
+
+function ghprGetPatchURL() {
+    var url = buffer.URL
+    var regex = /https:\/\/github.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/;
+    var match = url.match(regex);
+    if (match) {
+        return `https://github.com/${match[1]}/${match[2]}/pull/${3}.patch`;
+    } else {
+        var patchRegex = /https:\/\/patch-diff.githubusercontent.com\/raw\/[^/]+\/[^/]+\/pull\/\d+.diff/;
+        var patchMatch = url.match(patchRegex);
+        if (patchMatch) return url.replace(/\.diff$/, ".patch");
+        else return url;
+    }
+}
+
+function ghprGetDiffURL() {
+    var url = buffer.URL
+    var regex = /https:\/\/github.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/;
+    var match = url.match(regex);
+    if (match) {
+        return `https://github.com/${match[1]}/${match[2]}/pull/${3}.diff`;
+    } else {
+        var patchRegex = /https:\/\/patch-diff.githubusercontent.com\/raw\/[^/]+\/[^/]+\/pull\/\d+.patch/;
+        var patchMatch = url.match(patchRegex);
+        if (patchMatch) return url.replace(/\.patch$/, ".diff");
+        else return url;
+    }
 }
 
 function ghCopyUserAndRepo() {
