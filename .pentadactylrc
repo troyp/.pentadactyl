@@ -8105,7 +8105,7 @@ function wpGotoPreviousHeading() {
 }
 function wpGetSections() {
     return wpGetContents().map(
-        e => [ S.padEnd(e.innerText.match(/[0-9.]+/)[0], 10, '…') + e.href.replace(/[^#]+#/, ''), '' ]);
+        e => [ decodeURIComponent(S.padEnd(e.innerText.match(/[0-9.]+/)[0], 10, "…") + e.href.replace(/[^#]+#/, "")), "" ]);
 }
 
 function wpGetTopic() {
