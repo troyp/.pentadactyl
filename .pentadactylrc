@@ -8654,6 +8654,7 @@ function openInNewOrCurrentTab(site) {
 }
 
 function openOrSelectTab(url, where='tab') {
+    /* note: doesn't work when pending tabs are present */
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
         var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(url));
