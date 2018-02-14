@@ -777,6 +777,16 @@ map <leader>mS -js openHTML(getSelectionHtml(), 'here');
 " '----------------------' '-----------'
 map <leader>a      -js CommandExMode().open("showkeys <leader>a")
 map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
+" Misc Accounts: <leader>aa "
+map <leader>aa      -js CommandExMode().open("showkeys <leader>aa");
+map <leader>aa<C-h> -js CommandExMode().open("showkeys <leader>aa");
+" ...Packt: "
+map <leader>aapf
+    \ -description "Open Packt Free Learning"
+    \ -count -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1");
+map <leader>aapl
+    \ -description "Open Packt Library"
+    \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
