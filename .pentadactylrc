@@ -569,7 +569,7 @@ map <browser>x -description "Maximize/Remaximize window"            -js window.r
 map <browser>. -description "Stop loading"                          -js BrowserStop();
 map <C-x>h     -description "Select all text"                       -modes normal -b iGvggy
 map <C-x><C-c> -description "Quit browser"    -modes base  -ex quitall
-map <C-x><C-x> -description "Restart browser" -modes base  -ex restart
+map <C-x><C-x> -description "Restart browser" -modes normal,visual,menu -ex restart
 map <C-x>;     -description "Command-line: Hide messages"           -modes base   -b :<Esc>
 map <C-x>:     -description "Command-line: Hide and clear messages" -modes base   -b :messclear<Cr>
 map gR         -description "Redraw screen"                         -ex redraw
