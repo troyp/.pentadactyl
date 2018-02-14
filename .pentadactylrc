@@ -575,6 +575,8 @@ map <C-x>:     -description "Command-line: Hide and clear messages" -modes base 
 map gR         -description "Redraw screen"                         -ex redraw
 map <xtra>gi   -description "Focus second input area"               -modes normal -b 2gi
 map !          -description "Shell command"                         -b :!<Space>
+map gD         -description "Focus address bar"                     <A-d><C-e>
+map gK         -description "Focus search bar"                      -b <Pass><C-k>
 
 " Save "
 map <C-x><C-s>
