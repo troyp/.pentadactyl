@@ -4041,11 +4041,11 @@ function googleRemoveQuotes() {
                 dactyl.CURRENT_TAB);
 }
 
- googleDefExpand = function() {
-     var div = content.document.getElementById('uid_0');
-     var link = div.getElementsByClassName('xcae')[0];
-     link.click();
- };
+function googleDefExpand() {
+    var div = content.document.getElementById('uid_0');
+    var link = div.getElementsByClassName('xcae')[0];
+    link.click();
+};
 EOF
 
 " searchbox command
