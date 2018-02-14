@@ -4050,6 +4050,25 @@ function googleDefExpand() {
 };
 EOF
 
+" -----
+" hints
+" -----
+set eht+=[ɡ]:cite
+js hints.addMode("ɡ", "Get result URL", e=>{ window._dactylresult=e.innerText.trim().replace(/ .*$/,''); });
+
+js <<EOF
+function googleYankCiteURL() {
+    hints.show("ɡ");
+    window.setTimeout(
+        ()=>utils.cbWrite(window._dactylresult),
+        2000);
+}
+EOF
+
+map <site>y
+\    -description "Yank URL [HINTS]"
+\    -js googleYankCiteURL();
+
 " searchbox command
 command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
 map <site>s :searchbox<Space>
