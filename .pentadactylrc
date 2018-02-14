@@ -8674,11 +8674,13 @@ function openInNewOrCurrentTab(site) {
     };
 }
 
-function openOrSelectTab(url, where='tab') {
+function openOrSelectTab(url, where='tab', regex=null) {
     /* note: doesn't work when pending tabs are present */
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
-        var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(url));
+        var existingTab =
+            regex ? alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(url))
+                  : alltabs.find(t=>t.linkedBrowser.contentDocument.URL.indexOf(url)>=0);
         if (existingTab) tabs.select(existingTab);
         else dactyl.open(url, {where: where});
     }
