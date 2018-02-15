@@ -7197,6 +7197,8 @@ group user
 
 group netflix -locations=netflix.com
 
+command! netflixplaypause -js content.document.querySelector('.PlayerControls--button-control-row>button:first-of-type').click();
+
 map <site>c  -description "Cleanup"                -js netflixCleanup();
 map <site>ol -description "Open My List"           -ex open https://www.netflix.com/browse/my-list
 map <site>oh -description "Open Browse"            -ex open https://www.netflix.com/browse
@@ -7207,6 +7209,8 @@ map <site>st -description "Toggle text links"      -js netflixToggleTextLinks();
 map <site>tl -description "Open My List (new tab)" -ex tabnew https://www.netflix.com/browse/my-list
 map <site>th -description "Open Browse (new tab)"  -ex tabnew https://www.netflix.com/browse
 map <site>/  -description "Search"                 -js netflixSearch();
+
+map <CR> -description "Play/Pause" -ex netflixplaypause
 
 js <<EOF
 function netflixSearch() {
