@@ -7226,8 +7226,6 @@ map <site>tl -description "Open My List (new tab)" -ex tabnew https://www.netfli
 map <site>th -description "Open Browse (new tab)"  -ex tabnew https://www.netflix.com/browse
 map <site>/  -description "Search"                 -js netflixSearch();
 
-map <CR> -description "Play/Pause" -ex netflixplaypause
-
 js <<EOF
 function netflixSearch() {
     var searchIcon = document.querySelector('.icon-search');
@@ -7356,7 +7354,7 @@ map <site>d -description "Download subtitle"      -js document.querySelector('.t
 map <site>D -description "Download all subtitles" -js document.querySelector('.track.download-all').click();
 map ]]      -description "Next episode"           -js netflixNextEpisode();
 map [[      -description "Previous episode"       -js netflixPreviousEpisode();
-map <Space> -description "Play/Pause" -js netflixPlayPause();
+map <Space> -description "Play/Pause" -ex netflixplaypause
 
 js <<EOF
 function netflixPreviousEpisode() {
