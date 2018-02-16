@@ -1797,6 +1797,16 @@ command! tginit
 
 command! tabtile -description "View Tiled" -js tileTabs.Tile();
 
+" ,--------------,
+" | Pending Tabs |
+" '--------------'
+
+js <<EOF
+function getPendingTabs() {
+    return Array.from(tabs.allTabs).filter(t=>t.hasAttribute('pending'));
+}
+EOF
+
 
 " =============================================================================
 "       _______
