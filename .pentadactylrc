@@ -488,6 +488,9 @@ map <link_desc> ;Y
 " <C-x> : GUI commands, etc.
 " y : yank
 
+map go -b go
+map gn -b gn
+
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
 map <C-,>   -modes normal -b <Left>
