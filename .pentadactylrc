@@ -7197,13 +7197,16 @@ group user
 
 group netflix -locations=netflix.com
 
+command! netflixgotorow -nargs=1 -complete custom,' (context) => {context.completions = netflixGetHeadingCompletions()}' -js netflixScrollToRow(args[0]);
 command! netflixplaypause -js content.document.querySelector('.PlayerControls--button-control-row>button:first-of-type').click();
 
 map <site>c  -description "Cleanup"                -js netflixCleanup();
+map <site>f  -description "Select Cell [HINTS]"    -b  :netflixcard<Space>
 map <site>ol -description "Open My List"           -ex open https://www.netflix.com/browse/my-list
 map <site>oh -description "Open Browse"            -ex open https://www.netflix.com/browse
 map <site>n  -description "Show Name"              -js netflixYankTitle();
 map <site>p  -description "Open link in Chrome"    -js hints.show("🄒");
+map <site>r  -description "Scroll to Row"          -b  :netflixgotorow<Space>
 map <site>sh -description "Toggle header overlap"  -js netflixToggleHeaderOverlap();
 map <site>st -description "Toggle text links"      -js netflixToggleTextLinks();
 map <site>tl -description "Open My List (new tab)" -ex tabnew https://www.netflix.com/browse/my-list
@@ -7217,9 +7220,11 @@ function netflixSearch() {
     var searchIcon = document.querySelector('.icon-search');
     searchIcon.click();
 }
+
 function netflixCleanup() {
     removeSelectors(".static-image.image-layer", ".billboard-row", ".spotlight");
 }
+
 function netflixToggleHeaderOverlap() {
     var bodyview = content.document.getElementsByClassName('body-view')[0];
     if (bodyview.style.marginTop == '70px')
@@ -7227,10 +7232,12 @@ function netflixToggleHeaderOverlap() {
     else
         bodyview.style.marginTop = '70px';
 }
+
 function netflixSearch() {
     var searchIcon = content.document.querySelector('.icon-search');
     searchIcon.click();
 }
+
 function netflixToggleTextLinks() {
     var cards = Array.from(content.document.getElementsByClassName('title-card'));
     cards.forEach(card => {
@@ -7250,13 +7257,84 @@ function netflixToggleTextLinks() {
             card.removeChild(alreadyAdded[0]);
     });
 }
+
 function netflixYankTitle() {
     var titlediv = content.document.querySelector('.player-status');
     var titlespans = Array.from(titlediv.getElementsByTagName('span'));
     var title = titlespans.map(e=>e.innerText).join(' - ');
     utils.cbWrite(title);
 }
+
+function netflixGetRows() {
+    var elts = Array.from(content.document.getElementsByClassName("lolomoRow")).filter(e=>e.hasAttribute("data-list-context"));
+    return elts.map(e=>[e.getAttribute('data-list-context'), e]);
+}
+
+function netflixGetHeadings() {
+    return netflixGetRows().map(pair=>pair[0]);
+}
+
+/* TODO: replace description (second e) with list of elements in row */
+function netflixGetHeadingCompletions() {
+    return netflixGetHeadings().map(e=>[e,e]);
+}
+
+function netflixScrollToRow(heading) {
+    var elt = netflixGetRows().find(e=>e[0]==heading)[1];
+    elt.scrollIntoView();
+    content.window.scrollByLines(-4);
+}
+
+function listActiveGroupMappings() {
+    var activegroups = contexts.activeGroups();
+    var activemappings = activegroups.flatMap(
+        g => Array.from(g.mappings.iterate([modes.NORMAL])).concat(
+             Array.from(g.mappings.iterate([modes.INSERT])))
+        );
+    return activemappings.map(m=>[m.name, m.description+':  '+m.action]);
+}
+
+function netflixGetCards() {
+    return Array.from(content.document.querySelectorAll('.title-card'));
+}
+window.netflixGetCards = netflixGetCards;
+
+function netflixGetCardLinks() {
+    var cards = netflixGetCards();
+    var maybelinks = cards.map(e=>e.querySelector('.ptrack-content a'));
+    var seen = [];
+    var result = [];
+    maybelinks.forEach(l=>{
+        var label = l && l.getAttribute('aria-label');
+        if (l && !seen.includes(label)) {
+            result.push(l);
+            seen.push(label);
+        }
+    })
+    return result;
+}
+window.netflixGetCardLinks = netflixGetCardLinks;
+
+function netflixGetCardLinksCompletions() {
+    return netflixGetCardLinks().map(l=>{
+        var label = l && l.getAttribute("aria-label") || "";
+        return [label.replace(/ /g, "_"), ""];
+    });
+}
+window.netflixGetCardLinksCompletions = netflixGetCardLinksCompletions;
+
+function netflixClickCardByTitle(title) {
+    var title = title.replace(/_/g, " ");
+    var links = netflixGetCardLinks();
+    var link = links.find(l=>l && l.getAttribute("aria-label") && l.getAttribute("aria-label") == title);
+    link.click();
+}
+window.netflixClickCardByTitle = netflixClickCardByTitle;
 EOF
+command! netflixcard
+\   -nargs=1
+\   -complete custom,' (context) => {context.completions = netflixGetCardLinksCompletions()}'
+\   -js netflixClickCardByTitle(args[0]);
 
 group netflixwatch -locations=https://www.netflix.com/watch/*
 
