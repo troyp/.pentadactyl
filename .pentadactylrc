@@ -7386,12 +7386,18 @@ function netflixPreviousEpisode() {
     }
     dactyl.open(`https://www.netflix.com/watch/${newEpId}`, {where: 'here'});
 }
+
 function netflixNextEpisode() {
-    var nextep = content.document.querySelector('.postplay-button') ||
-                 content.document.querySelector('.player-postplay-still-hover-container') ||
-                 content.document.querySelector('.player-next-episode').children[0];
-    nextep.click();
+    var nextep = content.document.querySelector('.button-nfplayerNextEpisode') ||
+                 content.document.querySelector('.postplay-button') ||
+                 content.document.querySelector('.player-postplay-still-hover-container');
+    if (!nextep) {
+        var parent = content.document.querySelector('.player-next-episode');
+        nextep = parent && parent.children[0];
+    }
+    nextep && nextep.click();
 }
+
 function netflixToggleSubs() {
     var subOpts = Array.from(content.document.querySelector('.player-timed-text-tracks').children);
     if (subOpts[1].classList.contains("player-track-selected")) {
@@ -7403,6 +7409,7 @@ function netflixToggleSubs() {
     optDisplay.classList.remove('player-visible');
     optDisplay.classList.remove('player-active');
 }
+
 function netflixSeek() {
     /* https://gist.github.com/dannyid/52775a76f2a8738334d3 */
     var player    = netflix.cadmium.objects.videoPlayer();
