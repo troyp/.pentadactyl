@@ -7361,12 +7361,44 @@ map <site>tb     -description "Toggle Bit Rate Select" -b <C-S-A-s>
 map <site>td     -description "Toggle A/V Stats"       -b <C-S-A-d>
 map <site>tl     -description "Toggle Logging"         -b <C-S-A-l>
 map <site>ts     -description "Toggle subtitles"       -js netflixToggleSubs();
+"<site>y : yank"
+map <site>y<C-h> -description "(show bindings)"
+\   -js CommandExMode().open("showkeys <site>y")
+map <site>yt     -description "Yank title"             -js netflixYankTitle();
+map <site>ye     -description "Yank episode title"     -js netflixYankEpisodeTitle();
+map <site>yE     -description "Yank episode number & title"
+\   -js netflixYankEpisodeNumberAndTitle();
+
 map ]]           -description "Next episode"           -js netflixNextEpisode();
 map [[           -description "Previous episode"       -js netflixPreviousEpisode();
 map <Space>      -description "Play/Pause"             -ex netflixplaypause
 map <CR>         -description "Play/Pause"             -ex netflixplaypause
 
 js <<EOF
+function netflixGetTitleComponents() {
+    var seriesTitle = content.document.querySelectorAll('.video-title>div>h4')[0].textContent;
+    var spans = content.document.querySelectorAll('.video-title>div>span');
+    var seasonEpisode = spans.length>0 ? spans[0].textContent : '';
+    var episodeTitle  = spans.length>1 ? spans[1].textContent : '';
+    var seasonAndEpisode = seasonEpisode.split(':');
+    var season  = seasonAndEpisode.length>0 ? seasonAndEpisode[0].slice(1) : '';
+    var episode = seasonAndEpisode.length>1 ? seasonAndEpisode[1].slice(1) : '';
+    return [seriesTitle, season, episode, episodeTitle];
+}
+window.netflixGetTitleComponents = netflixGetTitleComponents;
+
+function netflixYankTitle() {
+    utils.cbWrite(netflixGetTitleComponents()[0]);
+}
+function netflixYankEpisodeTitle() {
+    utils.cbWrite(netflixGetTitleComponents()[3]);
+}
+function netflixYankEpisodeNumberAndTitle() {
+    var [t,s,e,et] = netflixGetTitleComponents();
+    var epNumAndTitle = sprintf("S%02dE%02d %s", parseInt(s), parseInt(e), et);
+    utils.cbWrite(epNumAndTitle);
+}
+
 function netflixPreviousEpisode() {
     var title = content.document.getElementsByClassName('player-status')[0].innerText;
     var match = title.match(/season *(\d+).*ep(?:isode)?\.? *(\d+)/i);
