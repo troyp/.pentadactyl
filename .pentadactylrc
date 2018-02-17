@@ -7381,8 +7381,8 @@ function netflixGetTitleComponents() {
     var seasonEpisode = spans.length>0 ? spans[0].textContent : '';
     var episodeTitle  = spans.length>1 ? spans[1].textContent : '';
     var seasonAndEpisode = seasonEpisode.split(':');
-    var season  = seasonAndEpisode.length>0 ? seasonAndEpisode[0].slice(1) : '';
-    var episode = seasonAndEpisode.length>1 ? seasonAndEpisode[1].slice(1) : '';
+    var season  = seasonAndEpisode.length>0 ? parseInt(seasonAndEpisode[0].slice(1)) : '';
+    var episode = seasonAndEpisode.length>1 ? parseInt(seasonAndEpisode[1].slice(1)) : '';
     return [seriesTitle, season, episode, episodeTitle];
 }
 window.netflixGetTitleComponents = netflixGetTitleComponents;
@@ -7395,7 +7395,7 @@ function netflixYankEpisodeTitle() {
 }
 function netflixYankEpisodeNumberAndTitle() {
     var [t,s,e,et] = netflixGetTitleComponents();
-    var epNumAndTitle = sprintf("S%02dE%02d %s", parseInt(s), parseInt(e), et);
+    var epNumAndTitle = sprintf("S%02dE%02d %s", s, e, et);
     utils.cbWrite(epNumAndTitle);
 }
 
