@@ -7349,6 +7349,7 @@ command! netflixcard
 
 group netflixwatch -locations=https://www.netflix.com/watch/*
 
+map <site>c      -description "Click button"           -js netflixFlatButton();
 map <site>d      -description "Download subtitle"
 \   -js document.querySelector('.track.download').click();
 map <site>D      -description "Download all subtitles"
@@ -7419,11 +7420,17 @@ function netflixSeek() {
     /* Example: Get image of current time */
     getFrame(player.getCurrentTime());
 }
+
 function netflixPlayPause() {
     var playpause = content.document.querySelector('.player-play-pause');
     var iconplay = content.document.querySelector('.icon-play');
     if (playpause) playpause.click();
     else if (iconplay) iconplay.click();
+}
+
+function netflixFlatButton() {
+    var flatbtns = Array.from(content.document.querySelectorAll('.nf-flat-button-text'));
+    flatbtns.slice(-1)[0].click();
 }
 EOF
 
