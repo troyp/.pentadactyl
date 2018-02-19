@@ -7373,8 +7373,18 @@ map ]]           -description "Next episode"           -js netflixNextEpisode();
 map [[           -description "Previous episode"       -js netflixPreviousEpisode();
 map <Space>      -description "Play/Pause"             -ex netflixplaypause
 map <CR>         -description "Play/Pause"             -ex netflixplaypause
+map <Up>         -description "Volume up"              -js netflixIncVolume(0.1);
+map <Down>       -description "Volume up"              -js netflixIncVolume(-0.1);
 
 js <<EOF
+var vpSetup =
+    "var api=netflix.appContext.state.playerApp.getAPI();        \
+     var session = api.videoPlayer.getAllPlayerSessionIds()[0];  \
+     var vp = api.videoPlayer.getVideoPlayerBySessionId(session);";
+
+function netflixIncVolume(dv) {
+    dactyl.open(`javascript:${vpSetup} var v=vp.getVolume(); vp.setVolume(v+${dv})`);
+}
 function netflixGetTitleComponents() {
     var seriesTitle = content.document.querySelectorAll('.video-title>div>h4')[0].textContent;
     var spans = content.document.querySelectorAll('.video-title>div>span');
