@@ -7374,7 +7374,7 @@ map [[           -description "Previous episode"       -js netflixPreviousEpisod
 map <Space>      -description "Play/Pause"             -ex netflixplaypause
 map <CR>         -description "Play/Pause"             -ex netflixplaypause
 map <Up>         -description "Volume up"              -js netflixIncVolume(0.1);
-map <Down>       -description "Volume up"              -js netflixIncVolume(-0.1);
+map <Down>       -description "Volume down"            -js netflixIncVolume(-0.1);
 
 js <<EOF
 var vpSetup =
