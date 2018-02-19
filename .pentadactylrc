@@ -7400,24 +7400,36 @@ function netflixYankEpisodeNumberAndTitle() {
 }
 
 function netflixPreviousEpisode() {
-    var title = content.document.getElementsByClassName('player-status')[0].innerText;
-    var match = title.match(/season *(\d+).*ep(?:isode)?\.? *(\d+)/i);
-    var season = parseInt(match[1]);
-    var ep = parseInt(match[2]);
+    var [t,season,ep,et] = netflixGetTitleComponents();
     if (ep == 1) {
-        content.document.getElementsByClassName('back-to-seasons')[0].click();
-        var seasonlist = content.document.querySelectorAll('.season-list li');
-        var newSeason = Math.max(1, season - 1);
+        content.document.querySelector('.button-nfplayerEpisodes').click();
+        content.document.querySelector('.back').click();
+        var seasonlist = content.document.querySelectorAll('.season-list .arrow');
+        var newSeason = season-1 || 1;
         seasonlist[newSeason - 1].click();
-        var epList = content.document.getElementsByClassName('episode-list-item');
-        var newEpId = epList[epList.length - 1].getAttribute('data-episode-id');
+        window.setTimeout(
+            ()=>{
+                var epList = content.document.querySelectorAll('.nfp-episode-expander');
+                var newEp = epList[epList.length - 1];
+                newEp.click();
+                    window.setTimeout(
+                        ()=>content.document.querySelector('.thumbnail-image').click(),
+                        500
+                    )
+            },
+            500
+        )
     } else {
         var newEp = ep - 1;
-        var epList = content.document.getElementsByClassName('episode-list-item');
-        var newEpId = epList[newEp - 1].getAttribute('data-episode-id');
+        content.document.querySelector('.button-nfplayerEpisodes').click();
+        content.document.querySelectorAll('.nfp-episode-expander')[newEp - 1].click();
+        window.setTimeout(
+            ()=>content.document.querySelector('.thumbnail-image').click(),
+            500
+        );
     }
-    dactyl.open(`https://www.netflix.com/watch/${newEpId}`, {where: 'here'});
 }
+window.nfp = netflixPreviousEpisode;
 
 function netflixNextEpisode() {
     var nextep = content.document.querySelector('.button-nfplayerNextEpisode') ||
