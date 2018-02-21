@@ -7376,6 +7376,9 @@ map <CR>         -description "Play/Pause"             -ex netflixplaypause
 map <Up>         -description "Volume up"              -js netflixIncVolume(0.1);
 map <Down>       -description "Volume down"            -js netflixIncVolume(-0.1);
 
+command! netflixsubson -js netflixSubsOn();
+command! netflixsubsoff -js netflixSubsOff();
+
 js <<EOF
 var vpSetup =
     "var api=netflix.appContext.state.playerApp.getAPI();        \
@@ -7439,7 +7442,6 @@ function netflixPreviousEpisode() {
         );
     }
 }
-window.nfp = netflixPreviousEpisode;
 
 function netflixNextEpisode() {
     var nextep = content.document.querySelector('.button-nfplayerNextEpisode') ||
@@ -7452,16 +7454,30 @@ function netflixNextEpisode() {
     nextep && nextep.click();
 }
 
+function netflixSubsOff() {
+    content.document.querySelector('.button-nfplayerSubtitles').click();
+    window.setTimeout(
+        ()=>Array.from(content.document.querySelectorAll(".track-list-subtitles .track")).find(e=>e.textContent.startsWith("Off")).click(),
+        1800
+    );
+}
+function netflixSubsOn() {
+    content.document.querySelector('.button-nfplayerSubtitles').click();
+    window.setTimeout(
+        ()=>Array.from(content.document.querySelectorAll(".track-list-subtitles .track")).find(e=>e.textContent.startsWith("English")).click(),
+        1800
+    );
+}
+
 function netflixToggleSubs() {
-    var subOpts = Array.from(content.document.querySelector('.player-timed-text-tracks').children);
-    if (subOpts[1].classList.contains("player-track-selected")) {
-        subOpts.find(e=>e.innerText.match(/english/i)).click();
-    } else {
-        subOpts[1].click();
-    }
-    var optDisplay = content.document.getElementById('player-menu-track-settings');
-    optDisplay.classList.remove('player-visible');
-    optDisplay.classList.remove('player-active');
+    content.document.querySelector('.button-nfplayerSubtitles').click();
+    var subs = content.document.querySelector('.track-list-subtitles .track.selected').textContent;
+    window.setTimeout(()=>{
+            if (subs.startsWith("Off"))
+                Array.from(content.document.querySelectorAll(".track-list-subtitles .track")).find(e=>e.textContent.startsWith("English")).click();
+            else
+                Array.from(content.document.querySelectorAll(".track-list-subtitles .track")).find(e=>e.textContent.startsWith("Off")).click();
+        }, 1800);
 }
 
 function netflixSeek() {
