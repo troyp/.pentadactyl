@@ -55,6 +55,8 @@ hints.addMode("tablelink_follow", "Follow table link", elem => buffer.followLink
 
 // map <site>f -description "Hints mode: follow links in table" -js hints.show("tablelink_follow");
 
+Hints.translitTable; // transliterates unicode characters into ASCII
+
 // -------------------------------------------------------------------------------
 // ,-----------,
 // | documents |
