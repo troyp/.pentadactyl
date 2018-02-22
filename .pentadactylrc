@@ -1889,7 +1889,7 @@ map <goto>;a      -description "Addons Directory"
 map <goto>c       -description "about:config (existing or new tab)"
 \                 -count -js openOrSelectTab("about:config", count?"here":"tab");
 map <goto>d       -description "Downloads"
-\                 -count -b openorselect about:downloads <count><CR><C-z>
+\                 -count -b :openorselect about:downloads <count><CR><C-z>
 map <goto>D       -description "Pentadactyl Source"
 \                 -count -js openOrSelectTab("resource://dactyl/", count?"here":"tab");
 map <goto>f       -description "about:about"
