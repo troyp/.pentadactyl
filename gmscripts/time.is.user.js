@@ -25,12 +25,15 @@ function blankSelectors(...sels) {
 
 var toDelete = [
     '#time_zone', '#time_difference', '#map', '#restaurants',
-    '#largest_cities', '#menupositioner'
+    '#largest_cities', '#menupositioner', 'iframe'
 ];
 removeSelectors.call(null, ...toDelete);
 
-var toBlank = ['#top'];
+var toBlank = ['#top', '#google_center_div', 'tr'];
 blankSelectors.call(null, ...toBlank);
+
+var script = document.getElementById('time_section').nextElementSibling
+script.parentNode.remove(script);
 
 var w90 = Array.from(document.querySelectorAll('div .w90.tr'));
 var anon_w90 = w90.filter(e=>!e.hasAttribute('id'));
