@@ -2301,7 +2301,10 @@ EOF
 " ,---------,
 " | MozRepl |
 " '---------'
+" TODO: See http://hyperstruct.net/2008/10/12/metabrowsing-custom-interactors-for-mozrepl/ "
+
 " If telnet session if broken, use another port "
+set! extensions.mozrepl.initUrl='~/.mozreplrc'
 
 js <<EOF
 function mozReplGetPort() {
