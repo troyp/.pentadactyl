@@ -8905,7 +8905,7 @@ function openOrSelectTab(url, where='tab', regex=null) {
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
         var existingTab =
-            regex ? alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(url))
+            regex ? alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(regex))
                   : alltabs.find(t=>t.linkedBrowser.contentDocument.URL.indexOf(url)>=0);
         if (existingTab) tabs.select(existingTab);
         else dactyl.open(url, {where: where});
