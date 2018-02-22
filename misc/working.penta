@@ -400,3 +400,35 @@ if (typeof DeveloperToolbar !== 'undefined')
 devtbar = document.getElementById('developer-toolbar');
 [devtbar_stack, devtbar_tools_btn, devtbar_close_btn] = devtbar.childNodes;
 devtbar_close_btn.click();
+
+" ,-----------, "
+" | websocket | "
+" '-----------' "
+" Example: example code to communicate with a script via websocketd "
+" Script to be run: "
+"     #!/bin/bash
+"
+"     cat | while read -r x || [[ -n "$x" ]] || [[ "$x" == 0]]; do
+"         if [[ -z "$x" ]]; then
+"             exit 0;
+"         else
+"             eval "$x";
+"         fi;
+"     done;
+
+function websocketCmd(cmd) {
+  window._dactylresult = "";
+  var ws = new WebSocket('ws://localhost:8080/');
+  ws.onopen = function() {
+      ws.send(cmd+"\n");
+  };
+  ws.onclose = function() {
+      window._dactylresult = window._dactylresult.replace(/\n$/, '');
+      utils.message(window._dactylresult);
+  };
+  ws.onmessage = function(event) {
+      //utils.message(event.data);
+      window._dactylresult += event.data+'\n\0';
+  };
+}
+window.websocketCmd = websocketCmd;
