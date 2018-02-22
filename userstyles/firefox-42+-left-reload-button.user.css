@@ -1,0 +1,92 @@
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+/* Left Reload Button */
+#urlbar > toolbarbutton
+{
+  -moz-box-ordinal-group: 0;
+  padding-left: 7px;
+  border-inline-end: 1px solid var(--urlbar-separator-color);
+  border-left: none;
+  padding-right: 2px;
+  background-color: #fff;
+  margin-left: 0px;
+  border-width: 0 8px 0 0;
+  border-style: solid;
+  border-image: url("chrome://browser/skin/urlbar-arrow.png") 0 8 0 0 fill;
+  -moz-margin-end: -8px;
+  position: relative;
+  background-clip: padding-box;
+}
+
+#forward-button[disabled] + #urlbar > toolbarbutton
+{
+  padding-left: 10px;
+}
+
+#urlbar-stop-button:hover
+{
+  background-color: #fff;
+  border-width: 0 8px 0 0;
+  border-style: solid;
+  border-image: url("chrome://browser/skin/urlbar-arrow.png") 0 8 0 0 fill;
+}
+
+#urlbar-reload-button:not([disabled]):hover
+{
+  background-color: #fff;
+  border-width: 0 8px 0 0;
+  border-style: solid;
+  border-image: url("chrome://browser/skin/urlbar-arrow.png") 0 8 0 0 fill;
+}
+
+#urlbar-go-button:hover
+{
+  background-color: #fff;
+  border-width: 0 8px 0 0;
+  border-style: solid;
+  border-image: url("chrome://browser/skin/urlbar-arrow.png") 0 8 0 0 fill;
+}
+
+/* Button Appearance */
+/*[[button_appearance]]*/
+
+/* Identify Button Fix */
+#identity-box
+{
+  border-inline-start: 1px solid var(--urlbar-separator-color);
+    /*[[border_img]]*/;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not(:hover) > #forward-button[disabled] + #urlbar > #notification-popup-box[hidden] + #identity-box
+{
+  padding-inline-start: calc(var(--backbutton-urlbar-overlap) + 4px);
+}
+
+#notification-popup-box[hidden] + #identity-box
+{
+  padding-inline-start: calc(var(--backbutton-urlbar-overlap) + 4px);
+}
+
+#notification-popup-box:not([hidden]) + #identity-box
+{
+  padding-inline-start: 6px;
+}
+
+/* Notifications Button Fix */
+#notification-popup-box
+{
+  padding-left: calc(var(--backbutton-urlbar-overlap) + 4px);
+  padding-right: 4px;
+  border-image-source: none;
+  background: transparent;
+  border-image: linear-gradient(transparent 15%, var(--urlbar-separator-color) 15%, var(--urlbar-separator-color) 85%, transparent 85%);
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled] + #urlbar > #notification-popup-box
+{
+  padding-left: calc(var(--backbutton-urlbar-overlap) + 4px);
+  padding-right: 4px;
+  border-image-source: none;
+  background: transparent;
+  border-image: linear-gradient(transparent 15%, var(--urlbar-separator-color) 15%, var(--urlbar-separator-color) 85%, transparent 85%);
+}
