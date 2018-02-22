@@ -767,10 +767,10 @@ map <leader>To      -description "Toggle add-on bar"                  -ex toolba
 map <leader>Ts      -description "Toggle status bar"                  -ex set guioptions!=s
 map <leader>Tt      -description "Toggle tab bar"                     -ex set showtabline!=always,never
 
-map <A-Up>   -description "Show navigation & bookmarks toolbars"
-\            -ex set guioptions-=TB | set showtabline=never
-map <A-Down> -description "Hide navigation & bookmarks toolbars"
-\            -ex set guioptions+=TB | set showtabline=always
+map <A-Up>   -description "Show navigation & bookmarks toolbars and command line"
+\            -ex set guioptions-=TB | set guioptions+=c | set showtabline=never
+map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
+\            -ex set guioptions+=TB | set guioptions-=c | set showtabline=always
 
 " ,-----------------,
 " | Manipulate Page |
