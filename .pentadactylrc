@@ -564,6 +564,9 @@ map <C-q> -modes main <Nop>
 map <ext>a -b <C-v>
 map <C-a>  -b <C-z>
 
+" Show mode "
+map <S-f9> -description "Show mode" -modes base -js utils.message(dactyl.mode.name);
+
 map g. -description "Repeat last ex command" -modes normal -b @:
 
 map <browser>r -description "Reload .pentadactylrc"                 -ex rc
