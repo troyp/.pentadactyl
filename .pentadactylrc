@@ -1858,6 +1858,8 @@ map <goto>w<C-h> -description "(Show bindings)" -js CommandExMode().open("showke
 map <goto>w      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>w")
 map <goto>x<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>x")
 map <goto>x      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>x")
+map <goto>y<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>y")
+map <goto>y      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>y")
 map <goto>ex<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>ex")
 map <goto>ex      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>ex")
 map <goto>wx<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>wx")
@@ -1937,6 +1939,32 @@ map <goto>xe      -description "Epub Catalog"
 \                 -count -js openOrSelectTab("about:epubcatalog", count?"here":"tab");
 map <goto>xx      -description "XPCOM Viewer"
 \                 -count -js openOrSelectTab("chrome://xpcomviewer/content/xpcomviewer.xul", count?"here":"tab");
+map <goto>yc      -description "~/.pentadactyl/config"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/config`, count?"here":"tab");
+map <goto>yC      -description "~/.pentadactyl/css"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/css`, count?"here":"tab");
+map <goto>yd      -description "~/.pentadactyl/doc"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/doc`, count?"here":"tab");
+map <goto>yD      -description "~/.pentadactyl/data"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/data`, count?"here":"tab");
+map <goto>yh      -description "~/.pentadactyl/html"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/html`, count?"here":"tab");
+map <goto>yj      -description "~/.pentadactyl/js"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/js`, count?"here":"tab");
+map <goto>ym      -description "~/.pentadactyl/misc"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/misc`, count?"here":"tab");
+map <goto>yp      -description "~/.pentadactyl/plugins"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/plugins`, count?"here":"tab");
+map <goto>yP      -description "~/.pentadactyl/plugins_inactive"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/plugins_inactive`, count?"here":"tab");
+map <goto>ys      -description "~/.pentadactyl/src"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/src`, count?"here":"tab");
+map <goto>yu      -description "~/.pentadactyl/gmscripts"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
+map <goto>yU      -description "~/.pentadactyl/userstyles"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/userstyles`, count?"here":"tab");
+map <goto>yy      -description "~/.pentadactyl"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl`, count?"here":"tab", RegExp(`^file://${homedir}/.pentadactyl/?$`));
 map <goto>`       -description "Home directory"
 \                 -count -js openOrSelectTab("dactyl.open(`file://${homedir}`,", count?"here":"tab");
 map <goto>/       -description "Root directory"
