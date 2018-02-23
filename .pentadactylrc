@@ -5523,6 +5523,8 @@ map <goto>gH :open https://github.com/troyp?tab=repositories
 group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com
 
 map <site>c        -description "Click README.md" -js ghClickReadme();
+map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
+map <site>dp       -description "Download patch file" -b :ghdlpatch<Space>
 map <site>f        -description "Fork repo" -js ghFork();
 map <site>g        -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
 map <site>g<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
@@ -5591,6 +5593,15 @@ command! ghgotolines -nargs=+ -js ghGgoToLines(args);
 command! ghlistrepos -js var u = ghGetUser(); dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
 
 command! ghfilefinder -js ghFileFinder();
+
+command! ghdldiff -description "Download diff corresponding to PR (use with git apply)"
+\    -nargs 1
+\    -complete dir
+\    -js dactyl.execute(`! cd ${args[0]}; wget ${ghprGetDiffURL()}`);
+command! ghdlpatch -description "Download patch corresponding to PR (use with git am)"
+\    -nargs 1
+\    -complete dir
+\    -js dactyl.execute(`! cd ${args[0]}; wget ${ghprGetPatchURL()}`);
 
 command! ghsavethisreadmetodoc
     \ -description "Download README for current repo to /opt/doc/"
