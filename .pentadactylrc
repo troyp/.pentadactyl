@@ -5703,7 +5703,7 @@ function ghprGetPatchURL() {
     var regex = /https:\/\/github.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/;
     var match = url.match(regex);
     if (match) {
-        return `https://github.com/${match[1]}/${match[2]}/pull/${3}.patch`;
+        return `https://github.com/${match[1]}/${match[2]}/pull/${match[3]}.patch`;
     } else {
         var patchRegex = /https:\/\/patch-diff.githubusercontent.com\/raw\/[^/]+\/[^/]+\/pull\/\d+.diff/;
         var patchMatch = url.match(patchRegex);
@@ -5717,7 +5717,7 @@ function ghprGetDiffURL() {
     var regex = /https:\/\/github.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/;
     var match = url.match(regex);
     if (match) {
-        return `https://github.com/${match[1]}/${match[2]}/pull/${3}.diff`;
+        return `https://github.com/${match[1]}/${match[2]}/pull/${match[3]}.diff`;
     } else {
         var patchRegex = /https:\/\/patch-diff.githubusercontent.com\/raw\/[^/]+\/[^/]+\/pull\/\d+.patch/;
         var patchMatch = url.match(patchRegex);
