@@ -4943,17 +4943,16 @@ map <site>c -description "Toggle photo zoom" -js bgTogglePhotoZoom();
 map <site>w -description "Add to wish list" -js bgAddToWishlist();
 map <site>x -description "Maximum entries per page" -js bgNumEntries();
 
-map <site>oc -description "View cart" -ex open https://www.banggood.com/shopping_cart_new.php
-map <site>oa -description "View account" -ex open https://www.banggood.com/index.php?com=account
-map <site>oo -description "View account/orders" -ex open https://www.banggood.com/index.php?com=account&t=ordersList
-map <site>og -description "View account/giftcards" -ex open https://www.banggood.com/index.php?com=account&t=giftcard
-map <site>ow -description "View account/wishlist" -ex open https://www.banggood.com/index.php?com=account&t=wishlist
-
-map <site>tc -description "View cart (new tab)" -ex tabopen https://www.banggood.com/shopping_cart_new.php
-map <site>ta -description "View account (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account
-map <site>to -description "View account/orders (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=ordersList
-map <site>tg -description "View account/giftcards (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=giftcard
-map <site>tw -description "View account/wishlist (new tab)" -ex tabopen https://www.banggood.com/index.php?com=account&t=wishlist
+map <site>oc -description "View cart"
+\    -count -ex openorselect https://www.banggood.com/shopping_cart_new.php <count>
+map <site>oa -description "View account"
+\    -count -ex openorselect https://www.banggood.com/index.php?com=account <count>
+map <site>oo -description "View account/orders"
+\    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=ordersList <count>
+map <site>og -description "View account/giftcards"
+\    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=giftcard <count>
+map <site>ow -description "View account/wishlist"
+\    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=wishlist <count>
 
 map <site>1 -description "View first photo"   -js bgSelectNthProductPhoto(0);
 map <site>2 -description "View second photo"  -js bgSelectNthProductPhoto(1);
