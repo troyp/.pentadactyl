@@ -7268,11 +7268,11 @@ command! netflixplaypause
 map <site>c  -description "Cleanup"                   -js netflixCleanup();
 map <site>f  -description "Select Cell [HINTS]"       -b  :netflixcard<Space>
 map <site>n  -description "Show Name"                 -js netflixYankTitle();
-map <site>oh -description "Open Browse"               -ex openorselect https://www.netflix.com/browse
-map <site>ol -description "Open My List"              -ex openorselect https://www.netflix.com/browse/my-list
+map <site>oh -description "Open Browse"               -count -ex openorselect https://www.netflix.com/browse <count>
+map <site>ol -description "Open My List"              -count -ex openorselect https://www.netflix.com/browse/my-list <count>
 map <site>op -description "Open My Profile"           -js netflixMyProfile();
-map <site>os -description "Open My Subtitle Settings" -ex openorselect https://www.netflix.com/SubtitlePreferences
-map <site>ov -description "Open My Playback Settings" -ex openorselect https://www.netflix.com/HdToggle
+map <site>os -description "Open My Subtitle Settings" -count -ex openorselect https://www.netflix.com/SubtitlePreferences <count>
+map <site>ov -description "Open My Playback Settings" -count -ex openorselect https://www.netflix.com/HdToggle <count>
 map <site>p  -description "Open link in Chrome"       -js hints.show("🄒");
 map <site>r  -description "Scroll to Row"             -b  :netflixgotorow<Space>
 map <site>sh -description "Toggle header overlap"     -js netflixToggleHeaderOverlap();
