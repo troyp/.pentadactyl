@@ -1922,7 +1922,7 @@ map <goto>p       -description "Plugins"
 \                 -count -js openOrSelectTab("tchrome://browser/content/preferences/preferences.xul", count?"here":"tab");
 :else
     map <goto>P   -description "Preferences"
-\                 -count -b openorselect about:preferences <count><CR><C-z>
+\                 -count -b :openorselect about:preferences <count><CR><C-z>
 :endif
 map <goto>q       -description "Password manager"
 \                 -count -js openOrSelectTab("chrome://passwordmgr/content/passwordManager.xul", count?"here":"tab");
