@@ -4926,6 +4926,8 @@ function bgSelectNthProductPhoto(n) {
     mainPhoto.setAttribute('src', bgGetNthProductPhotoBigRef(n));
 }
 
+function bgAddToWishlist() { content.document.querySelector('.add_wish_btn').click(); }
+
 EOF
 
 command! bgnextpage -nargs=? -js bgNextPage(args[0]||1);
@@ -4938,6 +4940,7 @@ map ]] -count -ex bgnextpage <count>
 map [[ -count -ex bgpreviouspage <count>
 map <site><Space> -description "Toggle reviews" -js bgToggleReviews();
 map <site>c -description "Toggle photo zoom" -js bgTogglePhotoZoom();
+map <site>w -description "Add to wish list" -js bgAddToWishlist();
 map <site>x -description "Maximum entries per page" -js bgNumEntries();
 
 map <site>oc -description "View cart" -ex open https://www.banggood.com/shopping_cart_new.php
