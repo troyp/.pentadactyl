@@ -3091,21 +3091,21 @@ map <leader>lu -ex appendlinkurls
 map <leader>ll -ex listlinks
 map <leader>ls -ex dlselectlinks
 command! appendlinks
-    \ -description "Append links to end of page"
-    \ -js appendLinks();
+\     -description "Append links to end of page"
+\     -js appendLinks();
 command! appendlinkurls
-    \ -description "Append link destinations to end of page"
-    \ -js appendLinkUrls();
+\     -description "Append link destinations to end of page"
+\     -js appendLinkUrls();
 " trigger listlinks keyword bookmarklet
 command! listlinks
-    \ -description "List all links in page"
-    \ :open listalllinks
+\     -description "List all links in page"
+\     :open listalllinks
 command! countlinks
-    \ -description "Count links"
-    \ -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelector('a'));
+\     -description "Count links"
+\     -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelector('a'));
 command! listlinktext
-    \ -description "List the text of all links in page"
-    \ -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
+\     -description "List the text of all links in page"
+\     -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
 
 js <<EOF
 appendLinksAndAlt = function() {
