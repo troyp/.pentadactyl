@@ -3090,6 +3090,7 @@ map <leader>lc -description "Count links" -ex countlinks
 map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
 map <leader>ll -description "List all links in page" -ex listlinks
 map <leader>ls -description "Select links from page and download" -ex dlselectlinks
+map <leader>lv -description "Open links in clipboard" -ex tabopencblinks
 
 command! appendlinks
 \     -description "Append links to end of page"
@@ -3112,6 +3113,9 @@ command! dlselectlinks
 \    -nargs=?
 \    -complete=dir
 \    -js dlLinks(args[0]);
+command! tabopencblinks
+\    -description "Open links in clipboard"
+\    -js openCBLinks();
 
 js <<EOF
 function appendLinks () {
@@ -3165,6 +3169,16 @@ function dlLinks(dir=null) {
         s += l.href + "\\\\n";
     }
     dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
+}
+
+function openCBLinks() {
+    var s = dactyl.clipboardRead();
+    var links = s.split("\n").filter(s=>s.trim());
+    openListLinks(links);
+}
+
+function openListLinks(links, opts={where: dactyl.NEW_TAB}) {
+    links.forEach(link=>dactyl.open(link, opts));
 }
 EOF
 
