@@ -3085,11 +3085,12 @@ map <ext>npc -ex popjisyochinesecolumns
 map <leader>l<C-h> -js CommandExMode().open("showkeys <leader>l")
 map <leader>l      -js CommandExMode().open("showkeys <leader>l")
 
-map <leader>la -ex appendlinks
-map <leader>lc -ex countlinks
-map <leader>lu -ex appendlinkurls
-map <leader>ll -ex listlinks
-map <leader>ls -ex dlselectlinks
+map <leader>la -description "Append links to end of page" -ex appendlinks
+map <leader>lc -description "Count links" -ex countlinks
+map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
+map <leader>ll -description "List all links in page" -ex listlinks
+map <leader>ls -description "Select links from page and download" -ex dlselectlinks
+
 command! appendlinks
 \     -description "Append links to end of page"
 \     -js appendLinks();
@@ -3106,19 +3107,49 @@ command! countlinks
 command! listlinktext
 \     -description "List the text of all links in page"
 \     -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
+command! dlselectlinks
+\    -description "Select links from page and download"
+\    -nargs=?
+\    -complete=dir
+\    -js dlLinks(args[0]);
 
 js <<EOF
-appendLinksAndAlt = function() {
-    s = '';
-    for (var l of content.document.links) {
-        var title = l.parentElement.parentElement.getAttribute('data-title');
-        if (title) title = title.replace(/ /g, '_');
-        var url = l.href;
-        s += `${title} <a href='${url}'>${url}</a><br>`
-    }
-    var linklist = content.document.createElement('div');
-    linklist.innerHTML = s;
-    content.document.body.appendChild(linklist);
+function appendLinks () {
+    tmpStr = '';
+    d = content.document;
+    s = d.getElementsByTagName('A');
+    la = new Array(s.length);
+    lc=0;
+    for(i = 0;i<s.length;i++)
+        if(s[i].innerText != '' && s[i].innerText!= ' ') {
+            lc++;
+            la[lc] = s[i];
+        }
+    for(i = 1; i<=lc; i++)
+        tmpStr += `<a href=${la[i].href}> ${la[i].href} </a><br>`;
+    d.body.insertAdjacentHTML(
+        'beforeEnd',
+        `<br style = clear:both;><div><hr>Link Footnotes:<hr>${tmpStr}</div><hr>`
+    );
+}
+
+function appendLinkUrls () {
+    tmpStr = '';
+    d = content.document;
+    s = d.getElementsByTagName('A');
+    la = new Array(s.length);
+    lc=0;
+    for(i = 0;i<s.length;i++)
+        if(s[i].innerText != '' && s[i].innerText!= ' ') {
+            lc++;
+            la[lc] = s[i];
+        }
+    for(i = 1; i<=lc; i++)
+        tmpStr += la[i].href + '<br>';
+    d.body.insertAdjacentHTML(
+        'beforeEnd',
+        `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${tmpStr}</div><hr>`
+    );
 }
 
 function dlLinks(dir=null) {
@@ -3136,8 +3167,6 @@ function dlLinks(dir=null) {
     dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
 }
 EOF
-command! appendlinksandalt -js appendLinksAndAlt();
-command! dlselectlinks -js dlLinks();
 
 " -------------------------------------------------------------------------------
 " ,----------------,
@@ -3471,44 +3500,6 @@ function toggleHTTPS () {
     else if (url.indexOf(sc_https) == 0)
         newurl = url.replace(sc_https, sc_http);
     dactyl.open(newurl);
-}
-
-function appendLinks () {
-    tmpStr = '';
-    d = content.document;
-    s = d.getElementsByTagName('A');
-    la = new Array(s.length);
-    lc=0;
-    for(i = 0;i<s.length;i++)
-        if(s[i].innerText != '' && s[i].innerText!= ' ') {
-            lc++;
-            la[lc] = s[i];
-        }
-    for(i = 1; i<=lc; i++)
-        tmpStr += `<a href=${la[i].href}> ${la[i].href} </a><br>`;
-    d.body.insertAdjacentHTML(
-        'beforeEnd',
-        `<br style = clear:both;><div><hr>Link Footnotes:<hr>${tmpStr}</div><hr>`
-    );
-}
-
-function appendLinkUrls () {
-    tmpStr = '';
-    d = content.document;
-    s = d.getElementsByTagName('A');
-    la = new Array(s.length);
-    lc=0;
-    for(i = 0;i<s.length;i++)
-        if(s[i].innerText != '' && s[i].innerText!= ' ') {
-            lc++;
-            la[lc] = s[i];
-        }
-    for(i = 1; i<=lc; i++)
-        tmpStr += la[i].href + '<br>';
-    d.body.insertAdjacentHTML(
-        'beforeEnd',
-        `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${tmpStr}</div><hr>`
-    );
 }
 
 function filenameOrURL(s) {
