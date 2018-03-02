@@ -813,7 +813,9 @@ map <leader>am      -js CommandExMode().open("showkeys <leader>am");
 map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am");
 map <leader>amm
     \ -description "Open Gmail Basic"
-    \ -count -js openOrSelectTab('https://mail.google.com/mail/h/1f0xqcpo2pdl3/?f=1', count?"here":"tab");
+    \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
+    \                            count?"here":"tab",
+    \                            /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*\?&/);
 map <leader>amg
     \ -description "Open Gmail"
     \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"tab");
