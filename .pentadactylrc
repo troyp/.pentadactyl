@@ -811,6 +811,11 @@ map <leader>agb
 " Email: <leader>am "
 map <leader>am      -js CommandExMode().open("showkeys <leader>am");
 map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am");
+map <leader>amc
+    \ -description "Open Gmail Contacts"
+    \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl',
+    \                            count?"here":"tab",
+    \                            /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
 map <leader>amm
     \ -description "Open Gmail Basic"
     \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
