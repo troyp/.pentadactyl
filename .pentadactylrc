@@ -1908,43 +1908,43 @@ map <goto>K       -description "Bookmarks"
 map <goto>l       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>l")
 map <goto>l<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>l")
 map <goto>ldw     -description "~/Downloads/"
-\                 -count -js openOrSelect(`${homedir}/Downloads`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/Downloads`, count?"here":"tab");
 map <goto>ldc     -description "~/Documents/"
-\                 -count -js openOrSelect(`${homedir}/Documents`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/Documents`, count?"here":"tab");
 map <goto>le      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>le")
 map <goto>le<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>le")
 map <goto>le/     -description "~/ebooks/"
-\                 -count -js openOrSelect(`${homedir}/ebooks`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks`, count?"here":"tab");
 map <goto>lec     -description "~/ebooks/coding"
-\                 -count -js openOrSelect(`${homedir}/ebooks/coding`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks/coding`, count?"here":"tab");
 map <goto>les     -description "~/ebooks/css"
-\                 -count -js openOrSelect(`${homedir}/ebooks/css`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks/css`, count?"here":"tab");
 map <goto>lea     -description "~/ebooks/articles"
-\                 -count -js openOrSelect(`${homedir}/ebooks/articles`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks/articles`, count?"here":"tab");
 map <goto>lh      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lh")
 map <goto>lh<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lh")
 map <goto>lhe     -description "~/.emacs.d/private"
-\                 -count -js openOrSelect(`${homedir}/.emacs.d/private`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/.emacs.d/private`, count?"here":"tab");
 map <goto>lhp     -description "~/.pentadactyl"
-\                 -count -js openOrSelect(`${homedir}/.pentadactyl`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/.pentadactyl`, count?"here":"tab");
 map <goto>lhr     -description "~/repos"
-\                 -count -js openOrSelect(`${homedir}/repos`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/repos`, count?"here":"tab");
 map <goto>lhs     -description "~/source"
-\                 -count -js openOrSelect(`${homedir}/source`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/source`, count?"here":"tab");
 map <goto>lo      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lo")
 map <goto>lo<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lo")
 map <goto>lo/     -description "/opt/"
-\                 -count -js openOrSelect(`/opt`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`/opt`, count?"here":"tab");
 map <goto>loc     -description "/opt/chrome-extensions"
-\                 -count -js openOrSelect(`/chrome-extensions`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`/chrome-extensions`, count?"here":"tab");
 map <goto>lod     -description "/opt/deb"
-\                 -count -js openOrSelect(`/deb`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`/deb`, count?"here":"tab");
 map <goto>lof     -description "/opt/ff-addons"
-\                 -count -js openOrSelect(`/opt/ff-addons`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`/opt/ff-addons`, count?"here":"tab");
 map <goto>los     -description "/opt/scripts"
-\                 -count -js openOrSelect(`/scripts`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`/scripts`, count?"here":"tab");
 map <goto>low     -description "/opt/webapps"
-\                 -count -js openOrSelect(`/webapps`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`/webapps`, count?"here":"tab");
 map <goto>N       -description "New Tab Page"
 \                 -js newTabPage();
 map <goto>o       -description "/opt/ directory"
