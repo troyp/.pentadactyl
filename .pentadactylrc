@@ -8877,6 +8877,21 @@ function unhideSelectors(...sels) {
     });
 }
 
+function toggleHideSelectors(...sels) {
+    var doc = content.document;
+    sels.forEach(sel=>{
+        var elts = Array.from(doc.querySelectorAll(sel));
+        elts.forEach(e=>{
+            var css = e.getAttribute('style') || '';
+            var hideregex = /(^|;| ) *display: *none *(!important)? *;/g;
+            if (css.match(hideregex))
+                e.setAttribute('style', css.replace(hideregex, ''));
+            else
+                e.setAttribute('style', css+" display: none !important;");
+        });
+    });
+}
+
 function hideFirstSelector(sel) {
     "Hide the first element matching sel."
     var doc = content.document;
