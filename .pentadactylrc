@@ -3838,7 +3838,7 @@ EOF
 "                                      | HINTS |
 "                                      |_______|
 
-set ht=a,:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],svg,a[class^=vote],a[class^=speed],div.ita-hwt-candidate,.preference>li
+set ht=a,:-moz-any-link,area,button,iframe,input:not([type=hidden]):not([disabled]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true],a[class^=vote],a[class^=speed],svg,div.ita-hwt-candidate,.preference>li,div.toggle-product-line
 
 " Show extended hints modes
 command! listhintmodes :echo hints.modes
