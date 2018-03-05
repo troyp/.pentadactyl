@@ -8243,6 +8243,11 @@ group user
 group wikia -locations='.*\.wikia\.com/'
 autocmd! -group wikia
 
+js <<EOF
+var wikiaPrefsURL = "http://babylon5.wikia.com/wiki/Special:Preferences";
+var wikiaHelpURL = "http://community.wikia.com/wiki/Help:Contents";
+EOF
+
 " ,- - - - - - - - - - - - - - - - - - - - - - - - - ,
 " ' override f to work on Wikia collapsible sections '
 " '- - - - - - - - - - - - - - - - - - - - - - - - - '
