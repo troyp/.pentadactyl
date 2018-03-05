@@ -8370,6 +8370,23 @@ command! wikiaprevious
 map <site>c   -ex wikiaremovecruft
 map <site>aa  -ex wikiaremoveads
 map <site>af  -ex wikiaremovefandomads
+map <site>m   -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
+map <site>mt  -description "My Talk"
+\             -count -js openOrSelectTab(wikiaGetURL("User_talk:"+wikiaGetUser()), count?"here":"tab");
+map <site>mu  -description "My Profile"
+\             -count -js openOrSelectTab(wikiaGetURL("User:"+wikiaGetUser()), count?"here":"tab");
+map <site>o   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>oh  -description "Help"
+\             -count -js openOrSelectTab(wikiaHelpURL, count?"here":"tab");
+map <site>op  -description "(show bindings)" -js CommandExMode().open("showkeys <site>op")
+map <site>ope -description "My Preferences: Editing"
+\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-editing", count?"here":"tab");
+map <site>opm -description "My Preferences: Email"
+\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-emailv2", count?"here":"tab");
+map <site>opp -description "My Preferences: My Info"
+\             -count -js openOrSelectTab(wikiaPrefsURL, count?"here":"tab");
+map <site>opu -description "My Preferences: Under the Hood"
+\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"tab");
 map <site>r   -ex wikiasimplepage
 map <site>s   -ex wikiasearchbar
 map <site>t   -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
