@@ -4972,6 +4972,8 @@ function bgSelectNthProductPhoto(n) {
 
 function bgAddToWishlist() { content.document.querySelector('.add_wish_btn').click(); }
 
+function bgCloseModal() { content.document.querySelector('.module').remove(); }
+
 EOF
 
 command! bgnextpage -nargs=? -js bgNextPage(args[0]||1);
@@ -4984,8 +4986,9 @@ map ]] -count -ex bgnextpage <count>
 map [[ -count -ex bgpreviouspage <count>
 map <site><Space> -description "Toggle reviews" -js bgToggleReviews();
 map <site>c -description "Toggle photo zoom" -js bgTogglePhotoZoom();
+map <site>e -description "Maximum entries per page" -js bgNumEntries();
 map <site>w -description "Add to wish list" -js bgAddToWishlist();
-map <site>x -description "Maximum entries per page" -js bgNumEntries();
+map <site>x -description "Close modal" -js bgCloseModal();
 
 map <site>oc -description "View cart"
 \    -count -ex openorselect https://www.banggood.com/shopping_cart_new.php <count>
