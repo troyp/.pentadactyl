@@ -8334,6 +8334,15 @@ function wikiaSearchbar() {
     );
 }
 
+function wikiaGetURL(pageName) {
+    var baseURL = buffer.URL.match(/https?:\/\/[^./]+\.wikia.com/)[0];
+    return baseURL+'/wiki/'+pageName;
+}
+
+function wikiaGetUser() {
+    return content.document.querySelector(".wds-avatar").getAttribute("alt");
+}
+
 EOF
 
 command! wikiaremovefandomads
