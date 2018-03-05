@@ -1510,6 +1510,7 @@ command! imgsalttotitle
 command! wget -nargs=* -js wget(args[0], args[1], args[2]);
 command! wgetm -nargs=* -js wgetm(args[0], args[1], args[2]);
 command! wget1 -nargs=* -js wget1(args[0], args[1], args[2]);
+command! curlto -nargs=? -complete=dir -js curl(null, args[0]);
 
 " Exchange Rate Info "
 command! updateUSDAUDexchange -js updateUSDAUDexchange();
@@ -9193,6 +9194,21 @@ function wgetm(url=null, optstr="", dirpref="~/Downloads") {
 
 function wget1(url=null, optstr="", dirpref="~/Downloads") {
     wget(url, "wget -kKpEHN -rl 1 "+optstr, dirpref);
+}
+
+function curl(url, dir, title, optstr, force) {
+    if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
+    else url = buffer.URL;
+    optstr = optstr || "";
+    dir = dir || "~/Downloads";
+    dir = dir.replace("~", env.get("HOME"));
+    title = title || decodeURIComponent(buffer.URL).replace(/.*\//,"");
+    var savepath = `${dir}/${title}`;
+    dactyl.execute(`!mkdir -p '${dir}'`);
+    if (force)
+        dactyl.execute(`!curl ${optstr} ${url} > '${savepath}'`);
+    else
+        dactyl.execute(`![[ ! -f ${savepath} ]] && curl ${optstr} ${url} > '${savepath}'`);
 }
 
 function formatSeconds(n) {
