@@ -606,11 +606,11 @@ map <browser>dhe -description "Download to ~/.emacs.d/private" -ex dlto ~/.emacs
 map <browser>dhp -description "Download to ~/.pentadactyl" -ex dlto ~/.pentadactyl
 map <browser>dhr -description "Download to ~/repos" -ex dlto ~/repos
 map <browser>dhs -description "Download to ~/source" -ex dlto ~/source
-map <browser>doc -description "Download to /opt/chrome-extensions" -ex dlto /chrome-extensions
-map <browser>dod -description "Download to /opt/deb" -ex dlto /deb
+map <browser>doc -description "Download to /opt/chrome-extensions" -ex dlto /opt/chrome-extensions
+map <browser>dod -description "Download to /opt/deb" -ex dlto /opt/deb
 map <browser>dof -description "Download to /opt/ff-addons" -ex dlto /opt/ff-addons
-map <browser>dos -description "Download to /opt/scripts" -ex dlto /scripts
-map <browser>dow -description "Download to /opt/webapps" -ex dlto /webapps
+map <browser>dos -description "Download to /opt/scripts" -ex dlto /opt/scripts
+map <browser>dow -description "Download to /opt/webapps" -ex dlto /opt/webapps
 map <browser>do/ -description "Download to /opt/" -ex dlto /opt
 
 command! dlto -nargs=1 -complete dir set! browser.download.lastDir=<args> | feedkeys <C-x><C-s>
