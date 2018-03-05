@@ -1583,11 +1583,12 @@ map g\> -ex tabmove! $
 map <A-!> -ex tabmove! 1
 map <A-@> -ex tabmove! 2
 map <A-#> -ex tabmove! 3
-map <A-%> -ex tabmove! 4
-map <A-^> -ex tabmove! 5
-map <A-&> -ex tabmove! 6
-map <A-*> -ex tabmove! 7
-map <A-(> -ex tabmove! 8
+map <A-$> -ex tabmove! 4
+map <A-%> -ex tabmove! 5
+map <A-^> -ex tabmove! 6
+map <A-&> -ex tabmove! 7
+map <A-*> -ex tabmove! 8
+map <A-(> -ex tabmove! 9
 map <A-)> -ex tabmove! $
 " Select buffer:  b  (cycle with gb, gB)
 map \< -b g0
