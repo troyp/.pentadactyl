@@ -8319,6 +8319,10 @@ function wikiaGetPrevious() {
     return nextprevLinks[0].href;
 }
 
+function wikiaToggleGlobalNav() {
+    toggleHideSelectors('.wds-global-navigation-wrapper');
+}
+
 function wikiaSearchbar() {
     unhideSelectors('.wds-global-navigation-wrapper');
     window.setTimeout(
@@ -8353,6 +8357,8 @@ map <site>aa  -ex wikiaremoveads
 map <site>af  -ex wikiaremovefandomads
 map <site>r   -ex wikiasimplepage
 map <site>s   -ex wikiasearchbar
+map <site>t   -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
+map <site>tn  -description "Toggle Global Navigation" -js wikiaToggleGlobalNav();
 map <site>i   -ex wikiaremoveimages
 map <site>]   -ex wikianext
 map <site>[   -ex wikiaprevious
