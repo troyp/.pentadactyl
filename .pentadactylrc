@@ -4745,6 +4745,55 @@ map <site>v -ex aprefsadvanced
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-------------------,
+" | AlternativeTo.net |
+" '-------------------'
+group altnet -locations=alternativeto.net
+
+js <<EOF
+function altnetGetAlternatives() { return Array.from(content.document.querySelectorAll('.app-list-item h3>a')); }
+function altnetCompletions() {
+    return altnetGetAlternatives().map(
+        e => [ decodeURIComponent(S.padEnd(e.innerText, 60, "…") + e.href.replace(/[^#]+#/, "")), "" ]
+    );
+}
+function altnetGetOfficialWebsite(altnetPageURL) {
+    return io.system(`curl -s ${altnetPageURL} | pup ".icon-official-website attr{href}"`).output;
+}
+function altnetcleanup() {
+    removeSelectors('iframe', 'ins');
+}
+EOF
+
+" === hint modes === "
+set eht+=ɑ:'.app-list-item h3>a'
+js hints.addMode("ɑ", "Open official website [HINTS]", e=> openOrSelectTab(e.href));
+
+command! altnetcleanup -description "Remove cruft" -ex removeSelectors iframe ins
+command! altnetopen -description "Open application page"
+\   -nargs=1
+\   -complete custom,' (context) => {context.completions = altnetCompletions()}'
+\   -js content.window.location = args[0].replace(/.*…+/, '');
+command! altnettabopen -description "Open (or switch to) application page in another tab"
+\   -nargs=1
+\   -complete custom,' (context) => {context.completions = altnetCompletions()}'
+\   -count -js openOrSelectTab(altnetGetOfficialWebsite(args[0].replace(/.*…+/, "")), count?"here":"tab");
+command! altnetyankofficialwebsite -description "Yank URL of official website for application"
+\   -nargs=1
+\   -complete custom,' (context) => {context.completions = altnetCompletions()}'
+\   -js utils.cbWrite(altnetGetOfficialWebsite(args[0].replace(/.*…+/, "")));
+
+map <site>c  -description "Goto Official Website"
+\            -js content.document.querySelector('.icon-official-website').click();
+map <site>f  -description "Open official website [HINTS]" -js hints.show("ɑ");
+map <site>o  -description "Open (or switch to) application page in another tab" -b :altnettabopen<Space>
+map <site>O  -description "Open application page" -b :altnetopen<Space>
+map <site>yo -description "Yank URL of official website for application" -b :altnetyankofficialwebsite<Space>
+map <site>z  -description "Remove cruft" -ex altnetcleanup
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-------------,
 " | Archive.org |
