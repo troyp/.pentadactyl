@@ -4789,6 +4789,8 @@ map <site>c  -description "Goto Official Website"
 map <site>f  -description "Open official website [HINTS]" -js hints.show("ɑ");
 map <site>o  -description "Open (or switch to) application page in another tab" -b :altnettabopen<Space>
 map <site>O  -description "Open application page" -b :altnetopen<Space>
+map <site>to -description "Toggle open source" -js urlToggleQuery("license=opensource");
+map <site>tl -description "Toggle Linux" -js urlToggleQuery("platform=linux");
 map <site>yo -description "Yank URL of official website for application" -b :altnetyankofficialwebsite<Space>
 map <site>z  -description "Remove cruft" -ex altnetcleanup
 
