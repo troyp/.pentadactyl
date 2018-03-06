@@ -4770,7 +4770,7 @@ EOF
 set eht+=ɑ:'.app-list-item h3>a'
 js hints.addMode("ɑ", "Open official website [HINTS]", e=> openOrSelectTab(e.href));
 
-command! altnetcleanup -description "Remove cruft" -ex removeSelectors iframe ins
+command! altnetcleanup -description "Remove cruft" removeselector iframe ins
 command! altnetopen -description "Open application page"
 \   -nargs=1
 \   -complete custom,' (context) => {context.completions = altnetCompletions()}'
