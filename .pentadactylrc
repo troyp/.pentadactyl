@@ -1069,6 +1069,10 @@ command! yanktrueURL
     \ -description "Yank the uncoded URL of the current buffer"
     \ -js var text=decodeURIComponent(buffer.URL);
     \     utils.yankWithMsg(text);
+command! yankLastURLComponent
+    \ -description "Yank the last component of the uncoded current buffer URL"
+    \ -js var text=decodeURIComponent(buffer.URL);
+    \     utils.yankWithMsg(text.replace(/.*\//,''));
 command! yankfilenameorURL
     \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
     \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
