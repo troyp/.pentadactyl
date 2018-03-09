@@ -772,6 +772,30 @@ map <A-Up>   -description "Show navigation & bookmarks toolbars and command line
 map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
 \            -ex set guioptions+=TB | set guioptions-=c | set showtabline=always
 
+" ,------------------,
+" | <leader>s - Save |
+" '------------------'
+map <leader>s      -description "(show bindings: GUI Toggles)"
+\    -js CommandExMode().open("showkeys <Leader>s")
+map <leader>s<C-h> -description "(show bindings: GUI Toggles)"
+\    -js CommandExMode().open("showkeys <Leader>s")
+
+map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
+
+" Download PDF "
+command! dlpdf
+\    -nargs=1
+\    -complete=dir
+\    -js dlPDF(args[0]);
+js <<EOF
+function dlPDF(dir) {
+    var title = content.document.querySelector('.textLayer>div').textContent;
+    var safeTitle = title.replace("\n", " - ").replace(/\//g, "∕");
+    var path = dir.replace(/\/?$/, "/") + safeTitle;
+    CommandExMode().open(`saveas ${path}.pdf`);
+}
+EOF
+
 " ,-----------------,
 " | Manipulate Page |
 " '-----------------'
