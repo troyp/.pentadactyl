@@ -890,8 +890,8 @@ command! printfriendly -description "Run Print Friendly" open javascript:(functi
 " ,---------------------------,
 " | Conversion and Arithmetic |
 " '---------------------------'
-map <leader>c<C-h> -js CommandExMode().open("showkeys <leader>c")
-map <leader>c      -js CommandExMode().open("showkeys <leader>c")
+map <leader>xc<C-h> -js CommandExMode().open("showkeys <leader>c")
+map <leader>xc      -js CommandExMode().open("showkeys <leader>c")
 map -description "Convert inches to centimeters (by hints)" <leader>xci -js hints.show("”");
 
 command! usd2aud
