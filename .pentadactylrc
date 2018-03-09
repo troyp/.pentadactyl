@@ -1252,13 +1252,15 @@ map <C-S-W> -modes insert <pwhashsite>
 " ,---------------------------------------,
 " | Normal mode bindings for Command-line |
 " '---------------------------------------'
+map <leader>c<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <leader>c")
+map <leader>c      -description "(show bindings)" -js CommandExMode().open("showkeys <leader>c")
 " Search clipboard contents using search keyword
-map <leader>s -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
-map <leader>S -b :<C-v><C-v><Home>open<Space><Space><Left>
+map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
+map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 " Repeat search just entered with keyword changed
-map <leader>r :<C-r>
+map <leader>cr :<C-r>
 " Repeat default just entered search with keyword
-map <leader>R :<up><Home><forward-word><Space>
+map <leader>cR :<up><Home><forward-word><Space>
 
 " ,-------------------,
 " | Command-line only |
