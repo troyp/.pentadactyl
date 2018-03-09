@@ -1047,7 +1047,7 @@ map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getD
 map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>h -description "Yank page heading (<H1>)"
     \ -js utils.yankWithMsg(content.document.querySelector('h1').innerText);
-map <yank>H -description "Yank PDF heading" -ex yankPDFheading
+map <yank>H -description "Yank PDF heading in viewer" -ex yankPDFheading
 map <yank>i -description "Yank text input fields" -js yankInputFields();
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
 map <yank>l -description "Yank link reference (page title and url)"
@@ -1092,7 +1092,7 @@ command! yankselectorcontent
     \ -nargs=+
     \ -js yankSelectorContent(args[0], evalStringOrFunction(args[1])||'innerText');
 command! yankPDFheading
-    \ -description "Yank the contents of an element by selector."
+    \ -description "Yank PDF heading in viewer"
     \ -js utils.yankWithMsg(content.document.querySelector('.textLayer>div').textContent);
 
 js <<EOF
