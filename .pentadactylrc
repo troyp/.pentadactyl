@@ -2000,6 +2000,14 @@ map <goto>los     -description "/opt/scripts"
 \                 -count -js openOrSelectTab(`/scripts`, count?"here":"tab");
 map <goto>low     -description "/opt/webapps"
 \                 -count -js openOrSelectTab(`/webapps`, count?"here":"tab");
+map <goto>m       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m")
+map <goto>m<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m")
+map <goto>mc       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc")
+map <goto>mc<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc")
+map <goto>mcc     -description "chrome:// URL completion"
+\                 -b :openorselect chrome://
+map <goto>mcg     -description "chrome://global/content/ URL completion"
+\                 -b :openorselect chrome://global/content/
 map <goto>N       -description "New Tab Page"
 \                 -js newTabPage();
 map <goto>o       -description "/opt/ directory"
