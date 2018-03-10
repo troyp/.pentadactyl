@@ -556,6 +556,9 @@ map \\ -b <C-v>
 " swap p and P
 map p -modes normal -b P
 map P -modes normal -b p
+map <A-p> -description "Open clipboard contents in new background tab"
+\    -modes normal
+\    -js dactyl.execute(`background tabopen ${dactyl.clipboardRead()}`);
 
 " disable <C-q> for quitting
 map <C-q> -modes main <Nop>
@@ -683,9 +686,6 @@ map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
 " TeX The World
 map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
-" PageZipper
-" activate pagezipper bookmark (keyword pz)
-map <A-p> :open pz<CR>
 " Remove selector. "
 map <leader>nn :removeselector<Space>
 " Remove cruft. "
