@@ -1570,6 +1570,7 @@ map <buffer>d       -description "(show bindings)" -js CommandExMode().open("sho
 map <buffer>d<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
 map <buffer>db      -description "Close tab from list"             :bdelete<SPACE>
 map <buffer>dc      -description "Close tabs matching REGEX" :tabremoveregex<Space>""<C-b>
+map <buffer>dd      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
 map <buffer>df      -description "Close from here to ARG" :tabclosefromhereto<Space>
 map <buffer>do      -description "Close tabs not matching REGEX" :tabfilterregex<Space>""<C-b>
 map <buffer>dr      -description "Close tab range" :tc<SPACE>
@@ -1683,6 +1684,9 @@ command! closetabstoright
     \ var N = tabs.allTabs.length;
     \ var numToClose = N - nextTabIndex;
     \ tabs.remove(firstTab, numToClose);
+command! tabcloseduplicates
+    \ -description "Close all duplicates adjacent to current tab"
+    \ -js tabCloseDuplicates();
 
 
 " close tab range
@@ -1786,6 +1790,21 @@ function tabRemoveUrlRegex(regex) {
 }
 function tabFilterUrlRegex(regex) {
     return tabFilter((t)=>t.URL.match(regex)||t.title.match(regex));
+}
+function tabCloseDuplicates() {
+    var url = buffer.URL;
+    var currentTab = tabs.getTab();
+    var currentIdx = currentTab.dactylOrdinal - 1;
+    var i;
+    for (i=currentIdx; tabs.getTab(i-1).linkedBrowser.contentDocument.URL==url; --i);
+    var firstIdx = i;
+    for (i=currentIdx; tabs.getTab(i+1).linkedBrowser.contentDocument.URL==url; ++i);
+    var lastIdx = i;
+    var n = lastIdx - firstIdx;
+    if (n > 0) {
+        tabs.remove(tabs.getTab(firstIdx+1), n);
+        tabs.select(tabs.getTab(firstIdx));
+    }
 }
 EOF
 
