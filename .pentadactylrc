@@ -1069,8 +1069,7 @@ map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." :
 map <yank>d -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
-map <yank>h -description "Yank page heading (<H1>)"
-    \ -js utils.yankWithMsg(content.document.querySelector('h1').innerText);
+map <yank>h -description "Yank page heading(s) (<H1>)" -ex yankselectorcontent h1
 map <yank>H -description "Yank PDF heading in viewer" -ex yankPDFheading
 map <yank>i -description "Yank text input fields" -js yankInputFields();
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
@@ -1088,6 +1087,10 @@ map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
 map <yank>u -description "Yank buffer URL (unencoded)" -ex yanktrueURL
 map <yank>x -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>y -description "Yank buffer URL" -b y
+map <yank>1 -description "Yank page heading(s) (<H1>)" -ex yankselectorcontent h1
+map <yank>2 -description "Yank page heading(s) (<H2>)" -ex yankselectorcontent h2
+map <yank>3 -description "Yank page heading(s) (<H3>)" -ex yankselectorcontent h3
+map <yank>4 -description "Yank page heading(s) (<H4>)" -ex yankselectorcontent h4
 
 " Yank commands "
 command! yanktrueURL
