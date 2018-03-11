@@ -5743,7 +5743,7 @@ map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yU       -description "Yank user name" -js ghCopyUser();
 map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
-map <site>*        -description "Star/Unstar repo" -js content.document.querySelector('form.starred .btn').click();
+map <site>*        -description "Star/Unstar repo" -js ghStar();
 map <site>/ -ex ghfilefinder
 
 command! ghtogglehtmlview
@@ -5999,6 +5999,24 @@ function ghYankSHA(elt) {
 function ghFork() {
     var button = getSelectorWithMatchingAttribute('button', 'title', /^fork/i)[0];
     button.click();
+}
+
+function ghStar() {
+    var starBtn = content.document.querySelector('form.unstarred>button');
+    var unstarBtn = content.document.querySelector('form.starred>button');
+    var starred_p = ghStarInfo()[0]=="Unstar";
+    if (starred_p)
+        unstarBtn.click();
+    else
+        starBtn.click();
+}
+
+function ghStarInfo() {
+    var starContainer = content.document.querySelector('.starring-container');
+    var data = starContainer.innerText.split("\n");
+    var starred_p = data[0].trim();
+    var n = parseInt(data[1].replace(/,/g, ""));
+    return [starred_p, n];
 }
 
 EOF
