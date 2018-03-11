@@ -680,23 +680,8 @@ map <xtra>p
 map <xtra>op
     \ -description "Visit Packt Free Learning site in Google Chrome"
     \ -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
-" word highlight
-map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
-" TeX The World
-map <leader>ut -ex emenu Tools.Greasemonkey.TeX the world
-" Remove selector. "
-map <leader>nn :removeselector<Space>
-" Remove cruft. "
-map <leader>nr -ex removecruft
-" Remove images "
-map <leader>ni -ex removeimages
-" Enable Right-click "
-map <leader>vr -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
-" lmnpop "
-map <leader>np -js hints.show('🄿');
 
 js <<EOF
-
 function xopenMaybeFromBufferDir() {
     var localDirRegex = /^file:\/\/(.*)/;
     var localDirMatch = buffer.URL.match(localDirRegex);
@@ -707,20 +692,17 @@ function xopenMaybeFromBufferDir() {
         CommandExMode().open('xopen ');
     }
 }
-
 EOF
 
-
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | Japanese Search |
-" '-----------------'
-" Popjisyo SearchJapanese hints "
-map <leader>jp -ex popjisyo
-" Jisho.org "
-map <leader>j<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <leader>j")
-map <leader>j      -description "(show bindings)" -js CommandExMode().open("showkeys <leader>j")
-map <leader>jm -description "Jisho multiword search" :jishomultisearch<Space>
+" ,----------------------,
+" | <leader>j - Japanese |
+" '----------------------'
+map <leader>j      -description "(show bindings: Japanese)" -js CommandExMode().open("showkeys <leader>j")
+map <leader>j<C-h> -description "(show bindings: Japanese)" -js CommandExMode().open("showkeys <leader>j")
+map <leader>jf
+    \ -description "Jisho kanji search (hints)"
+    \ -count
+    \ -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ');
 map <leader>jj
     \ -description "Jisho search (clipboard)"
     \ -count
@@ -729,10 +711,36 @@ map <leader>jk
     \ -description "Jisho kanji search (clipboard)"
     \ -count
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <leader>jf
-    \ -description "Jisho kanji search (hints)"
-    \ -count
-    \ -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ');
+map <leader>jm -description "Jisho multiword search" :jishomultisearch<Space>
+map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
+
+" ,-----------------------------,
+" | <leader>m - Manipulate Page |
+" '-----------------------------'
+map <leader>m      -description "(show bindings: Manipulate Page)"
+\    -js CommandExMode().open("showkeys <leader>m")
+map <leader>m<C-h> -description "(show bindings: Manipulate Page)"
+\    -js CommandExMode().open("showkeys <leader>m")
+map <leader>ms -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"tab");
+
+" ,--------------------------,
+" | <leader>n - edit content |
+" '--------------------------'
+map <leader>n      -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
+map <leader>n<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
+map <leader>ni -description "Remove images" -ex removeimages
+map <leader>nn -description "Remove selector" :removeselector<Space>
+map <leader>np -description "lmnpop " -js hints.show('🄿');
+map <leader>nr -description "Remove cruft" -ex removecruft
+
+" ,------------------,
+" | <leader>s - Save |
+" '------------------'
+map <leader>s      -description "(show bindings: Save)"
+\    -js CommandExMode().open("showkeys <Leader>s")
+map <leader>s<C-h> -description "(show bindings: Save)"
+\    -js CommandExMode().open("showkeys <Leader>s")
+map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
 
 " ,---------------------,
 " | <leader>t - toggles |
@@ -770,15 +778,21 @@ map <A-Up>   -description "Show navigation & bookmarks toolbars and command line
 map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
 \            -ex set guioptions+=TB | set guioptions-=c | set showtabline=always
 
-" ,------------------,
-" | <leader>s - Save |
-" '------------------'
-map <leader>s      -description "(show bindings: GUI Toggles)"
-\    -js CommandExMode().open("showkeys <Leader>s")
-map <leader>s<C-h> -description "(show bindings: GUI Toggles)"
-\    -js CommandExMode().open("showkeys <Leader>s")
+" ,------------------------,
+" | <leader>u - extensions |
+" '------------------------'
+map <leader>u      -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
+map <leader>u<C-h> -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
+map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word highlight
+map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
 
-map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
+" ,---------------------------,
+" | <leader>v - miscellaneous |
+" '---------------------------'
+map <leader>v      -description "(show bindings: Miscellaneous)" -js CommandExMode().open("showkeys <leader>v")
+map <leader>v<C-h> -description "(show bindings: Miscellaneous)" -js CommandExMode().open("showkeys <leader>v")
+map <leader>vr -description "Enable Right-click"
+\    -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
 
 " Download PDF "
 command! dlpdf
@@ -794,21 +808,15 @@ function dlPDF(dir) {
 }
 EOF
 
-" ,-----------------,
-" | Manipulate Page |
-" '-----------------'
-map <leader>ms -js openHTML(getSelectionHtml(), 'tab');
-map <leader>mS -js openHTML(getSelectionHtml(), 'here');
-
 " ,----------------------, ,-----------,
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
 map <leader>a      -js CommandExMode().open("showkeys <leader>a")
 map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
-" Misc Accounts: <leader>aa "
+" <leader>aa - Misc Accounts"
 map <leader>aa      -js CommandExMode().open("showkeys <leader>aa");
 map <leader>aa<C-h> -js CommandExMode().open("showkeys <leader>aa");
-" ...Packt: "
+"  <leader>aap - Packt "
 map <leader>aapf
     \ -description "Open Packt Free Learning"
     \ -count -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1");
@@ -819,11 +827,11 @@ map <leader>aapl
 map <leader>ab
     \ -description "Open Banking (Chrome)"
     \ -ex ochromeurl ${user.mybankurl}
-" Diagrams: <leader>ad "
+" <leader>ad - Diagrams"
 map <leader>ada
     \ -description "Open AsciiFlow"
     \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
-" Repos: <leader>ag "
+" <leader>ag - Repos "
 map <leader>agh
     \ -description "Open My Github"
     \ -count -js openOrSelectTab('https://github.com/troyp', count?"here":"tab");
@@ -860,7 +868,7 @@ map <leader>ap
 map <leader>at
     \ -description "Open Time Server"
     \ -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab");
-" Video: <leader>av "
+" <leader>av - Video"
 :if isPalemoon
     map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
 :else
