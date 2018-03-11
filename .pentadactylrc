@@ -730,6 +730,7 @@ map <leader>n      -description "(show bindings: Edit Content)" -js CommandExMod
 map <leader>n<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>ni -description "Remove images" -ex removeimages
 map <leader>nn -description "Remove selector" :removeselector<Space>
+map <leader>no -description "Isolate selector" :isolateselector<Space>
 map <leader>np -description "lmnpop " -js hints.show('🄿');
 map <leader>nr -description "Remove cruft" -ex removecruft
 
