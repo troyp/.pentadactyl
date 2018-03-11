@@ -680,8 +680,6 @@ map <xtra>p
 map <xtra>op
     \ -description "Visit Packt Free Learning site in Google Chrome"
     \ -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
-" Google Translate handwritten input
-map <goto>jk -ex tabopen https://translate.google.com.au/#ja/en/
 " word highlight
 map <leader>uh -ex emenu Tools.Greasemonkey.word highlight
 " TeX The World
@@ -832,6 +830,9 @@ map <leader>agh
 map <leader>agb
     \ -description "Open My Bitbucket"
     \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
+" <leader>j - Japanese "
+map <leader>jk -description "Google Translate handwritten input"
+    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"tab");
 " Email: <leader>am "
 map <leader>am      -js CommandExMode().open("showkeys <leader>am");
 map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am");
