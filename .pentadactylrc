@@ -9355,7 +9355,22 @@ function curl(url, dir, title, optstr, force) {
         dactyl.execute(`![[ ! -f ${savepath} ]] && curl ${optstr} ${url} > '${savepath}'`);
 }
 
+function savePageDialog() {
+    var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
+    fp.init(content.window, "save file", nsIFilePicker.modeSave);
+    fp.appendFilters(nsIFilePicker.filterText);
+    fp.appendFilters(nsIFilePicker.filterAll);
+    fp.open(function(rv) {
+        var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1']
+                  .createInstance(Components.interfaces.nsIWebBrowserPersist);
+        if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
+            wbp.saveDocument(content.document, fp.file, null, null, null, null);
+        }
+    });
+}
+window.savePageDialog = savePageDialog;
 " ------------------------------------------------------------------------------- "
+
 function formatSeconds(n) {
     var hours = Math.floor(n/3600);
     n -= hours*3600;
@@ -9373,21 +9388,6 @@ function stringToSmartCaseRegExp(s) {
 function cutoff(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
-
-function savePageDialog(uriToSave) {
-    var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
-    fp.init(content.window, "save file", nsIFilePicker.modeSave);
-    fp.appendFilters(nsIFilePicker.filterText);
-    fp.appendFilters(nsIFilePicker.filterAll);
-    fp.open(function(rv) {
-        var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1']
-                  .createInstance(Components.interfaces.nsIWebBrowserPersist);
-        if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
-            wbp.saveDocument(content.document, fp.file, null, null, null, null);
-        }
-    });
-}
-window.savePageDialog = savePageDialog;
 
 function newTab(url="about:newtab") {
     var browser = getBrowser();
