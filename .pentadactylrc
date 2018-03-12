@@ -9020,7 +9020,6 @@ function removeSelectorsWithPrecedingHeading(...sels) {
         });
     });
 }
-window.removeSelectorsWithPrecedingHeading = removeSelectorsWithPrecedingHeading;
 
 function isolateSelector(sel) {
     selectedElt = content.document.querySelector(sel);
@@ -9126,7 +9125,6 @@ function getSelectorContent(sel, target='innerText') {
 function yankSelectorContent(sel, target='innerText') {
     utils.cbWriteWithMessageLimit(getSelectorContent(sel, target).join("\n"));
 }
-window.yankSelectorContent = yankSelectorContent;
 
 function getLinksWithMatchingUrl(s) {
     var links = Array.from(content.document.getElementsByTagName('a'));
@@ -9168,7 +9166,6 @@ function countSelector(sel) {
     var elts = content.document.querySelectorAll(sel);
     return elts.length;
 }
-window.countSelector = countSelector;
 
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
@@ -9184,7 +9181,6 @@ function closeTabsLeftWhileMatching(regex, n) {
             tabs.remove(t);
     }
 }
-window.closeTabsLeftWhileMatching = closeTabsLeftWhileMatching;
 
 function openInNewOrCurrentTab(site) {
     "Curried function openInNewOrCurrentTab(url)(count):"
@@ -9212,7 +9208,6 @@ function openOrSelectTab(url, where='tab', regex=null) {
 function foreachElement(f, top=content.document) {
     Array.from(top.getElementsByTagName("*")).forEach(f);
 }
-window.foreachElement = foreachElement;
 
 function foreachNode(f, top=content.document) {
     var nodes = [];
@@ -9224,7 +9219,6 @@ function foreachNode(f, top=content.document) {
     recurseNode(top);
     nodes.forEach(f);
 }
-window.foreachNode = foreachNode;
 
 function listElements(pred, options={}) {
     var top = options.top || content.document;
