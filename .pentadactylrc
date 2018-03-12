@@ -1761,11 +1761,15 @@ function closeTabsFromHereTo(endOrd) {
 function tabIdxToOrd (idx) { return idx+1; }
 function tabOrdToIdx (ord) { return ord-1; }
 function tabNormalizeOrdinal (ord) {
+    idx = ord - 1;
+    return tabNormalizeIndex(idx) + 1;
+}
+function tabNormalizeIndex (idx) {
     var N = tabs.allTabs.length;
-    if (ord <= 0)
-        return ord%N + Number(N) ;
+    if (idx < 0)
+        return idx%N + Number(N) ;
     else
-        return ord%N;
+        return idx%N;
 }
 function tabURL(t) {
     "URL of t, where t is a tab or a tab index";
