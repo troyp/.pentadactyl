@@ -1581,17 +1581,15 @@ map <buffer>b       -description "Switch to buffer matching PATTERN" -builtin b
 " delete tabs: <buffer>d "
 map <buffer>d       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
 map <buffer>d<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
-map <buffer>db      -description "Close tab from list"             :bdelete<SPACE>
-map <buffer>dc      -description "Close tabs matching REGEX" :tabremoveregex<Space>""<C-b>
-map <buffer>dd      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
-map <buffer>df      -description "Close from here to ARG" :tabclosefromhereto<Space>
-map <buffer>do      -description "Close tabs not matching REGEX" :tabfilterregex<Space>""<C-b>
-map <buffer>dr      -description "Close tab range" :tc<SPACE>
-map <buffer>dt      -description "Close from here to ARG" :tabclosefromherebefore<Space>
-map <buffer>d;      -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d;")
-map <buffer>d;<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d;")
-map <buffer>d;o     -description "Close tabs not satisfying EXPR"  :tabfilter<Space>""<C-b>
-map <buffer>d;c     -description "Close tabs satisfying EXPR" :tabremove<Space>""<C-b>
+map <buffer>db      -description "Close tab from list" -b :bdelete<SPACE>
+map <buffer>dd      -description "Close tab range" -b :tc<SPACE>
+map <buffer>de      -description "Close tabs satisfying EXPR" -b :tabremove<Space>""<C-b>
+map <buffer>dE      -description "Close tabs not satisfying EXPR"  -b :tabfilter<Space>""<C-b>
+map <buffer>dm      -description "Close tabs matching REGEX" -b :tabremoveregex<Space>""<C-b>
+map <buffer>dM      -description "Close tabs not matching REGEX" -b :tabfilterregex<Space>""<C-b>
+map <buffer>dt      -description "Close from here to ARG" -b :tabclosefromhereto<Space>
+map <buffer>dxt     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
+map <buffer>du      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
 " move tabs: <buffer>m "
 map <buffer>m       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
 map <buffer>m<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
