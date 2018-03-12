@@ -9245,6 +9245,9 @@ function concatRegex(...regexps) {
 }
 window.concatRegex = concatRegex;
 
+" ,------------, "
+" | conversion | "
+" '------------' "
 function inToCm(x) { return x * 2.54; }
 window.inToCm = inToCm;
 
@@ -9286,6 +9289,7 @@ function updateUSDAUDexchange() {
 
 function getUSDAUDexchange() { return window.AUDperUSD; }
 window.getUSDAUDexchange = getUSDAUDexchange;
+" ------------------------------------------------------------------------------- "
 
 function messageArrayItems(a) { utils.message(a.join('\n')); };
 function yankArrayItems(a)  { utils.yankWithMsg(a.join('\n')); };
@@ -9315,6 +9319,9 @@ window.re_http_url = re_http_url;
 var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
 window.re_http_url_groups = re_http_url_groups;
 
+" ,--------, "
+" | Saving | "
+" '--------' "
 function wget(url=null, optstr="", dirpref="~/Downloads") {
     if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
     else url = buffer.URL;
@@ -9348,6 +9355,7 @@ function curl(url, dir, title, optstr, force) {
         dactyl.execute(`![[ ! -f ${savepath} ]] && curl ${optstr} ${url} > '${savepath}'`);
 }
 
+" ------------------------------------------------------------------------------- "
 function formatSeconds(n) {
     var hours = Math.floor(n/3600);
     n -= hours*3600;
