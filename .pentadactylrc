@@ -4769,8 +4769,8 @@ js hints.addMode("ɳ", "Click new tab control", clickSelector);
 
 :if isWaterfox
     style -name=newtabstyle about:newtab
-    \     .newtab-title {
-    \         background: #eeeeff !important;
+    \     span.newtab-title {
+    \         color: #005500 !important;
     \     }
     styleenable about:newtab newtabstyle
 :endif
