@@ -4839,8 +4839,14 @@ function altnetcleanup() {
 EOF
 
 " === hint modes === "
-set eht+=ɑ:'.app-list-item h3>a'
-js hints.addMode("ɑ", "Open official website [HINTS]", e=> openOrSelectTab(e.href));
+set eht+=α:'.app-list-item h3>a'
+js <<EOF
+hints.addMode(
+    "α",
+    "Open official website [HINTS]",
+    e => dactyl.open(altnetGetOfficialWebsite(e.href), {where: dactyl.NEW_TAB})
+);
+EOF
 
 command! altnetcleanup -description "Remove cruft" removeselector iframe ins
 command! altnetopen -description "Open application page"
@@ -4858,7 +4864,7 @@ command! altnetyankofficialwebsite -description "Yank URL of official website fo
 
 map <site>c  -description "Goto Official Website"
 \            -js content.document.querySelector('.icon-official-website').click();
-map <site>f  -description "Open official website [HINTS]" -js hints.show("ɑ");
+map <site>f  -description "Open official website [HINTS]" -js hints.show("α");
 map <site>o  -description "Open (or switch to) application page in another tab" -b :altnettabopen<Space>
 map <site>O  -description "Open application page" -b :altnetopen<Space>
 map <site>to -description "Toggle open source" -js urlToggleQuery("license=opensource");
