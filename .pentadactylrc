@@ -4787,7 +4787,6 @@ map gf -description "Follow multiple links in background tabs" g;Ņ
 map <site>b -description "Toggle selection border"  -ex styletoggle -name newtabselectionstyle
 map <site>c -description "Click control buttons (pin, remove)" -js hints.show('ɳ');
 map <site>s -description "Toggle custom style"  -ex styletoggle -name newtabstyle
-map <C-return> -modes base -description "Toggle Find Bar" -js findbarToggle();
 
 group user
 " -------------------------------------------------------------------------------
