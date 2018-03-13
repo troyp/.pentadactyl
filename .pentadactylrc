@@ -323,6 +323,26 @@ function searchMappings(...pats) {
     return filtered;
 }
 window.searchMappings = searchMappings;
+
+function searchMappingsByMode(mode, ...pats) {
+    var activegroups = contexts.activeGroups();
+    var modeInstance = modes[mode.toUpperCase()];
+    var activemappings = activegroups.flatMap(
+        g => Array.from(g.mappings.iterate([modeInstance])));
+    var filtered = activemappings.filter( m => pats.every(p => m.name.search(p)>=0 ||
+                                                               m.description.search(p)>=0 ||
+                                                               m.action.toString().search(p)>=0) );
+    var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur), 0);
+    var maxlendesc = Math.min(
+                         50,
+                         filtered.map(m=>m.description.length).reduce((acc,cur)=>Math.max(acc,cur), 0));
+    dactyl.utils.message(
+        filtered.map(
+            m=>`${S.padEnd(m.name, maxlen)}\t${S.padEnd(m.description+':', maxlendesc)}\t${m.action}\n`
+        ).join('')
+    );
+    return filtered;
+}
 EOF
 
 " -----------------------------------------------------------------------------
@@ -460,8 +480,10 @@ map <leader>hb      -description "search mappings" :searchmappings<Space>
 
 map <C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
 map <C-h>b -description "Search bindings" -b :searchmappings<Space>
+map <C-h>m -description "Search bindings by mode" -b :searchmappingsbymode<Space>
 
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
+command! searchmappingsbymode -nargs * -js searchMappingsByMode.apply(null, args.map(readStringOrRegex));
 
 " <browser> prefix: "
 " k    :  bookmark "
