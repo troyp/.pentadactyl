@@ -1217,9 +1217,11 @@ map <C-?> <unhide-inputs>
 " Search from top of page
 map g/ -modes normal -b gg/
 " Firefox find box
-map <A-/> -modes base     -description "Toggle Firefox Find Box"        -js findbarToggle();
+map <A-/> -description "Toggle Firefox Find Box (native search in page)"
+\    -modes base
+\    -js findbarToggle();
 " C-' Firefox link search
-map "<C-'>" -modes normal -description "Firefox Quick Find Link Search" -b <C-v>'
+map "<C-'>" -modes normal -description "Firefox Quick Find Link Search (native link search)" -b <C-v>'
 
 map sf     -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
 map sg     -description "Google Search (pagezipper)" :openwithpagezipper<Space>
