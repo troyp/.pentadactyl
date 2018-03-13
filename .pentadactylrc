@@ -305,7 +305,8 @@ function searchMappings(...pats) {
     var activegroups = contexts.activeGroups();
     var activemappings = activegroups.flatMap(
         g => Array.from(g.mappings.iterate([modes.NORMAL])).concat(
-             Array.from(g.mappings.iterate([modes.INSERT])))
+             Array.from(g.mappings.iterate([modes.INSERT]))).concat(
+             Array.from(g.mappings.iterate([modes.BASE])))
         );
     var filtered = activemappings.filter( m => pats.every(p => m.name.search(p)>=0 ||
                                                                m.description.search(p)>=0 ||
