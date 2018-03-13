@@ -308,9 +308,19 @@ function searchMappings(...pats) {
              Array.from(g.mappings.iterate([modes.INSERT]))).concat(
              Array.from(g.mappings.iterate([modes.BASE])))
         );
-    var filtered = activemappings.filter( m => pats.every(p => m.name.search(p)>=0 ||
-                                                               m.description.search(p)>=0 ||
-                                                               m.action.toString().search(p)>=0) );
+    var filtered = activemappings.filter(
+        m => pats.every(
+            p => {
+                if (p.toLowerCase()==p) {
+                    return m.name.toLowerCase().search(p)>=0 ||
+                           m.description.toLowerCase().search(p)>=0 ||
+                           m.action.toString().toLowerCase().search(p)>=0
+                } else {
+                    return m.name.search(p)>=0 ||
+                          m.description.search(p)>=0 ||
+                          m.action.toString().search(p)>=0
+                }
+            }) );
     var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur), 0);
     var maxlendesc = Math.min(
                          50,
@@ -329,9 +339,19 @@ function searchMappingsByMode(mode, ...pats) {
     var modeInstance = modes[mode.toUpperCase()];
     var activemappings = activegroups.flatMap(
         g => Array.from(g.mappings.iterate([modeInstance])));
-    var filtered = activemappings.filter( m => pats.every(p => m.name.search(p)>=0 ||
-                                                               m.description.search(p)>=0 ||
-                                                               m.action.toString().search(p)>=0) );
+    var filtered = activemappings.filter(
+        m => pats.every(
+            p => {
+                if (p.toLowerCase()==p) {
+                    return m.name.toLowerCase().search(p)>=0 ||
+                           m.description.toLowerCase().search(p)>=0 ||
+                           m.action.toString().toLowerCase().search(p)>=0
+                } else {
+                    return m.name.search(p)>=0 ||
+                          m.description.search(p)>=0 ||
+                          m.action.toString().search(p)>=0
+                }
+            }) );
     var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur), 0);
     var maxlendesc = Math.min(
                          50,
