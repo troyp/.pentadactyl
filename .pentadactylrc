@@ -5749,6 +5749,7 @@ map <site>gcc      -description "Clone repo to ~/source/git-repos or ~/repos" -j
 map <site>gcs      -description "Clone repo via SSH" -b :ghclonessh<Space>
 map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
 map <site>ir       -description "List user's repos in mow" -ex ghlistrepos
+map <site>l        -description "Show line(s) in source file" -b :ghgotolines<Space>
 map <site>m<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
 map <site>m        -description "(show bindings)" -js CommandExMode().open("showkeys <site>m")
 map <site>mg       -count -description "My gists" -js openOrSelectTab('https://gist.github.com/'+ghusername, count?"tab":"here");
@@ -5802,7 +5803,7 @@ command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
      \ -js ghToggleHTMLView();
 
-command! ghgotolines -nargs=+ -js ghGgoToLines(args);
+command! ghgotolines -nargs=+ -js ghGotoLines(args);
 
 command! ghlistrepos -js var u = ghGetUser(); dactyl.execute(`!python3 -c "import requests; list(map(lambda repo: print(repo['name']), requests.get('https://api.github.com/users/${u}/repos').json()))"`)
 
@@ -5871,7 +5872,7 @@ function ghToggleHTMLView() {
     dactyl.open(newurl);
 }
 
-function ghGoToLines(args) {
+function ghGotoLines(args) {
     var loc = content.location;
     var url = loc.href.replace(/#.*$/, '');
     var frag = `#L${args[0]}`;
