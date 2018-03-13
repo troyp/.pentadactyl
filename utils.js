@@ -43,6 +43,8 @@ var utils = {
         return N;
     },
 
+    numberOfTabs: function () { return tabs.allTabs.length; },
+
     removeTab: function (ord) {
         var currT = gBrowser.selectedTab;
         var altT = tabs.alternate;
