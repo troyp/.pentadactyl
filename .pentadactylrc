@@ -4048,8 +4048,8 @@ js hints.addMode('字', 'copy kanji', elem=>utils.yankWithMsg(elem.innerText));
 js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>window._dactylargs[0](e.innerText));
 
 " copy link url to dactylresult "
-set eht+=[α]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
-js hints.addMode("α", "Copy href to dactylresult", e=>{ window.dactylresult = e.href; });
+set eht+=[ȧ]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
+js hints.addMode("ȧ", "Copy href to dactylresult", e=>{ window.dactylresult = e.href; });
 
 " bold links: mode ä "
 set eht+=[ä]:a>strong,a>b
