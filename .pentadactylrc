@@ -1686,6 +1686,7 @@ map gf  -description "Open multiple links in background tabs (HINTS)"   -b g;b
 
 " Awesome Bar "
 map ga -description "Open new tab, search in Awesome Bar" -b <C-v><C-t>
+map <buffer>o -description "Open new tab here (clone current tab and :open)" Co
 
 " ,------------------,
 " | Buffer Selection |
