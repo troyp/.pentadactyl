@@ -34,9 +34,9 @@ var utils = {
         tabs.remove(target, numToClose);
     },
 
-    closeTabsFromTo: function (firstSpec, endSpec, spec='') {
+    closeTabsFromTo: function (firstSpec, endSpecExc, spec='') {
 	      var firstIx = tabs.indexFromSpec(firstSpec);
-	      var endIx = tabs.indexFromSpec(endSpec);
+	      var endIx = tabs.indexFromSpec(endSpecExc);
 	      var firstTab = tabs.getTab(firstIx);
 	      var N = endIx - firstIx;
 	      tabs.remove(firstTab, N);
