@@ -888,6 +888,12 @@ map <leader>amy
 map <leader>ap
     \ -description "Open Paypal"
     \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
+" <leader>as - Schedules"
+map <leader>as      -js CommandExMode().open("showkeys <leader>as");
+map <leader>as<C-h> -js CommandExMode().open("showkeys <leader>as");
+map <leader>asa
+    \ -description "Ballina Airport: Arrivals and Departures"
+    \ -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
 " Time "
 map <leader>at
     \ -description "Open Time Server"
