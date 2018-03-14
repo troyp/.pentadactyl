@@ -918,7 +918,10 @@ map <leader>asa
 map <leader>at
     \ -description "Open Time Server"
     \ -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab");
-" <leader>av - Video"
+" <leader>av - Video & Radio"
+map <leader>ava
+    \ -description "AccuRadio Classical"
+    \ -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
 :if isPalemoon
     map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
 :else
