@@ -7540,8 +7540,6 @@ map <site>p  -description "Open link in Chrome"       -js hints.show("🄒");
 map <site>r  -description "Scroll to Row"             -b  :netflixgotorow<Space>
 map <site>sh -description "Toggle header overlap"     -js netflixToggleHeaderOverlap();
 map <site>st -description "Toggle text links"         -js netflixToggleTextLinks();
-map <site>th -description "Open Browse (new tab)"     -ex tabnew https://www.netflix.com/browse
-map <site>tl -description "Open My List (new tab)"    -ex tabnew https://www.netflix.com/browse/my-list
 map <site>/  -description "Search"                    -js netflixSearch();
 
 map <Up> -b <C-v><Up>
