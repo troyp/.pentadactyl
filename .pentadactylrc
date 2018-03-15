@@ -7705,6 +7705,7 @@ map <site>t<C-h> -description "(show bindings)"
 "<site>t : toggles"
 map <site>tb     -description "Toggle Bit Rate Select" -b <C-S-A-s>
 map <site>td     -description "Toggle A/V Stats"       -b <C-S-A-d>
+map <site>tf     -description "Toggle Fullscreen"      -js netflixFullscreen();
 map <site>tl     -description "Toggle Logging"         -b <C-S-A-l>
 map <site>ts     -description "Toggle subtitles"       -js netflixToggleSubs();
 "<site>y : yank"
@@ -7854,6 +7855,12 @@ function netflixPlayPause() {
 function netflixFlatButton() {
     var flatbtns = Array.from(content.document.querySelectorAll('.nf-flat-button-text'));
     flatbtns.slice(-1)[0].click();
+}
+
+function netflixFullscreen() {
+    var fsBtn = content.document.querySelector(".button-bvuiFullScreenOn");
+    var fsOffBtn = content.document.querySelector(".button-bvuiFullScreenOff");
+    (fsBtn || fsOffBtn).click();
 }
 EOF
 
