@@ -2611,6 +2611,7 @@ map <A-f1> -js viewTiledToggle()
 
 map <ext>d<C-h> -description "(show bindings)" -js CommandExMode().open("<ext>d")
 map <ext>d      -description "(show bindings)" -js CommandExMode().open("<ext>d")
+map <ext>dwi -description "Show/hide element classes and ids" -ex toggledisplayclassid
 map <ext>dwr -description "Show/hide ruler"                   -ex ruler
 map <ext>dwt -description "Toggle Web Developer Toolbar"      -ex toolbartoggle Web Developer Toolbar
 map <ext>dww -description "Web Developer Extension commands"
@@ -2656,6 +2657,8 @@ command! togglestylesbrowser
 \    -js document.getElementById("web-developer-disable-browser-default-styles-menu").click();
 command! hidebackground
 \    -js WebDeveloper.Images.hideBackgroundImages([content.document]);
+command! toggledisplayclassid -description "Show/hide element classes and ids (Web Developer Toolbar)"
+\    -js document.getElementById("web-developer-display-id-class-details-command").click();
 
  js <<EOF
 
