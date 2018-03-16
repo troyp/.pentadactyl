@@ -7866,16 +7866,18 @@ function netflixFlatButton() {
     flatbtns.slice(-1)[0].click();
 }
 
+dactyl._guioption_c = options.guioptions.includes('c');
+
 function netflixFullscreen() {
     var fsBtn = content.document.querySelector(".button-bvuiFullScreenOn");
     var fsOffBtn = content.document.querySelector(".button-bvuiFullScreenOff");
-    var cmdAlways = options.guioptions.includes('c');
     if (fsBtn) {
         fsBtn.click();
+        dactyl._guioption_c = options.guioptions.includes('c');
         options.guioptions=options.guioptions.filter(e=>e!='c')
     } else {
         fsOffBtn.click();
-        options.guioptions.push('c');
+        if (dactyl._guioption_c) options.guioptions.push('c');
     }
 }
 EOF
