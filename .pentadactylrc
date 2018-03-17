@@ -3269,7 +3269,8 @@ map <leader>la -description "Append links to end of page" -ex appendlinks
 map <leader>lc -description "Count links" -ex countlinks
 map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
 map <leader>ll -description "List all links in page" -ex listlinks
-map <leader>ls -description "Select links from page and download" -ex dlselectlinks
+map <leader>ld -description "Select links from page and download" -ex dlselectlinks
+map <leader>ls -description "Open links in selection" -ex openselectionlinks
 map <leader>lv -description "Open links in clipboard" -ex tabopencblinks
 
 command! appendlinks
@@ -3296,6 +3297,9 @@ command! dlselectlinks
 command! tabopencblinks
 \    -description "Open links in clipboard"
 \    -js openCBLinks();
+command! openselectionlinks
+\    -description "Open links in selection"
+\    -js openSelectionLinks();
 
 js <<EOF
 function appendLinks () {
@@ -3359,6 +3363,16 @@ function openCBLinks() {
 
 function openListLinks(links, opts={where: dactyl.NEW_TAB}) {
     links.forEach(link=>dactyl.open(link, opts));
+}
+
+function getSelectionLinks() {
+    var selHtml = getSelectionDOM();
+    return Array.from(selHtml.links);
+}
+
+function openSelectionLinks() {
+    var links = getSelectionLinks();
+    links.forEach(l=>openOrSelectTab(l, count?"here":"tab"));
 }
 EOF
 
