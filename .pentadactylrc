@@ -8973,6 +8973,13 @@ function getSelectionHtml() {
 }
 window.getSelectionHtml = getSelectionHtml;
 
+function getSelectionDOM() {
+    var str = getSelectionHtml();
+    var parser = new DOMParser();
+    return parser.parseFromString(str, "text/html");
+}
+window.getSelectionDOM = getSelectionDOM;
+
 function openHTML(html, where='tab') {
     var dataURI = "data:text/html," + encodeURIComponent(html);
     dactyl.open(dataURI, where);
