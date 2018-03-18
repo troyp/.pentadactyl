@@ -1135,14 +1135,15 @@ map <yank>h -description "Yank page heading(s) (<H1>)" -ex yankselectorcontent h
 map <yank>H -description "Yank PDF heading in viewer" -ex yankPDFheading
 map <yank>i -description "Yank text input fields" -js yankInputFields();
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
-map <yank>l -description "Yank link reference (page title and url)"
-    \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
-map <yank>L -description "Yank link reference (page title and heading)"
-    \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
+map <yank>l -description "Yank selection links" -ex yankselectionlinks
 map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
 map <yank>M -description "Yank markdown link (using H1 heading as title)"
     \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
 map <yank>p -description "Yank paragraph (HINTS)" -js hints.show("ÿ");
+map <yank>r -description "Yank link reference (page title and url)"
+    \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
+map <yank>R -description "Yank link reference (page title and heading)"
+    \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
 map <yank>s -description "Yank element content by selector" :yankselectorcontent<Space>
 map <yank>t -description "Yank page title" -js utils.yankWithMsg(buffer.title)
 map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
@@ -3300,6 +3301,9 @@ command! tabopencblinks
 command! openselectionlinks
 \    -description "Open links in selection"
 \    -js openSelectionLinks();
+command! yankselectionlinks
+\    -description "Yank links in selection"
+\    -js utils.cbWriteWithMessageLimit(getSelectionLinks().join("\n"));
 
 js <<EOF
 function appendLinks () {
