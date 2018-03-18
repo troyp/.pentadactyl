@@ -2149,6 +2149,8 @@ map <goto>w;k     -description "Bookmarks Dialog"
 \                 -ex dialog bookmarks
 map <goto>wl      -description "Library Dialog (sticky)"
 \                 -ex librarysticky
+map <goto>wi      -description "Page Info"
+\                 -js BrowserPageInfo();
 
 
 command! appcache
