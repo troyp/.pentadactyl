@@ -3268,9 +3268,9 @@ map <leader>l      -js CommandExMode().open("showkeys <leader>l")
 
 map <leader>la -description "Append links to end of page" -ex appendlinks
 map <leader>lc -description "Count links" -ex countlinks
+map <leader>ld -description "Choose links from page and download" -b :dlchooselinks<Space>
 map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
 map <leader>ll -description "List all links in page" -ex listlinks
-map <leader>ld -description "Select links from page and download" -ex dlselectlinks
 map <leader>ls -description "Open links in selection" -ex openselectionlinks
 map <leader>lv -description "Open links in clipboard" -ex tabopencblinks
 
@@ -3290,11 +3290,11 @@ command! countlinks
 command! listlinktext
 \     -description "List the text of all links in page"
 \     -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
-command! dlselectlinks
+command! dlchooselinks
 \    -description "Select links from page and download"
 \    -nargs=?
 \    -complete=dir
-\    -js dlLinks(args[0]);
+\    -js dlChoosePageLinks(args[0]);
 command! tabopencblinks
 \    -description "Open links in clipboard"
 \    -js openCBLinks();
@@ -3344,19 +3344,31 @@ function appendLinkUrls () {
     );
 }
 
-function dlLinks(dir=null) {
     home = env.get("HOME");
     dir = dir || `${home}/Downloads`;
-    var title = buffer.title;
+function dlChoosePageLinks(dir=null) {
+    home = env.get("HOME");
+    dir = dir || `${home}/Downloads`;
+    var title = buffer.title || "downloads";
     var newdir = `${dir}/${title}`;
     if (title)
         dactyl.execute(`!mkdir "${newdir}"`);
-    s = '';
-    for (var l of content.document.links) {
-        var title = l.parentElement.parentElement.getAttribute('data-title');
-        s += l.href + "\\\\n";
+    var links = content.document.links;
+    if (links.length < 160) {
+        s = '';
+        for (var l of links) {
+            var title = l.parentElement.parentElement.getAttribute('data-title');
+            s += l.href + "\\\\n";
+        }
+        dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
+    } else {
+        var tempfile = io.system("mktemp").output;
+        for (var l of links) {
+            // var title = l.parentElement.parentElement.getAttribute('data-title');
+            dactyl.execute(`!echo "${l.href}\\\\n" >> ${tempfile}`)
+        }
+        dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; cat ${tempfile} | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
     }
-    dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
 }
 
 function openCBLinks() {
