@@ -561,7 +561,7 @@ map vf      -modes normal -b ;F
 " visual mode "
 map <browser>v -modes normal -description "Visual mode" -ex feedkeys iv
 " visual (pseudo-)line mode "
-map V          -modes normal -description "Pseudo-visual-line mode"-ex feedkeys i<C-a>vj
+map V -modes normal -description "Pseudo-visual-line mode" -ex feedkeys i<C-a>vj
 
 " next/previous heading or paragraph "
 map <C-A-n>
