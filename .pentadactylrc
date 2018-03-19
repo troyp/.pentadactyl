@@ -889,8 +889,11 @@ map <leader>jk -description "Google Translate handwritten input"
 map <leader>am      -js CommandExMode().open("showkeys <leader>am");
 map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am");
 map <leader>amc
-    \ -description "Open Gmail Contacts"
-    \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl',
+    \ -description "Open Google Contacts"
+    \ -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"tab");
+map <leader>amC
+    \ -description "Open Gmail Contacts (basic)"
+    \ -count -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
     \                            count?"here":"tab",
     \                            /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
 map <leader>amm
