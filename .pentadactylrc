@@ -8110,6 +8110,17 @@ map <site>l -description "Create download buttons for top row" -js packtDlLinksT
 map <site>c -description "Download first link" -js packtPopLink();
 map <site>i -description "Login/logout" -js packtLoginLogout();
 
+" ,----------------------------------------------,
+" | www.packtpub.com//packt/offers/free-learning |
+" '----------------------------------------------'
+group packtlearn -locations=https://www.packtpub.com//packt/offers/free-learning?login=1
+
+js <<EOF
+function packtClaim() { content.document.getElementById("free-learning-claim").click(); }
+EOF
+
+map <site>c -description "Claim" -js packtClaim();
+
 group user
 
 " -------------------------------------------------------------------------------
