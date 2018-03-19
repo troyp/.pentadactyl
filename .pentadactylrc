@@ -8152,6 +8152,24 @@ style -name=scriptular http://scriptular.com,file:///opt/webapps/scriptular/inde
     \ #quick_reference,#quick_reference>.scrollable { height: 700px !important; margin-top: 0; }
 styleenable -name scriptular
 
+" -------------------------------------------------------------------------------
+" ,----------,
+" | Sparkfun |
+" '----------'
+
+group sparkfun -locations=learn.sparkfun.com
+
+js <<EOF
+function sparkfunSimple() {
+    isolateSelector("#airlock");
+    removeSelectors(".fave_widget", ".share-link-inline", ".breadcrumb", ".contributors img");
+}
+EOF
+
+map <site>c -description "Remove cruft" -js sparkfunSimple();
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-------------------,
 " | StackOverflow.com |
