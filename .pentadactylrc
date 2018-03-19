@@ -3383,15 +3383,9 @@ function openListLinks(links, opts={where: dactyl.NEW_TAB}) {
     links.forEach(link=>dactyl.open(link, opts));
 }
 
-function getSelectionLinks() {
-    var selHtml = getSelectionDOM();
-    return Array.from(selHtml.links);
-}
+function getSelectionLinks() { return Array.from(getSelectionDOM().links); }
 
-function openSelectionLinks() {
-    var links = getSelectionLinks();
-    links.forEach(l=>openOrSelectTab(l, count?"here":"tab"));
-}
+function openSelectionLinks() { getSelectionLinks().forEach(l=>openOrSelectTab(l, count?"here":"tab")); }
 EOF
 
 " -------------------------------------------------------------------------------
