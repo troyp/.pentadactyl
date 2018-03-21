@@ -5966,7 +5966,7 @@ function ghGetUserAndRepo(useronly=false) {
         return [null, null];
     var regex = /[^:]+:\/\/(gist.)?github.com\/([^/]+)\/?([^/#?]+)?(\/.*)?/;
     var match = buffer.URL.match(regex);
-    var user = match && match[2];
+    var user = match && match[2]!="new" && match[2];
     var repo = match && match[3];
     if (useronly) return user;
     else return [user, repo];
