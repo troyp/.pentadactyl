@@ -830,9 +830,9 @@ map <leader>Ts      -description "Toggle status bar"                  -ex set gu
 map <leader>Tt      -description "Toggle tab bar"                     -ex set showtabline!=always,never
 
 map <A-Up>   -description "Show navigation & bookmarks toolbars and command line"
-\            -ex set guioptions-=TB | set guioptions+=c | set showtabline=never
+\            -ex set guioptions-=mTB | set guioptions+=c | set showtabline=never
 map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
-\            -ex set guioptions+=TB | set guioptions-=c | set showtabline=always
+\            -ex set guioptions+=mTB | set guioptions-=c | set showtabline=always
 
 " ,------------------------,
 " | <leader>u - extensions |
