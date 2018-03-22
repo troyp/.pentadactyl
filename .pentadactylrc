@@ -8853,8 +8853,8 @@ function wpGotoWiktionary(where='here', lang='en') {
     var topic = wpGetTopic().toLowerCase();
     dactyl.open(`https://${lang}.wiktionary.org/wiki/${topic}`, where);
 }
-
 EOF
+
 command! wplatest -description "Go to latest revision" -js wpLatest();
 command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
 command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml();
@@ -8871,22 +8871,40 @@ command! wpsection
 \   -js content.window.location.hash = '#' + args[0].replace(/.*…+/, '');
 
 map <site>c :wpsection<Space>
-map <site>d -js wpGotoWiktionary();
-map <site>D -js wpGotoWiktionary('tab');
-map <site>l -ex wplatest
-map <site>t :wpcopytablecols<Space>
-map <site>. -js wpGotoNextHeading();
-map <site>, -js wpGotoPreviousHeading();
-map <site><Space> -ex wpcleanup
-
-map J -js wpGotoNextHeading();
-map K -js wpGotoPreviousHeading();
+map <site>d
+\    -description "Open page in Wiktionary"
+\    -js wpGotoWiktionary();
+map <site>D
+\    -description "Open page in Wiktionary (new tab)"
+\    -js wpGotoWiktionary('tab');
+map <site>l
+\    -description "Go to latest revision"
+\    -ex wplatest
 map <site>p
 \    -description "Open clipboard text in wikipedia"
 \    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
 map <site>P
 \    -description "Open clipboard text in wiktionary"
 \    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+map <site>t
+\    -description "Copy specified columns (single digits) from table chosen by HINT" -b
+\    :wpcopytablecols<Space>
+map <site>.
+\    -description "Scroll to next heading"
+\    -js wpGotoNextHeading();
+map <site>,
+\    -description "Scroll to previous heading"
+\    -js wpGotoPreviousHeading();
+map <site><Space>
+\    -description "Clean up article"
+\    -ex wpcleanup
+
+map J
+\    -description "Scroll to next heading"
+\    -js wpGotoNextHeading();
+map K
+\    -description "Scroll to previous heading"
+\    -js wpGotoPreviousHeading();
 
 group user
 
