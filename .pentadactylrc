@@ -9094,6 +9094,14 @@ function indexToOrdinalString(n) {
 
 function stripBlankLines(s) { return s.replace(/\n\s*\n/gm, '\n'); }
 
+function capitalize(s) { return s[0].toUpperCase() + s.slice(1); }
+
+function strToWikiTitle(s, capitalizeStr=true) {
+     var joined = s.replace(/[ \t]+/, "_");
+     var title = capitalizeStr ? capitalize(joined) : joined;
+     return encodeURIComponent(title);
+}
+
 function isInView(elt) {
     var bound = elt.getBoundingClientRect();
     var viewBottom = content.window.innerHeight || content.document.documentElement.clientHeight;
