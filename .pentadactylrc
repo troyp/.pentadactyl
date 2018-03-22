@@ -690,12 +690,6 @@ map <xtra>f
 map <xtra>q
     \ -description "Open in Qutebrowser"
     \ -ex oqute
-map <leader>o
-    \ -description "Open local file"
-    \ -openf<Space>
-map <leader>O
-    \ -description "Open local file (new tab)"
-    \ -tabopenf<Space>
 map <xtra>x
     \ -description "Open local file with xdg-open"
     \ -js xopenMaybeFromBufferDir();
@@ -776,6 +770,18 @@ map <leader>nn -description "Remove selector" :removeselector<Space>
 map <leader>no -description "Isolate selector" :isolateselector<Space>
 map <leader>np -description "lmnpop " -js hints.show('🄿');
 map <leader>nr -description "Remove cruft" -ex removecruft
+
+" ,------------------,
+" | <leader>o - Open |
+" '------------------'
+map <leader>o      -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>o")
+map <leader>o<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>o")
+map <leader>ol
+\    -description "Open local file"
+\    -b :openf<Space>
+map <leader>oL
+\    -description "Open local file (new tab)"
+\    -b :tabopenf<Space>
 
 " ,------------------,
 " | <leader>s - Save |
