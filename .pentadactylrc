@@ -8881,6 +8881,12 @@ map <site><Space> -ex wpcleanup
 
 map J -js wpGotoNextHeading();
 map K -js wpGotoPreviousHeading();
+map <site>p
+\    -description "Open clipboard text in wikipedia"
+\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+map <site>P
+\    -description "Open clipboard text in wiktionary"
+\    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
 
 group user
 
