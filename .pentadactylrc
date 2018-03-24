@@ -8178,6 +8178,41 @@ map <site>c -description "Claim" -js packtClaim();
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------,
+" | Poets.org |
+" '-----------'
+group poets -locations=poets.org
+
+js <<EOF
+function poetsGotoPrintable() {
+    var printLink = content.document.querySelector(".print-link>a");
+    var url = printLink.href;
+    dactyl.open(url, {where: "here"});
+}
+EOF
+
+map <site>c -js poetsGotoPrintable();
+
+" ,------------------,
+" | Poets.org/print/ |
+" '------------------'
+group poetsprint -locations=https://www.poets.org/print/*
+
+js <<EOF
+function poetsTidy() {
+    removeSelectors(
+        ".print-logo", ".print-site_name", ".print-breadcrumb", "hr",
+        ".field-name-field-credit", ".field-name-field-author",
+          ".field-name-field-date-published", "script"
+    );
+}
+EOF
+
+map <site>c -js poetsTidy();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,------------,
 " | Ptable.com |
 " '------------'
