@@ -542,6 +542,10 @@ map <C-.>   -modes normal -b <Right>
 "   note: <C-n>,gT are opposite motions. gt with arg goes to arg'th tab
 map h       -modes normal -b gT
 map l       -modes normal -b <C-n>
+" Let gU take a count "
+map gU -description "Open root path or nth level"
+\    -modes normal
+\    -count -js openNthFromRootPath(count);
 " <C-n> and <C-p> for down and up
 map <C-n>   -modes normal -b <C-v><down>
 map <C-p>   -modes normal -b <C-v><up>
@@ -9487,6 +9491,15 @@ function concatRegex(...regexps) {
     return RegExp(regexps.map(r=>`(${r.source})`).join(""));
 }
 window.concatRegex = concatRegex;
+
+function openNthFromRootPath(n=1, url = buffer.URL) {
+    var protocolReStr = "^[^:/]+://";
+    var oneLevelReStr = "[^/]+/";
+    var reStr = protocolReStr + oneLevelReStr.repeat(n+1);
+    var re = RegExp(reStr);
+    var newUrl = url.match(re)[0];
+    dactyl.open(newUrl);
+}
 
 " ,------------, "
 " | conversion | "
