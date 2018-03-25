@@ -8535,6 +8535,36 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,---------------------,
+" | UrbanDictionary.com |
+" '---------------------'
+
+group urbandictionary -locations=urbandictionary.com
+
+js <<EOF
+function udTidy() {
+    removeSelectors(
+        ".share", "#dark_top", ".mug-ad", ".widget", "#columnist", "iframe",
+        ".panel-margin", ".right", "#store-link", ".ad-panel"
+    );
+    removeSelectorsFiltered("#main_nav>li", e=>!e.classList.contains("has-dropdown"));
+}
+EOF
+
+map <site>c -description "Remove cruft" -js udTidy();
+map <site>s -description "Toggle autolink style"
+\    -ex styletoggle -name ud-fix-autolinks
+
+style -name=ud-fix-autolinks urbandictionary.com
+\    .autolink {
+\        color: #2c353c !important;
+\        font-weight: normal !important ;
+\        text-decoration-color: #BCC1C4 !important;
+\    }
+group user
+
+
 " -----------------------------------------------------------------------------
 " ,-----------------,
 " | Userscripts.org |
