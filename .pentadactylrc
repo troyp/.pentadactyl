@@ -1193,6 +1193,10 @@ map <yank>1 -description "Yank all <H1> headings" -ex yankselectorcontent h1
 map <yank>2 -description "Yank all <H2> headings" -ex yankselectorcontent h2
 map <yank>3 -description "Yank all <H3> headings" -ex yankselectorcontent h3
 map <yank>4 -description "Yank all <H4> headings" -ex yankselectorcontent h4
+map <yank>! -description "Yank <H1> heading (choose with completion)" -b :yankh1<Space>
+map <yank>@ -description "Yank <H2> heading (choose with completion)" -b :yankh2<Space>
+map <yank># -description "Yank <H3> heading (choose with completion)" -b :yankh3<Space>
+map <yank>$ -description "Yank <H4> heading (choose with completion)" -b :yankh4<Space>
 
 " Yank commands "
 command! yanktrueURL
@@ -1220,6 +1224,26 @@ command! yankselectorcontent
     \ -description "Yank the contents of an element by selector."
     \ -nargs=+
     \ -js yankSelectorContent(args[0], evalStringOrFunction(args[1])||'innerText');
+command! yankh1
+    \ -description "Yank the contents of an H1 heading."
+    \ -nargs=1
+    \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h1'); } "
+    \ -js utils.yankWithMsg(args[0]);
+command! yankh2
+    \ -description "Yank the contents of an H2 heading."
+    \ -nargs=1
+    \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h2'); } "
+    \ -js utils.yankWithMsg(args[0]);
+command! yankh3
+    \ -description "Yank the contents of an H3 heading."
+    \ -nargs=1
+    \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h3'); } "
+    \ -js utils.yankWithMsg(args[0]);
+command! yankh4
+    \ -description "Yank the contents of an H4 heading."
+    \ -nargs=1
+    \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h4'); } "
+    \ -js utils.yankWithMsg(args[0]);
 command! yankPDFheading
     \ -description "Yank PDF heading in viewer"
     \ -js utils.yankWithMsg(content.document.querySelector('.textLayer>div').textContent);
@@ -1232,6 +1256,10 @@ function yankTextarea(n) {
 
 function yankSelectorContent(sel, target='innerText') {
     utils.cbWriteWithMessageLimit(getSelectorContent(sel, target).join("\n"));
+}
+
+function yankSelectorCompletions(sel) {
+    return getSelectorContent(sel).map(e=>[e]);
 }
 
 EOF
