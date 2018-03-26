@@ -1178,7 +1178,7 @@ map <yank>l -description "Yank selection links" -ex yankselectionlinks
 map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
 map <yank>M -description "Yank markdown link (using H1 heading as title)"
     \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
-map <yank>p -description "Yank paragraph (HINTS)" -js hints.show("ÿ");
+map <yank>p -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
 map <yank>r -description "Yank link reference (page title and url)"
     \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
 map <yank>R -description "Yank link reference (page title and heading)"
@@ -1189,10 +1189,10 @@ map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
 map <yank>u -description "Yank buffer URL (unencoded)" -ex yanktrueURL
 map <yank>x -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>y -description "Yank buffer URL" -b y
-map <yank>1 -description "Yank page heading(s) (<H1>)" -ex yankselectorcontent h1
-map <yank>2 -description "Yank page heading(s) (<H2>)" -ex yankselectorcontent h2
-map <yank>3 -description "Yank page heading(s) (<H3>)" -ex yankselectorcontent h3
-map <yank>4 -description "Yank page heading(s) (<H4>)" -ex yankselectorcontent h4
+map <yank>1 -description "Yank all <H1> headings" -ex yankselectorcontent h1
+map <yank>2 -description "Yank all <H2> headings" -ex yankselectorcontent h2
+map <yank>3 -description "Yank all <H3> headings" -ex yankselectorcontent h3
+map <yank>4 -description "Yank all <H4> headings" -ex yankselectorcontent h4
 
 " Yank commands "
 command! yanktrueURL
@@ -1229,6 +1229,11 @@ function yankTextarea(n) {
     var contents = getTextArea(n);
     utils.cbWriteWithMessageLimit(contents);
 }
+
+function yankSelectorContent(sel, target='innerText') {
+    utils.cbWriteWithMessageLimit(getSelectorContent(sel, target).join("\n"));
+}
+
 EOF
 
 " ,------,
@@ -9432,10 +9437,6 @@ function getSelectorContent(sel, target='innerText') {
         }
     )
     return result;
-}
-
-function yankSelectorContent(sel, target='innerText') {
-    utils.cbWriteWithMessageLimit(getSelectorContent(sel, target).join("\n"));
 }
 
 function getLinksWithMatchingUrl(s) {
