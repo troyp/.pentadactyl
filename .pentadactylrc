@@ -8601,7 +8601,7 @@ function udTidy() {
         ".share", "#dark_top", ".mug-ad", ".widget", "#columnist", "iframe",
         ".panel-margin", ".right", "#store-link", ".ad-panel"
     );
-    removeSelectorsFiltered("#main_nav>li", e=>!e.classList.contains("has-dropdown"));
+    removeSelectorFiltered("#main_nav>li", e=>!e.classList.contains("has-dropdown"));
 }
 EOF
 
@@ -8779,7 +8779,7 @@ function wikiaSimplePage() {
     hideSelectors(
         '.page-header__subtitle'
     );
-    removeSelectorsFiltered(
+    removeSelectorFiltered(
         '.contains',
         e=>e.firstElementChild.classList.contains('special-categories'));
 }
@@ -9359,7 +9359,7 @@ function removeSelectors(...sels) {
     });
 }
 
-function removeSelectorsFiltered(sel, pred) {
+function removeSelectorFiltered(sel, pred) {
     var doc = content.document;
     var elts = Array.from(doc.querySelectorAll(sel)).filter(pred);
     elts.forEach(e=>e.remove && e.remove());
