@@ -1170,7 +1170,7 @@ map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." :
 map <yank>d -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
-map <yank>h -description "Yank page heading(s) (<H1>)" -ex yankselectorcontent h1
+map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 map <yank>H -description "Yank PDF heading in viewer" -ex yankPDFheading
 map <yank>i -description "Yank text input fields" -js yankInputFields();
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
@@ -1244,6 +1244,11 @@ command! yankh4
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h4'); } "
     \ -js utils.yankWithMsg(args[0]);
+command! yankheading
+    \ -description "Yank the contents of an H4 heading."
+    \ -nargs=1
+    \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h1','h2','h3','h4'); } "
+    \ -js utils.yankWithMsg(args[0]);
 command! yankPDFheading
     \ -description "Yank PDF heading in viewer"
     \ -js utils.yankWithMsg(content.document.querySelector('.textLayer>div').textContent);
@@ -1258,8 +1263,8 @@ function yankSelectorContent(sel, target='innerText') {
     utils.cbWriteWithMessageLimit(getSelectorContent(sel, target).join("\n"));
 }
 
-function yankSelectorCompletions(sel) {
-    return getSelectorContent(sel).map(e=>[e]);
+function yankSelectorCompletions(...sels) {
+    return getSelectorsContent(sels).map(e=>[e]);
 }
 
 EOF
@@ -9466,6 +9471,15 @@ function getSelectorContent(sel, target='innerText') {
             result.push(selectedContent);
         }
     )
+    return result;
+}
+
+function getSelectorsContent(sels) {
+    result = [];
+    sels.forEach(sel=>{
+        selectedElts = Array.from(content.document.querySelectorAll(sel));
+        selectedElts.forEach(e=>result.push(e.innerText));
+    });
     return result;
 }
 
