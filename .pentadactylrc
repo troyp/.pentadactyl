@@ -670,7 +670,7 @@ map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
 map <A-Esc> -b <C-v><Esc>
 " C-w closes tab; if last in window closes window.
-map <C-w> :q<CR>
+map <C-w> -b :q<CR>
 " movement
 map <C-S-D> -modes normal -b <C-u>
 map J       -modes normal -b <C-d>
@@ -710,7 +710,7 @@ map <xtra>D
     \ -description "Open directory in Dolphin"
     \ -ex openDirectoryInDolphin
 " jumplist
-map <C-j> -description "Show jump list" :jumps<CR>f
+map <C-j> -description "Show jump list" -b :jumps<CR>f
 map <xtra>P
     \ -description "Password hasher"
     \ -ex pwhash
@@ -752,7 +752,7 @@ map <leader>jk
     \ -description "Jisho kanji search (clipboard)"
     \ -count
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <leader>jm -description "Jisho multiword search" :jishomultisearch<Space>
+map <leader>jm -description "Jisho multiword search" -b :jishomultisearch<Space>
 map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
 
 " ,-----------------------------,
@@ -770,8 +770,8 @@ map <leader>ms -description "Open selection as HTML" -js openHTML(getSelectionHt
 map <leader>n      -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>n<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>ni -description "Remove images" -ex removeimages
-map <leader>nn -description "Remove selector" :removeselector<Space>
-map <leader>no -description "Isolate selector" :isolateselector<Space>
+map <leader>nn -description "Remove selector" -b :removeselector<Space>
+map <leader>no -description "Isolate selector" -b :isolateselector<Space>
 map <leader>nO
 \    -description "SEL:EXPR [SEL2:EXPR2] ...\tIsolate selectors if optional EXPR holds. Escape quotes"
 \    -b :isolateselectorsfiltered<Space>
@@ -1033,8 +1033,8 @@ command! sumusd2aud
 
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
 command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
-map <leader>+ :sum<Space>
-map <leader>* :product<Space>
+map <leader>+ -b :sum<Space>
+map <leader>* -b :product<Space>
 
 " ,-------------,
 " | Translation |
@@ -1156,8 +1156,8 @@ command! trans
 
 map <xtra>tt -description "Bing translate page" -ex bingtranslatepage
 map <xtra>tg -description "Google translate page" -ex googletranslatepage
-map <xtra>tx -description "Google translate text" :trans<Space>
-map <xtra>tc -description "Google translate text to clipboard" :googletranslatetextcb<Space>
+map <xtra>tx -description "Google translate text" -b :trans<Space>
+map <xtra>tc -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
 map <xtra>tv -description "Google translate selection" -ex googletranslateselection
 map <xtra>tf -description "Google translate text (HINTS)" -js hints.show("ţ");
 map <xtra>td -description "Google translate element (HINTS)" -js hints.show("Ţ");
@@ -1168,8 +1168,8 @@ map <xtra>tb -description "Google append translation (div) (HINTS)" -js hints.sh
 " ,------,
 " | Yank |
 " '------'
-map <yank>a -description "Yank text area #N contents" :yanktextarea<Space>
-map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." :yanktablecsvarea<Space>
+map <yank>a -description "Yank text area #N contents" -b :yanktextarea<Space>
+map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
 map <yank>d -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
@@ -1186,7 +1186,7 @@ map <yank>r -description "Yank link reference (page title and url)"
     \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
 map <yank>R -description "Yank link reference (page title and heading)"
     \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
-map <yank>s -description "Yank element content by selector" :yankselectorcontent<Space>
+map <yank>s -description "Yank element content by selector" -b :yankselectorcontent<Space>
 map <yank>t -description "Yank page title" -js utils.yankWithMsg(buffer.title)
 map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
 map <yank>u -description "Yank buffer URL (unencoded)" -ex yanktrueURL
@@ -1328,7 +1328,7 @@ map <A-/> -description "Toggle Firefox Find Box (native search in page)"
 map "<C-'>" -modes normal -description "Firefox Quick Find Link Search (native link search)" -b <C-v>'
 
 map sf     -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
-map sg     -description "Google Search (pagezipper)" :openwithpagezipper<Space>
+map sg     -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
 map sr     -description "Regex search: Forward" -modes normal -b /\r
 map sR     -description "Regex search: Backward" -modes normal -b ?\r
 map sw     -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
@@ -1432,9 +1432,9 @@ map <leader>c      -description "(show bindings)" -js CommandExMode().open("show
 map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
 map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 " Repeat search just entered with keyword changed
-map <leader>cr :<C-r>
+map <leader>cr -b :<C-r>
 " Repeat default just entered search with keyword
-map <leader>cR :<up><Home><forward-word><Space>
+map <leader>cR -b :<up><Home><forward-word><Space>
 
 " ,-------------------,
 " | Command-line only |
@@ -1740,8 +1740,8 @@ map <buffer>du      -description "Close all duplicates adjacent to current tab" 
 " move tabs: <buffer>m "
 map <buffer>m       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
 map <buffer>m<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
-map <buffer>mm      -description "Move tab to ordinal P" :tabmove<SPACE>
-map <buffer>mn      -description "Move N tabs to start or ordinal P" :moventabs<Space>
+map <buffer>mm      -description "Move tab to ordinal P" -b :tabmove<SPACE>
+map <buffer>mn      -description "Move N tabs to start or ordinal P" -b :moventabs<Space>
 map <buffer>mr      -description "Move tabs right of N to ordinal P" -arg -ex movealltabsrightofn <arg>
 map <buffer>m>      -description "Move COUNT tabs to end" -count -ex movetabstoend <count>
 map <buffer>m<      -description "Move COUNT tabs to start" -count -ex movetabstostart <count>
@@ -1753,7 +1753,7 @@ map <buffer>t       -description "View Tiled" -js tileTabs.Tile();
 map <buffer>p       -description "Toggle pin tab" -ex pintab!
 
 " undo recent closed tab from list
-map U :undo<SPACE>
+map U -b :undo<SPACE>
 
 " close tabs to right (inclusive) "
 map <C-k>   <buffer>>d
@@ -1763,7 +1763,7 @@ map <buffer>1 -description "Close all other tabs" -ex tabonly
 map <buffer>< -description "Close tabs to left"   -ex closetabstoleft
 map <buffer>> -description "Close tabs to right"  -ex closetabstoright
 
-map gm :tabmove!<SPACE>
+map gm -b :tabmove!<SPACE>
 map <C-S-P> -ex tabmove! -1
 map <C-S-N> -ex tabmove! +1
 map <C-h> -ex tabmove! -1
@@ -2020,7 +2020,7 @@ EOF
 
 command! tginit
     \ description "Initialize pentadactyl tabgroups commands"
-    \ :runtime! config/tabgroups.penta
+    \ -b :runtime! config/tabgroups.penta
 
 " ,-----------,
 " | Tile Tabs |
@@ -2081,7 +2081,7 @@ map <C-f10> -js showContextMenu();
 " history (better dialog than `:dialog history`)
 command! library
     \ -description "Open history dialog"
-    \ :feedkeys <C-S-H>
+    \ -b :feedkeys <C-S-H>
 command! librarysticky silent library |
     \ silent ! wmctrl -F -r "Library" -e 0,1081,216,812,815
     \ silent ! wmctrl -F -a "Library" -r "Library" -b add,above,sticky;
@@ -2247,27 +2247,27 @@ map <goto>wi      -description "Page Info"
 
 command! appcache
     \ -description "Open about:cache in new tab"
-    \ :tabopen about:cache?storage=appcache
+    \ -b :tabopen about:cache?storage=appcache
 
 set passkeys+='chrome://browser/content/bookmarks/bookmarksPanel.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://browser/content/places/places.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Left><Right>'
 
 " Select:
-map s;h :history! -max 30 -sort -date<SPACE>
-map s;k :bmarks!  -max 30<SPACE>
+map s;h -b :history! -max 30 -sort -date<SPACE>
+map s;k -b :bmarks!  -max 30<SPACE>
 map sj -ex jumps
 map sa -ex addons
-map sp :set<SPACE>
-map sc :set!<SPACE>
+map sp -b :set<SPACE>
+map sc -b :set!<SPACE>
 
 " List/Search:
 :if options.get('guioptions').value.includes('c')
-    map sb -description "search buffers" :buffers -max 41<SPACE>
-    map sh -description "search history" :history -max 41 -sort -date<SPACE>
+    map sb -description "search buffers" -b :buffers -max 41<SPACE>
+    map sh -description "search history" -b :history -max 41 -sort -date<SPACE>
 :else
-    map sb -description "search buffers" :buffers<SPACE>
-    map sh -description "search history" :history -sort -date<SPACE>
+    map sb -description "search buffers" -b :buffers<SPACE>
+    map sh -description "search history" -b :history -sort -date<SPACE>
 :endif
 
 " Search bookmarks: sk ... (see Bookmarks section) "
@@ -2275,14 +2275,14 @@ map sc :set!<SPACE>
 " Menu access: "
 map sm<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
 map sm      -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
-map smm :emenu<SPACE>
-map smf :emenu File.
-map sme :emenu Edit.
-map smv :emenu View.
-map smh :emenu History.
-map smb :emenu Bookmarks.
-map smt :emenu Tools.
-map sm/ :emenu Help.
+map smm -b :emenu<SPACE>
+map smf -b :emenu File.
+map sme -b :emenu Edit.
+map smv -b :emenu View.
+map smh -b :emenu History.
+map smb -b :emenu Bookmarks.
+map smt -b :emenu Tools.
+map sm/ -b :emenu Help.
 
 " -----------------------------------------------------------------------------
 " ,--------------,
@@ -2290,7 +2290,7 @@ map sm/ :emenu Help.
 " '--------------'
 
 " Manual sidebar selection with si, toggle with S
-map si :sidebar<SPACE>
+map si -b :sidebar<SPACE>
 map sI -ex sbclose
 " map <sidebar> -ex sidebar!
 " Open/close AiOS, switch focus
@@ -2355,13 +2355,13 @@ command! move -description "Move window by X Y"
 command! moveto -description "Move window to X Y"
     \ -nargs=* -js self.moveTo(args[0], args[1])
 command! moveTL -description "Move window to top left"
-    \ :js self.moveTo(0,0)
+    \ -js self.moveTo(0,0)
 command! moveTR -description "Move window to top right"
-    \ :js self.moveTo(screen.availWidth-self.window.outerWidth, 0)
+    \ -js self.moveTo(screen.availWidth-self.window.outerWidth, 0)
 command! moveBL -description "Move window to bottom left"
-    \ :js self.moveTo(0, screen.availHeight-self.window.outerHeight)
+    \ -js self.moveTo(0, screen.availHeight-self.window.outerHeight)
 command! moveBR -description "Move window to bottom right"
-    \ :js self.moveTo(screen.availWidth-self.window.outerWidth, screen.availHeight-self.window.outerHeight)
+    \ -js self.moveTo(screen.availWidth-self.window.outerWidth, screen.availHeight-self.window.outerHeight)
 
 " =============================================================================
 "                                      _________
@@ -2413,10 +2413,10 @@ style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
     \ }
 :endif
 
-map <browser>sN -description "Style/narrow page" :narrowpage<Space>
+map <browser>sN -description "Style/narrow page" -b :narrowpage<Space>
 map <browser>st -description "Style/add temp style for page" -b y:style -group=temp <C-v><C-v><Space>
 map <browser>su -description "Style/toggle usermode (minimal styling)" -ex set usermode!
-map <browser>sv -description "Style/view:choose page style" :emenu View.Page Style.
+map <browser>sv -description "Style/view:choose page style" -b :emenu View.Page Style.
 
 " ,---------,
 " | Stylish |
@@ -2461,21 +2461,28 @@ command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
 command! evalwithscripttag
     \ -nargs *
     \ -complete javascript
-    \ :js evalWithScriptTag(<args>);
+    \ -b :js evalWithScriptTag(<args>);
 command! evalwithjsscheme
     \ -nargs *
     \ -complete javascript
-    \ :open javascript:<args>; void(0);
+    \ -b :open javascript:<args>; void(0);
 
-map <leader>ee -description "Evaluate JS expression"                               -b :echo<Space>
-map <leader>eE -description "Evaluate JS expression: doc=content doc, $=jQuery"    -b :echo doc=content.document;<Space>$=jQuery;<Space>
-map <leader>ef -description "Evaluate JS expression: doc=1st frame doc, $=jQuery"  -b :echo doc=content.window.frames[0].document;<Space>$=jQuery;<Space>
-map <leader>eF -description "Evaluate JS expression: doc=Nth frame doc, $=jQuery"  -count :echo doc=content.window.frames[0<count>].document;<Space>$=jQuery;<Space>
-map <leader>ei -description "Evaluate JS expression by injecting into a script tag" -b :evalwithscripttag<Space>
-map <leader>er -description "JS REPL"                                              -ex js!
-map <leader>eR -description "JS REPL: doc=content doc, $=jQuery"                   -js dactyl.execute("js doc=content.document; $=jQuery;"); dactyl.execute("js!");
-map <leader>em -description "Evaluate JS expression (end with EOF)"                -b :js <<EOF
-map <leader>eb -description "Evaluate JS as bookmarklet"                           -b :open javascript:;void(0);<Left><Left><Left><Left><Left><Left><Left><Left><Left>
+map <leader>ee -description "Evaluate JS expression"
+\    -b :echo<Space>
+map <leader>eE -description "Evaluate JS expression: doc=content doc, $=jQuery"
+\    -b :echo doc=content.document;<Space>$=jQuery;<Space>
+map <leader>ef -description "Evaluate JS expression: doc=1st frame doc, $=jQuery"
+\    -b :echo doc=content.window.frames[0].document;<Space>$=jQuery;<Space>
+map <leader>eF -description "Evaluate JS expression: doc=Nth frame doc, $=jQuery"
+\    -count -b :echo doc=content.window.frames[0<count>].document;<Space>$=jQuery;<Space>
+map <leader>ei -description "Evaluate JS expression by injecting into a script tag"
+\    -b :evalwithscripttag<Space>
+map <leader>er -description "JS REPL" -ex js!
+map <leader>eR -description "JS REPL: doc=content doc, $=jQuery"
+\    -js dactyl.execute("js doc=content.document; $=jQuery;"); dactyl.execute("js!");
+map <leader>em -description "Evaluate JS expression (end with EOF)" -b :js <<EOF
+map <leader>eb -description "Evaluate JS as bookmarklet"
+\    -b :open javascript:;void(0);<Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------, ,-----------,
@@ -2893,7 +2900,7 @@ command! getintpref
     \ -nargs=1
     \ -js utils.message(dactyl.utils.getIntPref(args[0]));
 
-" enable/disable javascript
+" enable/disable javascript "
 command! acsetjs    :set! javascript.enabled=true
 command! acunsetjs  :set! javascript.enabled=false
 command! actogglejs toggleconfig javascript.enabled
