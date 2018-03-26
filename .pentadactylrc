@@ -772,6 +772,9 @@ map <leader>n<C-h> -description "(show bindings: Edit Content)" -js CommandExMod
 map <leader>ni -description "Remove images" -ex removeimages
 map <leader>nn -description "Remove selector" :removeselector<Space>
 map <leader>no -description "Isolate selector" :isolateselector<Space>
+map <leader>nO
+\    -description "SEL:EXPR [SEL2:EXPR2] ...\tIsolate selectors if optional EXPR holds. Escape quotes"
+\    -b :isolateselectorsfiltered<Space>
 map <leader>np -description "lmnpop " -js hints.show('🄿');
 map <leader>nr -description "Remove cruft" -ex removecruft
 
@@ -1675,6 +1678,16 @@ command! removeselectorwithmatchingattribute -nargs=+ -js removeSelectorWithMatc
 command! removecruft -js removeCruft();
 command! removeiframes -js removeIFrames();
 command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
+command! isolateselectorsfiltered
+\    -description "Isolate selectors when (optional) EXPR holds. Escape quotes. args: SEL:EXPR [SEL2:EXPR2] ..."
+\    -nargs=*
+\    -js isolateSelectorsFiltered.call(
+\            null,
+\            ...args.map(pr=>{
+\                var [sel,pred]=pr.split(":");
+\                pred = pred || true;
+\                return [sel, eval("(e)=>"+pred)];
+\            }));
 command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
 command! unhideselector  -nargs=* -js unhideSelectors.call(null, ...args);
@@ -9380,6 +9393,7 @@ function isolateSelector(sel) {
     content.document.body.appendChild(selectedElt);
 }
 
+" TODO: remove nonmatching elements rather than replacing matching ones "
 function isolateSelectors(...sels) {
     var doc = content.document;
     selectedElts = Array.from(content.document.querySelectorAll(sels));
@@ -9388,6 +9402,32 @@ function isolateSelectors(...sels) {
     selectedElts.forEach(elt =>
         content.document.body.appendChild(elt)
     );
+}
+function isolateSelectorsFiltered(...selPredPairs) {
+    " Each argument is either a selector string or a pair [SELECTOR, PRED] "
+    var doc = content.document;
+    var eltsForSel, eltsForSelFiltered;
+    var keep = [];
+    selPredPairs.forEach(arg=>{
+        if (typeof arg == "string") {
+            keep = keep.concat(Array.from(content.document.querySelectorAll(arg)));
+        } else {
+            var [sel, pred] = arg;
+            pred = pred || ((e)=>true);
+            eltsForSel = Array.from(content.document.querySelectorAll(sel));
+            eltsForSelFiltered = eltsForSel.filter(pred);
+            keep = keep.concat(eltsForSelFiltered);
+        }
+    });
+    topElts = Array.from(content.document.body.children);
+    topElts.forEach(elt => elt.remove());
+    keep.forEach(elt =>
+        content.document.body.appendChild(elt)
+    );
+}
+function isolateSelectorsFilteredHelper(...args) {
+    var processedArgs = args.map(pair=>[pair[0], eval("(e)=>"+pair[1])]);
+    return isolateSelectorsFiltered.call(null, ...processedArgs);
 }
 
 function hideSelectors(...sels) {
