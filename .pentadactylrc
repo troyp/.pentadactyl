@@ -1892,11 +1892,16 @@ js <<EOF
 function closeTabRange(firstOrd, endOrd) {
     if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  // current
     firstSpec = firstOrd - 1;
-    if (endOrd === '$') endOrd = 0;  // last tab
+    if (endOrd === '$') {
+        // last tab
+        endOrd = 0;
+        var toEnd = true;
+    }
     endOrd = tabNormalizeOrdinal(endOrd);
     endSpecInc = endOrd -1;        // ord  -> idx
     endSpecExc = endSpecInc +1;    // incl -> excl
     utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
+    if (toEnd) tabs.remove(tabs.getTab());
 }
 function closeTabsBetweenHereAndNExclusive(endOrd) {
     // start with next tab after current
