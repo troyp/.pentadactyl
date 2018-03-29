@@ -5933,8 +5933,9 @@ map <site>mr       -description "My repositories"
 map <site>o<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>og       -description "Open gists" -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"tab");
 map <site>o        -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
-map <site>oc       -description "Open code"
-\                  -count -js ghGotoRepoRootLevel(count);
+map <site>oc -description "Open commits"
+\    -count
+\    -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/commits`, count?"tab":"here");
 map <site>od       -description "Open PR patch"
 \                  -count -js openOrSelectTab(`${ghprGetPatchURL()}`, count?"tab":"here");
 map <site>oD       -description "Open PR diff"
@@ -5951,6 +5952,8 @@ map <site>op       -description "Open PRs"
 map <site>oP       -description "Permanent link" -js openOrSelectTab(ghGetPermalink(), count?"tab":"here");
 map <site>or       -description "Open repositories"
 \                  -count -js openOrSelectTab(`https://github.com/${ghGetUser()}?tab=repositories`, count?"tab":"here");
+map <site>ot -description "Open repo top level"
+\    -count -js ghGotoRepoRootLevel(count);
 map <site>ow       -description "Open wiki" -js openOrSelectTab(ghGetWikiURL(), count?"tab":"here");
 map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
 map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
