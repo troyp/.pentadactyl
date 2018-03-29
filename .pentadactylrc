@@ -1173,6 +1173,8 @@ map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -
 map <yank>d -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
+map <yank>gu -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
+map <yank>gU -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 map <yank>H -description "Yank PDF heading in viewer" -ex yankPDFheading
 map <yank>i -description "Yank text input fields" -js yankInputFields();
@@ -9663,13 +9665,28 @@ function concatRegex(...regexps) {
 }
 window.concatRegex = concatRegex;
 
-function openNthFromRootPath(n=1, url = buffer.URL) {
+function getNthFromRootPath(n=1, url=buffer.URL) {
+    n = n || 1;
     var protocolReStr = "^[^:/]+://";
     var oneLevelReStr = "[^/]+/";
-    var reStr = protocolReStr + oneLevelReStr.repeat(n+1);
+    var reStr = protocolReStr + oneLevelReStr.repeat(n);
     var re = RegExp(reStr);
     var newUrl = url.match(re)[0];
-    dactyl.open(newUrl);
+    return newUrl;
+}
+function openNthFromRootPath(n=1, url = buffer.URL) {
+    return dactyl.open(getNthFromRootPath(n, url));
+}
+
+function getNthUrlPathParent(n=1, url=buffer.URL) {
+    var oneLevelReStr = "/[^/]+";
+    var reStr = oneLevelReStr.repeat(n||1) + "/?$";
+    var regex = RegExp(reStr);
+    var newUrl = url.replace(regex, "");
+    return newUrl;
+}
+function openNthUrlPathParent(n=1, url=buffer.URL) {
+    return dactyl.open(getNthUrlPathParent(n, url));
 }
 
 " ,------------, "
