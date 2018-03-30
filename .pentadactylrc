@@ -1386,6 +1386,8 @@ map <C-S-P> -modes command-line,insert -b <S-Up>
 map <C-S-N> -modes command-line,insert -b <S-Down>
 map <C-f>   -modes command-line,insert -b <Right>
 map <C-b>   -modes command-line,insert -b <Left>
+map <C-S-F> -modes command-line,insert -b <C-Right>
+map <C-S-B> -modes command-line,insert -b <C-Left>
 map <C-l>   -modes command-line,insert -b <Del>
 map <C-A-l> -modes command-line,insert -b <BS>
 map <C-g>   -modes command-line,insert -b <C-u><Escape>
