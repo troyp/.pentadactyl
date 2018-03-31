@@ -494,19 +494,27 @@ map s              -description "(show bindings)" -js CommandExMode().open("show
 map z<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys z")
 map z              -description "(show bindings)" -js CommandExMode().open("showkeys z")
 
-
-map <C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
-map <C-h>b -description "Search bindings" -b :searchmappings<Space>
-map <C-h>m -description "Search bindings by mode" -b :searchmappingsbymode<Space>
-
-command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
-command! searchmappingsbymode -nargs * -js searchMappingsByMode.apply(null, args.map(readStringOrRegex));
-
 " <browser> prefix: "
 " k    :  bookmark "
 " r R  :  pentadactylrc "
 " s    :  styling "
 " x    :  restore window "
+
+" -------------------------------------------------------------------------------
+" ,----------------------------,
+" | Help Commands and Bindings |
+" '----------------------------'
+
+map <C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
+map <C-h>b -description "Search bindings" -b :searchmappings<Space>
+map <C-h>m -description "Search bindings by mode" -b :searchmappingsbymode<Space>
+map <C-h>d -description "Pentadactyl help" -ex help
+map <C-h>D -description "Pentadactyl help - single page" -ex helpall
+map <C-h>i -description "Pentadactyl help - index"
+\                 -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+
+command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
+command! searchmappingsbymode -nargs * -js searchMappingsByMode.apply(null, args.map(readStringOrRegex));
 
 " -------------------------------------------------------------------------------
 " ,------------------,
