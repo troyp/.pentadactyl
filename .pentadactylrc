@@ -494,9 +494,6 @@ map s              -description "(show bindings)" -js CommandExMode().open("show
 map z<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys z")
 map z              -description "(show bindings)" -js CommandExMode().open("showkeys z")
 
-map <leader>h<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <leader>h")
-map <leader>h       -description "(show bindings)" -js CommandExMode().open("showkeys <leader>h")
-map <leader>hb      -description "search mappings" :searchmappings<Space>
 
 map <C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
 map <C-h>b -description "Search bindings" -b :searchmappings<Space>
