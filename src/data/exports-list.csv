@@ -1,0 +1,29 @@
+./modules/overlay.jsm,    overlay
+./modules/bookmarkcache.jsm,    Bookmark BookmarkCache Keyword bookmarkcache
+./modules/io.jsm,    IO io
+./modules/commands.jsm,    ArgType Command Commands CommandOption Ex commands
+./modules/services.jsm,    PrivateBrowsingUtils services
+./modules/promises.jsm,    CancelablePromise Promise Task promises
+./modules/addons.jsm,    AddonManager Addons Addon addons
+./modules/buffer.jsm,    Buffer buffer
+./modules/storage.jsm,    AsyncFile File Storage storage
+./modules/sanitizer.jsm,    Range Sanitizer sanitizer
+./modules/util.jsm,    DOM $ FailedAssertion Math NS Point Util XBL XHTML XUL util
+./modules/styles.jsm,    Style Styles styles
+./modules/contexts.jsm,    Contexts Group contexts
+./modules/config.jsm,    ConfigBase Config config
+./modules/cache.jsm,    Cache cache
+./modules/javascript.jsm,    JavaScript javascript
+./modules/prefs.jsm,    Prefs localPrefs prefs
+./modules/finder.jsm,    RangeFind RangeFinder rangefinder
+./modules/main.jsm,    ModuleBase
+./modules/template.jsm,    Binding Template template
+./modules/help.jsm,    help
+./modules/protocol.jsm,    LocaleChannel Protocol RedirectChannel StringChannel XMLChannel
+./modules/options.jsm,    Option Options ValueError options
+./modules/completion.jsm,    CompletionContext Completion completion
+./modules/messages.jsm,    Messages messages _
+./modules/downloads.jsm,    Download Downloads downloads
+./modules/highlight.jsm,    Highlight Highlights highlight
+./modules/base.jsm,    Ary Cc Ci Class Cr Cs Cu ErrorBase Finished JSMLoader Module OS RealSet Set Struct StructBase TextEncoder TextDecoder Timer UTF8 XPCOM XPCOMShim XPCOMUtils apply array bind call callable ctypes curry defineModule deprecated endModule hasOwnProperty hasOwnProp identity isArray isGenerator isObject isString isSubclass isinstance iter iterOwnProperties keys literal loadPolyfill memoize module octal properties require set update values
+./modules/dom.jsm,    $ DOM NS XBL XHTML XUL
