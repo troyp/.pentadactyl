@@ -432,3 +432,45 @@ function websocketCmd(cmd) {
   };
 }
 window.websocketCmd = websocketCmd;
+
+" -------------------------------------------------------------------------------
+" ,----------------------------,
+" | Site-Specialized Hint Mode |
+" '----------------------------'
+
+" site-specializable hint mode "
+" Specialize by redefining the _action and _predicate functions in each group "
+" DOESN'T WORK: JS functions are not specialized by group. "
+" PLAN: `contexts.activeGroups()` returns a list of active groups. Make action "
+" and predicate objects storing functions under the key of a group name. "
+" eg. action.ebay will store the ebay `action()` function. "
+" To retrieve the current action function, loop through the active groups until "
+" you find one (or the last one) which is a valid key. "
+js <<EOF
+function hintCustomMode1_action(e) { e.click(); }
+function hintCustomMode1_predicate(e) { return true; }
+EOF
+set eht+=[$]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+js <<EOF
+hints.addMode(
+    '$',
+    '[customizable mode]',
+    window._dactyldata.hintCustomMode1_action,
+    window._dactyldata.hintCustomMode1_predicate
+);
+EOF
+
+"                    -----------------------------------------
+group ebay
+
+js <<EOF
+" Custom Hint Mode "
+function hintCustomMode1_predicate(e) {
+    return e.textContent == "Delete item";
+}
+EOF
+
+autocmd PageLoad ebay.com :js window.hintCustomMode1_predicate = hintCustomMode1_predicate;
+
+group user
+"                    -----------------------------------------
