@@ -5669,6 +5669,12 @@ function ebayFilterByTitle(regex) {
     toRemove.forEach(div=>div.remove());
 }
 
+function ebayWatch() {
+    var addBtn = content.document.querySelector('.vi-atw-txt');
+    var rmvBtn = content.document.querySelector('.vi-rmw-txt');
+    (addBtn||rmvBtn).click();
+}
+
 EOF
 
 command! ebayremovebytitle
@@ -5691,6 +5697,8 @@ map <site>op -description "Purchase history"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/PurchaseHistory", count?"tab":"here");
 map <site>oy -description "My eBay"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/Summary", count?"tab":"here");
+map <site>w -description "Watch/Unwatch"
+\    -js ebayWatch();
 
 group user
 
