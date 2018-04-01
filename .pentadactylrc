@@ -6187,11 +6187,7 @@ function ghprGetDiffURL() {
     }
 }
 
-function ghCopyUserAndRepo() {
-    [user, repo] = ghGetUserAndRepo();
-    var url = ghGetCloneUrl("https");
-    dactyl.utils.yankWithMsg(`${user}/${repo}`);
-}
+function ghCopyUserAndRepo() { dactyl.utils.yankWithMsg(ghGetUserAndRepo().join("/")); }
 
 function ghCopyUser() {
     user = ghGetUserAndRepo(true);
