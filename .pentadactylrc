@@ -921,8 +921,8 @@ map <leader>ada
     \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
 " <leader>ag - Repos "
 map <leader>agh
-    \ -description "Open My Github"
-    \ -count -js openOrSelectTab('https://github.com/troyp', count?"here":"tab");
+    \ -description "Open My Github: Repositories"
+    \ -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
 map <leader>agb
     \ -description "Open My Bitbucket"
     \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
@@ -5919,8 +5919,6 @@ js var ghusername = 'troyp';
 
 js function ghTabopenRepo (s) { dactyl.tabopen(`https://github.com/${s}`); }
 command! ghtabopenrepo -nargs=1 -js ghTabopenRepo(args[0]);
-map <goto>gh :tabopen https://github.com/troyp?tab=repositories
-map <goto>gH :open https://github.com/troyp?tab=repositories
 
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com
