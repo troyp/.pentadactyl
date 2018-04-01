@@ -2998,6 +2998,9 @@ command! acunsetautoplayscripted  :set! media.autoplay.allowscripted=false
 command! actoggleautoplayscripted toggleconfig media.autoplay.allowscripted
 command! acgetautoplayscripted    getboolpref  media.autoplay.allowscripted
 
+" Extensions Update "
+"   Web Developer Toolbar"
+set! extensions.{c45c406e-ab73-11d8-be73-000a95be3b12}.update.enabled=false
 
 " ============================================================================
 "                                      _________
