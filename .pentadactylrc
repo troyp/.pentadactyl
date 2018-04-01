@@ -3486,15 +3486,15 @@ function dlLinks(links, dir=null, subdir=null) {
     }
     dactyl.execute(`!zsh -c 'cd "${newdir}"; for x in ${s}; do wget $x; done;'`);
 }
+window.dlLinks = dlLinks;
 
-function dlChoosePageLinks(dir=null) {
+function dlChooseLinks(links, dir=null, title=null) {
     home = env.get("HOME");
     dir = dir || `${home}/Downloads`;
-    var title = buffer.title || "downloads";
+    var title = title || "downloads";
     var newdir = `${dir}/${title}`;
     if (title)
-        dactyl.execute(`!mkdir "${newdir}"`);
-    var links = content.document.links;
+        dactyl.execute(`!mkdir -p "${newdir}"`);
     if (links.length < 160) {
         s = '';
         for (var l of links) {
@@ -3511,6 +3511,9 @@ function dlChoosePageLinks(dir=null) {
         dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; cat ${tempfile} | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
     }
 }
+window.dlChooseLinks = dlChooseLinks;
+
+function dlChoosePageLinks(dir=null) { dlChooseLinks(content.document.links, dir, buffer.title) }
 
 function openCBLinks() {
     var s = dactyl.clipboardRead();
