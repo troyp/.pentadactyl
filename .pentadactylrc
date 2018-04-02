@@ -1852,7 +1852,7 @@ map <buffer>p       -description "Toggle pin tab" -ex pintab!
 " undo recent closed tab from list
 map U -b :undo<SPACE>
 
-" close tabs to right (inclusive) "
+" close tabs to right/left (inclusive) "
 map <C-k>   <buffer>>d
 map <C-S-K> <buffer><d
 " close other tabs "
@@ -1860,21 +1860,22 @@ map <buffer>1 -description "Close all other tabs" -ex tabonly
 map <buffer>< -description "Close tabs to left"   -ex closetabstoleft
 map <buffer>> -description "Close tabs to right"  -ex closetabstoright
 
-map gm -b :tabmove!<SPACE>
-map <A-h> -ex tabmove! -1
-map <A-l> -ex tabmove! +1
+" move tabs "
+map gm     -b :tabmove!<SPACE>
+map <A-h>  -ex tabmove! -1
+map <A-l>  -ex tabmove! +1
 map <A-\<> -ex tabmove! 1
 map <A-\>> -ex tabmove! $
-map <A-!> -ex tabmove! 1
-map <A-@> -ex tabmove! 2
-map <A-#> -ex tabmove! 3
-map <A-$> -ex tabmove! 4
-map <A-%> -ex tabmove! 5
-map <A-^> -ex tabmove! 6
-map <A-&> -ex tabmove! 7
-map <A-*> -ex tabmove! 8
-map <A-(> -ex tabmove! 9
-map <A-)> -ex tabmove! $
+map <A-!>  -ex tabmove! 1
+map <A-@>  -ex tabmove! 2
+map <A-#>  -ex tabmove! 3
+map <A-$>  -ex tabmove! 4
+map <A-%>  -ex tabmove! 5
+map <A-^>  -ex tabmove! 6
+map <A-&>  -ex tabmove! 7
+map <A-*>  -ex tabmove! 8
+map <A-(>  -ex tabmove! 9
+map <A-)>  -ex tabmove! $
 " Select buffer:  b  (cycle with gb, gB)
 map \< -b g0
 map \> -b g$
