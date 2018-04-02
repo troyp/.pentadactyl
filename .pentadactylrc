@@ -396,6 +396,10 @@ window.searchCommands = searchCommands;
 function getGroups() { return contexts.activeGroups().map(g=>g.name); }
 function getAllCommands() { return commands.hives.flatMap(); }
 function getCommandsByGroup(g) { return commands.hives.find(h=>h.name==g); }
+function getMappingsByGroup(g) {
+    return Array.from(mappings.hives).find(h=>h.name==g).iterate(modes.NORMAL);
+}
+
 function listCommandsByGroup(g) {
     var cmds = Array.from(commands.hives.find(h=>h.name==g));
     var maxlen = cmds.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur), 0);
@@ -410,7 +414,22 @@ function listCommandsByGroup(g) {
     return cmds;
 }
 
+function listMappingsByGroup(g) {
+    var mpgs = Array.from(mappings.hives.find(h=>h.name==g).iterate(modes.NORMAL));
+    var maxlen = mpgs.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur), 0);
+    var maxlendesc = Math.min(
+                         50,
+                         mpgs.map(m=>m.unlocalized_description.length).reduce((acc,cur)=>Math.max(acc,cur), 0));
+    dactyl.utils.message(
+        mpgs.map(
+            m=>`${S.padEnd(m.name, maxlen)}\t${S.padEnd(m.unlocalized_description+':', maxlendesc)}\t${m.action}\n`
+        ).join('')
+    );
+    return mpgs;
+}
+
 function listCommandsByGroupCompletion(g) { return commands.hives.map(h=>[h.name, h]); }
+function listMappingsByGroupCompletion(g) { return mappings.hives.map(h=>[h.name, h.name]); }
 EOF
 
 " -----------------------------------------------------------------------------
@@ -553,15 +572,19 @@ map z              -description "(show bindings)" -js CommandExMode().open("show
 " | Help Commands and Bindings |
 " '----------------------------'
 
-map <C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
-map <C-h>b  -description "Search bindings" -b :searchmappings<Space>
-map <C-h>c  -description "Search commands" -b :searchcommands<Space>
-map <C-h>gc -description "List commands by group" -b :listcommandsbygroup<Space>
-map <C-h>m  -description "Search bindings by mode" -b :searchmappingsbymode<Space>
-map <C-h>d  -description "Pentadactyl help" -ex help
-map <C-h>D  -description "Pentadactyl help - single page" -ex helpall
-map <C-h>i  -description "Pentadactyl help - index"
-\           -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+map <C-h>        -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
+map <C-h><C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
+map <C-h>b       -description "Search bindings" -b :searchmappings<Space>
+map <C-h>c       -description "Search commands" -b :searchcommands<Space>
+map <C-h>g       -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
+map <C-h>g<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
+map <C-h>gc      -description "List commands by group" -b :listcommandsbygroup<Space>
+map <C-h>gm      -description "List mappings by group" -b :listmappingsbygroup<Space>
+map <C-h>m       -description "Search bindings by mode" -b :searchmappingsbymode<Space>
+map <C-h>d       -description "Pentadactyl help" -ex help
+map <C-h>D       -description "Pentadactyl help - single page" -ex helpall
+map <C-h>i       -description "Pentadactyl help - index"
+\                -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
 
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
 command! searchmappingsbymode -nargs * -js searchMappingsByMode.apply(null, args.map(readStringOrRegex));
@@ -569,6 +592,9 @@ command! searchcommands -nargs * -js searchCommands.apply(null, args.map(readStr
 command! listcommandsbygroup -nargs 1
 \    -complete custom," (context) => { context.completions = listCommandsByGroupCompletion(); } "
 \    -js listCommandsByGroup(args[0]);
+command! listmappingsbygroup -nargs 1
+\    -complete custom," (context) => { context.completions = listMappingsByGroupCompletion(); } "
+\    -js listMappingsByGroup(args[0]);
 
 " -------------------------------------------------------------------------------
 " ,------------------,
