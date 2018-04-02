@@ -1821,8 +1821,16 @@ map <buffer>db      -description "Close tab from list" -b :bdelete<SPACE>
 map <buffer>dd      -description "Close tab range" -b :tc<SPACE>
 map <buffer>de      -description "Close tabs satisfying EXPR" -b :tabremove<Space>""<Left>
 map <buffer>dE      -description "Close tabs not satisfying EXPR"  -b :tabfilter<Space>""<Left>
-map <buffer>dr      -description "Close tabs matching REGEX" -b :tabremoveregex<Space>""<Left>
-map <buffer>dR      -description "Close tabs not matching REGEX" -b :tabfilterregex<Space>""<Left>
+map <buffer>dm      -description "Close tabs matching STRING" -b :tabremoveregex<Space>""<Left>
+map <buffer>dM      -description "Close tabs not matching STRING" -b :tabfilterregex<Space>""<Left>
+map <buffer>dr      -description "Close tabs matching REGEX (case-insensitive)"
+\                   -b :tabremoveregex<Space>"//i"<Left><Left><Left>
+map <buffer>dR      -description "Close tabs not matching REGEX (case-insensitive)"
+\                   -b :tabfilterregex<Space>"//i"<Left><Left><Left>
+map <buffer>d;r     -description "Close tabs matching REGEX (case-sensitive)"
+\                   -b :tabremoveregex<Space>"//"<Left><Left>
+map <buffer>d;R     -description "Close tabs not matching REGEX (case-sensitive)"
+\                   -b :tabfilterregex<Space>"//"<Left><Left>
 map <buffer>dt      -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dxt     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
