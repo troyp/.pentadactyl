@@ -311,7 +311,7 @@ function searchMappings(...pats) {
     var filtered = activemappings.filter(
         m => pats.every(
             p => {
-                if (p.toLowerCase()==p) {
+                if (typeof p == "string" && p.toLowerCase()==p) {
                     return m.name.toLowerCase().search(p)>=0 ||
                            m.description.toLowerCase().search(p)>=0 ||
                            m.action.toString().toLowerCase().search(p)>=0
@@ -342,7 +342,7 @@ function searchMappingsByMode(mode, ...pats) {
     var filtered = activemappings.filter(
         m => pats.every(
             p => {
-                if (p.toLowerCase()==p) {
+                if (typeof p == "string" &&  p.toLowerCase()==p) {
                     return m.name.toLowerCase().search(p)>=0 ||
                            m.description.toLowerCase().search(p)>=0 ||
                            m.action.toString().toLowerCase().search(p)>=0
@@ -370,7 +370,7 @@ function searchCommands(...pats) {
     var filtered = activecommands.filter(
         m => pats.every(
             p => {
-                if (p.toLowerCase()==p) {
+                if (typeof p == "string" && p.toLowerCase()==p) {
                     return m.name.toLowerCase().search(p)>=0 ||
                            m.unlocalized_description.toLowerCase().search(p)>=0 ||
                            m.action.toString().toLowerCase().search(p)>=0
