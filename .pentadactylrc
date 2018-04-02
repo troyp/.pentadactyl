@@ -1819,10 +1819,10 @@ map <buffer>d       -description "(show bindings)" -js CommandExMode().open("sho
 map <buffer>d<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
 map <buffer>db      -description "Close tab from list" -b :bdelete<SPACE>
 map <buffer>dd      -description "Close tab range" -b :tc<SPACE>
-map <buffer>de      -description "Close tabs satisfying EXPR" -b :tabremove<Space>""<C-b>
-map <buffer>dE      -description "Close tabs not satisfying EXPR"  -b :tabfilter<Space>""<C-b>
-map <buffer>dm      -description "Close tabs matching REGEX" -b :tabremoveregex<Space>""<C-b>
-map <buffer>dM      -description "Close tabs not matching REGEX" -b :tabfilterregex<Space>""<C-b>
+map <buffer>de      -description "Close tabs satisfying EXPR" -b :tabremove<Space>""<Left>
+map <buffer>dE      -description "Close tabs not satisfying EXPR"  -b :tabfilter<Space>""<Left>
+map <buffer>dm      -description "Close tabs matching REGEX" -b :tabremoveregex<Space>""<Left>
+map <buffer>dM      -description "Close tabs not matching REGEX" -b :tabfilterregex<Space>""<Left>
 map <buffer>dt      -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dxt     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
