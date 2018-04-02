@@ -1867,9 +1867,9 @@ map <A-h> -ex tabmove! -1
 map <A-l> -ex tabmove! +1
 map <C-Left> -ex tabmove! -1
 map <C-Right> -ex tabmove! +1
-map <C-\<> -ex tabmove! 1
-map <C-\>> -ex tabmove! $
 map g\> -ex tabmove! $
+map <A-\<> -ex tabmove! 1
+map <A-\>> -ex tabmove! $
 map <A-!> -ex tabmove! 1
 map <A-@> -ex tabmove! 2
 map <A-#> -ex tabmove! 3
