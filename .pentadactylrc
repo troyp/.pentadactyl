@@ -1861,13 +1861,8 @@ map <buffer>< -description "Close tabs to left"   -ex closetabstoleft
 map <buffer>> -description "Close tabs to right"  -ex closetabstoright
 
 map gm -b :tabmove!<SPACE>
-map <C-S-P> -ex tabmove! -1
-map <C-S-N> -ex tabmove! +1
 map <A-h> -ex tabmove! -1
 map <A-l> -ex tabmove! +1
-map <C-Left> -ex tabmove! -1
-map <C-Right> -ex tabmove! +1
-map g\> -ex tabmove! $
 map <A-\<> -ex tabmove! 1
 map <A-\>> -ex tabmove! $
 map <A-!> -ex tabmove! 1
