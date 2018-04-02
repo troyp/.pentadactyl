@@ -1960,12 +1960,12 @@ command! tabremove
 command! tabremoveregex
     \ -description "Close tabs that satisfy regex"
     \ -nargs=1
-    \ -js tabRemoveUrlRegex(args[0].startsWith('/') ? eval(args[0]) : args[0]);
+    \ -js tabRemoveUrlRegex(readStringOrRegex(args[0]));
 
 command! tabfilterregex
     \ -description "Close tabs that satisfy regex"
     \ -nargs=1
-    \ -js tabFilterUrlRegex(args[0].startsWith('/') ? eval(args[0]) : args[0]);
+    \ -js tabFilterUrlRegex(readStringOrRegex(args[0]));
 command! tabclosefromhereto
 \ -description "Close tabs from the current tab (incl) to the chosen tab (incl)"
 \ -nargs=1
