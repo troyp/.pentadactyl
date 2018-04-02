@@ -393,8 +393,9 @@ function searchCommands(...pats) {
 }
 window.searchCommands = searchCommands;
 
+function getGroups() { return contexts.activeGroups().map(g=>g.name); }
 function getAllCommands() { return commands.hives.flatMap(); }
-function getCommandsByHive(hive) { return Array.from(commands.hives).find(e=>e.name==hive)._list; }
+function getCommandsByGroup(g) { return commands.hives.find(h=>h.name==g); }
 EOF
 
 " -----------------------------------------------------------------------------
