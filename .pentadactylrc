@@ -6011,6 +6011,7 @@ map <site>or       -description "Open repositories"
 map <site>ot       -description "Open repo top level"
 \                  -count -js ghGotoRepoRootLevel(count);
 map <site>ow       -description "Open wiki" -js openOrSelectTab(ghGetWikiURL(), count?"tab":"here");
+map <site>o<       -description "Open pull request URL" -js openOrSelectTab(ghGetPRURL(), count?"tab":"here");
 map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
 map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
 map <site>sr       -description "Save raw file (hints)" -js hints.show("ⓖ");
@@ -6029,6 +6030,7 @@ map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yU       -description "Yank user name" -js ghCopyUser();
 map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
+map <site>y<       -description "Yank pull request URL" -js utils.yankWithMsg(ghGetPRURL());
 map <site>*        -description "Star/Unstar repo" -js ghStar();
 map <site>/ -ex ghfilefinder
 
@@ -6274,6 +6276,15 @@ function ghConvertUrlToRaw(url) {
     raw_relpath = relpath.replace(/^\/(blob|tree)\//, '/');
     var rawurl = `https://raw.githubusercontent.com/${user}/${repo}${raw_relpath}`
     return rawurl;
+}
+
+function ghGetPRURL() {
+    var forkBranch = content.document.querySelector('.commit-ref.head-ref').title;
+    var [userRepo,branch] = forkBranch.split(":");
+    var [user,repo] = userRepo.split("/");
+    var url = `https://github.com/${user}/${repo}/tree/${branch}`
+    return url;
+    // var regex = /[^:]+:\/\/github.com\/([^/]+)\/?([^/#?]+)?(\/.*)?/;
 }
 
 function ghYankSHA(elt) {
