@@ -527,6 +527,7 @@ map a         <ext>
 map <A-enter> <option>
 map y         <yank>
 " " The <sel> and <sidebar> pseudokeys were broken for some reason
+map s         <search>
 " map s <sel>
 " map S <sidebar>
 imap <A-return> <Esc><site>
@@ -556,8 +557,8 @@ map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("show
 map <C-x>          -description "(show bindings)" -js CommandExMode().open("showkeys <C-x>")
 map g<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys g")
 map g              -description "(show bindings)" -js CommandExMode().open("showkeys g")
-map s<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys s")
-map s              -description "(show bindings)" -js CommandExMode().open("showkeys s")
+map <search><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <search>")
+map <search>       -description "(show bindings)" -js CommandExMode().open("showkeys <search>")
 map z<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys z")
 map z              -description "(show bindings)" -js CommandExMode().open("showkeys z")
 
@@ -1414,14 +1415,14 @@ map <A-/> -description "Toggle Firefox Find Box (native search in page)"
 " C-' Firefox link search
 map "<C-'>" -modes normal -description "Firefox Quick Find Link Search (native link search)" -b <C-v>'
 
-map sf     -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
-map sg     -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
-map sr     -description "Regex search: Forward" -modes normal -b /\r
-map sR     -description "Regex search: Backward" -modes normal -b ?\r
-map sw     -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
-map s0     -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
-map s\'    -description "Link Search: Forward" -modes normal -b /\l
-map 's\"'  -description "Link Search: Backward" -modes normal -b ?\l
+map <search>f     -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
+map <search>g     -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
+map <search>r     -description "Regex search: Forward" -modes normal -b /\r
+map <search>R     -description "Regex search: Backward" -modes normal -b ?\r
+map <search>w     -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
+map <search>0     -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
+map <search>\'    -description "Link Search: Forward" -modes normal -b /\l
+map <search>\"    -description "Link Search: Backward" -modes normal -b ?\l    "
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
@@ -2359,35 +2360,35 @@ set passkeys+='chrome://browser/content/places/places.xul':'<Up><Down><Left><Rig
 set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Left><Right>'
 
 " Select:
-map s;h -b :history! -max 30 -sort -date<SPACE>
-map s;k -b :bmarks!  -max 30<SPACE>
-map sj -ex jumps
-map sa -ex addons
-map sp -b :set<SPACE>
-map sc -b :set!<SPACE>
+map <search>;h -b :history! -max 30 -sort -date<SPACE>
+map <search>;k -b :bmarks!  -max 30<SPACE>
+map <search>j -ex jumps
+map <search>a -ex addons
+map <search>p -b :set<SPACE>
+map <search>c -b :set!<SPACE>
 
 " List/Search:
 :if options.get('guioptions').value.includes('c')
-    map sb -description "search buffers" -b :buffers -max 41<SPACE>
-    map sh -description "search history" -b :history -max 41 -sort -date<SPACE>
+    map <search>b -description "search buffers" -b :buffers -max 41<SPACE>
+    map <search>h -description "search history" -b :history -max 41 -sort -date<SPACE>
 :else
-    map sb -description "search buffers" -b :buffers<SPACE>
-    map sh -description "search history" -b :history -sort -date<SPACE>
+    map <search>b -description "search buffers" -b :buffers<SPACE>
+    map <search>h -description "search history" -b :history -sort -date<SPACE>
 :endif
 
 " Search bookmarks: sk ... (see Bookmarks section) "
 
 " Menu access: "
-map sm<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
-map sm      -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
-map smm -b :emenu<SPACE>
-map smf -b :emenu File.
-map sme -b :emenu Edit.
-map smv -b :emenu View.
-map smh -b :emenu History.
-map smb -b :emenu Bookmarks.
-map smt -b :emenu Tools.
-map sm/ -b :emenu Help.
+map <search>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
+map <search>m      -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
+map <search>mm -b :emenu<SPACE>
+map <search>mf -b :emenu File.
+map <search>me -b :emenu Edit.
+map <search>mv -b :emenu View.
+map <search>mh -b :emenu History.
+map <search>mb -b :emenu Bookmarks.
+map <search>mt -b :emenu Tools.
+map <search>m/ -b :emenu Help.
 
 " -----------------------------------------------------------------------------
 " ,--------------,
@@ -2395,28 +2396,28 @@ map sm/ -b :emenu Help.
 " '--------------'
 
 " Manual sidebar selection with si, toggle with S
-map si -b :sidebar<SPACE>
-map sI -ex sbclose
+map <search>i -b :sidebar<SPACE>
+map <search>I -ex sbclose
 " map <sidebar> -ex sidebar!
 " Open/close AiOS, switch focus
 "map <sidebar> :js aios_toggleSidebar()<CR><f6><f6>
 " Open AiOS, switch focus and enter passthrough
-"map sS :js aios_toggleSidebar()<CR><f6><f6><C-z>
+"map <search>S :js aios_toggleSidebar()<CR><f6><f6><C-z>
 
 " Sidebar selection:
-" map sA -ex sidebar! Add-ons
+" map <search>A -ex sidebar! Add-ons
 " map <sidebar>A :sidebar! Add-ons<CR><f6><f6><C-z>
-" map sM -ex sidebar! Bookmarks
+" map <search>M -ex sidebar! Bookmarks
 " map <sidebar>M :sidebar! Bookmarks<CR><f6><f6><C-z>
-" map sD -ex sidebar! Downloads
+" map <search>D -ex sidebar! Downloads
 " map <sidebar>D :sidebar! Downloads<CR><f6><f6><C-z>
-" map sH -ex sidebar! History
+" map <search>H -ex sidebar! History
 " map <sidebar>H :sidebar! History<CR><f6><f6><C-z>
-" map sM -ex sidebar! Moji
+" map <search>M -ex sidebar! Moji
 " map <sidebar>M :sidebar! Moji<CR><f6><f6><C-z>
-" map sO -ex sidebar! HeadingsMap
+" map <search>O -ex sidebar! HeadingsMap
 " map <sidebar>O :sidebar! HeadingsMap<CR><f6><f6><C-z>
-" map sP -ex sidebar! Preferences
+" map <search>P -ex sidebar! Preferences
 " map <sidebar>P :sidebar! Preferences<CR><f6><f6><C-z>
 
 js <<EOF
@@ -2949,22 +2950,22 @@ command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
 map <bookmark-page> -b <C-v><C-d>
 map <browser>k <bookmark-page>
 
-map sk<C-h>   -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
-map sk        -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
+map <search>k<C-h>   -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
+map <search>k        -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
 :if options.get('guioptions').value.includes('c')
-    map sk<space> -description "search bookmarks"            :bmarks<SPACE>
-    map skk       -description "search bookmarks by keyword" :bmarks -keyword<SPACE>
-    map skt       -description "search bookmarks by title"   :bmarks -title<SPACE>
-    map skg       -description "search bookmarks by tags"    :bmarks -tags<SPACE>
-    map sks       -description "search static kword bmarks (with :::)" :bmarks -keyword :::<CR>
+    map <search>k<space> -description "search bookmarks"            :bmarks<SPACE>
+    map <search>kk       -description "search bookmarks by keyword" :bmarks -keyword<SPACE>
+    map <search>kt       -description "search bookmarks by title"   :bmarks -title<SPACE>
+    map <search>kg       -description "search bookmarks by tags"    :bmarks -tags<SPACE>
+    map <search>ks       -description "search static kword bmarks (with :::)" :bmarks -keyword :::<CR>
 :else
-    map sk<space> -description "search bookmarks"            :bmarks -max 41<SPACE>
-    map skk       -description "search bookmarks by keyword" :bmarks -max 41 -keyword<SPACE>
-    map skt       -description "search bookmarks by title"   :bmarks -max 41 -title<SPACE>
-    map skg       -description "search bookmarks by tags"    :bmarks -max 41 -tags<SPACE>
-    map sks       -description "search static kword bmarks (with :::)" :bmarks -max 41 -keyword :::<CR>
+    map <search>k<space> -description "search bookmarks"            :bmarks -max 41<SPACE>
+    map <search>kk       -description "search bookmarks by keyword" :bmarks -max 41 -keyword<SPACE>
+    map <search>kt       -description "search bookmarks by title"   :bmarks -max 41 -title<SPACE>
+    map <search>kg       -description "search bookmarks by tags"    :bmarks -max 41 -tags<SPACE>
+    map <search>ks       -description "search static kword bmarks (with :::)" :bmarks -max 41 -keyword :::<CR>
 :endif
-map skw       -description "search bookmarks with buku"  -ex !buku_run
+map <search>kw       -description "search bookmarks with buku"  -ex !buku_run
 
 " ===============================================================================
 "                               _______________________
