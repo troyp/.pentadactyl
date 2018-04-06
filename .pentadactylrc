@@ -6067,6 +6067,10 @@ map <site>mg       -count -description "My gists"
 map <site>mG       -count -description "My starred gists"
 \                  -count
 \                  -js openOrSelectTab(`https://gist.github.com/${ghusername}/starred`, count?"tab":"here");
+map <site>mm       -description "My comments"
+\                  -count
+\                  -js openOrSelectTab("https://github.com/search?utf8=✓&q=+is:issue+commenter:troyp",
+\                                      count?"tab":"here");
 map <site>mo       -description "My profile" -count -js dactyl.open('https://github.com/'+ghusername, 'here');
 map <site>mr       -description "My repositories"
 \                  -count
@@ -6089,6 +6093,10 @@ map <site>oi       -description "Open issues"
 map <site>oI       -description "Open issues.csv"
 \                  -count
 \                  -js openOrSelectTab(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`,
+\                                      count?"tab":"here");
+map <site>om       -description "User's comments"
+\                  -count
+\                  -js openOrSelectTab("https://github.com/search?utf8=✓&q=+is:issue+commenter:"+ghGetUser(),
 \                                      count?"tab":"here");
 map <site>oo       -description "Open profile (overview)"
 \                  -count
