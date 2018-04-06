@@ -1808,6 +1808,12 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
 "
 " -----------------------------------------------------------------------------
 
+" switch buffers "
+:if options.get('guioptions').value.includes('c')
+    map <search>bb -description "search buffers" -b :buffers -max 41<SPACE>
+:else
+    map <search>bb -description "search buffers" -b :buffers<SPACE>
+:endif
 
 " all tabs: <buffer>a "
 map <buffer>a       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
@@ -2360,23 +2366,81 @@ set passkeys+='chrome://browser/content/bookmarks/bookmarksPanel.xul':'<Up><Down
 set passkeys+='chrome://browser/content/places/places.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Left><Right>'
 
+" ,---------,
+" | History |
+" '---------'
+
 " Select:
-map <search>;h -b :history! -max 30 -sort -date<SPACE>
-map <search>;k -b :bmarks!  -max 30<SPACE>
-map <search>j -ex jumps
-map <search>p -b :set<SPACE>
-map <search>c -b :set!<SPACE>
+map <search>ha -description "Open selected history items" -b :history! -max 30 -sort -date<SPACE>
 
 " List/Search:
 :if options.get('guioptions').value.includes('c')
-    map <search>b -description "search buffers" -b :buffers -max 41<SPACE>
-    map <search>h -description "search history" -b :history -max 41 -sort -date<SPACE>
+    map <search>hh -description "search history" -b :history -max 41 -sort -date<SPACE>
 :else
-    map <search>b -description "search buffers" -b :buffers<SPACE>
-    map <search>h -description "search history" -b :history -sort -date<SPACE>
+    map <search>hh -description "search history" -b :history -sort -date<SPACE>
 :endif
 
-" Search bookmarks: sk ... (see Bookmarks section) "
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | Bookmarks |
+" '-----------'
+
+map <search>ka -description "Open selected bookmarks items" -b :bmarks!  -max 30<SPACE>
+map <search>kb -description "search bookmarks with buku"  -ex !buku_run
+map <bookmark-page> -b <C-v><C-d>
+map <browser>k <bookmark-page>
+
+map <search>k<C-h> -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
+map <search>k      -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
+:if options.get('guioptions').value.includes('c')
+    map <search>kk -description "search bookmarks"                      :bmarks<SPACE>
+    map <search>kg -description "search bookmarks by tags"              :bmarks -tags<SPACE>
+    map <search>kt -description "search bookmarks by title"             :bmarks -title<SPACE>
+    map <search>ks -description "search static kword bmarks (with :::)" :bmarks -keyword :::<CR>
+    map <search>kw -description "search bookmarks by keyword"           :bmarks -keyword<SPACE>
+:else
+    map <search>kk -description "search bookmarks"                      :bmarks -max 41<SPACE>
+    map <search>kg -description "search bookmarks by tags"              :bmarks -max 41 -tags<SPACE>
+    map <search>kt -description "search bookmarks by title"             :bmarks -max 41 -title<SPACE>
+    map <search>ks -description "search static kword bmarks (with :::)" :bmarks -max 41 -keyword :::<CR>
+    map <search>kw -description "search bookmarks by keyword"           :bmarks -max 41 -keyword<SPACE>
+:endif
+
+command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0]);
+command! bookmarkExportBuku -js bookmarkExportBuku();
+command! bukurun !buku_run
+command! bookmarkpage :normal <bookmark-page>
+command! bmrunkw -nargs + -js bmRunKeymark(args[0], args[1]);
+command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
+
+js <<EOF
+" Buku "
+function bookmarkExportBuku() {
+    var filename = `/tmp/firefox-buku-${(new Date).toISOString()}`;
+    BookmarkHTMLUtils.exportToFile(filename);
+    runProcess("/usr/local/bin/buku", "--import", filename);
+}
+
+" bm : https://github.com/cym13/bookmark "
+var bm_db = '~/.bookmarks';
+
+function bmResolveKeymark(kw, searchterm) {
+    var tag = 'kw:' + kw;
+    var bmk = io.system(`bm -f ${bm_db} ${tag}`);
+    var url = bmk.replace('%s', encodeURIComponent(searchterm)).replace('%S', searchterm);
+    return url;
+}
+function bmRunKeymark(kw, searchterm, where='here') {
+    dactyl.open(bmResolveKeymark(kw, searchterm), {where:where});
+}
+EOF
+
+" -------------------------------------------------------------------------------
+
+map <search>j  -description "Goto jump" -ex jumps
+map <search>p -b :set<SPACE>
+map <search>c -b :set!<SPACE>
+
 
 " Menu access: "
 map <search>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
@@ -2913,59 +2977,6 @@ command! -bang gmnew -js dactyl.open('chrome://greasemonkey/content/newscript.xu
 " | HackTheWeb |
 " '------------'
 command! hacktheweb -js hacktheweb.start();
-
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | Bookmarks |
-" '-----------'
-
-js <<EOF
-" Buku "
-function bookmarkExportBuku() {
-    var filename = `/tmp/firefox-buku-${(new Date).toISOString()}`;
-    BookmarkHTMLUtils.exportToFile(filename);
-    runProcess("/usr/local/bin/buku", "--import", filename);
-}
-
-" bm : https://github.com/cym13/bookmark "
-var bm_db = '~/.bookmarks';
-
-function bmResolveKeymark(kw, searchterm) {
-    var tag = 'kw:' + kw;
-    var bmk = io.system(`bm -f ${bm_db} ${tag}`);
-    var url = bmk.replace('%s', encodeURIComponent(searchterm)).replace('%S', searchterm);
-    return url;
-}
-function bmRunKeymark(kw, searchterm, where='here') {
-    dactyl.open(bmResolveKeymark(kw, searchterm), {where:where});
-}
-EOF
-
-command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0]);
-command! bookmarkExportBuku -js bookmarkExportBuku();
-command! bukurun !buku_run
-command! bookmarkpage :normal <bookmark-page>
-command! bmrunkw -nargs + -js bmRunKeymark(args[0], args[1]);
-command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
-map <bookmark-page> -b <C-v><C-d>
-map <browser>k <bookmark-page>
-
-map <search>k<C-h>   -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
-map <search>k        -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
-:if options.get('guioptions').value.includes('c')
-    map <search>k<space> -description "search bookmarks"            :bmarks<SPACE>
-    map <search>kk       -description "search bookmarks by keyword" :bmarks -keyword<SPACE>
-    map <search>kt       -description "search bookmarks by title"   :bmarks -title<SPACE>
-    map <search>kg       -description "search bookmarks by tags"    :bmarks -tags<SPACE>
-    map <search>ks       -description "search static kword bmarks (with :::)" :bmarks -keyword :::<CR>
-:else
-    map <search>k<space> -description "search bookmarks"            :bmarks -max 41<SPACE>
-    map <search>kk       -description "search bookmarks by keyword" :bmarks -max 41 -keyword<SPACE>
-    map <search>kt       -description "search bookmarks by title"   :bmarks -max 41 -title<SPACE>
-    map <search>kg       -description "search bookmarks by tags"    :bmarks -max 41 -tags<SPACE>
-    map <search>ks       -description "search static kword bmarks (with :::)" :bmarks -max 41 -keyword :::<CR>
-:endif
-map <search>kw       -description "search bookmarks with buku"  -ex !buku_run
 
 " ===============================================================================
 "                               _______________________
