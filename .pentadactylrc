@@ -2370,8 +2370,11 @@ set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Lef
 " | History |
 " '---------'
 
+command! tabopenhistory -nargs 1 -complete history tabopen <args>
+
 " Select:
 map <search>ha -description "Open selected history items" -b :history! -max 30 -sort -date<SPACE>
+map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
 
 " List/Search:
 :if options.get('guioptions').value.includes('c')
@@ -2387,6 +2390,7 @@ map <search>ha -description "Open selected history items" -b :history! -max 30 -
 
 map <search>ka -description "Open selected bookmarks items" -b :bmarks!  -max 30<SPACE>
 map <search>kb -description "search bookmarks with buku"  -ex !buku_run
+map <search>ko -description "Open bookmarks item" -b tabopenbookmark<SPACE>
 map <bookmark-page> -b <C-v><C-d>
 map <browser>k <bookmark-page>
 
@@ -2406,6 +2410,7 @@ map <search>k      -description "bindings for prefix sk"      -js CommandExMode(
     map <search>kw -description "search bookmarks by keyword"           :bmarks -max 41 -keyword<SPACE>
 :endif
 
+command! tabopenbookmark -nargs 1 -complete bookmark tabopen <args>
 command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0]);
 command! bookmarkExportBuku -js bookmarkExportBuku();
 command! bukurun !buku_run
