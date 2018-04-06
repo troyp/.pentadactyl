@@ -7178,38 +7178,47 @@ command! jishomultisearch
 " =====GROUP START=====
 
 group jisho -locations=jisho.org
-map <site>g<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
-map <site>g      -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
-map <site>k<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
-map <site>k      -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
-map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
-map <site>t      -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
-map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
-map <site>y      -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 
-" remove all existing jisho autocmds
+" remove all existing jisholautocmds
 autocmd! -group jisho
 
-map <site>fl -ex jishohintclicklinks
-map <site>gc -ex jishokanjitogglestyle
-map <site>ge -ex jishotogglesentences
-map <site>gk -ex jishotogglekanji
-map <site>gl -ex jishotogglelinklists
-map <site>gm -ex jishofixmodal
-map <site>gr -ex jishotoggleradicalinput
-map <site>gR -ex jishotoggleromaji
-map <site>gs -ex jishoshrinksod
-map <site>gS :jishoscalesod<Space>
-map <site>;  -ex jishohintselectradical
-map <site>oe -ex jishohintopensentences
-map <site>ok -ex jishohintopenkanji
-map <site>ow -ex jishohintopenweblio
-map <site>te -ex jishohintopensentencesnewtab
-map <site>tk -ex jishohintopenkanjinewtab
-map <site>tw -ex jishohintopenweblionewtab
-map <site>ye -ex jishohintyankentry
-map <site>yy -ex jishoyanksearchterm
-map <site>yp -ex jishokanjiyankparts
+map <site>fl     -description "Links drop down"                                    -js hints.show("リ");
+" <site>g  --  adjust page "
+map <site>g      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>g")
+map <lite>g<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>g")
+map <site>gm     -description "Fix modal in viewport"                              -js jishoFixModal();
+map <site>gs     -description "Halve the dimensions of stroke order diagrams"      -ex jishoshrinksod
+map <site>gS     -description "Scale the dimensions of stroke order diagrams"      -b :jishoscalesod<Space>
+map <site>k<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>k")
+map <site>k      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>k")
+" <site>o  --  open here "
+map <site>o      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>o")
+map <site>o<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>o")
+map <site>oe     -description "open sentence examples"                             -js hints.show("た");
+map <site>ok     -description "open kanji details"                                 -js hints.show(a"か");
+map <site>ow     -description "search entry in Weblio"                             -js hints.show("ヱ");
+" <site>O  --  open in new tab "
+map <site>O      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>O")
+map <site>O<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>O")
+map <site>Oe     -description "open sentence examples (new tab)"                   -js hints.show("だ");
+map <site>Ok     -description "open kanji details (new tab)"                       -js hints.show("が");
+map <site>Ow     -description "search entry in Weblio (new tab)"                   -js hints.show("ヹ");
+" <site>t  --  Toggles "
+map <site>t      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>t")
+map <site>t<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>t")
+map <site>tc     -description "Toggle heavy/light kanji style"                     -ex jishokanjitogglestyle
+map <site>te     -description "Toggle between sentences page and regular results"  -ex jishotogglesentences
+map <site>tk     -description "Toggle between kanji page and regular results"      -ex jishotogglekanji
+map <site>tl     -description "Show all link lists"                                -ex jishotogglelinklists
+map <site>tr     -description "Toggle kanji radical input dialog"                  -ex jishotoggleradicalinput
+map <site>tR     -description "Toggle between kana and romaji"                     -ex jishotoggleromaji
+" <site>y  --  Yank "
+map <site>y<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>y")
+map <site>y      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>y")
+map <site>ye     -description "Yank entry"                                         -js hints.show("ヤ");
+map <site>yy     -description "Yank search term to clipboard"                      -ex jishoyanksearchterm
+map <site>yp     -description "Yank kanji parts"                                   -ex jishokanjiyankparts
+map <site>;      -description "select kanji radical"                               -js hints.show("ぶ");
 
 imap <A-k> <Space>#kanji
 
@@ -7463,10 +7472,6 @@ function jishoFixModal() {
 
 EOF
 
-command! jishofixmodal
-     \ -description "Fix modal in viewport"
-     \ -js jishoFixModal();
-
 " -----------
 " Entry Links
 " -----------
@@ -7498,11 +7503,6 @@ function jishoToggleLinksUL(ul) {
 }
 
 EOF
-
-command! jishotogglelinklists
-     \ -description "Show all link lists"
-     \ -js jishoToggleAllLinkULs();
-
 
 group user
 
