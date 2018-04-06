@@ -586,6 +586,7 @@ map <C-h>d       -description "Pentadactyl help" -ex help
 map <C-h>D       -description "Pentadactyl help - single page" -ex helpall
 map <C-h>i       -description "Pentadactyl help - index"
 \                -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+map <C-h>e       -description "Show extensions" -ex addons
 
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
 command! searchmappingsbymode -nargs * -js searchMappingsByMode.apply(null, args.map(readStringOrRegex));
@@ -2363,7 +2364,6 @@ set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Lef
 map <search>;h -b :history! -max 30 -sort -date<SPACE>
 map <search>;k -b :bmarks!  -max 30<SPACE>
 map <search>j -ex jumps
-map <search>a -ex addons
 map <search>p -b :set<SPACE>
 map <search>c -b :set!<SPACE>
 
