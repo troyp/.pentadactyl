@@ -1521,9 +1521,9 @@ map <leader>c      -description "(show bindings)" -js CommandExMode().open("show
 map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
 map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 " Repeat search just entered with keyword changed
-map <leader>cr -b :<C-r>
+map <leader>cr :<C-r>
 " Repeat default just entered search with keyword
-map <leader>cR -b :<up><Home><forward-word><Space>
+map <leader>cR :<up><Home><forward-word><Space>
 
 " ,-------------------,
 " | Command-line only |
