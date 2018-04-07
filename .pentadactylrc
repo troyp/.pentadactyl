@@ -8043,6 +8043,12 @@ group netflixwatch -locations=https://www.netflix.com/watch/*
 map <site>c      -description "Click button"           -js netflixFlatButton();
 map <site>d      -description "Download subtitle"
 \   -js document.querySelector('.track.download').click();
+"<site>a : audio"
+map <site>a      -description "(show bindings)"   -js CommandExMode().open("showkeys <site>a")
+map <site>a<C-h> -description "(show bindings)"   -js CommandExMode().open("showkeys <site>a")
+map <site>ae     -description "Audio: English"    -js netflixSetAudio("english");
+map <site>af     -description "Audio: French"     -js netflixSetAudio("french");
+map <site>aj     -description "Audio: Japanese"   -js netflixSetAudio("japanese");
 map <site>D      -description "Download all subtitles"
 \   -js document.querySelector('.track.download -all').click();
 map <site>t<C-h> -description "(show bindings)"
@@ -8170,6 +8176,17 @@ function netflixToggleSubs() {
             else
                 Array.from(content.document.querySelectorAll(".track-list-subtitles .track")).find(e=>e.textContent.startsWith("Off")).click();
         }, 1800);
+}
+
+function netflixSetAudio(lang) {
+    var button = content.document.querySelector('.button-nfplayerSubtitles');
+    button.click();
+    var tracks = Array.from(content.document.querySelectorAll('.track-list-audio>li.track'));
+    window.setTimeout(()=>{
+            var langTrack = tracks.find(e=>e.innerText.split(' ')[0].toLowerCase()==lang);
+            langTrack && langTrack.click();
+            content.document.querySelector('.nf-big-play-pause').click();
+        }, 500);
 }
 
 function netflixSeek() {
