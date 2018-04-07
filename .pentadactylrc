@@ -8170,11 +8170,14 @@ function netflixSubsOn() {
 function netflixToggleSubs() {
     content.document.querySelector('.button-nfplayerSubtitles').click();
     var subs = content.document.querySelector('.track-list-subtitles .track.selected').textContent;
-    window.setTimeout(()=>{
+    window.setTimeout(
+        ()=>{
+            var tracks = Array.from(content.document.querySelectorAll(".track-list-subtitles .track"));
             if (subs.startsWith("Off"))
-                Array.from(content.document.querySelectorAll(".track-list-subtitles .track")).find(e=>e.textContent.startsWith("English")).click();
-            else
-                Array.from(content.document.querySelectorAll(".track-list-subtitles .track")).find(e=>e.textContent.startsWith("Off")).click();
+                tracks.find(e=>e.textContent.startsWith("English")).click();
+             else
+                tracks.find(e=>e.textContent.startsWith("Off")).click();
+            content.document.querySelector('.nf-big-play-pause').click();
         }, 1800);
 }
 
