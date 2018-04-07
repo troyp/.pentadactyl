@@ -8040,39 +8040,37 @@ command! netflixcard
 
 group netflixwatch -locations=https://www.netflix.com/watch/*
 
-map <site>c      -description "Click button"           -js netflixFlatButton();
-map <site>d      -description "Download subtitle"
-\   -js document.querySelector('.track.download').click();
 "<site>a : audio"
 map <site>a      -description "(show bindings)"   -js CommandExMode().open("showkeys <site>a")
 map <site>a<C-h> -description "(show bindings)"   -js CommandExMode().open("showkeys <site>a")
 map <site>ae     -description "Audio: English"    -js netflixSetAudio("english");
 map <site>af     -description "Audio: French"     -js netflixSetAudio("french");
 map <site>aj     -description "Audio: Japanese"   -js netflixSetAudio("japanese");
+map <site>c      -description "Click button"      -js netflixFlatButton();
+map <site>d      -description "Download subtitle" -js document.querySelector('.track.download').click();
 map <site>D      -description "Download all subtitles"
 \   -js document.querySelector('.track.download -all').click();
-map <site>t<C-h> -description "(show bindings)"
-\   -js CommandExMode().open("showkeys <site>t")
 "<site>t : toggles"
+map <site>t      -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
+map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
 map <site>tb     -description "Toggle Bit Rate Select" -b <C-S-A-s>
 map <site>td     -description "Toggle A/V Stats"       -b <C-S-A-d>
 map <site>tf     -description "Toggle Fullscreen"      -js netflixFullscreen();
 map <site>tl     -description "Toggle Logging"         -b <C-S-A-l>
 map <site>ts     -description "Toggle subtitles"       -js netflixToggleSubs();
 "<site>y : yank"
-map <site>y<C-h> -description "(show bindings)"
-\   -js CommandExMode().open("showkeys <site>y")
-map <site>yt     -description "Yank title"             -js netflixYankTitle();
-map <site>ye     -description "Yank episode title"     -js netflixYankEpisodeTitle();
-map <site>yE     -description "Yank episode number & title"
-\   -js netflixYankEpisodeNumberAndTitle();
+map <site>y      -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>yt     -description "Yank title"                  -js netflixYankTitle();
+map <site>ye     -description "Yank episode title"          -js netflixYankEpisodeTitle();
+map <site>yE     -description "Yank episode number & title" -js netflixYankEpisodeNumberAndTitle();
 
-map ]]           -description "Next episode"           -js netflixNextEpisode();
-map [[           -description "Previous episode"       -js netflixPreviousEpisode();
-map <Space>      -description "Play/Pause"             -ex netflixplaypause
-map <CR>         -description "Play/Pause"             -ex netflixplaypause
-map <Up>         -description "Volume up"              -js netflixIncVolume(0.1);
-map <Down>       -description "Volume down"            -js netflixIncVolume(-0.1);
+map ]]           -description "Next episode"     -js netflixNextEpisode();
+map [[           -description "Previous episode" -js netflixPreviousEpisode();
+map <Space>      -description "Play/Pause"       -ex netflixplaypause
+map <CR>         -description "Play/Pause"       -ex netflixplaypause
+map <Up>         -description "Volume up"        -js netflixIncVolume(0.1);
+map <Down>       -description "Volume down"      -js netflixIncVolume(-0.1);
 
 command! netflixsubson -js netflixSubsOn();
 command! netflixsubsoff -js netflixSubsOff();
