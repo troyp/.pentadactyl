@@ -1453,6 +1453,11 @@ function copyCmdlineOrJS() {
     var cmdOrJS = cmd.replace(/^ec(ho)? +|^js +|^javas(cript)? +/, '');
     utils.cbWrite(cmdOrJS);
 }
+function copyCmdlineOrConvertedJS() {
+    var cmd = getCmdline();
+    var cmdOrJS = cmd.replace(/^ec(ho)? +|^js +|^javas(cript)? +/, '');
+    utils.cbWrite(cmdOrJS.replace(/content\.(document|window)/, "$1"));
+}
 EOF
 
 
@@ -1473,6 +1478,7 @@ map <A-f>   -modes command-line <forward-word>
 
 " copy command-line "
 map <C-A-y> -modes command-line        -js copyCmdlineOrJS();
+map <C-A-S-Y> -modes command-line      -js copyCmdlineOrConvertedJS();
 " select all
 map <C-x>h  -modes command-line        -b <Home><S-End><C-v><C-c>
 " use c_<C-,>, c_<C-.> for cycling WildMode completion
