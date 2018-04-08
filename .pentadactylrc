@@ -1046,7 +1046,7 @@ map <leader>asa
 " Time "
 map <leader>at
     \ -description "Open Time Server"
-    \ -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab");
+    \ -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab", /^https:\/\/time\.is/);
 " <leader>av - Video & Radio"
 map <leader>ava
     \ -description "AccuRadio Classical"
