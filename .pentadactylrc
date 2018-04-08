@@ -8527,6 +8527,15 @@ group reddit -locations=reddit.com
 
 " Key Help (id: keyHelp) "
 map <site>? -b <C-v>?
+map <site>c -description "Passthrough-mode" -b <C-z>
+map <site>m -description "Remove cruft" -js redditTidy();
+
+js <<EOF
+function redditTidy()   {
+    isolateSelectors("div.self", "commentarea", "style");
+    removeSelectors("REScommentSubToggle");
+}
+
 
 " Commandline (id: keyCommandLineWidget) "
 map <site>x -b <C-v>.
