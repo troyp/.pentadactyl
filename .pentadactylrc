@@ -9573,21 +9573,21 @@ function removeSelectors(...sels) {
     var doc = content.document;
     sels.forEach(sel=>{
         var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>e.remove && e.remove());
+        elts.forEach(e=>e.parentNode.removeChild(e));
     });
 }
 
 function removeSelectorFiltered(sel, pred) {
     var doc = content.document;
     var elts = Array.from(doc.querySelectorAll(sel)).filter(pred);
-    elts.forEach(e=>e.remove && e.remove());
+    elts.forEach(e=>e.parentNode.removeChild(e));
 }
 
 function removeFirstSelector(sel) {
     "Remove the first element matching sel."
     var doc = content.document;
     var elt = doc.querySelector(sel);
-    elt.remove && elt.remove();
+    elt.parentNode.removeChild(elt);
 }
 
 "remove each matching element, plus immediately preceding heading (H1-H6)"
@@ -9598,8 +9598,8 @@ function removeSelectorsWithPrecedingHeading(...sels) {
         elts.forEach(e=> {
             var prev = e.previousElementSibling;
             if (prev && prev.tagName && prev.tagName.match(/H[1-6]/))
-                prev.remove && prev.remove();
-            e.remove && e.remove();
+                prev.parentNode.removeChild(prev);
+            e.parentNode.removeChild(e);
         });
     });
 }
