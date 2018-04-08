@@ -6474,6 +6474,24 @@ function ghGotoRepoRootLevel(count) {
 
 EOF
 
+" ,-----------------,
+" | Help.Github.com |
+" '-----------------'
+group githubhelp -locations=help.github.com
+
+map <site>c  -description "Click README.md" -js ghhelpTidy();
+
+js <<EOF
+function ghhelpTidy() {
+    isolateSelectors(".article");
+    removeSelectors(".support-footer");
+    var newstyle = content.document.createElement("style");
+    newstyle.innerText = ".article { margin: 0 60px; }"
+    content.document.head.appendChild(newstyle);
+}
+EOF
+
+
 group user
 
 " -------------------------------------------------------------------------------
