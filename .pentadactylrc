@@ -1425,6 +1425,22 @@ map <search>0     -description "Search for word beginning with..." -modes normal
 map <search>\'    -description "Link Search: Forward" -modes normal -b /\l
 map <search>\"    -description "Link Search: Backward" -modes normal -b ?\l    "
 
+" Special site searches "
+map <search>;gh -description "Github search and goto first result" -b :ghsearchgo<SPACE>
+
+command! ghsearchgo -description "Github search and goto first result"
+\    -nargs=1 -js ghSearchAndGo(args[0]);
+
+js <<EOF
+function ghSearchAndGo(s) {
+    var cmd = `curl -G "https://api.github.com/search/repositories" --data-urlencode "q=${s}" 2>/dev/null | jq -r '.items | .[0] | {user: (.owner | .login), repo: .name}'`;
+    var json = JSON.parse(io.system(cmd).output);
+    var url = `https://github.com/${json.user}/${json.repo}`;
+    openOrSelectTab(url);
+}
+EOF
+
+
 " -----------------------------------------------------------------------------
 " ,---------------------------------------,  MAP COMMANDS.
 " | Command mode and insert mode bindings |  cmap: command-line mode
