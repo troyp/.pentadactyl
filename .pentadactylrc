@@ -9199,8 +9199,6 @@ group user
 " '---------------'
 group wikipedia -locations=wikipedia.org
 
-command! wpapplycss :source ~/.pentadactyl/wikipedia.css
-
 js <<EOF
 var wpLatest = function() {
    var newurl = buffer.URL.replace(/\?.*$/, '');
@@ -9284,6 +9282,7 @@ function wpGotoWiktionary(where='here', lang='en') {
 }
 EOF
 
+command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 command! wplatest -description "Go to latest revision" -js wpLatest();
 command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
 command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml();
@@ -9294,7 +9293,7 @@ command! wpcopytablecols
     \ -description "Copy specified columns (single digits) from table chosen by HINT"
     \ -nargs=1
     \ -js dactylArgsSet(args[0].split("")); hints.show('Ŧ');
-command! wpsection
+command! wpsection -description "Jump to section"
 \   -nargs=1
 \   -complete custom,' (context) => {context.completions = wpGetSections()}'
 \   -js content.window.location.hash = '#' + args[0].replace(/.*…+/, '');
