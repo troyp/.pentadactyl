@@ -852,6 +852,7 @@ map <leader>m<C-h> -description "(show bindings: Manipulate Page)"
 \    -js CommandExMode().open("showkeys <leader>m")
 map <leader>ms -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"tab");
 map <leader>mcm -description "Add margins to page body" -b addmargin<SPACE>
+map <leader>mbp -description "Print What You Like" -ex prwul
 
 " ,--------------------------,
 " | <leader>n - edit content |
@@ -1102,7 +1103,7 @@ EOF
 command! openwithpagezipper -nargs 1 -js openWithPagezipper(args[0]);
 
 " | Print What You Like |
-command! prwul -description "run PrintWhatYouLike" open javascript:(function(){if(window['ppw']&&ppw['bookmarklet']){ppw.bookmarklet.toggle();}else{window._pwyl_home=%22http://www.printwhatyoulike.com/%22;_pwyl_bmkl=document.createElement('script');_pwyl_bmkl.setAttribute('type','text/javascript');_pwyl_bmkl.setAttribute('src',_pwyl_home+'static/compressed/pwyl_bookmarklet_10.js');_pwyl_bmkl.setAttribute('pwyl','true');document.getElementsByTagName('head')[0].appendChild(_pwyl_bmkl);}})();
+command! prwul -description "run PrintWhatYouLike" open javascript:(function(){if(window['ppw']&&ppw['bookmarklet']){ppw.bookmarklet.toggle();}else{window._pwyl_home='//www.printwhatyoulike.com/';window._pwyl_pro_id=null;window._pwyl_bmkl=document.createElement('script');window._pwyl_bmkl.setAttribute('type','text/javascript');window._pwyl_bmkl.setAttribute('src',window._pwyl_home+'static/compressed/pwyl_bookmarklet_10.js');window._pwyl_bmkl.setAttribute('pwyl','true');document.getElementsByTagName('head')[0].appendChild(window._pwyl_bmkl);}})();
 
 " | PrintFriendly |
 command! printfriendly -description "Run Print Friendly" open javascript:(function(){if(window['priFri']){window.print()} else{var pfurl=''; pfstyle='nbk'; pfBkVersion='1'; if(window.location.href.match(/https/)){pfurl='https://pf-cdn.printfriendly.com/ssl/main.js'} else {pfurl='http://cdn.printfriendly.com/printfriendly.js'} _pnicer_script=document.createElement('SCRIPT'); _pnicer_script.type='text/javascript'; _pnicer_script.src=pfurl + '?x='+(Math.random()); document.getElementsByTagName('head')[0].appendChild(_pnicer_script);}})();
