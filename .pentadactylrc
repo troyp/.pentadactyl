@@ -900,7 +900,8 @@ map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
 map <leader>t<C-h> -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
 map <leader>t      -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
 map <leader>ta     -description "Toggle User Agent Override"    -ex actoggleuaoverride
-map <leader>te     -description "Toggle Edit Content"           -ex editcontent
+map <leader>te     -description "Toggle designMode"             -ex designmode
+map <leader>tE     -description "Toggle contentEditable"        -ex contenteditable
 map <leader>tj     -description "Toggle Javascript"             -ex actogglejs
 map <leader>to     -description "Toggle Online"                 -ex toggleoption online
 map <leader>ts     -description "Toggle HTTPS"                  -js toggleHTTPS()
@@ -1775,14 +1776,17 @@ command! pwhashsite
 map -modes input <pwhashsite> -ex pwhashsite
 
 " Page editing commands "
-command! editcontent
-    \ -description "Make content editable"
+command! contenteditable
+    \ -description "Make content editable by setting e.contentEditable on each element"
     \ -js elts = content.document.getElementsByTagName("*");
     \     for (i=0; i<elts.length; ++i)
     \         if (elts[i].hasAttribute("contentEditable") && elts[i].contentEditable === "true")
     \             elts[i].contentEditable = "false";
     \         else
     \             elts[i].contentEditable = "true";
+command! designmode
+    \ -description "Make content editable by setting document.designMode"
+    \ -js content.document.designMode = (content.document.designMode=="on") ? "off" : "on";
 command! setbodybyid
     \ -nargs=1
     \ -complete=javascript
