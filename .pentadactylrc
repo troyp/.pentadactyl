@@ -9230,6 +9230,7 @@ var wpCopyHtml = function() {
 function wpGetContents() {
     return Array.from(content.document.querySelectorAll('#toc ul li a'));
 }
+
 function wpGotoNextHeading() {
     var headings = wpGetContents();
     var fragment = content.window.location.hash;
@@ -9241,6 +9242,7 @@ function wpGotoNextHeading() {
         headings[0].click();
     }
 }
+
 function wpGotoPreviousHeading() {
     var headings = wpGetContents();
     var fragment = content.window.location.hash;
@@ -9252,9 +9254,20 @@ function wpGotoPreviousHeading() {
             content.window.scrollTo(0, 0);
     }
 }
+
 function wpGetSections() {
-    return wpGetContents().map(
-        e => [ decodeURIComponent(S.padEnd(e.innerText.match(/[0-9.]+/)[0], 10, "…") + e.href.replace(/[^#]+#/, "")), "" ]);
+    var contents = wpGetContents();
+    var n = contents.length;
+    var max_n1 = Math.max.apply(null, contents.map(e=>e.innerText.match(/^[0-9]+/)[0].length));
+    var formatted = contents.map(e => {
+        var padding = max_n1 - e.innerText.match(/^[0-9]+/)[0].length;
+        var fmtElt = S.repeat("0", padding) +
+                      decodeURIComponent(
+                          S.padEnd(e.innerText.match(/[0-9.]+/)[0], 10, "…") +
+                          e.href.replace(/[^#]+#/, ""));
+        return [ fmtElt, "" ];
+    });
+    return formatted;
 }
 
 function wpGetTopic() {
