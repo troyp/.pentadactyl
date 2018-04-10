@@ -180,6 +180,15 @@ S = {
     capitalize: function(s) {
         return s.replace(/\b\w/g, function (c) { return c.toUpperCase(); });
     },
+    titleCaseExceptionWords: ["a", "an", "the", "and", "or", "but", "nor",
+                              "yet", "so", "for", "in", "to", "of", "at",
+                              "by", "up", "for", "off", "on"],
+    toTitleCase: function (s) {
+        var words = s.split(/\s+/);
+        var toCapitalize = words.filter(w=>!this.titleCaseExceptionWords.includes(w));
+        toCapitalize.forEach(w=>{ s = s.replace(w, this.capitalize(w)) });
+        return s;
+    },
     isAlphaAt: function (s, i) {
         ord = s.charCodeAt(i);
         return (ord.inRange(97, 123));
