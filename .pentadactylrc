@@ -176,7 +176,14 @@ S = {
             return padString.slice(0, targetLength) + String(s);
         }
     },
-    repeat: function (s, n) { return Array(n).fill(s).join(""); }
+    repeat: function (s, n) { return Array(n).fill(s).join(""); },
+    capitalize: function(s) {
+        return s.replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    },
+    isAlphaAt: function (s, i) {
+        ord = s.charCodeAt(i);
+        return (ord.inRange(97, 123));
+    }
 }
 window.S = S;
 
@@ -212,14 +219,6 @@ function makeDisplayToggle(selector) {
 window.makeDisplayToggle = makeDisplayToggle;
 
 "Patched Classes"
-String.prototype.capitalize = function() {
-    return this.replace(/\b\w/g,
-                        function (c) { return c.toUpperCase(); });
-}
-String.prototype.isAlphaAt = function (i) {
-    ord = this.charCodeAt(i);
-    return (ord.inRange(97, 123));
-}
 Number.prototype.inRange = function (a, b) {
     return (a <= this && this < b);
 }
@@ -3976,9 +3975,8 @@ function imgToDataUri(img) {
 }
 dactyl.utils.imgToDataUri = imgToDataUri;
 
-// monkey-patched capitalize method
 function eplist (s) {
-    var sConv = s.capitalize().replace(" ", "_");
+    var sConv = S.capitalize(s).replace(" ", "_");
     dactyl.open(`www.wikipedia.org/wiki/List_of_${sConv}_episodes`);
 }
 
@@ -4190,10 +4188,10 @@ function wiktionaryWordToIndexPage (word)
     word = word.replace(/^-*/, '');
     var page, id;
 
-    // patched methods Number.inRange, String.isAlphaAt
+    // patched method Number.inRange
     var wordord = "".charCodeAt.bind(word);
 
-    if (word.isAlphaAt(0))    // word starts with letter
+    if (S.isAlphaAt(word, 0))    // word starts with letter
     {
         page = word[0];
         // letters split into 2 pages by second letter (a-m and n-z)
@@ -4204,10 +4202,10 @@ function wiktionaryWordToIndexPage (word)
                 page += "2";
 
         id = word[0];
-        if (word.isAlphaAt(1))
+        if (S.isAlphaAt(word, 1))
             id += word[1];
     }
-    else                     // word starts with digit or symbol
+    else    // word starts with digit or symbol
     {
         page = "0";
         if (word.charCodeAt(1).inRange(48, 58))
@@ -9572,11 +9570,9 @@ function indexToOrdinalString(n) {
 
 function stripBlankLines(s) { return s.replace(/\n\s*\n/gm, '\n'); }
 
-function capitalize(s) { return s[0].toUpperCase() + s.slice(1); }
-
 function strToWikiTitle(s, capitalizeStr=true) {
      var joined = s.replace(/[ \t]+/, "_");
-     var title = capitalizeStr ? capitalize(joined) : joined;
+     var title = capitalizeStr ? S.capitalize(joined) : joined;
      return encodeURIComponent(title);
 }
 
