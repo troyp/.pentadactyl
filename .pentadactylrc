@@ -7986,6 +7986,8 @@ map <site>r  -description "Scroll to Row"             -b  :netflixgotorow<Space>
 map <site>sh -description "Toggle header overlap"     -js netflixToggleHeaderOverlap();
 map <site>st -description "Toggle text links"         -js netflixToggleTextLinks();
 map <site>/  -description "Search"                    -js netflixSearch();
+map <site>oa -description "Open Account Settings"
+\            -count -ex openorselect https://www.netflix.com/YourAccount <count>
 
 map <Up> -b <C-v><Up>
 map <Down> -b <C-v><Down>
