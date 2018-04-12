@@ -454,6 +454,9 @@ function listMappingsByGroup(g) {
 
 function listCommandsByGroupCompletion(g) { return commands.hives.map(h=>[h.name, h]); }
 function listMappingsByGroupCompletion(g) { return mappings.hives.map(h=>[h.name, h.name]); }
+
+function getCurrentDomainGroups() { return contexts.activeGroups().filter(g=>g.filter!="*"); }
+
 EOF
 
 " -----------------------------------------------------------------------------
