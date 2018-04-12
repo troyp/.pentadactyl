@@ -1065,6 +1065,13 @@ map <leader>amy
 map <leader>ap
     \ -description "Open Paypal"
     \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
+" <leader>ar - Reference"
+map <leader>arbib
+    \ -description "King James Bible BOOK [CH:SEC]"
+    \ -count -b :kingjames<SPACE>
+map <leader>arwp
+    \ -description "Goto Wikpedia article"
+    \ -count -b :wikipediapage<SPACE>
 " <leader>as - Schedules"
 map <leader>as      -js CommandExMode().open("showkeys <leader>as");
 map <leader>as<C-h> -js CommandExMode().open("showkeys <leader>as");
@@ -1099,7 +1106,26 @@ function openOrSelectNetflix(where='tab') {
     else
         dactyl.open('https://www.netflix.com/browse', {where: where});
 }
+
+function kingJames(book=null, chSec=null) {
+    var baseURL = "https://en.wikisource.org/wiki/Bible_(King_James)";
+    var fragment = chSec ? ("#"+chSec) : "";
+    var urlExt = book ? ("/" + S.toTitleCase(book).replace(" ", "_") + fragment) : "";
+    var url = baseURL + urlExt;
+    openOrSelectTab(url);
+}
+
+var kingJamesBooks = ["Genesis", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "1_Samuel", "2_Samuel", "1_Kings", "2_Kings", "1_Chronicles", "2_Chronicles", "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song_of_Solomon", "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi", "1_Esdras", "2_Esdras", "1_Esdras", "2_Esdras", "Tobit", "Judith", "Rest_of_Esther", "Wisdom_of_Solomon", "Ecclesiasticus", "Baruch", "Prayer_of_Azarias_and_Hymn_of_the_Three_Children", "Susanna", "Bel_and_the_Dragon", "Prayer_of_Manasseh", "1_Maccabees", "2_Maccabees", "Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1_Corinthians", "2_Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1_Thessalonians", "2_Thessalonians", "1_Timothy", "2_Timothy", "Titus", "Philemon", "Hebrews", "James", "1_Peter", "2_Peter", "1_John", "2_John", "3_John", "Jude", "Revelation"];
 EOF
+
+command! wikipediapage -description "Goto Wikipedia article"
+\    -nargs=1
+\    -js openOrSelectTab(`https://en.wikipedia.org/wiki/${S.capitalize(args[0].replace(" ", "_"))}`);
+
+command! kingjames -description "King James Bible BOOK [CH:SEC]"
+\    -nargs=*
+\    -complete custom," (context) => { context.completions = kingJamesBooks.map(b=>[b, null]); } "
+\    -js kingJames(args[0], args[1]);
 
 " ,--------------,
 " | Bookmarklets |
