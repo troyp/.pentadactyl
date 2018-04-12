@@ -38,6 +38,10 @@ var Cu = Components.utils;
 Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
 Cu.import("resource://gre/modules/FileUtils.jsm");
 Cu.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
+" https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/OS.File_for_the_main_thread "
+Cu.import("resource://gre/modules/osfile.jsm");
+" https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Language_Bindings/Components.utils.importGlobalProperties "
+Components.utils.importGlobalProperties(["TextDecoder"]);
 
 
 "components"
@@ -254,6 +258,19 @@ function evalWithScriptTag(code, doc) {
     script.parentNode.removeChild(script);
 }
 window.evalWithScriptTag = evalWithScriptTag;
+
+function readFromFile(f) {
+    " Returns a promise. Usage: readFromFile(f).then(s=>doSomething(s)); "
+    " Code from https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/OSFile.jsm/ "
+    let decoder = new TextDecoder();     // This decoder can be reused for several reads
+    let promise = OS.File.read(f);       // Read the complete file as an array
+    promise = promise.then(
+      function onSuccess(array) {
+        return decoder.decode(array);    // Convert this array to a text
+      }
+    );
+    return promise;
+}
 
 EOF
 
