@@ -1950,6 +1950,8 @@ map <C-S-K> <buffer><d
 map <buffer>1 -description "Close all other tabs" -ex tabonly
 map <buffer>< -description "Close tabs to left"   -ex closetabstoleft
 map <buffer>> -description "Close tabs to right"  -ex closetabstoright
+" close adjacent duplicates "
+map <A-S-Space> -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
 
 " move tabs "
 map gm     -b :tabmove!<SPACE>
