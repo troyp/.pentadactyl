@@ -8616,6 +8616,7 @@ group reddit -locations=reddit.com
 
 map <site>c -description "Passthrough-mode" -b <C-z>
 map <site>m -description "Remove cruft" -js redditTidy();
+map <site>ts -description "Toggle saved post" -js redditToggleSave();
 
 js <<EOF
 function redditTidy()   {
@@ -8624,6 +8625,11 @@ function redditTidy()   {
 }
 
 
+function redditToggleSave() {
+    var saveBtn = content.document.querySelector('.link-save-button>a');
+    var unsaveBtn = content.document.querySelector('.link-unsave-button>a');
+    (saveBtn || unsaveBtn).click();
+}
 EOF
 
 group user
