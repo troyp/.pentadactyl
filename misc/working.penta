@@ -474,3 +474,15 @@ autocmd PageLoad ebay.com :js window.hintCustomMode1_predicate = hintCustomMode1
 
 group user
 "                    -----------------------------------------
+
+group reddit
+js <<EOF
+function redditShowCommandLine() {
+    content.document.getElementById("keyCommandLineWidget").style.display = "block";
+    content.document.getElementById("keyCommandInput").focus();
+    content.document.getElementById("keyCommandInput").click();
+}
+EOF
+group user
+
+"                    -----------------------------------------
