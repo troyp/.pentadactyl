@@ -7994,12 +7994,18 @@ command! netflixgotorow
 \    -js netflixScrollToRow(args[0]);
 command! netflixplaypause
 \    -js content.document.querySelector('.PlayerControls--button-control-row>button:first-of-type').click();
+command! netflixgenre -description "Go to genre page"
+\    -nargs=1
+\    -complete custom,' (context) => {context.completions = netflixGenreList}'
+\    -js openOrSelectTab("https://www.netflix.com/browse/genre/"+netflixGenres[args[0]], "here");
 
 map <site>c  -description "Cleanup"               -js netflixCleanup();
 map <site>f  -description "Select Cell [HINTS]"   -b :netflixcard<Space>
 map <site>n  -description "Show Name"             -js netflixYankTitle();
 map <site>oa -description "Open Account Settings"
 \            -count -ex openorselect https://www.netflix.com/YourAccount <count>
+map <site>og -description "Open Genre Page"
+\            -count -b :netflixgenre<Space>
 map <site>oh -description "Open Browse"
 \            -count -ex openorselect https://www.netflix.com/browse <count>
 map <site>ol -description "Open My List"
@@ -8155,6 +8161,10 @@ function netflixMyProfile() {
         );
     }
 }
+
+var netflixGenres = JSON.parse(io.system("cat ~/.pentadactyl/data/netflix-genres.json").output);
+var netflixGenreList = Object.entries(netflixGenres);
+window.netflixGenres = netflixGenres;
 EOF
 
 command! netflixcard
