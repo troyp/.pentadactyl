@@ -1,0 +1,3 @@
+[submodule "js/libs/suncalc"]
+	path = js/libs/suncalc
+	url = git@github.com:mourner/suncalc.git

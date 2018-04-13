@@ -20,6 +20,7 @@ js var homedir = "/home/troy";
 
 runtime! js/libs/jquery-3.3.1.min.js
 runtime! js/libs/sprintf.js
+runtime! js/libs/suncalc/suncalc.js
 runtime! js/simulateHtmlMouseEvent.js
 set passkeys=
 
