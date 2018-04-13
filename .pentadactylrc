@@ -8594,7 +8594,16 @@ map <site>l  -description "Create download buttons for top row" -js packtDlLinks
 map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
 
 style -name=packtthinlines https://www.packtpub.com/account/my-ebooks
-\    .product-line,.product-top-line,.toggle-product-line,.content-width { padding-top: 0 !important; padding-bottom: 0 !important; }
+\    .product-line,.product-top-line,.toggle-product-line,.content-width {
+\        padding-top: 0 !important; padding-bottom: 0 !important;
+\        line-height: 0.8em !important;
+\    }
+\    .toggle-product-line {
+\        font-size: 18pt !important; line-height: 0.8em !important;
+\    }
+\    .title {
+\        padding-top: 4px !important; padding-bottom: 0 !important;
+\    }
 
 " ,----------------------------------------------,
 " | www.packtpub.com//packt/offers/free-learning |
