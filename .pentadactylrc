@@ -1114,9 +1114,15 @@ map <leader>ava
     \ -count -js openOrSelectNetflix(count?"here":"tab");
 :endif
 " Weather "
-map <leader>aw
-    \ -description "Open Lismore Weather"
+map <leader>aww
+    \ -description "Open Lismore Weather (BoM)"
     \ -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
+map <leader>aws
+    \ -description "Show Goonellabah Sunrise and Sunset Times"
+    \ -js showSunriseSunset();
+map <leader>awt
+    \ -description "Open Goonellabah Weather (timeanddate.com)"
+    \ -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
 
 js <<EOF
 function openOrSelectNetflix(where='tab') {
@@ -1146,6 +1152,17 @@ function sunTimes() {
     return SunCalc.getTimes(new Date(), lat, long);
 }
 window.sunTimes = sunTimes;
+
+function sunriseSunset() {
+    var times = sunTimes();
+    var [sunrise, sunset] = [times.sunrise, times.sunset];
+    return [times.sunrise, times.sunset];
+}
+
+function showSunriseSunset() {
+    var [sunrise, sunset] = sunriseSunset().map(t=>t.toTimeString());
+    utils.cbWrite(`SUNRISE: ${sunrise}\nSUNSET:  ${sunset}`);
+}
 EOF
 
 command! wikipediapage -description "Goto Wikipedia article"
