@@ -8567,11 +8567,34 @@ function packtLoginLogout() {
     link.click();
 }
 
+function packtCompactList() {
+    dactyl.execute("styleenable -group packt -name packtthinlines");
+    hideSelectors("div.author");
+}
+function packtCompactListOff() {
+    dactyl.execute("styledisable -group packt -name packtthinlines");
+    unhideSelectors("div.author");
+}
+function packtIsCompactList() {
+    var authorline = content.document.querySelector("div.author");
+    return (authorline.style.display == "none");
+}
+function packtToggleCompactList() {
+    if (packtIsCompactList())
+        packtCompactListOff();
+    else
+        packtCompactList();
+}
+
 EOF
 
 map <site>c  -description "Download first link" -js packtPopLink();
 map <site>i  -description "Login/logout" -js packtLoginLogout();
 map <site>l  -description "Create download buttons for top row" -js packtDlLinksTopRow();
+map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
+
+style -name=packtthinlines https://www.packtpub.com/account/my-ebooks
+\    .product-line,.product-top-line,.toggle-product-line,.content-width { padding-top: 0 !important; padding-bottom: 0 !important; }
 
 " ,----------------------------------------------,
 " | www.packtpub.com//packt/offers/free-learning |
