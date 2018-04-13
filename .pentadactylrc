@@ -3548,7 +3548,7 @@ window.bookmarksToolbarButtonToggle = bookmarksToolbarButtonToggle;
 
 EOF
 
-style -name=bmarksbarbutton
+style -name=bmarksbar-button
     \ *
     \ #personal-bookmarks-menu-button {
     \     -moz-image-region: rect(0px 24px 24px 0px);
@@ -3558,7 +3558,7 @@ style -name=bmarksbarbutton
     \     -moz-image-region: rect(0px 16px 16px 0px);
     \     -moz-box-orient: horizontal !important;
     \ }
-command! bmarksbarbuttontogglestyle styletoggle -name bmarksbarbutton
+command! bmarksbarbuttontogglestyle styletoggle -name bmarksbar-button
 
 " -------------------------------------------------------------------------------
 " ,-------,
@@ -3810,15 +3810,15 @@ EOF
 
 " Widen table
 
-style -name=table_widen
+style -name=table-widen
     \ file://*
     \ body { max-width: 250em !important; }
-command! tablewiden -description "widen table" styletoggle -name table_widen
+command! tablewiden -description "widen table" styletoggle -name table-widen
 
-style -name=table_wrap
+style -name=table-wrap
     \ file://*
     \ td:first-of-type { white-space: pre-wrap !important; }
-command! tablewrap -description "wrap text in table cells" styletoggle -name table_wrap
+command! tablewrap -description "wrap text in table cells" styletoggle -name table-wrap
 
 command! tableDeleteColumns
     \ -description "Delete given columns from all tables."
@@ -5221,19 +5221,20 @@ js hints.addMode("ɳ", "Click new tab control", clickSelector);
     styleenable about:newtab newtabstyle
 :endif
 
-style -name=newtabselectionstyle about:newtab
+style -name=newtab-selectionstyle about:newtab
 \     a:focus {
 \         border: solid #7B4F7B 3px !important; border-radius: 3px !important;
 \     }
-styleenable about:newtab newtabselectionstyle
+styleenable about:newtab newtab-selectionstyle
 
 map f -description "Follow link" -js hints.show('ņ');
 map F -description "Follow link in background tab" -js hints.show('Ņ');
 map gf -description "Follow multiple links in background tabs" g;Ņ
-map <site>b -description "Toggle selection border"  -ex styletoggle -name newtabselectionstyle
+map <site>b -description "Toggle selection border"  -ex styletoggle -name newtab-selectionstyle
 map <site>c -description "Click control buttons (pin, remove)" -js hints.show('ɳ');
 map <site>s -description "Toggle custom styles"
-\    -ex styletoggle -group aboutnewtab -name newtabstyle | styletoggle -group aboutnewtab -name newtabselectionstyle
+\    -ex styletoggle -group aboutnewtab -name newtabstyle |
+\        styletoggle -group aboutnewtab -name newtab-selectionstyle
 
 group user
 " -------------------------------------------------------------------------------
@@ -6021,9 +6022,9 @@ map <site>tg -description "View account/giftcertificates (new tab)"
 map <site>tt -description "View tickets (new tab)" -ex tabopen https://support.fasttech.com/tickets
 map <site>tw -description "View account/wishlists (new tab)" -ex tabopen https://www.fasttech.com/account/wishlists
 
-style -name=fasttechPostSeparator https://www.fasttech.com/*
+style -name=fasttech-post-separator https://www.fasttech.com/*
     \ .ForumHeader { border-top: solid 1px #AAA !important; }
-styleenable https://www.fasttech.com/* fasttechPostSeparator
+styleenable https://www.fasttech.com/* fasttech-post-separator
 
 group user
 
@@ -7533,7 +7534,7 @@ command! jishohintclicklinks          -js hints.show("リ");
 " -----------
 " Kanji style
 " -----------
-style -name=kanji_light
+style -name=kanji-light
     \ jisho.org
     \ .kanji .character, .kanji_light .character {
     \     font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3","游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif !important;
@@ -7543,13 +7544,13 @@ style -name=kanji_light
     \ }
 command! jishokanjilight
     \ -description "Light style kanji"
-    \ styleenable -group jisho -name kanji_light
+    \ styleenable -group jisho -name kanji-light
 command! jishokanjiheavy
     \ -description "Heavy style kanji"
-    \ styledisable -group jisho -name kanji_light
+    \ styledisable -group jisho -name kanji-light
 command! jishokanjitogglestyle
     \ -description "Toggle heavy/light kanji style"
-    \ styletoggle -group jisho -name kanji_light
+    \ styletoggle -group jisho -name kanji-light
 
 
 " ---------------------
@@ -8568,11 +8569,11 @@ function packtLoginLogout() {
 }
 
 function packtCompactList() {
-    dactyl.execute("styleenable -group packt -name packtthinlines");
+    dactyl.execute("styleenable -group packt -name packt-thin-lines");
     hideSelectors("div.author");
 }
 function packtCompactListOff() {
-    dactyl.execute("styledisable -group packt -name packtthinlines");
+    dactyl.execute("styledisable -group packt -name packt-thin-lines");
     unhideSelectors("div.author");
 }
 function packtIsCompactList() {
@@ -8593,7 +8594,7 @@ map <site>i  -description "Login/logout" -js packtLoginLogout();
 map <site>l  -description "Create download buttons for top row" -js packtDlLinksTopRow();
 map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
 
-style -name=packtthinlines https://www.packtpub.com/account/my-ebooks
+style -name=packt-thin-lines https://www.packtpub.com/account/my-ebooks
 \    .product-line,.product-top-line,.toggle-product-line,.content-width {
 \        padding-top: 0 !important; padding-bottom: 0 !important;
 \        line-height: 0.8em !important;
