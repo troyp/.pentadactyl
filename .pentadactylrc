@@ -5223,7 +5223,7 @@ js hints.addMode("ɳ", "Click new tab control", clickSelector);
 
 style -name=newtab-selectionstyle about:newtab
 \     a:focus {
-\         border: solid #7B4F7B 3px !important; border-radius: 3px !important;
+\         border: solid #7B4F7B 3px !important; border-radius: 3px !important; font-weight: bold !important;
 \     }
 styleenable about:newtab newtab-selectionstyle
 
