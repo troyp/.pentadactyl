@@ -8569,9 +8569,9 @@ function packtLoginLogout() {
 
 EOF
 
-map <site>l -description "Create download buttons for top row" -js packtDlLinksTopRow();
-map <site>c -description "Download first link" -js packtPopLink();
-map <site>i -description "Login/logout" -js packtLoginLogout();
+map <site>c  -description "Download first link" -js packtPopLink();
+map <site>i  -description "Login/logout" -js packtLoginLogout();
+map <site>l  -description "Create download buttons for top row" -js packtDlLinksTopRow();
 
 " ,----------------------------------------------,
 " | www.packtpub.com//packt/offers/free-learning |
