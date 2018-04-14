@@ -8001,6 +8001,16 @@ map <site>c -js mangareaderGetNextChapter();
 group user
 
 " -------------------------------------------------------------------------------
+" ,------------,
+" | Medium.com |
+" '------------'
+group medium -locations=medium.com
+
+map <site>c -description "Remove cruft" -ex isolateselector .section--body
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-----------------,
 " | MyAnimeList.net |
 " '-----------------'
