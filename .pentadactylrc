@@ -6417,12 +6417,6 @@ function ghGetUrlComponents(url=buffer.URL) {
     var relpath = match[3];
     return [user, repo, relpath];
 }
-function ghGetRepoName() {
-    var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/#?]+)(\/.*)?/;
-    var match = buffer.URL.match(regex);
-    var repo = match[2];
-    return repo;
-}
 function ghGetWikiURL() {
     [user, repo] = ghGetUserAndRepo();
     return `https://github.com/${user}/${repo}/wiki`;
@@ -6469,7 +6463,7 @@ function ghCopyUser() {
 }
 
 function ghCopyRepoNameWithURL() {
-    repo = ghGetRepoName();
+    repo = ghGetUserAndRepo()[1];
     var url = buffer.URL;
     dactyl.utils.yankWithMsg(`${repo} (${url})`);
 }
