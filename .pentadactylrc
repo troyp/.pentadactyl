@@ -9042,6 +9042,43 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,------------------,
+" | UbuntuForums.org |
+" '------------------'
+
+group ubuntuforums -locations=ubuntuforums.org
+
+js <<EOF
+function ubforTidy() {
+    isolateSelectors(
+        "h1", "#postlist", ".inlineimg.onlinestatus",
+        ".postuseravatarlink", ".usertitle"
+    );
+    var rankElts = Array.from(content.document.getElementsByClassName("rank"));
+    rankElts.forEach(e => {
+        var imgElt = e.getElementsByTagName("img")[0];
+        if (imgElt) {
+            " make idempotent: check if already removed "
+            var imgName = imgElt.src.replace(/.*\//, "").replace(/\.png$/, "");
+            e.removeChild(imgElt);
+            var span = content.document.createElement("span");
+            span.innerText = imgName;
+            e.appendChild(span);
+        }
+    });
+    var usernames = Array.from(content.document.getElementsByClassName("username"));
+    usernames.forEach(e => {
+        e.firstChild.innerHTML = e.firstChild.innerHTML.replace("color: #000000", "color: #296ad3");
+    });
+    content.document.body.style.backgroundColor='#85ABE7';
+}
+EOF
+
+map <site>c -description "Style and Remove cruft" -js ubforTidy();
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,---------------------,
 " | UrbanDictionary.com |
 " '---------------------'
