@@ -1583,16 +1583,27 @@ map <A-b>   -modes command-line <backward-word>
 map <A-f>   -modes command-line <forward-word>
 
 " copy command-line "
-map <C-A-y> -modes command-line        -js copyCmdlineOrJS();
-map <C-A-S-Y> -modes command-line      -js copyCmdlineOrConvertedJS();
+map <C-A-y>
+\    -description "Copy command-line or JS expression"
+\    -modes command-line
+\    -js copyCmdlineOrJS();
+map <C-A-S-Y>
+\    -description "Copy command-line or JS expression (convert JS to page context)"
+\    -modes command-line
+\    -js copyCmdlineOrConvertedJS();
+" kill rest of line "
+map <C-k>   -description "Kill rest of line" -modes command-line -b <S-End><C-v><C-x>
+" undo "
+map <C-/>   -description "Undo" -modes command-line -b <C-v><C-z>
+map <C-S-/> -description "Redo" -modes command-line -b <C-v><C-y>
 " select all
-map <C-x>h  -modes command-line        -b <Home><S-End><C-v><C-c>
+map <C-x>h  -description "Select all" -modes command-line -b <Home><S-End><C-v><C-c>
 " use c_<C-,>, c_<C-.> for cycling WildMode completion
-map <C-,>   -modes command-line        -b <Tab>
-map <C-.>   -modes command-line        -b <S-Tab>
+map <C-,>   -description "Cycle wildmode completion" -modes command-line -b <Tab>
+map <C-.>   -description "Cycle wildmode completion (backwards)" -modes command-line -b <S-Tab>
 " use c_<A-/> for AltWildMode completion
-map <A-/>   -modes command-line        -b <A-Tab>
-map <A-S-/> -modes command-line        -b <A-S-Tab>
+map <A-/>   -description "Cycle altwildmode completion" -modes command-line -b <A-Tab>
+map <A-S-/> -description "Cycle altwildmode completion (backwards)" -modes command-line -b <A-S-Tab>
 
 map <C-y>   -modes command-line,insert -b <C-v><C-v>
 map <C-p>   -modes command-line,insert -b <Up>
