@@ -525,12 +525,14 @@ command! guioptionsreset set guioptions=bBcCrmNsT
 command! togglecmdline -bang -js dactyl.execute("set guioptions!=c"); bang && dactyl.execute("rc");
 js function cmdlineon() { return options.get("guioptions").value.includes("c") }
 
-command! editorvim :set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
-command! editoremacs :set editor='emacsclient'
-command! editoremacsnewwin :set editor='emacsclient -c'
-command! editoremacsnw :set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
-" set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
-set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
+command! editorvim -description "Set terminal vim as editor"
+\    set editor='roxterm --replace -e vim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
+command! editorgvim -description "Set gVim as editor"
+\    set editor='gvim -f +<line> +"sil! call cursor(0, <column>)" +"set ft=markdown" <file>'
+command! editoremacs -description "Set emacs as editor" set editor='emacsclient'
+command! editoremacsnewwin -description "Set emacs as editor (new window)" set editor='emacsclient -c'
+command! editoremacsnw -description "Set terminal emacs as editor"
+\    set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
 
 " ,---------------------,
 " | Pentadactyl Styling |
