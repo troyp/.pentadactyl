@@ -6205,7 +6205,7 @@ js function ghTabopenRepo (s) { dactyl.tabopen(`https://github.com/${s}`); }
 command! ghtabopenrepo -nargs=1 -js ghTabopenRepo(args[0]);
 
 " ===== GROUP START =====
-group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com
+group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com,github.io
 
 map <site>c        -description "Click README.md" -js ghClickReadme();
 map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
@@ -6396,8 +6396,16 @@ function ghGetUserAndRepo(useronly=false) {
         return [null, null];
     var regex = /[^:]+:\/\/(gist.)?github.com\/([^/]+)\/?([^/#?]+)?(\/.*)?/;
     var match = buffer.URL.match(regex);
-    var user = match && match[2]!="new" && match[2];
-    var repo = match && match[3];
+    if (match) {
+        var user = match[2]!="new" && match[2];
+        var repo = match[3];
+    } else {
+        " github.io "
+        var regex_io = /[^:]+:\/\/([^/]+).github.io\/([^/]+)\/?/;
+        match = buffer.URL.match(regex_io);
+        var user = match && match[1];
+        var repo = match && match[2];
+    }
     if (useronly) return user;
     else return [user, repo];
 }
