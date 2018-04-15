@@ -9399,6 +9399,27 @@ map <site>c -ex advtimeToggleTranscript
 
 group user
 
+" ,--------------,
+" | dc.wikia.com |
+" '--------------'
+group wikiadc -locations='dc\.wikia\.com/wiki/'
+
+js <<EOF
+function dcToggleEarth() {
+    var regex = /https?:\/\/dc.wikia.com\/wiki\/([^/]+)_\(([^/]+)_Earth\)/;
+    var match = buffer.URL.match(regex);
+    if (match) {
+        var which = (match[2]=="Prime") ? "New" : "Prime";
+        dactyl.open(`http://dc.wikia.com/wiki/${match[1]}_(${which}_Earth)`, "here");
+    }
+}
+EOF
+
+map <site>tu -description "Toggle New Earth/Prime Earth" -js dcToggleEarth();
+
+group user
+
+
 " -----------------------------------------------------------------------------
 " ,---------------,
 " | Wikipedia.org |
