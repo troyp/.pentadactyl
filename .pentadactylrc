@@ -626,7 +626,12 @@ map <C-h>b       -description "Search bindings" -b :searchmappings<Space>
 map <C-h>c       -description "Search commands" -b :searchcommands<Space>
 map <C-h>d       -description "Pentadactyl help" -ex help
 map <C-h>D       -description "Pentadactyl help - single page" -ex helpall
-map <C-h>e       -description "Show extensions" -ex addons
+map <C-h>e       -description "Show extensions" -b :addons -type extension<Space>
+map <C-h>ag      -description "Show Greasemonkey scripts" -ex addons -type greasemonkey-user-script
+map <C-h>al      -description "Show locale" -b :addons -type locale<Space>
+map <C-h>ap      -description "Show plugin" -ex addons -type plugin
+map <C-h>as      -description "Show userstyle" -ex addons -type userstyle
+map <C-h>at      -description "Show theme" -ex addons -type theme
 map <C-h>g       -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
 map <C-h>g<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
 map <C-h>gc      -description "List commands by group" -b :listcommandsbygroup<Space>
