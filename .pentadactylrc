@@ -2469,6 +2469,8 @@ map <goto>yge     -description "dactyl repo: my local fork (open in Emacs)"
 map <goto>ygg     -description "dactyl repo: my fork"
 \                 -count -js openOrSelectTab("https://github.com/troyp/dactyl/tree/master",
 \                                            count?"here":"tab");
+map <goto>ygx     -description "dactyl repo: my local fork - downloads directory"
+\                 -count -js openOrSelectTab(`file://${homedir}/repos/dactyl/downloads/`, count?"here":"tab");
 map <goto>ygo     -description "dactyl repo: origin"
 \                 -count -js openOrSelectTab("https://github.com/5digits/dactyl/tree/master",
 \                                            count?"here":"tab");
