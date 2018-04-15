@@ -986,6 +986,7 @@ map <leader>u      -description "(show bindings: Extensions)" -js CommandExMode(
 map <leader>u<C-h> -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word highlight
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
+map <leader>uu -description "Toggle uMatrix" -ex exttoggle uMatrix
 
 " ,---------------------------,
 " | <leader>v - miscellaneous |
@@ -2998,6 +2999,13 @@ function jashClearTab()     { jashTabs().clear.click();     }
 function jashHelpTab()      { jashTabs().help.click();      }
 
 EOF
+" -----------------------------------------------------------------------------
+" ,---------,
+" | uMatrix |
+" '---------'
+
+map <ext>uu -description "Toggle uMatrix" -ex exttoggle uMatrix
+
 " -----------------------------------------------------------------------------
 
 " ,----------,
