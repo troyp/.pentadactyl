@@ -9976,14 +9976,28 @@ function isolateSelectorsFilteredHelper(...args) {
     return isolateSelectorsFiltered.call(null, ...processedArgs);
 }
 
+function hideElement(e) {
+    var css = e.getAttribute('style') || '';
+    var regex = /(^|;| ) *display: *\w+ *(!important)? *;/g;
+    var match = css.match(regex);
+    var newcss = match ? css.replace(regex, "display: none !important;")
+                       : css + " display: none !important;";
+    e.setAttribute('style', newcss);
+}
+window.hideElement = hideElement;
+
+function unhideElement(e) {
+    var css = e.getAttribute('style') || '';
+    var hideregex = /(^|;| ) *display: *none *(!important)? *;/g;
+    e.setAttribute('style', css.replace(hideregex, ''));
+}
+window.unhideElement = unhideElement;
+
 function hideSelectors(...sels) {
     var doc = content.document;
     sels.forEach(sel=>{
         var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>{
-            var css = e.getAttribute('style') || '';
-            e.setAttribute('style', css+" display: none !important;");
-        });
+        elts.forEach(hideElement);
     });
 }
 
@@ -9991,11 +10005,7 @@ function unhideSelectors(...sels) {
     var doc = content.document;
     sels.forEach(sel=>{
         var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>{
-            var css = e.getAttribute('style') || '';
-            var hideregex = /(^|;| ) *display: *none *(!important)? *;/g;
-            e.setAttribute('style', css.replace(hideregex, ''));
-        });
+        elts.forEach(unhideElement);
     });
 }
 
