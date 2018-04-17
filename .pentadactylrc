@@ -8638,10 +8638,22 @@ function packtLoginLogout() {
 function packtCompactList() {
     dactyl.execute("styleenable -group packt -name packt-thin-lines");
     hideSelectors("div.author");
+    var h1 = content.document.getElementsByTagName("h1")[1];
+    var h1succ = h1.nextElementSibling;
+    if (h1succ.id != "product-account-list") {
+        hideElement(h1succ);
+        Array.from(h1succ.children).forEach(e=>hideElement(e));
+    }
 }
 function packtCompactListOff() {
     dactyl.execute("styledisable -group packt -name packt-thin-lines");
     unhideSelectors("div.author");
+    var h1 = content.document.getElementsByTagName("h1")[1];
+    var h1succ = h1.nextElementSibling;
+    if (h1succ.id != "product-account-list") {
+        unhideElement(h1succ);
+        Array.from(h1succ.children).forEach(e=>unhideElement(e));
+    }
 }
 function packtIsCompactList() {
     var authorline = content.document.querySelector("div.author");
