@@ -534,6 +534,11 @@ command! editoremacsnewwin -description "Set emacs as editor (new window)" set e
 command! editoremacsnw -description "Set terminal emacs as editor"
 \    set editor='roxterm --replace -e emacsclient -tc +<line> <file>'
 
+command! popupstoggle -description "Toggle whether popup windows appear in a new tab"
+\    -js if (options.get('popups').value.includes("resized")) options.popups = ["tab"];
+\        else options.popups = ["tab", "resized"];
+\        utils.message("popups: "+options.popups);
+
 " ,---------------------,
 " | Pentadactyl Styling |
 " '---------------------'
