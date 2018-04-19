@@ -995,6 +995,8 @@ map <A-Down> -description "Hide navigation & bookmarks toolbars and command line
 map <leader>u      -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>u<C-h> -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word highlight
+map <leader>um -description "Reinstall Stay Open Menu"
+\    -ex open file:///opt/ff-addons/stay_open_menu-3.0.2-fx.xpi
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
 map <leader>uu -description "Toggle uMatrix" -ex exttoggle uMatrix
 
