@@ -8518,6 +8518,8 @@ group user
 " '--------------'
 group packt -locations=packtpub.com
 
+set ht+='.product-top-line'
+
 " takes too long!
 command! packttoggleallbookdetails -js packtToggleAllBookDetails();
 command! -nargs=1 packtToggleBooksByName -js packtToggleBooksByName(eval(args[0]));
