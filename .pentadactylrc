@@ -2076,6 +2076,21 @@ EOF
 command! unpinall tabdo unpintab
 
 " ,--------------,
+" | Opening Tabs |
+" '--------------'
+js <<EOF
+function tabOpenAdjacent(url, background=false) {
+    var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
+    if (!background) tabs.select(t);
+}
+EOF
+
+command! tabopenadjacent -description "Open adjacent tab [!: in background]"
+\    -nargs=1
+\    -bang
+\    -js bang ? tabOpenAdjacent(args[0], true) : tabOpenAdjacent(args[0]);
+
+" ,--------------,
 " | Closing Tabs |
 " '--------------'
 
