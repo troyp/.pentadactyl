@@ -3229,6 +3229,18 @@ command! acunsetstrictorigin  :set! security.fileuri.strict_origin_policy=false
 command! actogglestrictorigin toggleconfig security.fileuri.strict_origin_policy
 command! acgetstrictorigin    getboolpref  security.fileuri.strict_origin_policy
 
+" enable CSP "
+command! acsetcsp    :set! security.csp.enable=true
+command! acunsetcsp  :set! security.csp.enable=false
+command! actogglecsp toggleconfig security.csp.enable
+command! acgetcsp    getboolpref  security.csp.enable
+
+" enable CSP: strict dynamic "
+command! acsetcspstrictdynamic    :set! security.csp.enableStrictDynamic=true
+command! acunsetcspstrictdynamic  :set! security.csp.enableStrictDynamic=false
+command! actogglecspstrictdynamic toggleconfig security.csp.enableStrictDynamic
+command! acgetcspstrictdynamic    getboolpref  security.csp.enableStrictDynamic
+
 " OCSP stapling "
 command! acsetocspstapling    :set! security.ssl.enable_ocsp_stapling=true
 command! acunsetocspstapling  :set! security.ssl.enable_ocsp_stapling=false
