@@ -1050,6 +1050,9 @@ map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 " <leader>aa - Misc Accounts"
 map <leader>aa      -js CommandExMode().open("showkeys <leader>aa");
 map <leader>aa<C-h> -js CommandExMode().open("showkeys <leader>aa");
+map <leader>aar
+    \ -description "Open Inoreader"
+    \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
 "  <leader>aap - Packt "
 map <leader>aapf
     \ -description "Open Packt Free Learning"
@@ -1178,7 +1181,17 @@ function showSunriseSunset() {
     var [sunrise, sunset] = sunriseSunset().map(t=>t.toTimeString());
     utils.cbWrite(`SUNRISE: ${sunrise}\nSUNSET:  ${sunset}`);
 }
+
+function inoreaderSubscribe(url=buffer.URL){
+    tabOpenAdjacent('https://www.inoreader.com/bookmarklet/subscribe/' + encodeURIComponent(url||buffer.URL));
+}
 EOF
+
+command! inoreadersubscribe
+\    -description "Subscribe to site's feed with Inoreader"
+\    -nargs=?
+\    -complete=url
+\    -js inoreaderSubscribe();
 
 command! wikipediapage -description "Goto Wikipedia article"
 \    -nargs=1
