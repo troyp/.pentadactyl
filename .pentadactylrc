@@ -1114,6 +1114,9 @@ map <leader>arbib
 map <leader>arwp
     \ -description "Goto Wikpedia article"
     \ -count -b :wikipediapage<SPACE>
+map <leader>arwe
+    \ -description "Goto Wikpedia episode list"
+    \ -count -b :eplist<SPACE>
 " <leader>as - Schedules"
 map <leader>as      -js CommandExMode().open("showkeys <leader>as");
 map <leader>as<C-h> -js CommandExMode().open("showkeys <leader>as");
@@ -1199,6 +1202,7 @@ command! inoreadersubscribe
 command! wikipediapage -description "Goto Wikipedia article"
 \    -nargs=1
 \    -js openOrSelectTab(`https://en.wikipedia.org/wiki/${S.capitalize(args[0].replace(" ", "_"))}`);
+command! eplist -description "Goto Wikipedia episode list" -nargs=1 -js (eplist(args[0]))
 
 command! kingjames -description "King James Bible BOOK [CH:SEC]"
 \    -nargs=*
@@ -3673,11 +3677,6 @@ js var gdict_id='jid1-6OFSXFbACQthzQ@jetpack';
 map <ext>g -description "Toggle gDict" -js toggleAddon(gdict_id);
 
 " -----------------------------------------------------------------------------
-" shortcut to Wikipedia episode lists.
-command! eplist -nargs=1 -js (eplist(args[0]))
-
-" -----------------------------------------------------------------------------
-
 " kanji
 
 command! popjisyo
