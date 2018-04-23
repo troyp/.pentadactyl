@@ -955,17 +955,20 @@ map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
-map <leader>t<C-h> -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
-map <leader>t      -description "(show bindings: Toggles)"      -js CommandExMode().open("showkeys <Leader>t")
-map <leader>ta     -description "Toggle User Agent Override"    -ex actoggleuaoverride
-map <leader>te     -description "Toggle designMode"             -ex designmode
-map <leader>tE     -description "Toggle contentEditable"        -ex contenteditable
-map <leader>tj     -description "Toggle Javascript"             -ex actogglejs
-map <leader>to     -description "Toggle Online"                 -ex toggleoption online
-map <leader>ts     -description "Toggle HTTPS"                  -js toggleHTTPS()
-map <leader>tu     -description "Toggle User Mode"              -ex set usermode!
-map <leader>tv     -description "Toggle Visited Links Styling"  -ex styletoggle  -name visitedlinks
-map <leader>tw     -description "Toggle Wayback Machine"        -ex waybacktoggle
+map <leader>t<C-h>  -description "(show bindings: Toggles)"
+\                   -js CommandExMode().open("showkeys <Leader>t")
+map <leader>tc<C-h> -description "(show bindings: Config toggles)"
+\                   -js CommandExMode().open("showkeys <Leader>tc")
+map <leader>t   -description "(show bindings: Toggles)"        -js CommandExMode().open("showkeys <Leader>t")
+map <leader>ta  -description "Toggle User Agent Override"      -ex actoggleuaoverride
+map <leader>te  -description "Toggle designMode"               -ex designmode
+map <leader>tE  -description "Toggle contentEditable"          -ex contenteditable
+map <leader>tj  -description "Toggle Javascript"               -ex actogglejs
+map <leader>to  -description "Toggle Online"                   -ex toggleoption online
+map <leader>ts  -description "Toggle HTTPS"                    -js toggleHTTPS()
+map <leader>tu  -description "Toggle User Mode"                -ex set usermode!
+map <leader>tv  -description "Toggle Visited Links Styling"    -ex styletoggle  -name visitedlinks
+map <leader>tw  -description "Toggle Wayback Machine"          -ex waybacktoggle
 
 " ,-------------------------,
 " | <leader>T - GUI toggles |
