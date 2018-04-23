@@ -992,16 +992,13 @@ map <A-Up>   -description "Show navigation & bookmarks toolbars and command line
 map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
 \            -ex set guioptions+=mTB | set guioptions-=c | set showtabline=always
 
-" ,------------------------,
-" | <leader>u - extensions |
-" '------------------------'
+" ,-------------------------,
+" | <leader>u - userscripts |
+" '-------------------------'
 map <leader>u      -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>u<C-h> -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word highlight
-map <leader>um -description "Reinstall Stay Open Menu"
-\    -ex open file:///opt/ff-addons/stay_open_menu-3.0.2-fx.xpi
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
-map <leader>uu -description "Toggle uMatrix" -ex exttoggle uMatrix
 
 " ,---------------------------,
 " | <leader>v - miscellaneous |
@@ -3047,13 +3044,6 @@ function jashHelpTab()      { jashTabs().help.click();      }
 
 EOF
 " -----------------------------------------------------------------------------
-" ,---------,
-" | uMatrix |
-" '---------'
-
-map <ext>uu -description "Toggle uMatrix" -ex exttoggle uMatrix
-
-" -----------------------------------------------------------------------------
 
 " ,----------,
 " | TileView |
@@ -3391,8 +3381,13 @@ map <ext>eo       :extoptions<Space>
 map <ext>er       :extrehash<Space>
 map <ext>e<Space> :exttoggle<Space>
 
-js <<EOF
+" | Stay Open Menu | "
+map <ext>tm -description "Reinstall Stay Open Menu"
+\    -ex open file:///opt/ff-addons/stay_open_menu-3.0.2-fx.xpi
+" | uMatrix | "
+map <ext>uu -description "Toggle uMatrix" -ex exttoggle uMatrix
 
+js <<EOF
 function toggleAddon(id) {
     AddonManager.getAddonByID(id, function(addon) {
         if (addon) {
