@@ -6469,6 +6469,7 @@ function ghGetUserAndRepo(useronly=false) {
         var user = match && match[1];
         var repo = match && match[2];
     }
+    if (user=="settings") user = ghGetAccountUser();
     if (useronly) return user;
     else return [user, repo];
 }
