@@ -3486,18 +3486,35 @@ command! dtamanager -description "Open DownThemAll manager"
 command! dta -description "DownThemAll"
     \ -js document.getElementById('dtaCtxDTA-direct').click();
 
-" ,---------------------------------,
-" | Wiktionary and Google Translate |
-" '---------------------------------'
-js <<EOF
-if (typeof gd12 != 'undefined') {
-    gd12.prefs.applyUserStyle();
-    var gd12style_default = ".gDicClassPopup { background-color: white !important; border: 2px solid gray !important; }";
+" -------------------------------------------------------------------------------
+" ,-------------,
+" | Translation |
+" '-------------'
 
-    gd12.prefs.myStyle = ".gDicClassPopup { background-color: #FFDDDD !important; border: 2px solid gray !important; }"
-    gd12.prefs.applyUserStyle()
-}
-EOF
+" | gDict |
+js var gdict_id='jid1-6OFSXFbACQthzQ@jetpack';
+map <ext>lg -description "Toggle gDict" -js toggleAddon(gdict_id);
+" | SelectiveDict | "
+map <ext>ls -description "Toggle SelectiveDict" -ex feedkeys <C-A-t>
+
+" ,----------,
+" | PopJisyo |
+" '----------'
+
+command! popjisyo
+    \ -bang
+    \ -description "Add hints for Japanese via POPjisyo.com. With !, adds hints for English"
+    \ -js bang ? popJisyoEtoJ() : popJisyo();
+
+style -name=popjisyo
+    \ www.popjisyo.com
+    \ td.charDat2,td.charDat3 { display: none !important; }
+command! popjisyochinesecolumns
+    \ -description "toggle display of chinese data"
+    \ styletoggle -name popjisyo
+
+map <ext>lpp -ex popjisyo
+map <ext>lpc -ex popjisyochinesecolumns
 
 " ,-----------,
 " | Rikaisama |
@@ -3664,30 +3681,18 @@ style -name=bmarksbar-button
     \ }
 command! bmarksbarbuttontogglestyle styletoggle -name bmarksbar-button
 
-" -------------------------------------------------------------------------------
-" ,-------,
-" | gDict |
-" '-------'
-js var gdict_id='jid1-6OFSXFbACQthzQ@jetpack';
-map <ext>g -description "Toggle gDict" -js toggleAddon(gdict_id);
+" ,---------------------------------,
+" | Wiktionary and Google Translate |
+" '---------------------------------'
+js <<EOF
+if (typeof gd12 != 'undefined') {
+    gd12.prefs.applyUserStyle();
+    var gd12style_default = ".gDicClassPopup { background-color: white !important; border: 2px solid gray !important; }";
 
-" -----------------------------------------------------------------------------
-" kanji
-
-command! popjisyo
-    \ -bang
-    \ -description "Add hints for Japanese via POPjisyo.com. With !, adds hints for English"
-    \ -js bang ? popJisyoEtoJ() : popJisyo();
-
-style -name=popjisyo
-    \ www.popjisyo.com
-    \ td.charDat2,td.charDat3 { display: none !important; }
-command! popjisyochinesecolumns
-    \ -description "toggle display of chinese data"
-    \ styletoggle -name popjisyo
-
-map <ext>npp -ex popjisyo
-map <ext>npc -ex popjisyochinesecolumns
+    gd12.prefs.myStyle = ".gDicClassPopup { background-color: #FFDDDD !important; border: 2px solid gray !important; }"
+    gd12.prefs.applyUserStyle()
+}
+EOF
 
 " -----------------------------------------------------------------------------
 " ,-------, ,-----------,
