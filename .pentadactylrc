@@ -3368,6 +3368,11 @@ EOF
 "                                  | EXTENSIONS |
 "                                  |____________|
 
+command! listextensions
+    \ -description "List extensions and copy to clipboard."
+    \ -js getExtensions();
+
+
 map <ext>e<C-h> -js CommandExMode().open("showkeys <ext>e");
 map <ext>e      -js CommandExMode().open("showkeys <ext>e");
 map <ext>n<C-h> -js CommandExMode().open("showkeys <ext>n");
@@ -3463,13 +3468,7 @@ function navbarRemoveItem(itemID) {
     navbar.currentSet = navbar.currentSet.replace(','+itemID, '');
 }
 window.navbarRemoveItem = navbarRemoveItem;
-
 EOF
-
-command! listextensions
-    \ -description "List extensions and copy to clipboard."
-    \ -js getExtensions();
-
 
 " ,-------------,
 " | DownThemAll |
