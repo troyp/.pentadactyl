@@ -2590,17 +2590,21 @@ map <bookmark-page> -b <C-v><C-d>
 map <browser>k <bookmark-page>
 
 :if options.get('guioptions').value.includes('c')
-    map <search>kk -description "search bookmarks"                      :bmarks<SPACE>
-    map <search>kg -description "search bookmarks by tags"              :bmarks -tags<SPACE>
-    map <search>kt -description "search bookmarks by title"             :bmarks -title<SPACE>
-    map <search>ks -description "search static kword bmarks (with :::)" :bmarks -keyword :::<CR>
-    map <search>kw -description "search bookmarks by keyword"           :bmarks -keyword<SPACE>
+    map <search>kb -description "search bookmarklets (with bmklet::)"   -b :bmarks -keyword bmklet::<CR>
+    map <search>kk -description "search bookmarks"                      -b :bmarks<SPACE>
+    map <search>kg -description "search bookmarks by tags"              -b :bmarks -tags<SPACE>
+    map <search>kt -description "search bookmarks by title"             -b :bmarks -title<SPACE>
+    map <search>ks -description "search static kword bmarks (with :::)" -b :bmarks -keyword :::<CR>
+    map <search>kS -description "search static kword bmarks (with :::) by category" -b :bmarks -keyword :::<Left><Left><Left>
+    map <search>kw -description "search bookmarks by keyword"           -b :bmarks -keyword<SPACE>
 :else
-    map <search>kk -description "search bookmarks"                      :bmarks -max 41<SPACE>
-    map <search>kg -description "search bookmarks by tags"              :bmarks -max 41 -tags<SPACE>
-    map <search>kt -description "search bookmarks by title"             :bmarks -max 41 -title<SPACE>
-    map <search>ks -description "search static kword bmarks (with :::)" :bmarks -max 41 -keyword :::<CR>
-    map <search>kw -description "search bookmarks by keyword"           :bmarks -max 41 -keyword<SPACE>
+    map <search>kb -description "search bookmarklets (with bmklet::)"   -b :bmarks -max 41 -keyword bmklet::<CR>
+    map <search>kk -description "search bookmarks"                      -b :bmarks -max 41<SPACE>
+    map <search>kg -description "search bookmarks by tags"              -b :bmarks -max 41 -tags<SPACE>
+    map <search>kt -description "search bookmarks by title"             -b :bmarks -max 41 -title<SPACE>
+    map <search>ks -description "search static kword bmarks (with :::)" -b :bmarks -max 41 -keyword :::<CR>
+    map <search>kS -description "search static kword bmarks (with :::) by category" -b :bmarks -max 41 -keyword :::<Left><Left><Left>
+    map <search>kw -description "search bookmarks by keyword"           -b :bmarks -max 41 -keyword<SPACE>
 :endif
 
 command! tabopenbookmark -nargs 1 -complete bookmark tabopen <args>
