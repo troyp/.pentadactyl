@@ -561,7 +561,6 @@ unmap!
 command! showkeys -nargs=? -complete custom,' (context) => {context.completions = listActiveGroupMappings()}' :feedkeys -mode normal <args>
 
 " Unmap prefix keys
-map s <Nop>
 map b <Nop>
 " map S <Nop>
 " map <C-x><C-h> <Nop>
@@ -2565,6 +2564,8 @@ set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Lef
 command! tabopenhistory -nargs 1 -complete history tabopen <args>
 
 " Select:
+map <search>h       -description "(Show bindings)" -js CommandExMode().open("showkeys <search>h")
+map <search>h<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <search>h")
 map <search>ha -description "Open selected history items" -b :history! -max 30 -sort -date<SPACE>
 map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
 
@@ -2580,14 +2581,14 @@ map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
 " | Bookmarks |
 " '-----------'
 
+map <search>k       -description "(Show bindings)" -js CommandExMode().open("showkeys <search>k")
+map <search>k<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <search>k")
 map <search>ka -description "Open selected bookmarks items" -b :bmarks!  -max 30<SPACE>
 map <search>kb -description "search bookmarks with buku"  -ex !buku_run
 map <search>ko -description "Open bookmarks item" -b tabopenbookmark<SPACE>
 map <bookmark-page> -b <C-v><C-d>
 map <browser>k <bookmark-page>
 
-map <search>k<C-h> -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
-map <search>k      -description "bindings for prefix sk"      -js CommandExMode().open("showkeys sk")
 :if options.get('guioptions').value.includes('c')
     map <search>kk -description "search bookmarks"                      :bmarks<SPACE>
     map <search>kg -description "search bookmarks by tags"              :bmarks -tags<SPACE>
@@ -2640,8 +2641,8 @@ map <search>c -b :set!<SPACE>
 
 
 " Menu access: "
-map <search>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
-map <search>m      -description "(Show bindings)" -js CommandExMode().open("showkeys sm")
+map <search>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
+map <search>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
 map <search>mm -b :emenu<SPACE>
 map <search>mf -b :emenu File.
 map <search>me -b :emenu Edit.
