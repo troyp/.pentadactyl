@@ -6061,6 +6061,21 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,------------,
+" | DeviantArt |
+" '------------'
+group deviantart -locations=deviantart.com
+
+js <<EOF
+EOF
+
+map <site>* -description "Star/Unstar"
+\           -js content.document.querySelector('#gmi-ResourceViewFavouriteButton').click()
+
+group user
+
+
+" -------------------------------------------------------------------------------
 " ,------,
 " | eBay |
 " '------'
