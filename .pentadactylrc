@@ -3266,6 +3266,9 @@ set! privacy.resistFingerprinting.block_mozAddonManager=true
 :if isWaterfox
     set! browser.tabs.remote.autostart=false
 :endif
+" Downloads "
+set! browser.download.lastDir.savePerSite=false
+set! browser.download.folderList=2
 
 command! toggleconfig
     \ -description "Toggle boolean about:config setting."
