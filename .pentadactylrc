@@ -2654,8 +2654,7 @@ map <search>k<C-h>  -description "(Show bindings)" -js CommandExMode().open("sho
 map <search>ka -description "Open selected bookmarks items" -b :bmarks!  -max 30<SPACE>
 map <search>kb -description "search bookmarks with buku"  -ex !buku_run
 map <search>ko -description "Open bookmarks item" -b tabopenbookmark<SPACE>
-map <bookmark-page> -b <C-v><C-d>
-map <browser>k <bookmark-page>
+map <browser>k -description "Bookmark page" -b <C-v><C-d>
 
 :if options.get('guioptions').value.includes('c')
     map <search>kb -description "search bookmarklets (with bmklet::)"   -b :bmarks -keyword bmklet::<CR>
@@ -2679,7 +2678,6 @@ command! tabopenbookmark -nargs 1 -complete bookmark tabopen <args>
 command! bookmarkExportHTML -nargs=1 -js BookmarkHTMLUtils.exportToFile(args[0]);
 command! bookmarkExportBuku -js bookmarkExportBuku();
 command! bukurun !buku_run
-command! bookmarkpage :normal <bookmark-page>
 command! bmrunkw -nargs + -js bmRunKeymark(args[0], args[1]);
 command! bmrunkwtab -nargs + -js bmRunKeymark(args[0], args[1], 'tab');
 
