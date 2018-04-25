@@ -475,6 +475,67 @@ function listMappingsByGroupCompletion(g) { return mappings.hives.map(h=>[h.name
 
 function getCurrentDomainGroups() { return contexts.activeGroups().filter(g=>g.filter!="*"); }
 
+function getHintModes() {
+    var result = [];
+    for (k in hints.modes) result.push([k, hints.modes[k]]);
+    return result;
+}
+window.getHintModes = getHintModes;
+
+function getHintModeKeys() {
+    var result = [];
+    for (k in hints.modes) result.push(k);
+    return result;
+}
+window.getHintModeKeys = getHintModeKeys;
+
+function searchHintModes(...pats) {
+    var keys = getHintModeKeys();
+    var filtered = keys.filter(
+        k => pats.every(
+            p => {
+                if (typeof p == "string" && p.toLowerCase()==p) {
+                    return k.search(p)>=0 || hints.modes[k][1].toLowerCase().search(p)>=0
+                } else {
+                    return k.search(p)>=0 || hints.modes[k][1].search(p)>=0
+                }
+            }) );
+    dactyl.utils.message(filtered.map(k=>`${k}\t${hints.modes[k][1]}\n`).join(''));
+    return filtered;
+}
+
+function searchHintModesVerbose(...pats) {
+    var keys = getHintModeKeys();
+    var stringConvert = function(s) { return s ? String(s) : ""; }
+    var filtered = keys.filter(
+        k => pats.every(
+            p => {
+                if (typeof p == "string" && p.toLowerCase()==p) {
+                    return k.search(p)>=0 ||
+                           hints.modes[k][1].toLowerCase().search(p)>=0 ||
+                           hints.modes[k][2].toString().toLowerCase().search(p)>=0 ||
+                           stringConvert(hints.modes[k][3]).toLowerCase().search(p)>=0
+                } else {
+                    return k.search(p)>=0 ||
+                           hints.modes[k][1].search(p)>=0 ||
+                           hints.modes[k][2].toString().search(p)>=0 ||
+                           stringConvert(hints.modes[k][3]).search(p)>=0
+                }
+            }) );
+    var maxlendesc = Math.min(
+                         50,
+                         filtered.map(k=>hints.modes[k][1].length).reduce((acc,cur)=>Math.max(acc,cur), 0));
+    var maxlenact  = Math.min(
+                         50,
+                         filtered.map(k=>hints.modes[k][2].length).reduce((acc,cur)=>Math.max(acc,cur), 0));
+    dactyl.utils.message(
+        filtered.map(
+            k=>`${k}\t${S.padEnd(hints.modes[k][1], maxlendesc)}\t${S.padEnd(hints.modes[k][2].toString()+':', maxlenact)}\t${stringConvert(hints.modes[k][3])}\n`
+        ).join('')
+    );
+    return filtered;
+}
+
 EOF
 
 " -----------------------------------------------------------------------------
@@ -640,7 +701,10 @@ map <C-h>g       -description "(show bindings)" -js CommandExMode().open("showke
 map <C-h>g<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
 map <C-h>gc      -description "List commands by group" -b :listcommandsbygroup<Space>
 map <C-h>gm      -description "List mappings by group" -b :listmappingsbygroup<Space>
-map <C-h>h       -description "Show extended hint mode keys" -js utils.cbWrite(Object.keys(hints.modes).sort().join(""));
+map <C-h>h       -description "Search hint modes/descriptions" -b :searchhintmodes<Space>
+map <C-h>H       -description "Search hint modes/descriptions/actions/filters"
+\                -b :searchhintmodesverbose<Space>
+map <C-h>k       -description "Show hint mode keys" -js utils.cbWrite(Object.keys(hints.modes).sort().join(""));
 map <C-h>i       -description "Pentadactyl help - index"
 \                -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
 map <C-h>m       -description "Search bindings by mode" -b :searchmappingsbymode<Space>
@@ -654,6 +718,10 @@ command! listcommandsbygroup -nargs 1
 command! listmappingsbygroup -nargs 1
 \    -complete custom," (context) => { context.completions = listMappingsByGroupCompletion(); } "
 \    -js listMappingsByGroup(args[0]);
+command! searchhintmodes -description "Search hint modes and descriptions"
+\    -nargs * -js searchHintModes.apply(null, args.map(readStringOrRegex));
+command! searchhintmodesverbose -description "Search hint modes and descriptions, actions and filters"
+\    -nargs * -js searchHintModesVerbose.apply(null, args.map(readStringOrRegex));
 
 " -------------------------------------------------------------------------------
 " ,------------------,
