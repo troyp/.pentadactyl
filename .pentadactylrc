@@ -8413,7 +8413,7 @@ map <site>yE     -description "Yank episode number & title" -js netflixYankEpiso
 
 map ]]           -description "Next episode"     -js netflixNextEpisode();
 map [[           -description "Previous episode" -js netflixPreviousEpisode();
-map <Space>      -description "Play/Pause"       -ex netflixplaypause
+map <Space>      -description "Play/Pause"       -b <C-v><Space>
 map <CR>         -description "Play/Pause"       -ex netflixplaypause
 map <Up>         -description "Volume up"        -js netflixIncVolume(0.1);
 map <Down>       -description "Volume down"      -js netflixIncVolume(-0.1);
