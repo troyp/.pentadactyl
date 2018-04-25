@@ -874,8 +874,10 @@ map <browser>dof -description "Download to /opt/ff-addons" -ex dlto /opt/ff-addo
 map <browser>dos -description "Download to /opt/scripts" -ex dlto /opt/scripts
 map <browser>dow -description "Download to /opt/webapps" -ex dlto /opt/webapps
 map <browser>do/ -description "Download to /opt/" -ex dlto /opt
+map <browser>d<Space> -description "Set download directory" -b :dlset<Space>
 
 command! dlto -nargs=1 -complete dir set! browser.download.lastDir=<args> | feedkeys <C-x><C-s>
+command! dlset -nargs=1 -complete dir set! browser.download.lastDir=<args> | set! browser.download.dir=<args>
 
 " Copying
 map -modes normal -b <A-w> Y
