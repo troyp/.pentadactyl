@@ -891,6 +891,24 @@ map <browser>mb -b :emenu Bookmarks.
 map <browser>mt -b :emenu Tools.
 map <browser>m/ -b :emenu Help.
 
+" | AiOS SideBar |
+
+map <browser>bb -b :sidebar<SPACE>
+map <browser>bc -ex sbclose
+map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
+
+js <<EOF
+var sidebarDoc = sidebar.document;
+
+function showHistorySidebar() { SidebarUI.show('viewHistorySidebar'); }
+function hideHistorySidebar() { SidebarUI.hide(); }
+function toggleHistorySidebar() {
+    if (SidebarUI.isOpen) SidebarUI.hide();
+    else SidebarUI.show('viewHistorySidebar');
+    return SidebarUI.isOpen;
+}
+EOF
+
 " Copying
 map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
@@ -2722,53 +2740,6 @@ EOF
 map <search>j  -description "Goto jump" -ex jumps
 map <search>p -b :set<SPACE>
 map <search>c -b :set!<SPACE>
-
-" -----------------------------------------------------------------------------
-" ,--------------,
-" | AiOS SideBar |
-" '--------------'
-
-" Manual sidebar selection with si, toggle with S
-map <search>i -b :sidebar<SPACE>
-map <search>I -ex sbclose
-" map <sidebar> -ex sidebar!
-" Open/close AiOS, switch focus
-"map <sidebar> :js aios_toggleSidebar()<CR><f6><f6>
-" Open AiOS, switch focus and enter passthrough
-"map <search>S :js aios_toggleSidebar()<CR><f6><f6><C-z>
-
-" Sidebar selection:
-" map <search>A -ex sidebar! Add-ons
-" map <sidebar>A :sidebar! Add-ons<CR><f6><f6><C-z>
-" map <search>M -ex sidebar! Bookmarks
-" map <sidebar>M :sidebar! Bookmarks<CR><f6><f6><C-z>
-" map <search>D -ex sidebar! Downloads
-" map <sidebar>D :sidebar! Downloads<CR><f6><f6><C-z>
-" map <search>H -ex sidebar! History
-" map <sidebar>H :sidebar! History<CR><f6><f6><C-z>
-" map <search>M -ex sidebar! Moji
-" map <sidebar>M :sidebar! Moji<CR><f6><f6><C-z>
-" map <search>O -ex sidebar! HeadingsMap
-" map <sidebar>O :sidebar! HeadingsMap<CR><f6><f6><C-z>
-" map <search>P -ex sidebar! Preferences
-" map <sidebar>P :sidebar! Preferences<CR><f6><f6><C-z>
-
-js <<EOF
-
-var sidebarDoc = sidebar.document;
-" OR: var sidebarDoc = document.getElementById('sidebar').contentDocument; "
-
-function showHistorySidebar() { SidebarUI.show('viewHistorySidebar'); }
-function hideHistorySidebar() { SidebarUI.hide(); }
-function toggleHistorySidebar() {
-    if (SidebarUI.isOpen) SidebarUI.hide();
-    else SidebarUI.show('viewHistorySidebar');
-    return SidebarUI.isOpen;
-}
-
-EOF
-
-map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
 
 " -----------------------------------------------------------------------------
 " ,---------------------,

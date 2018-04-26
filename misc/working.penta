@@ -485,4 +485,31 @@ function redditShowCommandLine() {
 EOF
 group user
 
-"                    -----------------------------------------
+" -------------------------------------------------------------------------------
+" ,---------,
+" | Sidebar |
+" '---------'
+
+" map <sidebar> -ex sidebar!
+" Open/close AiOS, switch focus
+"map <sidebar> :js aios_toggleSidebar()<CR><f6><f6>
+" Open AiOS, switch focus and enter passthrough
+"map <search>S :js aios_toggleSidebar()<CR><f6><f6><C-z>
+
+" Sidebar selection:
+" map <search>A -ex sidebar! Add-ons
+" map <sidebar>A :sidebar! Add-ons<CR><f6><f6><C-z>
+" map <search>M -ex sidebar! Bookmarks
+" map <sidebar>M :sidebar! Bookmarks<CR><f6><f6><C-z>
+" map <search>D -ex sidebar! Downloads
+" map <sidebar>D :sidebar! Downloads<CR><f6><f6><C-z>
+" map <search>H -ex sidebar! History
+" map <sidebar>H :sidebar! History<CR><f6><f6><C-z>
+" map <search>M -ex sidebar! Moji
+" map <sidebar>M :sidebar! Moji<CR><f6><f6><C-z>
+" map <search>O -ex sidebar! HeadingsMap
+" map <sidebar>O :sidebar! HeadingsMap<CR><f6><f6><C-z>
+" map <search>P -ex sidebar! Preferences
+" map <sidebar>P :sidebar! Preferences<CR><f6><f6><C-z>
+
+" -------------------------------------------------------------------------------
