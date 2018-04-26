@@ -2206,12 +2206,28 @@ function tabOpenAdjacent(url, background=false) {
     var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
     if (!background) tabs.select(t);
 }
+function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
+    var search = `${searchEngine} "${searchTerm}"`;
+    var origOrd = tabs.getTab().dactylOrdinal;
+    var altOrd  = tabs.alternate.dactylOrdinal;
+    if (background)
+        dactyl.execute("background tabopen " + search);
+    else
+        dactyl.open(search, "tab");
+    var n1 = tabs.allTabs.length;
+    utils.moveTab(n1, origOrd+1);
+}
 EOF
 
 command! tabopenadjacent -description "Open adjacent tab [!: in background]"
 \    -nargs=1
 \    -bang
 \    -js bang ? tabOpenAdjacent(args[0], true) : tabOpenAdjacent(args[0]);
+
+command! tabsearchadjacent -description "Open search in adjacent tab [!: in background]"
+\    -nargs=+
+\    -bang
+\    -js bang ? tabSearchAdjacent(args[0], args.slice(1), true) : tabSearchAdjacent(args[0], args.slice(1));
 
 " ,--------------,
 " | Closing Tabs |
