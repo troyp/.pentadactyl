@@ -11,9 +11,7 @@ var utils = {
 
 // =============================================================================
 
-    tabNumber: function () {
-        return tabs.getTab().dactylOrdinal;
-    },
+    tabNumber: function () { return tabs.getTab().dactylOrdinal; },
 
     // closes tab spec and all to left
     closeTabsTo: function (spec='') {
@@ -53,9 +51,7 @@ var utils = {
         gBrowser.selectedTab = currT;
     },
 
-    withOption: function (opt, val) {
-        var origVal = options.get(opt);
-    },
+    withOption: function (opt, val) { var origVal = options.get(opt); },
 
     simulateMouseover: function(elem) {
         // Simulate mouseover event (sometimes). Based on code by:;
@@ -71,13 +67,9 @@ var utils = {
                              commandline.APPEND_TO_MESSAGES);
     },
 
-    undisplay: function(elem) {
-        elem.style = "display: none !important;";
-    },
+    undisplay: function(elem) { elem.style = "display: none !important;"; },
 
-    removeFromView: function(elem) {
-        elem.style = "left: -99999px !important";
-    },
+    removeFromView: function(elem) { elem.style = "left: -99999px !important"; },
 
     getPlugin: function(fname, objname=fname) {
         for (var x in plugins.contexts) {
@@ -87,9 +79,7 @@ var utils = {
         return null;
     },
 
-    sourceFromPath: function(s) {
-        dactyl.execute("source " + options.runtimepath + "/" + s);
-    },
+    sourceFromPath: function(s) { dactyl.execute("source " + options.runtimepath + "/" + s); },
 
     message: function (s) {
         s = String(s);
