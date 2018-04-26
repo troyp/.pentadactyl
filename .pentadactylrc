@@ -879,6 +879,18 @@ map <browser>d<Space> -description "Set download directory" -b :dlset<Space>
 command! dlto -nargs=1 -complete dir set! browser.download.lastDir=<args> | feedkeys <C-x><C-s>
 command! dlset -nargs=1 -complete dir set! browser.download.lastDir=<args> | set! browser.download.dir=<args>
 
+" Menu access: "
+map <browser>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
+map <browser>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
+map <browser>mm -b :emenu<SPACE>
+map <browser>mf -b :emenu File.
+map <browser>me -b :emenu Edit.
+map <browser>mv -b :emenu View.
+map <browser>mh -b :emenu History.
+map <browser>mb -b :emenu Bookmarks.
+map <browser>mt -b :emenu Tools.
+map <browser>m/ -b :emenu Help.
+
 " Copying
 map -modes normal -b <A-w> Y
 " A-Esc: Pass-through Escape
@@ -2710,19 +2722,6 @@ EOF
 map <search>j  -description "Goto jump" -ex jumps
 map <search>p -b :set<SPACE>
 map <search>c -b :set!<SPACE>
-
-
-" Menu access: "
-map <search>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
-map <search>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
-map <search>mm -b :emenu<SPACE>
-map <search>mf -b :emenu File.
-map <search>me -b :emenu Edit.
-map <search>mv -b :emenu View.
-map <search>mh -b :emenu History.
-map <search>mb -b :emenu Bookmarks.
-map <search>mt -b :emenu Tools.
-map <search>m/ -b :emenu Help.
 
 " -----------------------------------------------------------------------------
 " ,--------------,
