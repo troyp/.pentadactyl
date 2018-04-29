@@ -197,7 +197,7 @@ var utils = {
         nsiNullStr.data = '';
         var newVal = currentVal==='' ? nsiStr : nsiNullStr;
         prefManager.setComplexValue(pref, Components.interfaces.nsISupportsString, newVal);
-        this.message(`${pref}=${!newVal}`);
+        this.message(`${pref}=${newVal}`);
     },
 
     toggleOption: function (optname) {
