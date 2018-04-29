@@ -875,6 +875,7 @@ map <browser>dos -description "Download to /opt/scripts" -ex dlto /opt/scripts
 map <browser>dow -description "Download to /opt/webapps" -ex dlto /opt/webapps
 map <browser>do/ -description "Download to /opt/" -ex dlto /opt
 map <browser>d<Space> -description "Set download directory" -b :dlset<Space>
+map <browser>d?  -description "Show download settings" -js showDownloadSettings();
 
 " NOTES: about:config download settings "
 " When browser.download.useDownloadDir is false, saving opens dialog with default directory browser.download.lastDir "
@@ -882,6 +883,18 @@ map <browser>d<Space> -description "Set download directory" -b :dlset<Space>
 
 command! dlto -nargs=1 -complete dir set! browser.download.lastDir=<args> | feedkeys <C-x><C-s>
 command! dlset -nargs=1 -complete dir set! browser.download.lastDir=<args> | set! browser.download.dir=<args>
+
+js <<EOF
+function showDownloadSettings() {
+    s = "browser.download.lastDir:............ "+prefroot.getCharPref("browser.download.lastDir")+"\n"+
+        "browser.download.dir:................ "+prefroot.getCharPref("browser.download.dir")+"\n"+
+        "browser.download.defaultFolder:...... "+prefroot.getCharPref("browser.download.defaultFolder")+"\n"+
+        "browser.download.folderList:......... "+prefroot.getIntPref("browser.download.folderList")+"\n"+
+        "browser.download.useDownloadDir:..... "+prefroot.getBoolPref("browser.download.useDownloadDir")+"\n"+
+        "browser.download.lastDir.savePerSite: "+prefroot.getBoolPref("browser.download.lastDir.savePerSite");
+    utils.message(s);
+}
+EOF
 
 " Menu access: "
 map <browser>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
