@@ -3348,8 +3348,8 @@ command! acgetocspstapling    getboolpref  security.ssl.enable_ocsp_stapling
 " Warning: breaks youtube "
 command! acsetuaoverride    :set! general.useragent.override='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 command! acunsetuaoverride  :set! general.useragent.override=''
-command! actoggleuaoverride -js utils.toggleCharPref('general.useragent.override', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
-command! acgetuaoverride    getcharpref general.useragent.override
+command! actoggleuaoverride -js utils.toggleNsISupportStrPref('general.useragent.override', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
+command! acgetuaoverride    getnsisupportsstringpref general.useragent.override
 
 " Addon auto-updates "
 command! acsetextupdate    :set! extensions.update.enabled=true
