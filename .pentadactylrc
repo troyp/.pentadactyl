@@ -8778,6 +8778,7 @@ function packtCompactList() {
         hideElement(h1succ);
         Array.from(h1succ.children).forEach(e=>hideElement(e));
     }
+    content.document.getElementById("menu-bar").style.display = "none";
 }
 function packtCompactListOff() {
     dactyl.execute("styledisable -group packt -name packt-thin-lines");
@@ -8788,6 +8789,7 @@ function packtCompactListOff() {
         unhideElement(h1succ);
         Array.from(h1succ.children).forEach(e=>unhideElement(e));
     }
+    content.document.getElementById("menu-bar").style.display = "block";
 }
 function packtIsCompactList() {
     var authorline = content.document.querySelector("div.author");
