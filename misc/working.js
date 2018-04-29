@@ -301,3 +301,28 @@ function showDropdown(linkelt) {
 function removeXPath(xpathexpr) {
     dactyl.open(`javascript:var elts=document.evaluate(${xpathexpr},document,null,XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,null);for (var i=0; i < elts.snapshotLength; i++){var elt=elts.snapshotItem(i);elt.parentNode.removeChild(elt);}; void(0)`)
 }
+
+// -------------------------------------------------------------------------------
+// ,-----------,
+// | Inoreader |
+// '-----------'
+
+// version of inoreaderSubscribe() using window.open(): produces popup window, but won't work if
+// browser.link.open_newwindow=3 and browser.link.open_newwindow.restriction=0
+// (ie. if dactyl's popup option is 'tab' - without 'resized')
+
+/* adapted from inoreader bookmarklet */
+function inoreaderSubscribe(url=buffer.URL){
+    var w = 640, h = 400;
+    width  = content.window.innerWidth  || content.document.documentElement.clientWidth  || screen.width;
+    height = content.window.innerHeight || content.document.documentElement.clientHeight || screen.height;
+    var left = ((width/2)-(w/2))+screen.left;
+    var top  = ((height/2)-(h/2))+screen.top;
+    var float = window.open(
+        a,
+        new Date().getTime(),
+        `width=${width}, height=${height}, top=${top}, left=${left}` +
+            'location=yes, resizable=yes ,status=no ,scrollbars=no ,personalbar=no ,toolbar=no ,menubar=no'
+    );
+    window.focus && float.focus();
+}
