@@ -1185,6 +1185,10 @@ map <leader>ab
 map <leader>ada
     \ -description "Open AsciiFlow"
     \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
+" eBay "
+map <leader>ae
+    \ -description "Open eBay"
+    \ -count -js openOrSelectTab('https://www.ebay.com.au/myb/Summary', count?"here":"tab");
 " <leader>ag - Repos "
 map <leader>agh
     \ -description "Open My Github: Repositories"
