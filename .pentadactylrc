@@ -3447,6 +3447,23 @@ command! acgetautoplayscripted    getboolpref  media.autoplay.allowscripted
 "   Web Developer Toolbar"
 set! extensions.{c45c406e-ab73-11d8-be73-000a95be3b12}.update.enabled=false
 
+js <<EOF
+function searchAddonsMozilla(sterm, where="tab") {
+    var origPrevVal = prefroot.getBoolPref("security.csp.enable");
+    prefroot.setBoolPref("security.csp.enable", false);
+    window.setTimeout(()=>{
+        dactyl.open(`https://addons.mozilla.org/en-US/firefox/search/?q=${sterm}&type=extension`,
+                    { "where": where });
+        prefroot.setBoolPref("security.csp.enable", origPrevVal);
+    }, 2000);
+}
+EOF
+command! addonssearch -description "Search Mozilla Addons site for extensions in new (!=current) tab"
+\    -nargs=*
+\    -bang
+\    -js searchAddonsMozilla(args.join(" "), bang?"here":"tab");
+
+
 " ============================================================================
 "                                      _________
 "                                     |         |
