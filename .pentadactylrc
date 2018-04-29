@@ -874,6 +874,7 @@ map <browser>dof -description "Download to /opt/ff-addons" -ex dlto /opt/ff-addo
 map <browser>dos -description "Download to /opt/scripts" -ex dlto /opt/scripts
 map <browser>dow -description "Download to /opt/webapps" -ex dlto /opt/webapps
 map <browser>do/ -description "Download to /opt/" -ex dlto /opt
+map <browser>dtu -description "Toggle browser.download.useDownloadDir" -ex actoggleusedldir
 map <browser>d<Space> -description "Set download directory" -b :dlset<Space>
 map <browser>d?  -description "Show download settings" -js showDownloadSettings();
 
@@ -3322,6 +3323,12 @@ command! acsetcspstrictdynamic    :set! security.csp.enableStrictDynamic=true
 command! acunsetcspstrictdynamic  :set! security.csp.enableStrictDynamic=false
 command! actogglecspstrictdynamic toggleconfig security.csp.enableStrictDynamic
 command! acgetcspstrictdynamic    getboolpref  security.csp.enableStrictDynamic
+
+" Downloads "
+command! acsetusedldir    :set! browser.download.useDownloadDir=true
+command! acunsetusedldir  :set! browser.download.useDownloadDir=false
+command! actoggleusedldir toggleconfig browser.download.useDownloadDir
+command! acgetusedldir    getboolpref  browser.download.useDownloadDir
 
 " OCSP stapling "
 command! acsetocspstapling    :set! security.ssl.enable_ocsp_stapling=true
