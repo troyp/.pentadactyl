@@ -3331,6 +3331,30 @@ command! acsetcspstrictdynamic    :set! security.csp.enableStrictDynamic=true
 command! acunsetcspstrictdynamic  :set! security.csp.enableStrictDynamic=false
 command! actogglecspstrictdynamic toggleconfig security.csp.enableStrictDynamic
 command! acgetcspstrictdynamic    getboolpref  security.csp.enableStrictDynamic
+command! accyclecsp -description "Cycle CSP preferences: respect/respect(except dynamic)/ignore"
+\                   -js acCycleCSP();
+
+js <<EOF
+function acCycleCSP() {
+    var csp       = prefroot.getBoolPref("security.csp.enable");
+    var cspStrict = prefroot.getBoolPref("security.csp.enableStrictDynamic");
+    switch([csp, cspStrict].toString()) {
+      case "true,true":
+          prefroot.setBoolPref("security.csp.enableStrictDynamic", false);
+          break;
+      case "true,false":
+          prefroot.setBoolPref("security.csp.enable", false);
+          break;
+      case "false,false":
+          prefroot.setBoolPref("security.csp.enable", true);
+          prefroot.setBoolPref("security.csp.enableStrictDynamic", true);
+          break;
+    }
+    utils.message(
+        "security.csp.enable: " + utils.getBoolPref("security.csp.enable") + "\n" +
+        "security.csp.enableStrictDynamic: " + utils.getBoolPref("security.csp.enableStrictDynamic"));
+}
+EOF
 
 " Downloads "
 command! acsetusedldir    :set! browser.download.useDownloadDir=true
