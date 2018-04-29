@@ -876,6 +876,10 @@ map <browser>dow -description "Download to /opt/webapps" -ex dlto /opt/webapps
 map <browser>do/ -description "Download to /opt/" -ex dlto /opt
 map <browser>d<Space> -description "Set download directory" -b :dlset<Space>
 
+" NOTES: about:config download settings "
+" When browser.download.useDownloadDir is false, saving opens dialog with default directory browser.download.lastDir "
+" When browser.download.useDownloadDir is true, saving automatically saves in directory given by browser.download.dir "
+
 command! dlto -nargs=1 -complete dir set! browser.download.lastDir=<args> | feedkeys <C-x><C-s>
 command! dlset -nargs=1 -complete dir set! browser.download.lastDir=<args> | set! browser.download.dir=<args>
 
