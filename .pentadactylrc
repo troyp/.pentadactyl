@@ -3303,6 +3303,10 @@ command! getintpref
     \ -description "Show value of integer about:config setting."
     \ -nargs=1
     \ -js utils.message(dactyl.utils.getIntPref(args[0]));
+command! getnsisupportsstringpref
+    \ -description "Show value of nsISupportsString about:config setting."
+    \ -nargs=1
+    \ -js utils.message(prefroot.getComplexValue(args[0], Components.interfaces.nsISupportsString).data);
 
 " enable/disable javascript "
 command! acsetjs    :set! javascript.enabled=true
