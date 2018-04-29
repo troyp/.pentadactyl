@@ -1076,16 +1076,25 @@ map <leader>t<C-h>  -description "(show bindings: Toggles)"
 \                   -js CommandExMode().open("showkeys <Leader>t")
 map <leader>tc<C-h> -description "(show bindings: Config toggles)"
 \                   -js CommandExMode().open("showkeys <Leader>tc")
-map <leader>t   -description "(show bindings: Toggles)"        -js CommandExMode().open("showkeys <Leader>t")
-map <leader>ta  -description "Toggle User Agent Override"      -ex actoggleuaoverride
-map <leader>te  -description "Toggle designMode"               -ex designmode
-map <leader>tE  -description "Toggle contentEditable"          -ex contenteditable
-map <leader>tj  -description "Toggle Javascript"               -ex actogglejs
-map <leader>to  -description "Toggle Online"                   -ex toggleoption online
-map <leader>ts  -description "Toggle HTTPS"                    -js toggleHTTPS()
-map <leader>tu  -description "Toggle User Mode"                -ex set usermode!
-map <leader>tv  -description "Toggle Visited Links Styling"    -ex styletoggle  -name visitedlinks
-map <leader>tw  -description "Toggle Wayback Machine"          -ex waybacktoggle
+map <leader>t   -description "(show bindings: Toggles)"          -js CommandExMode().open("showkeys <Leader>t")
+map <leader>ta  -description "Toggle User Agent Override"        -ex actoggleuaoverride
+map <leader>tc  -description "(show bindings: Config toggles)"   -js CommandExMode().open("showkeys <Leader>tc")
+map <leader>tca -description "Toggle autoplay"                   -ex actoggleautoplay
+map <leader>tcc -description "Cycle CSP/CSP strict dynamic"      -ex accyclecsp
+map <leader>tcj -description "Toggle javascript"                 -ex actogglejs
+map <leader>tco -description "Toggle strict origin"              -ex actogglestrictorigin
+map <leader>tcO -description "Toggle OCSP stapling"              -ex actoggleocspstapling
+map <leader>tct -description "Toggle related tabs after current" -ex actogglerelatedtabaftercurrent
+map <leader>tcu -description "Toggle UA override"                -ex actoggleuaoverride
+map <leader>tcw -description "Toggle open in new window"         -ex actoggleopennewwin
+map <leader>te  -description "Toggle designMode"                 -ex designmode
+map <leader>tE  -description "Toggle contentEditable"            -ex contenteditable
+map <leader>tj  -description "Toggle Javascript"                 -ex actogglejs
+map <leader>to  -description "Toggle Online"                     -ex toggleoption online
+map <leader>ts  -description "Toggle HTTPS"                      -js toggleHTTPS()
+map <leader>tu  -description "Toggle User Mode"                  -ex set usermode!
+map <leader>tv  -description "Toggle Visited Links Styling"      -ex styletoggle  -name visitedlinks
+map <leader>tw  -description "Toggle Wayback Machine"            -ex waybacktoggle
 
 " ,-------------------------,
 " | <leader>T - GUI toggles |
