@@ -9879,9 +9879,11 @@ function ytForward(n) {
     utils.message(formatSeconds(ytGetTime()));
 }
 
-function ytDL(dir="~/Downloads") {
+function ytDL(dir="~/Downloads", video=true) {
     if (!dir) dir = "~/Downloads";
-    dactyl.execute(`!cd ${dir}; youtube-dl -ci --all-subs --xattrs -o "%(title)s-%(id)s.%(ext)s" "${buffer.URL}"`);
+    var xtraArgs = video ? "--all-subs" : "-f bestaudio";
+    var cmd = `!cd ${dir}; youtube-dl -ci ${xtraArgs} --xattrs -o "%(title)s-%(id)s.%(ext)s" "${buffer.URL}"`;
+    dactyl.execute(cmd);
 }
 
 function ytCloseAd() {
@@ -9952,6 +9954,11 @@ command! ytdl
     \ -complete=file
     \ -js ytDL(args[0]);
 map <site>d -ex ytdl
+command! ytdlaudio
+    \ -description "Download video/playlist with youtube-dl"
+    \ -nargs=?
+    \ -complete=file
+    \ -js ytDL(args[0], false);
 
 map <site><Space> -js ytTogglePause();
 map <Space> -js ytTogglePause();
