@@ -9935,6 +9935,11 @@ map <site>\< -count -js ytAdjustSpeed(-0.25 * (count || 1));
 map <site>f -ex ytfullscreen
 map <site>c -ex ytcinema
 map <site>m -ex ytmute
+map <site>d           -description "(show bindings)" -js CommandExMode().open("showkeys <site>d")
+map <site>ddd         -description "Download video to Downloads" -ex ytdl
+map <site>dd<Space>   -description "Download video" -b :ytdl<Space>
+map <site>daa         -description "Download audio to Downloads" -ex ytdlaudio
+map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
 map <S-right> -js ytForward(3);
 map <S-left>  -js ytForward(-3);
 map <A-right> -js ytForward(10);
@@ -9953,7 +9958,6 @@ command! ytdl
     \ -nargs=?
     \ -complete=file
     \ -js ytDL(args[0]);
-map <site>d -ex ytdl
 command! ytdlaudio
     \ -description "Download video/playlist with youtube-dl"
     \ -nargs=?
