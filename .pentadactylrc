@@ -9928,18 +9928,18 @@ command! ytlowervolume -description "lower volume" -nargs=? -js ytAdjustVolume(-
 command! ytraisevolume -description "raise volume" -nargs=? -js ytAdjustVolume(5 * (args[0] || 1));
 command! ytclosead -description "close popup ad in video" -js ytCloseAd();
 
-map <site>r :ytrate<Space>
-map <site>R -ex ytshowrate
-map <site>\> -count -js ytAdjustSpeed(0.25 * (count || 1));
-map <site>\< -count -js ytAdjustSpeed(-0.25 * (count || 1));
-map <site>f -ex ytfullscreen
-map <site>c -ex ytcinema
-map <site>m -ex ytmute
+map <site>r           -b :ytrate<Space>
+map <site>R           -ex ytshowrate
+map <site>\>          -count -js ytAdjustSpeed(0.25 * (count || 1));
+map <site>\<          -count -js ytAdjustSpeed(-0.25 * (count || 1));
+map <site>c           -ex ytcinema
 map <site>d           -description "(show bindings)" -js CommandExMode().open("showkeys <site>d")
 map <site>ddd         -description "Download video to Downloads" -ex ytdl
 map <site>dd<Space>   -description "Download video" -b :ytdl<Space>
 map <site>daa         -description "Download audio to Downloads" -ex ytdlaudio
 map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
+map <site>f           -ex ytfullscreen
+map <site>m           -ex ytmute
 map <S-right> -js ytForward(3);
 map <S-left>  -js ytForward(-3);
 map <A-right> -js ytForward(10);
