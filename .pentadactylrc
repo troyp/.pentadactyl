@@ -9953,7 +9953,7 @@ map <site>daa         -description "Download audio to Downloads" -ex ytdlaudio
 map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
 map <site>f           -description "Toggle fullscreen" -ex ytfullscreen
 map <site>m           -description "Toggle mute" -ex ytmute
-map <site>u           -description "Toggle user agent override" -ex actoggleuaoverrideset
+map <site>u           -description "Toggle user agent override" -ex actoggleuaoverride
 map <S-right> -js ytForward(3);
 map <S-left>  -js ytForward(-3);
 map <A-right> -js ytForward(10);
