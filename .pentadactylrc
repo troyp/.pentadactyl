@@ -3661,6 +3661,7 @@ js var gdict_id='jid1-6OFSXFbACQthzQ@jetpack';
 map <ext>lg -description "Toggle gDict" -js toggleAddon(gdict_id);
 " | SelectiveDict | "
 map <ext>ls -description "Toggle SelectiveDict" -ex feedkeys <C-A-t>
+feedkeys <C-A-t>
 
 " ,----------,
 " | PopJisyo |
