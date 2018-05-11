@@ -197,6 +197,13 @@ S = {
     isAlphaAt: function (s, i) {
         ord = s.charCodeAt(i);
         return (ord.inRange(97, 123));
+    },
+    firstLineEllipsis: function (s) {
+        var s = String(s);
+        var lines = s.split("\n").filter(s=>s.match(/\S/));
+        if (lines.length > 1)
+            return lines[0] + "...";
+        else return lines[0];
     }
 }
 window.S = S;
