@@ -204,6 +204,10 @@ S = {
         if (lines.length > 1)
             return lines[0] + "...";
         else return lines[0];
+    },
+    arrayWithEmptyStringDefault: function(a) {
+        var arr = Array.from(a);
+        return arr.map(elem => typeof elem == "undefined" ? "" : String(elem));
     }
 }
 window.S = S;
