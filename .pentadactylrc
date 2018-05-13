@@ -5594,6 +5594,29 @@ map <site>z  -description "Remove cruft" -ex altnetcleanup
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,------------,
+" | Amazon.com |
+" '------------'
+group amazon -locations=amazon.com,amazon.com.au
+
+js <<EOF
+function amazonGetUrlParts(url) {
+    url = url || buffer.URL;
+    var regex = /https:\/\/([^./]+\.)*amazon\.com(\.[^./]+)?(\/.*)?/;
+    return url.match(regex);
+}
+function amazonGotoCart(where='here') {
+    var parts = S.arrayWithEmptyStringDefault(amazonGetUrlParts());
+    dactyl.open(`https://${parts[1]}amazon.com${parts[2]}/gp/cart/view.html/ref=nav_cart`, {where: where});
+}
+EOF
+
+map <site>o  -js CommandExMode().open("showkeys <site>o")
+map <site>oc -description "Goto cart" -js amazonGotoCart(count?"tab":"here");
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-------------,
 " | Archive.org |
