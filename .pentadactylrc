@@ -1705,6 +1705,7 @@ map "<C-'>" -modes normal -description "Firefox Quick Find Link Search (native l
 map <search>f     -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
 map <search>g     -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
 map <search>m     -description "Multiple query bookmark search" -b :searchmultiple<Space>
+map <search>M     -description "Multiple engine bookmark search" -b :multipleenginesearch<Space>
 map <search>r     -description "Regex search: Forward" -modes normal -b /\r
 map <search>R     -description "Regex search: Backward" -modes normal -b ?\r
 map <search>w     -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
@@ -1719,6 +1720,8 @@ command! ghsearchgo -description "Github search and goto first result"
 \    -nargs=1 -js ghSearchAndGo(args[0]);
 command! searchmultiple -description "Multiple query bookmark search"
 \    -nargs=+ -complete=search -js searchMultiple(args[0], args.slice(1));
+command! multipleenginesearch -description "Multiple engine bookmark search"
+\    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(0,-1), args.slice(-1));
 
 js <<EOF
 function ghSearchAndGo(s) {
@@ -1729,6 +1732,9 @@ function ghSearchAndGo(s) {
 }
 function searchMultiple(searchEngine, queries) {
     queries.reverse().forEach(q => tabSearchAdjacent(searchEngine, q, true));
+}
+function multipleEngineSearch(searchEngines, query) {
+    searchEngines.reverse().forEach(s => tabSearchAdjacent(s, query, true));
 }
 EOF
 
