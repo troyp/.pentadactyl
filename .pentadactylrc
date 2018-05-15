@@ -5625,14 +5625,16 @@ function amazonGetUrlParts(url) {
     var regex = /https:\/\/([^./]+\.)*amazon\.com(\.[^./]+)?(\/.*)?/;
     return url.match(regex);
 }
-function amazonGotoCart(where='here') {
+function amazonGetPrefix(url) {
+    url = url || buffer.URL;
     var parts = S.arrayWithEmptyStringDefault(amazonGetUrlParts());
-    dactyl.open(`https://${parts[1]}amazon.com${parts[2]}/gp/cart/view.html/ref=nav_cart`, {where: where});
+    return `https://${parts[1]}amazon.com${parts[2]}`;
 }
 EOF
 
 map <site>o  -js CommandExMode().open("showkeys <site>o")
-map <site>oc -description "Goto cart" -js amazonGotoCart(count?"tab":"here");
+map <site>oc -description "Goto cart"
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"here");
 
 group user
 
