@@ -1196,6 +1196,9 @@ map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
 " <leader>aa - Misc Accounts"
 map <leader>aa      -js CommandExMode().open("showkeys <leader>aa");
 map <leader>aa<C-h> -js CommandExMode().open("showkeys <leader>aa");
+map <leader>aaaz
+    \ -description "Open Amazon"
+    \ -count -js openOrSelectTab("https://smile.amazon.com/gp/huc/view.html");
 map <leader>aar
     \ -description "Open Inoreader"
     \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
