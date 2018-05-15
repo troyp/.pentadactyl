@@ -5635,6 +5635,8 @@ EOF
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc -description "Goto cart"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"here");
+map <site>oo -description "Goto orders"
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"here");
 
 group user
 
