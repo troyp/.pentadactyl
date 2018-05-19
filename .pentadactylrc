@@ -918,8 +918,8 @@ function showDownloadSettings() {
 EOF
 
 " Menu access: "
-map <browser>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
-map <browser>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <search>m")
+map <browser>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
+map <browser>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>mm -b :emenu<SPACE>
 map <browser>mf -b :emenu File.
 map <browser>me -b :emenu Edit.
