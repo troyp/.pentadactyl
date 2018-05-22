@@ -6282,7 +6282,7 @@ map <site>of -description "Leave feedback"
 \    -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"tab":"here");
 map <site>om -description "Inbox"
 \    -js openOrSelectTab("https://mesg.ebay.com.au/mesgweb/ViewMessages/0", count?"tab":"here");
-map <site>op -description "Purchase history"
+map <site>oo -description "Orders (Purchase history)"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/PurchaseHistory", count?"tab":"here");
 map <site>oy -description "My eBay"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/Summary", count?"tab":"here");
