@@ -447,7 +447,7 @@ function searchMappingsByMode(mode, ...pats) {
     return filtered;
 }
 
-function searchCommands1(pats, brief=true) {
+function searchCommands1(pats, brief=true, searchAction=true) {
     var activegroups = contexts.activeGroups();
     var activecommands = Array.from(activegroups.flatMap(g => Array.from(g.commands)));
     var filtered = activecommands.filter(
@@ -456,11 +456,11 @@ function searchCommands1(pats, brief=true) {
                 if (typeof p == "string" && p.toLowerCase()==p) {
                     return m.name.toLowerCase().search(p)>=0 ||
                            m.unlocalized_description.toLowerCase().search(p)>=0 ||
-                           m.action.toString().toLowerCase().search(p)>=0
+                           (searchAction && m.action.toString().toLowerCase().search(p)>=0)
                 } else {
                     return m.name.search(p)>=0 ||
                           m.unlocalized_description.search(p)>=0 ||
-                          m.action.toString().search(p)>=0
+                          (searchAction && m.action.toString().search(p)>=0)
                 }
             }) );
     var maxlen = filtered.map(m=>m.name.length).reduce((acc,cur)=>Math.max(acc,cur), 0);
@@ -734,7 +734,7 @@ map <C-h><C-h>   -description "(show bindings)" -js CommandExMode().open("showke
 map <C-h>b       -description "Search bindings" -b :searchmappings<Space>
 map <C-h>B       -description "Search bindings description" -b :searchmappingsdescriptions<Space>
 map <C-h>c       -description "Search commands" -b :searchcommands<Space>
-map <C-h>C       -description "Search commands (verbose)" -b :searchcommands!<Space>
+map <C-h>C       -description "Search commands description" -js CommandExMode().open("searchcommandsdescriptions" + (count?"! ":" "));
 map <C-h>d       -description "Pentadactyl help" -ex help
 map <C-h>D       -description "Pentadactyl help - single page" -ex helpall
 map <C-h>e       -description "Show extensions" -b :addons -type extension<Space>
@@ -759,10 +759,14 @@ map <C-h>m       -description "Search bindings by mode" -b :searchmappingsbymode
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
 command! searchmappingsdescriptions -nargs * -js searchMappingsDescriptions.apply(null, args.map(readStringOrRegex));
 command! searchmappingsbymode -nargs * -js searchMappingsByMode.apply(null, args.map(readStringOrRegex));
-command! searchcommands -description "Show commands matching pattern(s). With ! verbose description"
+command! searchcommands -description "Show commands matching pattern(s). With ! verbose definitions"
 \    -bang
 \    -nargs *
 \    -js bang ? searchCommands.apply(null, args.map(readStringOrRegex)) : searchCommandsBrief.apply(null, args.map(readStringOrRegex));
+command! searchcommandsdescriptions -description "Show commands whose name or description matches pattern(s). With ! verbose definitions"
+\    -bang
+\    -nargs *
+\    -js searchCommands1(args.map(readStringOrRegex), !bang, true);
 command! listcommandsbygroup -nargs 1
 \    -bang
 \    -complete custom," (context) => { context.completions = listCommandsByGroupCompletion(); } "
