@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        Bato.to: Decorate NEXT/PREV links
+// @name        Bato.to Pentadactyl Setup
 // @namespace   batoto
 // @description Add >> and << alt attribute to next/previous links so Pentadactyl can recognize them
 // @include     http://bato.to/reader*

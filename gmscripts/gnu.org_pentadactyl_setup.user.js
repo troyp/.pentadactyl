@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        GNU.org: Decorate NEXT/PREV links
+// @name        GNU.org Pentadactyl Setup
 // @namespace   gnu
 // @description Add >> and << to next/previous links so Pentadactyl can recognize them
 // @include     https://www.gnu.org/software/*/manual/*
