@@ -1023,13 +1023,18 @@ map <xtra>q
 map <xtra>x
     \ -description "Open local file with xdg-open"
     \ -js xopenMaybeFromBufferDir();
-map <xtra>e
+
+" ,--------------------------,
+" | <xtra>e -- Open in Emacs |
+" '--------------------------'
+map <xtra>e -description "(show bindings: Open in Emacs)" -js CommandExMode().open("showkeys <xtra>e")
+map <xtra>ee
     \ -description "Open file in Emacs"
     \ -ex openinemacs
-map <xtra>E
+map <xtra>eE
     \ -description "Open page in EWW"
     \ -ex openUrlInEWW
-map <xtra>d
+map <xtra>ed
     \ -description "Open directory in Dired"
     \ -ex openDirectoryInDired
 map <xtra>D
