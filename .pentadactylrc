@@ -1037,6 +1037,11 @@ map <xtra>eE
 map <xtra>ed
     \ -description "Open directory in Dired"
     \ -ex openDirectoryInDired
+map <xtra>ew
+    \ -description "Open page in Emacs w3m"
+    \ -js dactyl.execute("!emacsclient -e '(w3m-goto-url "+'"'+buffer.URL+'")'+"'");
+
+
 map <xtra>D
     \ -description "Open directory in Dolphin"
     \ -ex openDirectoryInDolphin
