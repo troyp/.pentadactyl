@@ -2307,7 +2307,10 @@ map <buffer>o -description "Open new tab here (clone current tab and :open)" Co
 " | Buffer Selection |
 " '------------------'
 
-command! openorselect -nargs=+ -complete=url -js openOrSelectTab(args[0], args[1]?"here":"tab");
+command! openorselect -description "Open URL in current (! new) tab, or switch to existing tab"
+\  -nargs=+
+\  -complete=url
+\  -js openOrSelectTab(args[0], args[1]?"here":"tab");
 
 js <<EOF
 function tabSelectLeft(n=1, wrap=true) {
