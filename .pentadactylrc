@@ -5702,6 +5702,9 @@ map <site>ta -description "Toggle Australian site"
 map <site>w -description "Wish list"
 \    -js content.document.getElementById("add-to-wishlist-button-submit").click();
 
+map [[ -js content.document.getElementById("pagnPrevLink").click();
+map ]] -js content.document.getElementById("pagnNextLink").click();
+
 group user
 
 " -----------------------------------------------------------------------------
