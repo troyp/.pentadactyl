@@ -2251,6 +2251,7 @@ map <buffer>m.      -description "Move last COUNT tabs to ordinal ARG"
 \                   -arg -count -ex movelastntabs <count> <arg>
 map <buffer>m\'     -description "Move COUNT tabs to ordianl ARG" -arg -count -ex moventabs <count> <arg>
 map <buffer>ma      -description "Move tab after alternate" -js moveTabAfterAlternate();
+map <buffer>mA      -description "Move alternate after tab" -js moveAlternateAfterTab();
 map <buffer>t       -description "View Tiled" -js tileTabs.Tile();
 map <buffer>p       -description "Toggle pin tab" -ex pintab!
 
@@ -2551,6 +2552,10 @@ function moveTabAfterAlternate() {
     var altOrd = tabs.alternate.dactylOrdinal;
     tabs.move(thisTab, altOrd);
 }
+function moveAlternateAfterTab() {
+    var thisOrd = tabs.getTab().dactylOrdinal;
+    var altTab = tabs.alternate;
+    tabs.move(altTab, thisOrd);
 }
 EOF
 
