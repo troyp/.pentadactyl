@@ -146,7 +146,21 @@ A = {
     indexOf:     (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex),
     concatMap:   (coll, f) => [].concat.apply([], Array.from(coll).map(e=>Array.from(f(e)))),
     mapProperty: (coll, p) => Array.from(coll).map(e=>e[p]),
-    zip:         (coll1, coll2) => Array.from(coll1).map((e,i)=>[e, coll2[i]])
+    zip:         (coll1, coll2) => Array.from(coll1).map((e,i)=>[e, coll2[i]]),
+    split:       (coll, e) => {
+                     var subArrays = [];
+                     var currentSub = [];
+                     for (var i=0; i<coll.length; ++i) {
+                         if (coll[i]==e) {
+                             subArrays.push(currentSub);
+                             currentSub = [];
+                         } else {
+                             currentSub.push(coll[i]);
+                         }
+                     }
+                     subArrays.push(currentSub);
+                     return subArrays;
+                 }
 }
 window.A = A;
 
