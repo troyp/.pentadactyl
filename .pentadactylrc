@@ -2544,10 +2544,13 @@ moveAllTabsRightOfN = function (fromOrd, toOrd, wrap=false) {
     var N = tabs.allTabs.length;
     moveLastNTabs(N-fromOrd+1, toOrd, wrap);
 }
+
+" Note: if tab is already in final position, tab swapped with alternate "
 function moveTabAfterAlternate() {
     var thisTab = tabs.getTab();
     var altOrd = tabs.alternate.dactylOrdinal;
-    tabs.move(thisTab, altOrd+1);
+    tabs.move(thisTab, altOrd);
+}
 }
 EOF
 
