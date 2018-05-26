@@ -2312,6 +2312,11 @@ command! openorselect -description "Open URL in current (! new) tab, or switch t
 \  -nargs=+
 \  -complete=url
 \  -js openOrSelectTab(args[0], args[1]?"here":"tab");
+command! openorsummon -description "Open URL in new tab, or move existing tab after current. Select unless !"
+\  -nargs=+
+\  -bang
+\  -complete=url
+\  -js openOrSummonTab(args[0], bang, args[1]||null);
 
 js <<EOF
 function tabSelectLeft(n=1, wrap=true) {
@@ -10558,6 +10563,25 @@ function openOrSelectTab(url, where='tab', regex=null) {
                   : alltabs.find(t=>t.linkedBrowser.contentDocument.URL.indexOf(url)>=0);
         if (existingTab) tabs.select(existingTab);
         else dactyl.open(url, {where: where});
+    }
+}
+
+function openOrSummonTab(url, background=false, regex=null) {
+    /* note: doesn't work when pending tabs are present */
+    if (url) {
+        var alltabs = Array.from(tabs.allTabs);
+        var existingTab =
+            regex ? alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(regex))
+                  : alltabs.find(t=>t.linkedBrowser.contentDocument.URL.indexOf(url)>=0);
+        if (existingTab) {
+            tabs.move(existingTab, tabs.getTab().dactylOrdinal+1);
+            background || tabs.select(existingTab);
+        } else {
+            if (background)
+                dactyl.execute("background tabopen " + url);
+            else
+                dactyl.open(url, {where: 'tab'});
+        }
     }
 }
 
