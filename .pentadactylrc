@@ -1829,6 +1829,8 @@ map <search>f   -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
 map <search>g   -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
 map <search>m   -description "Multiple query bookmark search" -b :searchmultiple<Space>
 map <search>M   -description "Multiple engine bookmark search" -b :multipleenginesearch<Space>
+map <search>p   -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
+\               -b :polysearch<Space>
 map <search>r   -description "Regex search: Forward" -modes normal -b /\r
 map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s   -description "Shopping search: ebay + amazon" -b :shop<Space>
@@ -1846,6 +1848,8 @@ command! searchmultiple -description "Multiple query bookmark search"
 \    -nargs=+ -complete=search -js searchMultiple(args[0], args.slice(1));
 command! multipleenginesearch -description "Multiple engine bookmark search"
 \    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(0,-1), args.slice(-1));
+command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
+\    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
 command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=+ -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 
@@ -1861,6 +1865,11 @@ function searchMultiple(searchEngine, queries) {
 }
 function multipleEngineSearch(searchEngines, query) {
     searchEngines.reverse().forEach(s => tabSearchAdjacent(s, query, true));
+}
+function polySearch(searchEngines, queries) {
+    queries.reverse().forEach(q =>
+        searchEngines.reverse().forEach(s =>
+            tabSearchAdjacent(s, q, true)));
 }
 EOF
 
