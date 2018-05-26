@@ -2908,7 +2908,7 @@ EOF
 " -------------------------------------------------------------------------------
 
 map <search>j  -description "Goto jump" -ex jumps
-map <search>p -b :set<SPACE>
+map <search>o -b :set<SPACE>
 map <search>c -b :set!<SPACE>
 
 " -----------------------------------------------------------------------------
