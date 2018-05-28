@@ -2277,6 +2277,7 @@ map <buffer>ma      -description "Move tab after alternate" -js moveTabAfterAlte
 map <buffer>mA      -description "Move alternate after tab" -js moveAlternateAfterTab();
 map <buffer>t       -description "View Tiled" -js tileTabs.Tile();
 map <buffer>p       -description "Toggle pin tab" -ex pintab!
+map <buffer>v       -description "Toggle mute tab" -js tabs.getTab().toggleMuteAudio();
 
 " undo recent closed tab from list
 map U -b :undo<SPACE>
