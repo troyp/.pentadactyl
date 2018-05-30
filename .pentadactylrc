@@ -5738,6 +5738,15 @@ map <site>ow -description "Goto wish list"
 \    -js openOrSelectTab("https://smile.amazon.com/gp/registry/wishlist/16ODAURM1G5HA/ref=nav_wishlist_lists_1", count?"tab":"here");
 map <site>ta -description "Toggle Australian site"
 \    -js toggleUrl('www.amazon.com.au', 'smile.amazon.com');
+map <site>tg -description "Toggle 'Amazon Global' checkbox" -js amazonGetCheckbox(/amazon global/i).click();
+map <site>tn -description "Toggle 'new' checkbox" -js amazonGetCheckbox(/new/i).click();
+map <site>to -description "Toggle 'Include out of stock' checkbox"
+\    -js amazonGetCheckbox(/include out of stock/i).click();
+map <site>tp -description "Toggle 'prime' checkbox" -js amazonGetCheckbox(/prime/i).click();
+map <site>ts -description "Toggle 'Ship to Australia' checkbox"
+\    -js amazonGetCheckbox(/ship to australia/i).click();
+map <site>t4 -description "Toggle 4+-stars"
+\    -js content.document.getElementsByClassName("a-star-medium-4")[0].click();
 map <site>w -description "Wish list"
 \    -js content.document.getElementById("add-to-wishlist-button-submit").click();
 
