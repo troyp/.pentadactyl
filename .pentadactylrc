@@ -5730,7 +5730,7 @@ EOF
 
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc -description "Goto cart"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"here");
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"here", null, true);
 map <site>oo -description "Goto orders"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"here");
 map <site>or -description "Goto reviews"
@@ -6384,7 +6384,7 @@ command! ebayfilterbytitle
 map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>o -js CommandExMode().open("showkeys <site>o")
 map <site>oc -description "Goto Cart"
-\    -js openOrSelectTab("https://cart.payments.ebay.com.au/sc/view", count?"tab":"here");
+\    -js openOrSelectTab("https://cart.payments.ebay.com.au/sc/view", count?"tab":"here", null, true);
 map <site>of -description "Leave feedback"
 \    -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"tab":"here");
 map <site>om -description "Goto Inbox"
