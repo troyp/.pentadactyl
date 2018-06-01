@@ -1834,6 +1834,7 @@ map <search>p   -description "Poly search: multiple queries & engines: :polysear
 map <search>r   -description "Regex search: Forward" -modes normal -b /\r
 map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s   -description "Shopping search: ebay + amazon" -b :shop<Space>
+map <search>S   -description "Supermarket search: woolworths + coles" -b :supermarket<Space>
 map <search>w   -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
 map <search>0   -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
 map <search>\'  -description "Link Search: Forward" -modes normal -b /\l
@@ -1852,6 +1853,8 @@ command! polysearch -description "Poly search: multiple queries & engines: :poly
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
 command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=+ -js multipleEngineSearch(["e", "amaz"], args.join(" "));
+command! supermarket -description "Supermarket shopping search: woolworths + coles"
+\    -nargs=+ -js multipleEngineSearch(["shopwoo", "shopcol"], args.join(" "));
 
 js <<EOF
 function ghSearchAndGo(s) {
