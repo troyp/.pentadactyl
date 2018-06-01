@@ -2334,6 +2334,7 @@ map <buffer>o -description "Open new tab here (clone current tab and :open)" Co
 
 command! openorselect -description "Open URL in current (! new) tab, or switch to existing tab"
 \  -nargs=+
+\  -bang
 \  -complete=url
 \  -js openOrSelectTab(args[0], args[1]?"here":"tab");
 command! openorsummon -description "Open URL in new tab, or move existing tab after current. Select unless !"
