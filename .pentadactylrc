@@ -1517,6 +1517,7 @@ command! printfriendly -description "Run Print Friendly" open javascript:(functi
 map <leader>xc<C-h> -js CommandExMode().open("showkeys <leader>xc")
 map <leader>xc      -js CommandExMode().open("showkeys <leader>xc")
 map <leader>xci -description "Convert inches to centimeters (by hints)" -js hints.show("”");
+map <leader>xcd -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
 
 command! usd2aud
     \ -nargs *
