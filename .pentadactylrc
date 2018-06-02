@@ -1516,7 +1516,7 @@ command! printfriendly -description "Run Print Friendly" open javascript:(functi
 " '---------------------------'
 map <leader>xc<C-h> -js CommandExMode().open("showkeys <leader>xc")
 map <leader>xc      -js CommandExMode().open("showkeys <leader>xc")
-map -description "Convert inches to centimeters (by hints)" <leader>xci -js hints.show("”");
+map <leader>xci -description "Convert inches to centimeters (by hints)" -js hints.show("”");
 
 command! usd2aud
     \ -nargs *
