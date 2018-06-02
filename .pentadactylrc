@@ -1521,7 +1521,7 @@ map <leader>xci -description "Convert inches to centimeters (by hints)" -js hint
 command! usd2aud
     \ -nargs *
     \ -description "convert $US prices to $AU"
-    \ -js utils.message(args.map(USDtoAUD).join(" "));
+    \ -js utils.message(args.map(x=>USDtoAUD(x).toFixed(2)).join(" "));
 command! sumusd2aud
     \ -nargs *
     \ -description "Sum $US prices and convert to $AU"
