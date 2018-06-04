@@ -262,7 +262,7 @@ Number.prototype.inRange = function (a, b) {
     return (a <= this && this < b);
 }
 
-window.AUDperUSD = 1.32;
+window.AUDperUSD = 1.36;
 
 " Eval Functions "
 
