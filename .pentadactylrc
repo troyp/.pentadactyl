@@ -5730,6 +5730,16 @@ function amazonGetPrefix(url) {
     var parts = S.arrayWithEmptyStringDefault(amazonGetUrlParts());
     return `https://${parts[1]}amazon.com${parts[2]}`;
 }
+function amazonNextPage() {
+    var l = content.document.getElementById("pagnNextLink");
+    if (l) l.click();
+    else dactyl.execute("feedkeys <pass-next-key-builtin>]]");
+}
+function amazonPreviousPage() {
+    var l = content.document.getElementById("pagnPrevLink");
+    if (l) l.click();
+    else dactyl.execute("feedkeys <pass-next-key-builtin>[[");
+}
 EOF
 
 map <site>o  -js CommandExMode().open("showkeys <site>o")
@@ -5755,8 +5765,8 @@ map <site>t4 -description "Toggle 4+-stars"
 map <site>w -description "Wish list"
 \    -js content.document.getElementById("add-to-wishlist-button-submit").click();
 
-map [[ -js content.document.getElementById("pagnPrevLink").click();
-map ]] -js content.document.getElementById("pagnNextLink").click();
+map [[ -js amazonPreviousPage();
+map ]] -js amazonNextPage();
 
 group user
 
