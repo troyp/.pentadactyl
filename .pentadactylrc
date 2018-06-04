@@ -1523,6 +1523,10 @@ command! usd2aud
     \ -nargs *
     \ -description "convert $US prices to $AU"
     \ -js utils.message(args.map(x=>USDtoAUD(x).toFixed(2)).join(" "));
+command! setusdaudexchange
+    \ -nargs 1
+    \ -description "Set exchange rate of $AU/$US"
+    \ -js setUSDAUDexchange(args[0]);
 command! sumusd2aud
     \ -nargs *
     \ -description "Sum $US prices and convert to $AU"
@@ -10757,6 +10761,7 @@ function updateUSDAUDexchange() {
         });
 }
 
+function setUSDAUDexchange(rate) { return window.AUDperUSD = rate; }
 function getUSDAUDexchange() { return window.AUDperUSD; }
 window.getUSDAUDexchange = getUSDAUDexchange;
 " ------------------------------------------------------------------------------- "
