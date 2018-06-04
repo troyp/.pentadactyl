@@ -9724,7 +9724,7 @@ function wikiaRemoveCruft() {
 function wikiaSimplePage() {
     wikiaRemoveCruft();
     removeSelectors(
-        'header',
+        'header.wds-community-header',
         '.page-header__categories',
         '.page-header__contribution',
         '#articleCategories'
