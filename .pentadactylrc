@@ -10909,21 +10909,30 @@ function getHomeDir() {
     return homedir+'/';
 }
 
-function urlToggleQuery(query) {
-    var url = buffer.URL;
+function toggleQueryComponent(url, query, altQuery=null) {
     var newurl;
     var os
     var qRegexFinal = RegExp("[?&]"+query+"$");
     var qRegexNonfinal = RegExp(query+"&");
+    var qAltRegexFinal = RegExp("[?&]"+altQuery+"$");
+    var qAltRegexNonfinal = RegExp(altQuery+"&");
     if (url.match(qRegexFinal))
         newurl = url.replace(qRegexFinal, "");
     else if (url.match(qRegexNonfinal))
         newurl = url.replace(qRegexNonfinal, "");
+    if (url.match(qAltRegexFinal))
+        newurl = url.replace(qAltRegexFinal, query);
+    else if (url.match(qAltRegexNonfinal))
+        newurl = url.replace(qAltRegexNonfinal, query);
     else if (url.match(/[?]/))
         newurl = url + "&" + query;
     else
         newurl = url + "?" + query;
-    content.window.location = newurl;
+    return newurl;
+}
+function urlToggleQuery(query, altQuery=null) {
+    var url = buffer.URL;
+    content.window.location = toggleQueryComponent(url, query, altQuery);
 }
 
 // ,-------------------------,
