@@ -1024,58 +1024,58 @@ map <xtra>ap
 \    -ex !gpick
 
 map <xtra>c
-    \ -description "Open in Google Chrome (minimal profile)"
-    \ -ex ochromemin
+\    -description "Open in Google Chrome (minimal profile)"
+\    -ex ochromemin
 map <xtra>C
-    \ -description "Open URL in Google Chrome (minimal profile)"
-    \ -ex ochromeminurl
+\    -description "Open URL in Google Chrome (minimal profile)"
+\    -ex ochromeminurl
 map <xtra>;c
-    \ -description "Open in Google Chrome (default profile)"
-    \ -ex ochrome
+\    -description "Open in Google Chrome (default profile)"
+\    -ex ochrome
 map <xtra>;C
-    \ -description "Open URL in Google Chrome (default profile)"
-    \ -ex ochromeurl
+\    -description "Open URL in Google Chrome (default profile)"
+\    -ex ochromeurl
 map <xtra>f
-    \ -description "Open in Firefox"
-    \ -ex ofox
+\    -description "Open in Firefox"
+\    -ex ofox
 map <xtra>q
-    \ -description "Open in Qutebrowser"
-    \ -ex oqute
+\    -description "Open in Qutebrowser"
+\    -ex oqute
 map <xtra>x
-    \ -description "Open local file with xdg-open"
-    \ -js xopenMaybeFromBufferDir();
+\    -description "Open local file with xdg-open"
+\    -js xopenMaybeFromBufferDir();
 
 " ,--------------------------,
 " | <xtra>e -- Open in Emacs |
 " '--------------------------'
 map <xtra>e -description "(show bindings: Open in Emacs)" -js CommandExMode().open("showkeys <xtra>e")
 map <xtra>ee
-    \ -description "Open file in Emacs"
-    \ -ex openinemacs
+\    -description "Open file in Emacs"
+\    -ex openinemacs
 map <xtra>eE
-    \ -description "Open page in EWW"
-    \ -ex openUrlInEWW
+\    -description "Open page in EWW"
+\    -ex openUrlInEWW
 map <xtra>ed
-    \ -description "Open directory in Dired"
-    \ -ex openDirectoryInDired
+\    -description "Open directory in Dired"
+\    -ex openDirectoryInDired
 map <xtra>ew
-    \ -description "Open page in Emacs w3m"
-    \ -js dactyl.execute("!emacsclient -e '(w3m-goto-url "+'"'+buffer.URL+'")'+"'");
+\    -description "Open page in Emacs w3m"
+\    -js dactyl.execute("!emacsclient -e '(w3m-goto-url "+'"'+buffer.URL+'")'+"'");
 
 
 map <xtra>D
-    \ -description "Open directory in Dolphin"
-    \ -ex openDirectoryInDolphin
+\    -description "Open directory in Dolphin"
+\    -ex openDirectoryInDolphin
 map <xtra>P
-    \ -description "Password hasher"
-    \ -ex pwhash
+\    -description "Password hasher"
+\    -ex pwhash
 map <xtra>p
-    \ -description "Password hasher: hash site domain"
-    \ -ex pwhashsite
+\    -description "Password hasher: hash site domain"
+\    -ex pwhashsite
 " open www.packtpub.com/packt/offers/free-learning in google chrome "
 map <xtra>op
-    \ -description "Visit Packt Free Learning site in Google Chrome"
-    \ -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
+\    -description "Visit Packt Free Learning site in Google Chrome"
+\    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
 
 " open file with xdg-open
 " FIXME: issue with maff files with spaces in directory (not name)
