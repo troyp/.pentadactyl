@@ -696,9 +696,7 @@ map b         <buffer>
 map a         <ext>
 map <A-enter> <option>
 map y         <yank>
-" " The <sel> and <sidebar> pseudokeys were broken for some reason
 map s         <search>
-" map s <sel>
 " map S <sidebar>
 imap <A-return> <Esc><site>
 
