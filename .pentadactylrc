@@ -1014,6 +1014,15 @@ map <C-j> -description "Show jump list" -b :jumps<CR>f
 " | <xtra> -- Open current URL in application |
 " '-------------------------------------------'
 
+" ,--------------------------------------,
+" | <xtra>a -- Open external application |
+" '--------------------------------------'
+map <xtra>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <xtra>a")
+map <xtra>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <xtra>a")
+map <xtra>ap
+\    -description "Open colour picker (gpick)"
+\    -ex !gpick
+
 map <xtra>c
     \ -description "Open in Google Chrome (minimal profile)"
     \ -ex ochromemin
