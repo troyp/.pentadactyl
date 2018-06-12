@@ -2290,7 +2290,6 @@ map <buffer>m.      -description "Move last COUNT tabs to ordinal ARG"
 map <buffer>m\'     -description "Move COUNT tabs to ordianl ARG" -arg -count -ex moventabs <count> <arg>
 map <buffer>ma      -description "Move tab after alternate" -js moveTabAfterAlternate();
 map <buffer>mA      -description "Move alternate after tab" -js moveAlternateAfterTab();
-map <buffer>t       -description "View Tiled" -js tileTabs.Tile();
 map <buffer>p       -description "Toggle pin tab" -ex pintab!
 map <buffer>v       -description "Toggle mute tab" -js tabs.getTab().toggleMuteAudio();
 
@@ -3679,6 +3678,7 @@ map <ext>ed       :extdisable<Space>
 map <ext>eo       :extoptions<Space>
 map <ext>er       :extrehash<Space>
 map <ext>e<Space> :exttoggle<Space>
+map <ext>t       -description "Tile Tabs: View Tiled" -js tileTabs.Tile();
 
 " | Stay Open Menu | "
 map <ext>tm -description "Reinstall Stay Open Menu"
