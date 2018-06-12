@@ -4827,17 +4827,17 @@ js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLi
 set eht+=[e]:'a',':-moz-any-link'
 js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
 " Show node (popup)"
-set eht+=[`]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[`]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('`','show node (popup)', e => alert(e.innerHTML || e));
 " Get node "
-set eht+=[1]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[1]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('1','get node', e => dactyl.stored_node=e);
 " Get selectors (uses Stylish functions) "
-set eht+=[2]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[2]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('2','get selectors', e => dactyl.stored_result = stylishCommon.generateSelectors(e));
 
 " inspect in Firebug
-set eht+=[\.]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[\.]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('\.','inspect in Firebug', e => Firebug.Inspector.inspectFromContextMenu(e));
 " open link with wayback
 set eht+=[\]:'a',':-moz-any-link'
@@ -4905,7 +4905,7 @@ set eht+=[ä]:a>strong,a>b
 js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
 
 " open in chrome "
-set eht+=[🄒]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,iframe,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[🄒]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode("🄒", "Open link in Chrome", e => dactyl.execute('ochromeurl '+e.href));
 
 " === SITE-SPECIFIC === "
