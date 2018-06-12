@@ -879,14 +879,6 @@ map <A--> -modes normal -b <C-x>
 " passthrough
 map \\ -b <C-v>
 
-" Paste and Search
-" swap p and P
-map p -modes normal -b P
-map P -modes normal -b p
-map <A-p> -description "Open clipboard contents in new background tab"
-\    -modes normal
-\    -js dactyl.execute(`background tabopen ${dactyl.clipboardRead()}`);
-
 " disable <C-q> for quitting
 map <C-q> -modes main <Nop>
 
@@ -2250,6 +2242,16 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
     map <search>bb -description "search buffers" -b :buffers<SPACE>
 :endif
 
+" open tabs "
+map ga -description "Open new tab, search in Awesome Bar" -b <C-v><C-t>
+map <buffer>o -description "Open new tab here (clone current tab and :open)" Co
+" Paste and Search
+" swap p and P
+map p -modes normal -b P
+map P -modes normal -b p
+map <A-p> -description "Open clipboard contents in new background tab"
+\    -modes normal
+\    -js dactyl.execute(`background tabopen ${dactyl.clipboardRead()}`);
 " all tabs: <buffer>a "
 map <buffer>a       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
 map <buffer>a<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
@@ -2337,10 +2339,6 @@ map C   -description "Duplicate current tab"                            -js tabC
 map gh  -description "Open previous page in history in background tab"  -js backt();
 map gl  -description "Open next page in history in background tab"      -js forwardt();
 map gf  -description "Open multiple links in background tabs (HINTS)"   -b g;b
-
-" Awesome Bar "
-map ga -description "Open new tab, search in Awesome Bar" -b <C-v><C-t>
-map <buffer>o -description "Open new tab here (clone current tab and :open)" Co
 
 " ,------------------,
 " | Buffer Selection |
