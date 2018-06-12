@@ -2391,6 +2391,7 @@ EOF
 
 command! tabopenadjacent -description "Open adjacent tab [!: in background]"
 \    -nargs=1
+\    -complete=url
 \    -bang
 \    -js bang ? tabOpenAdjacent(args[0], true) : tabOpenAdjacent(args[0]);
 
