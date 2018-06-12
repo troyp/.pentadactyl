@@ -10944,6 +10944,13 @@ function urlToggleQuery(query, altQuery=null) {
     content.window.location = toggleQueryComponent(url, query, altQuery);
 }
 
+function getStyleProperty(elt, prop) {
+    var style = content.window.getComputedStyle(elt);
+    var val = style.getPropertyValue(prop);
+    return val!="none" && val;
+}
+window.getStyleProperty = getStyleProperty;
+
 // ,-------------------------,
 // | variables for temp data |
 // '-------------------------'
