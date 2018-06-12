@@ -10951,6 +10951,11 @@ function getStyleProperty(elt, prop) {
 }
 window.getStyleProperty = getStyleProperty;
 
+function getBackgroundImages() {
+    var allElts = Array.from(content.document.getElementsByTagName("*"));
+    return allElts.filter(e => getStyleProperty(e, "background-image"));
+}
+
 // ,-------------------------,
 // | variables for temp data |
 // '-------------------------'
