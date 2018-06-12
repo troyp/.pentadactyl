@@ -10991,6 +10991,7 @@ EOF
 " capture output of shell command:    io.system('command').output
 " simulate mouse event: elt.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}))
 " to override user agent for specific domain, use general.useragent.override.example.com
+" check if window is private: PrivateBrowsingUtils.isContentWindowPrivate(aContentWin)
 "
 " =============================================================================
 " ,-------------------,
