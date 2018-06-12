@@ -2593,7 +2593,10 @@ moveAllTabsRightOfN = function (fromOrd, toOrd, wrap=false) {
 function moveTabAfterAlternate() {
     var thisTab = tabs.getTab();
     var altOrd = tabs.alternate.dactylOrdinal;
-    tabs.move(thisTab, altOrd);
+    if (thisTab.dactylOrdinal < altOrd)
+        tabs.move(thisTab, altOrd);    // -1 to account for alt shifting left
+    else
+        tabs.move(thisTab, altOrd+1);
 }
 function moveAlternateAfterTab() {
     var thisOrd = tabs.getTab().dactylOrdinal;
