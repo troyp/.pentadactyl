@@ -4883,6 +4883,23 @@ js hints.addMode(' ', '', e=>utils.message(e));           "no-break space 00A0"
 set eht+=[🄿]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,'xpath:div/p'
 js hints.addMode('🄿','lmnpop',elem => { lmnpop(elem); });
 
+" ================= "
+" Background Images "
+" ================= "
+set eht+=[ι]:a,div,span,header,footer,aside,p,h1,h2
+js <<EOF
+hints.addMode(
+    'ι','view background-image [SLOW!!]',
+    e => {
+        var bi = getStyleProperty(e, "background-image");
+        var url = bi.match(/url\("(.*)"\)/)[1];
+        dactyl.open(url);
+    },
+    e => getBackgroundImages().includes(e)
+);
+EOF
+
+
 " =====                                                          "
 " Kanji                                                          "
 " =====                                                          "
