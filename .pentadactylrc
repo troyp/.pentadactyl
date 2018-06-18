@@ -127,6 +127,8 @@ function createBmark(url, title, folderId=bmarksMenuFolder) {
 window.createBmark = createBmark;
 
 "Application"
+var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
+
 var isPalemoon = prefs.has("app.vendorURL") && prefroot.getCharPref("app.vendorURL").includes("palemoon");
 var isBasilisk = prefs.has("app.vendorURL") && prefroot.getCharPref("app.vendorURL").includes("basilisk");
 var isFirefox  = prefs.has("app.update.url") && prefroot.getCharPref("app.update.url").includes("mozilla");
