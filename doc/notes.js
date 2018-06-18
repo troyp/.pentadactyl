@@ -47,6 +47,29 @@ bind(["f"],
      function () { hints.show("o"); });
 
 // -------------------------------------------------------------------------------
+// ,----------,
+// | commands |
+// '----------'
+// eg.
+commands.add(["tabopen", "t[open]", "tabnew"],
+             "Open one or more URLs in a new tab",
+             function (args) {
+                 dactyl.open(args[0] || "about:blank",
+                             { from: "tabopen", where: dactyl.NEW_TAB, background: args.bang });
+             }, {
+                 bang: true,
+                 completer: function (context) {
+                     completion.url(context);
+                 },
+                 domains: function (args) {
+                     return commands.get("open").domains(args);
+                 },
+                 literal: 0,
+                 privateData: true
+             });
+
+
+// -------------------------------------------------------------------------------
 // ,-------,
 // | hints |
 // '-------'
