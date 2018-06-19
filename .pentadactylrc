@@ -1197,8 +1197,12 @@ map <leader>oL
 map <leader>opd
 \    -description "Open clipboard text in wiktionary"
 \    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+map <leader>opw
 \    -description "Open clipboard text in wikipedia"
 \    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+map <leader>ow
+\    -description "Open in new window"
+\    -count -b :winopen<Space>
 
 " ,------------------,
 " | <leader>s - Save |
