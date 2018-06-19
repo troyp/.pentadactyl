@@ -1188,16 +1188,15 @@ map <leader>nr -description "Remove cruft" -ex removecruft
 " '------------------'
 map <leader>o      -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>o")
 map <leader>o<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>o")
-map <leader>odp
-\    -description "Open clipboard text in wiktionary"
-\    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
 map <leader>ol
 \    -description "Open local file"
 \    -b :openf<Space>
 map <leader>oL
 \    -description "Open local file (new tab)"
 \    -b :tabopenf<Space>
-map <leader>owp
+map <leader>opd
+\    -description "Open clipboard text in wiktionary"
+\    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
 \    -description "Open clipboard text in wikipedia"
 \    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
 
