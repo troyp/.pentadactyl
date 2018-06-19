@@ -691,12 +691,10 @@ map b <Nop>
 map e         <goto>
 map c         <site>
 map a         <app>
-map X         <S-xtra>
 map ,         <leader>
 map v         <browser>
 map b         <buffer>
 map x         <ext>
-map <A-enter> <option>
 map y         <yank>
 map s         <search>
 " map S <sidebar>
@@ -713,16 +711,12 @@ map <ext><C-h>     -description "(show bindings)" -js CommandExMode().open("show
 map <ext>          -description "(show bindings)" -js CommandExMode().open("showkeys <ext>")
 map <app><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <app>")
 map <app>         -description "(show bindings)" -js CommandExMode().open("showkeys <app>")
-map <S-xtra><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <S-xtra>")
-map <S-xtra>       -description "(show bindings)" -js CommandExMode().open("showkeys <S-xtra>")
 map <browser><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>")
 map <browser>      -description "(show bindings)" -js CommandExMode().open("showkeys <browser>")
 map <buffer><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>")
 map <buffer>       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>")
 map <yank><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <yank>")
 map <yank>         -description "(show bindings)" -js CommandExMode().open("showkeys <yank>")
-map <option><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <option>")
-map <option>       -description "(show bindings)" -js CommandExMode().open("showkeys <option>")
 map <C-x><C-h>     -description "(show bindings)" -js CommandExMode().open("showkeys <C-x>")
 map <C-x>          -description "(show bindings)" -js CommandExMode().open("showkeys <C-x>")
 map g<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys g")
