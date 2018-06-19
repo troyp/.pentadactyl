@@ -690,7 +690,7 @@ map b <Nop>
 " Map prefix keys to prefix pseudokeys
 map e         <goto>
 map c         <site>
-map a         <xtra>
+map a         <app>
 map X         <S-xtra>
 map ,         <leader>
 map v         <browser>
@@ -711,8 +711,8 @@ map <goto><C-h>    -description "(show bindings)" -js CommandExMode().open("show
 map <goto>         -description "(show bindings)" -js CommandExMode().open("showkeys <goto>")
 map <ext><C-h>     -description "(show bindings)" -js CommandExMode().open("showkeys <ext>")
 map <ext>          -description "(show bindings)" -js CommandExMode().open("showkeys <ext>")
-map <xtra><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <xtra>")
-map <xtra>         -description "(show bindings)" -js CommandExMode().open("showkeys <xtra>")
+map <app><C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <app>")
+map <app>         -description "(show bindings)" -js CommandExMode().open("showkeys <app>")
 map <S-xtra><C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <S-xtra>")
 map <S-xtra>       -description "(show bindings)" -js CommandExMode().open("showkeys <S-xtra>")
 map <browser><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>")
@@ -1004,70 +1004,70 @@ map K       -modes normal -b <C-u>
 map <C-j> -description "Show jump list" -b :jumps<CR>f
 
 " -------------------------------------------------------------------------------
-" ,-------------------------------------------,
-" | <xtra> -- Open current URL in application |
-" '-------------------------------------------'
+" ,------------------------------------------,
+" | <app> -- Open current URL in application |
+" '------------------------------------------'
 
-" ,--------------------------------------,
-" | <xtra>a -- Open external application |
-" '--------------------------------------'
-map <xtra>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <xtra>a")
-map <xtra>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <xtra>a")
-map <xtra>ap
+" ,-------------------------------------,
+" | <app>a -- Open external application |
+" '-------------------------------------'
+map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
+map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
+map <app>ap
 \    -description "Open colour picker (gpick)"
 \    -ex !gpick
 
-map <xtra>c
+map <app>c
 \    -description "Open in Google Chrome (minimal profile)"
 \    -ex ochromemin
-map <xtra>C
+map <app>C
 \    -description "Open URL in Google Chrome (minimal profile)"
 \    -ex ochromeminurl
-map <xtra>;c
+map <app>;c
 \    -description "Open in Google Chrome (default profile)"
 \    -ex ochrome
-map <xtra>;C
+map <app>;C
 \    -description "Open URL in Google Chrome (default profile)"
 \    -ex ochromeurl
-map <xtra>f
+map <app>f
 \    -description "Open in Firefox"
 \    -ex ofox
-map <xtra>q
+map <app>q
 \    -description "Open in Qutebrowser"
 \    -ex oqute
-map <xtra>x
+map <app>x
 \    -description "Open local file with xdg-open"
 \    -js xopenMaybeFromBufferDir();
 
-" ,--------------------------,
-" | <xtra>e -- Open in Emacs |
-" '--------------------------'
-map <xtra>e -description "(show bindings: Open in Emacs)" -js CommandExMode().open("showkeys <xtra>e")
-map <xtra>ee
+" ,-------------------------,
+" | <app>e -- Open in Emacs |
+" '-------------------------'
+map <app>e -description "(show bindings: Open in Emacs)" -js CommandExMode().open("showkeys <app>e")
+map <app>ee
 \    -description "Open file in Emacs"
 \    -ex openinemacs
-map <xtra>eE
+map <app>eE
 \    -description "Open page in EWW"
 \    -ex openUrlInEWW
-map <xtra>ed
+map <app>ed
 \    -description "Open directory in Dired"
 \    -ex openDirectoryInDired
-map <xtra>ew
+map <app>ew
 \    -description "Open page in Emacs w3m"
 \    -js dactyl.execute("!emacsclient -e '(w3m-goto-url "+'"'+buffer.URL+'")'+"'");
 
 
-map <xtra>D
+map <app>D
 \    -description "Open directory in Dolphin"
 \    -ex openDirectoryInDolphin
-map <xtra>P
+map <app>P
 \    -description "Password hasher"
 \    -ex pwhash
-map <xtra>p
+map <app>p
 \    -description "Password hasher: hash site domain"
 \    -ex pwhashsite
 " open www.packtpub.com/packt/offers/free-learning in google chrome "
-map <xtra>op
+map <app>op
 \    -description "Visit Packt Free Learning site in Google Chrome"
 \    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
 
@@ -1544,9 +1544,9 @@ map <leader>* -b :product<Space>
 " ,-------------,
 " | Translation |
 " '-------------'
-" Translation Prefix: <xtra>t "
-map <xtra>t<C-h> -js CommandExMode().open("showkeys <xtra>t")
-map <xtra>t      -js CommandExMode().open("showkeys <xtra>t")
+" Translation Prefix: <app>t "
+map <app>t<C-h> -js CommandExMode().open("showkeys <app>t")
+map <app>t      -js CommandExMode().open("showkeys <app>t")
 
 js <<EOF
 
@@ -1659,15 +1659,15 @@ command! trans
     \ -nargs=+
     \ -js googleTranslateText(args.join(" "));
 
-map <xtra>tt -description "Bing translate page" -ex bingtranslatepage
-map <xtra>tg -description "Google translate page" -ex googletranslatepage
-map <xtra>tx -description "Google translate text" -b :trans<Space>
-map <xtra>tc -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
-map <xtra>tv -description "Google translate selection" -ex googletranslateselection
-map <xtra>tf -description "Google translate text (HINTS)" -js hints.show("ţ");
-map <xtra>td -description "Google translate element (HINTS)" -js hints.show("Ţ");
-map <xtra>ta -description "Google append translation (HINTS)" -js hints.show("ʈ");
-map <xtra>tb -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
+map <app>tt -description "Bing translate page" -ex bingtranslatepage
+map <app>tg -description "Google translate page" -ex googletranslatepage
+map <app>tx -description "Google translate text" -b :trans<Space>
+map <app>tc -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
+map <app>tv -description "Google translate selection" -ex googletranslateselection
+map <app>tf -description "Google translate text (HINTS)" -js hints.show("ţ");
+map <app>td -description "Google translate element (HINTS)" -js hints.show("Ţ");
+map <app>ta -description "Google append translation (HINTS)" -js hints.show("ʈ");
+map <app>tb -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
 
 
 " ,------,
@@ -5831,7 +5831,7 @@ command! waybacktoggle
     \ -bang
     \ -description "Toggle web page and archive.org copy"
     \ -js bang ? waybackToggle({where: dactyl.NEW_TAB}) : waybackToggle()
-map <xtra>w -ex waybacktoggle
+map <app>w -ex waybacktoggle
 
 " ===== GROUP START =====
 
@@ -6269,7 +6269,7 @@ map <site>z -ex loginAndSearch
 command! loginAndSearch
     \ -description "Sign in and repeat search for ID in input field"
     \ -js loginAndSearch(getSearchField());
-map <xtra>z
+map <app>z
     \ -description "Sign in and repeat search for ID in input field"
     \ -js loginAndSearch(getSearchField());
 
