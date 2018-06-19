@@ -726,12 +726,6 @@ map <search>       -description "(show bindings)" -js CommandExMode().open("show
 map z<C-h>         -description "(show bindings)" -js CommandExMode().open("showkeys z")
 map z              -description "(show bindings)" -js CommandExMode().open("showkeys z")
 
-" <browser> prefix: "
-" k    :  bookmark "
-" r R  :  pentadactylrc "
-" s    :  styling "
-" x    :  restore window "
-
 " -------------------------------------------------------------------------------
 " ,----------------------------,
 " | Help Commands and Bindings |
@@ -911,6 +905,9 @@ map <C-x><C-S-S>
 \ -js saveDocument(getBrowser().selectedBrowser.contentDocument,
 \                  {mafAskSaveArchive: true});
 
+" ,------------------------,
+" | <browser>d -- Download |
+" '------------------------'
 map <browser>d      -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
 map <browser>d<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
 map <browser>ddw -description "Download to ~/Downloads/" -ex dlto ~/Downloads
@@ -953,7 +950,9 @@ function showDownloadSettings() {
 }
 EOF
 
-" Menu access: "
+" ,---------------------,
+" | <browser>m -- Menus |
+" '---------------------'
 map <browser>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>mm -b :emenu<SPACE>
@@ -965,8 +964,9 @@ map <browser>mb -b :emenu Bookmarks.
 map <browser>mt -b :emenu Tools.
 map <browser>m/ -b :emenu Help.
 
-" | AiOS SideBar |
-
+" ,-----------------------,
+" | <browser>b -- Sidebar |
+" '-----------------------'
 map <browser>bb -b :sidebar<SPACE>
 map <browser>bc -ex sbclose
 map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
@@ -3022,18 +3022,16 @@ style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
     \ }
 :endif
 
+" ,-----------------------,
+" | <browser>s -- Styling |
+" '-----------------------'
+map <browser>sm -description "Stylish/manage styles" -ex stylishmanage
+map <browser>sn -description "Stylish/new style" -js stylishCommon.openEdit('new');
 map <browser>sN -description "Style/narrow page" -b :narrowpage<Space>
+map <browser>ss -description "Stylish/toggle overlay" -ex stylishtoggleoverlay
 map <browser>st -description "Style/add temp style for page" -b y:style -group=temp <C-v><C-v><Space>
 map <browser>su -description "Style/toggle usermode (minimal styling)" -ex set usermode!
 map <browser>sv -description "Style/view:choose page style" -b :emenu View.Page Style.
-
-" ,---------,
-" | Stylish |
-" '---------'
-
-map <browser>sm -description "Stylish/manage styles" -ex stylishmanage
-map <browser>sn -description "Stylish/new style" -js stylishCommon.openEdit('new');
-map <browser>ss -description "Stylish/toggle overlay" -ex stylishtoggleoverlay
 
 js <<EOF
 function stylishGetOverlayStatus() {
