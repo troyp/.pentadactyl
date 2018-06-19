@@ -690,12 +690,12 @@ map b <Nop>
 " Map prefix keys to prefix pseudokeys
 map e         <goto>
 map c         <site>
-map x         <xtra>
+map a         <xtra>
 map X         <S-xtra>
 map ,         <leader>
 map v         <browser>
 map b         <buffer>
-map a         <ext>
+map x         <ext>
 map <A-enter> <option>
 map y         <yank>
 map s         <search>
