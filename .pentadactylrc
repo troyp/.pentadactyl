@@ -687,17 +687,17 @@ map b <Nop>
 " map <C-x><C-h> <Nop>
 " map <C-x> <Nop>
 
-" Map prefix keys to prefix pseudokeys
-map e         <goto>
-map c         <site>
-map a         <app>
-map ,         <leader>
-map v         <browser>
-map b         <buffer>
-map x         <ext>
-map y         <yank>
-map s         <search>
-" map S <sidebar>
+" Map concrete prefix keys to prefix pseudokeys
+map a  -description "Applications prefix"  <app>
+map b  -description "Buffers/tabs prefix"  <buffer>
+map c  -description "Sites/groups prefix"  <site>
+map e  -description "Goto prefix"          <goto>
+map s  -description "Search prefix"        <search>
+map v  -description "Browser prefix"       <browser>
+map x  -description "Extensions prefix"    <ext>
+map y  -description "Yank prefix"          <yank>
+map ,  -description "Leader key prefix"    <leader>
+
 imap <A-return> <Esc><site>
 
 " List mappings by prefix (using commandline completion)
