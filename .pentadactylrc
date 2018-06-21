@@ -3108,16 +3108,16 @@ map <leader>dw -ex webide
 map <leader>dy -ex eyedropper
 map <S-f12> -ex devtools
 
-command! webide :feedkeys! <S-f8>
-command! browserconsole :feedkeys! <C-S-J>
-command! devtools :execute "emenu Tools.Web Developer.Toggle Tools"
-command! storageinspector :execute "emenu Tools.Web Developer.Storage Inspector"
+command! webide feedkeys! <S-f8>
+command! browserconsole feedkeys! <C-S-J>
+command! devtools execute "emenu Tools.Web Developer.Toggle Tools"
+command! storageinspector execute "emenu Tools.Web Developer.Storage Inspector"
 command! eyedropper -description "Eyedropper" -js openEyedropper();
 " inspect current content document
-command! dominspector :feedkeys <C-S-I>
+command! dominspector feedkeys <C-S-I>
 command! dominspector -js inspectDOMDocument(content.document);
-command! dominspector :dialog dominspector
-command! dominspectorchrome :js inspectDOMDocument(document.URL)
+command! dominspector dialog dominspector
+command! dominspectorchrome -js inspectDOMDocument(document.URL)
 command! browsertoolboxinit -js browserToolboxOn();
 command! browsertoolboxperm -js browserToolboxPermissionBoxInit();
 command! browsertoolbox browsertoolboxinit | browsertoolboxperm
