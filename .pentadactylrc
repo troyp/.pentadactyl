@@ -9139,7 +9139,6 @@ EOF
 map <site>c  -description "Download first link" -js packtPopLink();
 map <site>i  -description "Login/logout" -js packtLoginLogout();
 map <site>l  -description "Create download buttons for top row" -js packtDlLinksTopRow();
-map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
 map <site>oa -description "Goto account"
 \    -js openOrSelectTab("https://www.packtpub.com/account", count?"tab":"here",
 \                        /:..www.packtpub.com\/account\/?$/);
@@ -9147,6 +9146,7 @@ map <site>of -description "Goto free learning"
 \    -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1", count?"tab":"here");
 map <site>ol -description "Goto library"
 \    -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks", count?"tab":"here");
+map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
 
 style -name=packt-thin-lines https://www.packtpub.com/account/my-ebooks
 \    .product-line,.product-top-line,.toggle-product-line,.content-width {
