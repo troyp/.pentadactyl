@@ -9168,6 +9168,7 @@ function packtClaim() { content.document.getElementById("free-learning-claim").c
 EOF
 
 map <site>c -description "Claim" -js packtClaim();
+map <site>y  -description "Yank Title" -ex yankselectorcontent div.dotd-title>h2
 
 group user
 
