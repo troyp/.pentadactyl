@@ -1327,6 +1327,9 @@ map <leader>aapf
 map <leader>aapl
     \ -description "Open Packt Library"
     \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
+map <leader>aapt
+    \ -description "Yank today's Packt free title to clipboard"
+    \ -count -js utils.yankWithMsg(io.system("curl -s https://www.packtpub.com/packt/offers/free-learning | pup 'div.dotd-title text{}'").output.trim());
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
