@@ -749,7 +749,7 @@ map <C-h>g       -description "(show bindings)" -js CommandExMode().open("showke
 map <C-h>g<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
 map <C-h>gc      -description "List commands by group" -b :listcommandsbygroup<Space>
 map <C-h>gC      -description "List commands by group (verbose)" -b :listcommandsbygroup!<Space>
-map <C-h>gm      -description "List mappings by group" -b :listmappingsbygroup<Space>
+map <C-h>gm      -description "List bindings by group" -b :listmappingsbygroup<Space>
 map <C-h>h       -description "Search hint modes/descriptions" -b :searchhintmodes<Space>
 map <C-h>H       -description "Search hint modes/descriptions/actions/filters"
 \                -b :searchhintmodesverbose<Space>
