@@ -6516,21 +6516,18 @@ map <site>ag -description "Apply Gift Certificate from clipboard"
     \        -js fasttechApplyGiftCertificate(dactyl.clipboardRead());
 map <site>c  -description "Toggle reviews" -js fasttechToggleReviews();
 map <site>h  -description "Toggle chat" -js fasttechToggleChat()
-map <site>oc -description "View cart" -ex open https://www.fasttech.com/shoppingcart
-map <site>oa -description "View account/" -ex open https://www.fasttech.com/account
-map <site>oo -description "View account/orders" -ex open https://www.fasttech.com/account/orders
+map <site>oc  -description "View cart"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"tab":"here")
+map <site>oa  -description "View account/"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account", count?"tab":"here")
+map <site>oo -description "View account/orders"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"tab":"here")
 map <site>og -description "View account/giftcertificates"
-    \        -ex open https://www.fasttech.com/account/giftcertificates
-map <site>ot -description "View tickets" -ex open https://support.fasttech.com/tickets
-map <site>ow -description "View account/wishlists" -ex open https://www.fasttech.com/account/wishlists
-
-map <site>tc -description "View cart (new tab)" -ex tabopen https://www.fasttech.com/shoppingcart
-map <site>ta -description "View account/ (new tab)" -ex tabopen https://www.fasttech.com/account
-map <site>to -description "View account/orders (new tab)" -ex tabopen https://www.fasttech.com/account/orders
-map <site>tg -description "View account/giftcertificates (new tab)"
-    \        -ex tabopen https://www.fasttech.com/account/giftcertificates
-map <site>tt -description "View tickets (new tab)" -ex tabopen https://support.fasttech.com/tickets
-map <site>tw -description "View account/wishlists (new tab)" -ex tabopen https://www.fasttech.com/account/wishlists
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"tab":"here")
+map <site>ot  -description "View tickets"
+\    -count -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"tab":"here")
+map <site>ow  -description "View account/wishlists"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"tab":"here")
 
 style -name=fasttech-post-separator https://www.fasttech.com/*
     \ .ForumHeader { border-top: solid 1px #AAA !important; }
