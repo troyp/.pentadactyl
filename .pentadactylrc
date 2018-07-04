@@ -2491,6 +2491,25 @@ function closeTabRange(firstOrd, endOrd) {
     utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
     if (toEnd) tabs.remove(tabs.getTab());
 }
+function closeTabRangeBidirectional(ordA, ordB) {
+    "Close tabs in range [ordA, ordB) or (ordB, ordA]"
+    var N = tabs.allTabs.length;
+    if (ordA == '.') ordA = gBrowser.mCurrentTab.dactylOrdinal;  // current
+    if (ordB == '.') ordB = gBrowser.mCurrentTab.dactylOrdinal;  // current
+    if (ordA == '^') ordA = 0;
+    if (ordB == '^') ordB = 0;
+    if (ordA == '$') ordA = N+1;
+    if (ordB == '$') ordB = N+1;
+
+    var n = Math.abs(ordB-ordA);
+    if (ordA < ordB) {
+        firstTab =  tabs.getTab(ordA);       // ord->idx(-1), then +1
+    } else {
+        firstTab =  tabs.getTab(ordB - 1);   // ord->idx(-1)
+    }
+    tabs.remove(firstTab, n);
+    return n;
+}
 function closeTabsBetweenHereAndNExclusive(endOrd) {
     // start with next tab after current
     // ends with endOrd (closeTabRange endpoint is exclusive, but endOrd is spec+1)
