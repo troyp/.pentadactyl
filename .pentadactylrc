@@ -10057,6 +10057,10 @@ map <site>D
 map <site>l
 \    -description "Go to latest revision"
 \    -ex wplatest
+map <site>o -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>ov
+\    -description "Go WikiVisually page"
+\    -js openOrSelectTab(buffer.URL.replace("en.wikipedia.org", "wikivisually.com"), count?"tab":"here");
 map <site>p
 \    -description "Open clipboard text in wikipedia"
 \    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
