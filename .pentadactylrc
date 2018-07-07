@@ -2744,7 +2744,7 @@ map <goto>;h      -description "Pentadactyl help - index"
 \                 -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
 map <goto>i       -description "Profiles"
 \                 -count -js openOrSelectTab("about:profiles", count?"here":"tab");
-map <goto>k       -description "places"
+map <goto>k       -description "places (bookmarks & history)"
 \                 -count -b :openorselect chrome://browser/content/places/places.xul <count><CR>gi<C-z>
 map <goto>K       -description "Bookmarks"
 \                 -count -js openOrSelectTab("chrome://browser/content/bookmarks/bookmarksPanel.xul", count?"here":"tab");
