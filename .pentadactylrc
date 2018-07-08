@@ -162,7 +162,11 @@ A = {
                      }
                      subArrays.push(currentSub);
                      return subArrays;
-                 }
+                 },
+    range: function (beg, end) {
+        var n = end-beg;
+        return Array(n).fill().map((x,i)=>i+beg);
+    }
 }
 window.A = A;
 
