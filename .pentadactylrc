@@ -1333,7 +1333,7 @@ map <leader>aapl
     \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
 map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
-    \ -count -js utils.yankWithMsg(io.system("curl -s https://www.packtpub.com/packt/offers/free-learning | pup 'div.dotd-title text{}'").output.trim());
+    \ -js utils.yankWithMsg(packtGetTodaysTitle());
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
@@ -1424,6 +1424,12 @@ map <leader>awt
     \ -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
 
 js <<EOF
+function packtGetTodaysTitle() {
+    return io.system(
+               "curl -s https://www.packtpub.com/packt/offers/free-learning | " +
+               "pup 'div.dotd-title text{}'"
+            ).output.trim();
+}
 function openOrSelectNetflix(where='tab') {
     var alltabs = Array.from(tabs.allTabs);
     var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(/https:\/\/www.netflix.com\//));
