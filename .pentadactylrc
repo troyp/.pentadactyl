@@ -9250,6 +9250,28 @@ map <site>w -js ptableToggleWP();
 group user
 
 " -------------------------------------------------------------------------------
+" ,----------------,
+" | QuickPoses.com |
+" '----------------'
+group quickposes -locations=quickposes.com
+
+map <site>c -description "Toggle pause" -js qpTogglePause();
+map <Space> -description "Toggle pause" -js qpTogglePause();
+map <Right> -description "Skip" -js content.document.querySelector(".skip").click();
+
+
+js <<EOF
+function qpTogglePause() {
+    var pauseBtn = content.document.querySelector(".btn-pause");
+    var continueBtn = content.document.querySelector(".btn-continue");
+    if (pauseBtn.style.display=="none") continueBtn.click();
+    else pauseBtn.click();
+}
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,------------,
 " | Reddit.com |
 " '------------'
