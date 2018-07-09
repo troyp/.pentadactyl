@@ -185,7 +185,7 @@ var utils = {
         this.message(`${pref}=${newval}`);
     },
 
-    toggleNsISupportStrPref: function (pref, s) {
+    toggleNsISupportStrPref: function (pref, s, s2="") {
         var prefManager =
             Components.classes["@mozilla.org/preferences-service;1"].getService(
                 Components.interfaces.nsIPrefBranch);
@@ -193,9 +193,9 @@ var utils = {
         var nsiStrCls = Components.classes["@mozilla.org/supports-string;1"];
         var nsiStr = nsiStrCls.createInstance(Components.interfaces.nsISupportsString);
         nsiStr.data = s;
-        var nsiNullStr = nsiStrCls.createInstance(Components.interfaces.nsISupportsString);
-        nsiNullStr.data = '';
-        var newVal = currentVal==='' ? nsiStr : nsiNullStr;
+        var nsiAltStr = nsiStrCls.createInstance(Components.interfaces.nsISupportsString);
+        nsiAltStr.data = s2;
+        var newVal = currentVal==nsiAltStr ? nsiStr : nsiAltStr;
         prefManager.setComplexValue(pref, Components.interfaces.nsISupportsString, newVal);
         this.message(`${pref}=${newVal}`);
     },
