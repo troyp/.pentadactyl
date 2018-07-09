@@ -10789,7 +10789,13 @@ function addMarginToBody(lr="60px", tb=null) {
 " | conversion | "
 " '------------' "
 function inToCm(x) { return x * 2.54; }
+function cmToIn(x) { return x / 2.54; }
+function kgToLb(x) { return x * 2.205; }
+function lbToKg(x) { return x / 2.205; }
 window.inToCm = inToCm;
+window.cmToIn = cmToIn;
+window.kgToLb = kgToLb;
+window.lbToKg = lbToKg;
 
 function subCmForInches(s) {
     var regex = /(-?\d+(\.\d+)?) *("|in(ch(es)?)?)/g;
