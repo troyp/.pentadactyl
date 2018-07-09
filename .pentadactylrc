@@ -7148,7 +7148,7 @@ group user
 " '-------'
 " For the old-style GMail interface. "
 
-group gmail -locations='https://www.google.com/gmail/*'
+group gmail -locations='https://www.google.com/gmail/*','mail.google.com'
 
 js <<EOF
 
