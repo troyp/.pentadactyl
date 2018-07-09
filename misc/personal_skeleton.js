@@ -5,8 +5,27 @@ var personal = {
     myaddress:    "",
     mystreet:     "",
     mysuburb:     "",
-    myphone:      "",
+    mystate:      "",
     mypostcode:   "",
+    shipito:
+    {
+        myaddress:    "",
+        mystreet:     "",
+        mysuburb:     "",
+        mystate:      "",
+        mypostcode:   "",
+        mycountry:    "",
+    },
+    shipito_eu:
+    {
+        myaddress:    "",
+        mystreet:     "",
+        mysuburb:     "",
+        mystate:      "",
+        mypostcode:   "",
+        mycountry:    "",
+    },
+    myphone:      "",
     mymasterpw:   "",
     myemail:      "",
     myemail2:     "",
