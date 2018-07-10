@@ -2460,8 +2460,7 @@ command! tabcloseduplicates
 command! tc
     \ -description "close tab range from START to END inclusive"
     \ -nargs=+
-    \ -js if (args.length==2) { closeTabRange(args[0], args[1]); }
-    \     else { closeTabsBetweenHereAndNExclusive(args[0]); }
+    \ -js utils.message(closeTabRangeBidirectional(args[0], args[1]));
 
 " filter tabs "
 command! tabfilter
@@ -2509,7 +2508,7 @@ function closeTabRange(firstOrd, endOrd) {
     utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
     if (toEnd) tabs.remove(tabs.getTab());
 }
-function closeTabRangeBidirectional(ordA, ordB) {
+function closeTabRangeBidirectional(ordA, ordB=".") {
     "Close tabs in range [ordA, ordB) or (ordB, ordA]"
     var N = tabs.allTabs.length;
     if (ordA == '.') ordA = gBrowser.mCurrentTab.dactylOrdinal;  // current
@@ -2518,12 +2517,14 @@ function closeTabRangeBidirectional(ordA, ordB) {
     if (ordB == '^') ordB = 0;
     if (ordA == '$') ordA = N+1;
     if (ordB == '$') ordB = N+1;
+    var idxA = parseInt(ordA) - 1;
+    var idxB = parseInt(ordB) - 1;
 
     var n = Math.abs(ordB-ordA);
-    if (ordA < ordB) {
-        firstTab =  tabs.getTab(ordA);       // ord->idx(-1), then +1
+    if (idxA < idxB) {
+        firstTab =  tabs.getTab(idxA);
     } else {
-        firstTab =  tabs.getTab(ordB - 1);   // ord->idx(-1)
+        firstTab =  tabs.getTab(idxB + 1);
     }
     tabs.remove(firstTab, n);
     return n;
