@@ -3716,18 +3716,18 @@ command! listextensions
     \ -js getExtensions();
 
 
-map <ext>e<C-h> -js CommandExMode().open("showkeys <ext>e");
-map <ext>e      -js CommandExMode().open("showkeys <ext>e");
+map <ext>x<C-h> -js CommandExMode().open("showkeys <ext>x");
+map <ext>x      -js CommandExMode().open("showkeys <ext>x");
 map <ext>n<C-h> -js CommandExMode().open("showkeys <ext>n");
 map <ext>n      -js CommandExMode().open("showkeys <ext>n");
 map <ext>s<C-h> -js CommandExMode().open("showkeys <ext>s");
 map <ext>s      -js CommandExMode().open("showkeys <ext>s");
 map <ext>st -ex dialog customizetoolbar
-map <ext>ee       -description "enable extension" :extenable<Space>
-map <ext>ed       -description "disable extension" :extdisable<Space>
-map <ext>eo       -description "extension options" :extoptions<Space>
-map <ext>er       -description "rehash extension" :extrehash<Space>
-map <ext>e<Space> -description "toggle extension" :exttoggle<Space>
+map <ext>xe       -description "enable extension" :extenable<Space>
+map <ext>xd       -description "disable extension" :extdisable<Space>
+map <ext>xo       -description "extension options" :extoptions<Space>
+map <ext>xr       -description "rehash extension" :extrehash<Space>
+map <ext>x<Space> -description "toggle extension" :exttoggle<Space>
 map <ext>t        -description "Tile Tabs: View Tiled" -js tileTabs.Tile();
 
 " | Stay Open Menu | "
