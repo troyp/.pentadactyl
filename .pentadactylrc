@@ -9410,7 +9410,7 @@ function seCleanup(showSnippetResults) {
     }
     removeSelectors(
         'script',
-        'header','#sidebar', '.aside-cta',    // header, sidebar, ask a question
+        'header','#sidebar', '.aside-cta', '#left-sidebar',   // header, sidebar, ask a question
         '.post-taglist', '.special-status', '.bounty-notification',
         '.star-off', '.favoritecount', '#tabs',
         '#PrinterFriendly',    // added-by-userscript
@@ -9419,6 +9419,7 @@ function seCleanup(showSnippetResults) {
         '.user-gravatar32', '.-flair',
         '.bottom-notice', 'form', '#footer', '#feed-link'
     );
+    content.document.getElementsByTagName("body")[0].style.paddingTop='0';
 }
 
 function seRemoveAds() {
