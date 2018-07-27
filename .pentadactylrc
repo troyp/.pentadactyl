@@ -5126,6 +5126,34 @@ highlight -a Hint[Active]
 "                                  |_______________|
 
 " -----------------------------------------------------------------------------
+" ,-------------------,
+" | Files/Directories |
+" '-------------------'
+group local -locations=file://*
+
+map <site>yy -description "Yank file location" -js utils.cbWrite(buffer.URL.replace("file://", ""));
+map <site>yf -description "Yank link location" -js hints.show("Λ");
+map <site>x -description "Execute link with xdg-open" -js hints.show("ƛ");
+
+
+" -----
+" hints
+" -----
+set eht+=[Λ]:'a',':-moz-any-link'
+js hints.addMode("Λ", "Yank local path", e=>{ utils.cbWrite(localGetLinkPath(e)); });
+set eht+=[ƛ]:'a',':-moz-any-link'
+js hints.addMode("ƛ", "Execute link with xdg-open", e=> dactyl.execute("!xdg-open '" + localGetLinkPath(e) + "'"));
+
+js <<EOF
+function localBaseURL() { return buffer.URL.replace("file://", ""); }
+function localGetLinkPath(l) { return decodeURIComponent(l.href).replace("file://", ""); }
+
+EOF
+
+group user
+
+
+" -------------------------------------------------------------------------------
 " ,--------,
 " | Google |
 " '--------'
