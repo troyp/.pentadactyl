@@ -4233,6 +4233,7 @@ EOF
 " | Image Commands |
 " '----------------'
 map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
+map <leader>ii -description "View or follow image" -js hints.show("ἱ");
 
 " -------------------------------------------------------------------------------
 " ,----------------,
