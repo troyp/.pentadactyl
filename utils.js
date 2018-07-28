@@ -221,6 +221,13 @@ var utils = {
     yankWithMsg: function (s) {
         editor.setRegister(null, s, false);
         utils.message(s);
+    },
+
+    cbAppendWithMsg: function (s) {
+        io.system(`echo "\n"; | xsel -aif`);
+        io.system(`echo "\n"; echo -n '${s}' | xsel -aif`);
+        var cbContents = io.system(`xsel -o`);
+        utils.message(cbContents);
     }
 
 // =============================================================================
