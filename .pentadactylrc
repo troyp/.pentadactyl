@@ -1717,6 +1717,7 @@ map <yank>! -description "Yank <H1> heading (choose with completion)" -b :yankh1
 map <yank>@ -description "Yank <H2> heading (choose with completion)" -b :yankh2<Space>
 map <yank># -description "Yank <H3> heading (choose with completion)" -b :yankh3<Space>
 map <yank>$ -description "Yank <H4> heading (choose with completion)" -b :yankh4<Space>
+map <yank>,, -description "Append buffer URL to selection" -js utils.cbAppendWithMsg(buffer.URL);
 
 " Yank commands "
 command! yanktrueURL
