@@ -51,6 +51,8 @@ var utils = {
         gBrowser.selectedTab = currT;
     },
 
+    removeNTabsByOrd: function (ord, n) { tabs.remove(tabs.getTab(ord-1), n); return n; },
+
     moveTab: function (fromOrd, toOrd) { tabs.move(tabs.getTab(fromOrd-1), toOrd); },
 
     withOption: function (opt, val) { var origVal = options.get(opt); },
