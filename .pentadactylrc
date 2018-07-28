@@ -4964,9 +4964,13 @@ js hints.addMode(' ', '', e=>utils.message(e));           "no-break space 00A0"
 set eht+=[🄿]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,'xpath:div/p'
 js hints.addMode('🄿','lmnpop',elem => { lmnpop(elem); });
 
-" ================= "
+" =======
+" Images
+" =======
+set eht+=[ἱ]:img
+js hints.addMode('ἱ', 'View/follow image', elem => dactyl.open(getImageUrl(elem)));
+
 " Background Images "
-" ================= "
 set eht+=[ι]:a,div,span,header,footer,aside,p,h1,h2
 js <<EOF
 hints.addMode(
@@ -4979,7 +4983,6 @@ hints.addMode(
     e => getBackgroundImages().includes(e)
 );
 EOF
-
 
 " =====                                                          "
 " Kanji                                                          "
@@ -10879,6 +10882,12 @@ function addMarginToBody(lr="60px", tb=null) {
     else
         newstyle.innerText = `body { margin: ${tb} ${lr}; }`
     content.document.head.appendChild(newstyle);
+}
+
+function getImageUrl(elt) {
+    "if image is part of an anchor tag, get target URL, else get image source"
+    if (elt.parentElement.tagName == "A") return elt.parentElement.href;
+    else return elt.src;
 }
 
 " ,------------, "
