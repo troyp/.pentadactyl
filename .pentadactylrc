@@ -4232,7 +4232,7 @@ EOF
 " ,----------------,
 " | Image Commands |
 " '----------------'
-map <leader>ia -ex imgsalttotitle
+map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 
 " -------------------------------------------------------------------------------
 " ,----------------,
