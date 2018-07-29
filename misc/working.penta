@@ -513,3 +513,20 @@ group user
 " map <sidebar>P :sidebar! Preferences<CR><f6><f6><C-z>
 
 " -------------------------------------------------------------------------------
+" ,---------------------------,
+" | Packt: Check Todays Ebook |
+" '---------------------------'
+map <leader>aapc
+    \ -description "Check if today's title is already in library"
+    \ -js utils.message(
+    \         packtGetTodaysTitle() + ": " +
+    \         (packtIsTodaysBookInLibrary() ? "already in library" : "NOT in library")
+    \     );
+js <<EOF
+function packtIsTodaysBookInLibrary() {
+    var todaysTitle = packtGetTodaysTitle();
+    "TODO: Get curl to use login credentials"
+    var grepPage = io.system(`curl -s https://www.packtpub.com/account/my-ebooks | grep -F '${todaysTitle}'`);
+    return grepPage.returnValue==0;
+}
+EOF
