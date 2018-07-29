@@ -1735,7 +1735,7 @@ command! yankfilenameorURL
 command! yanktextarea
     \ -description "Yank the contents of textarea N."
     \ -nargs=1
-    \ -js yankTextarea(Number(args[0]));
+    \ -js yankTextarea(Number(args[0])-1);
 command! yanktitleanddate
 \    -description "Yank: pagetitle (date-time)"
 \    -js utils.yankWithMsg(`${buffer.title} (${getDate()})`);
