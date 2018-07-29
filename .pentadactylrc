@@ -2496,7 +2496,9 @@ command! tabclosefromherebefore
 
 js <<EOF
 function closeTabRange(firstOrd, endOrd) {
+    "Close tabs from firstOrd to endOrd-1"
     if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  // current
+    if (endOrd == '.')   endOrd   = gBrowser.mCurrentTab.dactylOrdinal;  // current
     firstSpec = firstOrd - 1;
     if (endOrd === '$') {
         // last tab
