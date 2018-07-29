@@ -1430,6 +1430,7 @@ function packtGetTodaysTitle() {
                "pup 'div.dotd-title text{}'"
             ).output.trim();
 }
+
 function openOrSelectNetflix(where='tab') {
     var alltabs = Array.from(tabs.allTabs);
     var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(/https:\/\/www.netflix.com\//));
@@ -2531,11 +2532,6 @@ function closeTabRangeBidirectional(ordA, ordB=".") {
     }
     tabs.remove(firstTab, n);
     return n;
-}
-function closeTabsBetweenHereAndNExclusive(endOrd) {
-    // start with next tab after current
-    // ends with endOrd (closeTabRange endpoint is exclusive, but endOrd is spec+1)
-    closeTabRange(gBrowser.mCurrentTab.dactylOrdinal, endOrd);
 }
 function closeTabsFromHereTo(endOrd) {
     closeTabRange(gBrowser.mCurrentTab.dactylOrdinal, parseInt(endOrd));
