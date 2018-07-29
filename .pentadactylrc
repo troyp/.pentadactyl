@@ -2838,6 +2838,15 @@ map <goto>U       -description "/opt/userstyles/ directory"
 \                 -count -js openOrSelectTab("file:///opt/userstyles", count?"here":"tab");
 map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
+map <goto>w       -description "(Show bindings: goto (new window/dialog))" -js CommandExMode().open("showkeys <goto>w")
+map <goto>w<C-h>  -description "(Show bindings: goto (new window/dialog))" -js CommandExMode().open("showkeys <goto>w")
+map <goto>wk     -description "Bookmarks Dialog"
+\                 -ex dialog bookmarks
+map <goto>wl      -description "Library Dialog (sticky)"
+\                 -ex librarysticky
+map <goto>wi      -description "Page Info"
+\                 -js BrowserPageInfo();
+
 map <goto>x       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>x")
 map <goto>x<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>x")
 map <goto>xc      -description "ChromEdit"
@@ -2888,13 +2897,6 @@ map <goto>`       -description "Home directory"
 \                 -count -js openOrSelectTab("dactyl.open(`file://${homedir}`,", count?"here":"tab");
 map <goto>/       -description "Root directory"
 \                 -count -js openOrSelectTab("file:///", count?"here":"tab");
-
-map <goto>w;k     -description "Bookmarks Dialog"
-\                 -ex dialog bookmarks
-map <goto>wl      -description "Library Dialog (sticky)"
-\                 -ex librarysticky
-map <goto>wi      -description "Page Info"
-\                 -js BrowserPageInfo();
 
 
 command! appcache
