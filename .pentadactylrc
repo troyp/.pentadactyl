@@ -4267,7 +4267,7 @@ command! table2csv
 command! yanktablecsvarea
     \ -description "Yank the contents of table N's CSV. Use after :table2csv"
     \ -nargs=1
-    \ yanktextarea <args>
+    \ -js yankTableCSVArea(Number(args[0])-1);
 
 command! filtertablerows
     \ -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
