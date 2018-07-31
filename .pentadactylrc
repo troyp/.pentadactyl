@@ -1689,7 +1689,6 @@ map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilen
 map <yank>gu -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
 map <yank>gU -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
-map <yank>H -description "Yank PDF heading in viewer" -ex yankPDFheading
 map <yank>i -description "Yank text input fields" -js yankInputFields();
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
 map <yank>l -description "Yank selection links" -ex yankselectionlinks
@@ -1697,6 +1696,13 @@ map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.t
 map <yank>M -description "Yank markdown link (using H1 heading as title)"
     \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
 map <yank>p -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
+map <yank>P1 -description "PDF: Yank first line" -js content.document.querySelectorAll(".textLayer>div")[0].textContent;
+map <yank>P2 -description "PDF: Yank second line" -js content.document.querySelectorAll(".textLayer>div")[1].textContent;
+map <yank>P3 -description "PDF: Yank third line" -js content.document.querySelectorAll(".textLayer>div")[2].textContent;
+map <yank>P4 -description "PDF: Yank fourth line" -js content.document.querySelectorAll(".textLayer>div")[3].textContent;
+map <yank>P5 -description "PDF: Yank fifth line" -js content.document.querySelectorAll(".textLayer>div")[4].textContent;
+map <yank>PL -description "PDF: Yank specified lines (eg. 2-5,11,19)" -b :pdfYankSpecifiedLines<Space>
+map <yank>PP -description "PDF: Yank nth line" -b :pdfYankNthLine<Space>
 map <yank>r -description "Yank link reference (page title and url)"
     \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
 map <yank>R -description "Yank link reference (page title and heading)"
@@ -1767,13 +1773,18 @@ command! yankh4
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h4'); } "
     \ -js utils.yankWithMsg(args[0]);
 command! yankheading
-    \ -description "Yank the contents of an H4 heading."
+    \ -description "Yank the contents of an H1-4 heading."
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h1','h2','h3','h4'); } "
     \ -js utils.yankWithMsg(args[0]);
-command! yankPDFheading
-    \ -description "Yank PDF heading in viewer"
-    \ -js utils.yankWithMsg(content.document.querySelector('.textLayer>div').textContent);
+command! pdfYankNthLine
+    \ -description "PDF: Yank nth line"
+    \ -nargs=1
+    \ -js utils.yankWithMsg(content.document.querySelectorAll('.textLayer>div')[Number(args[0])-1].textContent);
+command! pdfYankSpecifiedLines
+    \ -description "PDF: Yank nth line"
+    \ -nargs=1
+    \ -js pdfYankLines(parseRanges(args[0]));
 
 js <<EOF
 function yankTextarea(n) {
@@ -1788,6 +1799,15 @@ function yankSelectorContent(sel, target='innerText') {
 function yankSelectorCompletions(...sels) {
     return getSelectorsContent(sels).map(e=>[e]);
 }
+
+function pdfGetLines(lines, sep="\n") {
+    var allLines = content.document.querySelectorAll('.textLayer>div');
+    included = [];
+    for (n of lines) { included.push(allLines[n-1].textContent); }
+    return included.join(sep);
+}
+function pdfYankLines(lines, sep="\n") { utils.cbWriteWithMessageLimit(pdfGetLines(lines)); }
+window.pdfYankLines = pdfYankLines;
 
 EOF
 
