@@ -5956,7 +5956,7 @@ map <app>w -ex waybacktoggle
 
 " ===== GROUP START =====
 
-group wayback -locations=archive.org
+group wayback -locations=web.archive.org
 
 map <site>t -ex waybacktoggletoolbar
 map <site>T -js waybackToggleToolbarUrl();
