@@ -3953,12 +3953,21 @@ command! rikgetmergedivs
 \    -description "Rikaisama: get merged divs preference" getboolpref
 \    extensions.rikaisama.mergedivs
 
-style -name=rikaisama-bigkanji * .w-kanji { font-size: 200% !important; }
-style -name=rikaisama-hugekanji * .w-kanji { font-size: 300% !important; }
+style -name=rikaisama-bigkanji *
+\    #rikaichan-window>.w-kanji { font-size: 200% !important; }
+\    #rikaichan-window .k-kanji { font-size: 400% !important; }
+\    #rikaichan-window .k-abox-r,
+\    #rikaichan-window .k-bbox-tb .k-bbox-0a,
+\    #rikaichan-window .k-bbox-tb .k-bbox-1a { font-size: 120% !important; }
+style -name=rikaisama-hugekanji *
+\ #rikaichan-window>.w-kanji { font-size: 300% !important; }
+\ #rikaichan-window .k-kanji { font-size: 600% !important; }
 style -name=rikaisama-on-top * #rikaichan-window { z-index: 8888888888 !important; }
 style -name=rikaisama-kanji-light *
-\    .w-kanji {
-\        font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3","游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif !important;
+\    #rikaichan-window>.w-kanji, #rikaichan-window .k-kanji {
+\        font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3",
+\                     "游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif
+\                     !important;
 \    }
 styledisable -name rikaisama-hugekanji
 
