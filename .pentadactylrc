@@ -3954,7 +3954,13 @@ command! rikgetmergedivs
 \    extensions.rikaisama.mergedivs
 
 style -name=rikaisama-bigkanji * .w-kanji { font-size: 200% !important; }
+style -name=rikaisama-hugekanji * .w-kanji { font-size: 300% !important; }
 style -name=rikaisama-on-top * #rikaichan-window { z-index: 8888888888 !important; }
+style -name=rikaisama-kanji-light *
+\    .w-kanji {
+\        font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3","游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif !important;
+\    }
+styledisable -name rikaisama-hugekanji
 
 map <ext>r<C-h> -description "(show bindings: Rikaisama)" -js CommandExMode().open("showkeys <ext>r");
 map <ext>r      -description "(show bindings: Rikaisama)" -js CommandExMode().open("showkeys <ext>r");
@@ -3968,8 +3974,10 @@ map <ext>rt<C-h> -description "(show bindings: Rikaisama Toggles)"
 map <ext>rt      -description "(show bindings: Rikaisama Toggles)"
 \                -js CommandExMode().open("showkeys <ext>rt");
 map <ext>rtk -description "Rikai: Toggle large kanji" -ex styletoggle -name rikaisama-bigkanji
+map <ext>rtK -description "Rikai: Toggle huge kanji"  -ex styletoggle -name rikaisama-hugekanji
 map <ext>rtm -description "Rikai: Toggle merged divs" -ex riktogglemergedivs
 map <ext>rto -description "Rikai: Toggle on top" -ex styletoggle -name rikaisama-on-top
+map <ext>rts -description "Rikai: Toggle kanji style"  -ex styletoggle -name rikaisama-kanji-light
 
 js <<EOF
 function rikLBIsVisible() {
