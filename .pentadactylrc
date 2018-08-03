@@ -8034,7 +8034,10 @@ map <site>Ow     -description "search entry in Weblio (new tab)"                
 " <site>t  --  Toggles "
 map <site>t      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>t")
-map <site>tc     -description "Toggle heavy/light kanji style"                     -ex jishokanjitogglestyle
+map <site>tsd -description "Toggle heavy/light kanji style (definitions)"
+\             -ex styletoggle -group jisho -name jisho-definitions-page-kanji-style
+map <site>tss -description "Toggle heavy/light kanji style (kanji details)"
+\             -ex styletoggle -group jisho -name jisho-kanji-page-kanji-style
 map <site>te     -description "Toggle between sentences page and regular results"  -ex jishotogglesentences
 map <site>tk     -description "Toggle between kanji page and regular results"      -ex jishotogglekanji
 map <site>tl     -description "Show all link lists"                                -ex jishotogglelinklists
@@ -8214,24 +8217,22 @@ command! jishohintclicklinks          -js hints.show("リ");
 " -----------
 " Kanji style
 " -----------
-style -name=kanji-light
-    \ jisho.org
-    \ .kanji .character, .kanji_light .character {
-    \     font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3","游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif !important;
-    \ }
-    \ .kanji .character:hover, .kanji_light .character:hover {
-    \     font-family:  "HiraKakuPro-W3","Hiragino Kaku Gothic Pro W3","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ",Meiryo,"游ゴシック",YuGothic,"ＭＳ Ｐゴシック","MS PGothic","ＭＳ ゴシック","MS Gothic",sans,sans-serif !important;
-    \ }
-command! jishokanjilight
-    \ -description "Light style kanji"
-    \ styleenable -group jisho -name kanji-light
-command! jishokanjiheavy
-    \ -description "Heavy style kanji"
-    \ styledisable -group jisho -name kanji-light
-command! jishokanjitogglestyle
-    \ -description "Toggle heavy/light kanji style"
-    \ styletoggle -group jisho -name kanji-light
-
+style -name=jisho-kanji-page-kanji-style
+\    jisho.org
+\    .kanji .character, .kanji_light .character,
+\    .kanji .character:hover, .kanji_light .character:hover {
+\        font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3",
+\                     "游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif
+\                     !important;
+\    }
+style -name=jisho-definitions-page-kanji-style
+\    jisho.org
+\    .concept_light-representation>.text {
+\        font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3",
+\                     "游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif
+\                     !important;
+\    }
+styledisable -name jisho-definitions-page-kanji-style
 
 " ---------------------
 " Stroke order diagrams
