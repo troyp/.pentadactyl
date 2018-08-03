@@ -3909,6 +3909,11 @@ map <ext>lpc -ex popjisyochinesecolumns
 "   rcxMain.htmlParser(aHTMLString)
 "   rcxMain.lookupSearch(text)            // perform lookupbar search (results in popup)
 "   rcxMain.showPopup(text)               // show text using Rikaisama popup
+
+" Saved definitions/audio"
+set! extensions.rikaisama.sfile=~/Documents/rikai-saved
+set! extensions.rikaisama.audiodir=~/Documents/rikai-saved-audio
+
 command! riklbaron -description "Rikaisama lookupbar on"
     \ -js rcxMain.lbToggle();
 command! riklbaroff -description "Rikaisama lookupbar off"
