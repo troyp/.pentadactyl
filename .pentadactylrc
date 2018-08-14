@@ -9483,6 +9483,16 @@ group user
 " '-------------------'
 group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
 
+" === hint modes === "
+set eht+=π:'.answer'
+js <<EOF
+hints.addMode(
+    "π",
+    "Print post",
+    e => sePrintPost(e)
+);
+EOF
+
 js <<EOF
 
 function seExpandAllComments() {
@@ -9522,6 +9532,19 @@ function seRemoveAds() {
     removeSelectorWithMatchingAttribute('div', 'id', 'google_ad');
 }
 
+function sePrintPost(e) {
+    topElts = Array.from(content.document.body.children);
+    topElts.forEach(elt => elt.remove());
+    content.document.body.appendChild(e);
+    removeSelectors(
+        ".post-layout--right>div:nth-of-type(2)",
+        ".suggest-edit-post",
+        ".short-link",
+        ".user-gravatar32",
+        ".vote-up-on", ".vote-up-off", ".vote-down-on", ".vote-down-off"
+    );
+}
+
 EOF
 
 command! secleanup
@@ -9531,6 +9554,7 @@ command! secleanup
 
 map <site>a        -description "Remove ads" -js seRemoveAds();
 map <site>c -count -description "Expand links and remove cruft." -js  seExpandAllComments(); seCleanup(count);
+map <site>p        -description "Print post." -js hints.show("π");
 
 map -modes insert -b <A-k> <S-<>kbd<S->><S-<>/kbd<S->><Left><Left><Left><Left><Left><Left>
 
