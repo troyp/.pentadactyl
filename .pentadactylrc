@@ -1331,6 +1331,9 @@ map <leader>aapf
 map <leader>aapl
     \ -description "Open Packt Library"
     \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
+map <leader>aapn
+    \ -description "Is today's Packt free already in library?"
+    \ -js utils.message(packtGetTodaysTitle() + ": " + (packtIsTodaysTitleInLibrary() ? "Already in library" : "NOT in library"));
 map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
     \ -js utils.yankWithMsg(packtGetTodaysTitle());
@@ -1429,6 +1432,14 @@ function packtGetTodaysTitle() {
                "curl -s https://www.packtpub.com/packt/offers/free-learning | " +
                "pup 'div.dotd-title text{}'"
             ).output.trim();
+}
+
+function packtIsTodaysTitleInLibrary() {
+    return io.system(
+                'grep -F "' +
+                "$(curl -s https://www.packtpub.com/packt/offers/free-learning | pup 'div.dotd-title text{}' | python -c 'import sys; print(sys.stdin.read().strip())')" +
+                '" ~/.pentadactyl/data/packt-library.txt'
+            ).returnValue==0;
 }
 
 function openOrSelectNetflix(where='tab') {
@@ -1689,7 +1700,8 @@ map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilen
 map <yank>gu -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
 map <yank>gU -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
-map <yank>i -description "Yank text input fields" -js yankInputFields();
+map <yank>ii -description "Yank first text input field" -js yankInputFieldN(1);
+map <yank>ia -description "Yank text input fields" -js yankInputFields();
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
 map <yank>l -description "Yank selection links" -ex yankselectionlinks
 map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
