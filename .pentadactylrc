@@ -1149,7 +1149,11 @@ map <leader>jj
     \ -description "Jisho search (clipboard)"
     \ -count
     \ -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <leader>jk
+map <leader>jk      -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
+map <leader>jk<C-h> -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
+map <leader>jkh -description "Google Translate handwritten input"
+    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"tab");
+map <leader>jkp
     \ -description "Jisho kanji search (clipboard)"
     \ -count
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
@@ -1356,9 +1360,6 @@ map <leader>agh
 map <leader>agb
     \ -description "Open My Bitbucket"
     \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
-" <leader>j - Japanese "
-map <leader>jk -description "Google Translate handwritten input"
-    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"tab");
 " Email: <leader>am "
 map <leader>am      -js CommandExMode().open("showkeys <leader>am");
 map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am");
