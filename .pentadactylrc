@@ -1339,7 +1339,7 @@ map <leader>aapl
     \ -description "Open Packt Library"
     \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
 map <leader>aapn
-    \ -description "Is today's Packt free already in library?"
+    \ -description "Is today's Packt free title already in library?"
     \ -js utils.message(packtGetTodaysTitle() + ": " + (packtIsTodaysTitleInLibrary() ? "Already in library" : "NOT in library"));
 map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
