@@ -810,6 +810,9 @@ map gn
 \    -description "Jump to a QuickMark in a new tab (focused if quickmark in 'activate'). See also M and :qmark"
 \    -b gn
 
+map gH -description "Go to first entry in tab's history" -ex back!
+map gL -description "Go to last entry in tab's history" -ex forward!
+
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
 map <C-,>   -modes normal -b <Left>
