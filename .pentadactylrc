@@ -1329,6 +1329,9 @@ map <leader>aar
     \ -description "Open Inoreader"
     \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
 "  <leader>aap - Packt "
+map <leader>aapa
+    \ -description "Append today's Packt free title to library"
+    \ -js packtWriteTitleToListAndShowEndOfList();
 map <leader>aapf
     \ -description "Open Packt Free Learning"
     \ -count -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1");
@@ -1441,6 +1444,15 @@ function packtIsTodaysTitleInLibrary() {
                 "$(curl -s https://www.packtpub.com/packt/offers/free-learning | pup 'div.dotd-title text{}' | python -c 'import sys; print(sys.stdin.read().strip())')" +
                 '" ~/.pentadactyl/data/packt-library.txt'
             ).returnValue==0;
+}
+
+function packtWriteTitleToList(title=packtGetTodaysTitle()) {
+    return io.system("printf '" + title + "\n' >> ~/.pentadactyl/data/packt-library.txt").returnValue;
+}
+
+function packtWriteTitleToListAndShowEndOfList(title=packtGetTodaysTitle()) {
+    packtWriteTitleToList(title);
+    utils.message(io.system("tail ~/.pentadactyl/data/packt-library.txt").output);
 }
 
 function openOrSelectNetflix(where='tab') {
