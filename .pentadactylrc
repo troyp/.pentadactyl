@@ -6639,7 +6639,9 @@ map <site>of -description "Leave feedback"
 map <site>om -description "Goto Inbox"
 \    -js openOrSelectTab("https://mesg.ebay.com.au/mesgweb/ViewMessages/0", count?"tab":"here");
 map <site>oo -description "Goto Orders (Purchase history)"
-\    -js openOrSelectTab("https://www.ebay.com.au/myb/PurchaseHistory", count?"tab":"here");
+\    -js openOrSelectTab(
+\            "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2",
+\            count?"tab":"here");
 map <site>ow -description "Goto watch list"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/WatchList", count?"tab":"here");
 map <site>oy -description "Goto My eBay"
