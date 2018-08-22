@@ -805,8 +805,10 @@ map <link_desc> ;Y
 " <C-x> : GUI commands, etc.
 " y : yank
 
-map go -b go
-map gn -b gn
+map go -description "Jump to a QuickMark in the current tab. See also M and :qmark" -b go
+map gn
+\    -description "Jump to a QuickMark in a new tab (focused if quickmark in 'activate'). See also M and :qmark"
+\    -b gn
 
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
