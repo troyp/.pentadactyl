@@ -6633,7 +6633,7 @@ command! ebayfilterbytitle
 map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>o -js CommandExMode().open("showkeys <site>o")
 map <site>oc -description "Goto Cart"
-\    -js openOrSelectTab("https://cart.payments.ebay.com.au/sc/view", count?"tab":"here", null, true);
+\    -js openOrSelectTab("https://cart.ebay.com.au", count?"tab":"here", null, true);
 map <site>of -description "Leave feedback"
 \    -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"tab":"here");
 map <site>om -description "Goto Inbox"
