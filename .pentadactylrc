@@ -11013,6 +11013,16 @@ function getImageUrl(elt) {
     else return elt.src;
 }
 
+" Escape shell special characters in filename"
+function escapeFilename(f) { return f.replace(/[\[\]\-\\^ '!#$&()*,;<>?`{}|~]/g, '\\$&'); }
+" Escape shell special characters which aren't yet escaped "
+" Occurs when using completion starting from an escaped directory: "
+"   Pentadactyl's completion only escaped spaces. "
+function escapeFilenameUnescapedChars(f) {
+    return f.replace(/\\?(\[|\]|-|\\|\^| |!|#|\$|&|\(|\)|\*|,|;|<|>|\?|`|{|}|\||~|')/g, "\\$&")
+}
+window.escapeFilenameUnescapedChars = escapeFilenameUnescapedChars;
+
 " ,------------, "
 " | conversion | "
 " '------------' "
