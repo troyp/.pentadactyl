@@ -6903,6 +6903,9 @@ map <site>mo       -description "My profile" -count -js dactyl.open('https://git
 map <site>mr       -description "My repositories"
 \                  -count
 \                  -js openOrSelectTab(`https://github.com/${ghusername}?tab=repositories`, count?"tab":"here");
+map <site>ms       -description "My stars"
+\                  -count
+\                  -js openOrSelectTab(`https://github.com/${ghusername}?tab=stars`, count?"tab":"here");
 map <site>o<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>og       -description "Open gists"
 \                  -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"tab");
