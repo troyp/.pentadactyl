@@ -1133,7 +1133,7 @@ function xopenMaybeFromBufferDir() {
     var localDirRegex = /^file:\/\/(.*)/;
     var localDirMatch = buffer.URL.match(localDirRegex);
     if (localDirMatch) {
-        var localDir = decodeURIComponent(localDirMatch[1]).replace(' ', '\\ ');
+        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
         CommandExMode().open('xopen ' + localDir);
     } else {
         CommandExMode().open('xopen ');
