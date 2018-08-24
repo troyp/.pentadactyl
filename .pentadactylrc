@@ -1076,7 +1076,7 @@ map <app>op
 
 " open file with xdg-open
 " FIXME: issue with maff files with spaces in directory (not name)
-command! xopen -nargs=1 -complete=file !xdg-open <args>
+command! xopen -nargs=1 -complete=file -js dactyl.execute("!xdg-open " + escapeFilenameUnescapedChars(args[0]));
 
 " Open in Google Chrome "
 command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}" &`
