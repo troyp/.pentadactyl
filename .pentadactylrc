@@ -5237,7 +5237,7 @@ map <site>x -description "Execute link with xdg-open" -js hints.show("ƛ");
 set eht+=[Λ]:'a',':-moz-any-link'
 js hints.addMode("Λ", "Yank local path", e=>{ utils.cbWrite(localGetLinkPath(e)); });
 set eht+=[ƛ]:'a',':-moz-any-link'
-js hints.addMode("ƛ", "Execute link with xdg-open", e=> dactyl.execute("!xdg-open '" + localGetLinkPath(e) + "'"));
+js hints.addMode("ƛ", "Execute link with xdg-open", e=> dactyl.execute("xopen '" + localGetLinkPath(e) + "'"));
 
 js <<EOF
 function localBaseURL() { return buffer.URL.replace("file://", ""); }
