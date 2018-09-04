@@ -1830,6 +1830,7 @@ command! pdfYankSpecifiedLines
 js <<EOF
 function yankTextarea(n) {
     var contents = getTextArea(n);
+    var contents = getSelectorContent(`textarea:nth-of-type(${n})`);
     utils.cbWriteWithMessageLimit(contents);
 }
 
