@@ -1440,6 +1440,11 @@ map <leader>aws
 map <leader>awt
     \ -description "Open Goonellabah Weather (timeanddate.com)"
     \ -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
+" MyGov "
+map <leader>ay
+    \ -description "Open MyGov"
+    \ -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
+    \                            count?"here":"tab");
 
 js <<EOF
 function packtGetTodaysTitle() {
