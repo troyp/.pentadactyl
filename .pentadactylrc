@@ -9736,6 +9736,15 @@ EOF
 
 group user
 
+" ,-----------------,
+" | TheKanjiMap.com |
+" '-----------------'
+group kanjimap -locations=thekanjimap.com
+
+map <site>c -description "close box" -ex clickselector .close　　
+
+group user
+
 " -------------------------------------------------------------------------------
 " ,---------------------,
 " | ThingsAndStuff Wiki |
