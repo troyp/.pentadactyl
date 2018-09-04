@@ -1162,6 +1162,9 @@ map <leader>jkp
     \ -description "Jisho kanji search (clipboard)"
     \ -count
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <leader>jkv -description "Visual Kanji Search (similar kanji)"
+    \ -count -js openOrSelectTab("https://thekanjimap.com/index.html?k="+dactyl.clipboardRead(),
+    \                            count?"here":"tab");
 map <leader>jm -description "Jisho multiword search" -b :jishomultisearch<Space>
 map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
 
