@@ -2805,6 +2805,9 @@ map <goto><C-a>   -description "Palemoon Incompatible Extensions"
 \                 -count -js openOrSelectTab("https://addons.palemoon.org/incompatible/", count?"here":"tab");
 map <goto>;a      -description "Addons Directory"
 \                 -count -js openOrSelectTab("file:///opt/ff-addons/", count?"here":"tab");
+map <goto>b       -description "Firefox Keyboard Shortcuts"
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/doc/firefox-kb-shortcuts.html`,
+\                                            count?"here":"tab");
 map <goto>c       -description "about:config (existing or new tab)"
 \                 -count -js openOrSelectTab("about:config", count?"here":"tab");
 map <goto>d       -description "Downloads"
