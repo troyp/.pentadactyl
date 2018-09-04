@@ -20,6 +20,11 @@ temp.*
 info/
 scratch.*
 personal.js
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+TAGS
 /doc/firefox-devtools-kb-shortcuts.html
 /doc/firefox-kb-shortcuts.html
 /doc/firefox-mouse-shortcuts.html
