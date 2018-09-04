@@ -9368,6 +9368,7 @@ map <site>of -description "Goto free learning"
 map <site>ol -description "Goto library"
 \    -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks", count?"tab":"here");
 map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
+map <site>ya -description "Yank titles" -ex yankselectorcontent .title
 
 style -name=packt-thin-lines https://www.packtpub.com/account/my-ebooks
 \    .product-line,.product-top-line,.toggle-product-line,.content-width {
