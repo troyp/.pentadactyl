@@ -5360,6 +5360,9 @@ group user
 " '--------------------'
 group ffaddons -locations=addons.mozilla.org
 
+map <site>a
+\ -description "Show Download Anyway buttons"
+\ -js Array.from(content.document.getElementsByClassName('download-anyway')).map(e=>e.style.display="block");
 map <site>c -description "Download XPI" -js ffaddonDlToDir();
 map <site>i -description "Install XPI" -js ffaddonInstall();
 map <site>v -description "Show all versions" -js clickSelector('.AddonMoreInfo-version-history-link');
