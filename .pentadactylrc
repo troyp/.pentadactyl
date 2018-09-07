@@ -9477,6 +9477,7 @@ group reddit -locations=reddit.com
 map <site>c -description "Passthrough-mode" -b <C-z>
 map <site>m -description "Remove cruft" -js redditTidy();
 map <site>ts -description "Toggle saved post" -js redditToggleSave();
+map <site>to -description "Toggle old reddit" -js toggleUrl("https://www.", "https://old.");
 
 map <A-1> 1gt
 map <A-2> 2gt
