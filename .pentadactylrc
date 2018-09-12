@@ -5994,6 +5994,16 @@ function amazonPreviousPage() {
     if (l) l.click();
     else dactyl.execute("feedkeys <pass-next-key-builtin>[[");
 }
+function amazonIsAU(url) {
+    url = url || buffer.URL;
+    return amazonGetUrlParts(url)[2] == ".au";
+}
+function amazonWishlistUrl(url) {
+    if (amazonIsAU(url))
+        return "https://www.amazon.com.au/hz/wishlist/ls/92B2XGWP5PC9?sort=default";
+    else
+        return "https://smile.amazon.com/gp/registry/wishlist/16ODAURM1G5HA/ref=nav_wishlist_lists_1";
+}
 EOF
 
 map <site>o  -js CommandExMode().open("showkeys <site>o")
@@ -6008,7 +6018,7 @@ map <site>or -description "Goto reviews"
 map <site>oR -description "Goto reviews - all"
 \            -js content.document.getElementById("dp-summary-see-all-reviews").click();
 map <site>ow -description "Goto wish list"
-\    -js openOrSelectTab("https://smile.amazon.com/gp/registry/wishlist/16ODAURM1G5HA/ref=nav_wishlist_lists_1", count?"tab":"here");
+\    -js openOrSelectTab(amazonWishlistUrl(), count?"tab":"here");
 map <site>ta -description "Toggle Australian site"
 \    -js toggleUrl('www.amazon.com.au', 'smile.amazon.com');
 map <site>tg -description "Toggle 'Amazon Global' checkbox" -js amazonGetCheckbox(/amazon global/i).click();
