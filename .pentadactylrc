@@ -8095,18 +8095,12 @@ map <site>gS  -description "Scale the dimensions of stroke order diagrams"
 \             -b :jishoscalesod<Space>
 map <site>k<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
 map <site>k      -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
-" <site>o  --  open here "
+" <site>o  --  Open (in new tab with count: in current tab)"
 map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
-map <site>oe     -description "open sentence examples" -js hints.show("た");
-map <site>ok     -description "open kanji details"     -js hints.show("か");
-map <site>ow     -description "search entry in Weblio" -js hints.show("ヱ");
-" <site>O  --  open in new tab "
-map <site>O      -description "(show bindings)" -js CommandExMode().open("showkeys <site>O")
-map <site>O<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>O")
-map <site>Oe     -description "open sentence examples (new tab)" -js hints.show("だ");
-map <site>Ok     -description "open kanji details (new tab)"     -js hints.show("が");
-map <site>Ow     -description "search entry in Weblio (new tab)" -js hints.show("ヹ");
+map <site>oe     -description "open sentence examples" -js count ? hints.show("た") : hints.show("だ");
+map <site>ok     -description "open kanji details"     -js count ? hints.show("か") : hints.show("が");
+map <site>ow     -description "search entry in Weblio" -js count ? hints.show("ヱ") : hints.show("ヹ");
 " <site>t  --  Toggles "
 map <site>t      -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
