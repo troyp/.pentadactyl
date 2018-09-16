@@ -8084,30 +8084,32 @@ group jisho -locations=jisho.org
 " remove all existing jisholautocmds
 autocmd! -group jisho
 
-map <site>fl     -description "Links drop down"                                    -js hints.show("リ");
+map <site>fl     -description "Links drop down" -js hints.show("リ");
 " <site>g  --  adjust page "
-map <site>g      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>g")
-map <lite>g<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>g")
-map <site>gm     -description "Fix modal in viewport"                              -js jishoFixModal();
-map <site>gs     -description "Halve the dimensions of stroke order diagrams"      -ex jishoshrinksod
-map <site>gS     -description "Scale the dimensions of stroke order diagrams"      -b :jishoscalesod<Space>
-map <site>k<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>k")
-map <site>k      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>k")
+map <site>g      -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
+map <lite>g<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>g")
+map <site>gm     -description "Fix modal in viewport" -js jishoFixModal();
+map <site>gs  -description "Halve the dimensions of stroke order diagrams"
+\             -ex jishoshrinksod
+map <site>gS  -description "Scale the dimensions of stroke order diagrams"
+\             -b :jishoscalesod<Space>
+map <site>k<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
+map <site>k      -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
 " <site>o  --  open here "
-map <site>o      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>o")
-map <site>o<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>o")
-map <site>oe     -description "open sentence examples"                             -js hints.show("た");
-map <site>ok     -description "open kanji details"                                 -js hints.show("か");
-map <site>ow     -description "search entry in Weblio"                             -js hints.show("ヱ");
+map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>oe     -description "open sentence examples" -js hints.show("た");
+map <site>ok     -description "open kanji details"     -js hints.show("か");
+map <site>ow     -description "search entry in Weblio" -js hints.show("ヱ");
 " <site>O  --  open in new tab "
-map <site>O      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>O")
-map <site>O<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>O")
-map <site>Oe     -description "open sentence examples (new tab)"                   -js hints.show("だ");
-map <site>Ok     -description "open kanji details (new tab)"                       -js hints.show("が");
-map <site>Ow     -description "search entry in Weblio (new tab)"                   -js hints.show("ヹ");
+map <site>O      -description "(show bindings)" -js CommandExMode().open("showkeys <site>O")
+map <site>O<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>O")
+map <site>Oe     -description "open sentence examples (new tab)" -js hints.show("だ");
+map <site>Ok     -description "open kanji details (new tab)"     -js hints.show("が");
+map <site>Ow     -description "search entry in Weblio (new tab)" -js hints.show("ヹ");
 " <site>t  --  Toggles "
-map <site>t      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>t")
-map <site>t<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>t")
+map <site>t      -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
+map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
 map <site>tsd -description "Toggle heavy/light kanji style (definitions)"
 \             -ex styletoggle -group jisho -name jisho-definitions-page-kanji-style
 map <site>tss -description "Toggle heavy/light kanji style (kanji details)"
@@ -8118,12 +8120,12 @@ map <site>tl     -description "Show all link lists"                             
 map <site>tr     -description "Toggle kanji radical input dialog"                  -ex jishotoggleradicalinput
 map <site>tR     -description "Toggle between kana and romaji"                     -ex jishotoggleromaji
 " <site>y  --  Yank "
-map <site>y<C-h> -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>y")
-map <site>y      -description "(show bindings)"                                    -js CommandExMode().open("showkeys <site>y")
-map <site>ye     -description "Yank entry"                                         -js hints.show("ヤ");
-map <site>yy     -description "Yank search term to clipboard"                      -ex jishoyanksearchterm
-map <site>yp     -description "Yank kanji parts"                                   -ex jishokanjiyankparts
-map <site>;      -description "select kanji radical"                               -js hints.show("ぶ");
+map <site>y<C -h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>y       -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>ye  -description "Yank entry"                    -js hints.show("ヤ");
+map <site>yy  -description "Yank search term to clipboard" -ex jishoyanksearchterm
+map <site>yp  -description "Yank kanji parts"              -ex jishokanjiyankparts
+map <site>;   -description "select kanji radical"          -js hints.show("ぶ");
 
 imap <A-k> <Space>#kanji
 
