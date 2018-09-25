@@ -9404,6 +9404,27 @@ map <site>y  -description "Yank Title" -ex yankselectorcontent div.dotd-title>h2
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------------------,
+" | Pencils4Artists.co.uk |
+" '-----------------------'
+group pencils4artists -locations=pencils4artists.co.uk
+
+map <site>o   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>oa  -description "Account"
+\             -count
+\             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
+map <site>ol  -description "Login"
+\             -count
+\             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserLogin.asp?CCode=33", count?"here":"tab");
+map <site>oo  -description "Orders"
+\             -count
+\             -js buffer.URL=="http://www.pencils4artists.co.uk/PBUserAccount.asp" ?
+\                     dactyl.open("javascript:SubmitAction(8,null,0,null,1);") :
+\                     openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-----------,
 " | Poets.org |
 " '-----------'
