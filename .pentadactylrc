@@ -10131,6 +10131,8 @@ function wikiaGetUser() {
     return content.document.querySelector(".wds-avatar").getAttribute("alt");
 }
 
+function wikiaClosePopup() { content.document.querySelector(".close.wikia-chiclet-button").click(); }
+
 EOF
 
 command! wikiaremovefandomads
@@ -10175,6 +10177,7 @@ map <site>s   -ex wikiasearchbar
 map <site>t   -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
 map <site>tn  -description "Toggle Global Navigation" -js wikiaToggleGlobalNav();
 map <site>i   -ex wikiaremoveimages
+map <site>x   -js wikiaClosePopup();
 map <site>]   -ex wikianext
 map <site>[   -ex wikiaprevious
 
