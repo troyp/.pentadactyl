@@ -2080,13 +2080,14 @@ map <C-S-W> -modes insert <pwhashsite>
 " '---------------------------------------'
 map <leader>c<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <leader>c")
 map <leader>c      -description "(show bindings)" -js CommandExMode().open("showkeys <leader>c")
-" Search clipboard contents using search keyword
-map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
-map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
+map <leader>cm -ex messages
 " Repeat search just entered with keyword changed
 map <leader>cr :<C-r>
 " Repeat default just entered search with keyword
 map <leader>cR :<up><Home><forward-word><Space>
+" Search clipboard contents using search keyword
+map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
+map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 
 " ,-------------------,
 " | Command-line only |
