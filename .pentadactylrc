@@ -743,6 +743,7 @@ map <C-h>c       -description "Search commands" -b :searchcommands<Space>
 map <C-h>C       -description "Search commands description" -js CommandExMode().open("searchcommandsdescriptions" + (count?"! ":" "));
 map <C-h>d       -description "Pentadactyl help" -ex help
 map <C-h>D       -description "Pentadactyl help - single page" -ex helpall
+map <C-h>:       -description "Pentadactyl :help..." -b :help<Space>
 map <C-h>e       -description "Show extensions" -b :addons -type extension<Space>
 map <C-h>ag      -description "Show Greasemonkey scripts" -ex addons -type greasemonkey-user-script
 map <C-h>al      -description "Show locale" -b :addons -type locale<Space>
