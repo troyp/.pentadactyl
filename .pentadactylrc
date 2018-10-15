@@ -6534,6 +6534,24 @@ EOF
 
 group user
 
+" ,-----------------,
+" | Carrie-Lewis.com |
+" '-----------------'
+group carrielewis -locations=carrie-lewis.com
+
+map <site>c -description "Remove cruft" -ex removecruft
+
+command! removecruft -description "Remove cruft" -js carrielewisRemoveCruft();
+
+js <<EOF
+function carrielewisRemoveCruft() {
+    isolateSelector("#content");
+    removeSelectors("aside", ".sharedaddy", ".jp-relatedposts", "footer", "#respond", ".post-navigation");
+}
+EOF
+
+group user
+
 " -------------------------------------------------------------------------------
 " ,-------------,
 " | Crunchyroll |
