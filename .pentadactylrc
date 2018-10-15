@@ -2220,13 +2220,6 @@ command! uni
 
 command! yanktitle js dactyl.clipboardWrite(buffer.title)
 
-" Text encodings
-"command! encuni :execute "emenu View.Text Encoding.Unicode"
-"command! encjis :execute "emenu View.Text Encoding.Japanese (Shift_JIS)"
-command! encuni :emenu View.Text Encoding.Unicode
-command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
-command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
-
 " Search commands "
 command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
 command! prefsuffsearch
@@ -4344,6 +4337,20 @@ EOF
 map <leader>i  -description "(show bindings: Image Operations)" -js CommandExMode().open("showkeys <leader>i");
 map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 map <leader>ii -description "View or follow image" -js hints.show("ἱ");
+
+" -------------------------------------------------------------------------------
+" ,---------------,
+" | Text Encoding |
+" '---------------'
+"command! encuni :execute "emenu View.Text Encoding.Unicode"
+"command! encjis :execute "emenu View.Text Encoding.Japanese (Shift_JIS)"
+command! encuni :emenu View.Text Encoding.Unicode
+command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
+command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
+
+map <leader>xe<C-h> -js CommandExMode().open("showkeys <leader>xe")
+map <leader>xe      -js CommandExMode().open("showkeys <leader>xe")
+map <leader>xeu -ex emenu View.Text Encoding.Unicode
 
 " -------------------------------------------------------------------------------
 " ,----------------,
