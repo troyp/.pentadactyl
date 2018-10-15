@@ -4803,7 +4803,7 @@ function pwHashGen(s, fromtab) {
 window.pwHashGen = pwHashGen;
 
 function pwHashDomain(s, fromtab) {
-    var domain = s.replace(/^\w+:\/\//,'').replace(/\/.*/,'').replace(/www\./,'');
+    var domain = s.replace(/^\w+:\/\//,"").replace(/\/.*/,"").replace(/www\./,"").replace(/signin\./,"").replace(/reg\./,"");
     var decodedDomain = decodeURIComponent(domain);
     pwHashGen(decodedDomain, fromtab);
 }
