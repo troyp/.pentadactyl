@@ -6692,6 +6692,8 @@ command! ebayfilterbytitle
 
 map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>o -js CommandExMode().open("showkeys <site>o")
+map <site>oa -description "Goto Account Page"
+\    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"tab":"here", null, true);
 map <site>oc -description "Goto Cart"
 \    -js openOrSelectTab("https://cart.ebay.com.au", count?"tab":"here", null, true);
 map <site>of -description "Leave feedback"
