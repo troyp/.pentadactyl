@@ -9425,10 +9425,26 @@ group packtlearn -locations=https://www.packtpub.com//packt/offers/free-learning
 
 js <<EOF
 function packtClaim() { content.document.getElementById("free-learning-claim").click(); }
+
+function packtMaybeClaimAndWriteToList() {
+    var inLib =
+        io.system(
+            'grep -F "' +
+            "$(curl -s https://www.packtpub.com/packt/offers/free-learning | pup 'div.dotd-title text{}' | python -c 'import sys; print(sys.stdin.read().strip())')" +
+            '" ~/.pentadactyl/data/packt-library.txt'
+        ).returnValue==0;
+    if (!inLib) {
+        packtClaim();
+        packtWriteTitleToListAndShowEndOfList();
+    } else {
+        utils.message(packtGetTodaysTitle() + ": Already in library");
+    }
+}
+
 EOF
 
-map <site>c -description "Claim" -js packtClaim();
-map <site>y  -description "Yank Title" -ex yankselectorcontent div.dotd-title>h2
+map <site>c -description "Claim" -js packtMaybeClaimAndWriteToList();
+map <site>y -description "Yank Title" -ex yankselectorcontent div.dotd-title>h2
 
 group user
 
