@@ -8333,6 +8333,24 @@ style -name=jisho-definitions-page-kanji-style
 \    }
 styledisable -name jisho-definitions-page-kanji-style
 
+" -----------
+" Modal style
+" -----------
+style -name=jisho-modal-fix-position-style
+\    jisho.org
+\    #inflection_modal {
+\        display: block;
+\        opacity: 1;
+\        visibility: visible;
+\        top: 727px;
+\        position: fixed;
+\    }
+\    .reveal-modal-bg {
+\        display: block;
+\        position: fixed;
+\        position: fixed;
+\    }
+
 " ---------------------
 " Stroke order diagrams
 " ---------------------
@@ -8392,9 +8410,11 @@ js <<EOF
 function jishoFixModal() {
     var modal = content.document.getElementById('inflection_modal');
     var modalbg = content.document.getElementsByClassName('reveal-modal-bg')[0];
-    var basestyle = modal.getAttribute("style");
     var bgbasestyle = modalbg.getAttribute("style");
-    modal.setAttribute("style", `${basestyle}; position: fixed;`)
+    modal && modal.setAttribute(
+        "style",
+        "display: block; opacity: 1; visibility: visible; top: 100px; position: fixed;"
+    );
     modalbg.setAttribute("style", `${bgbasestyle}; position: fixed;`)
 }
 
