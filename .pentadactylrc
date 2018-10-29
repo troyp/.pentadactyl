@@ -11345,6 +11345,15 @@ function yankInputFields() {
     utils.message("Copied\n" + textInput.map(f=>"    "+f.value).join("\n"));
 }
 
+function yankInputFieldN(n) {
+    var textInput = getInputFields();
+    var N = textInput.length;
+    if ( N >= n)
+        utils.yankWithMsg(textInput[n-1].value);
+    else
+        utils.message(`Input field ${n} does not exist. There are only ${N} input fields.`);
+}
+
 function getDate(fmt='%y-%m-%d-%T') {
     return io.system(`date '+${fmt}'`).output;
 }
