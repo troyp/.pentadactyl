@@ -1730,7 +1730,7 @@ map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilen
 map <yank>gu -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
 map <yank>gU -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
-map <yank>ii -description "Yank first text input field" -js yankInputFieldN(1);
+map <yank>ii -description "Yank first text input field" -js yankInputFieldN(count || 1);
 map <yank>ia -description "Yank text input fields" -js yankInputFields();
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
 map <yank>l -description "Yank selection links" -ex yankselectionlinks
