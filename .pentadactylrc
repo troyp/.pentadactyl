@@ -3209,7 +3209,7 @@ map <leader>ei -description "Evaluate JS expression by injecting into a script t
 \    -b :evalwithscripttag<Space>
 map <leader>er -description "JS REPL" -ex js!
 map <leader>eR -description "JS REPL: doc=content doc, $=jQuery"
-\    -js dactyl.execute("js doc=content.document; $=jQuery;"); dactyl.execute("js!");
+\    -js dactyl.execute("js doc=content.document; $=jQuery;") && dactyl.execute("js!");
 map <leader>em -description "Evaluate JS expression (end with EOF)" -b :js <<EOF
 map <leader>eb -description "Evaluate JS as bookmarklet"
 \    -b :open javascript:;void(0);<Left><Left><Left><Left><Left><Left><Left><Left><Left>
