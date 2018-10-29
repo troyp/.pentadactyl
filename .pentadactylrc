@@ -10089,7 +10089,7 @@ group user
 " ,-----------,
 " | Wikia.com |
 " '-----------'
-group wikia -locations='.*\.wikia\.com/'
+group wikia -locations='.*\.wikia\.com/','.*\.fandom\.com/'
 autocmd! -group wikia
 
 js <<EOF
