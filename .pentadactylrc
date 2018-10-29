@@ -2868,6 +2868,7 @@ map <goto>low     -description "/opt/webapps"
 map <goto>lp      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp")
 map <goto>lp<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp")
 map <goto>lp/     -description "~/Pictures/"
+\                 -count -js openOrSelectTab(`file://${homedir}/Pictures`, count?"here":"tab");
 map <goto>lpd     -description "~/Pictures/downloads"
 \                 -count -js openOrSelectTab(`file://${homedir}/Pictures/downloads`, count?"here":"tab");
 map <goto>lpa     -description "~/Pictures/art"
