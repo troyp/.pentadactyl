@@ -613,6 +613,12 @@ command! toggleoption
     \ -complete option
     \ -js utils.toggleOption(args[0]);
 
+command! getoption
+    \ -description "Show boolean option."
+    \ -nargs=1
+    \ -complete option
+    \ -js var opt=options.get(args[0]); utils.message(`${opt.name}=${opt.value}`);
+
 set runtimepath=/home/troy/.pentadactyl
 set incfind
 set hlfind
