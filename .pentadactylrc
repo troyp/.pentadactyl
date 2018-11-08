@@ -1257,6 +1257,8 @@ map <leader>tu  -description "Toggle User Mode (Minimal Styling)" -ex set usermo
 map <leader>tv  -description "Toggle Visited Links Styling"       -ex styletoggle  -name visitedlinks
 map <leader>tw  -description "Toggle Wayback Machine"             -ex waybacktoggle
 
+map <leader>?c -description "Display config value" -b :acget
+
 " ,-------------------------,
 " | <leader>T - GUI toggles |
 " '-------------------------'
