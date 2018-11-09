@@ -9502,7 +9502,18 @@ map <site>oo  -description "Orders"
 \                     dactyl.open("javascript:SubmitAction(8,null,0,null,1);") :
 \                     openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
 map <site>3   -description "Cart: count items"
-\             -js utils.message("Number of items: " + Array.from(content.document.querySelectorAll("input.PB")).map(e=>Number(e.value), null).reduce((a,c)=>a+c));
+\             -js utils.message("Number of items: " + p4aCountItems());
+
+js <<EOF
+function p4aCountItems() {
+    if (buffer.URL.match(/PBShoppingCart/)) {
+        return Array.from(content.document.querySelectorAll("input.PB")).map(e=>Number(e.value), null).reduce((a,c)=>a+c);
+    } else if (buffer.URL.match(/PBRenderInvoice/)) {
+        return Array.from(content.document.querySelectorAll("td.cartlineqty")).map(e=>Number(e.innerText), null).reduce((a,c)=>a+c);
+    } else return null;
+}
+EOF
+
 
 group user
 
