@@ -9464,7 +9464,7 @@ style -name=packt-thin-lines https://www.packtpub.com/account/my-ebooks
 " ,----------------------------------------------,
 " | www.packtpub.com//packt/offers/free-learning |
 " '----------------------------------------------'
-group packtlearn -locations=https://www.packtpub.com//packt/offers/free-learning?login=1
+group packtlearn -locations=https://www.packtpub.com//packt/offers/free-learning?login=1,https://www.packtpub.com//packt/offers/free-learning
 
 js <<EOF
 function packtClaim() { content.document.getElementById("free-learning-claim").click(); }
