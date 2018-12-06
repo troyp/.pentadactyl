@@ -8509,7 +8509,7 @@ group user
 " ,--------,
 " | Libgen |
 " '--------'
-group libgen -locations=libgen.io,libgen.pw,library1.org
+group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org
 
 command! libgendl -js libgenCopyFileNameAndDownload();
 command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
