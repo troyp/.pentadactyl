@@ -1917,6 +1917,9 @@ findbarToggle = function() {
 EOF
 
 command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '))
+command! openwpepisodelist
+\    -nargs *
+\    -js openOrSelectTab(`https://en.wikipedia.org/wiki/List_of_${A.map(args, S.toSmartCase).join("_")}_episodes`);
 
 map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
@@ -1948,6 +1951,7 @@ map <search>sa  -description "Shopping search: art" -b :shopart<Space>
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
 map <search>sz  -description "Shopping search: ebay + amazon.au + amazon" -b :shopEbayAmazAmazau<Space>
 map <search>S   -description "Supermarket search: woolworths + coles" -b :supermarket<Space>
+map <search>ve -description "Open wikipedia episode list" -b :openwpepisodelist<Space>
 map <search>w   -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
 map <search>0   -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
 map <search>\'  -description "Link Search: Forward" -modes normal -b /\l
