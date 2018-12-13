@@ -209,10 +209,12 @@ S = {
                               "yet", "so", "for", "in", "to", "of", "at",
                               "by", "up", "for", "off", "on"],
     toTitleCase: function (s) {
+        var initialLetter = s.slice(0, 1);
+        var initialCap = this.isUppercase(initialLetter);
         var words = s.split(/\s+/);
-        var toCapitalize = words.filter(w=>!this.titleCaseExceptionWords.includes(w));
+        var toCapitalize = words.slice(1).filter(w=>!this.titleCaseExceptionWords.includes(w));
         toCapitalize.forEach(w=>{ s = s.replace(w, this.capitalize(w)) });
-        return s;
+        return initialCap ? initialLetter+s.slice(1) : s;
     },
     isAlphaAt: function (s, i) {
         ord = s.charCodeAt(i);
