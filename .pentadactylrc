@@ -202,8 +202,24 @@ S = {
         }
     },
     repeat: function (s, n) { return Array(n).fill(s).join(""); },
+    isLowercase: function(s) {
+        return s.toLowerCase()===s;
+    },
+    isUppercase: function(s) {
+        return s.toUpperCase()===s;
+    },
+    isMixedcase: function(s) {
+        return !(this.isLowercase(s) || this.isUppercase(s));
+    },
     capitalize: function(s) {
         return s.replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    },
+    toSmartCase: function (s) {
+        return (s.toLowerCase()===s) ? S.toStartCase(s) : s;
+    },
+    toStartCase: function (s) {
+        var words = s.split(/\s+/);
+        return A.map(words, w=>this.capitalize(w)).join(" ");
     },
     titleCaseExceptionWords: ["a", "an", "the", "and", "or", "but", "nor",
                               "yet", "so", "for", "in", "to", "of", "at",
