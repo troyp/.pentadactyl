@@ -1082,6 +1082,17 @@ map <app>x
 " ,-------------------------,
 " | <app>e -- Open in Emacs |
 " '-------------------------'
+js <<EOF
+/* TODO: How to save text to a file without using clipboard/selection? */
+function openPageTextInEmacs(createFrame=true) {
+    editor.setRegister("*", content.document.body.innerText, false);
+    if (createFrame)
+        var cmd = "tempfile=`mktemp` && xsel -p > $tempfile && emacsclient -c $tempfile";
+    else
+        var cmd = "tempfile=`mktemp` && xsel -p > $tempfile && emacsclient $tempfile";
+    io.system(cmd);
+}
+EOF
 map <app>e -description "(show bindings: Open in Emacs)" -js CommandExMode().open("showkeys <app>e")
 map <app>ee
 \    -description "Open file in Emacs"
@@ -1092,6 +1103,10 @@ map <app>eE
 map <app>ed
 \    -description "Open directory in Dired"
 \    -ex openDirectoryInDired
+map <app>et
+\    -description "Open page text in Emacs"
+\    -count
+\    -js openPageTextInEmacs(!count)
 map <app>ew
 \    -description "Open page in Emacs w3m"
 \    -js dactyl.execute("!emacsclient -e '(w3m-goto-url "+'"'+buffer.URL+'")'+"'");
