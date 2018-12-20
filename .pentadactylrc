@@ -1513,7 +1513,10 @@ function packtWriteTitleToListAndShowEndOfList(title=packtGetTodaysTitle()) {
 
 function openOrSelectNetflix(where='tab') {
     var alltabs = Array.from(tabs.allTabs);
-    var existingTab = alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(/https:\/\/www.netflix.com\//));
+    var existingTab = alltabs.find(
+    t=> t.linkedBrowser.contentDocument &&
+        t.linkedBrowser.contentDocument.URL.match(/https:\/\/www.netflix.com\//)
+    );
     if (existingTab)
         tabs.select(existingTab);
     else
@@ -11101,8 +11104,12 @@ function openOrSelectTab(url, where='tab', regex=null, reload=false) {
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
         var existingTab =
-            regex ? alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(regex))
-                  : alltabs.find(t=>t.linkedBrowser.contentDocument.URL.indexOf(url)>=0);
+            regex ? alltabs.find( t=> t.linkedBrowser.contentDocument &&
+                                      t.linkedBrowser.contentDocument.URL.match(regex)
+                                )
+                  : alltabs.find( t=> t.linkedBrowser.contentDocument &&
+                                      t.linkedBrowser.contentDocument.URL.indexOf(url)>=0
+                                );
         if (existingTab) {
             tabs.select(existingTab);
             reload && tabs.reload(existingTab);
