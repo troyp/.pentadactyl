@@ -1894,6 +1894,16 @@ function pdfGetLines(lines, sep="\n") {
 function pdfYankLines(lines, sep="\n") { utils.cbWriteWithMessageLimit(pdfGetLines(lines)); }
 window.pdfYankLines = pdfYankLines;
 
+function yankCollection(a, transform=null) {
+    var s;
+    if (transform)
+        s = Array.from(a).map(transform).join("\n");
+    else
+        s = Array.from(a).join("\n");
+    utils.cbWriteWithMessageLimit(s);
+    return s;
+}
+
 function getInputFields() {
     var inputElts = Array.from(content.document.getElementsByTagName("input"));
     var textFields = inputElts.filter(
