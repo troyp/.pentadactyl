@@ -1774,8 +1774,14 @@ map <yank>gU -description "Yank root path or nth level" -count -js utils.yankWit
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 map <yank>ii -description "Yank first text input field" -js yankInputFieldN(count || 1);
 map <yank>ia -description "Yank text input fields" -js yankInputFields();
+map <yank>I
+\    -description "Yank all image locations"
+\    -js yankCollection(content.document.images, l=>l.src);
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
-map <yank>l -description "Yank selection links" -ex yankselectionlinks
+map <yank>l
+\    -description "Yank all links"
+\    -js yankCollection(content.document.links, l=>l.href);
+map <yank>L -description "Yank selection links" -ex yankselectionlinks
 map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
 map <yank>M -description "Yank markdown link (using H1 heading as title)"
     \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
