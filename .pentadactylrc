@@ -2033,13 +2033,13 @@ command! multipleenginesearch -description "Multiple engine bookmark search"
 \    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(0,-1), args.slice(-1));
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
-js searchEngineArtShops = ["e", "amazart", "amazau", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
+js searchEngineArtShops = ["e", "amazart", "aamazart", "amazau", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
 command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=+ -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 command! shopart -description "Shopping search: art"
 \    -nargs=+ -js multipleEngineSearch(searchEngineArtShops, args.join(" "));
 command! shopEbayAmazAmazau -description "Shopping search: ebay + amazon"
-\    -nargs=+ -js multipleEngineSearch(["e", "amaz", "amazau"], args.join(" "));
+\    -nargs=+ -js multipleEngineSearch(["e", "amaz", "aamazart", "amazau"], args.join(" "));
 command! supermarket -description "Supermarket shopping search: woolworths + coles"
 \    -nargs=+ -js multipleEngineSearch(["shopwoo", "shopcol"], args.join(" "));
 
