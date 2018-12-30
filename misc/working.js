@@ -302,6 +302,30 @@ function removeXPath(xpathexpr) {
     dactyl.open(`javascript:var elts=document.evaluate(${xpathexpr},document,null,XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,null);for (var i=0; i < elts.snapshotLength; i++){var elt=elts.snapshotItem(i);elt.parentNode.removeChild(elt);}; void(0)`)
 }
 
+// Toggle off an URL component where the value is unknown, store value to subsequently toggle back on
+function toggleQueryComponentByField(queryField) {
+    var url = buffer.URL;
+    var newurl;
+    var queryRegex = queryField+"=[^?&]+";
+    var value = buffer.URL.match(queryRegex)&&buffer.URL.match(queryRegex)[0] || _dactyl_LastQueryField;
+    if (!value) return False;
+    _dactyl_LastQueryField = value;
+    var query = queryField+"="+value;
+    var qRegexFinal = RegExp("[?&]"+query+"$");
+    var qRegexNonfinal = RegExp(query+"&");
+    if (url.match(qRegexFinal))
+        newurl = url.replace(qRegexFinal, "");
+    else if (url.match(qRegexNonfinal))
+        newurl = url.replace(qRegexNonfinal, "");
+    else if (url.match(/[?]/))
+        newurl = url + "&" + query;
+    else
+        newurl = url + "?" + query;
+    content.window.location = newurl;
+}
+window.toggleQueryComponentByField = toggleQueryComponentByField;
+
+
 // -------------------------------------------------------------------------------
 // ,-----------,
 // | Inoreader |
