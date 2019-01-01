@@ -5375,438 +5375,6 @@ highlight -a Hint[Active]
 "                                  |_______________|
 
 " -----------------------------------------------------------------------------
-" ,-------------------,
-" | Files/Directories |
-" '-------------------'
-group local -locations=file://*
-
-map <site>e -description "Open in emacsclient"
-\           -count
-\           -js dactyl.execute(`!emacsclient${count?" -c":""} ${buffer.URL.replace("file://", "")}`);
-map <site>yy -description "Yank file location" -js utils.cbWrite(buffer.URL.replace("file://", ""));
-map <site>yf -description "Yank link location" -js hints.show("Λ");
-map <site>v -description "Open in gvim"
-\           -js io.system(`gvim ${buffer.URL.replace("file://", "")}`);
-map <site>x -description "Execute link with xdg-open" -js hints.show("ƛ");
-
-
-" -----
-" hints
-" -----
-set eht+=[Λ]:'a',':-moz-any-link'
-js hints.addMode("Λ", "Yank local path", e=>{ utils.cbWrite(localGetLinkPath(e)); });
-set eht+=[ƛ]:'a',':-moz-any-link'
-js hints.addMode("ƛ", "Execute link with xdg-open", e=> dactyl.execute("xopen '" + localGetLinkPath(e) + "'"));
-
-js <<EOF
-function localBaseURL() { return buffer.URL.replace("file://", ""); }
-function localGetLinkPath(l) { return decodeURIComponent(l.href).replace("file://", ""); }
-
-EOF
-
-group user
-
-
-" -------------------------------------------------------------------------------
-" ,--------,
-" | Google |
-" '--------'
-
-" Google definitions
-command! ggdef -nargs=1 -js googledef(args[0]);
-map <leader>gd :ggdef<Space>
-
-js <<EOF
-
-function googledef (word) {
-    "FIXME: event listener not working"
-    var newtab = gBrowser.addTab(`https://www.google.com.au/search?q=define:${word}`);
-    var tb = gBrowser.getBrowserForTab(newtab);
-    var callback = function () {
-        googleDefExpand();
-        tb.removeEventListener("domloaded", callback, false);
-    };
-    tb.addEventListener("domloaded", callback, false);
-    gBrowser.selectedTab = newtab;
-}
-
-EOF
-
-" ===== GROUP START =====
-
-group google -locations=https://www.google.com*
-
-" FIXME: completion drop-down remains open after search
-js <<EOF
-function googleSearchBox(s) {
-    var isTextField = function(e) { return (e.getAttribute("type") == "text"); }
-    var isSubmitButton = function(e) { return (e.getAttribute("type") == "submit"); }
-    var inputElts = content.document.getElementsByTagName("input");
-    var searchbox = [].find.call(inputElts, isTextField);
-    searchbox.value = s;
-    var searchbutton = [].find.call(inputElts, isSubmitButton);
-    searchbutton.click();
-}
-
-function googleRemoveQuotes() {
-    var quotere = /"|'|%22/g;
-    dactyl.open(buffer.URL.replace(quotere, ''),
-                dactyl.CURRENT_TAB);
-}
-
-function googleDefExpand() {
-    var div = content.document.getElementById('uid_0');
-    var link = div.getElementsByClassName('xcae')[0];
-    link.click();
-};
-EOF
-
-" -----
-" hints
-" -----
-set eht+=[ɡ]:cite
-js hints.addMode("ɡ", "Get result URL", e=>{ window._dactylresult=e.innerText.trim().replace(/ .*$/,''); });
-
-js <<EOF
-function googleYankCiteURL() {
-    hints.show("ɡ");
-    window.setTimeout(
-        ()=>utils.cbWrite(window._dactylresult),
-        2000);
-}
-EOF
-
-map <site>y
-\    -description "Yank URL [HINTS]"
-\    -js googleYankCiteURL();
-
-" searchbox command
-command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
-map <site>s :searchbox<Space>
-map <site>\' -js googleRemoveQuotes();
-" Google definitions: expand
-map <site>d -js googleDefExpand();
-
-"              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-map <site>c -ex pagezipper
-
-" restrict search to pages in a specific language
-map <site>gl -b O&lr=lang_
-" restrict search to pages originating in a specific country
-map <site>gc -b O&cr=
-
-group user
-
-" -------------------------------------------------------------------------------
-" ,--------------------,
-" | Addons.Mozilla.org |
-" '--------------------'
-group ffaddons -locations=addons.mozilla.org
-
-map <site>a
-\ -description "Show Download Anyway buttons"
-\ -js Array.from(content.document.getElementsByClassName('download-anyway')).map(e=>e.style.display="block");
-map <site>c -description "Download XPI" -js ffaddonDlToDir();
-map <site>i -description "Install XPI" -js ffaddonInstall();
-map <site>v -description "Show all versions" -js clickSelector('.AddonMoreInfo-version-history-link');
-map <site>b -description "Show beta versions" -js clickSelector('..AddonMoreInfo-beta-versions-link');
-
-js <<EOF
-function ffaddonDlToDir(dir="/opt/ff-addons/") {
-    var btn = content.document.querySelector('.InstallButton-button');
-    var url = btn.getAttribute('href');
-    dactyl.execute(`!(cd ${dir} && wget '${url}')`);
-}
-
-function ffaddonInstall(dir="/opt/ff-addons/") {
-    var btn = content.document.querySelector('.InstallButton-button');
-    var url = btn.getAttribute('href');
-    dactyl.execute(`open ${url}`);
-}
-EOF
-
-group user
-
-" -------------------------------------------------------------------------------
-" ,-------------------,
-" | AnimatedKnots.com |
-" '-------------------'
-group animatedknots -locations=animatedknots.com
-
-set passkeys+='https?://animatedknots.com/.*':'<left><right>'
-
-command! aknotadjust -js animKnotsAdjustments();
-autocmd DOMload animatedknots.com :aknotadjust
-
-map <site>c -ex aknotadjust
-map <site>h -js animKnotsShowInstructions();
-
-js <<EOF
-
-function animKnotsGoToFrame(n) {
-    dactyl.open(`javascript:picMouseOver(${n})`);
-}
-
-function animKnotsRemoveAds() {
-    removeSelectors('.tl-ad-tag');
-}
-
-function animKnotsShowInstructions() {
-    var instructDiv = content.document.querySelector('#TheKnotDescription');
-    var instructions = instructDiv.innerText;
-    alert(instructions);
-}
-
-function animKnotsHideInstructions() { hideSelectors('#TheKnotDescription', 'div.tablecenter.Cell6'); }
-
-function animKnotsRemoveAds() {
-    "Remove large ad"
-    removeSelectors('.borderstopbottom', '#ad_unit', '.tl-ad-tag');
-    "Remove banner ad iframes"
-    removeSelectors('iframe');
-}
-
-function animKnotsMakeHeaderScrollable() {
-    var header = content.document.querySelector('body>div:first-of-type');
-    header.style.position = 'static';
-    var divider = content.document.querySelector('body>div:first-of-type>hr:first-of-type');
-    divider.style.position = 'static';
-}
-
-function animKnotsAdjustments() {
-    animKnotsMakeHeaderScrollable();
-    animKnotsHideInstructions();
-    animKnotsRemoveAds();
-}
-
-EOF
-
-
-group user
-
-" -------------------------------------------------------------------------------
-" ,----------------,
-" | ArchLinux Wiki |
-" '----------------'
-group archwiki -locations=wiki.archlinux.org
-autocmd! -group archwiki
-
-map <site>c -description "Remove cruft" -js archwikiTidy();
-map <site>s -description "Save file in directory" -js archwikiSavePageInDir();
-
-js <<EOF
-function archwikiTidy() {
-    isolateSelector('#content');
-    dactyl.execute('cssapply ".mw-body { margin-left: 0 !important; }"');
-}
-function archwikiSavePageInDir() {
-    var name = `${buffer.title} (${getDate()})`;
-    window._dactylargs = [name];
-    dactyl.execute('feedkeys :saveindir<Space>');
-}
-EOF
-
-group user
-
-" -------------------------------------------------------------------------------
-" ,----------------------,
-" | Dactyl Resource URLs |
-" '----------------------'
-group dactylres -locations=resource://dactyl*
-
-map <site>e -description "Open my fork in Emacsclient" -js dactylresOpenMyForkInEmacsclient();
-map <site>E -description "Open in Emacsclient" -js dactylresOpenInEmacsclient();
-
-js <<EOF
-function dactylresGetRelativeFilePath() {
-    var modulesMatch = buffer.URL.match('^resource://dactyl/(.*)$');
-    var otherMatch = buffer.URL.match('^resource://dactyl-([^/]+)/(.*)$');
-    if (modulesMatch) {
-        return `common/modules/${modulesMatch[1]}`;
-    } else if (otherMatch) {
-        return `common/${otherMatch[1]}/${otherMatch[2]}`;
-    }
-}
-function dactylresOpenInEmacsclient() {
-    var path = getHomeDir() + 'source/git-repos/dactyl/' + dactylresGetRelativeFilePath();
-    dactyl.execute(`!emacsclient ${path}`);
-}
-function dactylresOpenMyForkInEmacsclient() {
-    var path = getHomeDir() + 'repos/dactyl/' + dactylresGetRelativeFilePath();
-    dactyl.execute(`!emacsclient ${path}`);
-}
-EOF
-
-group user
-
-" -----------------------------------------------------------------------------
-" ,-----,
-" | EdX |
-" '-----'
-group edx -locations=edx.org
-autocmd! -group edx
-
-command! edx :runtime! config/edx.penta
-autocmd DOMload courses.edx.org :edx
-
-" if syllabus won't stay open "
-command! edxshowsyllabus -js edxShowSyllabus();
-
-command! edxtogglesyllabus -js edxToggleSyllabus();
-map <site>l -js edxToggleSyllabus();
-
-js <<EOF
-function edxShowSyllabus() {
-    var syllabusDiv = content.document.getElementsByClassName("toggled-content")[0];
-    syllabusDiv.style="height: 1500px;";
-}
-function edxToggleSyllabus() {
-    var showLink = content.document.getElementsByClassName("show-content-cta")[0];
-    var hideLink = content.document.getElementsByClassName("hide-content-cta")[0];
-    var link = showLink.classList.contains("hidden") ? hideLink : showLink;
-    link.click();
-}
-EOF
-
-group user
-
-" -----------------------------------------------------------------------------
-" ,----------,
-" | Coursera |
-" '----------'
-group coursera -locations=www.coursera.org
-
-set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
-
-js <<EOF
-
-function courseraTogglePaused() {
-    var vid = content.document.getElementById('c-video_html5_api');
-    if (!vid) return;
-    if (vid.paused) vid.play(); else vid.pause();
-}
-function courseraRateDec() {
-    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
-    var ratedec = buttons[0];
-    ratedec.click();
-}
-function courseraRateInc() {
-    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
-    var rateinc = buttons[1];
-    rateinc.click();
-}
-function courseraRate(r) {
-    var vid = content.document.getElementById('c-video_html5_api');
-    vid.playbackRate = r;
-    dactyl.utils.message(`rate: ${vid.playbackRate.toFixed(1)}`);
-}
-function courseraVolume(vol) {
-    var vid = content.document.getElementById('c-video_html5_api');
-    vid.volume = vol;
-    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
-}
-function courseraVolumeDec() {
-    var vid = content.document.getElementById('c-video_html5_api');
-    if (vid.volume <= 0.15) vid.volume /= 2;
-    else vid.volume = vid.volume - 0.1;
-    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
-}
-function courseraVolumeInc() {
-    var vid = content.document.getElementById('c-video_html5_api');
-    vid.volume = Math.min(1, vid.volume + 0.1);
-    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
-}
-function courseraJumpTo(s) {
-    var vid = content.document.getElementById('c-video_html5_api');
-    vid.currentTime = s;
-    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
-}
-function courseraJumpBackward(delta) {
-    var vid = content.document.getElementById('c-video_html5_api');
-    vid.currentTime = vid.currentTime - delta;
-    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
-}
-function courseraJumpForward(delta) {
-    var vid = content.document.getElementById('c-video_html5_api');
-    vid.currentTime = vid.currentTime + delta;
-    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
-}
-function courseraDisplay() {
-    var vid = content.document.getElementById('c-video_html5_api');
-    dactyl.utils.message(`time:\t${vid.currentTime.toFixed(2)}\nvolume:\t${vid.volume.toFixed(3)}\nrate:\t${vid.playbackRate.toFixed(1)}`);
-}
-function courseraScrollToNextHighlighted() {
-    var hilited = Array.from(content.document.querySelectorAll('.highlighted'));
-    "jump to first match below viewport; if none, jump back to first match"
-    var i = Math.max(0, hilited.findIndex(e => e.getBoundingClientRect().y > content.window.innerHeight));
-    "scroll the element into view at bottom of page (since navbar obscures top)"
-    hilited[i].scrollIntoView(false);
-    return i;
-}
-
-EOF
-
-" ,-----------------,
-" | Coursera: hints |
-" '-----------------'
-" coursera: jump to match in transcript: mode ẖ "
-set eht+=[ẖ]:.highlighted
-js hints.addMode("ẖ", "Jump to match in transcript", elem => elem.click());
-
-map <site>f
-    \ -description "Hints mode: jump to match in transcript"
-    \ -js hints.show("ẖ");
-
-" ,---------------------------------,
-" | Coursera: commands and bindings |
-" '---------------------------------'
-command! -nargs=1 courseravolume -js courseraVolume(args[0]);
-command! -nargs=1 courserarate -js courseraRate(args[0]);
-command! -nargs=1 courserajump -js courseraJumpTo(args[0]);
-command! courseradisplay -js courseraDisplay();
-map <Space> -js courseraTogglePaused();
-map <Return> -js courseraTogglePaused();
-map <site>c -js courseraTogglePaused();
-map <site><A-h> -js courseraJumpBackward(1);
-map <site><A-l> -js courseraJumpForward(1);
-map <site>h -js courseraJumpBackward(5);
-map <site>l -js courseraJumpForward(5);
-map <site>H -js courseraJumpBackward(25);
-map <site>L -js courseraJumpForward(25);
-map <site>r :courserarate<Space>
-map <site>v -count -ex js courseraVolume(parseInt(<count>)/10);
-map <site>V :courseravolume<Space>
-map <site>, -js courseraRateDec();
-map <site>. -js courseraRateInc();
-map <site>j -js courseraVolumeInc();
-map <site>k -js courseraVolumeDec();
-map <site>? -js courseraDisplay();
-map <site><Tab> -js courseraScrollToNextHighlighted();
-"Arrow Keys"
-map <S-Left> -js courseraJumpBackward(2);
-map <S-Right> -js courseraJumpForward(2);
-map <Left> -js courseraJumpBackward(5);
-map <Right> -js courseraJumpForward(5);
-map <A-Left> -js courseraJumpBackward(20);
-map <A-Right> -js courseraJumpForward(20);
-map <C-Left> -js courseraJumpBackward(60);
-map <C-Right> -js courseraJumpForward(60);
-map <C-Up> -js courseraVolumeInc();
-map <C-Down> -js courseraVolumeDec();
-
-group user
-
-" -----------------------------------------------------------------------------
-" ,-----------------,
-" | AnimeLyrics.com |
-" '-----------------'
-group animelyrics -locations=animelyrics.com
-
-" Go to "Print view with kanji" if it exists, or else "Print view"
-map <site>P -b <C-v>'Print<Space>view<f3><CR>
-
-" -----------------------------------------------------------------------------
 " ,----------,
 " | about: * |
 " '----------'
@@ -6055,6 +5623,36 @@ map <site>v -ex aprefsadvanced
 group user
 
 " -------------------------------------------------------------------------------
+" ,--------------------,
+" | Addons.Mozilla.org |
+" '--------------------'
+group ffaddons -locations=addons.mozilla.org
+
+map <site>a
+\ -description "Show Download Anyway buttons"
+\ -js Array.from(content.document.getElementsByClassName('download-anyway')).map(e=>e.style.display="block");
+map <site>c -description "Download XPI" -js ffaddonDlToDir();
+map <site>i -description "Install XPI" -js ffaddonInstall();
+map <site>v -description "Show all versions" -js clickSelector('.AddonMoreInfo-version-history-link');
+map <site>b -description "Show beta versions" -js clickSelector('..AddonMoreInfo-beta-versions-link');
+
+js <<EOF
+function ffaddonDlToDir(dir="/opt/ff-addons/") {
+    var btn = content.document.querySelector('.InstallButton-button');
+    var url = btn.getAttribute('href');
+    dactyl.execute(`!(cd ${dir} && wget '${url}')`);
+}
+
+function ffaddonInstall(dir="/opt/ff-addons/") {
+    var btn = content.document.querySelector('.InstallButton-button');
+    var url = btn.getAttribute('href');
+    dactyl.execute(`open ${url}`);
+}
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-------------------,
 " | AlternativeTo.net |
 " '-------------------'
@@ -6184,6 +5782,72 @@ map ]] -js amazonNextPage();
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-------------------,
+" | AnimatedKnots.com |
+" '-------------------'
+group animatedknots -locations=animatedknots.com
+
+set passkeys+='https?://animatedknots.com/.*':'<left><right>'
+
+command! aknotadjust -js animKnotsAdjustments();
+autocmd DOMload animatedknots.com :aknotadjust
+
+map <site>c -ex aknotadjust
+map <site>h -js animKnotsShowInstructions();
+
+js <<EOF
+
+function animKnotsGoToFrame(n) {
+    dactyl.open(`javascript:picMouseOver(${n})`);
+}
+
+function animKnotsRemoveAds() {
+    removeSelectors('.tl-ad-tag');
+}
+
+function animKnotsShowInstructions() {
+    var instructDiv = content.document.querySelector('#TheKnotDescription');
+    var instructions = instructDiv.innerText;
+    alert(instructions);
+}
+
+function animKnotsHideInstructions() { hideSelectors('#TheKnotDescription', 'div.tablecenter.Cell6'); }
+
+function animKnotsRemoveAds() {
+    "Remove large ad"
+    removeSelectors('.borderstopbottom', '#ad_unit', '.tl-ad-tag');
+    "Remove banner ad iframes"
+    removeSelectors('iframe');
+}
+
+function animKnotsMakeHeaderScrollable() {
+    var header = content.document.querySelector('body>div:first-of-type');
+    header.style.position = 'static';
+    var divider = content.document.querySelector('body>div:first-of-type>hr:first-of-type');
+    divider.style.position = 'static';
+}
+
+function animKnotsAdjustments() {
+    animKnotsMakeHeaderScrollable();
+    animKnotsHideInstructions();
+    animKnotsRemoveAds();
+}
+
+EOF
+
+
+group user
+
+" -----------------------------------------------------------------------------
+" ,-----------------,
+" | AnimeLyrics.com |
+" '-----------------'
+group animelyrics -locations=animelyrics.com
+
+" Go to "Print view with kanji" if it exists, or else "Print view"
+map <site>P -b <C-v>'Print<Space>view<f3><CR>
+
 " -----------------------------------------------------------------------------
 " ,-------------,
 " | Archive.org |
@@ -6273,7 +5937,31 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
+"" -------------------------------------------------------------------------------
+" ,----------------,
+" | ArchLinux Wiki |
+" '----------------'
+group archwiki -locations=wiki.archlinux.org
+autocmd! -group archwiki
+
+map <site>c -description "Remove cruft" -js archwikiTidy();
+map <site>s -description "Save file in directory" -js archwikiSavePageInDir();
+
+js <<EOF
+function archwikiTidy() {
+    isolateSelector('#content');
+    dactyl.execute('cssapply ".mw-body { margin-left: 0 !important; }"');
+}
+function archwikiSavePageInDir() {
+    var name = `${buffer.title} (${getDate()})`;
+    window._dactylargs = [name];
+    dactyl.execute('feedkeys :saveindir<Space>');
+}
+EOF
+
+group user
+
+ -------------------------------------------------------------------------------
 " ,--------------,
 " | BangGood.com |
 " '--------------'
@@ -6689,6 +6377,132 @@ EOF
 
 group user
 
+" -----------------------------------------------------------------------------
+" ,----------,
+" | Coursera |
+" '----------'
+group coursera -locations=www.coursera.org
+
+set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
+
+js <<EOF
+
+function courseraTogglePaused() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    if (!vid) return;
+    if (vid.paused) vid.play(); else vid.pause();
+}
+function courseraRateDec() {
+    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
+    var ratedec = buttons[0];
+    ratedec.click();
+}
+function courseraRateInc() {
+    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
+    var rateinc = buttons[1];
+    rateinc.click();
+}
+function courseraRate(r) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.playbackRate = r;
+    dactyl.utils.message(`rate: ${vid.playbackRate.toFixed(1)}`);
+}
+function courseraVolume(vol) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.volume = vol;
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraVolumeDec() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    if (vid.volume <= 0.15) vid.volume /= 2;
+    else vid.volume = vid.volume - 0.1;
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraVolumeInc() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.volume = Math.min(1, vid.volume + 0.1);
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraJumpTo(s) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = s;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraJumpBackward(delta) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = vid.currentTime - delta;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraJumpForward(delta) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = vid.currentTime + delta;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraDisplay() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    dactyl.utils.message(`time:\t${vid.currentTime.toFixed(2)}\nvolume:\t${vid.volume.toFixed(3)}\nrate:\t${vid.playbackRate.toFixed(1)}`);
+}
+function courseraScrollToNextHighlighted() {
+    var hilited = Array.from(content.document.querySelectorAll('.highlighted'));
+    "jump to first match below viewport; if none, jump back to first match"
+    var i = Math.max(0, hilited.findIndex(e => e.getBoundingClientRect().y > content.window.innerHeight));
+    "scroll the element into view at bottom of page (since navbar obscures top)"
+    hilited[i].scrollIntoView(false);
+    return i;
+}
+
+EOF
+
+" ,-----------------,
+" | Coursera: hints |
+" '-----------------'
+" coursera: jump to match in transcript: mode ẖ "
+set eht+=[ẖ]:.highlighted
+js hints.addMode("ẖ", "Jump to match in transcript", elem => elem.click());
+
+map <site>f
+    \ -description "Hints mode: jump to match in transcript"
+    \ -js hints.show("ẖ");
+
+" ,---------------------------------,
+" | Coursera: commands and bindings |
+" '---------------------------------'
+command! -nargs=1 courseravolume -js courseraVolume(args[0]);
+command! -nargs=1 courserarate -js courseraRate(args[0]);
+command! -nargs=1 courserajump -js courseraJumpTo(args[0]);
+command! courseradisplay -js courseraDisplay();
+map <Space> -js courseraTogglePaused();
+map <Return> -js courseraTogglePaused();
+map <site>c -js courseraTogglePaused();
+map <site><A-h> -js courseraJumpBackward(1);
+map <site><A-l> -js courseraJumpForward(1);
+map <site>h -js courseraJumpBackward(5);
+map <site>l -js courseraJumpForward(5);
+map <site>H -js courseraJumpBackward(25);
+map <site>L -js courseraJumpForward(25);
+map <site>r :courserarate<Space>
+map <site>v -count -ex js courseraVolume(parseInt(<count>)/10);
+map <site>V :courseravolume<Space>
+map <site>, -js courseraRateDec();
+map <site>. -js courseraRateInc();
+map <site>j -js courseraVolumeInc();
+map <site>k -js courseraVolumeDec();
+map <site>? -js courseraDisplay();
+map <site><Tab> -js courseraScrollToNextHighlighted();
+"Arrow Keys"
+map <S-Left> -js courseraJumpBackward(2);
+map <S-Right> -js courseraJumpForward(2);
+map <Left> -js courseraJumpBackward(5);
+map <Right> -js courseraJumpForward(5);
+map <A-Left> -js courseraJumpBackward(20);
+map <A-Right> -js courseraJumpForward(20);
+map <C-Left> -js courseraJumpBackward(60);
+map <C-Right> -js courseraJumpForward(60);
+map <C-Up> -js courseraVolumeInc();
+map <C-Down> -js courseraVolumeDec();
+
+group user
+
 " -------------------------------------------------------------------------------
 " ,-------------,
 " | Crunchyroll |
@@ -6758,6 +6572,37 @@ function chromeGetExtensionNameAndId(url=buffer.URL) {
     return [name, id];
 }
 
+EOF
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,----------------------,
+" | Dactyl Resource URLs |
+" '----------------------'
+group dactylres -locations=resource://dactyl*
+
+map <site>e -description "Open my fork in Emacsclient" -js dactylresOpenMyForkInEmacsclient();
+map <site>E -description "Open in Emacsclient" -js dactylresOpenInEmacsclient();
+
+js <<EOF
+function dactylresGetRelativeFilePath() {
+    var modulesMatch = buffer.URL.match('^resource://dactyl/(.*)$');
+    var otherMatch = buffer.URL.match('^resource://dactyl-([^/]+)/(.*)$');
+    if (modulesMatch) {
+        return `common/modules/${modulesMatch[1]}`;
+    } else if (otherMatch) {
+        return `common/${otherMatch[1]}/${otherMatch[2]}`;
+    }
+}
+function dactylresOpenInEmacsclient() {
+    var path = getHomeDir() + 'source/git-repos/dactyl/' + dactylresGetRelativeFilePath();
+    dactyl.execute(`!emacsclient ${path}`);
+}
+function dactylresOpenMyForkInEmacsclient() {
+    var path = getHomeDir() + 'repos/dactyl/' + dactylresGetRelativeFilePath();
+    dactyl.execute(`!emacsclient ${path}`);
+}
 EOF
 
 group user
@@ -6850,6 +6695,37 @@ map <site>w -description "Watch/Unwatch"
 
 group user
 
+" -----------------------------------------------------------------------------
+" ,-----,
+" | EdX |
+" '-----'
+group edx -locations=edx.org
+autocmd! -group edx
+
+command! edx :runtime! config/edx.penta
+autocmd DOMload courses.edx.org :edx
+
+" if syllabus won't stay open "
+command! edxshowsyllabus -js edxShowSyllabus();
+
+command! edxtogglesyllabus -js edxToggleSyllabus();
+map <site>l -js edxToggleSyllabus();
+
+js <<EOF
+function edxShowSyllabus() {
+    var syllabusDiv = content.document.getElementsByClassName("toggled-content")[0];
+    syllabusDiv.style="height: 1500px;";
+}
+function edxToggleSyllabus() {
+    var showLink = content.document.getElementsByClassName("show-content-cta")[0];
+    var hideLink = content.document.getElementsByClassName("hide-content-cta")[0];
+    var link = showLink.classList.contains("hidden") ? hideLink : showLink;
+    link.click();
+}
+EOF
+
+group user
+
 " -------------------------------------------------------------------------------
 " ,--------------,
 " | Fasttech.com |
@@ -6926,6 +6802,38 @@ map <site>ow  -description "View account/wishlists"
 style -name=fasttech-post-separator https://www.fasttech.com/*
     \ .ForumHeader { border-top: solid 1px #AAA !important; }
 styleenable https://www.fasttech.com/* fasttech-post-separator
+
+group user
+
+" -----------------------------------------------------------------------------
+" ,-------------------,
+" | Files/Directories |
+" '-------------------'
+group local -locations=file://*
+
+map <site>e -description "Open in emacsclient"
+\           -count
+\           -js dactyl.execute(`!emacsclient${count?" -c":""} ${buffer.URL.replace("file://", "")}`);
+map <site>yy -description "Yank file location" -js utils.cbWrite(buffer.URL.replace("file://", ""));
+map <site>yf -description "Yank link location" -js hints.show("Λ");
+map <site>v -description "Open in gvim"
+\           -js io.system(`gvim ${buffer.URL.replace("file://", "")}`);
+map <site>x -description "Execute link with xdg-open" -js hints.show("ƛ");
+
+
+" -----
+" hints
+" -----
+set eht+=[Λ]:'a',':-moz-any-link'
+js hints.addMode("Λ", "Yank local path", e=>{ utils.cbWrite(localGetLinkPath(e)); });
+set eht+=[ƛ]:'a',':-moz-any-link'
+js hints.addMode("ƛ", "Execute link with xdg-open", e=> dactyl.execute("xopen '" + localGetLinkPath(e) + "'"));
+
+js <<EOF
+function localBaseURL() { return buffer.URL.replace("file://", ""); }
+function localGetLinkPath(l) { return decodeURIComponent(l.href).replace("file://", ""); }
+
+EOF
 
 group user
 
@@ -7485,35 +7393,6 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
-" ,-----------,
-" | GoGoAnime |
-" '-----------'
-group gogoanime -locations=gogoanime.io
-
-js <<EOF
-
-function togglePlay() {
-    var player = content.document.getElementById("my_video_1");
-    var playButton = player.getElementsByClassName("vjs-play-control")[0];
-    playButton.click();
-}
-
-function toggleFullscreen() {
-    var player = content.document.getElementById("my_video_1");
-    var fullscreenButton = player.getElementsByClassName("vjs-fullscreen-control")[0];
-    fullscreenButton.click();
-}
-
-EOF
-
-command! toggleplay -description "GoGoAnime.io: Toggle Play/Pause" -js togglePlay();
-command! togglefullscreen -description "GoGoAnime.io: Toggle Fullscreen" -js toggleFullscreen();
-map <Space> -ex toggleplay
-map <C-f11> -ex togglefullscreen
-
-group user
-
-" -------------------------------------------------------------------------------
 " ,-------,
 " | Gmail |
 " '-------'
@@ -7686,6 +7565,126 @@ function gnuGoUp() {
     uplink.click();
 }
 EOF
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | GoGoAnime |
+" '-----------'
+group gogoanime -locations=gogoanime.io
+
+js <<EOF
+
+function togglePlay() {
+    var player = content.document.getElementById("my_video_1");
+    var playButton = player.getElementsByClassName("vjs-play-control")[0];
+    playButton.click();
+}
+
+function toggleFullscreen() {
+    var player = content.document.getElementById("my_video_1");
+    var fullscreenButton = player.getElementsByClassName("vjs-fullscreen-control")[0];
+    fullscreenButton.click();
+}
+
+EOF
+
+command! toggleplay -description "GoGoAnime.io: Toggle Play/Pause" -js togglePlay();
+command! togglefullscreen -description "GoGoAnime.io: Toggle Fullscreen" -js toggleFullscreen();
+map <Space> -ex toggleplay
+map <C-f11> -ex togglefullscreen
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,--------,
+" | Google |
+" '--------'
+
+" Google definitions
+command! ggdef -nargs=1 -js googledef(args[0]);
+map <leader>gd :ggdef<Space>
+
+js <<EOF
+
+function googledef (word) {
+    "FIXME: event listener not working"
+    var newtab = gBrowser.addTab(`https://www.google.com.au/search?q=define:${word}`);
+    var tb = gBrowser.getBrowserForTab(newtab);
+    var callback = function () {
+        googleDefExpand();
+        tb.removeEventListener("domloaded", callback, false);
+    };
+    tb.addEventListener("domloaded", callback, false);
+    gBrowser.selectedTab = newtab;
+}
+
+EOF
+
+" ===== GROUP START =====
+
+group google -locations=https://www.google.com*
+
+" FIXME: completion drop-down remains open after search
+js <<EOF
+function googleSearchBox(s) {
+    var isTextField = function(e) { return (e.getAttribute("type") == "text"); }
+    var isSubmitButton = function(e) { return (e.getAttribute("type") == "submit"); }
+    var inputElts = content.document.getElementsByTagName("input");
+    var searchbox = [].find.call(inputElts, isTextField);
+    searchbox.value = s;
+    var searchbutton = [].find.call(inputElts, isSubmitButton);
+    searchbutton.click();
+}
+
+function googleRemoveQuotes() {
+    var quotere = /"|'|%22/g;
+    dactyl.open(buffer.URL.replace(quotere, ''),
+                dactyl.CURRENT_TAB);
+}
+
+function googleDefExpand() {
+    var div = content.document.getElementById('uid_0');
+    var link = div.getElementsByClassName('xcae')[0];
+    link.click();
+};
+EOF
+
+" -----
+" hints
+" -----
+set eht+=[ɡ]:cite
+js hints.addMode("ɡ", "Get result URL", e=>{ window._dactylresult=e.innerText.trim().replace(/ .*$/,''); });
+
+js <<EOF
+function googleYankCiteURL() {
+    hints.show("ɡ");
+    window.setTimeout(
+        ()=>utils.cbWrite(window._dactylresult),
+        2000);
+}
+EOF
+
+map <site>y
+\    -description "Yank URL [HINTS]"
+\    -js googleYankCiteURL();
+
+" searchbox command
+command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
+map <site>s :searchbox<Space>
+map <site>\' -js googleRemoveQuotes();
+" Google definitions: expand
+map <site>d -js googleDefExpand();
+
+"              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+map <site>c -ex pagezipper
+
+" restrict search to pages in a specific language
+map <site>gl -b O&lr=lang_
+" restrict search to pages originating in a specific country
+map <site>gc -b O&cr=
 
 group user
 
