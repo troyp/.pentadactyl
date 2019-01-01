@@ -6155,6 +6155,8 @@ map <site>oc -description "Goto cart"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"here", null, true);
 map <site>oi -description "Scroll to Product Information"
 \    -js content.document.getElementById('prodDetails').scrollIntoView();
+map <site>ol -description "Goto lists"
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/registry/wishlist/ref=cm_wl_your_lists", count?"tab":"here");
 map <site>oo -description "Goto orders"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"here");
 map <site>or -description "Goto reviews"
