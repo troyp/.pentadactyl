@@ -9635,11 +9635,14 @@ map <site>3   -description "Cart: count items"
 
 js <<EOF
 function p4aCountItems() {
-    if (buffer.URL.match(/PBShoppingCart/)) {
-        return Array.from(content.document.querySelectorAll("input.PB")).map(e=>Number(e.value), null).reduce((a,c)=>a+c);
-    } else if (buffer.URL.match(/PBRenderInvoice/)) {
-        return Array.from(content.document.querySelectorAll("td.cartlineqty")).map(e=>Number(e.innerText), null).reduce((a,c)=>a+c);
-    } else return null;
+    if (buffer.URL.match(/PBRenderInvoice/)) {
+        inputArray = Array.from(content.document.querySelectorAll("td.cartlineqty"));
+        return inputArray.map(e=>Number(e.innerText), null).reduce((a,c)=>a+c);
+    } else {
+        /* Cart and Single Pencil Order Forms */
+        var inputArray = Array.from(content.document.querySelectorAll("input.PB"));
+        return inputArray.map(e=>Number(e.value), null).reduce((a,c)=>a+c);
+    }
 }
 EOF
 
