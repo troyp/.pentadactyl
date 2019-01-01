@@ -9619,13 +9619,17 @@ group user
 group pencils4artists -locations=pencils4artists.co.uk
 
 map <site>o   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
-map <site>oa  -description "Account"
+map <site>oa  -description "Goto Account"
 \             -count
 \             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
-map <site>ol  -description "Login"
+map <site>oc  -description "Goto Cart"
+\             -count
+\             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBShoppingCart.asp?PBMInit=1",
+\                                 count?"here":"tab");
+map <site>ol  -description "Goto Login"
 \             -count
 \             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserLogin.asp?CCode=33", count?"here":"tab");
-map <site>oo  -description "Orders"
+map <site>oo  -description "Goto Orders"
 \             -count
 \             -js buffer.URL=="http://www.pencils4artists.co.uk/PBUserAccount.asp" ?
 \                     dactyl.open("javascript:SubmitAction(8,null,0,null,1);") :
