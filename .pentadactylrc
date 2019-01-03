@@ -1069,6 +1069,14 @@ map <app>;c
 map <app>;C
 \    -description "Open URL in Google Chrome (default profile)"
 \    -ex ochromeurl
+map <app>dx
+\    -description "Open last download using xdg-open"
+\    -count
+\    -js xdgOpenLastDownloaded(count||1)
+map <app>dy
+\    -description "Yank last download path"
+\    -count
+\    -js getLastDownloaded(count||1).then(function (dlPath) { dactyl.utils.cbWrite(dlPath); });
 map <app>f
 \    -description "Open in Firefox"
 \    -ex ofox
@@ -11449,6 +11457,22 @@ function savePageDialog() {
     });
 }
 window.savePageDialog = savePageDialog;
+
+function getLastDownloaded(n=1) {
+    dlListP = Downloads.getSummary(Downloads.ALL);
+    var resultP = dlListP.then(function (dlList) {
+        return dlList._downloads[dlList._downloads.length - n].target.path;
+    });
+    return resultP;
+}
+window.getLastDownloaded = getLastDownloaded;
+
+function xdgOpenLastDownloaded(n=1) {
+    var dlP = getLastDownloaded(n);
+    dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
+}
+window.xdgOpenLastDownloaded = xdgOpenLastDownloaded;
+
 " ------------------------------------------------------------------------------- "
 
 function formatSeconds(n) {
