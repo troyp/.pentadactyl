@@ -1069,6 +1069,10 @@ map <app>;c
 map <app>;C
 \    -description "Open URL in Google Chrome (default profile)"
 \    -ex ochromeurl
+map <app>dt
+\    -description "Trash last download using xdg-open"
+\    -count
+\    -js trashLastDownloaded(count||1)
 map <app>dx
 \    -description "Open last download using xdg-open"
 \    -count
@@ -11489,6 +11493,15 @@ function xdgOpenLastDownloaded(n=1) {
     dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
 }
 window.xdgOpenLastDownloaded = xdgOpenLastDownloaded;
+
+function trashLastDownloaded(n=1) {
+    var dlP = getLastDownloaded(n);
+    dlP.then(function(dl) {
+        var cmd=io.system(`trash '${dl}'`);
+        if (cmd.returnValue==0) utils.message("Trashed " + dl);
+        else utils.message("Failed to trash " + dl);
+    });
+}
 
 " ------------------------------------------------------------------------------- "
 
