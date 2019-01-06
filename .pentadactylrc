@@ -5099,6 +5099,13 @@ function dispatchClickEvent(elt) {
 }
 window.dispatchClickEvent = dispatchClickEvent;
 
+function clickSelectorByText(sel, pattern) {
+    var elts = Array.from(content.document.querySelectorAll(sel));
+    elts.filter(elt =>
+        elt.innerText.trim().match(pattern)
+    )[0].click();
+}
+
 EOF
 
 " =============================================================================
