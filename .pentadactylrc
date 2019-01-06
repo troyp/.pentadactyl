@@ -6675,6 +6675,15 @@ function ebayWatch() {
     (addBtn||rmvBtn).click();
 }
 
+function ebayGo() {
+    url = buffer.URL;
+    if (url.match(/https:\/\/www.ebay.com.au\/itm\//)) {
+        clickSelectorByText(".btn", "Add to cart");
+    } else if (url.match(/https:\/\/cart.ebay.com.au/)) {
+        clickSelectorByText(".btn", "Go to checkout");
+    }
+}
+
 EOF
 
 command! ebayremovebytitle
@@ -6688,6 +6697,7 @@ command! ebayfilterbytitle
     \ -js ebayFilterByTitle(stringToSmartCaseRegExp(args[0]));
 
 map <site>a -description "Go to Australian site" -js ebayToAU();
+map <site>c -description "Click button (Add to cart/Go to checkout)" -js ebayGo();
 map <site>o -js CommandExMode().open("showkeys <site>o")
 map <site>oa -description "Goto Account Page"
 \    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"tab":"here", null, true);
