@@ -5858,6 +5858,31 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-------,
+" | AniDB |
+" '-------'
+
+group anidb -locations=anidb.net
+
+js <<EOF
+function anidbRemoveNonEnglishGroups() {
+    var groupTable = content.document.querySelector("#grouplist");
+    var langCells = Array.from(groupTable.querySelectorAll(".languages"));
+    var langCellsNonEnglish = langCells.filter(td=>!td.textContent.match(/en/));
+    langCellsNonEnglish.forEach(td=>td.parentElement.remove());
+}
+EOF
+
+map <site>gg
+\    -description "Groups: jump to table"
+\    -js content.document.querySelector(".g_section.groups").scrollIntoView();
+map <site>ge
+\    -description "Groups: Remove non-english rows"
+\    -js anidbRemoveNonEnglishGroups();
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-----------------,
 " | AnimeLyrics.com |
