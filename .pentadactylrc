@@ -5789,6 +5789,9 @@ map <site>oR
 map <site>ow
 \    -description "Goto wish list"
 \    -js openOrSelectTab(amazonWishlistUrl(), count?"tab":"here");
+map <site>o!
+\    -description "Goto contact form"
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/help/customer/contact-us/ref=cu_surl", count?"tab":"here");
 map <site>ta
 \    -description "Toggle Australian site"
 \    -js toggleUrl('www.amazon.com.au', 'smile.amazon.com');
