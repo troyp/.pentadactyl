@@ -6757,6 +6757,7 @@ map <site>oy -description "Goto My eBay"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/Summary", count?"tab":"here");
 map <site>w -description "Watch/Unwatch"
 \    -js ebayWatch();
+map <site><Esc> -description "Click close button" -js clickSelector(".clzBtn");
 
 group user
 
