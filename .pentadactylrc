@@ -5768,21 +5768,29 @@ function amazonWishlistUrl(url) {
 EOF
 
 map <site>o  -js CommandExMode().open("showkeys <site>o")
-map <site>oc -description "Goto cart"
+map <site>oc
+\    -description "Goto cart"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"here", null, true);
-map <site>oi -description "Scroll to Product Information"
+map <site>oi
+\    -description "Scroll to Product Information"
 \    -js content.document.getElementById('prodDetails').scrollIntoView();
-map <site>ol -description "Goto lists"
+map <site>ol
+\    -description "Goto lists"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/registry/wishlist/ref=cm_wl_your_lists", count?"tab":"here");
-map <site>oo -description "Goto orders"
+map <site>oo
+\    -description "Goto orders"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"here");
-map <site>or -description "Goto reviews"
-\            -js content.document.getElementById("customerReviews").scrollIntoView();
-map <site>oR -description "Goto reviews - all"
-\            -js content.document.getElementById("dp-summary-see-all-reviews").click();
-map <site>ow -description "Goto wish list"
+map <site>or
+\    -description "Goto reviews"
+\    -js content.document.getElementById("customerReviews").scrollIntoView();
+map <site>oR
+\    -description "Goto reviews - all"
+\    -js content.document.getElementById("dp-summary-see-all-reviews").click();
+map <site>ow
+\    -description "Goto wish list"
 \    -js openOrSelectTab(amazonWishlistUrl(), count?"tab":"here");
-map <site>ta -description "Toggle Australian site"
+map <site>ta
+\    -description "Toggle Australian site"
 \    -js toggleUrl('www.amazon.com.au', 'smile.amazon.com');
 map <site>tg -description "Toggle 'Amazon Global' checkbox" -js amazonGetCheckbox(/amazon global/i).click();
 map <site>tn -description "Toggle 'new' checkbox" -js amazonGetCheckbox(/new/i).click();
