@@ -5765,8 +5765,23 @@ function amazonWishlistUrl(url) {
     else
         return "https://smile.amazon.com/gp/registry/wishlist/16ODAURM1G5HA/ref=nav_wishlist_lists_1";
 }
+
+function amazonGo() {
+    url = buffer.URL;
+    var elt;
+    if (url.match(/https:\/\/[^.]+\.amazon\.com(\.[^.]+)?\/gp\/cart\//)) {
+        getSelectorWithMatchingAttribute("input.a-button-input", "name", "proceedToCheckout")[0].click();
+    } else if (
+        (elt = content.document.querySelector("#buybox-see-all-buying-choices-announce")) ||
+        (elt = content.document.querySelector("#add-to-cart-button"))
+    ) elt.click();
+}
+
 EOF
 
+map <site>c
+\    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
+\    -js amazonGo();
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
