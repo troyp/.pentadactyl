@@ -5072,44 +5072,6 @@ function rubular(regex, test) {
     tb.addEventListener("DOMContentLoaded", rubularCB);
 }
 
-function clickSelector(sel) {
-    if (typeof sel == "string") {
-        // selector
-        var getButton = content.document.querySelector(sel);
-        getButton.click();
-    } else {
-        // element
-        sel.click();
-    }
-}
-window.clickSelector = clickSelector;
-
-function dispatchClickSelector(sel) {
-    if (typeof sel == "string") {
-        // selector
-        var elt = content.document.querySelector(sel);
-        dispatchClickEvent(elt);
-    } else {
-        // element
-        dispatchClickEvent(sel);
-    }
-}
-window.dispatchClickSelector = dispatchClickSelector;
-
-function dispatchClickEvent(elt) {
-   var ev = document.createEvent("MouseEvents");
-   ev.initEvent("click", true, true);
-   elt.dispatchEvent(ev);
-}
-window.dispatchClickEvent = dispatchClickEvent;
-
-function clickSelectorByText(sel, pattern) {
-    var elts = Array.from(content.document.querySelectorAll(sel));
-    elts.filter(elt =>
-        elt.innerText.trim().match(pattern)
-    )[0].click();
-}
-
 EOF
 
 " =============================================================================
@@ -10874,6 +10836,10 @@ group user
 
 js <<EOF
 
+" ,-----------, "
+" | Selection | "
+" '-----------' "
+
 function getSelectionText() {
     return content.getSelection().text;
 }
@@ -10906,120 +10872,9 @@ function getSelectionDOM() {
 }
 window.getSelectionDOM = getSelectionDOM;
 
-function openHTML(html, where='tab') {
-    var dataURI = "data:text/html," + encodeURIComponent(html);
-    dactyl.open(dataURI, where);
-}
-window.openHTML = openHTML;
-
-function isAscii(s) {
-    return Array.from(s).every(c=>c.charCodeAt(0) <= 128);
-}
-
-function urlLastComponent(url) {
-    return url.replace(/^.*\//, '');
-}
-
-function indexToOrdinalString(n) {
-    // trim in case n is a string to start with
-    var nstr = n.trim().toString();
-    var lastDigit = nstr.slice(-1);
-    switch (parseInt(lastDigit)) {
-        case 1:
-            return nstr + "st";
-        case 2:
-            return nstr + "nd";
-        case 3:
-            return nstr + "rd";
-        case 4: case 5: case 6: case 7: case 8: case 9: case 0:
-            return nstr + "th";
-    }
-}
-
-function stripBlankLines(s) { return s.replace(/\n\s*\n/gm, '\n'); }
-
-function strToWikiTitle(s, capitalizeStr=true) {
-     var joined = s.replace(/[ \t]+/, "_");
-     var title = capitalizeStr ? S.capitalize(joined) : joined;
-     return encodeURIComponent(title);
-}
-
-function isInView(elt) {
-    var bound = elt.getBoundingClientRect();
-    var viewBottom = content.window.innerHeight || content.document.documentElement.clientHeight;
-    var viewRight = content.window.innerWidth || content.document.documentElement.clientWidth;
-    var inview = bound.top >= 0 && bound.left >= 0 && bound.bottom <= viewBottom && bound.right <= viewRight;
-    return inview;
-}
-
-function getTextArea(n) {
-    var tareas = content.document.querySelectorAll('textarea');
-    return tareas[n].textContent;
-}
-
-function alertobj(obj) {
-    var s = "";
-    for(k in Object.keys(obj)) {
-        s += `${k.toString()}: ${obj[k].toString()}\n`;
-    }
-    alert(s);
-}
-window.alertobj = alertobj;
-
-function alertall(...xs) {
-    var s = "";
-    for(x of xs) {
-        s += x.toString() + "\n";
-    }
-    alert(s);
-}
-window.alertall = alertall;
-
-function runInZSH(cmd) {
-    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
-    executable.initWithPath("/usr/bin/roxterm");
-    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
-    process.init(executable);
-    process.runAsync(["-e",`zsh -c 'source ~/.sh-aliases; source .sh-functions; ${cmd}; zsh'`], 2);
-}
-window.runInZSH = runInZSH;
-
-function runInPlainZSH(cmd) {
-    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
-    executable.initWithPath("/usr/bin/roxterm");
-    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
-    process.init(executable);
-    process.runAsync(["-e",`zsh -f --no-rcs -c '${cmd}; zsh'`], 2);
-}
-window.runInPlainZSH = runInPlainZSH;
-
-// modulus function taking negative n (base assumed to be positive)
-function mod(n,b) { return n<0 ? n%b + Number(b) : n%b; }
-
-// requires a webdriver implementation
-function mouse_x() { return MousePosTracker._x; }
-function mouse_y() { return MousePosTracker._y; }
-
-function searchCommandSets(regex) {
-    var cmdsets = document.querySelectorAll('commandset');
-    var cmds = Array.from(document.querySelectorAll('command'));
-    for (cmd of cmds) {
-        if (cmd.id.match(regex))
-           utils.message(cmd.id+': '+cmd.oncommand);
-    }
-}
-window.searchCommandSets = searchCommandSets;
-
-function getMenuItems(regex) {
-    var mitems = document.querySelectorAll('menuitem');
-    var result = [];
-    for (mitem of mitems) {
-        if (mitem.id.match(regex))
-            result.push(mitem);
-    }
-    return result;
-}
-window.getMenuItems = getMenuItems;
+" ,----------------------------------------, "
+" | Functions taking Elements or Selectors | "
+" '----------------------------------------' "
 
 function removeSelectors(...sels) {
     var doc = content.document;
@@ -11203,13 +11058,6 @@ function getSelectorsContent(sels) {
     return result;
 }
 
-function getLinksWithMatchingUrl(s) {
-    var links = Array.from(content.document.getElementsByTagName('a'));
-    var matching = links.filter(l=>l.href.match(s));
-    return matching;
-}
-window.getLinksWithMatchingUrl = getLinksWithMatchingUrl;
-
 function getSelectorWithMatchingAttribute(sel, att, expr) {
     var all_elts = Array.from(content.document.querySelectorAll(sel));
     var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
@@ -11224,25 +11072,54 @@ function removeSelectorWithMatchingAttribute(sel, att, expr) {
 }
 window.removeSelectorWithMatchingAttribute = removeSelectorWithMatchingAttribute;
 
-function removeXPath(xpathexpr) {
-    var elts =
-        content.document.evaluate(
-            xpathexpr,
-            content.document,
-            null,
-            XPathResult.ANY_TYPE,
-            null);
-    var elt;
-    while (elt = elts.iterateNext()) {
-        elt.parentNode.removeChild(elt);
-    }
-}
-
 // TODO: allow multiple selectors (prevent duplication of elements)
 function countSelector(sel) {
     var elts = content.document.querySelectorAll(sel);
     return elts.length;
 }
+
+function clickSelector(sel) {
+    if (typeof sel == "string") {
+        // selector
+        var getButton = content.document.querySelector(sel);
+        getButton.click();
+    } else {
+        // element
+        sel.click();
+    }
+}
+window.clickSelector = clickSelector;
+
+function dispatchClickSelector(sel) {
+    if (typeof sel == "string") {
+        // selector
+        var elt = content.document.querySelector(sel);
+        dispatchClickEvent(elt);
+    } else {
+        // element
+        dispatchClickEvent(sel);
+    }
+}
+window.dispatchClickSelector = dispatchClickSelector;
+
+function dispatchClickEvent(elt) {
+   var ev = document.createEvent("MouseEvents");
+   ev.initEvent("click", true, true);
+   elt.dispatchEvent(ev);
+}
+window.dispatchClickEvent = dispatchClickEvent;
+
+function clickSelectorByText(sel, pattern) {
+    var elts = Array.from(content.document.querySelectorAll(sel));
+    elts.filter(elt =>
+        elt.textContent.trim().match(pattern)
+    )[0].click();
+}
+window.clickSelectorByText = clickSelectorByText;
+
+" ,------, "
+" | Tabs | "
+" '------' "
 
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
@@ -11308,6 +11185,10 @@ function openOrSummonTab(url, background=false, regex=null) {
     }
 }
 
+" ,-------------------------------, "
+" | Iteration and Array functions | "
+" '-------------------------------' "
+
 function foreachElement(f, top=content.document) {
     Array.from(top.getElementsByTagName("*")).forEach(f);
 }
@@ -11339,6 +11220,146 @@ function listNodes(pred, options={}) {
 }
 window.listElements = listElements;
 window.listNodes = listNodes;
+
+" ,---------------, "
+" | Miscellaneous | "
+" '---------------' "
+
+function openHTML(html, where='tab') {
+    var dataURI = "data:text/html," + encodeURIComponent(html);
+    dactyl.open(dataURI, where);
+}
+window.openHTML = openHTML;
+
+function isAscii(s) {
+    return Array.from(s).every(c=>c.charCodeAt(0) <= 128);
+}
+
+function urlLastComponent(url) {
+    return url.replace(/^.*\//, '');
+}
+
+function indexToOrdinalString(n) {
+    // trim in case n is a string to start with
+    var nstr = n.trim().toString();
+    var lastDigit = nstr.slice(-1);
+    switch (parseInt(lastDigit)) {
+        case 1:
+            return nstr + "st";
+        case 2:
+            return nstr + "nd";
+        case 3:
+            return nstr + "rd";
+        case 4: case 5: case 6: case 7: case 8: case 9: case 0:
+            return nstr + "th";
+    }
+}
+
+function stripBlankLines(s) { return s.replace(/\n\s*\n/gm, '\n'); }
+
+function strToWikiTitle(s, capitalizeStr=true) {
+     var joined = s.replace(/[ \t]+/, "_");
+     var title = capitalizeStr ? S.capitalize(joined) : joined;
+     return encodeURIComponent(title);
+}
+
+function isInView(elt) {
+    var bound = elt.getBoundingClientRect();
+    var viewBottom = content.window.innerHeight || content.document.documentElement.clientHeight;
+    var viewRight = content.window.innerWidth || content.document.documentElement.clientWidth;
+    var inview = bound.top >= 0 && bound.left >= 0 && bound.bottom <= viewBottom && bound.right <= viewRight;
+    return inview;
+}
+
+function getTextArea(n) {
+    var tareas = content.document.querySelectorAll('textarea');
+    return tareas[n].textContent;
+}
+
+function alertobj(obj) {
+    var s = "";
+    for(k in Object.keys(obj)) {
+        s += `${k.toString()}: ${obj[k].toString()}\n`;
+    }
+    alert(s);
+}
+window.alertobj = alertobj;
+
+function alertall(...xs) {
+    var s = "";
+    for(x of xs) {
+        s += x.toString() + "\n";
+    }
+    alert(s);
+}
+window.alertall = alertall;
+
+function runInZSH(cmd) {
+    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
+    executable.initWithPath("/usr/bin/roxterm");
+    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
+    process.init(executable);
+    process.runAsync(["-e",`zsh -c 'source ~/.sh-aliases; source .sh-functions; ${cmd}; zsh'`], 2);
+}
+window.runInZSH = runInZSH;
+
+function runInPlainZSH(cmd) {
+    var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
+    executable.initWithPath("/usr/bin/roxterm");
+    var process = XpcInstance("@mozilla.org/process/util;1", Components.interfaces.nsIProcess);
+    process.init(executable);
+    process.runAsync(["-e",`zsh -f --no-rcs -c '${cmd}; zsh'`], 2);
+}
+window.runInPlainZSH = runInPlainZSH;
+
+// modulus function taking negative n (base assumed to be positive)
+function mod(n,b) { return n<0 ? n%b + Number(b) : n%b; }
+
+// requires a webdriver implementation
+function mouse_x() { return MousePosTracker._x; }
+function mouse_y() { return MousePosTracker._y; }
+
+function searchCommandSets(regex) {
+    var cmdsets = document.querySelectorAll('commandset');
+    var cmds = Array.from(document.querySelectorAll('command'));
+    for (cmd of cmds) {
+        if (cmd.id.match(regex))
+           utils.message(cmd.id+': '+cmd.oncommand);
+    }
+}
+window.searchCommandSets = searchCommandSets;
+
+function getMenuItems(regex) {
+    var mitems = document.querySelectorAll('menuitem');
+    var result = [];
+    for (mitem of mitems) {
+        if (mitem.id.match(regex))
+            result.push(mitem);
+    }
+    return result;
+}
+window.getMenuItems = getMenuItems;
+
+function removeXPath(xpathexpr) {
+    var elts =
+        content.document.evaluate(
+            xpathexpr,
+            content.document,
+            null,
+            XPathResult.ANY_TYPE,
+            null);
+    var elt;
+    while (elt = elts.iterateNext()) {
+        elt.parentNode.removeChild(elt);
+    }
+}
+
+function getLinksWithMatchingUrl(s) {
+    var links = Array.from(content.document.getElementsByTagName('a'));
+    var matching = links.filter(l=>l.href.match(s));
+    return matching;
+}
+window.getLinksWithMatchingUrl = getLinksWithMatchingUrl;
 
 function matches(var_, regex) { return (var_ && var_.match && var_.match(regex)); }
 window.matches = matches;
