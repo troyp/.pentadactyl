@@ -5739,6 +5739,13 @@ function amazonGo() {
     ) elt.click();
 }
 
+function amazonGotoUSReviews() {
+    if (buffer.URL.match(/amazon.com\//))
+        content.document.getElementById("dp-summary-see-all-reviews").click();
+    else
+        getSelectorWithMatchingAttribute("a", "data-hook", "cmps-expand-link")[0].click();
+}
+
 EOF
 
 map <site>c
@@ -5762,6 +5769,9 @@ map <site>oR
 \    -description "Goto reviews - all"
 \    -js ( content.document.getElementById("dp-summary-see-all-reviews") ||
 \          getSelectorWithMatchingAttribute("a", "data-hook", "cmps-expand-link")[0] ).click();
+map <site>o;r
+\    -description "Goto US reviews"
+\    -js amazonGotoUSReviews();
 map <site>ow
 \    -description "Goto wish list"
 \    -js openOrSelectTab(amazonWishlistUrl(), count?"tab":"here");
