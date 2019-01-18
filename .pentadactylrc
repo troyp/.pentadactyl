@@ -4678,12 +4678,13 @@ undob = function() {
 
 " Create adjacent duplicate tab and go back in the browser history "
 backt = function () {
-    tabs.cloneTab(tabs.getTab(), true);
+    var dupT = tabs.cloneTab(tabs.getTab(), true);
+    var dupTB = gBrowser.getBrowserForTab(dupT);
     var backtListener = function () {
         gBrowser.goBack();
-        document.removeEventListener("DOMContentLoaded", backtListener, false);
+        dupTB.removeEventListener("DOMContentLoaded", backtListener);
     };
-    document.addEventListener("DOMContentLoaded", backtListener, false);
+    dupTB.addEventListener("DOMContentLoaded", backtListener);
 }
 
 " Create adjacent duplicate tab and go forward in the browser history "
