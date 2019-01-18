@@ -2455,6 +2455,7 @@ map <buffer>b       -description "Switch to buffer matching PATTERN" -builtin b
 " '--------------------------'
 map <buffer>d       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
 map <buffer>d<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
+map <buffer>da      -description "Close alternate tab" -js tabCloseAlternate();
 map <buffer>db      -description "Close tab from list" -b :bdelete<SPACE>
 map <buffer>dd      -description "Close tab range" -b :tc<SPACE>
 map <buffer>de      -description "Close tabs satisfying EXPR" -b :tabremove<Space>""<Left>
@@ -2767,6 +2768,12 @@ function tabCloseDuplicates() {
         tabs.remove(tabs.getTab(firstIdx+1), n);
         tabs.select(tabs.getTab(firstIdx));
     }
+}
+
+function tabCloseAlternate() {
+    var currentTab = tabs.getTab();
+    tabs.remove(tabs.alternate);    /* jumps to next tab after the one removed */
+    tabs.select(currentTab);
 }
 EOF
 
