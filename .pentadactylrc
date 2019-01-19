@@ -5534,12 +5534,12 @@ group aboutnewtab -locations=about:newtab
 " === hint modes === "
 " links "
 set eht+=ņ:.newtab-link
-js hints.addMode("ņ", "Follow link", clickSelector);
+js hints.addMode("ņ", "Follow link", e=>e.click());
 set eht+=Ņ:.newtab-link
 js hints.addMode("Ņ", "Follow link in background tab", elem => buffer.followLink(elem, dactyl.BACKGROUND_TAB));
 " buttons "
 set eht+=ɳ:.newtab-control
-js hints.addMode("ɳ", "Click new tab control", clickSelector);
+js hints.addMode("ɳ", "Click new tab control", e=>e.click());
 
 :if isPalemoon
     style -name=newtabstyle about:newtab
