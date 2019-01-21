@@ -2347,11 +2347,11 @@ command! pwhash
     \ -nargs=0
     \ -js pwHash();
 command! pwhashgen
-    \ -description "Generate short password from URL using Password Hasher"
+    \ -description "Generate short password from a raw URL using Password Hasher"
     \ -nargs=1
     \ -js pwHashGen(args[0]);
 command! pwhashdomain
-    \ -description "Generate short password from a URL using Password Hasher"
+    \ -description "Generate short password from an URL (based on simplified domain) using Password Hasher"
     \ -nargs=1
     \ -js pwHashDomain(args[0], tabs.getTab());
 command! pwhashsite
