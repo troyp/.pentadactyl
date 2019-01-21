@@ -1127,12 +1127,16 @@ map <app>ew
 map <app>D
 \    -description "Open directory in Dolphin"
 \    -ex openDirectoryInDolphin
-map <app>P
+map <app>p -description "(show bindings: Password Hasher)" -js CommandExMode().open("showkeys <app>p")
+map <app>ph
 \    -description "Password hasher"
 \    -ex pwhash
-map <app>p
+map <app>pp
 \    -description "Password hasher: hash site domain"
 \    -ex pwhashsite
+map <app>pu
+\    -description "Password hasher: hash site domain"
+\    -b :pwhashdomain<Space>
 " open www.packtpub.com/packt/offers/free-learning in google chrome "
 map <app>op
 \    -description "Visit Packt Free Learning site in Google Chrome"
