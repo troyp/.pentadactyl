@@ -1584,7 +1584,7 @@ command! inoreadersubscribe
 command! wikipediapage -description "Goto Wikipedia article"
 \    -nargs=1
 \    -js openOrSelectTab(`https://en.wikipedia.org/wiki/${S.capitalize(args[0].replace(" ", "_"))}`);
-command! eplist -description "Goto Wikipedia episode list" -nargs=1 -js (eplist(args[0]))
+command! eplist -description "Goto Wikipedia episode list" -nargs=+ -js (eplist(args.join(" ")))
 
 command! kingjames -description "King James Bible BOOK [CH:SEC]"
 \    -nargs=*
