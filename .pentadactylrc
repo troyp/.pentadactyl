@@ -7692,8 +7692,9 @@ EOF
 
 group google -locations=https://www.google.com*
 
-" FIXME: completion drop-down remains open after search
 js <<EOF
+
+" FIXME: completion drop-down remains open after search
 function googleSearchBox(s) {
     var isTextField = function(e) { return (e.getAttribute("type") == "text"); }
     var isSubmitButton = function(e) { return (e.getAttribute("type") == "submit"); }
@@ -7715,7 +7716,17 @@ function googleDefExpand() {
     var link = div.getElementsByClassName('xcae')[0];
     link.click();
 };
+
+function googleYankCiteURL() {
+    hints.show("ɡ");
+    window.setTimeout(
+        ()=>utils.cbWrite(window._dactylresult),
+        2000);
+}
+
 EOF
+
+command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
 
 " -----
 " hints
@@ -7723,34 +7734,16 @@ EOF
 set eht+=[ɡ]:cite
 js hints.addMode("ɡ", "Get result URL", e=>{ window._dactylresult=e.innerText.trim().replace(/ .*$/,''); });
 
-js <<EOF
-function googleYankCiteURL() {
-    hints.show("ɡ");
-    window.setTimeout(
-        ()=>utils.cbWrite(window._dactylresult),
-        2000);
-}
-EOF
-
 map <site>y
 \    -description "Yank URL [HINTS]"
 \    -js googleYankCiteURL();
 
-" searchbox command
-command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
+map <site>c  -description "Pagezipper: continuous paging" -ex pagezipper
+map <site>d  -description "Google definitions: expand" -js googleDefExpand();
+map <site>gl -description "restrict search to pages in a specific language" -b O&lr=lang_
+map <site>gc -description "restrict search to pages originating in a specific country" -b O&cr=
 map <site>s :searchbox<Space>
 map <site>\' -js googleRemoveQuotes();
-" Google definitions: expand
-map <site>d -js googleDefExpand();
-
-"              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-map <site>c -ex pagezipper
-
-" restrict search to pages in a specific language
-map <site>gl -b O&lr=lang_
-" restrict search to pages originating in a specific country
-map <site>gc -b O&cr=
 
 group user
 
