@@ -4926,6 +4926,7 @@ function pwHash() {
     tb.addEventListener("DOMContentLoaded", function () {
         var box = content.document.getElementById('master-key')
         box.value=user.mymasterpw;
+        clickSelector("summary");
         var sitefield = content.document.getElementById('site-tag')
         sitefield.focus();
     });
