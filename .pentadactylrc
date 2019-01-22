@@ -1584,7 +1584,11 @@ command! inoreadersubscribe
 command! wikipediapage -description "Goto Wikipedia article"
 \    -nargs=1
 \    -js openOrSelectTab(`https://en.wikipedia.org/wiki/${S.capitalize(args[0].replace(" ", "_"))}`);
-command! eplist -description "Goto Wikipedia episode list" -nargs=+ -js (eplist(args.join(" ")))
+command! eplist
+\    -description "Goto Wikipedia episode list"
+\    -nargs=+
+\    -bang
+\    -js (eplist(args.join(" "), dactyl.NEWTAB, bang))
 
 command! kingjames -description "King James Bible BOOK [CH:SEC]"
 \    -nargs=*
@@ -4788,9 +4792,15 @@ function imgToDataUri(img) {
 }
 dactyl.utils.imgToDataUri = imgToDataUri;
 
-function eplist (s) {
+function eplist (s, where=dactyl.NEW_TAB, force_new=false) {
     var sConv = S.capitalize(s).replace(" ", "_");
-    dactyl.open(`www.wikipedia.org/wiki/List_of_${sConv}_episodes`);
+    var url = `en.wikipedia.org/wiki/List_of_${sConv}_episodes`;
+    if (force_new) dactyl.open(url, {where: where});
+    else openOrSelectTab(
+        url,
+        where,
+        RegExp(`en\.wikipedia\.org/wiki/Lists?_of_${sConv}_episodes`),
+    );
 }
 
 popJisyoUrl = 'http://www.popjisyo.com/WebHint/AddHint.aspx?r=e';
