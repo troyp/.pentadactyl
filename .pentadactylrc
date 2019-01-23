@@ -7704,7 +7704,7 @@ group google -locations=https://www.google.com*
 
 js <<EOF
 
-" FIXME: completion drop-down remains open after search
+" FIXME: completion drop-down remains open after search "
 function googleSearchBox(s) {
     var isTextField = function(e) { return (e.getAttribute("type") == "text"); }
     var isSubmitButton = function(e) { return (e.getAttribute("type") == "submit"); }
