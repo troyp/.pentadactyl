@@ -7734,6 +7734,11 @@ function googleYankCiteURL() {
         2000);
 }
 
+function googleGetImagesUrl() {
+    var imgLinks = getSelectorByText("a", /^images$/i);
+    return (imgLinks.length > 1) ? imgLinks[1].href : imgLinks[0].href;
+}
+
 EOF
 
 command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
@@ -7752,6 +7757,7 @@ map <site>c  -description "Pagezipper: continuous paging" -ex pagezipper
 map <site>d  -description "Google definitions: expand" -js googleDefExpand();
 map <site>gl -description "restrict search to pages in a specific language" -b O&lr=lang_
 map <site>gc -description "restrict search to pages originating in a specific country" -b O&cr=
+map <site>oi -description "Goto images" -js openOrSelectTab(googleGetImagesUrl(), count?"tab":"here");
 map <site>s  -description "Enter query in search box" -b :searchbox<Space>
 map <site>\' -js googleRemoveQuotes();
 
