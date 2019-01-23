@@ -11135,11 +11135,14 @@ function dispatchClickEvent(elt) {
 }
 window.dispatchClickEvent = dispatchClickEvent;
 
-function clickSelectorByText(sel, pattern) {
+function getSelectorByText(sel, pattern) {
     var elts = Array.from(content.document.querySelectorAll(sel));
-    elts.filter(elt =>
-        elt.textContent.trim().match(pattern)
-    )[0].click();
+    return elts.filter(elt => elt.textContent.trim().match(pattern));
+}
+window.getSelectorByText = getSelectorByText;
+
+function clickSelectorByText(sel, pattern) {
+    getSelectorByText(sel, pattern)[0].click();
 }
 window.clickSelectorByText = clickSelectorByText;
 
