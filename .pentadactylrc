@@ -7708,7 +7708,7 @@ js <<EOF
 function googleSearchBox(s) {
     var isTextField = function(e) { return (e.getAttribute("type") == "text"); }
     var isSubmitButton = function(e) { return (e.getAttribute("type") == "submit"); }
-    var inputElts = content.document.getElementsByTagName("input");
+    var inputElts = content.document.querySelectorAll("input,button");
     var searchbox = [].find.call(inputElts, isTextField);
     searchbox.value = s;
     var searchbutton = [].find.call(inputElts, isSubmitButton);
