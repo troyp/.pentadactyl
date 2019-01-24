@@ -2802,6 +2802,47 @@ function tabRemoveUrlRegex(regex) {
 function tabFilterUrlRegex(regex) {
     return tabFilter((t)=>t.URL.match(regex)||t.title.match(regex));
 }
+
+function tabRemoveWhileUrlRegex(regex, directions=["forward", "reverse"]) {
+    return tabRemoveWhile((t)=>t.URL.match(regex)||t.title.match(regex), directions);
+}
+
+function tabRemoveWhile(f, directions=["forward", "reverse"]) {
+    /* remove tabs until match fails                                                                    */
+    /* takes a function of 1 to 3 args (current tab content doc, [current ordinal, [original ordinal]]) */
+    /* directions is a vector of entries which may be "forward" and/or "reverse"                        */
+    var initTab = tabs.getTab();
+    var initOrd = initTab.dactylOrdinal;
+    var toRemove = [];
+    var omitInit = false;
+
+    if (directions.includes("forward")) {
+        var i = initOrd,
+        t = tabs.getTab(i-1);
+        while (f(t.linkedBrowser.contentDocument, i, initOrd)) {
+            toRemove.push(t);
+            ++i;
+            t = tabs.getTab(i-1);
+        }
+        omitInit = true;
+    }
+    if (directions.includes("reverse")) {
+        i = omitInit ? initOrd-1 : initOrd;
+        t = tabs.getTab(i-1);
+        while (f(t.linkedBrowser.contentDocument, i, initOrd)) {
+            toRemove.push(t);
+            --i;
+            t = tabs.getTab(i-1);
+        }
+    }
+    toRemove.forEach(t => tabs.remove(t));
+
+    var N_closed = toRemove.length;
+    utils.message(`${N_closed} tabs closed`);
+    return N_closed;
+}
+window.tabRemoveWhile = tabRemoveWhile;
+
 function tabCloseDuplicates() {
     var url = buffer.URL;
     var N = tabs.allTabs.length - 1;
