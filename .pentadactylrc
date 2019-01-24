@@ -2672,25 +2672,25 @@ command! tabclosefromherebefore
 js <<EOF
 function closeTabRange(firstOrd, endOrd) {
     "Close tabs from firstOrd to endOrd-1"
-    if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  // current
-    if (endOrd == '.')   endOrd   = gBrowser.mCurrentTab.dactylOrdinal;  // current
+    if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
+    if (endOrd == '.')   endOrd   = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
     firstSpec = firstOrd - 1;
     if (endOrd === '$') {
-        // last tab
+        /* last tab */
         endOrd = 0;
         var toEnd = true;
     }
     endOrd = tabNormalizeOrdinal(endOrd);
-    endSpecInc = endOrd -1;        // ord  -> idx
-    endSpecExc = endSpecInc +1;    // incl -> excl
+    endSpecInc = endOrd -1;        /* ord  -> idx */
+    endSpecExc = endSpecInc +1;    /* incl -> excl */
     utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
     if (toEnd) tabs.remove(tabs.getTab());
 }
 function closeTabRangeBidirectional(ordA, ordB=".") {
     "Close tabs in range [ordA, ordB) or (ordB, ordA]"
     var N = tabs.allTabs.length;
-    if (ordA == '.') ordA = gBrowser.mCurrentTab.dactylOrdinal;  // current
-    if (ordB == '.') ordB = gBrowser.mCurrentTab.dactylOrdinal;  // current
+    if (ordA == '.') ordA = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
+    if (ordB == '.') ordB = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
     if (ordA == '^') ordA = 0;
     if (ordB == '^') ordB = 0;
     if (ordA == '$') ordA = N+1;
@@ -2732,15 +2732,15 @@ function tabURL(t) {
 function tabCount() { return tabs.allTabs.length; }
 window.tabCount = tabCount;
 function tabRemove(f) {
-    // takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]])
+    /* takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]]) */
     var currentOrd = tabs.getTab().dactylOrdinal;
     var alltabs = Array.from(tabs.allTabs);
-    var N_0 = alltabs.length;  // initial number of tabs
+    var N_0 = alltabs.length;  /* initial number of tabs */
     var i, t;
     for (i=0; i<N_0; ++i) {
         tab_i = alltabs[i];
         t = tab_i.linkedBrowser.contentDocument;
-        // alert(`${f}\n${f(t, i+1)}\n${i+1}\n${t.ord}`); // debug
+        /* alert(`${f}\n${f(t, i+1)}\n${i+1}\n${t.ord}`); // debug */
         if (f(t, i+1, currentOrd)) tabs.remove(tab_i);
     }
     var N_closed = N_0 - tabCount();
@@ -2748,7 +2748,7 @@ function tabRemove(f) {
     return N_closed;
 }
 function tabFilter(f) {
-    // takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]])
+    /* takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]]) */
     return tabRemove((t,n,n0)=>!f(t,n,n0));
 }
 function tabRemoveUrlRegex(regex) {
