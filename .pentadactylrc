@@ -2657,14 +2657,24 @@ command! tabremoveregex
     \ -js tabRemoveUrlRegex(readStringOrRegex(args[0]));
 
 command! tabremovewhile
-    \ -description "Close adjacent tabs while they satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
+    \ -description "Close successive tabs while they satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
     \ -nargs=1
     \ -js tabRemoveWhile(eval(`(t, n, n0)=>${args[0]};`), ["forward"]);
 
 command! tabremovewhileregex
-    \ -description "Close adjacent tabs while they satisfy regex"
+    \ -description "Close successive tabs while they satisfy regex"
     \ -nargs=1
     \ -js tabRemoveWhileUrlRegex(readStringOrRegex(args[0]), ["forward"]);
+
+command! tabremovearound
+    \ -description "Close adjacent tabs while they satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
+    \ -nargs=1
+    \ -js tabRemoveWhile(eval(`(t, n, n0)=>${args[0]};`), ["forward", "reverse"]);
+
+command! tabremovearoundregex
+    \ -description "Close adjacent tabs while they satisfy regex"
+    \ -nargs=1
+    \ -js tabRemoveWhileUrlRegex(readStringOrRegex(args[0]), ["forward", "reverse"]);
 
 command! tabfilterregex
     \ -description "Close tabs that satisfy regex"
