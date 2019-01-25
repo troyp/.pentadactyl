@@ -6819,6 +6819,10 @@ function ebayGo() {
     }
 }
 
+function ebayGetStoreUrl() {
+    return content.document.querySelector("#storeSeller>div>a").href;
+}
+
 EOF
 
 command! ebayremovebytitle
@@ -6846,6 +6850,8 @@ map <site>oo -description "Goto Orders (Purchase history)"
 \    -js openOrSelectTab(
 \            "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2",
 \            count?"tab":"here");
+map <site>os -description "Goto seller's store"
+\    -js openOrSelectTab(ebayGetStoreUrl(), count?"tab":"here");
 map <site>ow -description "Goto watch list"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/WatchList", count?"tab":"here");
 map <site>oy -description "Goto My eBay"
