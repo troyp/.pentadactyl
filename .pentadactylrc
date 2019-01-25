@@ -1127,6 +1127,9 @@ map <app>ew
 map <app>D
 \    -description "Open directory in Dolphin"
 \    -ex openDirectoryInDolphin
+map <app>op
+\    -description "Visit Packt Free Learning site in Google Chrome"
+\    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
 map <app>p -description "(show bindings: Password Hasher)" -js CommandExMode().open("showkeys <app>p")
 map <app>ph
 \    -description "Password hasher"
@@ -1137,10 +1140,6 @@ map <app>pp
 map <app>pu
 \    -description "Password hasher: hash site domain"
 \    -b :pwhashdomain<Space>
-" open www.packtpub.com/packt/offers/free-learning in google chrome "
-map <app>op
-\    -description "Visit Packt Free Learning site in Google Chrome"
-\    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
 
 " open file with xdg-open
 " FIXME: issue with maff files with spaces in directory (not name)
