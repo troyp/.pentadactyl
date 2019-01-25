@@ -1140,6 +1140,19 @@ map <app>pp
 map <app>pu
 \    -description "Password hasher: hash site domain"
 \    -b :pwhashdomain<Space>
+" ,---------------------------------,
+" | <app>s -- Switch to Application |
+" '---------------------------------'
+map <app>s -description "(show bindings: Switch to Application)" -js CommandExMode().open("showkeys <app>s")
+map <app>sa
+\    -description "Switch to Alarm Clock"
+\    -js io.system("alarm-clock-applet")
+map <app>se
+\    -description "Switch to Emacs"
+\    -js io.system("wmctrl -a emacs")
+map <app>sv
+\    -description "Switch to VLC"
+\    -js io.system("wmctrl -a vlc")
 
 " open file with xdg-open
 " FIXME: issue with maff files with spaces in directory (not name)
