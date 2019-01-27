@@ -2657,12 +2657,12 @@ command! tcx
 
 " filter tabs "
 command! tabfilter
-    \ -description "Close tabs that do not satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
+    \ -description "Close tabs that do not satisfy expression (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
     \ -nargs=1
     \ -js tabFilter(eval(`(t, n, n0)=>${args[0]};`));
 
 command! tabremove
-    \ -description "Close tabs that satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
+    \ -description "Close tabs that satisfy expression (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
     \ -nargs=1
     \ -js tabRemove(eval(`(t, n, n0)=>${args[0]};`));
 
@@ -2672,7 +2672,7 @@ command! tabremoveregex
     \ -js tabRemoveUrlRegex(readStringOrRegex(args[0]));
 
 command! tabremovewhile
-    \ -description "Close successive tabs while they satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
+    \ -description "Close successive tabs while they satisfy expression (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
     \ -nargs=1
     \ -js tabRemoveWhile(eval(`(t, n, n0)=>${args[0]};`), ["forward"]);
 
@@ -2682,7 +2682,7 @@ command! tabremovewhileregex
     \ -js tabRemoveWhileUrlRegex(readStringOrRegex(args[0]), ["forward"]);
 
 command! tabremovearound
-    \ -description "Close adjacent tabs while they satisfy expression (t=tab, n0=init.ord, n=curr.ord, t.URL=url)"
+    \ -description "Close adjacent tabs while they satisfy expression (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
     \ -nargs=1
     \ -js tabRemoveWhile(eval(`(t, n, n0)=>${args[0]};`), ["forward", "reverse"]);
 
