@@ -6858,6 +6858,12 @@ function ebayGetStoreUrl() {
     return content.document.querySelector("#storeSeller>div>a").href;
 }
 
+function ebayCount() {
+    var qtyBoxes = Array.from(content.document.querySelectorAll(".js-item-quantity-select"));
+    var quantities = qtyBoxes.map(e=>Number(e.value));
+    return quantities.reduce((n,s)=>n+s);
+}
+
 EOF
 
 command! ebayremovebytitle
@@ -6872,6 +6878,7 @@ command! ebayfilterbytitle
 
 map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>c -description "Click button (Add to cart/Go to checkout)" -js ebayGo();
+map <site>n -description "Count items" -js utils.message("Number of items: " + ebayCount());
 map <site>o -js CommandExMode().open("showkeys <site>o")
 map <site>oa -description "Goto Account Page"
 \    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"tab":"here", null, true);
