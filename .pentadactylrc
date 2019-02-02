@@ -10965,7 +10965,7 @@ command! ytdlaudio
     \ -description "Download video/playlist with youtube-dl"
     \ -nargs=?
     \ -complete=file
-    \ -js ytDL(args[0], false);
+    \ -js ytDL(args[0] || "~/Music", false);
 
 map <site><Space> -js ytTogglePause();
 map <Space> -js ytTogglePause();
