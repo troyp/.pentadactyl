@@ -9842,6 +9842,8 @@ map <site>oo  -description "Goto Orders"
 \                     openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
 map <site>n   -description "Cart: count items"
 \             -js utils.message("Number of items: " + p4aCountItems());
+map <site>s   -description "Cart: save cart"
+\             -js clickSelector("#btnsavecart");
 
 js <<EOF
 function p4aCountItems() {
