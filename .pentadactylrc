@@ -9843,7 +9843,7 @@ map <site>oo  -description "Goto Orders"
 \             -js buffer.URL=="http://www.pencils4artists.co.uk/PBUserAccount.asp" ?
 \                     dactyl.open("javascript:SubmitAction(8,null,0,null,1);") :
 \                     openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
-map <site>c   -description "Cart: count items"
+map <site>n   -description "Cart: count items"
 \             -js utils.message("Number of items: " + p4aCountItems());
 
 js <<EOF
