@@ -224,13 +224,14 @@ S = {
     titleCaseExceptionWords: ["a", "an", "the", "and", "or", "but", "nor",
                               "yet", "so", "for", "in", "to", "of", "at",
                               "by", "up", "for", "off", "on"],
-    toTitleCase: function (s) {
+    toTitleCase: function (s, excWords=this.titleCaseExceptionWords) {
         var initialLetter = s.slice(0, 1);
-        var initialCap = this.isUppercase(initialLetter);
+        var hasInitialCap = this.isUppercase(initialLetter);
         var words = s.split(/\s+/);
-        var toCapitalize = words.slice(1).filter(w=>!this.titleCaseExceptionWords.includes(w));
+        var words_ = hasInitialCap ? words.slice(1) : words;
+        var toCapitalize = words_.filter(w=>!excWords.includes(w));
         toCapitalize.forEach(w=>{ s = s.replace(w, this.capitalize(w)) });
-        return initialCap ? initialLetter+s.slice(1) : s;
+        return s;
     },
     isAlphaAt: function (s, i) {
         ord = s.charCodeAt(i);
