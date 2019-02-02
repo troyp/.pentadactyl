@@ -1479,7 +1479,7 @@ map <leader>arwp
     \ -count -b :wikipediapage<SPACE>
 map <leader>arwe
     \ -description "Goto Wikpedia episode list"
-    \ -count -b :eplist<SPACE>
+    \ -count -b :wpeplist<SPACE>
 " <leader>as - Schedules"
 map <leader>as      -js CommandExMode().open("showkeys <leader>as");
 map <leader>as<C-h> -js CommandExMode().open("showkeys <leader>as");
@@ -1589,6 +1589,18 @@ function showSunriseSunset() {
 function inoreaderSubscribe(url=buffer.URL){
     tabOpenAdjacent('https://www.inoreader.com/bookmarklet/subscribe/' + encodeURIComponent(url||buffer.URL));
 }
+
+function wpEpList (s, where=dactyl.NEW_TAB, force_new=false) {
+    var sConv = S.toTitleCase(s).split(/\s+/).join("_");
+    var url = `en.wikipedia.org/wiki/List_of_${sConv}_episodes`;
+    if (force_new) dactyl.open(url, {where: where});
+    else openOrSelectTab(
+        url,
+        where,
+        RegExp(`en\.wikipedia\.org/wiki/Lists?_of_${sConv}_episodes`),
+    );
+}
+
 EOF
 
 command! inoreadersubscribe
@@ -1600,11 +1612,11 @@ command! inoreadersubscribe
 command! wikipediapage -description "Goto Wikipedia article"
 \    -nargs=1
 \    -js openOrSelectTab(`https://en.wikipedia.org/wiki/${S.capitalize(args[0].replace(" ", "_"))}`);
-command! eplist
+command! wpeplist
 \    -description "Goto Wikipedia episode list"
 \    -nargs=+
 \    -bang
-\    -js (eplist(args.join(" "), dactyl.NEWTAB, bang))
+\    -js (wpEpList(args.join(" "), dactyl.NEWTAB, bang))
 
 command! kingjames -description "King James Bible BOOK [CH:SEC]"
 \    -nargs=*
@@ -2019,9 +2031,6 @@ findbarToggle = function() {
 EOF
 
 command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '))
-command! openwpepisodelist
-\    -nargs *
-\    -js openOrSelectTab(`https://en.wikipedia.org/wiki/List_of_${A.map(args, S.toSmartCase).join("_")}_episodes`);
 
 map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
@@ -2053,7 +2062,6 @@ map <search>sa  -description "Shopping search: art" -b :shopart<Space>
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
 map <search>sz  -description "Shopping search: ebay + amazon.au + amazon" -b :shopEbayAmazAmazau<Space>
 map <search>S   -description "Supermarket search: woolworths + coles" -b :supermarket<Space>
-map <search>ve -description "Open wikipedia episode list" -b :openwpepisodelist<Space>
 map <search>w   -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
 map <search>0   -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
 map <search>\'  -description "Link Search: Forward" -modes normal -b /\l
@@ -4912,17 +4920,6 @@ function imgToDataUri(img) {
     return dataUri;
 }
 dactyl.utils.imgToDataUri = imgToDataUri;
-
-function eplist (s, where=dactyl.NEW_TAB, force_new=false) {
-    var sConv = S.capitalize(s).replace(" ", "_");
-    var url = `en.wikipedia.org/wiki/List_of_${sConv}_episodes`;
-    if (force_new) dactyl.open(url, {where: where});
-    else openOrSelectTab(
-        url,
-        where,
-        RegExp(`en\.wikipedia\.org/wiki/Lists?_of_${sConv}_episodes`),
-    );
-}
 
 popJisyoUrl = 'http://www.popjisyo.com/WebHint/AddHint.aspx?r=e';
 
