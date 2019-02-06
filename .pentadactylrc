@@ -5890,8 +5890,15 @@ function amazonGotoUSReviews() {
 
 function amazonCount() {
     if (buffer.URL.match(/\/gp\/cart\//)) {
-        var entries = Array.from(content.document.getElementById('activeCartViewForm').querySelectorAll('.a-dropdown-prompt'));
+        var form = content.document.getElementById('activeCartViewForm');
+        var entries = Array.from(form.querySelectorAll('.a-dropdown-prompt'));
         var quantities = entries.map(e=>parseInt(e.innerText));
+        return quantities.reduce((n,c)=>n+c);
+    } else if (buffer.URL.match(/\/gp\/buy\//)) {
+        var div = content.document.getElementById('spc-orders');
+        var entries = Array.from(div.querySelectorAll('input'));
+        var filtered = entries.filter(e=>e.name="groupcount" && e.type == "number");
+        var quantities = filtered.map(e=>parseInt(e.value));
         return quantities.reduce((n,c)=>n+c);
     }
 }
