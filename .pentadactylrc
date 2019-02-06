@@ -5888,11 +5888,20 @@ function amazonGotoUSReviews() {
         getSelectorWithMatchingAttribute("a", "data-hook", "cmps-expand-link")[0].click();
 }
 
+function amazonCount() {
+    if (buffer.URL.match(/\/gp\/cart\//)) {
+        var entries = Array.from(content.document.getElementById('activeCartViewForm').querySelectorAll('.a-dropdown-prompt'));
+        var quantities = entries.map(e=>parseInt(e.innerText));
+        return quantities.reduce((n,c)=>n+c);
+    }
+}
+
 EOF
 
 map <site>c
 \    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
 \    -js amazonGo();
+map <site>n -description "Count items" -js utils.message("Number of items: " + amazonCount());
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
