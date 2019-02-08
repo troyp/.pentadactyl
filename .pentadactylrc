@@ -11263,10 +11263,16 @@ function clickSelector(sel) {
     if (typeof sel == "string") {
         /* selector */
         var getButton = content.document.querySelector(sel);
-        getButton.click();
+        if (getButton) {
+            getButton.click();
+            return true;
+        }
     } else {
-        sel.click();
         /* element */
+        if (sel) {
+            sel.click();
+            return true;
+        }
     }
 }
 window.clickSelector = clickSelector;
@@ -11297,7 +11303,13 @@ function getSelectorByText(sel, pattern) {
 window.getSelectorByText = getSelectorByText;
 
 function clickSelectorByText(sel, pattern) {
-    getSelectorByText(sel, pattern)[0].click();
+    var selectors = getSelectorByText(sel, pattern);
+    if (selectors.length) {
+        selectors[0].click();
+        return true;
+    } else {
+        return false;
+    }
 }
 window.clickSelectorByText = clickSelectorByText;
 
