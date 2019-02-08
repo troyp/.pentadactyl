@@ -11261,23 +11261,23 @@ function countSelector(sel) {
 
 function clickSelector(sel) {
     if (typeof sel == "string") {
-        // selector
+        /* selector */
         var getButton = content.document.querySelector(sel);
         getButton.click();
     } else {
-        // element
         sel.click();
+        /* element */
     }
 }
 window.clickSelector = clickSelector;
 
 function dispatchClickSelector(sel) {
     if (typeof sel == "string") {
-        // selector
+        /* selector */
         var elt = content.document.querySelector(sel);
         dispatchClickEvent(elt);
     } else {
-        // element
+        /* element */
         dispatchClickEvent(sel);
     }
 }
