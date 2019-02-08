@@ -7731,12 +7731,24 @@ function gmailArchive() {
     }
 }
 
+function gmailToggleBasic() {
+    var basicLink = getSelectorWithMatchingAttribute('input', 'value', 'Load basic HTML');
+    if (basicLink.length) {
+        basicLink[0].click();
+        return "basic";
+    } else {
+        dactyl.open("https://mail.google.com/mail/u/0/#inbox");
+        return "standard";
+    }
+}
+
 EOF
 
 map <site>= -ex gmailcheckall
 map <site>- -ex gmailuncheckall
 map <site><Return> -ex gmailtoggleallcheckboxes
 map <site>A -ex gmailarchivechecked
+map <site>tb -description "Toggle basic/standard" -js gmailToggleBasic();
 
 command! gmailcheckall
     \ -description "Check all checkboxes on page."
