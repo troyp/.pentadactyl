@@ -7748,6 +7748,17 @@ map <site>= -ex gmailcheckall
 map <site>- -ex gmailuncheckall
 map <site><Return> -ex gmailtoggleallcheckboxes
 map <site>A -ex gmailarchivechecked
+map <site>o  -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
+map <site>o8 -description "Goto Starred" -js clickSelectorByText("a", "Starred");
+map <site>oc -description "Goto Contacts" -js clickSelectorByText("a", "Contacts");
+map <site>od -description "Goto Drafts" -js clickSelectorByText("a", "Drafts");
+map <site>of -description "Goto Create a filter" -js clickSelectorByText("a", /Create\sa\sfilter/);
+map <site>oi -description "Goto Inbox" -js clickSelectorByText("a", "Inbox");
+map <site>ol -description "Goto Edit labels" -js clickSelectorByText("a", "Edit labels");
+map <site>on -description "Goto Compose New" -js clickSelectorByText("a", "Compose");
+map <site>oo -description "Goto Search Options" -js clickSelectorByText("a", /search\soptions/);
+map <site>os -description "Goto Sent Mail" -js clickSelectorByText("a", "Sent Mail");
+map <site>ot -description "Goto Trash" -js clickSelectorByText("a", "Trash");
 map <site>tb -description "Toggle basic/standard" -js gmailToggleBasic();
 
 command! gmailcheckall
