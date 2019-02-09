@@ -2058,9 +2058,22 @@ map <search>p   -description "Poly search: multiple queries & engines: :polysear
 map <search>r   -description "Regex search: Forward" -modes normal -b /\r
 map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s   -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
-map <search>sa  -description "Shopping search: art" -b :shopart<Space>
+map <search>saa -description "Shopping search: art" -b :shopart<Space>
+map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" -b :shopartEbayAmaz<Space>
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
-map <search>sz  -description "Shopping search: ebay + amazon.au + amazon" -b :shopEbayAmazAmazau<Space>
+map <search>sz  -description "Shopping search: ebay + amazon.au" -b :shopEbayAmazau<Space>
+map <search>;saz
+\    -description "Clipboard Shopping search: art (ebay + amazon + amazon.au)"
+\    -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], readFromClipboard());
+map <search>;saa
+\    -description "Clipboard Shopping search: art"
+\    -js multipleEngineSearch(searchEngineArtShops, readFromClipboard());
+map <search>;ss
+\    -description "Clipboard Shopping search: ebay + amazon"
+\    -js multipleEngineSearch(["e", "amaz"], readFromClipboard());
+map <search>;sz
+\    -description "Clipboard Shopping search: ebay + amazon.au"
+\    -js multipleEngineSearch(["e", "amazau"], readFromClipboard());
 map <search>S   -description "Supermarket search: woolworths + coles" -b :supermarket<Space>
 map <search>w   -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
 map <search>0   -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
@@ -2078,13 +2091,15 @@ command! multipleenginesearch -description "Multiple engine bookmark search"
 \    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(0,-1), args.slice(-1));
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
-js searchEngineArtShops = ["e", "amazart", "aamazart", "amazau", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
+js searchEngineArtShops = ["e", "amazart", "aamazart", "amazau", "shopjpen", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
 command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=+ -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 command! shopart -description "Shopping search: art"
 \    -nargs=+ -js multipleEngineSearch(searchEngineArtShops, args.join(" "));
-command! shopEbayAmazAmazau -description "Shopping search: ebay + amazon"
-\    -nargs=+ -js multipleEngineSearch(["e", "amaz", "aamazart", "amazau"], args.join(" "));
+command! shopEbayAmazau -description "Shopping search: ebay + amazon"
+\    -nargs=+ -js multipleEngineSearch(["e", "amazau"], args.join(" "));
+command! shopartEbayAmaz -description "Shopping search: ebay + amazon"
+\    -nargs=+ -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], args.join(" "));
 command! supermarket -description "Supermarket shopping search: woolworths + coles"
 \    -nargs=+ -js multipleEngineSearch(["shopwoo", "shopcol"], args.join(" "));
 
