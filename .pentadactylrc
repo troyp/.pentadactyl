@@ -6874,8 +6874,13 @@ function ebayGetStoreUrl() {
 
 function ebayCount() {
     var qtyBoxes = Array.from(content.document.querySelectorAll(".js-item-quantity-select"));
-    var quantities = qtyBoxes.map(e=>Number(e.value));
-    return quantities.reduce((n,s)=>n+s);
+    if (qtyBoxes.length) {
+        var quantities = qtyBoxes.map(e=>Number(e.value));
+        return quantities.reduce((n,s)=>n+s);
+    } else {
+        var countSpan = getSelectorByText("span>span", /Items \(\d+\)/)[0];
+        return parseInt(countSpan.innerText.match(/Items \((\d+)\)/)[1]);
+    }
 }
 
 EOF
