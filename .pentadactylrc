@@ -11391,6 +11391,20 @@ function openInNewOrCurrentTab(site) {
     };
 }
 
+function selectTab(url, reload=false) {
+    if (url) {
+        var alltabs = Array.from(tabs.allTabs);
+        var existingTab = alltabs.find( t=> t.linkedBrowser.contentDocument &&
+                                            t.linkedBrowser.contentDocument.URL.match(url));
+        if (existingTab) {
+            tabs.select(existingTab);
+            reload && tabs.reload(existingTab);
+            return [existingTab.dactylOrdinal, existingTab.linkedBrowser.contentDocument.URL];
+        }
+        else return null;
+    }
+}
+
 function openOrSelectTab(url, where='tab', regex=null, reload=false) {
     /* note: doesn't work when pending tabs are present */
     if (url) {
