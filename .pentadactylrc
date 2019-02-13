@@ -2095,7 +2095,8 @@ command! multipleenginesearch -description "Multiple engine bookmark search"
 \    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(0,-1), args.slice(-1));
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
-js searchEngineArtShops = ["e", "amazart", "aamazart", "amazau", "shopjpen", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
+
+js searchEngineArtShops = ["e", "amazart", "aamazart", "amazau", "shopjpen", "shopma", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
 command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=+ -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 command! shopart -description "Shopping search: art"
