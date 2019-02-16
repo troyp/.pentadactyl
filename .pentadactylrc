@@ -1895,31 +1895,34 @@ command! yankselectorcontent
     \ -description "Yank the contents of an element by selector."
     \ -nargs=+
     \ -js yankSelectorContent(args[0], evalStringOrFunction(args[1])||'innerText');
+
+" Heading Yank Commands "
+js yankheadingDelCharRegex = /®|©|™/g;
 command! yankh1
     \ -description "Yank the contents of an H1 heading."
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h1'); } "
-    \ -js utils.yankWithMsg(args[0]);
+    \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
 command! yankh2
     \ -description "Yank the contents of an H2 heading."
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h2'); } "
-    \ -js utils.yankWithMsg(args[0]);
+    \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
 command! yankh3
     \ -description "Yank the contents of an H3 heading."
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h3'); } "
-    \ -js utils.yankWithMsg(args[0]);
+    \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
 command! yankh4
     \ -description "Yank the contents of an H4 heading."
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h4'); } "
-    \ -js utils.yankWithMsg(args[0]);
+    \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
 command! yankheading
     \ -description "Yank the contents of an H1-4 heading."
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h1','h2','h3','h4'); } "
-    \ -js utils.yankWithMsg(args[0]);
+    \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
 command! pdfYankNthLine
     \ -description "PDF: Yank nth line"
     \ -nargs=1
@@ -8431,6 +8434,36 @@ command! vvlexsearchv1 -nargs=? -js vvlexSearchV1(args[0]);
 command! vvlexsearchv2 -nargs=? -js vvlexSearchV2(args[0]);
 map <site>1 -js vvlexSearchV1();
 map <site>2 -js vvlexSearchV2();
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,---------,
+" | Jetpens |
+" '---------'
+group jetpens -locations=jetpens.com
+
+js <<EOF
+function jetpensGotoLogin(where) {
+    /*
+       If a login tab is already open, jump to it, otherwise open login page.
+       If opening in a new tab (or starting from the logoff page, set redirect
+       to the Shopping Cart. Otherwise, set redirect to the starting URL.
+    */
+    var url = buffer.URL;
+    var redirect = where=="tab" || url.match("https://www.jetpens.com/logoff") ? "https://www.jetpens.com/cart" : url;
+    openOrSelectTab(
+        `https://www.jetpens.com/login?redirect_url=${encodeURIComponent(redirect)}`,
+        where,
+        /https:\/\/www\.jetpens\.com\/login.*/
+    );
+}
+EOF
+
+map <site>oa -description "Goto account" -js openOrSelectTab("https://www.jetpens.com/account", count?"tab":"here");
+map <site>oc -description "Goto cart" -js openOrSelectTab("https://www.jetpens.com/cart", count?"tab":"here");
+map <site>ol -description "Login" -js jetpensGotoLogin(count?"tab":"here");
+map <site>oo -description "Goto orders" -js openOrSelectTab("https://www.jetpens.com/account/viewOrders", count?"tab":"here");
 
 group user
 
