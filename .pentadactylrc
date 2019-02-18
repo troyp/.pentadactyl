@@ -8269,8 +8269,6 @@ group user
 " '---------------------'
 
 group jserver -locations=http://127.0.0.1:65001/jijx,http://127.0.0.1:65001/jfile,http://127.0.0.1:65001/jfiles,http://127.0.0.1:65001/jijs,http://127.0.0.1:65001/jfif,http://127.0.0.1:65001/jal,http://127.0.0.1:65001/jhelp,http://localhost:65001/jijx,http://localhost:65001/jfile,http://localhost:65001/jfiles,http://localhost:65001/jijs,http://localhost:65001/jfif,http://localhost:65001/jal,http://localhost:65001/jhelp
-map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
-map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 
 js <<EOF
 
@@ -8299,6 +8297,8 @@ map -modes normal,insert <A-p> -description "Previous cell" -js jCopyPreviousCel
 map -modes normal,insert <A-n> -description "Next cell" -js jCopyNextCellToPrompt();
 map -modes insert <C-u> -description "Clear prompt" -js jClearPrompt();
 
+map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>oo -description "Goto JIJX" -ex open http://127.0.0.1:65001/jijx
 map <site>of -description "Goto jfile" -ex open http://127.0.0.1:65001/jfile
 map <site>oF -description "Goto jfiles" -ex open http://127.0.0.1:65001/jfiles
