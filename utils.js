@@ -223,7 +223,7 @@ var utils = {
         utils.message(s);
     },
 
-    cbAppendWithMsg: function (s) {
+    cbAppend: function (s) {
         io.system(`echo "\n"; | xsel -aif`);
         io.system(`echo "\n"; echo -n '${s}' | xsel -aif`);
         var cbContents = io.system(`xsel -o`);
