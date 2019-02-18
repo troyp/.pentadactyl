@@ -1819,11 +1819,7 @@ map <app>tb -description "Google append translation (div) (HINTS)" -js hints.sho
 " '------'
 map <yank>a -description "Yank text area #N contents" -b :yanktextarea<Space>
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
-map <yank>d -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
-map <yank>f -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
-map <yank>gu -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
-map <yank>gU -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 map <yank>ii -description "Yank first text input field" -js yankInputFieldN(count || 1);
 map <yank>ia -description "Yank text input fields" -js yankInputFields();
@@ -1853,7 +1849,14 @@ map <yank>R -description "Yank link reference (page title and heading)"
 map <yank>s -description "Yank element content by selector" -b :yankselectorcontent<Space>
 map <yank>t -description "Yank page title" -js utils.yankWithMsg(buffer.title)
 map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
-map <yank>u -description "Yank buffer URL (unencoded)" -ex yanktrueURL
+" <yank>u -- Yank URL/filename "
+map <yank>u  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>u")
+map <yank>uu -description "Yank buffer URL (unencoded)" -ex yanktrueURL
+map <yank>ud -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
+map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
+map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
+map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
+
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
 map <yank>V -description "Yank browser name and version"
 \           -js utils.yankWithMsg(`${xulAppInfo.name} ${xulAppInfo.version}`);
