@@ -9634,6 +9634,36 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,----------------------,
+" | Newtown Art Supplies |
+" '----------------------'
+
+group newtownart -locations=www.newtownartsupplies.com.au
+
+js <<EOF
+function newtownartGo() {
+    clickSelector('.CheckoutButton>a') || clickSelector(".add-to-cart");
+}
+
+function newtownartCount() {
+    var qtyBoxes = Array.from(content.document.querySelectorAll(".CartItemQuantity input"));
+    if (qtyBoxes.length) {
+        var quantities = qtyBoxes.map(e=>Number(e.value));
+        return quantities.reduce((n,s)=>n+s);
+    }
+}
+EOF
+
+map <site>c  -description "Go (click Add to cart/Proceed to checkout)" -js newtownartGo();
+map <site>oc -description "Go to cart" -count -js openOrSelectTab("https://www.newtownartsupplies.com.au/cart.php", count?"here":"tab");
+map <site>n  -description "Count items" -js utils.message("Number of items: " + newtownartCount());
+map <Space>  -description "Load more" -ex open javascript:ENV.Express_more()
+
+
+group user
+
+
 
 " -------------------------------------------------------------------------------
 " ,-------------,
