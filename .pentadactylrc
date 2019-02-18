@@ -1820,6 +1820,16 @@ map <app>tb -description "Google append translation (div) (HINTS)" -js hints.sho
 " '------'
 map <yank>a -description "Yank text area #N contents" -b :yanktextarea<Space>
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
+
+" <yank>d -- Yank datetime "
+map <yank>d  -description "(show bindings: yank datetime)" -js CommandExMode().open("showkeys <yank>d")
+map <yank>da
+\    -description "Yank current datetime (yyyy-mm-dd-HH-MM-SS)"
+\    -js utils.cbAppend("-"+(new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
+map <yank>dd
+\    -description "Append current datetime to clipboard (-yyyy-mm-dd-HH-MM-SS)"
+\    -js utils.cbWrite((new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
+
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 " <yank>i -- Yank input fields "
