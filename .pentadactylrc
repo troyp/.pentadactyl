@@ -6906,6 +6906,21 @@ function ebayCount() {
     }
 }
 
+ebayResultPageRegex = /&_pgn=(\d+)/;
+
+function ebayGetResultPageNumber() {
+    var match = buffer.URL.match(ebayResultPageRegex);
+    if (match) return match[1];
+    else return 1;
+}
+
+function ebayOpenResultPageNumber(n, where="here") {
+    var match = buffer.URL.match(ebayResultPageRegex);
+    var pageQuery = `&_pgn=${n}`;
+    var newurl = match ? buffer.URL.replace(ebayResultPageRegex, pageQuery) : buffer.URL+pageQuery;
+    dactyl.open(newurl, {where: where});
+}
+
 EOF
 
 command! ebayremovebytitle
@@ -6917,6 +6932,12 @@ command! ebayfilterbytitle
     \ -description "Remove entries whose titles fail to match a smart-case regex."
     \ -nargs=1
     \ -js ebayFilterByTitle(stringToSmartCaseRegExp(args[0]));
+
+command! ebayresultpageN
+\    -description "Goto page N of the search results"
+\    -nargs=1
+\    -bang
+\    -js ebayOpenResultPageNumber(args[0], bang?"tab":"here");
 
 map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>c -description "Click button (Add to cart/Go to checkout)" -js ebayGo();
