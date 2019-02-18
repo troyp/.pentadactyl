@@ -1803,6 +1803,7 @@ command! trans
     \ -nargs=+
     \ -js googleTranslateText(args.join(" "));
 
+map <app>t  -description "(show bindings: translate)" -js CommandExMode().open("showkeys <app>t")
 map <app>tt -description "Bing translate page" -ex bingtranslatepage
 map <app>tg -description "Google translate page" -ex googletranslatepage
 map <app>tx -description "Google translate text" -b :trans<Space>
@@ -1821,8 +1822,11 @@ map <yank>a -description "Yank text area #N contents" -b :yanktextarea<Space>
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
+" <yank>i -- Yank input fields "
+map <yank>i  -description "(show bindings: yank input fields)" -js CommandExMode().open("showkeys <yank>i")
 map <yank>ii -description "Yank first text input field" -js yankInputFieldN(count || 1);
 map <yank>ia -description "Yank text input fields" -js yankInputFields();
+
 map <yank>I
 \    -description "Yank all image locations"
 \    -js yankCollection(content.document.images, l=>l.src);
@@ -1835,6 +1839,8 @@ map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.t
 map <yank>M -description "Yank markdown link (using H1 heading as title)"
     \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
 map <yank>p -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
+" <yank>P -- yank from PDF "
+map <yank>P  -description "(show bindings: yank from PDF)" -js CommandExMode().open("showkeys <yank>P")
 map <yank>P1 -description "PDF: Yank first line" -js content.document.querySelectorAll(".textLayer>div")[0].textContent;
 map <yank>P2 -description "PDF: Yank second line" -js content.document.querySelectorAll(".textLayer>div")[1].textContent;
 map <yank>P3 -description "PDF: Yank third line" -js content.document.querySelectorAll(".textLayer>div")[2].textContent;
@@ -1842,6 +1848,7 @@ map <yank>P4 -description "PDF: Yank fourth line" -js content.document.querySele
 map <yank>P5 -description "PDF: Yank fifth line" -js content.document.querySelectorAll(".textLayer>div")[4].textContent;
 map <yank>PL -description "PDF: Yank specified lines (eg. 2-5,11,19)" -b :pdfYankSpecifiedLines<Space>
 map <yank>PP -description "PDF: Yank nth line" -b :pdfYankNthLine<Space>
+
 map <yank>r -description "Yank link reference (page title and url)"
     \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
 map <yank>R -description "Yank link reference (page title and heading)"
