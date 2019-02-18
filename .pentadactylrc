@@ -1225,7 +1225,7 @@ map <leader>jj
 map <leader>jk      -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
 map <leader>jk<C-h> -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
 map <leader>jkh -description "Google Translate handwritten input"
-    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"tab");
+    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"tab", /https:\/\/translate\.google\.com\.au\/(#ja\/en\/|.*&sl=ja.*&tl=en).*/);
 map <leader>jkp
     \ -description "Jisho kanji search (clipboard)"
     \ -count
