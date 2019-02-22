@@ -6090,6 +6090,8 @@ group animelyrics -locations=animelyrics.com
 " Go to "Print view with kanji" if it exists, or else "Print view"
 map <site>P -b <C-v>'Print<Space>view<f3><CR>
 
+group user
+
 " -----------------------------------------------------------------------------
 " ,-------------,
 " | Archive.org |
