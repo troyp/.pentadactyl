@@ -8265,6 +8265,48 @@ map <site>d -ex imgurdl
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------------,
+" | Jacksons.com.au |
+" '-----------------'
+group jacksonsau -locations=jacksons.com.au
+
+js <<EOF
+function jacksonsAddToCart(n) {
+    var inputs = content.document.querySelectorAll("input.quantity");
+    if (inputs.length == 1) {
+        var input = inputs[0];
+        if (input.value == "0" || n) input.value = String(n||1);
+    }
+    clickSelector("#addtocart");
+}
+
+function jacksonsGo(count) {
+    var url = buffer.URL;
+    if (url.match("https://www.jacksons.com.au/product/")) {
+        jacksonsAddToCart(count);
+    } else if (url.match("https://www.jacksons.com.au/cart.php")) {
+        if (count == "0") clickSelector("#continue");
+        else clickSelector("#checkout");
+    }
+}
+EOF
+
+map <site>c  -description "Go (add to cart/checkout[0 count=continue])" -js jacksonsGo(count);
+map <site>o  -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
+map <site>oa
+\    -description "Goto account"
+\    -js openOrSelectTab("https://www.jacksons.com.au/account.php", count?"tab":"here");
+map <site>oc
+\    -description "Goto cart"
+\    -js openOrSelectTab("https://www.jacksons.com.au/cart.php", count?"tab":"here");
+map <site>oo
+\    -description "Goto orders"
+\    -js openOrSelectTab("https://www.jacksons.com.au/order.php", count?"tab":"here");
+
+group user
+
+
+" -------------------------------------------------------------------------------
 " ,---------------------,
 " | J HTTP SERVER (JHS) |
 " '---------------------'
