@@ -2062,7 +2062,7 @@ function searchClipboard(engines=["g"], where="tab") {
 EOF
 
 command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '))
-command! searchclipboard -nargs * -bang -js searchClipboard(args, bang?"here":"tab");
+command! searchclipboard -nargs * -bang -js searchClipboard(args.length?args:undefined, bang?"here":"tab");
 
 map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
