@@ -1394,18 +1394,32 @@ EOF
 " ,----------------------, ,-----------,
 " | Web Sites & Web Apps | | <leader>a |
 " '----------------------' '-----------'
-map <leader>a      -js CommandExMode().open("showkeys <leader>a")
-map <leader>a<C-h> -js CommandExMode().open("showkeys <leader>a")
+map <leader>a
+\    -description "(show bindings: Web Sites)"
+\    -js CommandExMode().open("showkeys <leader>a")
+map <leader>a<C-h>
+\    -description "(show bindings: Web Sites)"
+\    -js CommandExMode().open("showkeys <leader>a")
 " <leader>aa - Misc Accounts"
-map <leader>aa      -js CommandExMode().open("showkeys <leader>aa");
-map <leader>aa<C-h> -js CommandExMode().open("showkeys <leader>aa");
 map <leader>aaaz
     \ -description "Open Amazon"
     \ -count -js openOrSelectTab("https://smile.amazon.com/gp/huc/view.html");
+map <leader>aa
+\    -description "(show bindings: Web Sites/Misc Accts)"
+\    -js CommandExMode().open("showkeys <leader>aa");
+map <leader>aa<C-h>
+\    -description "(show bindings: Web Sites/Misc Accts)"
+\    -js CommandExMode().open("showkeys <leader>aa");
 map <leader>aar
     \ -description "Open Inoreader"
     \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
 "  <leader>aap - Packt "
+map <leader>aap
+\    -description "(show bindings: Web Sites/Packt)"
+\    -js CommandExMode().open("showkeys <leader>aap");
+map <leader>aap<C-h>
+\    -description "(show bindings: Web Sites/Packt)"
+\    -js CommandExMode().open("showkeys <leader>aap");
 map <leader>aapa
     \ -description "Append today's Packt free title to library"
     \ -js packtWriteTitleToListAndShowEndOfList();
@@ -1437,6 +1451,12 @@ map <leader>ae
     \ -description "Open eBay"
     \ -count -js openOrSelectTab('https://www.ebay.com.au/myb/Summary', count?"here":"tab");
 " <leader>ag - Repos "
+map <leader>aag
+\    -description "(show bindings: Web Sites/Repos)"
+\    -js CommandExMode().open("showkeys <leader>aag");
+map <leader>aag<C-h>
+\    -description "(show bindings: Web Sites/Repos)"
+\    -js CommandExMode().open("showkeys <leader>aag");
 map <leader>agh
     \ -description "Open My Github: Repositories"
     \ -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
@@ -1444,8 +1464,12 @@ map <leader>agb
     \ -description "Open My Bitbucket"
     \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
 " Email: <leader>am "
-map <leader>am      -js CommandExMode().open("showkeys <leader>am");
-map <leader>am<C-h> -js CommandExMode().open("showkeys <leader>am");
+map <leader>am
+\    -description "(show bindings: Web Sites/Email)"
+\    -js CommandExMode().open("showkeys <leader>am");
+map <leader>am<C-h>
+\    -description "(show bindings: Web Sites/Email)"
+\    -js CommandExMode().open("showkeys <leader>am");
 map <leader>amc
     \ -description "Open Google Contacts"
     \ -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"tab");
@@ -1470,6 +1494,12 @@ map <leader>ap
     \ -description "Open Paypal"
     \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
 " <leader>ar - Reference"
+map <leader>ar
+\    -description "(show bindings: Web Sites/Reference)"
+\    -js CommandExMode().open("showkeys <leader>ar");
+map <leader>ar<C-h>
+\    -description "(show bindings: Web Sites/Reference)"
+\    -js CommandExMode().open("showkeys <leader>ar");
 map <leader>arbib
     \ -description "King James Bible BOOK [CH:SEC]"
     \ -count -b :kingjames<SPACE>
@@ -1480,8 +1510,12 @@ map <leader>arwe
     \ -description "Goto Wikpedia episode list"
     \ -count -b :wpeplist<SPACE>
 " <leader>as - Shopping & Schedules"
-map <leader>as      -js CommandExMode().open("showkeys <leader>as");
-map <leader>as<C-h> -js CommandExMode().open("showkeys <leader>as");
+map <leader>as
+\    -description "(show bindings: Shopping)"
+\    -js CommandExMode().open("showkeys <leader>as");
+map <leader>as<C-h>
+\    -description "(show bindings: Shopping)"
+\    -js CommandExMode().open("showkeys <leader>as");
 map <leader>asa
     \ -description "Ballina Airport: Arrivals and Departures"
     \ -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
@@ -1497,6 +1531,12 @@ map <leader>at
     \ -description "Open Time Server"
     \ -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab", /^https:\/\/time\.is/);
 " <leader>av - Video & Radio"
+map <leader>av
+\    -description "(show bindings: Web Sites/Video&Radio)"
+\    -js CommandExMode().open("showkeys <leader>as");
+map <leader>av<C-h>
+\    -description "(show bindings: Web Sites/Video&Radio)"
+\    -js CommandExMode().open("showkeys <leader>as");
 map <leader>ava
     \ -description "AccuRadio Classical"
     \ -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
@@ -1507,6 +1547,12 @@ map <leader>ava
     \ -count -js openOrSelectNetflix(count?"here":"tab");
 :endif
 " Weather "
+map <leader>av
+\    -description "(show bindings: Web Sites/Weather)"
+\    -js CommandExMode().open("showkeys <leader>as");
+map <leader>av<C-h>
+\    -description "(show bindings: Web Sites/Weather)"
+\    -js CommandExMode().open("showkeys <leader>as");
 map <leader>aww
     \ -description "Open Lismore Weather (BoM)"
     \ -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
