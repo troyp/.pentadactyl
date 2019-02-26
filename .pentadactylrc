@@ -1401,9 +1401,6 @@ map <leader>a<C-h>
 \    -description "(show bindings: Web Sites)"
 \    -js CommandExMode().open("showkeys <leader>a")
 " <leader>aa - Misc Accounts"
-map <leader>aaaz
-    \ -description "Open Amazon"
-    \ -count -js openOrSelectTab("https://smile.amazon.com/gp/huc/view.html");
 map <leader>aa
 \    -description "(show bindings: Web Sites/Misc Accts)"
 \    -js CommandExMode().open("showkeys <leader>aa");
@@ -1567,6 +1564,13 @@ map <leader>ay
     \ -description "Open MyGov"
     \ -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
     \                            count?"here":"tab");
+" Amazon "
+map <leader>azz
+    \ -description "Open AU Amazon"
+    \ -count -js openOrSelectTab("https://www.amazon.com");
+map <leader>azu
+    \ -description "Open US Amazon"
+    \ -count -js openOrSelectTab("https://smile.amazon.com");
 
 js <<EOF
 function packtGetTodaysTitle() {
