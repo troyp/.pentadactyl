@@ -2622,6 +2622,8 @@ map <buffer>m.      -description "Move last COUNT tabs to ordinal ARG"
 map <buffer>m\'     -description "Move COUNT tabs to ordianl ARG" -arg -count -ex moventabs <count> <arg>
 map <buffer>ma      -description "Move tab after alternate" -js moveTabAfterAlternate();
 map <buffer>mA      -description "Move alternate after tab" -js moveAlternateAfterTab();
+
+map <buffer>n       -description "Show number of tabs"s -js utils.message("Number of tabs: " + tabs.count);
 map <buffer>p       -description "Toggle pin tab" -ex pintab!
 map <buffer>t       -description "Execute binding in new tab" -b :tab normal<Space>
 map <buffer>v       -description "Toggle mute tab" -js tabs.getTab().toggleMuteAudio();
