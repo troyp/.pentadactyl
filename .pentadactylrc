@@ -10086,13 +10086,7 @@ js <<EOF
 function packtClaim() { content.document.getElementById("free-learning-claim").click(); }
 
 function packtMaybeClaimAndWriteToList() {
-    var inLib =
-        io.system(
-            'grep -F "' +
-            "$(curl -s https://www.packtpub.com/packt/offers/free-learning | pup 'div.dotd-title text{}' | python -c 'import sys; print(sys.stdin.read().strip())')" +
-            '" ~/.pentadactyl/data/packt-library.txt'
-        ).returnValue==0;
-    if (!inLib) {
+    if (!packtIsTodaysTitleInLibrary()) {
         packtClaim();
         packtWriteTitleToListAndShowEndOfList();
     } else {
