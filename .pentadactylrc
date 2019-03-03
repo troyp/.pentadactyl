@@ -2611,6 +2611,9 @@ map <buffer>dt<C-h> -description "(show bindings: Delete tabs/delete to)"
 map <buffer>dtt     -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dtx     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
+map <buffer>dw
+\    -description "Close window unless last"
+\    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
 " ,------------------------,
 " | <buffer>m -- move tabs |
 " '------------------------'
