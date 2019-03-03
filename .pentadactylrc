@@ -2604,8 +2604,12 @@ map <buffer>dR      -description "Close tabs matching REGEX (case-sensitive)"
 \                   -b :tabremoveregex<Space>"//"<Left><Left>
 map <buffer>d;R     -description "Close tabs not matching REGEX (case-sensitive)"
 \                   -b :tabfilterregex<Space>"//"<Left><Left>
-map <buffer>dt      -description "Close from here to ARG" -b :tabclosefromhereto<Space>
-map <buffer>dxt     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
+map <buffer>dt      -description "(show bindings: Delete tabs/delete to)"
+\                   -js CommandExMode().open("showkeys <buffer>dt")
+map <buffer>dt<C-h> -description "(show bindings: Delete tabs/delete to)"
+\                   -js CommandExMode().open("showkeys <buffer>dt")
+map <buffer>dtt     -description "Close from here to ARG" -b :tabclosefromhereto<Space>
+map <buffer>dtx     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
 " ,------------------------,
 " | <buffer>m -- move tabs |
