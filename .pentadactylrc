@@ -4973,7 +4973,10 @@ function toggleUrl (x, y, x_canon, y_canon) {
         newurl = url.replace(x, y_canon);
     else if (url.search(y) >= 0)
         newurl = url.replace(y, x_canon);
-    dactyl.open(newurl);
+    if (newurl) {
+        dactyl.open(newurl);
+        return newurl;
+    }
 }
 window.toggleUrl = toggleUrl;
 
