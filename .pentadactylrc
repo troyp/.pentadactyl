@@ -10747,6 +10747,19 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,---------------,
+" | WetCanvas.com |
+" '---------------'
+group wetcanvas -locations=wetcanvas.com
+
+js <<EOF
+EOF
+
+map <site>tp -description "Toggle printable" -js toggleUrl("showthread", "printthread");
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-----------,
 " | Wikia.com |
 " '-----------'
