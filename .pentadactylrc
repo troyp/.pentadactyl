@@ -4014,10 +4014,10 @@ command! acgetocspstapling    getboolpref  security.ssl.enable_ocsp_stapling
 " User Agent "
 " Warning: breaks youtube if set "
 "          breaks netflix if not set "
-command! acsetuaoverride    set! general.useragent.override="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+command! acsetuaoverride    set! general.useragent.override="Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0"
 command! acunsetuaoverride  set! general.useragent.override=''
 command! acsetotheruaoverride -nargs=1 -js dactyl.execute(`set! general.useragent.override='${args[0]}'`);
-command! actoggleuaoverride -js utils.toggleNsISupportStrPref("general.useragent.override", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
+command! actoggleuaoverride -js utils.toggleNsISupportStrPref("general.useragent.override", "Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0");
 command! acgetuaoverride    getnsisupportsstringpref general.useragent.override
 
 " Addon auto-updates "
