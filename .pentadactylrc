@@ -10981,7 +10981,7 @@ group user
 " ,---------------,
 " | Wikipedia.org |
 " '---------------'
-group wikipedia -locations=wikipedia.org,wikisource.org
+group wikipedia -locations=wikipedia.org,wikisource.org,wiktionary.org
 
 js <<EOF
 var wpLatest = function() {
