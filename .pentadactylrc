@@ -11493,7 +11493,7 @@ function blankSelectors(...sels) {
     });
 }
 
-function setSelectorOpacity(opacity, ...sels) {
+function setSelectorsOpacity(opacity, ...sels) {
     var doc = content.document;
     sels.forEach(sel=>{
         var elts = Array.from(doc.querySelectorAll(sel));
