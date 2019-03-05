@@ -5950,7 +5950,7 @@ group user
 " ,------------,
 " | Amazon.com |
 " '------------'
-group amazon -locations=amazon.com,amazon.com.au
+group amazon -locations=amazon.com,amazon.com.au,amazon.co.uk
 
 js <<EOF
 function amazonGetUrlParts(url) {
