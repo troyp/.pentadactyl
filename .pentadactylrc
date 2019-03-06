@@ -10346,8 +10346,7 @@ function seRemoveAds() {
 }
 
 function sePrintPost(e) {
-    topElts = Array.from(content.document.body.children);
-    topElts.forEach(elt => elt.remove());
+    topElements().forEach(elt => elt.remove());
     content.document.body.appendChild(e);
     removeSelectors(
         ".post-layout--right>div:nth-of-type(2)",
@@ -11364,8 +11363,7 @@ function removeSelectorFiltered(sel, pred) {
 
 function removeFirstSelector(sel) {
     "Remove the first element matching sel."
-    var doc = content.document;
-    var elt = doc.querySelector(sel);
+    elt = getFirstSelector(sel);
     elt.parentNode.removeChild(elt);
 }
 
@@ -11383,18 +11381,18 @@ function removeSelectorsWithPrecedingHeading(...sels) {
     });
 }
 
+function topElements() { return [...content.document.body.children] };
+
 function isolateSelector(sel) {
     selectedElt = content.document.querySelector(sel);
-    topElts = Array.from(content.document.body.children);
-    topElts.forEach(elt => elt.remove());
+    topElements().forEach(elt => elt.remove());
     content.document.body.appendChild(selectedElt);
 }
 
 " TODO: remove nonmatching elements rather than replacing matching ones "
 function isolateSelectors(...sels) {
-    var doc = content.document;
-    selectedElts = Array.from(content.document.querySelectorAll(sels));
-    topElts = Array.from(content.document.body.children);
+    selectedElts = [...content.document.querySelectorAll(sels)];
+    topElts = [...content.document.body.children];
     topElts.forEach(elt => elt.remove());
     selectedElts.forEach(elt =>
         content.document.body.appendChild(elt)
@@ -11411,13 +11409,12 @@ function isolateSelectorsFiltered(...selPredPairs) {
         } else {
             var [sel, pred] = arg;
             pred = pred || ((e)=>true);
-            eltsForSel = Array.from(content.document.querySelectorAll(sel));
+            eltsForSel = [...content.document.querySelectorAll(sel)];
             eltsForSelFiltered = eltsForSel.filter(pred);
             keep = keep.concat(eltsForSelFiltered);
         }
     });
-    topElts = Array.from(content.document.body.children);
-    topElts.forEach(elt => elt.remove());
+    topElements().forEach(elt => elt.remove());
     keep.forEach(elt =>
         content.document.body.appendChild(elt)
     );
