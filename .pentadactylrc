@@ -941,6 +941,15 @@ map <C-x><C-S-S>
 \ -js saveDocument(getBrowser().selectedBrowser.contentDocument,
 \                  {mafAskSaveArchive: true});
 
+" -------------------------------------------------------------------------------
+" ,--------------------------,
+" | <browser>a -- Annoyances |
+" '--------------------------'
+map <browser>a      -description "(show bindings: Annoyances)" -js CommandExMode().open("showkeys <browser>a")
+map <browser>a<C-h> -description "(show bindings: Annoyances)" -js CommandExMode().open("showkeys <browser>a")
+map <browser>ar -description "Enable Right-click"
+\    -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
+
 " ,------------------------,
 " | <browser>d -- Download |
 " '------------------------'
@@ -1350,12 +1359,7 @@ map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word h
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
 
 " ,---------------------------,
-" | <leader>v - miscellaneous |
 " '---------------------------'
-map <leader>v      -description "(show bindings: Miscellaneous)" -js CommandExMode().open("showkeys <leader>v")
-map <leader>v<C-h> -description "(show bindings: Miscellaneous)" -js CommandExMode().open("showkeys <leader>v")
-map <leader>vr -description "Enable Right-click"
-\    -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
 
 " Download PDF "
 command! dlpdf
