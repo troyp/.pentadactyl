@@ -2538,6 +2538,7 @@ command! countselector -nargs=1 -js utils.messageWithLineLimit(`Number of elemen
 command! addmargin -nargs=+ -js addMarginToBody(args[0], args[1]);
 
 " Page info commands "
+command! getselector -nargs=* -js dactyl.execute(`echo getSelectors('${args.join(",")}')`);
 command! imgsalttotitle
     \ -description "Add ALT text to TITLE for all images on page"
     \ -js imgsAddAltTextToTitle();
@@ -3580,6 +3581,7 @@ map <leader>eR -description "JS REPL: doc=content doc, $=jQuery"
 map <leader>em -description "Evaluate JS expression (end with EOF)" -b :js <<EOF
 map <leader>eb -description "Evaluate JS as bookmarklet"
 \    -b :open javascript:;void(0);<Left><Left><Left><Left><Left><Left><Left><Left><Left>
+map <leader>es -description "Show elements matching selector(s)" -b :getselector<Space>
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------, ,-----------,
