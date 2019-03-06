@@ -11347,19 +11347,26 @@ window.getSelectionDOM = getSelectionDOM;
 " | Functions taking Elements or Selectors | "
 " '----------------------------------------' "
 
+function getSelectors(...sels) {
+    return content.document.querySelectorAll(sels.join(","));
+}
+window.getSelectors = getSelectors;
+
 function removeSelectors(...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>e.parentNode.removeChild(e));
-    });
+    var elts = getSelectors(...sels);
+    elts.forEach(e=>e.parentNode.removeChild(e));
 }
 
 function removeSelectorFiltered(sel, pred) {
-    var doc = content.document;
-    var elts = Array.from(doc.querySelectorAll(sel)).filter(pred);
+    var elts = getSelectors(sel).filter(pred);
     elts.forEach(e=>e.parentNode.removeChild(e));
 }
+
+function getFirstSelector(sel) {
+    " Return the first element matching selector sel ";
+    return content.document.querySelector(sel);
+}
+window.getFirstSelector = getFirstSelector;
 
 function removeFirstSelector(sel) {
     "Remove the first element matching sel."
@@ -11369,15 +11376,12 @@ function removeFirstSelector(sel) {
 
 "remove each matching element, plus immediately preceding heading (H1-H6)"
 function removeSelectorsWithPrecedingHeading(...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=> {
-            var prev = e.previousElementSibling;
-            if (prev && prev.tagName && prev.tagName.match(/H[1-6]/))
-                prev.parentNode.removeChild(prev);
-            e.parentNode.removeChild(e);
-        });
+    var elts = getSelectors(...sels);
+    elts.forEach(e=> {
+        var prev = e.previousElementSibling;
+        if (prev && prev.tagName && prev.tagName.match(/H[1-6]/))
+            prev.parentNode.removeChild(prev);
+        e.parentNode.removeChild(e);
     });
 }
 
