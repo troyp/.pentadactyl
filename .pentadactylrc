@@ -2196,8 +2196,14 @@ command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=+ -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 command! shopart -description "Shopping search: art"
 \    -nargs=+ -js multipleEngineSearch(searchEngineArtShops, args.join(" "));
-command! shopEbayAmazau -description "Shopping search: ebay + amazon"
-\    -nargs=+ -js multipleEngineSearch(["e", "amazau"], args.join(" "));
+command! shopEbayAmazau
+\    -description "Shopping search: ebay + amazon"
+\    -nargs=*
+\    -js multipleEngineSearchWithDefaults(
+\            [
+\                ["e", "https://cart.ebay.com.au"],
+\                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
+\            ], args.join(" "));
 command! shopartEbayAmaz -description "Shopping search: ebay + amazon"
 \    -nargs=+ -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], args.join(" "));
 command! supermarket -description "Supermarket shopping search: woolworths + coles"
