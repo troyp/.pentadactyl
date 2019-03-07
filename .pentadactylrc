@@ -2193,9 +2193,9 @@ command! polysearch -description "Poly search: multiple queries & engines: :poly
 
 js searchEngineArtShops = ["e", "amazart", "aamazart", "amazau", "shopjpen", "shopma", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
 command! shop -description "Shopping search: ebay + amazon"
-\    -nargs=+ -js multipleEngineSearch(["e", "amaz"], args.join(" "));
+\    -nargs=* -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 command! shopart -description "Shopping search: art"
-\    -nargs=+ -js multipleEngineSearch(searchEngineArtShops, args.join(" "));
+\    -nargs=* -js multipleEngineSearch(searchEngineArtShops, args.join(" "));
 command! shopEbayAmazau
 \    -description "Shopping search: ebay + amazon"
 \    -nargs=*
@@ -2205,9 +2205,9 @@ command! shopEbayAmazau
 \                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
 \            ], args.join(" "));
 command! shopartEbayAmaz -description "Shopping search: ebay + amazon"
-\    -nargs=+ -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], args.join(" "));
+\    -nargs=* -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], args.join(" "));
 command! supermarket -description "Supermarket shopping search: woolworths + coles"
-\    -nargs=+ -js multipleEngineSearch(["shopwoo", "shopcol"], args.join(" "));
+\    -nargs=* -js multipleEngineSearch(["shopwoo", "shopcol"], args.join(" "));
 
 js <<EOF
 function ghSearchAndGo(s) {
