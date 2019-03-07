@@ -1359,7 +1359,43 @@ map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word h
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
 
 " ,---------------------------,
+" | <leader>x - miscellaneous |
 " '---------------------------'
+map <leader>x<C-h>
+\    -description "(show bindings: Misc)"
+\    -js CommandExMode().open("showkeys <leader>x")
+map <leader>x
+\    -description "(show bindings: Misc)"
+\    -js CommandExMode().open("showkeys <leader>x")
+" ,---------------------------,
+" | Conversion and Arithmetic |
+" '---------------------------'
+map <leader>xc<C-h>
+\    -description "(show bindings: Misc/Conversion,Arithmetic)"
+\    -js CommandExMode().open("showkeys <leader>xc")
+map <leader>xc
+\    -description "(show bindings: Misc/Conversion&Arithmetic)"
+\    -js CommandExMode().open("showkeys <leader>xc")
+map <leader>xci -description "Convert inches to centimeters (by hints)" -js hints.show("”");
+map <leader>xcd -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
+
+command! usd2aud
+    \ -nargs *
+    \ -description "convert $US prices to $AU"
+    \ -js utils.message(args.map(x=>USDtoAUD(x).toFixed(2)).join(" "));
+command! setusdaudexchange
+    \ -nargs 1
+    \ -description "Set exchange rate of $AU/$US"
+    \ -js setUSDAUDexchange(args[0]);
+command! sumusd2aud
+    \ -nargs *
+    \ -description "Sum $US prices and convert to $AU"
+    \ -js utils.message(USDtoAUD(args.reduce((a,b)=>parseFloat(a)+parseFloat(b))));
+
+command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
+command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
+map <leader>+ -b :sum<Space>
+map <leader>* -b :product<Space>
 
 " Download PDF "
 command! dlpdf
@@ -1711,32 +1747,6 @@ command! prwul -description "run PrintWhatYouLike" open javascript:(function(){i
 " | PrintFriendly |
 command! printfriendly -description "Run Print Friendly" open javascript:(function(){if(window['priFri']){window.print()} else{var pfurl=''; pfstyle='nbk'; pfBkVersion='1'; if(window.location.href.match(/https/)){pfurl='https://pf-cdn.printfriendly.com/ssl/main.js'} else {pfurl='http://cdn.printfriendly.com/printfriendly.js'} _pnicer_script=document.createElement('SCRIPT'); _pnicer_script.type='text/javascript'; _pnicer_script.src=pfurl + '?x='+(Math.random()); document.getElementsByTagName('head')[0].appendChild(_pnicer_script);}})();
 
-
-" ,---------------------------,
-" | Conversion and Arithmetic |
-" '---------------------------'
-map <leader>xc<C-h> -js CommandExMode().open("showkeys <leader>xc")
-map <leader>xc      -js CommandExMode().open("showkeys <leader>xc")
-map <leader>xci -description "Convert inches to centimeters (by hints)" -js hints.show("”");
-map <leader>xcd -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
-
-command! usd2aud
-    \ -nargs *
-    \ -description "convert $US prices to $AU"
-    \ -js utils.message(args.map(x=>USDtoAUD(x).toFixed(2)).join(" "));
-command! setusdaudexchange
-    \ -nargs 1
-    \ -description "Set exchange rate of $AU/$US"
-    \ -js setUSDAUDexchange(args[0]);
-command! sumusd2aud
-    \ -nargs *
-    \ -description "Sum $US prices and convert to $AU"
-    \ -js utils.message(USDtoAUD(args.reduce((a,b)=>parseFloat(a)+parseFloat(b))));
-
-command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
-command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
-map <leader>+ -b :sum<Space>
-map <leader>* -b :product<Space>
 
 " ,-------------,
 " | Translation |
@@ -2323,8 +2333,8 @@ map <C-S-W> -modes insert <pwhashsite>
 " ,---------------------------------------,
 " | Normal mode bindings for Command-line |
 " '---------------------------------------'
-map <leader>c<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <leader>c")
-map <leader>c      -description "(show bindings)" -js CommandExMode().open("showkeys <leader>c")
+map <leader>c<C-h> -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
+map <leader>c      -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
 map <leader>cm -ex messages
 " Repeat search just entered with keyword changed
 map <leader>cr :<C-r>
@@ -3555,8 +3565,8 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 " ,------------------------, ,-----------,
 " | Javascript Evalutation | | <leader>e |
 " '------------------------' '-----------'
-map <leader>e<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <leader>e")
-map <leader>e      -description "(show bindings)" -js CommandExMode().open("showkeys <leader>e")
+map <leader>e<C-h> -description "(show bindings: Javascript Eval)" -js CommandExMode().open("showkeys <leader>e")
+map <leader>e      -description "(show bindings: Javascript Eval)" -js CommandExMode().open("showkeys <leader>e")
 
 " JS Repl
 command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
@@ -3569,6 +3579,8 @@ command! evalwithjsscheme
     \ -complete javascript
     \ -b :open javascript:<args>; void(0);
 
+map <leader>eb -description "Evaluate JS as bookmarklet"
+\    -b :open javascript:;void(0);<Left><Left><Left><Left><Left><Left><Left><Left><Left>
 map <leader>ee -description "Evaluate JS expression"
 \    -b :echo<Space>
 map <leader>eE -description "Evaluate JS expression: doc=content doc, $=jQuery"
@@ -3579,20 +3591,22 @@ map <leader>eF -description "Evaluate JS expression: doc=Nth frame doc, $=jQuery
 \    -count -b :echo doc=content.window.frames[0<count>].document;<Space>$=jQuery;<Space>
 map <leader>ei -description "Evaluate JS expression by injecting into a script tag"
 \    -b :evalwithscripttag<Space>
+map <leader>em -description "Evaluate JS expression (end with EOF)" -b :js <<EOF
 map <leader>er -description "JS REPL" -ex js!
 map <leader>eR -description "JS REPL: doc=content doc, $=jQuery"
 \    -js dactyl.execute("js doc=content.document; $=jQuery;") && dactyl.execute("js!");
-map <leader>em -description "Evaluate JS expression (end with EOF)" -b :js <<EOF
-map <leader>eb -description "Evaluate JS as bookmarklet"
-\    -b :open javascript:;void(0);<Left><Left><Left><Left><Left><Left><Left><Left><Left>
 map <leader>es -description "Show elements matching selector(s)" -b :getselector<Space>
 
 " -----------------------------------------------------------------------------
 " ,---------------------------------, ,-----------,
 " | Mozilla DevTools & DOM Inspector| | <leader>d |
 " '---------------------------------' '-----------'
-map <leader>d<C-h>  -js CommandExMode().open("showkeys <leader>d")
-map <leader>d       -js CommandExMode().open("showkeys <leader>d")
+map <leader>d<C-h>
+\    -description "(show bindings: Devtools)"
+\    -js CommandExMode().open("showkeys <leader>d")
+map <leader>d
+\    -description "(show bindings: Devtools)"
+\    -js CommandExMode().open("showkeys <leader>d")
 map <leader>di<C-h> -js CommandExMode().open("showkeys <leader>di")
 map <leader>di      -js CommandExMode().open("showkeys <leader>di")
 
@@ -4520,8 +4534,12 @@ EOF
 " ,-------, ,-----------,
 " | Links | | <leader>l |
 " '-------' '-----------'
-map <leader>l<C-h> -js CommandExMode().open("showkeys <leader>l")
-map <leader>l      -js CommandExMode().open("showkeys <leader>l")
+map <leader>l<C-h>
+\    -description "(show bindings: Links)"
+\    -js CommandExMode().open("showkeys <leader>l")
+map <leader>l
+\    -description "(show bindings: Links)"
+\    -js CommandExMode().open("showkeys <leader>l")
 
 map <leader>la -description "Append links to end of page" -ex appendlinks
 map <leader>lc -description "Count links" -ex countlinks
@@ -4710,7 +4728,12 @@ EOF
 " ,----------------,
 " | Image Commands |
 " '----------------'
-map <leader>i  -description "(show bindings: Image Operations)" -js CommandExMode().open("showkeys <leader>i");
+map <leader>i
+\    -description "(show bindings: Misc/Image Operations)"
+\    -js CommandExMode().open("showkeys <leader>i");
+map <leader>i<C-h>
+\    -description "(show bindings: Misc/Image Operations)"
+\    -js CommandExMode().open("showkeys <leader>i");
 map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 map <leader>ii -description "View or follow image" -js hints.show("ἱ");
 
@@ -4724,16 +4747,24 @@ command! encuni :emenu View.Text Encoding.Unicode
 command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
 command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
 
-map <leader>xe<C-h> -js CommandExMode().open("showkeys <leader>xe")
-map <leader>xe      -js CommandExMode().open("showkeys <leader>xe")
+map <leader>xe<C-h>
+\    -description "(show bindings: Text Encodings)"
+\    -js CommandExMode().open("showkeys <leader>xe")
+map <leader>xe
+\    -description "(show bindings: Text Encodings)"
+\    -js CommandExMode().open("showkeys <leader>xe")
 map <leader>xeu -ex emenu View.Text Encoding.Unicode
 
 " -------------------------------------------------------------------------------
 " ,----------------,
 " | Table Commands |
 " '----------------'
-map <leader>x<C-h> -js CommandExMode().open("showkeys <leader>x")
-map <leader>x      -js CommandExMode().open("showkeys <leader>x")
+map <leader>x<C-h>
+\    -description "(show bindings: Misc/Tables)"
+\    -js CommandExMode().open("showkeys <leader>x")
+map <leader>x
+\    -description "(show bindings: Misc/Tables)"
+\    -js CommandExMode().open("showkeys <leader>x")
 map <leader>xt<C-h> -js CommandExMode().open("showkeys <leader>xt")
 map <leader>xt      -js CommandExMode().open("showkeys <leader>xt")
 
