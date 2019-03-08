@@ -2157,6 +2157,7 @@ map <search>s   -description "(show bindings: shopping search)" -js CommandExMod
 map <search>saa -description "Shopping search: art" -b :shopart<Space>
 map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" -b :shopartEbayAmaz<Space>
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
+map <search>svfm  -description "Shopping search/Vaping: fasttech mods" -b :shopvapeFtMod<Space>
 map <search>sz  -description "Shopping search: ebay + amazon.au" -b :shopEbayAmazau<Space>
 map <search>;saz
 \    -description "Clipboard Shopping search: art (ebay + amazon + amazon.au)"
@@ -2208,6 +2209,10 @@ command! shopartEbayAmaz -description "Shopping search: ebay + amazon"
 \    -nargs=* -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], args.join(" "));
 command! supermarket -description "Supermarket shopping search: woolworths + coles"
 \    -nargs=* -js multipleEngineSearch(["shopwoo", "shopcol"], args.join(" "));
+command! shopvapeFtMod
+\    -description "Search VV/VW mods on Fasttech (MAXPRICE, SEARCHTERM)"
+\    -nargs *
+\    -js ftSearchMods(args[0]||500, args.slice(1).join(" "));
 
 js <<EOF
 function ghSearchAndGo(s) {
@@ -2216,6 +2221,12 @@ function ghSearchAndGo(s) {
     var url = `https://github.com/${json.user}/${json.repo}`;
     openOrSelectTab(url);
 }
+function ftSearchMods(maxprice, s, where="tab") {
+    var url = "https://www.fasttech.com/category/3099/e-cigarettes#!/177=Mods - VV/VW|-20=1|-2=10|-1=_" +
+                  maxprice + "|p=0|s=p|ps=undefined|k=" + s;
+    openOrSelectTab(url, where);
+}
+
 function searchMultiple(searchEngine, queries) {
     queries.reverse().forEach(q => tabSearchAdjacent(searchEngine, q, true));
 }
