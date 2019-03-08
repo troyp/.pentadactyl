@@ -2153,10 +2153,13 @@ map <search>p   -description "Poly search: multiple queries & engines: :polysear
 \               -b :polysearch<Space>
 map <search>r   -description "Regex search: Forward" -modes normal -b /\r
 map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
-map <search>s   -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
+map <search>s      -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
+map <search>s<C-h> -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>saa -description "Shopping search: art" -b :shopart<Space>
 map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" -b :shopartEbayAmaz<Space>
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
+map <search>sv      -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
+map <search>sv<C-h> -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
 map <search>svfm  -description "Shopping search/Vaping: fasttech mods" -b :shopvapeFtMod<Space>
 map <search>sz  -description "Shopping search: ebay + amazon.au" -b :shopEbayAmazau<Space>
 map <search>;saz
