@@ -3200,9 +3200,13 @@ EOF
 
 map <goto>        -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>")
 map <goto><C-h>   -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>")
-map <goto>a       -description "Addons"
+map <goto>a       -description "(Show bindings: Goto Addons)" -js CommandExMode().open("showkeys <goto>a")
+map <goto>a<C-h>  -description "(Show bindings: Goto Addons)" -js CommandExMode().open("showkeys <goto>a")
+map <goto>aa      -description "Addons"
 \                 -ex dialog addons
-map <goto>A       -description "Palemoon Extensions"
+map <goto>ac      -description "Classic Addons"
+\                 -count -js openOrSelectTab("caa:list", count?"here":"tab");
+map <goto>ap      -description "Palemoon Extensions"
 \                 -count -js openOrSelectTab("https://addons.palemoon.org/extensions/", count?"here":"tab");
 map <goto><C-a>   -description "Palemoon Incompatible Extensions"
 \                 -count -js openOrSelectTab("https://addons.palemoon.org/incompatible/", count?"here":"tab");
