@@ -4346,7 +4346,11 @@ command! dta -description "DownThemAll"
 js var gdict_id='jid1-6OFSXFbACQthzQ@jetpack';
 map <ext>lg -description "Toggle gDict" -js addonToggle(gdict_id);
 " | SelectiveDict | "
-map <ext>ls -description "Toggle SelectiveDict" -ex feedkeys <C-A-t>
+js var selectivedict_id = '{b677191a-bb3f-49e6-9378-fa87e03799af}'
+js window.selectivedict_id = selectivedict_id;
+js addonEnable(selectivedict_id, true);
+map <ext>l;s -description "Toggle SelectiveDict Active" -ex feedkeys <C-A-t>
+map <ext>ls -description "Toggle SelectiveDict" -js addonToggle(selectivedict_id);
 
 " ,----------,
 " | PopJisyo |
