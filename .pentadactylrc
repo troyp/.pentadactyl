@@ -4233,7 +4233,7 @@ map <ext>om -description "Reinstall Stay Open Menu"
 map <ext>uu -description "Toggle uMatrix" -ex exttoggle uMatrix
 
 js <<EOF
-function toggleAddon(id) {
+function addonToggle(id) {
     AddonManager.getAddonByID(id, function(addon) {
         if (addon) {
             addon.userDisabled = !addon.userDisabled;
@@ -4243,7 +4243,7 @@ function toggleAddon(id) {
         }
     });
 }
-window.toggleAddon = toggleAddon;
+window.addonToggle = addonToggle;
 
 // getExtensions produces an array and passes it to an optional callback.
 // By default, it prints the result list and copies it to clipboard.
@@ -4332,7 +4332,7 @@ command! dta -description "DownThemAll"
 
 " | gDict |
 js var gdict_id='jid1-6OFSXFbACQthzQ@jetpack';
-map <ext>lg -description "Toggle gDict" -js toggleAddon(gdict_id);
+map <ext>lg -description "Toggle gDict" -js addonToggle(gdict_id);
 " | SelectiveDict | "
 map <ext>ls -description "Toggle SelectiveDict" -ex feedkeys <C-A-t>
 
