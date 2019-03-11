@@ -6531,6 +6531,21 @@ map <site>oc -description "View cart"
 \    -count -ex openorselect https://www.banggood.com/shopping_cart_new.php <count>
 map <site>og -description "View account/giftcards"
 \    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=giftcard <count>
+map <site>ok
+\    -description "(show bindings: Goto/Recommended Products)"
+\    -js CommandExMode().open("showkeys <site>ok")
+map <site>ok<C-h>
+\    -description "(show bindings: Goto/Recommended Products)"
+\    -js CommandExMode().open("showkeys <site>ok")
+map <site>okb
+\    -description "Goto Also Bought Products"
+\    -js content.document.querySelector('.AlsoBought').scrollIntoView();
+map <site>okr
+\    -description "Goto Related Products"
+\    -js content.document.querySelector('.HotProducts').scrollIntoView();
+map <site>okv
+\    -description "Goto Also Viewed Products"
+\    -js content.document.querySelector('.AlsoView').scrollIntoView();
 map <site>oo -description "View account/orders"
 \    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=ordersList&pageSize=90 <count>
 map <site>ow -description "View account/wishlist"
