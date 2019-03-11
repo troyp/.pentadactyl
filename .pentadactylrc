@@ -3219,6 +3219,8 @@ map <goto>c       -description "about:config (existing or new tab)"
 \                 -count -js openOrSelectTab("about:config", count?"here":"tab");
 map <goto>d       -description "Downloads"
 \                 -count -b :openorselect about:downloads <count><CR><C-z>
+map <goto>D       -description "about:debugging"
+\                 -count -js openOrSelectTab("about:debugging", count?"here":"tab");
 map <goto>f       -description "about:about"
 \                 -count -js openOrSelectTab("tabopen about:about", count?"here":"tab");
 map <goto>h       -description "Pentadactyl help"
