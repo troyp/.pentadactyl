@@ -6115,6 +6115,9 @@ map <site>oc
 map <site>oi
 \    -description "Scroll to Product Information"
 \    -js content.document.getElementById('prodDetails').scrollIntoView();
+map <site>ok
+\    -description "Scroll to Related Products"
+\    -js getSelectorByText('.a-carousel-heading','Customers who viewed this item also viewed');
 map <site>ol
 \    -description "Goto lists"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/registry/wishlist/ref=cm_wl_your_lists", count?"tab":"here");
