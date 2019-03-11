@@ -7145,6 +7145,8 @@ map <site>oc -description "Goto Cart"
 \    -js openOrSelectTab("https://cart.ebay.com.au", count?"tab":"here", null, true);
 map <site>of -description "Leave feedback"
 \    -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"tab":"here");
+map <site>ok -description "Goto Similar Items"
+\    -js getSelectorByText('h2','Similar items you may be interested in')[0].scrollIntoView();
 map <site>om -description "Goto Inbox"
 \    -js openOrSelectTab("https://mesg.ebay.com.au/mesgweb/ViewMessages/0", count?"tab":"here");
 map <site>oo -description "Goto Orders (Purchase history)"
