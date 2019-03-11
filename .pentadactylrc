@@ -3219,8 +3219,6 @@ map <goto>c       -description "about:config (existing or new tab)"
 \                 -count -js openOrSelectTab("about:config", count?"here":"tab");
 map <goto>d       -description "Downloads"
 \                 -count -b :openorselect about:downloads <count><CR><C-z>
-map <goto>D       -description "Pentadactyl Source"
-\                 -count -js openOrSelectTab("resource://dactyl/", count?"here":"tab");
 map <goto>f       -description "about:about"
 \                 -count -js openOrSelectTab("tabopen about:about", count?"here":"tab");
 map <goto>h       -description "Pentadactyl help"
@@ -3371,6 +3369,8 @@ map <goto>yP      -description "~/.pentadactyl/plugins_inactive"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/plugins_inactive`, count?"here":"tab");
 map <goto>ys      -description "~/.pentadactyl/src"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/src`, count?"here":"tab");
+map <goto>yS      -description "resource://dactyl/ (Dactyl source)"
+\                 -count -js openOrSelectTab("resource://dactyl/", count?"here":"tab");
 map <goto>yu      -description "~/.pentadactyl/gmscripts"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
 map <goto>yU      -description "~/.pentadactyl/userstyles"
