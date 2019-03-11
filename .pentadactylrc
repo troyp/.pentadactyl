@@ -4245,6 +4245,18 @@ function addonToggle(id) {
 }
 window.addonToggle = addonToggle;
 
+function addonEnable(id, enable=true) {
+    AddonManager.getAddonByID(id, function(addon) {
+        if (addon) {
+            addon.userDisabled = enable;
+        } else {
+            dactyl.echoerr(`addon ${id} not found`);
+            return;
+        }
+    });
+}
+window.addonEnable = addonEnable;
+
 // getExtensions produces an array and passes it to an optional callback.
 // By default, it prints the result list and copies it to clipboard.
 function getExtensions(arrayCallback) {
