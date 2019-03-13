@@ -8978,7 +8978,7 @@ command! jishokanjiyankparts -js utils.yankWithMsg(jishoKanjiParts().join(''));
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
 "
-set eht+=[かがたヤヱヹ]:div.concept_light-representation>span.text
+set eht+=[かがたヤヱヹ]:div.concept_light-representation>span.text,.character
 set eht+=[リ]:a[class="concept_light-status_link"]
 set eht+=[ぶ]:li.radical.available,li.radical.selected
 
