@@ -2891,12 +2891,10 @@ function closeTabRangeInclusiveBidirectional(ordA, ordB=".") {
     var initIdx = initTab._tPos;
 
     var N = tabs.allTabs.length;
-    if (ordA == '.') ordA = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
-    if (ordB == '.') ordB = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
-    if (ordA == '$') ordA = N;
-    if (ordB == '$') ordB = N;
-    if (ordA == '^') ordA = 1;
-    if (ordB == '^') ordB = 1;
+    if (ordA.match(/\.|\^|\$/))
+        ordA = eval(ordA.replace(/\./g, gBrowser.mCurrentTab.dactylOrdinal).replace(/\^/g, 0).replace(/\$/g, N));
+    if (ordB.match(/\.|\^|\$/))
+        ordB = eval(ordB.replace(/\./g, gBrowser.mCurrentTab.dactylOrdinal).replace(/\^/g, 0).replace(/\$/g, N));
     var idxA = parseInt(ordA) - 1;
     var idxB = parseInt(ordB) - 1;
 
@@ -2923,12 +2921,10 @@ function closeTabRangeExclusiveBidirectional(ordA, ordB=".") {
     var initIdx = curTab._tPos;
 
     var N = tabs.allTabs.length;
-    if (ordA == '.') ordA = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
-    if (ordB == '.') ordB = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
-    if (ordA == '^') ordA = 1;
-    if (ordB == '^') ordB = 1;
-    if (ordA == '$') ordA = N+1;
-    if (ordB == '$') ordB = N+1;
+    if (ordA.match(/\.|\^|\$/))
+        ordA = eval(ordA.replace(/\./g, gBrowser.mCurrentTab.dactylOrdinal).replace(/\^/g, 0).replace(/\$/g, N));
+    if (ordB.match(/\.|\^|\$/))
+        ordB = eval(ordB.replace(/\./g, gBrowser.mCurrentTab.dactylOrdinal).replace(/\^/g, 0).replace(/\$/g, N));
     var idxA = parseInt(ordA) - 1;
     var idxB = parseInt(ordB) - 1;
 
