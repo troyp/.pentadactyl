@@ -2900,7 +2900,7 @@ function closeTabRangeInclusiveBidirectional(ordA, ordB=".") {
     var idxA = parseInt(ordA) - 1;
     var idxB = parseInt(ordB) - 1;
 
-    var n = Math.abs(ordB-ordA+1);
+    var n = Math.abs(ordB-ordA)+1;
     if (idxA <= idxB) {
         firstTab =  tabs.getTab(idxA);
     } else {
