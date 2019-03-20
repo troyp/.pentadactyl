@@ -1071,6 +1071,11 @@ function xopenMaybeFromBufferDir() {
 function openMaffFile(f) {
     io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browser}"`);
 }
+
+function openLastDownloadAsMaff(n=1) {
+    var dlP = getLastDownloaded(n);
+    dlP.then(f=> openMaffFile(f));
+}
 EOF
 map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
@@ -1094,6 +1099,10 @@ map <app>d
 \    -description "(show bindings: Access Downloads)"
 \    -count
 \    -js CommandExMode().open("showkeys <app>a");
+map <app>dm
+\    -description "Open last download as MAFF file"
+\    -count
+\    -js openLastDownloadAsMaff(count||1);
 map <app>dt
 \    -description "Trash last download using xdg-open"
 \    -count
