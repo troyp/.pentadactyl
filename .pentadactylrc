@@ -1067,6 +1067,10 @@ function xopenMaybeFromBufferDir() {
         CommandExMode().open('xopen ');
     }
 }
+
+function openMaffFile(f) {
+    io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browser}"`);
+}
 EOF
 map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
@@ -1104,9 +1108,13 @@ map <app>f
 map <app>q
 \    -description "Open in Qutebrowser"
 \    -ex oqute
+map <app>vm -description "Open MAFF file in browser" -b :omafffile<Space>
 map <app>x
 \    -description "Open local file with xdg-open"
 \    -js xopenMaybeFromBufferDir();
+
+" Open MAFF in browser "
+command! omafffile -nargs 1 -js openMaffFile(args[0]);
 
 " ,-------------------------,
 " | <app>e -- Open in Emacs |
