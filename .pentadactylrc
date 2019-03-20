@@ -134,6 +134,12 @@ var isBasilisk = prefs.has("app.vendorURL") && prefroot.getCharPref("app.vendorU
 var isFirefox  = prefs.has("app.update.url") && prefroot.getCharPref("app.update.url").includes("mozilla");
 var isWaterfox = prefs.has("app.update.url") && prefroot.getCharPref("app.update.url").includes("waterfox");
 
+var browser;
+if (isPalemoon) browser = "/opt/palemoon/palemoon";
+if (isBasilisk) browser = "/opt/basilisk/basilisk";
+if (isFirefox)  browser = "/opt/firefox/firefox";
+if (isWaterfox) browser = "/opt/waterfox/waterfox";
+
 "utility functions"
 // Array methods for other collections
 A = {
