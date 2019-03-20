@@ -1090,6 +1090,10 @@ map <app>;c
 map <app>;C
 \    -description "Open URL in Google Chrome (default profile)"
 \    -ex ochromeurl
+map <app>d
+\    -description "(show bindings: Access Downloads)"
+\    -count
+\    -js CommandExMode().open("showkeys <app>a");
 map <app>dt
 \    -description "Trash last download using xdg-open"
 \    -count
