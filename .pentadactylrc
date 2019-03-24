@@ -6106,9 +6106,15 @@ function amazonGo() {
 
 function amazonGotoUSReviews() {
     if (buffer.URL.match(/amazon.com\//))
-        content.document.getElementById("dp-summary-see-all-reviews").click();
-    else
-        getSelectorWithMatchingAttribute("a", "data-hook", "cmps-expand-link")[0].click();
+        var link = content.document.getElementById("dp-summary-see-all-reviews");
+    else {
+        var link = getFirstSelectorWithMatchingAttribute("a", "data-hook", "cmps-expand-link") ||
+                   getFirstSelectorWithMatchingAttribute("a", "data-hook", "cmps-collapse-link");
+    }
+    if (link) {
+        link.click();
+        return link.href;
+    }
 }
 
 function amazonCount() {
