@@ -12144,12 +12144,16 @@ function kgToLb(x) { return x * 2.205; }
 function lbToKg(x) { return x / 2.205; }
 function paper_lbToGsm(x) { return x * 1.48; }
 function paper_gsmToLb(x) { return x / 1.48; }
+function USFluidOunceToMl(x) { return x * 29.5735295625; }
+function mlToUSFluidOunce(x) { return x / 29.5735295625; }
 window.inToCm = inToCm;
 window.cmToIn = cmToIn;
 window.kgToLb = kgToLb;
 window.lbToKg = lbToKg;
 window.paper_lbToGsm = paper_lbToGsm;
 window.paper_gsmToLb = paper_gsmToLb;
+window.USFluidOunceToMl = USFluidOunceToMl;
+window.mlToUSFluidOunce = mlToUSFluidOunce;
 
 function subCmForInches(s) {
     var regex = /(-?\d+(\.\d+)?) *("|in(ch(es)?)?)/g;
