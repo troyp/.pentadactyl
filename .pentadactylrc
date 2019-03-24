@@ -6182,6 +6182,8 @@ map <site>t4 -description "Toggle 4+-stars"
 \    -js content.document.getElementsByClassName("a-star-medium-4")[0].click();
 map <site>w -description "Wish list"
 \    -js content.document.getElementById("add-to-wishlist-button-submit").click();
+map <site><esc> -description "Close popup"
+\    -js clickSelector(".a-button-close");
 
 map [[ -js amazonPreviousPage();
 map ]] -js amazonNextPage();
