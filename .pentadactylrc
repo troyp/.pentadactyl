@@ -11726,6 +11726,24 @@ function clickSelector(sel) {
 }
 window.clickSelector = clickSelector;
 
+function clickSelectorAll(sel) {
+    if (typeof sel == "string") {
+        /* selector */
+        var elts = content.document.querySelectorAll(sel);
+        for (i=0; i<elts.length; ++i) {
+            elts[i].click();
+        }
+        return elts.length;
+    } else {
+        /* element */
+        if (sel) {
+            sel.click();
+            return true;
+        }
+    }
+}
+window.clickSelectorAll = clickSelectorAll;
+
 function dispatchClickSelector(sel) {
     if (typeof sel == "string") {
         /* selector */
@@ -11761,6 +11779,23 @@ function clickSelectorByText(sel, pattern) {
     }
 }
 window.clickSelectorByText = clickSelectorByText;
+
+function clickSelectorByTextAll(sel, pattern) {
+    var elts = getSelectorByText(sel, pattern);
+    for (i=0; i<elts.length; ++i) {
+        selectors[i].click();
+    }
+    return elts.length;
+}
+window.clickSelectorByTextAll = clickSelectorByTextAll;
+
+function openLinkBySelectorAll(sel) {
+    var elts = content.document.querySelectorAll(sel);
+    for (i=0; i<elts.length; ++i) {
+        dactyl.open(elts[i].href, {where: "background-tab"});
+    }
+}
+window.openLinkBySelectorAll = openLinkBySelectorAll;
 
 " ,------, "
 " | Tabs | "
