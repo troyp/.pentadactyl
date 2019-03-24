@@ -11778,7 +11778,7 @@ function selectTab(url, reload=false) {
     }
 }
 
-function openOrSelectTab(url, where='tab', regex=null, reload=false) {
+function openOrSelectTab(url, where='tab', regex=null, reload=false, closeOldTab=false) {
     /* note: doesn't work when pending tabs are present */
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
@@ -11790,6 +11790,7 @@ function openOrSelectTab(url, where='tab', regex=null, reload=false) {
                                       t.linkedBrowser.contentDocument.URL.indexOf(url)>=0
                                 );
         if (existingTab) {
+            closeOldTab && tabs.remove(tabs.getTab());
             tabs.select(existingTab);
             reload && tabs.reload(existingTab);
         }
