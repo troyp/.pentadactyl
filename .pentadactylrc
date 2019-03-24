@@ -11695,6 +11695,13 @@ function getSelectorWithMatchingAttribute(sel, att, expr) {
 }
 window.getSelectorWithMatchingAttribute = getSelectorWithMatchingAttribute;
 
+function getFirstSelectorWithMatchingAttribute(sel, att, expr) {
+    var all_elts = Array.from(content.document.querySelectorAll(sel));
+    var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
+    return matching && matching[0];
+}
+window.getFirstSelectorWithMatchingAttribute = getFirstSelectorWithMatchingAttribute;
+
 function removeSelectorWithMatchingAttribute(sel, att, expr) {
     var all_elts = Array.from(content.document.querySelectorAll(sel));
     var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
@@ -11768,6 +11775,11 @@ function getSelectorByText(sel, pattern) {
     return elts.filter(elt => elt.textContent.trim().match(pattern));
 }
 window.getSelectorByText = getSelectorByText;
+function getFirstSelectorByText(sel, pattern) {
+    var elts = Array.from(content.document.querySelectorAll(sel));
+    return elts.find(elt => elt.textContent.trim().match(pattern));
+}
+window.getFirstSelectorByText = getFirstSelectorByText;
 
 function clickSelectorByText(sel, pattern) {
     var selectors = getSelectorByText(sel, pattern);
