@@ -7184,7 +7184,9 @@ map <site>oo -description "Goto Orders (Purchase history)"
 \    -js openOrSelectTab(
 \            "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2",
 \            count?"tab":"here");
-map <site>os -description "Goto seller's store"
+map <site>os -description "Goto My Saved Sellers"
+\    -js openOrSelectTab("https://www.ebay.com.au/myb/SavedSellers", count?"tab":"here", null, true);
+map <site>ov -description "Goto seller's store"
 \    -js openOrSelectTab(ebayGetStoreUrl(), count?"tab":"here");
 map <site>ow -description "Goto watch list"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/WatchList", count?"tab":"here");
