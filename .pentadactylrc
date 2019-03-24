@@ -6179,9 +6179,9 @@ map <site>tp -description "Toggle 'prime' checkbox" -js amazonGetCheckbox(/prime
 map <site>ts -description "Toggle 'Ship to Australia' checkbox"
 \    -js amazonGetCheckbox(/ship to australia/i).click();
 map <site>t4 -description "Toggle 4+-stars"
-\    -js content.document.getElementsByClassName("a-star-medium-4")[0].click();
+\    -js clickSelector(".a-star-medium-4");
 map <site>w -description "Wish list"
-\    -js content.document.getElementById("add-to-wishlist-button-submit").click();
+\    -js clickSelector("#add-to-wishlist-button-submit");
 map <site><esc> -description "Close popup"
 \    -js clickSelector(".a-button-close");
 
