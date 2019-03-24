@@ -7114,7 +7114,12 @@ function ebayGo() {
 }
 
 function ebayGetStoreUrl() {
-    return content.document.querySelector("#storeSeller>div>a").href;
+    "If current seller, return URL for store (else other items), else return URL for Saved Sellers."
+    var thisSeller = getFirstSelector("#storeSeller>div>a") ||
+                         getFirstSelectorByText("a", "Visit store") ||
+                         getFirstSelectorByText("a", "See other items");
+    if (thisSeller) return thisSeller.href;
+    else return "https://www.ebay.com.au/myb/SavedSellers";
 }
 
 function ebayCount() {
