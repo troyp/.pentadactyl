@@ -7108,6 +7108,8 @@ function ebayGo() {
         clickSelectorByText(".btn", "Add to cart");
     } else if (url.match(/https:\/\/cart.ebay.com.au/)) {
         clickSelectorByText(".btn", "Go to checkout");
+    } else if (url.match(/https:\/\/pay.ebay.com.au/)) {
+        openOrSelectTab("https://cart.ebay.com.au", "here", null, true, true);
     }
 }
 
