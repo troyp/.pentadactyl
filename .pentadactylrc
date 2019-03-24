@@ -7308,6 +7308,25 @@ styleenable https://www.fasttech.com/* fasttech-post-separator
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,------------,
+" | Figurosity |
+" '------------'
+group figurosity -locations=figurosity.com
+
+js <<EOF
+EOF
+
+map <site>oi
+\    -description "View image"
+\    -js openOrSelectTab(getSelectors("#image-holder>img")[0].src, count?"tab":"here");
+map <site>y
+\    -description "Copy image source"
+\    -js utils.cbWrite(getSelectors("#image-holder>img")[0].src);
+
+group user
+
+
 " -----------------------------------------------------------------------------
 " ,-------------------,
 " | Files/Directories |
