@@ -11513,7 +11513,7 @@ window.getSelectionDOM = getSelectionDOM;
 " '----------------------------------------' "
 
 function getSelectors(...sels) {
-    return content.document.querySelectorAll(sels.join(","));
+    return Array.from(content.document.querySelectorAll(sels.join(",")));
 }
 window.getSelectors = getSelectors;
 
