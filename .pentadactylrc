@@ -11862,7 +11862,8 @@ function selectTab(url, reload=false) {
 }
 
 function openOrSelectTab(url, where='tab', regex=null, reload=false, closeOldTab=false) {
-    /* note: doesn't work when pending tabs are present */
+    /* note: doesn't work when pending tabs are present                                   */
+    /* Select tab matching regex (or url if regex is null). If none, open url in new tab. */
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
         var existingTab =
