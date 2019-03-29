@@ -2182,7 +2182,8 @@ map <search>r   -description "Regex search: Forward" -modes normal -b /\r
 map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s      -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>s<C-h> -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
-map <search>saa -description "Shopping search: art" -b :shopart<Space>
+map <search>saa -description "Shopping search: art (quick)" -b :shopartquick<Space>
+map <search>saA -description "Shopping search: art" -b :shopart<Space>
 map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" -b :shopartEbayAmaz<Space>
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
 map <search>sv      -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
@@ -2191,8 +2192,11 @@ map <search>svfm  -description "Shopping search/Vaping: fasttech mods" -b :shopv
 map <search>sz  -description "Shopping search: ebay + amazon.au" -b :shopEbayAmazau<Space>
 map <search>;saz
 \    -description "Clipboard Shopping search: art (ebay + amazon + amazon.au)"
-\    -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], readFromClipboard());
+\    -js multipleEngineSearch(["e", "amazart", "amazau"], readFromClipboard());
 map <search>;saa
+\    -description "Clipboard Shopping search: art (quick)"
+\    -js multipleEngineSearch(searchEngineArtShopsMain, readFromClipboard());
+map <search>;saA
 \    -description "Clipboard Shopping search: art"
 \    -js multipleEngineSearch(searchEngineArtShops, readFromClipboard());
 map <search>;ss
@@ -2222,11 +2226,14 @@ command! multipleenginesearch -description "Multiple engine bookmark search"
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
 
-js searchEngineArtShops = ["e", "amazart", "aamazart", "amazau", "shopjpen", "shopma", "shopcraftol", "shoptas", "shopas", "shopja", "shopow"];
+js searchEngineArtShops = ["e", "amazart", "amazau", "shopja", "shopnarts", "shopjpen", "shopma", "shopcraftol", "shoptas", "shopas", "shopow"];
+js searchEngineArtShopsMain = ["e", "amazau", "shopja"];
 command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=* -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 command! shopart -description "Shopping search: art"
 \    -nargs=* -js multipleEngineSearch(searchEngineArtShops, args.join(" "));
+command! shopartquick -description "Shopping search: art (quick)"
+\    -nargs=* -js multipleEngineSearch(searchEngineArtShopsMain, args.join(" "));
 command! shopEbayAmazau
 \    -description "Shopping search: ebay + amazon"
 \    -nargs=*
@@ -2236,7 +2243,7 @@ command! shopEbayAmazau
 \                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
 \            ], args.join(" "));
 command! shopartEbayAmaz -description "Shopping search: ebay + amazon"
-\    -nargs=* -js multipleEngineSearch(["e", "amazart", "aamazart", "amazau"], args.join(" "));
+\    -nargs=* -js multipleEngineSearch(["e", "amazart", "amazau"], args.join(" "));
 command! supermarket -description "Supermarket shopping search: woolworths + coles"
 \    -nargs=* -js multipleEngineSearch(["shopwoo", "shopcol"], args.join(" "));
 command! shopvapeFtMod
