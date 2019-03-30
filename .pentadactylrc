@@ -172,7 +172,8 @@ A = {
     range: function (beg, end) {
         var n = end-beg;
         return Array(n).fill().map((x,i)=>i+beg);
-    }
+    },
+    toLines: (coll) => Array.from(coll).reduce((s,i)=>`${s}\n${i}`)
 }
 window.A = A;
 
@@ -1564,6 +1565,9 @@ map <leader>ar
 map <leader>ar<C-h>
 \    -description "(show bindings: Web Sites/Reference)"
 \    -js CommandExMode().open("showkeys <leader>ar");
+map <leader>ara
+    \ -description "Ballina Airport: Arrivals and Departures"
+    \ -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
 map <leader>arbib
     \ -description "King James Bible BOOK [CH:SEC]"
     \ -count -b :kingjames<SPACE>
@@ -1580,9 +1584,6 @@ map <leader>as
 map <leader>as<C-h>
 \    -description "(show bindings: Shopping)"
 \    -js CommandExMode().open("showkeys <leader>as");
-map <leader>asa
-    \ -description "Ballina Airport: Arrivals and Departures"
-    \ -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
 map <leader>ase
     \ -description "open eBay"
     \ -count -js selectTab("https://cart.ebay.com.au") ||
