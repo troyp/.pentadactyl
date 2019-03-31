@@ -8529,6 +8529,66 @@ group user
 
 " -------------------------------------------------------------------------------
 " ,-----------------,
+" | JacksonsArt.com |
+" '-----------------'
+group jacksons -locations=jacksonsart.com
+
+js <<EOF
+function jacksonsartCount() {
+    var elts = getSelectorWithMatchingAttribute('input', 'title', 'Qty');
+    if (elts.length) {
+        return elts.map(e=>Number(e.value)).reduce((n,s)=>n+s);
+    }
+}
+function jacksonsartItemNames() {
+    return getSelectors(".cart .product-name").map(e=>e.innerText.replace("\n", "\t"));
+}
+function jacksonsartItemUrls() {
+    return getSelectors(".cart .product-name>a").map(e=>e.href);
+}
+function jacksonsartGetCartTotal() {
+    var s = getSelectorByText('td',/grand total/i)[0].nextElementSibling.textContent.trim();
+    return Number(s.match(/\$(\d+\.\d\d)/)[1]);
+}
+EOF
+
+map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
+
+map <site>o      -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
+map <site>o<C-h> -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
+map <site>oc -description "Goto cart" -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"tab":"here");
+map <site>oo -description "Goto orders" -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"tab":"here");
+map <site>ol -description "Goto login" -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"tab":"here");
+map <site>ow -description "Goto wishlist" -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"tab":"here");
+
+map <site>s
+\    -description "Search"
+\    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
+map <site>;s
+\    -description "Search for clipboard text"
+\    -js openOrSelectTab(`https://www.jacksonsart.com/en-au/search/?q=${readFromClipboard()}`, count?"tab":"here");
+map <site>yy
+\    -description "Copy cart items"
+\    -js utils.cbWriteCollection(jacksonsartItemNames());
+map <site>yu
+\    -description "Copy cart items URLs"
+\    -js var urls=jacksonsartItemUrls(); utils.cbWriteCollection(urls); window._dactylJacksonsartItems=_itemUrls=urls;
+map <site>4
+\    -description "Cart total"
+\    -js utils.message("Cart total: " + jacksonsartGetCartTotal());
+
+command! jacksonsartOpenAllItemPages
+\    -js jacksonsartItemUrls().forEach(u=>dactyl.execute("background tabopen " + u));
+command! jacksonsartSearch
+\    -nargs *
+\    -bang
+\    -js dactyl.open("https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" "), bang?"tab":"here");
+
+group user
+
+
+" -------------------------------------------------------------------------------
+" ,-----------------,
 " | Jacksons.com.au |
 " '-----------------'
 group jacksonsau -locations=jacksons.com.au
