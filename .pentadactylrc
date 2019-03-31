@@ -8578,7 +8578,8 @@ map <site>s
 \    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
 map <site>;s
 \    -description "Search for clipboard text"
-\    -js openOrSelectTab(`https://www.jacksonsart.com/en-au/search/?q=${readFromClipboard()}`, count?"tab":"here");
+\    -js openOrSelectTab(`https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`, count?"tab":"here");
+map <site>v -description "Search for clipboard text" <site>;s
 map <site>yy
 \    -description "Copy cart items"
 \    -js utils.cbWriteCollection(jacksonsartItemNames());
