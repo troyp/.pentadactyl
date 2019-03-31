@@ -218,6 +218,12 @@ var utils = {
         utils.messageWithLineLimit(s);
     },
 
+    cbWriteCollection: function (coll) {
+        s = Array.from(coll).reduce((s,i)=>`${s}\n${i}`);
+        dactyl.clipboardWrite(s);
+        utils.messageWithLineLimit(s);
+    },
+
     yankWithMsg: function (s) {
         editor.setRegister(null, s, false);
         utils.message(s);
