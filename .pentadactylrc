@@ -2717,6 +2717,9 @@ map <buffer>du      -description "Close all duplicates adjacent to current tab" 
 map <buffer>dw
 \    -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
+
+map <buffer>h       -description "Rename document to h1 heading" -js content.document.title = getFirstSelector("h1").textContent.trim();
+
 " ,------------------------,
 " | <buffer>m -- move tabs |
 " '------------------------'
