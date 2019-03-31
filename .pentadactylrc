@@ -1315,8 +1315,8 @@ EOF
 " ,------------------,
 " | <leader>o - Open |
 " '------------------'
-map <leader>o      -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>o")
-map <leader>o<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>o")
+map <leader>o      -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
+map <leader>o<C-h> -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
 map <leader>ol
 \    -description "Open local file"
 \    -b :openf<Space>
