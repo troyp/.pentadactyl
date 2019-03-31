@@ -228,6 +228,11 @@ S = {
         var words = s.split(/\s+/);
         return A.map(words, w=>this.capitalize(w)).join(" ");
     },
+    toLength: function (s, n, pad=" ") {
+        n = parseInt(n);
+        if (s.length > n) return s.slice(0,n);
+        else return S.padEnd(s, n, pad);
+    },
     titleCaseExceptionWords: ["a", "an", "the", "and", "or", "but", "nor",
                               "yet", "so", "for", "in", "to", "of", "at",
                               "by", "up", "for", "off", "on"],
