@@ -1484,7 +1484,7 @@ map <leader>aa
 map <leader>aa<C-h>
 \    -description "(show bindings: Web Sites/Misc Accts)"
 \    -js CommandExMode().open("showkeys <leader>aa");
-map <leader>aar
+map <leader>aai
     \ -description "Open Inoreader"
     \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
 "  <leader>aap - Packt "
@@ -1512,6 +1512,10 @@ map <leader>aapn
 map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
     \ -js utils.yankWithMsg(packtGetTodaysTitle());
+"  <leader>aar - Art "
+map <leader>aarj
+\    -description "JustSketchMe - posable figure model"
+\    -js openOrSelectTab("http://justsketch.me");
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
