@@ -2424,6 +2424,7 @@ map <leader>c<C-h> -description "(show bindings: Commandline)" -js CommandExMode
 map <leader>c      -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
 map <leader>cc -description "Copy last js command or args to ex command" :<up><S-Home><S-C-Right><S-Right><C-c>
 map <leader>cm -ex messages
+map <leader>cM -ex messclear
 " Repeat search just entered with keyword changed
 map <leader>cr :<C-r>
 " Repeat default just entered search with keyword
