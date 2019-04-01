@@ -10342,6 +10342,9 @@ map <site>ol -description "Goto library"
 map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
 map <site>ya -description "Yank titles" -ex yankselectorcontent .title
 
+map [[ -description "Next page" -js clickSelector(".mat-paginator-navigation-previous");
+map ]] -description "Next page" -js clickSelector(".mat-paginator-navigation-next");
+
 style -name=packt-thin-lines https://www.packtpub.com/account/my-ebooks
 \    .product-line,.product-top-line,.toggle-product-line,.content-width {
 \        padding-top: 0 !important; padding-bottom: 0 !important;
