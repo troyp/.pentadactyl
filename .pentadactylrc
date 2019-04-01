@@ -1420,7 +1420,12 @@ map <leader>xc
 \    -js CommandExMode().open("showkeys <leader>xc")
 map <leader>xci -description "Convert inches to centimeters (by hints)" -js hints.show("”");
 map <leader>xcd -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
+map <leader>xcc -description "Convert quantity into other units" -b :convertunits<Space>
 
+command! convertunits
+    \ -nargs +
+    \ -description "Convert quantity into other units with GNU units [N UNIT1 UNIT2]"
+    \ -js utils.message(convertUnitsWrapper(...args));
 command! usd2aud
     \ -nargs *
     \ -description "convert $US prices to $AU"
@@ -1438,6 +1443,25 @@ command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFl
 command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
 map <leader>+ -b :sum<Space>
 map <leader>* -b :product<Space>
+
+js <<EOF
+function convertUnits(n, unit1, unit2) {
+    return Number(io.system(`units -t "${n} ${unit1}" ${unit2}`).output);
+}
+function convertUnitsWrapper(...args) {
+    var n, unit1, unit2;
+    if (args.length==2) {
+        var match = args[0].match(/(\d+)(.*)/);
+        n = match[1];
+        unit1 = match[2];
+        unit2 = args[1];
+    } else {
+        [n, unit1, unit2] = args;
+    }
+    var res = convertUnits(n, unit1, unit2);
+    return n + unit1 + " = " + res + unit2;
+}
+EOF
 
 " Download PDF "
 command! dlpdf
