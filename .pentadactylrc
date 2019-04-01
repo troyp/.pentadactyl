@@ -6223,8 +6223,8 @@ map <site>yy -description "Yank title" -js utils.cbWrite(getFirstSelector("#prod
 map <site><esc> -description "Close popup"
 \    -js clickSelector(".a-button-close");
 
-map [[ -js amazonPreviousPage();
-map ]] -js amazonNextPage();
+map [[ -js clickSelectorByText("a", "← *Previous");
+map ]] -js clickSelectorByText("a", "Next *→");
 
 group user
 
