@@ -1364,6 +1364,7 @@ map <leader>t   -description "(show bindings: Toggles)"         -js CommandExMod
 map <leader>ta  -description "Toggle User Agent Override"         -ex actoggleuaoverride
 map <leader>tc  -description "(show bindings: Config toggles)"  -js CommandExMode().open("showkeys <Leader>tc")
 map <leader>tca -description "Toggle autoplay"                    -ex actoggleautoplay
+map <leader>tcb -description "Toggle popup blocking"              -ex actoggleenablepopupblocker
 map <leader>tcc -description "Cycle CSP/CSP strict dynamic"       -ex accyclecsp
 map <leader>tcj -description "Toggle javascript"                  -ex actogglejs
 map <leader>tco -description "Toggle strict origin"               -ex actogglestrictorigin
@@ -4187,6 +4188,12 @@ command! acsetclosewinwithlasttab     :set! browser.tabs.closeWindowWithLastTab=
 command! acunsetclosewinwithlasttab   :set! browser.tabs.closeWindowWithLastTab=false
 command! actoggleclosewinwithlasttab  toggleconfig browser.tabs.closeWindowWithLastTab
 command! acgetclosewinwithlasttab     getboolpref  browser.tabs.closeWindowWithLastTab
+
+" Enable popup-blocker "
+command! acsetenablepopupblocker     :set! dom.disable_open_during_load=true
+command! acunsetenablepopupblocker   :set! dom.disable_open_during_load=false
+command! actoggleenablepopupblocker  toggleconfig dom.disable_open_during_load
+command! acgetenablepopupblocker     getboolpref  dom.disable_open_during_load
 
 " Links opening in new windows "
 " open_newwindow: divert links that would normally open in a new window "
