@@ -1082,6 +1082,13 @@ function openLastDownloadAsMaff(n=1) {
     var dlP = getLastDownloaded(n);
     dlP.then(f=> openMaffFile(f));
 }
+
+function openLastDownloadDir(n=1) {
+    var dlP = getLastDownloaded(n);
+    dlP.then(f=> io.system(`dolphin $(dirname "${f}")`));
+}
+
+
 EOF
 map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
@@ -1105,6 +1112,10 @@ map <app>d
 \    -description "(show bindings: Access Downloads)"
 \    -count
 \    -js CommandExMode().open("showkeys <app>a");
+map <app>dd
+\    -description "Open last download directory in Dolphin"
+\    -count
+\    -js openLastDownloadDir(count||1);
 map <app>dm
 \    -description "Open last download as MAFF file"
 \    -count
