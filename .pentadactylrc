@@ -5160,7 +5160,8 @@ function toggleUrl (x, y, x_canon, y_canon) {
     " General purpose URL toggle function: swaps x and y in URL "
     " If an argument is a regex, then canonical strings corresponding "
     " to x and y must be provided to be used in replacement."
-    " If one of the search expressions may be a substring of the other,"
+    " Note: x is checked first, then y if x fails. "
+    " So if one of the search expressions may be a substring of the other,"
     " the larger must be passed as the first argument x."
     if (x_canon === undefined) x_canon = x;
     if (y_canon === undefined) y_canon = y;
