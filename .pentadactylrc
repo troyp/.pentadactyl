@@ -5181,9 +5181,9 @@ window.toggleUrl = toggleUrl;
 function toggleQueryComponent(url, query, altQuery=null) {
     var newurl;
     var qRegexFinal = RegExp("[?&]"+query+"$");
-    var qRegexNonfinal = RegExp(query+"&");
+    var qRegexNonfinal = RegExp(query+"[&#]");
     var qAltRegexFinal = RegExp("[?&]"+altQuery+"$");
-    var qAltRegexNonfinal = RegExp(altQuery+"&");
+    var qAltRegexNonfinal = RegExp(altQuery+"[&#]");
     if (url.match(qRegexFinal))
         newurl = url.replace(qRegexFinal, "");
     else if (url.match(qRegexNonfinal))
