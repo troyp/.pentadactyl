@@ -8605,6 +8605,10 @@ function jacksonsartGetCartTotal() {
     var s = getSelectorByText('td',/grand total/i)[0].nextElementSibling.textContent.trim();
     return Number(s.match(/\$(\d+\.\d\d)/)[1]);
 }
+function jacksonsartToggleAU() {
+    var url = buffer.URL;
+    toggleUrl("www.jacksonsart.com/en-au/", "www.jacksonsart.com/");
+}
 EOF
 
 map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
@@ -8622,6 +8626,7 @@ map <site>s
 map <site>;s
 \    -description "Search for clipboard text"
 \    -js openOrSelectTab(`https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`, count?"tab":"here");
+map <site>ta -description "Toggles Australian site" -js jacksonsartToggleAU();
 map <site>v -description "Search for clipboard text" <site>;s
 map <site>yy
 \    -description "Copy cart items"
