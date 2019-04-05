@@ -1090,7 +1090,15 @@ function openLastDownloadDir(n=1) {
     dlP.then(f=> io.system(`dolphin $(dirname "${f}")`));
 }
 
-
+function renameLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(f=> {
+        utils.message(
+            io.system(
+                `mv ${f} $(zenity --entry --text "Rename" --entry-text="${f}" 2>/dev/null)`
+            ).output);
+    })
+}
 EOF
 map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
@@ -1122,6 +1130,10 @@ map <app>dm
 \    -description "Open last download as MAFF file"
 \    -count
 \    -js openLastDownloadAsMaff(count||1);
+map <app>dr
+\    -description "Rename last download using xdg-open"
+\    -count
+\    -js renameLastDownload(count||1)
 map <app>dt
 \    -description "Trash last download using xdg-open"
 \    -count
