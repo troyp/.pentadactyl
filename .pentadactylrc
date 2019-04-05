@@ -1081,12 +1081,12 @@ function openMaffFile(f) {
 }
 
 function openLastDownloadAsMaff(n=1) {
-    var dlP = getLastDownloaded(n);
+    var dlP = getLastDownload(n);
     dlP.then(f=> openMaffFile(f));
 }
 
 function openLastDownloadDir(n=1) {
-    var dlP = getLastDownloaded(n);
+    var dlP = getLastDownload(n);
     dlP.then(f=> io.system(`dolphin $(dirname "${f}")`));
 }
 
@@ -1125,15 +1125,15 @@ map <app>dm
 map <app>dt
 \    -description "Trash last download using xdg-open"
 \    -count
-\    -js trashLastDownloaded(count||1)
+\    -js trashLastDownload(count||1)
 map <app>dx
 \    -description "Open last download using xdg-open"
 \    -count
-\    -js xdgOpenLastDownloaded(count||1)
+\    -js xdgOpenLastDownload(count||1)
 map <app>dy
 \    -description "Yank last download path"
 \    -count
-\    -js getLastDownloaded(count||1).then(function (dlPath) { dactyl.utils.cbWrite(dlPath); });
+\    -js getLastDownload(count||1).then(function (dlPath) { dactyl.utils.cbWrite(dlPath); });
 map <app>f
 \    -description "Open in Firefox"
 \    -ex ofox
@@ -12451,23 +12451,23 @@ function savePageDialog() {
 }
 window.savePageDialog = savePageDialog;
 
-function getLastDownloaded(n=1) {
+function getLastDownload(n=1) {
     dlListP = Downloads.getSummary(Downloads.ALL);
     var resultP = dlListP.then(function (dlList) {
         return dlList._downloads[dlList._downloads.length - n].target.path;
     });
     return resultP;
 }
-window.getLastDownloaded = getLastDownloaded;
+window.getLastDownload = getLastDownload;
 
-function xdgOpenLastDownloaded(n=1) {
-    var dlP = getLastDownloaded(n);
+function xdgOpenLastDownload(n=1) {
+    var dlP = getLastDownload(n);
     dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
 }
-window.xdgOpenLastDownloaded = xdgOpenLastDownloaded;
+window.xdgOpenLastDownload = xdgOpenLastDownload;
 
-function trashLastDownloaded(n=1) {
-    var dlP = getLastDownloaded(n);
+function trashLastDownload(n=1) {
+    var dlP = getLastDownload(n);
     dlP.then(function(dl) {
         var cmd=io.system(`trash '${dl}'`);
         if (cmd.returnValue==0) utils.message("Trashed " + dl);
