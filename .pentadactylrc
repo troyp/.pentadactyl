@@ -946,9 +946,11 @@ map gK         -description "Focus search bar"                      -b <Pass><C-
 
 " Save "
 map <C-x><C-s>
+\ -description "Save page"
 \ -modes normal,insert,visual,command-line
 \ -js saveDocument(getBrowser().selectedBrowser.contentDocument);
 map <C-x><C-S-S>
+\ -description "Save page as MAFF"
 \ -modes normal,insert,visual,command-line
 \ -js saveDocument(getBrowser().selectedBrowser.contentDocument,
 \                  {mafAskSaveArchive: true});
