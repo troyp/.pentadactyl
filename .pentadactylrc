@@ -2824,6 +2824,8 @@ map <A-)>  -ex tabmove! $
 " Select buffer:  b  (cycle with gb, gB)
 map \< -b g0
 map \> -b g$
+map -modes normal <C-a> -b g0
+map -modes normal <C-e> -b g$
 " switch to alternate (previously selected buffer): A-;
 map -modes command,embed -b <A-;> <C-^>
 map -modes input -b <A-;> <Esc><C-^>
