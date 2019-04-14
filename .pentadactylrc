@@ -8678,6 +8678,11 @@ map <site>o2 -description "Goto tab Q&A" -js clickSelectorByText("li>a", /^Q&A \
 map <site>o3 -description "Goto tab Spec" -js clickSelectorByText("li>a", /^Spec\|$/);
 map <site>o4 -description "Goto tab Reviews" -js clickSelectorByText("li>a", /^Reviews$/);
 
+map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
+map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
+
+map <site>tl  -description "Toggle limit=60" -js urlToggleQuery("limit=60");
+
 map <site>s
 \    -description "Search"
 \    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
