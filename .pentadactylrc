@@ -8662,6 +8662,19 @@ function jacksonsartToggleAU() {
 function jacksonsartShowShippingInfo(where) {
     openAndRunCode("https://www.jacksonsart.com/en-au/shipping-info", ()=>getSelectorByText("h2",/international shipping/i)[0].scrollIntoView());
 }
+function jacksonsartToggleHairType(hair) {
+    /* Change hair type query component to HAIR if set to a different hair, or add it if missing.
+       If already set to HAIR, remove the query component. */
+    var url = buffer.URL;
+    var newurl;
+    var hairtypeRegex = /fq\[x_hairtype\]=([^?&]+)/;
+    var match = url.match(hairtypeRegex);
+    var newQuery = "fq[x_hairtype]="+hair;
+    if (match) newurl = url.replace(hairtypeRegex, newQuery);
+    else if (url.match(/\?/)) newurl = url + "&" + newQuery;
+    else newurl = url + "?" + newQuery;
+    dactyl.open(newurl);
+}
 EOF
 
 map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
@@ -8680,6 +8693,16 @@ map <site>o4 -description "Goto tab Reviews" -js clickSelectorByText("li>a", /^R
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
+map <site>th      -description "(show bindings: Toggle hairtype)" -js CommandExMode().open("showkeys <site>t")
+map <site>th<C-h> -description "(show bindings: Toggle hairtype)" -js CommandExMode().open("showkeys <site>t")
+map <site>thg -description "Toggle hairtype: Goat" -js jacksonsartToggleHairType("Goat");
+map <site>thh -description "Toggle hairtype: Hog" -js jacksonsartToggleHairType("Hog");
+map <site>thk -description "Toggle hairtype: Kolinsky Sable" -js jacksonsartToggleHairType("Kolinsky Sable");
+map <site>thm -description "Toggle hairtype: Natural Mix" -js jacksonsartToggleHairType("Natural Mix");
+map <site>thM -description "Toggle hairtype: Natural%2FSynthetic Mix" -js jacksonsartToggleHairType("Natural/Synthetic Mix");
+map <site>thr -description "Toggle hairtype: Red Sable" -js jacksonsartToggleHairType("Red Sable");
+map <site>thq -description "Toggle hairtype: Squirrel" -js jacksonsartToggleHairType("Squirrel");
+map <site>ths -description "Toggle hairtype: Synthetic" -js jacksonsartToggleHairType("Synthetic");
 
 map <site>tl  -description "Toggle limit=60" -js urlToggleQuery("limit=60");
 
