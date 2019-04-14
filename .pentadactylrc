@@ -12050,12 +12050,12 @@ function dispatchClickEvent(elt) {
 window.dispatchClickEvent = dispatchClickEvent;
 
 function getSelectorByText(sel, pattern) {
-    var elts = Array.from(content.document.querySelectorAll(sel));
+    var elts = getSelectors(sel);
     return elts.filter(elt => elt.textContent.trim().match(pattern));
 }
 window.getSelectorByText = getSelectorByText;
 function getFirstSelectorByText(sel, pattern) {
-    var elts = Array.from(content.document.querySelectorAll(sel));
+    var elts = getSelectors(sel)
     return elts.find(elt => elt.textContent.trim().match(pattern));
 }
 window.getFirstSelectorByText = getFirstSelectorByText;
