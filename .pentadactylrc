@@ -8659,6 +8659,9 @@ function jacksonsartToggleAU() {
     var url = buffer.URL;
     toggleUrl("www.jacksonsart.com/en-au/", "www.jacksonsart.com/");
 }
+function jacksonsartShowShippingInfo(where) {
+    openAndRunCode("https://www.jacksonsart.com/en-au/shipping-info", ()=>getSelectorByText("h2",/international shipping/i)[0].scrollIntoView());
+}
 EOF
 
 map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
@@ -8668,6 +8671,7 @@ map <site>o<C-h> -description "(show bindings: Goto)" -js CommandExMode().open("
 map <site>oc -description "Goto cart" -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"tab":"here");
 map <site>oo -description "Goto orders" -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"tab":"here");
 map <site>ol -description "Goto login" -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"tab":"here");
+map <site>os -description "Goto shipping information" -js jacksonsartShowShippingInfo(count?"tab":"here");
 map <site>ow -description "Goto wishlist" -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"tab":"here");
 
 map <site>s
