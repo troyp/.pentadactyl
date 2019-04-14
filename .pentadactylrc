@@ -8775,6 +8775,24 @@ map <site>oo
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-----------------,
+" | JaneBlundellArt |
+" '-----------------'
+group janeblundell -locations=www.janeblundellart.com
+
+js <<EOF
+EOF
+
+map <site>yg
+\    -description "Copy gallery image urls"
+\    -js yankArrayItems(getSelectors(".galleryInnerImageHolder a.w-fancybox").map(e=>e.href));
+map <site>yG
+\    -description "Copy gallery image urls download command"
+\    -js utils.cbWrite(`for url in ${getSelectors(".galleryInnerImageHolder a.w-fancybox").join(" ")}; do wget $url; done`);
+
+group user
+
 
 " -------------------------------------------------------------------------------
 " ,---------------------,
