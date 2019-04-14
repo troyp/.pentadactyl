@@ -6263,6 +6263,10 @@ EOF
 map <site>c
 \    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
 \    -js amazonGo();
+map <site>i -description "(Show bindings: Images)"  -js CommandExMode().open("showkeys <site>i")
+map <site>iv
+\    -description "View image"
+\    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"tab":"here");
 map <site>n -description "Count items" -js utils.message("Number of items: " + amazonCount());
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc
