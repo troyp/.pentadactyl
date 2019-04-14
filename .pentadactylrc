@@ -8673,6 +8673,10 @@ map <site>oo -description "Goto orders" -js openOrSelectTab("https://www.jackson
 map <site>ol -description "Goto login" -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"tab":"here");
 map <site>os -description "Goto shipping information" -js jacksonsartShowShippingInfo(count?"tab":"here");
 map <site>ow -description "Goto wishlist" -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"tab":"here");
+map <site>o1 -description "Goto tab Info" -js clickSelectorByText("li>a", /^Info\|$/);
+map <site>o2 -description "Goto tab Q&A" -js clickSelectorByText("li>a", /^Q&A \(\d+\)\|$/);
+map <site>o3 -description "Goto tab Spec" -js clickSelectorByText("li>a", /^Spec\|$/);
+map <site>o4 -description "Goto tab Reviews" -js clickSelectorByText("li>a", /^Reviews$/);
 
 map <site>s
 \    -description "Search"
