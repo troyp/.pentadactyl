@@ -11504,6 +11504,11 @@ command! wpsection -description "Jump to section"
 \   -nargs=1
 \   -complete custom,' (context) => {context.completions = wpGetSections()}'
 \   -js content.window.location.hash = '#' + args[0].replace(/.*…+/, '');
+command! wpsearch
+\    -description "Search wikipedia"
+\    -bang
+\    -nargs +
+\    -js openOrSelectTab(`https://en.wikipedia.org/w/index.php?search=${args.join("")}&title=Special%3ASearch&ns0=1`, bang?"tab":"here");
 
 map <site>c :wpsection<Space>
 map <site>d
@@ -11525,9 +11530,16 @@ map <site>p
 map <site>P
 \    -description "Open clipboard text in wiktionary"
 \    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+map <site>s
+\    -description "Search wikipedia"
+\    -js CommandExMode().open("wpsearch"+(count?"! ":" "));
+map <site>;s
+\    -description "Search for clipboard text"
+\    -js dactyl.execute("wpsearch" + (count?"! ":" ") + readFromClipboard());
 map <site>t
 \    -description "Copy specified columns (single digits) from table chosen by HINT" -b
 \    :wpcopytablecols<Space>
+map <site>v -description "Search for clipboard text" <site>;s
 map <site>.
 \    -description "Scroll to next heading"
 \    -js wpGotoNextHeading();
