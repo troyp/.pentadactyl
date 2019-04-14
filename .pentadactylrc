@@ -2886,6 +2886,18 @@ function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
     var n1 = tabs.allTabs.length;
     utils.moveTab(n1, origOrd+1);
 }
+function openAndRunCode(url, f, where="tab") {
+    if (where=="here") {
+        dactyl.open(url, {where: "here"});
+        var tabUsed = tabs.getTab();
+    } else {
+        var tabUsed = gBrowser.addTab(url);
+        if (where=="tab") gBrowser.selectedTab = tabUsed;
+    }
+    var tb = gBrowser.getBrowserForTab(tabUsed);
+    tb.addEventListener("DOMContentLoaded", f);
+}
+window.openAndRunCode = openAndRunCode;
 EOF
 
 command! tabopenadjacent -description "Open adjacent tab [!: in background]"
