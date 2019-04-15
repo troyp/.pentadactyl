@@ -7454,14 +7454,64 @@ group user
 group figurosity -locations=figurosity.com
 
 js <<EOF
+var figurosityDownloadDir = homedir + "/ebooks/art/_images/example-images/figurosity";
+
+function figurosityDownloadImage(dir) {
+    io.system(`wget -P "${dir}" ${getSelectors("#image-holder>img")[0].src}`);
+}
+function figurosityGetPose() {
+    var imgHolder = getSelectors("#image-holder>img");
+    var imgElt = imgHolder && imgHolder[0];
+    var match = imgElt.src.match(/pose-(\d+)/);
+    return match.length>0 && parseInt(match[1]);
+}
+function figurosityGetIdentifyingNumbers() {
+    /* Return the identifying numbers preceding "normal" etc in an image src URL for a pose.
+       Converts slashes to underscores. */
+    var imgHolder = getSelectors("#image-holder>img");
+    var imgElt = imgHolder && imgHolder[0];
+    var match = imgElt.src.match(/.*muses\/(.*)\/(normal|nude|muscle|smooth).*/);
+    return match.length>0 && match[1].replace(/\//g, "_");
+}
+function figurosityDownloadPoseCmd(sleep=true) {
+    var s = "";
+    var src = getSelectors("#image-holder>img")[0].src;
+    var regex = /(.*\/)(normal|nude|muscle|smooth)(.*pose-)(\d+)(.*)/;
+    var matches = src.match(regex);
+    for (i=0; i<=35; ++i) {
+        s += "wget " + matches[1] + "normal" + matches[3] + (i<10?"0":"") + String(i) + matches[5] + (sleep ? "; sleep 1;\n" : ";\n");
+        s += "wget " + matches[1] + "nude"   + matches[3] + (i<10?"0":"") + String(i) + matches[5] + (sleep ? "; sleep 1;\n" : ";\n");
+        s += "wget " + matches[1] + "muscle" + matches[3] + (i<10?"0":"") + String(i) + matches[5] + (sleep ? "; sleep 1;\n" : ";\n");
+        s += "wget " + matches[1] + "smooth" + matches[3] + (i<10?"0":"") + String(i) + matches[5] + (sleep ? "; sleep 1;\n" : ";\n");
+    }
+    return s;
+}
 EOF
 
+map <site>dd
+\    -description "Download image"
+\    -js figurosityDownloadImage(figurosityDownloadDir);
 map <site>oi
 \    -description "View image"
 \    -js openOrSelectTab(getSelectors("#image-holder>img")[0].src, count?"tab":"here");
-map <site>y
-\    -description "Copy image source"
+map <site>yd
+\    -description "Yank image download (to set directory) command"
+\    -js utils.cbWrite(`wget -P "${figurosityDownloadDir}" ${getSelectors("#image-holder>img")[0].src}`);
+map <site>yi
+\    -description "Yank image source"
 \    -js utils.cbWrite(getSelectors("#image-holder>img")[0].src);
+map <site>yn
+\    -description "Yank identifying numbers from source URL"
+\    -js utils.cbWrite(figurosityGetIdentifyingNumbers());
+map <site>yp
+\    -description "Yank image download commands for all angles/variants of current pose (sleep between dls, unless count)"
+\    -js utils.cbWriteWithMessageLimit(figurosityDownloadPoseCmd(count?null:true));
+map <site>yy
+\    -description "Yank image download command"
+\    -js utils.cbWrite("wget " + getSelectors("#image-holder>img")[0].src + "\n");
+map <A-`>
+\    -description "Yank image download command"
+\    -js utils.cbWrite("wget " + getSelectors("#image-holder>img")[0].src + "\n");
 
 group user
 
