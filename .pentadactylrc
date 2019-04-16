@@ -2746,8 +2746,24 @@ map <buffer>d<C-h>  -description "(show bindings)" -js CommandExMode().open("sho
 map <buffer>da      -description "Close alternate tab" -js tabCloseAlternate();
 map <buffer>db      -description "Close tab from list" -b :bdelete<SPACE>
 map <buffer>dd      -description "Close tab range" -b :tc<SPACE>
-map <buffer>de      -description "Close tabs satisfying EXPR" -b :tabremove<Space>""<Left>
-map <buffer>d;e     -description "Close tabs not satisfying EXPR"  -b :tabfilter<Space>""<Left>
+map <buffer>de
+\    -description "Close tabs satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
+\    -b :tabremove<Space>""<Left>
+map <buffer>d;e
+\    -description "Close tabs not satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
+\    -b :tabfilter<Space>""<Left>
+map <buffer>d>e
+\    -description "Close tabs to right satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
+\    -b :tabremove<Space>"n>n0 && "<Left>
+map <buffer>d>;e
+\    -description "Close tabs to right not satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
+\    -b :tabfilter<Space>"n0>=n || "<Left>
+map <buffer>d<e
+\    -description "Close tabs to left satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
+\    -b :tabremove<Space>"n0>=n && "<Left>
+map <buffer>d<;e
+\    -description "Close tabs to left not satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
+\    -b :tabfilter<Space>"n>=n0 || "<Left>
 map <buffer>dm      -description "Close tabs matching STRING" -b :tabremoveregex<Space>""<Left>
 map <buffer>d;m     -description "Close tabs not matching STRING" -b :tabfilterregex<Space>""<Left>
 map <buffer>dr      -description "Close tabs matching REGEX (case-insensitive)"
