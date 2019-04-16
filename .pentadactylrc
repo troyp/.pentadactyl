@@ -9082,10 +9082,24 @@ function jetpensGotoLogin(where) {
 }
 EOF
 
-map <site>oa -description "Goto account" -js openOrSelectTab("https://www.jetpens.com/account", count?"tab":"here");
-map <site>oc -description "Goto cart" -js openOrSelectTab("https://www.jetpens.com/cart", count?"tab":"here");
-map <site>ol -description "Login" -js jetpensGotoLogin(count?"tab":"here");
-map <site>oo -description "Goto orders" -js openOrSelectTab("https://www.jetpens.com/account/viewOrders", count?"tab":"here");
+map <site>oa
+\    -description "Goto account"
+\    -js openOrSelectTab("https://www.jetpens.com/account", count?"tab":"here");
+map <site>oc
+\    -description "Goto cart"
+\    -js openOrSelectTab("https://www.jetpens.com/cart", count?"tab":"here");
+map <site>ol
+\    -description "Login"
+\    -js jetpensGotoLogin(count?"tab":"here");
+map <site>oo
+\    -description "Goto orders"
+\    -js openOrSelectTab("https://www.jetpens.com/account/viewOrders", count?"tab":"here");
+map <site>os
+\    -description "Goto shipping info"
+\    -js openAndRunCode(
+\            "https://www.jetpens.com/help/Shipping_Information",
+\            ()=>{getFirstSelectorByText("div.margin-tb-15",/international shipping/i).scrollIntoView()},
+\            count?"tab":"here")
 
 group user
 
