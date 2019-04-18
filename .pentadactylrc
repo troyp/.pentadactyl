@@ -1447,6 +1447,10 @@ map <leader>xc
 map <leader>xci -description "Convert inches to centimeters (by hints)" -js hints.show("”");
 map <leader>xcd -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
 map <leader>xcc -description "Convert quantity into other units" -b :convertunits<Space>
+map <leader>xcp  -description "Convert paper weight from Lb to GSM (Lb->GSM)" -b :convertPaperLbtoGSM<Space>
+map <leader>xc;p -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
+map <leader>xcv  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
+map <leader>xc;v -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
 
 command! convertunits
     \ -nargs +
@@ -1464,7 +1468,22 @@ command! sumusd2aud
     \ -nargs *
     \ -description "Sum $US prices and convert to $AU"
     \ -js utils.message(USDtoAUD(args.reduce((a,b)=>parseFloat(a)+parseFloat(b))));
-
+command! convertPaperGSMtoLb
+    \ -nargs *
+    \ -description "Convert paper weights from GSM to Lb"
+    \ -js utils.message(args.map(n=>`${n}GSM=${paper_gsmToLb(n)}Lb`).join(", "));
+command! convertPaperLbtoGSM
+    \ -nargs *
+    \ -description "Convert paper weights from Lb to GSM"
+    \ -js utils.message(args.map(n=>`${n}Lb=${paper_lbToGsm(n)}GSM`).join(", "));
+command! convertFluidOzToMl
+    \ -nargs *
+    \ -description "Convert volume from US fluid oz to ml (fluid oz->ml)"
+    \ -js utils.message(args.map(n=>`${n}fluid-oz=${USFluidOunceToMl(n)}ml`).join(", "));
+command! convertMlToFluidOz
+    \ -nargs *
+    \ -description "Convert volume from ml to US fluid oz (ml->fluid oz)"
+    \ -js utils.message(args.map(n=>`${n}ml=${mlToUSFluidOunce(n)}fluid-oz`).join(", "));
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
 command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
 map <leader>+ -b :sum<Space>
