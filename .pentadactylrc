@@ -2779,7 +2779,7 @@ map <buffer>d>;e
 \    -b :tabfilter<Space>"n0>=n || "<Left>
 map <buffer>d<e
 \    -description "Close tabs to left satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
-\    -b :tabremove<Space>"n0>=n && "<Left>
+\    -b :tabremove<Space>"n0>n && "<Left>
 map <buffer>d<;e
 \    -description "Close tabs to left not satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
 \    -b :tabfilter<Space>"n>=n0 || "<Left>
