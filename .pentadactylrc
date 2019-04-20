@@ -9247,6 +9247,12 @@ map <site>k      -description "(show bindings)" -js CommandExMode().open("showke
 " <site>o  --  Open (in new tab with count: in current tab)"
 map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
+map <site>od
+\    -description "open documentation: Tags"
+\    -js openAndRunCode(
+\            "https://jisho.org/docs",
+\            ()=>getFirstSelectorByText("section", /^Tags/).scrollIntoView(),
+\            count?"here":"tab");
 map <site>oe     -description "open sentence examples" -js count ? hints.show("た") : hints.show("だ");
 map <site>ok     -description "open kanji details"     -js count ? hints.show("か") : hints.show("が");
 map <site>ow     -description "search entry in Weblio" -js count ? hints.show("ヱ") : hints.show("ヹ");
