@@ -11769,6 +11769,17 @@ function ytShowVolumeSlider() {
     controlsDiv.classList.add('ytp-volume-slider-active');
 }
 
+function ytGetPlaylists() {
+    return getSelectors("#endpoint").filter(e=>e.href.match(/\/playlist\?/));
+}
+
+function ytGetPlaylistsCompletion() {
+    return ytGetPlaylists().map(e=>[e.href.match(/playlist\?list=(.*)/)[1], e.textContent.trim()]);
+}
+function ytGetPlaylistFromTitle(title) {
+    var playlists = ytGetPlaylists();
+    return playlists.find(e=>e.title.trim()==title).match(/playlist\?list=(.*)/)[1];
+};
 EOF
 
 command! ytincrate -description "increase playback rate" -js ytAdjustSpeed(0.25);
@@ -11788,6 +11799,12 @@ command! ytmute -description "toggle mute" -js ytToggleMute();
 command! ytlowervolume -description "lower volume" -nargs=? -js ytAdjustVolume(-5 * (args[0] || 1));
 command! ytraisevolume -description "raise volume" -nargs=? -js ytAdjustVolume(5 * (args[0] || 1));
 command! ytclosead -description "close popup ad in video" -js ytCloseAd();
+command! ytgotoplaylist
+\    -description "Goto playlist"
+\    -bang
+\    -nargs=1
+\    -complete custom,' (context) => {context.completions = ytGetPlaylistsCompletion()}'
+\    -js dactyl.open("https://www.youtube.com/playlist?list=" + args[0], {where: bang?"tab":"here"});
 
 map <site>r           -description "Set play rate" -b :ytrate<Space>
 map <site>R           -description "Show play rate" -ex ytshowrate
@@ -11807,7 +11824,7 @@ map <site>oh          -description "Goto history" -js openOrSelectTab("https://w
 map <site>ok          -description "Goto keyboard shortcuts overlay" -js getSelectorByText(".yt-simple-endpoint", /keyboard shortcut/i)[0].click();
 map <site>ol          -description "Goto library" -js openOrSelectTab("https://www.youtube.com/feed/library", count?"here":"tab");
 map <site>op          -description "(show bindings: Goto Playlist)" -js CommandExMode().open("showkeys <site>o");
-map <site>opp         -description "Goto Playlist" -js CommandExMode().open(count?"tabopen":"open" + "https://www.youtube.com/playlist?list=");
+map <site>opp         -description "Goto Playlist" -js CommandExMode().open("ytgotoplaylist" + (count?"! ":" "));
 map <site>opl         -description "Goto Watch Later playlist" -js openOrSelectTab("https://www.youtube.com/playlist?list=WL", count?"here":"tab");
 map <site>os          -description "Goto subscriptions" -js openOrSelectTab("https://www.youtube.com/feed/subscriptions", count?"here":"tab");
 
