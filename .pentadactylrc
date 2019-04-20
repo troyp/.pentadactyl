@@ -1366,6 +1366,28 @@ map <leader>s      -description "(show bindings: Save)"
 map <leader>s<C-h> -description "(show bindings: Save)"
 \    -js CommandExMode().open("showkeys <Leader>s")
 map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
+map <leader>sv
+\    -description "Save clipboard text to file. :savecbtext NAME DIR"
+\    -b :savecbtext<Space>
+
+command! savecbtext
+\    -description "Save clipboard text to file. :savecbtext NAME DIR"
+\    -nargs +
+\    -complete dir
+\    -js saveClipboardTextToFile(args[0], args[1]);
+
+js <<EOF
+function saveClipboardTextToFile(name, dir=homedir) {
+    var text = readFromClipboard();
+    var path = (dir+"/"+name).replace(/rr/,"r");
+    var testS = `[[ -e "${path}" ]]`;
+    var errS = 'echo "File already exists"';
+    var saveS = `echo "${text}" > "${path}"`;
+    var succmessS = `echo "Saved text to ${path}.\n"; head -n 10 "${path}"`;
+    utils.message(io.system(`if ${testS}; then ${errS}; else ${saveS}; ${succmessS}; fi`).output);
+}
+EOF
+
 
 " ,---------------------,
 " | <leader>t - toggles |
