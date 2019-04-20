@@ -1587,9 +1587,18 @@ map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
     \ -js utils.yankWithMsg(packtGetTodaysTitle());
 "  <leader>aar - Art "
+map <leader>aarf
+\    -description "Figurosity"
+\    -js openOrSelectTab(
+\            "https://figurosity.com/figure-drawing-pose-sets",
+\            count?"here":"tab",
+\            /https:\/\/figurosity\.com/);
 map <leader>aarj
 \    -description "JustSketchMe - posable figure model"
-\    -js openOrSelectTab("http://justsketch.me");
+\    -js openOrSelectTab("http://justsketch.me", count?"here":"tab");
+map <leader>aarq
+\    -description "Quickposes"
+\    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
 " Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
