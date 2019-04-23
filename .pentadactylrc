@@ -1737,6 +1737,9 @@ map <leader>ava
     map <leader>avn -description "Open Netflix"
     \ -count -js openOrSelectNetflix(count?"here":"tab");
 :endif
+map <leader>avy
+\    -description "Goto Youtube"
+\    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
 " Weather "
 map <leader>av
 \    -description "(show bindings: Web Sites/Weather)"
