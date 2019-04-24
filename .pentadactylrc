@@ -11804,7 +11804,7 @@ function ytShowVolumeSlider() {
 }
 
 function ytGetPlaylists() {
-    return getSelectors("#endpoint").filter(e=>e.href.match(/\/playlist\?/));
+    return getSelectors(".guide-item").filter(e=>e.href.match(/\/playlist\?/));
 }
 
 function ytGetPlaylistsCompletion() {
