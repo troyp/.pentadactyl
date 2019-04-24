@@ -11814,6 +11814,13 @@ function ytGetPlaylistFromTitle(title) {
     var playlists = ytGetPlaylists();
     return playlists.find(e=>e.title.trim()==title).match(/playlist\?list=(.*)/)[1];
 };
+
+function ytGetChannels() {
+    return getSelectors(".guide-item").filter(e=>e.href.match(/\/channel\//));
+}
+function ytGetChannelsCompletion() {
+    return ytGetChannels().map(e=>[e.href.match(/\/channel\/(.*)/)[1], e.textContent.trim()]);
+}
 EOF
 
 command! ytincrate -description "increase playback rate" -js ytAdjustSpeed(0.25);
@@ -11839,6 +11846,12 @@ command! ytgotoplaylist
 \    -nargs=1
 \    -complete custom,' (context) => {context.completions = ytGetPlaylistsCompletion()}'
 \    -js dactyl.open("https://www.youtube.com/playlist?list=" + args[0], {where: bang?"tab":"here"});
+command! ytgotochannel
+\    -description "Goto channel"
+\    -bang
+\    -nargs=1
+\    -complete custom,' (context) => {context.completions = ytGetChannelsCompletion()}'
+\    -js dactyl.open("https://www.youtube.com/channel/" + args[0], {where: bang?"tab":"here"});
 
 map <site>r           -description "Set play rate" -b :ytrate<Space>
 map <site>R           -description "Show play rate" -ex ytshowrate
@@ -11861,6 +11874,15 @@ map <site>op          -description "(show bindings: Goto Playlist)" -js CommandE
 map <site>opp         -description "Goto Playlist" -js CommandExMode().open("ytgotoplaylist" + (count?"! ":" "));
 map <site>opl         -description "Goto Watch Later playlist" -js openOrSelectTab("https://www.youtube.com/playlist?list=WL", count?"here":"tab");
 map <site>os          -description "Goto subscriptions" -js openOrSelectTab("https://www.youtube.com/feed/subscriptions", count?"here":"tab");
+map <site>os
+\    -description "(show bindings: Goto Subscriptions)"
+\    -js CommandExMode().open("showkeys <site>o");
+map <site>osa
+\    -description "Goto Subscriptions list"
+\    -js openOrSelectTab("https://www.youtube.com/feed/subscriptions", count?"here":"tab");
+map <site>oss
+\    -description "Goto Subscription"
+\    -js CommandExMode().open("ytgotochannel"+(count?"! ":" "));
 
 map <site>u           -description "Toggle user agent override" -ex actoggleuaoverride
 map <S-right> -js ytForward(3);
