@@ -1630,7 +1630,7 @@ EOF
 command! handprint
 \    -nargs=+
 \    -bang
-\    -js dactyl.open(handprintUrl(...args), { where: bang ? "here" : "tab" })
+\    -js openOrSelectTab(handprintUrl(...args), bang ? "here" : "tab");
 
 map <leader>aarf
 \    -description "Figurosity"
