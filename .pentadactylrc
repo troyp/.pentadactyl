@@ -1608,7 +1608,30 @@ map <leader>aapn
 map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
     \ -js utils.yankWithMsg(packtGetTodaysTitle());
+
 "  <leader>aar - Art "
+js <<EOF
+function handprintUrl(...args) {
+    var wcUrl = "https://www.handprint.com/HP/WCL/";
+    if (args.length==0) return wcUrl;
+        var match, colSuffix;
+    if ( match = args[0].match(/P?(Y|O|R|G|B[rk]?|V|W)([0-9]*)/i) ) {
+        var col = match[1] && (match[1][0].toUpperCase()+match[1].slice(1).toLowerCase());
+        if ((col == "Bk") || (col =="W")) colSuffix = "w";
+        else if (col == "Br")         colSuffix = "e";
+        else if (col)                 colSuffix = col.toLowerCase();
+        var num = match[2];
+        var frag = num ? ("#P"+col+num) : "";
+        return wcUrl + "water" + (args[2] || colSuffix) + ".html" + frag;
+    }
+}
+EOF
+
+command! handprint
+\    -nargs=+
+\    -bang
+\    -js dactyl.open(handprintUrl(...args), { where: bang ? "here" : "tab" })
+
 map <leader>aarf
 \    -description "Figurosity"
 \    -js openOrSelectTab(
@@ -1618,6 +1641,9 @@ map <leader>aarf
 map <leader>aarj
 \    -description "JustSketchMe - posable figure model"
 \    -js openOrSelectTab("http://justsketch.me", count?"here":"tab");
+map <leader>aarh
+\    -description "Handprint.com - watercolour pigment information"
+\    -b :handprint <Space>
 map <leader>aarq
 \    -description "Quickposes"
 \    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
