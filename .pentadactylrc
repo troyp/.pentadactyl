@@ -1622,7 +1622,7 @@ function handprintUrl(...args) {
         else if (col)                 colSuffix = col.toLowerCase();
         var num = match[2];
         var frag = num ? ("#P"+col+num) : "";
-        return wcUrl + "water" + (args[2] || colSuffix) + ".html" + frag;
+        return wcUrl + "water" + (args[1] || colSuffix) + ".html" + frag;
     }
 }
 EOF
