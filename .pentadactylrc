@@ -1643,7 +1643,7 @@ map <leader>aarj
 \    -js openOrSelectTab("http://justsketch.me", count?"here":"tab");
 map <leader>aarh
 \    -description "Handprint.com - watercolour pigment information"
-\    -b :handprint <Space>
+\    -b :handprint<Space>
 map <leader>aarq
 \    -description "Quickposes"
 \    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
