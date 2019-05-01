@@ -1621,7 +1621,8 @@ map <leader>aarj
 map <leader>aarq
 \    -description "Quickposes"
 \    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
-" Banking "
+
+"<leader>ab - Banking "
 map <leader>ab
     \ -description "Open Banking (Chrome)"
     \ -ex ochromeurl ${user.mybankurl}
@@ -1629,7 +1630,7 @@ map <leader>ab
 map <leader>ada
     \ -description "Open AsciiFlow"
     \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
-" eBay "
+"<leader>ae - eBay "
 map <leader>ae
     \ -description "Open eBay"
     \ -count -js openOrSelectTab('https://www.ebay.com.au/myb/Summary', count?"here":"tab");
@@ -1646,7 +1647,7 @@ map <leader>agh
 map <leader>agb
     \ -description "Open My Bitbucket"
     \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
-" Email: <leader>am "
+" <leader>am - Email "
 map <leader>am
 \    -description "(show bindings: Web Sites/Email)"
 \    -js CommandExMode().open("showkeys <leader>am");
@@ -1672,7 +1673,7 @@ map <leader>amg
 map <leader>amy
     \ -description "Open Y7Mail"
     \ -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
-" Paypal "
+" <leader>ap - Paypal "
 map <leader>ap
     \ -description "Open Paypal"
     \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
