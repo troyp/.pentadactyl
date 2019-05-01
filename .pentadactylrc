@@ -8720,6 +8720,17 @@ command! graphemicacharselect
     \ -js graphemicaCharSelect(args);
 
 " -------------------------------------------------------------------------------
+" ,---------------,
+" | Handprint.com |
+" '---------------'
+group handprint -locations=www.handprint.com
+
+map <site>c -b :handprint<Space>
+
+group user
+
+
+" -------------------------------------------------------------------------------
 " ,--------------------,
 " | HouseOfVape.com.au |
 " '--------------------'
