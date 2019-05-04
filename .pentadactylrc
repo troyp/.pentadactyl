@@ -1615,13 +1615,24 @@ function handprintUrl(...args) {
     var wcUrl = "https://www.handprint.com/HP/WCL/";
     if (args.length==0) return wcUrl;
         var match, colSuffix;
-    if ( match = args[0].match(/P?(Y|O|R|G|B[rk]?|V|W)([0-9]*)/i) ) {
-        var col = match[1] && (match[1][0].toUpperCase()+match[1].slice(1).toLowerCase());
-        if ((col == "Bk") || (col =="W")) colSuffix = "w";
-        else if (col == "Br")         colSuffix = "e";
-        else if (col)                 colSuffix = col.toLowerCase();
-        var num = match[2];
-        var frag = num ? ("#P"+col+num) : "";
+    if ( match = args[0].match(/\/?(P|N)?(Y|O|R|G|B[rk]?|V|W)([0-9]*)/i) ) {
+        /* precede pigment with slash to find pigment page but exclude fragment from URL */
+        var nofrag = (match[0][0] == "/");
+        /* default pigment prefix is "P" */
+        var pref = match[1].toUpperCase() || "P";
+        var col = match[2] && (match[2][0].toUpperCase()+match[2].slice(1).toLowerCase());
+        var num = match[3];
+        var pigment = pref + col + num;
+        var frag = (nofrag || num=="") ? "" : ("#"+pigment);
+        if ((col == "Bk") || (col =="W"))
+            colSuffix = "w";
+        else if (col == "Br" || ["PO48","PO49","PO65","PR101","PR102","PR175","PR206","PR233","PY42","PY43","PY119"].includes(pigment))
+            colSuffix = "e";
+        else if (["P60","P122","P171","P202","NR4","NR9","V19","V32","V42"].includes(pigment))
+            colSuffix = "c";
+        else if (col)
+            colSuffix = col.toLowerCase();
+        /* alert("pref: "+pref+"\ncol: "+col+"\npigment: "+pigment+"\nfrag: "+frag+"\ncolSuffix: "+colSuffix) */
         return wcUrl + "water" + (args[1] || colSuffix) + ".html" + frag;
     }
 }
