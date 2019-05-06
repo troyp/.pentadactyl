@@ -1621,7 +1621,7 @@ function handprintUrl(...args) {
         /* precede pigment with slash to find pigment page but exclude fragment from URL */
         var nofrag = (match[0][0] == "/");
         /* default pigment prefix is "P" */
-        var pref = match[1].toUpperCase() || "P";
+        var pref = (match[1] || "P").toUpperCase();
         var col = match[2] && (match[2][0].toUpperCase()+match[2].slice(1).toLowerCase());
         var num = match[3];
         var pigment = pref + col + num;
