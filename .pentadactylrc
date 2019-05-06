@@ -11894,6 +11894,19 @@ function ytGetChannels() {
 function ytGetChannelsCompletion() {
     return ytGetChannels().map(e=>[e.href.match(/\/channel\/(.*)/)[1], e.textContent.trim()]);
 }
+
+function ytScreenshot() {
+    "From https://github.com/ReeganExE/youtube-screenshot"
+    var win = content.window;
+    var doc = content.document;
+    var canvas = doc.createElement("canvas");
+    var video = doc.querySelector("video");
+    twod = canvas.getContext("2d");
+    canvas.width=parseInt(video.style.width);
+    canvas.height=parseInt(video.style.height);
+    twod.drawImage(video,0,0,canvas.width,canvas.height);
+    win.open(canvas.toDataURL("image/jpeg"))
+}
 EOF
 
 command! ytincrate -description "increase playback rate" -js ytAdjustSpeed(0.25);
@@ -11936,6 +11949,7 @@ map <site>ddd         -description "Download video to Downloads" -ex ytdl
 map <site>dd<Space>   -description "Download video" -b :ytdl<Space>
 map <site>daa         -description "Download audio to Music directory" -ex ytdlaudio
 map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
+map <site>ds          -description "Screeshot" -js ytScreenshot();
 map <site>f           -description "Toggle fullscreen" -ex ytfullscreen
 map <site>m           -description "Toggle mute" -ex ytmute
 
