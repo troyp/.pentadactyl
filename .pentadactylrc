@@ -17,6 +17,8 @@ js var utils = dactyl.utils.getPlugin("utils");
 runtime! personal.js
 js var user = dactyl.utils.getPlugin("personal");
 js var homedir = "/home/troy";
+js var musicdir = homedir + "/Music/Music";
+js var downloadsdir = homedir + "/Downloads";
 
 runtime! js/libs/jquery-3.3.1.min.js
 runtime! js/libs/sprintf.js
@@ -11845,8 +11847,8 @@ function ytForward(n) {
     utils.message(formatSeconds(ytGetTime()));
 }
 
-function ytDL(dir="~/Downloads", video=true) {
-    if (!dir) dir = "~/Downloads";
+function ytDL(dir=downloadsdir, video=true) {
+    if (!dir) dir = downloadsdir;
     var xtraArgs = video ? "--all-subs" : "-f bestaudio";
     var cmd = `!cd ${dir}; youtube-dl -ci ${xtraArgs} --xattrs -o "%(title)s-%(id)s.%(ext)s" "${buffer.URL}"`;
     dactyl.execute(cmd);
@@ -11932,7 +11934,7 @@ map <site>c           -description "Toggle cinema" -ex ytcinema
 map <site>d           -description "(show bindings)" -js CommandExMode().open("showkeys <site>d")
 map <site>ddd         -description "Download video to Downloads" -ex ytdl
 map <site>dd<Space>   -description "Download video" -b :ytdl<Space>
-map <site>daa         -description "Download audio to Downloads" -ex ytdlaudio
+map <site>daa         -description "Download audio to Music directory" -ex ytdlaudio
 map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
 map <site>f           -description "Toggle fullscreen" -ex ytfullscreen
 map <site>m           -description "Toggle mute" -ex ytmute
@@ -11975,10 +11977,10 @@ command! ytdl
     \ -complete=file
     \ -js ytDL(args[0]);
 command! ytdlaudio
-    \ -description "Download video/playlist with youtube-dl"
+    \ -description "Download audio with youtube-dl"
     \ -nargs=?
     \ -complete=file
-    \ -js ytDL(args[0] || "~/Music", false);
+    \ -js ytDL(args[0] || musicdir, false);
 
 map <site><Space> -js ytTogglePause();
 map <Space> -js ytTogglePause();
