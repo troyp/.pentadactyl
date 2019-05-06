@@ -11953,14 +11953,27 @@ map <site>ds          -description "Screeshot" -js ytScreenshot();
 map <site>f           -description "Toggle fullscreen" -ex ytfullscreen
 map <site>m           -description "Toggle mute" -ex ytmute
 
-map <site>o           -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
-map <site>oh          -description "Goto history" -js openOrSelectTab("https://www.youtube.com/feed/history", count?"here":"tab");
-map <site>ok          -description "Goto keyboard shortcuts overlay" -js getSelectorByText(".yt-simple-endpoint", /keyboard shortcut/i)[0].click();
-map <site>ol          -description "Goto library" -js openOrSelectTab("https://www.youtube.com/feed/library", count?"here":"tab");
-map <site>op          -description "(show bindings: Goto Playlist)" -js CommandExMode().open("showkeys <site>o");
-map <site>opp         -description "Goto Playlist" -js CommandExMode().open("ytgotoplaylist" + (count?"! ":" "));
-map <site>opl         -description "Goto Watch Later playlist" -js openOrSelectTab("https://www.youtube.com/playlist?list=WL", count?"here":"tab");
-map <site>os          -description "Goto subscriptions" -js openOrSelectTab("https://www.youtube.com/feed/subscriptions", count?"here":"tab");
+map <site>o
+\    -description "(show bindings: Goto)"
+\    -js CommandExMode().open("showkeys <site>o")
+map <site>oh
+\    -description "Goto history"
+\    -js openOrSelectTab("https://www.youtube.com/feed/history", count?"here":"tab");
+map <site>ok
+\    -description "Goto keyboard shortcuts overlay"
+\    -js getSelectorByText(".yt-simple-endpoint", /keyboard shortcut/i)[0].click();
+map <site>ol
+\    -description "Goto library"
+\    -js openOrSelectTab("https://www.youtube.com/feed/library", count?"here":"tab");
+map <site>op
+\    -description "(show bindings: Goto Playlist)"
+\    -js CommandExMode().open("showkeys <site>o");
+map <site>opp
+\    -description "Goto Playlist"
+\    -js CommandExMode().open("ytgotoplaylist" + (count?"! ":" "));
+map <site>opl
+\    -description "Goto Watch Later playlist"
+\    -js openOrSelectTab("https://www.youtube.com/playlist?list=WL", count?"here":"tab");
 map <site>os
 \    -description "(show bindings: Goto Subscriptions)"
 \    -js CommandExMode().open("showkeys <site>o");
