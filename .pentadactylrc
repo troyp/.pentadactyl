@@ -2313,15 +2313,32 @@ findbarToggle = function() {
     else
         gFindBar.close();
 }
-function searchClipboard(engines=["g"], where="tab") {
+function searchClipboard(engines=["g"], where="tab", options={}) {
     for (i=0; i<engines.length; i++) {
-        dactyl.open(engines[i] + " " + readFromClipboard(), {where: where});
+        dactyl.open(engines[i] + " " + utils.cbRead(options), {where: where});
     }
 }
 EOF
 
-command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '))
-command! searchclipboard -nargs * -bang -js searchClipboard(args.length?args:undefined, bang?"here":"tab");
+command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '));
+command! searchclipboard
+\    -nargs *
+\    -bang
+\    -complete bookmark
+\    -js searchClipboard(
+\            (args.length ? args : undefined),
+\            (bang ? "here" : "tab"),
+\            { tolowercase: true }
+\        );
+
+\command! searchclipboardCaseSensitive
+\    -nargs *
+\    -bang
+\    -complete bookmark
+\    -js searchClipboard(
+\            (args.length ? args : undefined),
+\            (bang ? "here" : "tab")
+\        );
 
 map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
@@ -2380,7 +2397,12 @@ map <search>\'  -description "Link Search: Forward" -modes normal -b /\l
 map <search>\"  -description "Link Search: Backward" -modes normal -b ?\l    "
 map <search>;;
 \    -description "Search with engine (clipboard)"
-\    -js utils.message("Searching clipboard contents: " + readFromClipboard()), CommandExMode().open("searchclipboard ");
+\    -js utils.message("Searching clipboard contents: " + utils.cbRead()),
+\        CommandExMode().open(count ? "searchclipboard! " : "searchclipboard ");
+map <search>;:
+\    -description "Search with engine (clipboard): case-sensitive"
+\    -js utils.message("Searching clipboard contents: " + utils.cbRead({tolowercase: true})),
+\        CommandExMode().open(count ? "searchclipboardCaseSensitive! " : "searchclipboardCaseSensitive ");
 
 " Special site searches "
 map <search>;gh -description "Github search and goto first result" -b :ghsearchgo<SPACE>

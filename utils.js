@@ -208,6 +208,13 @@ var utils = {
         this.message(`${opt.name}=${opt.value}`);
     },
 
+    cbRead: function (options={}) {
+        var s = readFromClipboard();
+        if (!options.notrim) s = s.trim();
+        if (options.tolowercase) s = s.toLowerCase();
+        return s;
+    },
+
     cbWrite: function (s) {
         dactyl.clipboardWrite(s);
         utils.message(s);
