@@ -8893,6 +8893,14 @@ map <site>o2 -description "Goto tab Q&A" -js clickSelectorByText("li>a", /^Q&A \
 map <site>o3 -description "Goto tab Spec" -js clickSelectorByText("li>a", /^Spec\|$/);
 map <site>o4 -description "Goto tab Reviews" -js clickSelectorByText("li>a", /^Reviews$/);
 
+map <site>s      -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
+map <site>s<C-h> -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
+map <site>ss
+\    -description "Search"
+\    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
+map <site>sw
+\    -description "Search Watercolour"
+\    -js CommandExMode().open("jacksonsartSearchWatercolour"+(count?"! ":" "));
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>th      -description "(show bindings: Toggle hairtype)" -js CommandExMode().open("showkeys <site>t")
@@ -8908,9 +8916,6 @@ map <site>ths -description "Toggle hairtype: Synthetic" -js jacksonsartToggleHai
 
 map <site>tl  -description "Toggle limit=60" -js urlToggleQuery("limit=60");
 
-map <site>s
-\    -description "Search"
-\    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
 map <site>;s
 \    -description "Search for clipboard text"
 \    -js openOrSelectTab(`https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`, count?"tab":"here");
@@ -8932,6 +8937,12 @@ command! jacksonsartSearch
 \    -nargs *
 \    -bang
 \    -js dactyl.open("https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" "), bang?"tab":"here");
+command! jacksonsartSearchWatercolour
+\    -nargs *
+\    -bang
+\    -js dactyl.open(
+\            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" "),
+\            bang?"tab":"here");
 
 group user
 
