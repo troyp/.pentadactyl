@@ -1486,22 +1486,22 @@ map <leader>x<C-h>
 map <leader>x
 \    -description "(show bindings: Misc)"
 \    -js CommandExMode().open("showkeys <leader>x")
-" ,---------------------------,
-" | Conversion and Arithmetic |
-" '---------------------------'
-map <leader>xc<C-h>
+" ,---------------------------------------,
+" | <leader>v - Conversion and Arithmetic |
+" '---------------------------------------'
+map <leader>v<C-h>
 \    -description "(show bindings: Misc/Conversion,Arithmetic)"
-\    -js CommandExMode().open("showkeys <leader>xc")
-map <leader>xc
+\    -js CommandExMode().open("showkeys <leader>v")
+map <leader>v
 \    -description "(show bindings: Misc/Conversion&Arithmetic)"
-\    -js CommandExMode().open("showkeys <leader>xc")
-map <leader>xci -description "Convert inches to centimeters (by hints)" -js hints.show("”");
-map <leader>xcd -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
-map <leader>xcc -description "Convert quantity into other units" -b :convertunits<Space>
-map <leader>xcp  -description "Convert paper weight from Lb to GSM (Lb->GSM)" -b :convertPaperLbtoGSM<Space>
-map <leader>xc;p -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
-map <leader>xcv  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
-map <leader>xc;v -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
+\    -js CommandExMode().open("showkeys <leader>v")
+map <leader>vi  -description "Convert inches to centimeters (by hints)" -js hints.show("”");
+map <leader>vd  -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
+map <leader>vp  -description "Convert paper weight from Lb to GSM (Lb->GSM)" -b :convertPaperLbtoGSM<Space>
+map <leader>v;p -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
+map <leader>vv  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
+map <leader>v;v -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
+map <leader>v,  -description "Convert quantity into other units" -b :convertunits<Space>
 
 command! convertunits
     \ -nargs +
