@@ -1411,12 +1411,16 @@ map <leader>ra
 map <leader>rbib
 \     -description "King James Bible BOOK [CH:SEC]"
 \     -count -b :kingjames<SPACE>
-map <leader>rwp
-\     -description "Goto Wikpedia article"
-\     -count -b :wikipediapage<SPACE>
+map <leader>rwc
+\     -description "Goto Wikpedia periodic table of elements"
+\     -count -js openOrSelectTabAndRunCode("https://en.wikipedia.org/wiki/Periodic_table",
+\                    ()=>getFirstSelectorByText('h2','Overview').scrollIntoView());
 map <leader>rwe
 \     -description "Goto Wikpedia episode list"
 \     -count -b :wpeplist<SPACE>
+map <leader>rwp
+\     -description "Goto Wikpedia article"
+\     -count -b :wikipediapage<SPACE>
 
 " ,---------------------,
 " | <leader>t - toggles |
