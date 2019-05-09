@@ -1739,10 +1739,7 @@ map <leader>amg
 map <leader>amy
     \ -description "Open Y7Mail"
     \ -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
-" <leader>ap - Paypal "
-map <leader>ap
-    \ -description "Open Paypal"
-    \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
+
 " <leader>as - Shopping & Schedules"
 map <leader>as
 \    -description "(show bindings: Shopping)"
@@ -1762,6 +1759,10 @@ map <leader>asj
     \ -description "open Jackson's Art"
     \ -count -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
     \                openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
+map <leader>asp
+    \ -description "Open Paypal"
+    \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
+
 map <leader>aq
 \    -description "Open Quix"
 \    -ex tabopen javascript:Quix();function%20Quix(){var%20e=encodeURIComponent;var%20t=window.getSelection?window.getSelection():(document.getSelection?document.getSelection():(document.selection?document.selection.createRange().text:''));var%20c=window.prompt('Quix:%20Type%20`help`%20for%20a%20list%20of%20commands:');if(t!=''){if(c){c+='%20'+t;}else{c=''+t;}}if(c){var%20u='https://www.quixapp.com/go/?c='+e(c)+'&t='+(document.title?e(document.title):'')+'&s='+'&v=090'+'&u='+(document.location?e(document.location):'');d=''+document.location;if(d.substr(0,4)!='http'){window.location=u+'&mode=direct';}else{heads=document.getElementsByTagName('head');if(c.substring(0,1)=='%20'){var%20w=window.open(u+'&mode=direct');w.focus();}else%20if(heads.length==0){window.location=u+'&mode=direct';}else{q=document.getElementById('quix');if(q){q.parentNode.removeChild(q);}sc=document.createElement('script');sc.src=u;sc.id='quix';sc.type='text/javascript';void(heads[0].appendChild(sc));}}}}
