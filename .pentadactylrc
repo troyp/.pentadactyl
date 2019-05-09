@@ -1638,7 +1638,7 @@ map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
     \ -js utils.yankWithMsg(packtGetTodaysTitle());
 
-"  <leader>aar - Art "
+"  <leader>ad - Art "
 js <<EOF
 function handprintUrl(...args) {
     var wcUrl = "https://www.handprint.com/HP/WCL/";
@@ -1672,19 +1672,19 @@ command! handprint
 \    -bang
 \    -js openOrSelectTab(handprintUrl(...args), bang ? "here" : "tab");
 
-map <leader>aarf
+map <leader>adf
 \    -description "Figurosity"
 \    -js openOrSelectTab(
 \            "https://figurosity.com/figure-drawing-pose-sets",
 \            count?"here":"tab",
 \            /https:\/\/figurosity\.com/);
-map <leader>aarj
+map <leader>adj
 \    -description "JustSketchMe - posable figure model"
 \    -js openOrSelectTab("http://justsketch.me", count?"here":"tab");
-map <leader>aarh
+map <leader>adh
 \    -description "Handprint.com - watercolour pigment information"
 \    -b :handprint<Space>
-map <leader>aarq
+map <leader>adq
 \    -description "Quickposes"
 \    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
 
