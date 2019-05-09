@@ -12506,7 +12506,7 @@ function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false
                                       t.linkedBrowser.contentDocument.URL.match(regex)
                                 )
                   : alltabs.find( t=> t.linkedBrowser.contentDocument &&
-                                      t.linkedBrowser.contentDocument.URL.indexOf(url)>=0
+                                      t.linkedBrowser.contentDocument.URL.includes(url)
                                 );
         if (existingTab) {
             closeOldTab && tabs.remove(tabs.getTab());
