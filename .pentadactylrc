@@ -2873,7 +2873,9 @@ map <buffer>dw
 \    -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
 
-map <buffer>h       -description "Rename document to h1 heading" -js content.document.title = getFirstSelector("h1").textContent.trim();
+map <buffer>h       -description "Go back in history" -b :back<Space>
+map <buffer>l       -description "Go forward in history" -b :forward<Space>
+map <buffer>rh      -description "Rename document to h1 heading" -js content.document.title = getFirstSelector("h1").textContent.trim();
 
 " ,------------------------,
 " | <buffer>m -- move tabs |
@@ -8757,7 +8759,7 @@ function handprintUrl(...args) {
             colSuffix = "w";
         else if (col == "Br" || ["PO48","PO49","PO65","PR101","PR102","PR175","PR206","PR233","PY42","PY43","PY119"].includes(pigment))
             colSuffix = "e";
-        else if (["P60","P122","P171","P202","NR4","NR9","V19","V32","V42"].includes(pigment))
+        else if (["PR60","PR122","PR171","PR202","NR4","NR9","PV19","PV32","PV42"].includes(pigment))
             colSuffix = "c";
         else if (col)
             colSuffix = col.toLowerCase();
