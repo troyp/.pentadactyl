@@ -1692,10 +1692,6 @@ map <leader>adq
 map <leader>ab
     \ -description "Open Banking (Chrome)"
     \ -ex ochromeurl ${user.mybankurl}
-" <leader>ad - Diagrams"
-map <leader>ada
-    \ -description "Open AsciiFlow"
-    \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
 " <leader>ag - Repos "
 map <leader>aag
 \    -description "(show bindings: Web Sites/Repos)"
@@ -5046,11 +5042,15 @@ EOF
 " | Image Commands |
 " '----------------'
 map <leader>i
-\    -description "(show bindings: Misc/Image Operations)"
+\    -description "(show bindings: Misc/Images)"
 \    -js CommandExMode().open("showkeys <leader>i");
 map <leader>i<C-h>
-\    -description "(show bindings: Misc/Image Operations)"
+\    -description "(show bindings: Misc/Images)"
 \    -js CommandExMode().open("showkeys <leader>i");
+" <leader>id - Misc/Images/Diagrams "
+map <leader>ida
+    \ -description "Open AsciiFlow"
+    \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
 map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 map <leader>ii -description "View or follow image" -js hints.show("ἱ");
 
