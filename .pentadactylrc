@@ -8884,11 +8884,13 @@ function jacksonsartGo(count=undefined) {
     if (url=="https://www.jacksonsart.com/en-au/sales/order/history/") {
         var href = getFirstSelectorByText("#my-orders-table>tbody>tr.first a", "View Order").href;
         dactyl.open(href+"#my-orders-table", count?"tab":"here");
+    } else if (url=="https://www.jacksonsart.com/en-au/checkout/cart/") {
+        clickSelectorByText("button", "Proceed to Checkout");
     }
 }
 EOF
 
-map <site>c -description "Go (orders page: view most recent)" -js jacksonsartGo(count);
+map <site>c -description "Go (cart: checkout; orders page: view most recent)" -js jacksonsartGo(count);
 map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
 
 map <site>o      -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
