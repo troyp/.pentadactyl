@@ -1790,12 +1790,12 @@ map <leader>avy
 \    -description "Goto Youtube"
 \    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
 " Weather "
-map <leader>av
+map <leader>aw
 \    -description "(show bindings: Web Sites/Weather)"
-\    -js CommandExMode().open("showkeys <leader>as");
-map <leader>av<C-h>
+\    -js CommandExMode().open("showkeys <leader>aw");
+map <leader>aw<C-h>
 \    -description "(show bindings: Web Sites/Weather)"
-\    -js CommandExMode().open("showkeys <leader>as");
+\    -js CommandExMode().open("showkeys <leader>aw");
 map <leader>aww
     \ -description "Open Lismore Weather (BoM)"
     \ -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
