@@ -1648,9 +1648,13 @@ map <leader>ab
 js <<EOF
 function handprintUrl(...args) {
     var wcUrl = "https://www.handprint.com/HP/WCL/";
-    if (args.length==0) return wcUrl;
-        var match, colSuffix;
-    if ( match = args[0].match(/\/?(P|N)?(Y|O|R|G|B[rk]?|V|W)([0-9]*)/i) ) {
+    var match, colSuffix;
+    if (args.length==0) return wcUrl + "waterfs.html";
+    else if ( args[0].match(/\/wheel|a\*b/)) return "https://www.handprint.com/HP/WCL/labwheel.html";
+    else if ( args[0].match(/\/attrib/)) return "https://www.handprint.com/HP/WCL/pigmt3.html";
+    else if ( args[0].match(/\/rating/)) return "https://www.handprint.com/HP/WCL/pigmt8.html";
+    else if ( args[0].match(/\/gouache/)) return "https://www.handprint.com/HP/WCL/pigmt7.html";
+    else if ( match = args[0].trim().match(/^\/?(P|N)?(Y|O|R|G|B[rk]?|V|W)([0-9]*)/i) ) {
         /* precede pigment with slash to find pigment page but exclude fragment from URL */
         var nofrag = (match[0][0] == "/");
         /* default pigment prefix is "P" */
@@ -1674,7 +1678,7 @@ function handprintUrl(...args) {
 EOF
 
 command! handprint
-\    -nargs=+
+\    -nargs=*
 \    -bang
 \    -js openOrSelectTab(handprintUrl(...args), bang ? "here" : "tab");
 
