@@ -1645,43 +1645,6 @@ map <leader>ab
     \ -ex ochromeurl ${user.mybankurl}
 
 "  <leader>ad - Art "
-js <<EOF
-function handprintUrl(...args) {
-    var wcUrl = "https://www.handprint.com/HP/WCL/";
-    var match, colSuffix;
-    if (args.length==0) return wcUrl + "waterfs.html";
-    else if ( args[0].match(/\/wheel|a\*b/)) return "https://www.handprint.com/HP/WCL/labwheel.html";
-    else if ( args[0].match(/\/attrib/)) return "https://www.handprint.com/HP/WCL/pigmt3.html";
-    else if ( args[0].match(/\/rating/)) return "https://www.handprint.com/HP/WCL/pigmt8.html";
-    else if ( args[0].match(/\/gouache/)) return "https://www.handprint.com/HP/WCL/pigmt7.html";
-    else if ( match = args[0].trim().match(/^\/?(P|N)?(Y|O|R|G|B[rk]?|V|W)([0-9]*)/i) ) {
-        /* precede pigment with slash to find pigment page but exclude fragment from URL */
-        var nofrag = (match[0][0] == "/");
-        /* default pigment prefix is "P" */
-        var pref = (match[1] || "P").toUpperCase();
-        var col = match[2] && (match[2][0].toUpperCase()+match[2].slice(1).toLowerCase());
-        var num = match[3];
-        var pigment = pref + col + num;
-        var frag = (nofrag || num=="") ? "" : ("#"+pigment);
-        if ((col == "Bk") || (col =="W"))
-            colSuffix = "w";
-        else if (col == "Br" || ["PO48","PO49","PO65","PR101","PR102","PR175","PR206","PR233","PY42","PY43","PY119"].includes(pigment))
-            colSuffix = "e";
-        else if (["P60","P122","P171","P202","NR4","NR9","V19","V32","V42"].includes(pigment))
-            colSuffix = "c";
-        else if (col)
-            colSuffix = col.toLowerCase();
-        /* alert("pref: "+pref+"\ncol: "+col+"\npigment: "+pigment+"\nfrag: "+frag+"\ncolSuffix: "+colSuffix) */
-        return wcUrl + "water" + (args[1] || colSuffix) + ".html" + frag;
-    }
-}
-EOF
-
-command! handprint
-\    -nargs=*
-\    -bang
-\    -js openOrSelectTab(handprintUrl(...args), bang ? "here" : "tab");
-
 map <leader>adf
 \    -description "Figurosity"
 \    -js openOrSelectTab(
@@ -8772,6 +8735,45 @@ command! graphemicacharselect
 " ,---------------,
 " | Handprint.com |
 " '---------------'
+js <<EOF
+function handprintUrl(...args) {
+    var wcUrl = "https://www.handprint.com/HP/WCL/";
+    var match, colSuffix;
+    if (args.length==0) return wcUrl + "waterfs.html";
+    else if ( args[0].match(/\/wheel|a\*b/)) return "https://www.handprint.com/HP/WCL/labwheel.html";
+    else if ( args[0].match(/\/attrib/)) return "https://www.handprint.com/HP/WCL/pigmt3.html";
+    else if ( args[0].match(/\/rating/)) return "https://www.handprint.com/HP/WCL/pigmt8.html";
+    else if ( args[0].match(/\/gouache/)) return "https://www.handprint.com/HP/WCL/pigmt7.html";
+    else if ( match = args[0].trim().match(/^\/?(P|N)?(Y|O|R|G|B[rk]?|V|W)([0-9]*)/i) ) {
+        /* precede pigment with slash to find pigment page but exclude fragment from URL */
+        var nofrag = (match[0][0] == "/");
+        /* default pigment prefix is "P" */
+        var pref = (match[1] || "P").toUpperCase();
+        var col = match[2] && (match[2][0].toUpperCase()+match[2].slice(1).toLowerCase());
+        var num = match[3];
+        var pigment = pref + col + num;
+        var frag = (nofrag || num=="") ? "" : ("#"+pigment);
+        if ((col == "Bk") || (col =="W"))
+            colSuffix = "w";
+        else if (col == "Br" || ["PO48","PO49","PO65","PR101","PR102","PR175","PR206","PR233","PY42","PY43","PY119"].includes(pigment))
+            colSuffix = "e";
+        else if (["P60","P122","P171","P202","NR4","NR9","V19","V32","V42"].includes(pigment))
+            colSuffix = "c";
+        else if (col)
+            colSuffix = col.toLowerCase();
+        /* alert("pref: "+pref+"\ncol: "+col+"\npigment: "+pigment+"\nfrag: "+frag+"\ncolSuffix: "+colSuffix) */
+        return wcUrl + "water" + (args[1] || colSuffix) + ".html" + frag;
+    }
+}
+EOF
+
+command! handprint
+\    -nargs=*
+\    -bang
+\    -js openOrSelectTab(handprintUrl(...args), bang ? "here" : "tab");
+
+" =====GROUP START=====
+
 group handprint -locations=www.handprint.com
 
 map <site>c -b :handprint<Space>
