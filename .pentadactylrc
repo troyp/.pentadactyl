@@ -12488,6 +12488,43 @@ function openOrSelectTab(url, where='tab', regex=null, reload=false, closeOldTab
     }
 }
 
+function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false, closeOldTab=false) {
+    /* note: doesn't work when pending tabs are present                                   */
+    /* Select tab matching regex (or url if regex is null). If none, open url in new tab. */
+    if (url) {
+        var alltabs = Array.from(tabs.allTabs);
+        var existingTab =
+            regex ? alltabs.find( t=> t.linkedBrowser.contentDocument &&
+                                      t.linkedBrowser.contentDocument.URL.match(regex)
+                                )
+                  : alltabs.find( t=> t.linkedBrowser.contentDocument &&
+                                      t.linkedBrowser.contentDocument.URL.indexOf(url)>=0
+                                );
+        if (existingTab) {
+            closeOldTab && tabs.remove(tabs.getTab());
+            tabs.select(existingTab);
+            reload && tabs.reload(existingTab);
+            var tb = gBrowser.getBrowserForTab(existingTab);
+            var callback = function() {
+                f();
+                tb.removeEventListener("keydown", callback);
+                tb.removeEventListener("mouseover", callback);
+            };
+            tb.addEventListener("keydown", callback);
+            tb.addEventListener("mouseover", callback);
+        }
+        else {
+            dactyl.open(url, {where: where});
+            var tb = gBrowser.getBrowserForTab(tabs.getTab());
+            var callback = function() {
+                f();
+                tb.removeEventListener("DOMContentLoaded", callback);
+            };
+            tb.addEventListener("DOMContentLoaded", callback);
+        }
+    }
+}
+
 function openOrSummonTab(url, background=false, regex=null) {
     /* note: doesn't work when pending tabs are present */
     if (url) {
