@@ -1391,6 +1391,32 @@ function saveClipboardTextToFile(name, dir=homedir) {
 }
 EOF
 
+" -------------------------------------------------------------------------------
+" ,-----------------------,
+" | <leader>r - Reference |
+" '-----------------------'
+
+map <leader>r
+\    -description "(show bindings: Web Sites/Reference)"
+\    -js CommandExMode().open("showkeys <leader>r");
+map <leader>r<C-h>
+\    -description "(show bindings: Web Sites/Reference)"
+\    -js CommandExMode().open("showkeys <leader>r");
+map <leader>rp
+\    -description "Periodic Table (ptable.com)"
+\    -js openOrSelectTab("ptable.com");
+map <leader>ra
+\     -description "Ballina Airport: Arrivals and Departures"
+\     -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
+map <leader>rbib
+\     -description "King James Bible BOOK [CH:SEC]"
+\     -count -b :kingjames<SPACE>
+map <leader>rwp
+\     -description "Goto Wikpedia article"
+\     -count -b :wikipediapage<SPACE>
+map <leader>rwe
+\     -description "Goto Wikpedia episode list"
+\     -count -b :wpeplist<SPACE>
 
 " ,---------------------,
 " | <leader>t - toggles |
@@ -1717,25 +1743,6 @@ map <leader>amy
 map <leader>ap
     \ -description "Open Paypal"
     \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
-" <leader>ar - Reference"
-map <leader>ar
-\    -description "(show bindings: Web Sites/Reference)"
-\    -js CommandExMode().open("showkeys <leader>ar");
-map <leader>ar<C-h>
-\    -description "(show bindings: Web Sites/Reference)"
-\    -js CommandExMode().open("showkeys <leader>ar");
-map <leader>ara
-    \ -description "Ballina Airport: Arrivals and Departures"
-    \ -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
-map <leader>arbib
-    \ -description "King James Bible BOOK [CH:SEC]"
-    \ -count -b :kingjames<SPACE>
-map <leader>arwp
-    \ -description "Goto Wikpedia article"
-    \ -count -b :wikipediapage<SPACE>
-map <leader>arwe
-    \ -description "Goto Wikpedia episode list"
-    \ -count -b :wpeplist<SPACE>
 " <leader>as - Shopping & Schedules"
 map <leader>as
 \    -description "(show bindings: Shopping)"
