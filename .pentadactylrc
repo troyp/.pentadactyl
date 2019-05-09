@@ -1696,10 +1696,6 @@ map <leader>ab
 map <leader>ada
     \ -description "Open AsciiFlow"
     \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
-"<leader>ae - eBay "
-map <leader>ae
-    \ -description "Open eBay"
-    \ -count -js openOrSelectTab('https://www.ebay.com.au/myb/Summary', count?"here":"tab");
 " <leader>ag - Repos "
 map <leader>aag
 \    -description "(show bindings: Web Sites/Repos)"
