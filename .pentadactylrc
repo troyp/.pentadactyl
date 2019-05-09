@@ -13022,8 +13022,8 @@ EOF
 " check if window is private: PrivateBrowsingUtils.isContentWindowPrivate(aContentWin)
 "
 " =============================================================================
-" ,-------------------,
-" | PENTADACTYL NOTES |
+" ,----------------------------,
+" | PENTADACTYL/JS/XPCOM NOTES |
 " '-------------------'
 " * If we want to pass a count to a javascript mapping, it will be null if no
 "   count is provided. Eg.:
@@ -13054,3 +13054,8 @@ EOF
 "   * async may be a callback to be run when command returns or boolean (whether to return a promise).
 " * Error reporting: use dactyl.reportError(e) in catch block.
 " * buffer.followLink(elem, where): simulates click on element
+" * completers for commands: you can examine existing completers using eg `commands.get("back").completer`
+" * get tab 24 history entry 2: `tabs.getTab(24).linkedBrowser.sessionHistory.getEntryAtIndex(2,false).URI.asciiSpec`
+" * get tab 24 history list:
+"       var tabHist = tabs.getTab(24).linkedBrowser.sessionHistory;
+"       var tabHistEntries = [...Array(tabHist.count).keys()].map(i=>tabHist.getEntryAtIndex(i,false).URI.asciiSpec);
