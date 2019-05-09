@@ -8771,12 +8771,19 @@ function handprintUrl(...args) {
         return wcUrl + "water" + (args[1] || colSuffix) + ".html" + frag;
     }
 }
+function openOrSelectHandprintUrl(where, ...args) {
+    var [page,fragment] = handprintUrl(...args).split("#");
+    openOrSelectTabAndRunCode(
+        page,
+        ()=> fragment && getFirstSelectorByText("td", RegExp("^" + fragment)).scrollIntoView()
+    );
+}
 EOF
 
 command! handprint
 \    -nargs=*
 \    -bang
-\    -js openOrSelectTab(handprintUrl(...args), bang ? "here" : "tab");
+\    -js openOrSelectHandprintUrl(bang ? "here" : "tab", ...args);
 
 " =====GROUP START=====
 
