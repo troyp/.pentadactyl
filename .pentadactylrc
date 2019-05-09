@@ -1612,6 +1612,7 @@ map <leader>aa<C-h>
 map <leader>aai
     \ -description "Open Inoreader"
     \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
+
 "  <leader>aap - Packt "
 map <leader>aap
 \    -description "(show bindings: Web Sites/Packt)"
@@ -1637,6 +1638,11 @@ map <leader>aapn
 map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
     \ -js utils.yankWithMsg(packtGetTodaysTitle());
+
+"<leader>ab - Banking "
+map <leader>ab
+    \ -description "Open Banking (Chrome)"
+    \ -ex ochromeurl ${user.mybankurl}
 
 "  <leader>ad - Art "
 js <<EOF
@@ -1688,10 +1694,6 @@ map <leader>adq
 \    -description "Quickposes"
 \    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
 
-"<leader>ab - Banking "
-map <leader>ab
-    \ -description "Open Banking (Chrome)"
-    \ -ex ochromeurl ${user.mybankurl}
 " <leader>ag - Repos "
 map <leader>aag
 \    -description "(show bindings: Web Sites/Repos)"
@@ -1705,6 +1707,7 @@ map <leader>agh
 map <leader>agb
     \ -description "Open My Bitbucket"
     \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
+
 " <leader>am - Email "
 map <leader>am
 \    -description "(show bindings: Web Sites/Email)"
@@ -2853,7 +2856,9 @@ map <buffer>a<C-h>  -description "(show bindings)" -js CommandExMode().open("sho
 map <buffer>aP      -description "Unpin all tabs" -ex unpinall
 map <buffer>ar      -description "Reload all tabs"                  -ex reloadall
 map <buffer>aR      -description "Reload all tabs (without cache)"  -ex reloadall!
+
 map <buffer>b       -description "Switch to buffer matching PATTERN" -builtin b
+
 " ,--------------------------,
 " | <buffer>d -- delete tabs |
 " '--------------------------'
