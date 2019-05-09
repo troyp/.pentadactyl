@@ -12496,6 +12496,10 @@ function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false
     /* note: doesn't work when pending tabs are present                                   */
     /* Select tab matching regex (or url if regex is null). If none, open url in new tab. */
     if (url) {
+        if (regex ? buffer.URL.match(regex) : buffer.URL.includes(url)) {
+            f();
+            return true;
+        }
         var alltabs = Array.from(tabs.allTabs);
         var existingTab =
             regex ? alltabs.find( t=> t.linkedBrowser.contentDocument &&
