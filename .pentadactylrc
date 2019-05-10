@@ -2301,7 +2301,7 @@ command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/se
 command! searchclipboard
 \    -nargs *
 \    -bang
-\    -complete bookmark
+\    -complete search
 \    -js searchClipboard(
 \            (args.length ? args : undefined),
 \            (bang ? "here" : "tab"),
@@ -2311,7 +2311,7 @@ command! searchclipboard
 \command! searchclipboardCaseSensitive
 \    -nargs *
 \    -bang
-\    -complete bookmark
+\    -complete search
 \    -js searchClipboard(
 \            (args.length ? args : undefined),
 \            (bang ? "here" : "tab")
