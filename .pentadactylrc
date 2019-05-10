@@ -854,6 +854,8 @@ map gn
 map gH -description "Go to first entry in tab's history" -ex back!
 map gL -description "Go to last entry in tab's history" -ex forward!
 
+map g# -description "Remove fragment from current URL" -js dactyl.open(buffer.URL.replace(/#.*$/, ""));
+
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
 map <C-,>   -modes normal -b <Left>
