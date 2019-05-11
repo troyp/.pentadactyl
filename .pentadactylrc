@@ -8929,6 +8929,13 @@ map <site>oc
 map <site>oo
 \    -description "Goto orders"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"tab":"here");
+map <site>oO
+\    -description "View latest orders"
+\    -js openOrSelectTabAndRunCode(
+\            "https://www.jacksonsart.com/en-au/sales/order/history/",
+\            ()=> clickSelector(".nobr>a"),
+\            count?"tab":"here"
+\        );
 map <site>ol
 \    -description "Goto login"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"tab":"here");
