@@ -3209,6 +3209,7 @@ function tabURL(t) {
 }
 function tabCount() { return tabs.allTabs.length; }
 window.tabCount = tabCount;
+
 function tabRemove(f) {
     /* takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]]) */
     var currentOrd = tabs.getTab().dactylOrdinal;
@@ -3225,6 +3226,7 @@ function tabRemove(f) {
     utils.message(`${N_closed} tabs closed`);
     return N_closed;
 }
+
 function tabFilter(f) {
     /* takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]]) */
     return tabRemove((t,n,n0)=>!f(t,n,n0));
@@ -8921,11 +8923,21 @@ map <site>n -description "Count items" -js utils.message("Number of items: " + j
 
 map <site>o      -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>o<C-h> -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
-map <site>oc -description "Goto cart" -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"tab":"here");
-map <site>oo -description "Goto orders" -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"tab":"here");
-map <site>ol -description "Goto login" -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"tab":"here");
-map <site>os -description "Goto shipping information" -js jacksonsartShowShippingInfo(count?"tab":"here");
-map <site>ow -description "Goto wishlist" -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"tab":"here");
+map <site>oc
+\    -description "Goto cart"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"tab":"here");
+map <site>oo
+\    -description "Goto orders"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"tab":"here");
+map <site>ol
+\    -description "Goto login"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"tab":"here");
+map <site>os
+\    -description "Goto shipping information"
+\    -js jacksonsartShowShippingInfo(count?"tab":"here");
+map <site>ow
+\    -description "Goto wishlist"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"tab":"here");
 map <site>o1 -description "Goto tab Info" -js clickSelectorByText("li>a", /^Info\|$/);
 map <site>o2 -description "Goto tab Q&A" -js clickSelectorByText("li>a", /^Q&A \(\d+\)\|$/);
 map <site>o3 -description "Goto tab Spec" -js clickSelectorByText("li>a", /^Spec\|$/);
@@ -12548,7 +12560,7 @@ function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false
 }
 
 function openOrSummonTab(url, background=false, regex=null) {
-    /* note: doesn't work when pending tabs are present */
+    /* note: doesn't work when pending tabs are present                                   */
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
         var existingTab =
@@ -12583,7 +12595,7 @@ function foreachNode(f, top=content.document) {
     }
     recurseNode(top);
     nodes.forEach(f);
-}
+        }
 
 function listElements(pred, options={}) {
     var top = options.top || content.document;
@@ -12591,14 +12603,14 @@ function listElements(pred, options={}) {
     var elts = [];
     foreachElement(e=>{ if (pred(e)) elts.push(e); }, top);
     return max ? elts.slice(0, max) : elts;
-}
+        }
 function listNodes(pred, options={}) {
     var top = options.top || content.document;
     var max = options.max;
     var nodes = [];
     foreachNode(n=>{ if (pred(n)) elts.push(n); }, top);
     return max ? nodes.slice(0, max) : nodes;
-}
+    }
 window.listElements = listElements;
 window.listNodes = listNodes;
 
@@ -12618,7 +12630,7 @@ function isAscii(s) {
 
 function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
-}
+        }
 
 function indexToOrdinalString(n) {
     // trim in case n is a string to start with
@@ -12633,8 +12645,8 @@ function indexToOrdinalString(n) {
             return nstr + "rd";
         case 4: case 5: case 6: case 7: case 8: case 9: case 0:
             return nstr + "th";
+        }
     }
-}
 
 function stripBlankLines(s) { return s.replace(/\n\s*\n/gm, '\n'); }
 
