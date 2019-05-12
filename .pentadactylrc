@@ -1553,8 +1553,8 @@ function convertUnits(n, unit1, unit2) {
 function convertUnitsWrapper(...args) {
     var n, unit1, unit2;
     if (args.length==2) {
-        var match = args[0].match(/(\d+)(.*)/);
-        n = match[1];
+        var match = args[0].match(/(\d*)(.*)/);
+        n = match[1]||"1";
         unit1 = match[2];
         unit2 = args[1];
     } else {
