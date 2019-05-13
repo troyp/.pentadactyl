@@ -9587,12 +9587,18 @@ command! jishokanjiyankparts -js utils.yankWithMsg(jishoKanjiParts().join(''));
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
 "
-set eht+=[かがたヤヱヹ]:div.concept_light-representation>span.text,.character
+set eht+=[たヤヱヹ]:div.concept_light-representation>span.text,.character
+set eht+=[かが]:div.concept_light-representation>span.text,.character,.break-unit
 set eht+=[リ]:a[class="concept_light-status_link"]
 set eht+=[ぶ]:li.radical.available,li.radical.selected
 
 js <<EOF
 var dec = decodeURIComponent;
+
+function jishoGetKanjiFromElt(e) {
+    var match = e.textContent.trim().match(/([^【】]+)( 【.*】)?$/);
+    return match[1];
+}
 
 hints.addMode('ヤ','yank entry', e => dactyl.clipboardWrite(e.innerText));
 hints.addMode('ぶ','select kanji radical', e => e.click());
@@ -9603,10 +9609,10 @@ hints.addMode('ヹ','search entry in Weblio (new tab)',
               e => dactyl.open(`http://ejje.weblio.jp/content/${e.innerText}`, 'tab'));
 hints.addMode(
     'か','open kanji details',
-    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`)));
+    e => dactyl.open(dec(`http://jisho.org/search/${jishoGetKanjiFromElt(e)}%2523kanji`)));
 hints.addMode(
     'が','open kanji details in new tab',
-    e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523kanji`), {where:dactyl.NEW_TAB}));
+    e => dactyl.open(dec(`http://jisho.org/search/${jishoGetKanjiFromElt(e)}%2523kanji`), {where:dactyl.NEW_TAB}));
 hints.addMode(
     'た','open sentence examples',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`)));
