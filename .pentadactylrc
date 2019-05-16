@@ -1332,6 +1332,16 @@ EOF
 " '------------------'
 map <leader>o      -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
 map <leader>o<C-h> -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
+
+map <leader>om      -description "(show bindings: Open MAFF)" -js CommandExMode().open("showkeys <leader>om")
+map <leader>om<C-h> -description "(show bindings: Open MAFF)" -js CommandExMode().open("showkeys <leader>om")
+map <leader>omm
+\    -description "Open MAFF file with picker"
+\    -js openMaffFileWithFilePicker();
+map <leader>om<Space>
+\    -description "Open MAFF file with completion"
+\    -b :openmafffile<Space>
+
 map <leader>ol
 \    -description "Open local file"
 \    -b :openf<Space>
@@ -12901,6 +12911,9 @@ window.re_http_url = re_http_url;
 var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
 window.re_http_url_groups = re_http_url_groups;
 
+" ,---------, "
+" | Loading | "
+" '---------' "
 function xopenMaybeFromBufferDir() {
     var localDirRegex = /^file:\/\/([^?#]*)/;
     var localDirMatch = buffer.URL.match(localDirRegex);
@@ -12914,6 +12927,20 @@ function xopenMaybeFromBufferDir() {
 
 function openMaffFile(f) {
     io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browserExec}"`);
+}
+
+function openMaffFileWithFilePicker() {
+    const nsIFilePicker = Components.interfaces.nsIFilePicker;
+    var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+    fp.init(window, "Open MAFF File", nsIFilePicker.modeOpen);
+    fp.appendFilters(nsIFilePicker.filterAll | nsIFilePicker.filterText);
+    fp.open(function (rv) {
+      if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
+        var file = fp.file;
+        var path = fp.file.path;
+        io.system(`runmaff ${path} ${browserExec}`);
+      }
+    });
 }
 
 " ,--------, "
