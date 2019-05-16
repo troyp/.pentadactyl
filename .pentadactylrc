@@ -1142,13 +1142,13 @@ map <app>f
 map <app>q
 \    -description "Open in Qutebrowser"
 \    -ex oqute
-map <app>vm -description "Open MAFF file in browser" -b :omafffile<Space>
+map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
 map <app>x
 \    -description "Open local file with xdg-open"
 \    -js xopenMaybeFromBufferDir();
 
 " Open MAFF in browser "
-command! omafffile -nargs 1 -js openMaffFile(args[0]);
+command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
 
 " ,-------------------------,
 " | <app>e -- Open in Emacs |
