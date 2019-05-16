@@ -11904,6 +11904,20 @@ map <site>c -ex wolframresult
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----------,
+" | Wordpress |
+" '-----------'
+js <<EOF
+function wordpressCleanup() {
+    isolateSelectors("#content>.post");
+    getFirstSelector('body').style.backgroundColor = "white";
+    getFirstSelector('body').style.padding = "3em";
+}
+EOF
+
+map <site>c -description "Cleanup" -js wordpressCleanup();
+
+" -------------------------------------------------------------------------------
 " ,-------------,
 " | Youtube.com |
 " '-------------'
