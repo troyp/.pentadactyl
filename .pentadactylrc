@@ -8785,6 +8785,23 @@ function openOrSelectHandprintUrl(where, ...args) {
         ()=> fragment && getFirstSelectorByText("td", RegExp("^" + fragment)).scrollIntoView()
     );
 }
+
+var handprintTableKey = [
+    "Tr St VR Gr Bl Df HA HS Lf",
+    "Tr = Transparency: 0 (very opaque) to 4 (transparent)",
+    "St = Staining: 0 (nonstaining) to 4 (heavily staining)",
+    "VR = Value Range: (value of white paper) minus (value of masstone color), with a 100 step value scale",
+    "Gr = Granulation: 0 (liquid texture) to 4 (granular)",
+    "Bl = Blossom: 0 (no blossom) to 4 (strong blossom)",
+    "Df = Diffusion: 0 (inert) to 4 (very active diffusion)",
+    "HA = Hue Angle in degrees of the CIELAB a*b* plane",
+    "HS = Hue Shift = (undertone hue angle) minus (masstone hue angle), in degrees of the CIELAB a*b* plane",
+    "Lf = Lightfastness: 1 (very fugitive) to 8 (very lightfast) for paint in tint,full strength",
+    "Mentioned in pigment notes:",
+    "    Chroma: For the masstone paint on white watercolor paper.",
+    "    Drying Shift: Change in masstone color appearance from a glistening wet to completely dry paint swatch, in units of lightness, chroma and hue angle in CIELAB.",
+    "For more information see 'What the Ratings Mean' (:handprint ratings)"
+].join("\n");
 EOF
 
 command! handprint
@@ -8796,7 +8813,9 @@ command! handprint
 
 group handprint -locations=www.handprint.com
 
-map <site>c -b :handprint<Space>
+map <site>c -description "Goto page/pigment" -b :handprint<Space>
+map <site>h -description "Pigment table: key to ratings" -js utils.message(handprintTableKey);
+map <f1>    -description "Pigment table: key to ratings" -js utils.message(handprintTableKey);
 
 group user
 
