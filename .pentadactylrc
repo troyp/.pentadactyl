@@ -137,10 +137,10 @@ var isFirefox  = prefs.has("app.update.url") && prefroot.getCharPref("app.update
 var isWaterfox = prefs.has("app.update.url") && prefroot.getCharPref("app.update.url").includes("waterfox");
 
 var browser;
-if (isPalemoon) browser = "/opt/palemoon/palemoon";
-if (isBasilisk) browser = "/opt/basilisk/basilisk";
-if (isFirefox)  browser = "/opt/firefox/firefox";
-if (isWaterfox) browser = "/opt/waterfox/waterfox";
+if (isPalemoon) browserExec = "/opt/palemoon/palemoon";
+if (isBasilisk) browserExec = "/opt/basilisk/basilisk";
+if (isFirefox)  browserExec = "/opt/firefox/firefox";
+if (isWaterfox) browserExec = "/opt/waterfox/waterfox";
 
 "utility functions"
 // Array methods for other collections
@@ -1082,7 +1082,7 @@ function xopenMaybeFromBufferDir() {
 }
 
 function openMaffFile(f) {
-    io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browser}"`);
+    io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browserExec}"`);
 }
 
 function openLastDownloadAsMaff(n=1) {
