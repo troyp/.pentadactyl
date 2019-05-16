@@ -4150,7 +4150,8 @@ command! toggledisplayclassid -description "Show/hide element classes and ids (W
  js <<EOF
 
 function wdtToggleMagnifier() {
-    if (document.getElementById("web-developer-page-magnifier-container").hidden)
+    var magContainer = document.getElementById("web-developer-page-magnifier-container");
+    if (magContainer && magContainer.hidden)
         WebDeveloper.PageMagnifier.createPageMagnifier();
     else
         WebDeveloper.PageMagnifier.removePageMagnifier();
