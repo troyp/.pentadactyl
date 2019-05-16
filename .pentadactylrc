@@ -8750,8 +8750,9 @@ function handprintUrl(...args) {
     else if ( args[0].match(/(wheel|a\*b)/) )   return "https://www.handprint.com/HP/WCL/labwheel.html";
     else if ( args[0].match(/(ma[kd]e|manu)/) ) return "https://www.handprint.com/HP/WCL/pigmt1.html";
     else if ( args[0].match(/attrib/) )         return "https://www.handprint.com/HP/WCL/pigmt3.html";
-    else if ( args[0].match(/rating/) )         return "https://www.handprint.com/HP/WCL/pigmt8.html";
+    else if ( args[0].match(/ratings?/) )       return "https://www.handprint.com/HP/WCL/pigmt8.html";
     else if ( args[0].match(/gouache/) )        return "https://www.handprint.com/HP/WCL/pigmt7.html";
+    else if ( args[0].match(/prima(tek)?/) )    return "https://www.handprint.com/HP/WCL/primatek.html";
     else if ( args[0].match(/nat.*ino/) )       return "https://www.handprint.com/HP/WCL/pigmt1a.html";
     else if ( args[0].match(/syn.*ino/) )       return "https://www.handprint.com/HP/WCL/pigmt1b.html";
     else if ( args[0].match(/nat.*org/) )       return "https://www.handprint.com/HP/WCL/pigmt1c.html";
