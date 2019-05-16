@@ -1070,21 +1070,6 @@ map <C-j> -description "Show jump list" -b :jumps<CR>f
 " | <app>a -- Open external application |
 " '-------------------------------------'
 js <<EOF
-function xopenMaybeFromBufferDir() {
-    var localDirRegex = /^file:\/\/([^?#]*)/;
-    var localDirMatch = buffer.URL.match(localDirRegex);
-    if (localDirMatch) {
-        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
-        CommandExMode().open('xopen ' + localDir);
-    } else {
-        CommandExMode().open('xopen ');
-    }
-}
-
-function openMaffFile(f) {
-    io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browserExec}"`);
-}
-
 function openLastDownloadAsMaff(n=1) {
     var dlP = getLastDownload(n);
     dlP.then(f=> openMaffFile(f));
@@ -12915,6 +12900,21 @@ var re_http_url = new RegExp(
 window.re_http_url = re_http_url;
 var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
 window.re_http_url_groups = re_http_url_groups;
+
+function xopenMaybeFromBufferDir() {
+    var localDirRegex = /^file:\/\/([^?#]*)/;
+    var localDirMatch = buffer.URL.match(localDirRegex);
+    if (localDirMatch) {
+        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
+        CommandExMode().open('xopen ' + localDir);
+    } else {
+        CommandExMode().open('xopen ');
+    }
+}
+
+function openMaffFile(f) {
+    io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browserExec}"`);
+}
 
 " ,--------, "
 " | Saving | "
