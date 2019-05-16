@@ -13016,9 +13016,9 @@ function cutoff(num, min, max) {
 }
 
 function newTab(url="about:newtab") {
-    var browser = getBrowser();
+    var tabbrowser = getBrowser();
     var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
-    var tab = browser.addTab(url, referrer, "utf-8");
+    var tab = tabbrowser.addTab(url, referrer, "utf-8");
     return tab;
 }
 window.newTab = newTab;
