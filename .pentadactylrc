@@ -3132,8 +3132,10 @@ function closeTabRangeInclusiveBidirectional(ordA, ordB=".") {
         ordA = eval(ordA.replace(/\./g, gBrowser.mCurrentTab.dactylOrdinal).replace(/\^/g, 0).replace(/\$/g, N));
     if (ordB.match(/\.|\^|\$/))
         ordB = eval(ordB.replace(/\./g, gBrowser.mCurrentTab.dactylOrdinal).replace(/\^/g, 0).replace(/\$/g, N));
-    var idxA = parseInt(ordA) - 1;
-    var idxB = parseInt(ordB) - 1;
+    ordA = (parseInt(ordA)+N)%N;
+    ordB = (parseInt(ordB)+N)%N;
+    var idxA = ordA - 1;
+    var idxB = ordB - 1;
 
     var n = Math.abs(ordB-ordA)+1;
     if (idxA <= idxB) {
