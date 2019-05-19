@@ -8825,6 +8825,7 @@ group handprint -locations=www.handprint.com
 
 map <site>c -description "Goto page/pigment" -b :handprint<Space>
 map <site>h -description "Pigment table: key to ratings" -js utils.message(handprintTableKey);
+map <site>/ -description "Search handprint" -b t site:handprint.com<Space>
 map <f1>    -description "Pigment table: key to ratings" -js utils.message(handprintTableKey);
 
 group user
