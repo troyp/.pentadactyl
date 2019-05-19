@@ -11015,6 +11015,53 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,---------------,
+" | Rosemary & Co |
+" '---------------'
+group rosemary -locations=rosemaryandco.com
+
+js <<EOF
+function rosemaryIsHandleLengthSet(pat=/standard/i) {
+    var selectDiv = getFirstSelectorByText('.select-dropdown', /^Handle Length:/);
+    var selectElt = selectDiv && selectDiv.querySelector('select');
+    if (!selectElt) return true;
+    var selectOptions = [...selectElt.options];
+    var currentOption = selectOptions.find(o=>o.value == selectElt.value);
+    return Boolean(currentOption.innerText.match(pat));
+}
+function rosemarySetHandleLength(pat=/standard/i) {
+    var selectElt = getFirstSelectorByText('.select-dropdown', /^Handle Length:/).querySelector('select');
+    var selectOptions = [...selectElt.options];
+    var matchedOption = selectOptions.find(e=>e.innerText.match(pat));
+    selectElt.value = matchedOption.value;
+}
+EOF
+
+map <site>c -description "Cart=Checkout | If unset=Set Handle Length | Else=Add to Cart"
+\    -js if (buffer.URL.match(/\/index\.php\?route=checkout\/cart/)) clickSelector(".checkout");
+\        else if (!rosemaryIsHandleLengthSet()) rosemarySetHandleLength();
+\        else clickSelector(".add-cart");
+map <site>oa -description "Goto Account"
+\    -js openOrSelectTab("https://www.rosemaryandco.com/index.php?route=account/account",
+\                        count?"tab":"here", null, true);
+map <site>oc -description "Goto Cart"
+\    -js openOrSelectTab("https://www.rosemaryandco.com/index.php?route=checkout/cart",
+\                        count?"tab":"here", null, true);
+map <site>o;c -description "Goto Cart (reload)"
+\    -js openOrSelectTab("https://www.rosemaryandco.com/index.php?route=checkout/cart",
+\                        count?"tab":"here", null, true,
+\                        null, true);
+map <site>oo -description "Goto Orders"
+\    -js openOrSelectTab("https://www.rosemaryandco.com/index.php?route=account/order",
+\                        count?"tab":"here", null, true);
+map <site>h -description "Set Handle Length to Standard"
+\    -js rosemarySetHandleLength();
+map <site>w -description "Add to Wish List" -js clickSelector(".add-wishlist");
+
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,------------,
 " | Scriptular |
 " '------------'
