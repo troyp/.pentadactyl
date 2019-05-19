@@ -1442,6 +1442,7 @@ map <leader>te  -description "Toggle designMode"                  -ex designmode
 map <leader>tE  -description "Toggle contentEditable"             -ex contenteditable
 map <leader>tj  -description "Toggle Javascript"                  -ex actogglejs
 map <leader>to  -description "Toggle Online"                      -ex toggleoption online
+map <leader>tp  -description "Toggle Proxy"                       -ex actoggleuseproxy
 map <leader>ts  -description "Toggle HTTPS"                       -js toggleHTTPS()
 map <leader>tu  -description "Toggle User Mode (Minimal Styling)" -ex set usermode!
 map <leader>tv  -description "Toggle Visited Links Styling"       -ex styletoggle  -name visitedlinks
@@ -4366,6 +4367,17 @@ command! actoggleopennewwinrestriction
     \ -js utils.toggleIntPrefBetween('browser.link.open_newwindow.restriction', 0, 2);
     \     utils.toggleIntPrefBetween('extensions.dactyl.saved.browser.link.open_newwindow.restriction', 0, 2);
 command! acgetopennewwinrestriction getintpref extensions.dactyl.saved.browser.link.open_newwindow.restriction
+
+" Proxy Settings "
+" network.proxy.type "
+"    0: no proxy "
+"    1: manual config (values in network.proxy.*) "
+"    2: autoconfig by URL (use value in network.proxy.autoconfig_url) "
+"    4: auto-detect "
+command! acsetuseproxy    set! network.proxy.type=4
+command! acunsetuseproxy  set! network.proxy.type=0
+command! actoggleuseproxy -js utils.toggleIntPrefBetween('network.proxy.type', 0, 4);
+command! acgetuseproxy    getintpref network.proxy.type
 
 " Media Autoplay "
 command! acsetautoplay    :set! media.autoplay.enabled=true
