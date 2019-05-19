@@ -11907,6 +11907,8 @@ group user
 " ,-----------,
 " | Wordpress |
 " '-----------'
+group wordpress -locations=wordpress.com
+
 js <<EOF
 function wordpressCleanup() {
     isolateSelectors("#content>.post");
@@ -11916,6 +11918,8 @@ function wordpressCleanup() {
 EOF
 
 map <site>c -description "Cleanup" -js wordpressCleanup();
+
+group user
 
 " -------------------------------------------------------------------------------
 " ,-------------,
