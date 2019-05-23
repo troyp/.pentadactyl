@@ -8806,7 +8806,7 @@ function openOrSelectHandprintUrl(where, ...args) {
         page,
         ()=> fragment && getFirstSelectorByText("td", RegExp("^" + fragment)).scrollIntoView(),
         where,
-        RegExp(page+"$")
+        RegExp(page+"($|#)")
     );
 }
 
