@@ -2418,7 +2418,7 @@ command! shopJacksonsEbayAmazau
 \    -nargs=*
 \    -js multipleEngineSearchWithDefaults(
 \            [
-\                ["shopja", "https://www.jacksonsart.com/en-au/checkout/cart/"]
+\                ["shopja", "https://www.jacksonsart.com/en-au/checkout/cart/"],
 \                ["e", "https://cart.ebay.com.au"],
 \                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
 \            ], args.join(" "));
