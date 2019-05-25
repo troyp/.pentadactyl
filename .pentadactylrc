@@ -2346,8 +2346,11 @@ map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s      -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>s<C-h> -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>saa -description "Shopping search: art (quick)" -b :shopartquick<Space>
+map <search>saj -description "Shopping search: art (jacksons, ebay, amazonAU)" -b :shopJacksonsEbayAmazau<Space>
 map <search>saA -description "Shopping search: art" -b :shopart<Space>
 map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" -b :shopartEbayAmaz<Space>
+map <search>sjj -description "Shopping search: Jacksons UK" -js CommandExMode().open(count?"jacksonsartSearch ":"jacksonsartSearch! ");
+map <search>sjw -description "Shopping search: Jacksons UK watercolour" -js CommandExMode().open(count?"jacksonsartSearchWatercolour ":"jacksonsartSearchWatercolour! ");
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
 map <search>sv      -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
 map <search>sv<C-h> -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
@@ -2407,6 +2410,15 @@ command! shopEbayAmazau
 \    -nargs=*
 \    -js multipleEngineSearchWithDefaults(
 \            [
+\                ["e", "https://cart.ebay.com.au"],
+\                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
+\            ], args.join(" "));
+command! shopJacksonsEbayAmazau
+\    -description "Shopping search: ebay + amazon"
+\    -nargs=*
+\    -js multipleEngineSearchWithDefaults(
+\            [
+\                ["shopja", "https://www.jacksonsart.com/en-au/checkout/cart/"]
 \                ["e", "https://cart.ebay.com.au"],
 \                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
 \            ], args.join(" "));
@@ -8991,6 +9003,19 @@ group user
 " ,-----------------,
 " | JacksonsArt.com |
 " '-----------------'
+command! jacksonsartSearch
+\    -nargs *
+\    -bang
+\    -js dactyl.open("https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" "), bang?"tab":"here");
+command! jacksonsartSearchWatercolour
+\    -nargs *
+\    -bang
+\    -js dactyl.open(
+\            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" "),
+\            bang?"tab":"here");
+
+" =====GROUP START=====
+
 group jacksons -locations=jacksonsart.com
 
 js <<EOF
@@ -9120,16 +9145,6 @@ map <site>4
 
 command! jacksonsartOpenAllItemPages
 \    -js jacksonsartItemUrls().forEach(u=>dactyl.execute("background tabopen " + u));
-command! jacksonsartSearch
-\    -nargs *
-\    -bang
-\    -js dactyl.open("https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" "), bang?"tab":"here");
-command! jacksonsartSearchWatercolour
-\    -nargs *
-\    -bang
-\    -js dactyl.open(
-\            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" "),
-\            bang?"tab":"here");
 
 group user
 
