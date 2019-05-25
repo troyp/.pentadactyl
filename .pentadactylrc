@@ -7527,31 +7527,22 @@ command! ebayresultpageN
 map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>c -description "Click button (Add to cart/Go to checkout)" -js ebayGo();
 map <site>n -description "Count items" -js utils.message("Number of items: " + ebayCount());
-map <site>o -js CommandExMode().open("showkeys <site>o")
-map <site>oa -description "Goto Account Page"
+map <site>o -js CommandExMode().open("showkeys <site>o") map <site>oa -description "Goto Account Page"
 \    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"tab":"here", null, true);
-map <site>oc -description "Goto Cart"
-\    -js openOrSelectTab("https://cart.ebay.com.au", count?"tab":"here", null, true);
-map <site>of -description "Leave feedback"
-\    -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"tab":"here");
-map <site>ok -description "Goto Similar Items"
-\    -js getSelectorByText('h2','Similar items you may be interested in')[0].scrollIntoView();
-map <site>om -description "Goto Inbox"
-\    -js openOrSelectTab("https://mesg.ebay.com.au/mesgweb/ViewMessages/0", count?"tab":"here");
+map <site>oc -description "Goto Cart" -js openOrSelectTab("https://cart.ebay.com.au", count?"tab":"here", null, true);
+map <site>of -description "Leave feedback" -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"tab":"here");
+map <site>ok -description "Goto Similar Items" -js getSelectorByText('h2','Similar items you may be interested in')[0].scrollIntoView();
+map <site>om -description "Goto Inbox" -js openOrSelectTab("https://mesg.ebay.com.au/mesgweb/ViewMessages/0", count?"tab":"here");
 map <site>oo -description "Goto Orders (Purchase history)"
 \    -js openOrSelectTab(
 \            "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2",
 \            count?"tab":"here");
 map <site>os -description "Goto My Saved Sellers"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/SavedSellers", count?"tab":"here", null, true);
-map <site>ov -description "Goto seller's store"
-\    -js openOrSelectTab(ebayGetStoreUrl(), count?"tab":"here");
-map <site>ow -description "Goto watch list"
-\    -js openOrSelectTab("https://www.ebay.com.au/myb/WatchList", count?"tab":"here");
-map <site>oy -description "Goto My eBay"
-\    -js openOrSelectTab("https://www.ebay.com.au/myb/Summary", count?"tab":"here");
-map <site>w -description "Watch/Unwatch"
-\    -js ebayWatch();
+map <site>ov -description "Goto seller's store" -js openOrSelectTab(ebayGetStoreUrl(), count?"tab":"here");
+map <site>ow -description "Goto watch list" -js openOrSelectTab("https://www.ebay.com.au/myb/WatchList", count?"tab":"here");
+map <site>oy -description "Goto My eBay" -js openOrSelectTab("https://www.ebay.com.au/myb/Summary", count?"tab":"here");
+map <site>w -description "Watch/Unwatch" -js ebayWatch();
 map <site><Esc> -description "Click close button" -js clickSelector(".clzBtn"), clickSelector(".oly-c");
 
 group user
