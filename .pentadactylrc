@@ -8867,8 +8867,8 @@ js <<EOF
 function handprintUrl(...args) {
     var wcUrl = "https://www.handprint.com/HP/WCL/";
     var match, colSuffix;
-    if ( args.length==0 || args[0].match(/index/ ) ) return wcUrl; 
-    else if ( args[0].match(/guide/ ) )                                return wcUrl + "waterfs.html"; 
+    if ( args.length==0 || args[0].match(/index/ ) ) return wcUrl;
+    else if ( args[0].match(/guide/ ) )                                return wcUrl + "waterfs.html";
     else if ( args[0].match(/colou?r/ ) )                              return wcUrl + "wcolor.html";
     else if ( args[0].match(/vision/ ) )                               return wcUrl + "color.html";
     else if ( args[0].match(/paint/ ) )                                return wcUrl + "wpaint.html";
