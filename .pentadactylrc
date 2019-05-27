@@ -1035,6 +1035,19 @@ map <browser>bb -b :sidebar<SPACE>
 map <browser>bc -ex sbclose
 map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
 
+" -------------------------------------------------------------------------------
+" ,--------------------------,
+" | <browser>u -- User Agent |
+" '--------------------------'
+map <browser>u<C-h> -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
+map <browser>u      -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
+map <browser>uh -description "Show User Agent Override"   -ex actoggleuaoverride
+map <browser>ut -description "Toggle User Agent Override" -ex actoggleuaoverride
+map <browser>uu -description "Set User Agent Override"    -b :set! general.useragent.override=""<Left>
+map <browser>uy
+\    -description "Yank User Agent Override"
+\    -js utils.cbRead(prefroot.getComplexValue(args[0], Components.interfaces.nsISupportsString).data);
+
 js <<EOF
 var sidebarDoc = sidebar.document;
 
