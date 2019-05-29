@@ -8948,6 +8948,7 @@ command! handprint
 group handprint -locations=www.handprint.com
 
 map <site>a -description "Goto ArtIsCreation page/pigment" -b :artiscreation<Space>
+map <site>A -description "Repeat pigment search on ArtIsCreation" :<up><change-cmd-keep-args>artiscreation<Return>
 map <site>c -description "Goto page/pigment" -b :handprint<Space>
 map <site>g -description "Goto pigment guide" -ex handprint guide
 map <site>h -description "Pigment table: key to ratings" -js utils.message(handprintTableKey);
