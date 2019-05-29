@@ -8914,7 +8914,7 @@ function openOrSelectHandprintUrl(where, ...args) {
     var [page,fragment] = handprintUrl(...args).split("#");
     openOrSelectTabAndRunCode(
         page,
-        ()=> fragment && getFirstSelectorByText("td", RegExp("^" + fragment)).scrollIntoView(),
+        ()=> fragment && getFirstSelectorByText("td", RegExp("^" + fragment + "$")).scrollIntoView(),
         where,
         RegExp(page+"($|#)")
     );
