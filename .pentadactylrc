@@ -2589,6 +2589,7 @@ map <C-S-W> -modes insert <pwhashsite>
 " '---------------------------------------'
 map <leader>c<C-h> -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
 map <leader>c      -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
+map <leader>ca -description "New command with previous arguments" :<up><change-cmd-keep-args>
 map <leader>cc -description "Copy last js command or args to ex command" :<up><S-Home><S-C-Right><S-Right><C-c>
 map <leader>cm -ex messages
 map <leader>cM -ex messclear
