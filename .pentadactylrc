@@ -2506,6 +2506,7 @@ map <cut>                  -modes command-line -b <C-v><C-x>
 map <forward-word>         -modes command-line -b <C-Right>
 map <backward-word>        -modes command-line -b <C-Left>
 map <insert-after-command> -modes command-line -b <Home><C-Right><Space>
+map <change-cmd-keep-args>    -modes command-line -b <Home><C-Right><Space><C-u>
 map <cb-change-first-arg>  -modes command-line  -js var cmd=dactyl.clipboardRead(0).split(/\s+/); dactyl.clipboardWrite(cmd[0]+' '+cmd.slice(2).join(' '));
 map <change-first-arg> -modes command-line <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
 
