@@ -6774,6 +6774,25 @@ map <f1>    -description "Pigment table: key to ratings" -js utils.message(artis
 group user
 
 " -------------------------------------------------------------------------------
+" ,----------------,
+" | ArtistsNetwork |
+" '----------------'
+group artistsnetwork -locations=www.artistsnetwork.com
+
+js <<EOF
+function artistsnetworkCleanup() {
+    isolateSelector(".main-content");
+    removeSelectors("#large");
+    getFirstSelector("body").style.padding = "0";
+}
+EOF
+
+map <site>c -description "Cleanup article" -js artistsnetworkCleanup();
+
+group user
+
+
+" -------------------------------------------------------------------------------
 " ,--------------,
 " | BangGood.com |
 " '--------------'
