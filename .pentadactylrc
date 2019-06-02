@@ -10952,7 +10952,7 @@ map <site>oa -description "Goto account"
 map <site>of -description "Goto free learning"
 \    -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1", count?"tab":"here");
 map <site>ol -description "Goto library"
-\    -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks", count?"tab":"here");
+\    -js openOrSelectTab("https://www.packtpub.com/account/products", count?"tab":"here");
 map <site>tc -description "Toggle compact listing" -js packtToggleCompactList();
 map <site>ya -description "Yank titles" -ex yankselectorcontent .title
 
