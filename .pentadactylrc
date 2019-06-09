@@ -237,7 +237,7 @@ S = {
     },
     titleCaseExceptionWords: ["a", "an", "the", "and", "or", "but", "nor",
                               "yet", "so", "for", "in", "to", "of", "at",
-                              "by", "up", "for", "off", "on"],
+                              "by", "up", "for", "off", "on", "x"],
     toTitleCase: function (s, excWords=this.titleCaseExceptionWords) {
         var initialLetter = s.slice(0, 1);
         var hasInitialCap = this.isUppercase(initialLetter);
