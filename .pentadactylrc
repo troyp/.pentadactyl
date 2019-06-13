@@ -2103,11 +2103,11 @@ map <yank>M -description "Yank markdown link (using H1 heading as title)"
 map <yank>p -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
 " <yank>P -- yank from PDF "
 map <yank>P  -description "(show bindings: yank from PDF)" -js CommandExMode().open("showkeys <yank>P")
-map <yank>P1 -description "PDF: Yank first line" -js content.document.querySelectorAll(".textLayer>div")[0].textContent;
-map <yank>P2 -description "PDF: Yank second line" -js content.document.querySelectorAll(".textLayer>div")[1].textContent;
-map <yank>P3 -description "PDF: Yank third line" -js content.document.querySelectorAll(".textLayer>div")[2].textContent;
-map <yank>P4 -description "PDF: Yank fourth line" -js content.document.querySelectorAll(".textLayer>div")[3].textContent;
-map <yank>P5 -description "PDF: Yank fifth line" -js content.document.querySelectorAll(".textLayer>div")[4].textContent;
+map <yank>P1 -description "PDF: Yank first line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[0].textContent);
+map <yank>P2 -description "PDF: Yank second line" -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[1].textContent);
+map <yank>P3 -description "PDF: Yank third line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[2].textContent);
+map <yank>P4 -description "PDF: Yank fourth line" -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[3].textContent);
+map <yank>P5 -description "PDF: Yank fifth line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[4].textContent);
 map <yank>PL -description "PDF: Yank specified lines (eg. 2-5,11,19)" -b :pdfYankSpecifiedLines<Space>
 map <yank>PP -description "PDF: Yank nth line" -b :pdfYankNthLine<Space>
 
