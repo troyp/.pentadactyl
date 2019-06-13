@@ -2125,6 +2125,7 @@ map <yank>ud -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.ma
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
 map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
+map <yank>ue -description "Yank final or n last components" -count -js utils.yankWithMsg(urlGetNthSuffix(buffer.URL, count||1));
 
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
 map <yank>V -description "Yank browser name and version"
@@ -2269,6 +2270,14 @@ function yankInputFieldN(n) {
         utils.yankWithMsg(textInput[n-1].value);
     else
         utils.message(`Input field ${n} does not exist. There are only ${N} input fields.`);
+}
+
+function urlGetNthSuffix(url, n=1, includeQuery=false, includeFragment=false) {
+    if (!includeFragment) url = url.replace(/#.*/, "");
+    if (!includeQuery)    url = url.replace(/\?.*/, "");
+    var level = "[^/]+(/|$)";
+    var regex = RegExp(level.repeat(n)+"$");
+    return url.match(regex)[0];
 }
 
 EOF
