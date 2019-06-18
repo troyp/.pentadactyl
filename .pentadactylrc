@@ -1683,12 +1683,12 @@ map <leader>adq
 \    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
 
 " <leader>ag - Repos "
-map <leader>aag
+map <leader>ag
 \    -description "(show bindings: Web Sites/Repos)"
-\    -js CommandExMode().open("showkeys <leader>aag");
-map <leader>aag<C-h>
+\    -js CommandExMode().open("showkeys <leader>ag");
+map <leader>ag<C-h>
 \    -description "(show bindings: Web Sites/Repos)"
-\    -js CommandExMode().open("showkeys <leader>aag");
+\    -js CommandExMode().open("showkeys <leader>ag");
 map <leader>agh
     \ -description "Open My Github: Repositories"
     \ -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
