@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+PARSED=$(getopt -n "$0" -o hfq --long "help,quiet,debug"  -- "$@")
+if [ $? -ne 0 ]; then echo "getopt error"; return 1; fi
+eval set -- "$PARSED"
+while true; do
+    case "$1" in
+        -h|--help)
+            cat <<EOF
+runmaff [-h] [-q] file [program]
+    Run a MAFF file using default or chosen program for HTML files.
+
+    Extracts the MAFF file into a temp directory and calls PROGRAM, if
+    specified, or otherwise the program called by xdg-open.
+
+    Options:
+      -h --help    display this help
+      -q --quiet   do not print messages
+      --debug      show debugging info
+EOF
+            shift
+            exit 0
+            ;;
+        -q|--quiet)
+            quiet="&>/dev/null"
+            shift
+            ;;
+        --debug)
+            debug=true
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
+exec 3>&1;
+
+filepath=`realpath "$1"`
+filename="${filepath##*/}"
+basename="${filename%.*}"
+safename=`echo "$basename" | tr " \t" "__"`
+
+program="${2:-xdg-open}"
+
+mkdir -p /tmp/runmaff/
+
+dir=`mktemp -d "/tmp/runmaff/$safename.XXXX"`
+echo "temp dir: $dir" >&3
+{
+	cd "$dir"
+	unzip "$filepath" >&3
+
+  if [[ -n $debug ]]; then
+      echo "filepath: $filepath";
+      echo "filename: $filename";
+      echo "basename: $basename";
+      echo "safename: $safename";
+      echo "program: $program";
+      echo "dir: $dir";
+	    echo "index file: " */index.html
+
+  else
+	    "$program" */index.html >&3
+  fi;
+}
