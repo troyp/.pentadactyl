@@ -6435,7 +6435,17 @@ function amazonCount() {
     }
 }
 
+function amazonSearch(count, ...args) {
+    var url = "https://www.amazon.com.au/s?k="+args.join("+");
+    if (count) dactyl.open(url, "here");
+    else tabOpenAdjacent(url);
+}
 EOF
+
+command! amazonausearch
+\    -nargs *
+\    -bang
+\    -js amazonSearch(count, ...args);
 
 map <site>c
 \    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
@@ -6475,6 +6485,7 @@ map <site>ow
 map <site>o!
 \    -description "Goto contact form"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/help/customer/contact-us/ref=cu_surl", count?"tab":"here");
+map <site>ss -description "Search Amazon AU" -b :amazonausearch<Space>
 map <site>ta
 \    -description "Toggle Australian site"
 \    -js toggleUrl('www.amazon.com.au', /(www|smile)\.amazon\.com/, 'www.amazon.com.au', 'smile.amazon.com');
@@ -6492,6 +6503,7 @@ map <site>w -description "Wish list"
 map <site>yy -description "Yank title" -js utils.cbWrite(getFirstSelector("#productTitle").textContent.trim());
 map <site><esc> -description "Close popup"
 \    -js clickSelector(".a-button-close");
+map <site>/  -description "Search Amazon AU" -b :amazonausearch<Space>
 
 map [[ -js clickSelectorByText("a", "← *Previous");
 map ]] -js clickSelectorByText("a", "Next *→");
