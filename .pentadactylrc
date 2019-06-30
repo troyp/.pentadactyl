@@ -8992,6 +8992,40 @@ command! handprint
 \    -bang
 \    -js openOrSelectHandprintUrl(bang ? "here" : "tab", ...args);
 
+map <f9> <handprint>
+map <handprint><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <handprint>")
+map <handprint>      -description "(show bindings)" -js CommandExMode().open("showkeys <handprint>")
+map <handprint>m
+\    -description "Open handprint guide: magenta here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterc.html");
+map <handprint>r
+\    -description "Open handprint guide: red here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterr.html");
+map <handprint>o
+\    -description "Open handprint guide: orange here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/watero.html");
+map <handprint>e
+\    -description "Open handprint guide: earth here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/watere.html");
+map <handprint>y
+\    -description "Open handprint guide: yellow here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/watery.html");
+map <handprint>g
+\    -description "Open handprint guide: green here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterg.html");
+map <handprint>b
+\    -description "Open handprint guide: blue here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterb.html");
+map <handprint>v
+\    -description "Open handprint guide: violet here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterv.html");
+map <handprint>k
+\    -description "Open handprint guide: white/black here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterw.html");
+map <handprint>w
+\    -description "Open handprint guide: white/black here"
+\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterw.html");
+
 " =====GROUP START=====
 
 group handprint -locations=www.handprint.com
