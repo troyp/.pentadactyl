@@ -9209,6 +9209,9 @@ map <site>ss
 map <site>sw
 \    -description "Search Watercolour"
 \    -js CommandExMode().open("jacksonsartSearchWatercolour"+(count?"! ":" "));
+map <site>s;w
+\    -description "Search watercolour for clipboard text (default: current tab)"
+\    -js dactyl.execute("jacksonsartSearchWatercolour"+(count?"! ":" ")+readFromClipboard());
 map <site>;s
 \    -description "Search for clipboard text (default: current tab)"
 \    -js openOrSelectTab(
