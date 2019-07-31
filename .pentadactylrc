@@ -2952,8 +2952,8 @@ map <buffer>v       -description "Toggle mute tab" -js tabs.getTab().toggleMuteA
 map U -b :undo<SPACE>
 
 " close tabs to right/left (inclusive) "
-map <C-k>   <buffer>>d
-map <C-S-K> <buffer><d
+map <C-k>   -description "Close tabs to right (inclusive)" <buffer>>d
+map <C-S-K> -description "Close tabs to left (inclusive)" <buffer><d
 " close other tabs "
 map <buffer>1 -description "Close all other tabs" -ex tabonly
 map <buffer>< -description "Close tabs to left"   -ex closetabstoleft
