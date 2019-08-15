@@ -9254,6 +9254,7 @@ map <site>;s
 \            `https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`,
 \            count?"tab":"here"
 \        );
+map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
