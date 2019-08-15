@@ -5512,6 +5512,19 @@ function toggleFooter() {
 }
 
 function removeCruft() {
+    var url = buffer.URL;
+    if (url.match(/https:\/\/janeblundellart\.blogspot\.com/)) {
+        isolateSelector("#main");
+        removeSelectors("iframe", "script", "#blog-pager");
+    } else if (url.match(/https:\/\/wiki.haskell\.org/)) {
+        isolateSelector("#content");
+        removeSelectors("#catlinks");
+    } else {
+        removeCruftGeneric();
+    }
+}
+
+function removeCruftGeneric() {
     var elts = [];
     var toarray = Array.prototype.slice;
     var doc = content.document;
