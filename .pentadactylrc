@@ -9255,6 +9255,9 @@ map <site>;s
 \            count?"tab":"here"
 \        );
 map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
+map <site>wds
+\    -description "Daniel Smith watercolours"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"tab":"here");
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
