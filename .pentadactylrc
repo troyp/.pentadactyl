@@ -6811,6 +6811,8 @@ command! artiscreation
 group artiscreation -locations=artiscreation.com,toxicgraphix.blogspot.com
 
 map <site>c -description "Goto page/pigment" -b :artiscreation<Space>
+map <site>h -description "Goto handprint page/pigment" -b :handprint<Space>
+map <site>H -description "Repeat pigment search on handprint" :<up><change-cmd-keep-args>handprint<Return>
 map <site>/ -description "Search artiscreation" -b t site:artiscreation.com<Space>
 map <f1>    -description "Pigment table: key to ratings" -js utils.message(artiscreationTableKey);
 
