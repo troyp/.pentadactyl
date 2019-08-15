@@ -8960,7 +8960,9 @@ function handprintUrl(...args) {
     else if ( args[0].match(/syn.*org/) )                              url = wcUrl + "pigmt1d.html";
     else if ( args[0].match(/^e$/) )                                   url = wcUrl + "watere.html";
     else if ( match = args[0].trim().match(/^\/?(P|N)?(Y|O|R|G|B[rk]?|V|W)(:.+$|[0-9]*)/i) ) {
-        /* precede pigment with slash to find pigment page but exclude fragment from URL */
+        /* precede pigment with slash to find pigment page but exclude fragment from URL                 */
+        /* a pigment name can be used instead of a number, by placing a colon after the page colour code */
+        /*     eg. br:quinacridone orange                                                                */
         var nopig = (match[0][0] == "/");
         /* default pigment prefix is "P" */
         var pref = (match[1] || "P").toUpperCase();
