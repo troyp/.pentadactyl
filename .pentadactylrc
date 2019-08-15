@@ -9213,6 +9213,7 @@ map <site>o<C-h> -description "(show bindings: Goto)" -js CommandExMode().open("
 map <site>oc
 \    -description "Goto cart"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"tab":"here");
+map <site>h -description "Goto handprint page" -b :handprint<Space>
 map <site>oo
 \    -description "Goto orders"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"tab":"here");
