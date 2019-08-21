@@ -11934,6 +11934,13 @@ function wikiaGetUser() {
 
 function wikiaClosePopup() { content.document.querySelector(".close.wikia-chiclet-button").click(); }
 
+function wikiaCopyLyrics() {
+    var url = buffer.URL;
+    if (url.match("fairytail.fandom.com")) {
+        yankSelectorContent("div.tabbertab");
+    }
+}
+
 EOF
 
 command! wikiaremovefandomads
@@ -11952,6 +11959,7 @@ command! wikiaprevious
     \ -description "Previous page"
     \ -bang
     \ -js dactyl.open(wikiaGetPrevious(), { where: bang?'tab':'here' });
+command! wikiacopylyrics -description "Copy lyrics (specialized for each site)" -js wikiaCopyLyrics();
 
 map <site>c   -ex wikiaremovecruft
 map <site>aa  -ex wikiaremoveads
