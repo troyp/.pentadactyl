@@ -6513,6 +6513,7 @@ map <site>t4 -description "Toggle 4+-stars"
 \    -js clickSelector(".a-star-medium-4");
 map <site>w -description "Wish list"
 \    -js clickSelector("#add-to-wishlist-button-submit");
+map <site>yd -description "Yank drop-down contents" -js yankSelectorContent("#centerCol select");
 map <site>yy -description "Yank title" -js utils.cbWrite(getFirstSelector("#productTitle").textContent.trim());
 map <site><esc> -description "Close popup"
 \    -js clickSelector(".a-button-close");
