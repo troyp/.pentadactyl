@@ -9259,6 +9259,11 @@ map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
 map <site>wds
 \    -description "Daniel Smith watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"tab":"here");
+map <site>wwn
+\    -description "Winsor & Newton watercolours"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/winsor-newton-professional-watercolour",
+\                         count?"tab":"here",
+\                         /^https:\/\/www.jacksonsart.com\/en-au\/winsor-newton-professional-watercolour$/);
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
