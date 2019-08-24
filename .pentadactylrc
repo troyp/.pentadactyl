@@ -11313,6 +11313,9 @@ map <site>o;c -description "Goto Cart (reload)"
 \    -js openOrSelectTab("https://www.rosemaryandco.com/index.php?route=checkout/cart",
 \                        count?"tab":"here", null, true,
 \                        null, true);
+map <site>ol -description "Goto Login"
+\    -js openOrSelectTab("https://www.rosemaryandco.com/index.php?route=checkout/login",
+\                        count?"tab":"here", null, true);
 map <site>oo -description "Goto Orders"
 \    -js openOrSelectTab("https://www.rosemaryandco.com/index.php?route=account/order",
 \                        count?"tab":"here", null, true);
