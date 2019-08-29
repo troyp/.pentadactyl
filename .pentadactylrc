@@ -9256,15 +9256,6 @@ map <site>;s
 \            `https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`,
 \            count?"tab":"here"
 \        );
-map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
-map <site>wds
-\    -description "Daniel Smith watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"tab":"here");
-map <site>wwn
-\    -description "Winsor & Newton watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/winsor-newton-professional-watercolour",
-\                         count?"tab":"here",
-\                         /^https:\/\/www.jacksonsart.com\/en-au\/winsor-newton-professional-watercolour$/);
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
@@ -9281,6 +9272,17 @@ map <site>thq -description "Toggle hairtype: Squirrel" -js jacksonsartToggleHair
 map <site>ths -description "Toggle hairtype: Synthetic" -js jacksonsartToggleHairType("Synthetic");
 
 map <site>tl  -description "Toggle limit=60" -js urlToggleQuery("limit=60");
+
+map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
+
+map <site>wds
+\    -description "Daniel Smith watercolours"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"tab":"here");
+map <site>wwn
+\    -description "Winsor & Newton watercolours"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/winsor-newton-professional-watercolour",
+\                         count?"tab":"here",
+\                         /^https:\/\/www.jacksonsart.com\/en-au\/winsor-newton-professional-watercolour$/);
 
 map <site>v
 \    -description "Search for clipboard text (new tab in background)"
