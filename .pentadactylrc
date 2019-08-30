@@ -9278,6 +9278,9 @@ map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
 map <site>wds
 \    -description "Daniel Smith watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"tab":"here");
+map <site>wsc
+\    -description "Schmincke watercolours"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/schmincke-horadam-watercolour-au", count?"tab":"here");
 map <site>wwn
 \    -description "Winsor & Newton watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/winsor-newton-professional-watercolour",
