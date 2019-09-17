@@ -12904,11 +12904,12 @@ function openOrSelectTab(url, where='tab', regex=null, reload=false, closeOldTab
 }
 
 function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false, closeOldTab=false) {
-    /* note: doesn't work when pending tabs are present                                   */
-    /* Select tab matching regex (or url if regex is null). If none, open url in new tab. */
+    /* note: doesn't work when pending tabs are present                                       */
+    /* Select tab matching regex (or url if regex is null). If none, open url in new tab.     */
+    /* After loading, run f(), passing true if a new tab was opened, false if selecting a tab */
     if (url) {
         if (regex ? buffer.URL.match(regex) : buffer.URL.includes(url)) {
-            f();
+            f(false);
             return true;
         }
         var alltabs = Array.from(tabs.allTabs);
@@ -12925,7 +12926,7 @@ function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false
             reload && tabs.reload(existingTab);
             var tb = gBrowser.getBrowserForTab(existingTab);
             var callback = function() {
-                f();
+                f(false);
                 tb.removeEventListener("keydown", callback);
                 tb.removeEventListener("mouseover", callback);
             };
@@ -12936,7 +12937,7 @@ function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false
             dactyl.open(url, {where: where});
             var tb = gBrowser.getBrowserForTab(tabs.getTab());
             var callback = function() {
-                f();
+                f(true);
                 tb.removeEventListener("DOMContentLoaded", callback);
             };
             tb.addEventListener("DOMContentLoaded", callback);
