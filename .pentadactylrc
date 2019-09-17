@@ -7508,8 +7508,10 @@ group danmurphys -locations=danmurphys.com.au
 js <<EOF
 function danmurphysGo() {
     var url = buffer.URL;
-    if (url == "https://www.danmurphys.com.au/dm/mydans/my_lists") {
+    if        (url == "https://www.danmurphys.com.au/dm/mydans/my_lists") {
         clickSelectorByText("span", "Wish List");
+    } else if (url.startsWith("https://www.danmurphys.com.au/product/")) {
+        clickSelector(".icon-heart") || clickSelector(".fa-heart");
     }
 }
 EOF
