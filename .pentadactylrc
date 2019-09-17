@@ -7500,6 +7500,31 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,--------------,
+" | Dan Murphy's |
+" '--------------'
+group danmurphys -locations=danmurphys.com.au
+
+js <<EOF
+function danmurphysGo() {
+    var url = buffer.URL;
+    if (url == "https://www.danmurphys.com.au/dm/mydans/my_lists") {
+        clickSelectorByText("span", "Wish List");
+    }
+}
+EOF
+
+map <site>c  -description "(wishlist) toggle pull-down" -js danmurphysGo();
+map <site>ow
+\    -description "Go to Wish List"
+\    -js openOrSelectTabAndRunCode(
+\            "https://www.danmurphys.com.au/dm/mydans/my_lists",
+\            (isNew)=>{ if (isNew) window.setTimeout(()=>clickSelectorByText("span", "Wish List"), 2000) }
+\        );
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,------------,
 " | DeviantArt |
 " '------------'
