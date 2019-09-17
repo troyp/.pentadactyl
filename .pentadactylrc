@@ -12824,9 +12824,9 @@ function dispatchClickEvent(elt) {
 }
 window.dispatchClickEvent = dispatchClickEvent;
 
-function getSelectorByText(sel, pattern) {
+function getSelectorByText(sel, pattern, useInnerText=false) {
     var elts = getSelectors(sel);
-    return elts.filter(elt => elt.textContent.trim().match(pattern));
+    return elts.filter(elt => (useInnerText ? elt.innerText : elt.textContent).trim().match(pattern));
 }
 window.getSelectorByText = getSelectorByText;
 function getFirstSelectorByText(sel, pattern) {
