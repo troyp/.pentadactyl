@@ -1663,10 +1663,10 @@ map <leader>ab
     \ -ex ochromeurl ${user.mybankurl}
 
 "  <leader>ad - Art "
-map <leader>aad
+map <leader>ad
 \    -description "(show bindings: Web Sites/Art)"
 \    -js CommandExMode().open("showkeys <leader>aad");
-map <leader>aad<C-h>
+map <leader>ad<C-h>
 \    -description "(show bindings: Web Sites/Art)"
 \    -js CommandExMode().open("showkeys <leader>aad");
 map <leader>adc
