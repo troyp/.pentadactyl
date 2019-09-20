@@ -1665,10 +1665,10 @@ map <leader>ab
 "  <leader>ad - Art "
 map <leader>ad
 \    -description "(show bindings: Web Sites/Art)"
-\    -js CommandExMode().open("showkeys <leader>aad");
+\    -js CommandExMode().open("showkeys <leader>ad");
 map <leader>ad<C-h>
 \    -description "(show bindings: Web Sites/Art)"
-\    -js CommandExMode().open("showkeys <leader>aad");
+\    -js CommandExMode().open("showkeys <leader>ad");
 map <leader>adc
 \    -description "ArtIsCreation.com - watercolour pigment information"
 \    -b :artiscreation<Space>
