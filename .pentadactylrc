@@ -6511,13 +6511,19 @@ map <site>ts -description "Toggle 'Ship to Australia' checkbox"
 \    -js amazonGetCheckbox(/ship to australia/i).click();
 map <site>t4 -description "Toggle 4+-stars"
 \    -js clickSelector(".a-star-medium-4");
-map <site>w -description "Wish list"
-\    -js clickSelector("#add-to-wishlist-button-submit");
+map <site>wds -description "Daniel Smith watercolours"
+\    -js openOrSelectTab("https://www.amazon.com.au/gp/product/B001PTAWZI/");
+map <site>wmg -description "M Graham watercolours"
+\    -js openOrSelectTab("https://www.amazon.com.au/gp/product/B001JPH5QW/");
+map <site>who -description "Holbein watercolours"
+\    -js openOrSelectTab("https://www.amazon.com.au/gp/product/B07FSBPX9R/");
 map <site>yd -description "Yank drop-down contents" -js yankSelectorContent("#centerCol select");
 map <site>yy -description "Yank title" -js utils.cbWrite(getFirstSelector("#productTitle").textContent.trim());
 map <site><esc> -description "Close popup"
 \    -js clickSelector(".a-button-close");
 map <site>/  -description "Search Amazon AU" -b :amazonausearch<Space>
+map <site>* -description "Wish list"
+\    -js clickSelector("#add-to-wishlist-button-submit");
 
 map [[ -js clickSelectorByText("a", "← *Previous");
 map ]] -js clickSelectorByText("a", "Next *→");
