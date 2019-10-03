@@ -7674,6 +7674,27 @@ map <site><Esc> -description "Click close button" -js clickSelector(".clzBtn"), 
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | Ebird.org |
+" '-----------'
+
+group ebird -locations=ebird.org
+
+js <<EOF
+function ebirdGetImageSrc() {
+    var elts = getSelectors(".slick-active>.Carousel-inner img");
+    return elts[0].src;
+}
+function ebirdDownloadImage() {
+    dactyl.execute(`!( cd "${homedir}/Pictures/downloads/"; wget ${ebirdGetImageSrc()} )`);
+}
+EOF
+
+map <site>c -description "Download image to ~/Pictures/downloads" -js ebirdDownloadImage();
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,-----,
 " | EdX |
