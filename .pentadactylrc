@@ -7814,26 +7814,29 @@ group figurosity -locations=figurosity.com
 js <<EOF
 var figurosityDownloadDir = homedir + "/ebooks/art/_images/figurosity";
 
+function figurosityGetImageUrl() {
+    var imgHolder = getSelectors("#image-holder>img");
+    if (imgHolder.length) return imgHolder[0].src;
+    else return buffer.URL;
+}
 function figurosityDownloadImage(dir) {
-    io.system(`wget -P "${dir}" ${getSelectors("#image-holder>img")[0].src}`);
+    io.system(`wget -P "${dir}" ${figurosityGetImageUrl()}`);
 }
 function figurosityGetPose() {
-    var imgHolder = getSelectors("#image-holder>img");
-    var imgElt = imgHolder && imgHolder[0];
+    var imgElt = figurosityGetImageUrl();
     var match = imgElt.src.match(/pose-(\d+)/);
     return match.length>0 && parseInt(match[1]);
 }
 function figurosityGetIdentifyingNumbers() {
     /* Return the identifying numbers preceding "normal" etc in an image src URL for a pose.
        Converts slashes to underscores. */
-    var imgHolder = getSelectors("#image-holder>img");
-    var imgElt = imgHolder && imgHolder[0];
+    var imgElt = figurosityGetImageUrl();
     var match = imgElt.src.match(/.*muses\/(.*)\/(normal|nude|muscle|smooth).*/);
     return match.length>0 && match[1].replace(/\//g, "_");
 }
 function figurosityDownloadPoseCmd(sleep=true) {
     var s = "";
-    var src = getSelectors("#image-holder>img")[0].src;
+    var src = figurosityGetImageUrl();
     var regex = /(.*\/)(normal|nude|muscle|smooth)(.*pose-)(\d+)(.*)/;
     var matches = src.match(regex);
     for (i=0; i<=35; ++i) {
@@ -7854,10 +7857,10 @@ map <site>oi
 \    -js openOrSelectTab(getSelectors("#image-holder>img")[0].src, count?"tab":"here");
 map <site>yd
 \    -description "Yank image download (to set directory) command"
-\    -js utils.cbWrite(`wget -P "${figurosityDownloadDir}" ${getSelectors("#image-holder>img")[0].src}`);
+\    -js utils.cbWrite(`wget -P "${figurosityDownloadDir}" ${figurosityGetImageUrl()}`);
 map <site>yi
 \    -description "Yank image source"
-\    -js utils.cbWrite(getSelectors("#image-holder>img")[0].src);
+\    -js utils.cbWrite(figurosityGetImageUrl());
 map <site>yn
 \    -description "Yank identifying numbers from source URL"
 \    -js utils.cbWrite(figurosityGetIdentifyingNumbers());
@@ -7866,10 +7869,10 @@ map <site>yp
 \    -js utils.cbWriteWithMessageLimit(figurosityDownloadPoseCmd(count?null:true));
 map <site>yy
 \    -description "Yank image download command"
-\    -js utils.cbWrite("wget " + getSelectors("#image-holder>img")[0].src + "\n");
+\    -js utils.cbWrite("wget " + figurosityGetImageUrl() + "\n");
 map <A-`>
 \    -description "Yank image download command"
-\    -js utils.cbWrite("wget " + getSelectors("#image-holder>img")[0].src + "\n");
+\    -js utils.cbWrite("wget " + figurosityGetImageUrl() + "\n");
 
 group user
 
