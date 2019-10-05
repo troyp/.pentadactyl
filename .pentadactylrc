@@ -7855,6 +7855,9 @@ map <site>dd
 map <site>oi
 \    -description "View image"
 \    -js openOrSelectTab(getSelectors("#image-holder>img")[0].src, count?"tab":"here");
+map <site>v
+\    -description "View"
+\    -js dactyl.open(figurosityGetImageUrl());
 map <site>yd
 \    -description "Yank image download (to set directory) command"
 \    -js utils.cbWrite(`wget -P "${figurosityDownloadDir}" ${figurosityGetImageUrl()}`);
