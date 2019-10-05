@@ -7812,7 +7812,7 @@ group user
 group figurosity -locations=figurosity.com
 
 js <<EOF
-var figurosityDownloadDir = homedir + "/ebooks/art/_images/example-images/figurosity";
+var figurosityDownloadDir = homedir + "/ebooks/art/_images/figurosity";
 
 function figurosityDownloadImage(dir) {
     io.system(`wget -P "${dir}" ${getSelectors("#image-holder>img")[0].src}`);
