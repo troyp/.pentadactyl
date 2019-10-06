@@ -7847,6 +7847,10 @@ function figurosityDownloadPoseCmd(sleep=true) {
     }
     return s;
 }
+function figurosityViewSwitch(type="normal") {
+    var url = figurosityGetImageUrl();
+    dactyl.open(url.replace(/\/(normal|nude|muscle|smooth)\//, "/"+type+"/"));
+}
 EOF
 
 map <site>dd
@@ -7855,6 +7859,10 @@ map <site>dd
 map <site>oi
 \    -description "View image"
 \    -js openOrSelectTab(getSelectors("#image-holder>img")[0].src, count?"tab":"here");
+map <site>om -description "View image: switch to muscle" -js figurosityViewSwitch("muscle");
+map <site>on -description "View image: switch to normal" -js figurosityViewSwitch("normal");
+map <site>os -description "View image: switch to smooth" -js figurosityViewSwitch("smooth");
+map <site>ou -description "View image: switch to nude"   -js figurosityViewSwitch("nude");
 map <site>v
 \    -description "View"
 \    -js dactyl.open(figurosityGetImageUrl());
