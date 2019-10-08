@@ -9365,6 +9365,9 @@ map <site>wds
 map <site>wsc
 \    -description "Schmincke watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/schmincke-horadam-watercolour-au", count?"tab":"here");
+map <site>wse
+\    -description "Sennelier watercolours"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sennelier-watercolour-au", count?"tab":"here");
 map <site>wwn
 \    -description "Winsor & Newton watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/winsor-newton-professional-watercolour",
