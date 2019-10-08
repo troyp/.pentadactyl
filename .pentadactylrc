@@ -9079,7 +9079,7 @@ function openOrSelectHandprintUrl(where, ...args) {
     var [page,pigment] = handprintUrl(...args);
     var regexp;
     if (pigment && pigment.match(/^\/?(P|N)?(Y|O|R|G|B[rk]?|V|W)[0-9]*/i))
-        regexp = RegExp("^" + pigment + "(:\\d+)?$");
+        regexp = RegExp("^" + pigment + "(:\\d+)?(\(\d+\))?$");
     else
         regexp = RegExp("^" + pigment);
     openOrSelectTabAndRunCode(
