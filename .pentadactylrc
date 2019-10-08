@@ -12629,7 +12629,7 @@ function removeSelectors(...sels) {
 
 function removeSelectorFiltered(sel, pred) {
     var elts = getSelectors(sel).filter(pred);
-    elts.forEach(e=>e.parentNode.removeChild(e));
+    elts.forEach(e=>e.remove());
 }
 
 function getFirstSelector(sel) {
