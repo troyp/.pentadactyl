@@ -7530,11 +7530,28 @@ function danmurphysGo() {
         clickSelector(".icon-heart") || clickSelector(".fa-heart");
     }
 }
+function danmurphysFilterProductListByStars(n) {
+    function nStars(e) {
+        var whole = e.querySelectorAll("span.rating-icon.checked").length;
+        var halfstarElt = e.querySelector(".half-star-rating");
+        var partial = 0;
+        if (e.querySelector(".half-star-rating"))
+            partial = Number(e.querySelector(".half-star-rating").style.width.replace("%",""))/100;
+        return whole + partial;
+    };
+    removeSelectorFiltered(
+        ".product-list>li",
+        e => nStars(e) < n
+    );
+}
 EOF
+
+command! danmurphysnstars -nargs=1 -js danmurphysFilterProductListByStars(args[0]);
 
 map ]] -description "Next Page" -js clickSelector("div.paging-info>a>i.icon-chevron-right");
 map [[ -description "Next Page" -js clickSelector("div.paging-info>a>i.icon-chevron-left");
-map <site>c  -description "(wishlist) toggle pull-down" -js danmurphysGo();
+map <site>c -description "(wishlist) toggle pull-down" -js danmurphysGo();
+map <site>n -description "Show only products with >=N stars" -b :danmurphysnstars<Space>
 map <site>ow
 \    -description "Go to Wish List"
 \    -js openOrSelectTabAndRunCode(
