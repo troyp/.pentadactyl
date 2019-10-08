@@ -7522,6 +7522,8 @@ function danmurphysGo() {
 }
 EOF
 
+map ]] -description "Next Page" -js clickSelector("div.paging-info>a>i.icon-chevron-right");
+map [[ -description "Next Page" -js clickSelector("div.paging-info>a>i.icon-chevron-left");
 map <site>c  -description "(wishlist) toggle pull-down" -js danmurphysGo();
 map <site>ow
 \    -description "Go to Wish List"
