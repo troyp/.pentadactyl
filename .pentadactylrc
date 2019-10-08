@@ -5383,6 +5383,16 @@ function toggleUrl (x, y, x_canon, y_canon) {
 }
 window.toggleUrl = toggleUrl;
 
+function splitUrl(url) {
+    var regex = /^([^?#]+)(\?([^#]*))?(#.*)?$/;
+    var match = url.match(regex);
+    var urlMain = match[1];
+    var query = match[3];
+    var fragment = match[4];
+    var queryComponents = query ? query.split("&") : [];
+    return [urlMain, queryComponents, fragment];
+}
+window.splitUrl = splitUrl;
 function toggleQueryComponent(url, query, altQuery=null) {
     var newurl;
     var qRegexFinal = RegExp("[?&]"+query+"$");
