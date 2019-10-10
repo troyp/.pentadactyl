@@ -947,7 +947,7 @@ map gR         -description "Redraw screen"                         -ex redraw
 map g;i        -description "Focus second input area"               -modes normal -b 2gi
 map !          -description "Shell command"                         -b :!<Space>
 map gD         -description "Focus address bar"                     <A-d><C-e>
-map gK         -description "Focus search bar"                      -b <Pass><C-k>
+map gK         -description "Focus search bar"                      -b <pass-next-key><C-k>
 
 " Save "
 map <C-x><C-s>
