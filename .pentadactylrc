@@ -12312,6 +12312,7 @@ map <site>,
 map <site><Space>
 \    -description "Clean up article"
 \    -ex wpcleanup
+map <site><Escape> -description "Close image view" -ex clickselector .mw-mmv-close
 
 map J
 \    -description "Scroll to next heading"
