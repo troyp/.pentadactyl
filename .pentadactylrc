@@ -3058,10 +3058,10 @@ window.openAndRunCode = openAndRunCode;
 EOF
 
 command! tabopenadjacent -description "Open adjacent tab [!: in background]"
-\    -nargs=1
+\    -nargs=*
 \    -complete=url
 \    -bang
-\    -js bang ? tabOpenAdjacent(args[0], true) : tabOpenAdjacent(args[0]);
+\    -js bang ? tabOpenAdjacent(args[0], true) : tabOpenAdjacent(args.join(" "));
 
 command! tabsearchadjacent -description "Open search in adjacent tab [!: in background]"
 \    -nargs=+
