@@ -2096,7 +2096,8 @@ map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getD
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 " <yank>i -- Yank input fields "
 map <yank>i  -description "(show bindings: yank input fields)" -js CommandExMode().open("showkeys <yank>i")
-map <yank>ii -description "Yank first text input field" -js yankInputFieldN(count || 1);
+map <yank>ii -description "Yank text input field (with completion)" -b :yanktextfield<Space>
+map <yank>if -description "Yank first text input field" -js yankInputFieldN(count || 1);
 map <yank>ia -description "Yank text input fields" -js yankInputFields();
 
 map <yank>I
@@ -2206,6 +2207,11 @@ command! yankheading
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorCompletions('h1','h2','h3','h4'); } "
     \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
+command! yanktextfield
+    \ -description "Yank the value of a text field."
+    \ -nargs=1
+    \ -complete custom," (context) => { context.completions = yankSelectorAttributeCompletions('value', 'input'); } "
+    \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
 command! pdfYankNthLine
     \ -description "PDF: Yank nth line"
     \ -nargs=1
@@ -2228,6 +2234,10 @@ function yankSelectorContent(sel, target='innerText') {
 
 function yankSelectorCompletions(...sels) {
     return getSelectorsContent(sels).map(e=>[e]);
+}
+
+function yankSelectorAttributeCompletions(attr, ...sels) {
+    return getSelectorsAttributeContent(attr, sels).map(e=>[e]);
 }
 
 function pdfGetLines(lines, sep="\n") {
@@ -12831,6 +12841,15 @@ function getSelectorsContent(sels) {
     sels.forEach(sel=>{
         selectedElts = Array.from(content.document.querySelectorAll(sel));
         selectedElts.forEach(e=>result.push(e.innerText));
+    });
+    return result;
+}
+
+function getSelectorsAttributeContent(attr, sels) {
+    result = [];
+    sels.forEach(sel=>{
+        selectedElts = Array.from(content.document.querySelectorAll(sel));
+        selectedElts.forEach(e=>result.push(e[attr]));
     });
     return result;
 }
