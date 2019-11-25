@@ -1212,6 +1212,9 @@ map <app>ph
 map <app>pp
 \    -description "Password hasher: hash site domain"
 \    -ex pwhashsite
+map <app>ps
+\    -description "Password settings"
+\    -js openOrSelectTab("about:preferences#security");
 map <app>pu
 \    -description "Password hasher: hash site domain"
 \    -b :pwhashdomain<Space>
