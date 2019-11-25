@@ -13336,6 +13336,14 @@ function escapeFilenameUnescapedChars(f) {
 }
 window.escapeFilenameUnescapedChars = escapeFilenameUnescapedChars;
 
+function copyqNItemString(n, sep=" ") {
+    var cmd = 'for i in $(jot ' + (n-1) + ' 0); do ' +
+                `copyq read $i; echo -n "${sep}"; done;` +
+              'copyq read ' + (n-1);
+    return io.system(cmd).output
+}
+window.copyqNItemString = copyqNItemString;
+
 " ,------------, "
 " | conversion | "
 " '------------' "
