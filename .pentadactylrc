@@ -12323,6 +12323,12 @@ map <site>t
 \    -description "Copy specified columns (single digits) from table chosen by HINT" -b
 \    :wpyanktablecols<Space>
 map <site>v -description "Search for clipboard text" <site>;s
+map <site>y -description "(show bindings: yank)" -js CommandExMode().open("showkeys <site>y")
+map <site>yc -description "Yank article content" -js wpYankContent();
+map <site>yh -description "Yank article HTML" -js wpYankHtml();
+map <site>yy
+\    -description "Yank article title"
+\    -js utils.yankWithMsg(getFirstSelector("#firstHeading").childNodes[0].textContent);
 map <site>.
 \    -description "Scroll to next heading"
 \    -js wpGotoNextHeading();
