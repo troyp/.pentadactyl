@@ -12204,12 +12204,12 @@ var wpHtml = function() {
     var articletext = content.document.getElementById("bodyContent");
     return `<h1>${heading.innerHTML}</h1>\n${articletext.innerHTML}`;
 }
-var wpCopyContent = function() {
+var wpYankContent = function() {
     articletext = wpContent();
     dactyl.clipboardWrite(articletext);
     dactyl.utils.message(`COPIED: ${articletext.slice(0, 20)} ... ${articletext.slice(-20)}`);
 }
-var wpCopyHtml = function() {
+var wpYankHtml = function() {
     articlehtml = wpHtml();
     dactyl.clipboardWrite(articlehtml);
     dactyl.utils.message(`COPIED: ${articlehtml.slice(0, 20)} ... ${articlehtml.slice(-20)}`);
@@ -12274,13 +12274,13 @@ EOF
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 command! wplatest -description "Go to latest revision" -js wpLatest();
-command! wpcopycontent -description "Copy article text to clipboard" -js wpCopyContent();
-command! wpcopyhtml -description "Copy article HTML to clipboard" -js wpCopyHtml();
+command! wpyankcontent -description "Yank article text" -js wpYankContent();
+command! wpyankhtml -description "Yank article HTML" -js wpYankHtml();
 command! wpcleanup
     \ -description "Cleanup article"
     \ removeselector #siteNotice #mw-navigation #footer .noprint .mw-editsection .navbox
-command! wpcopytablecols
-    \ -description "Copy specified columns (single digits) from table chosen by HINT"
+command! wpyanktablecols
+    \ -description "Yank specified columns (single digits) from table chosen by HINT"
     \ -nargs=1
     \ -js dactylArgsSet(args[0].split("")); hints.show('Ŧ');
 command! wpsection -description "Jump to section"
@@ -12321,7 +12321,7 @@ map <site>;s
 \    -js dactyl.execute("wpsearch" + (count?"! ":" ") + readFromClipboard());
 map <site>t
 \    -description "Copy specified columns (single digits) from table chosen by HINT" -b
-\    :wpcopytablecols<Space>
+\    :wpyanktablecols<Space>
 map <site>v -description "Search for clipboard text" <site>;s
 map <site>.
 \    -description "Scroll to next heading"
