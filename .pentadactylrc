@@ -10980,6 +10980,29 @@ map <Space>  -description "Load more" -ex open javascript:ENV.Express_more()
 group user
 
 
+" -------------------------------------------------------------------------------
+" ,------------,
+" | Open5e.com |
+" '------------'
+group open5e -locations=open5e.com
+
+js <<EOF
+function open5eFilterSpellsByClass(pattern) {
+    var rows = getSelectors(".fiterable-table>tbody>tr");
+    var toRemove = rows.filter(row=>!row.children[4].textContent.match(pattern));
+    toRemove.forEach(e=>e.remove());
+}
+EOF
+
+command! open5efilterspellsbyclass
+\    -description "Filter spell table by class"
+\    -nargs=1
+\    -js open5eFilterSpellsByClass(readStringOrRegex(args[0]));
+
+map <site>fc -description "Filter spell table by class" -b :open5efilterspellsbyclass<Space>
+
+group user
+
 
 " -------------------------------------------------------------------------------
 " ,-------------,
