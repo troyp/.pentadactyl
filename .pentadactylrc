@@ -3131,6 +3131,12 @@ command! tabremoveregex
     \ -nargs=1
     \ -js tabRemoveUrlRegex(readStringOrRegex(args[0]));
 
+command! tabfilterByExprAndRegex
+    \ -description "Close tabs that satisfy js EXPR and do not match REGEX [EXPR REGEX]"
+    \ -nargs=+
+    \ -js var regex = readStringOrRegex(args[1]);
+    \     tabRemove(eval(`(t, n, n0)=>(${args[0]}) && (!t.URL.match(${regex})&&!t.title.match(${regex}));`));
+
 command! tabremoveByExprAndRegex
     \ -description "Close tabs that satisfy js EXPR and match REGEX [EXPR REGEX]"
     \ -nargs=+
