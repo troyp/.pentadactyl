@@ -10992,14 +10992,44 @@ function open5eFilterSpellsByClass(pattern) {
     var toRemove = rows.filter(row=>!row.children[4].textContent.match(pattern));
     toRemove.forEach(e=>e.remove());
 }
+
+function open5eFilterSpellsByClassInv(pattern) {
+    var rows = getSelectors(".fiterable-table>tbody>tr");
+    var toRemove = rows.filter(row=>row.children[4].textContent.match(pattern));
+    toRemove.forEach(e=>e.remove());
+}
+
+function open5eFilterTable(col, pattern) {
+    var rows = getSelectors(".fiterable-table>tbody>tr");
+    var toRemove = rows.filter(row=>!row.children[col].textContent.match(pattern));
+    toRemove.forEach(e=>e.remove());
+}
+
+function open5eFilterTableInv(col, pattern) {
+    var rows = getSelectors(".fiterable-table>tbody>tr");
+    var toRemove = rows.filter(row=>row.children[col].textContent.match(pattern));
+    toRemove.forEach(e=>e.remove());
+}
 EOF
 
 command! open5efilterspellsbyclass
 \    -description "Filter spell table by class"
+\    -bang
 \    -nargs=1
-\    -js open5eFilterSpellsByClass(readStringOrRegex(args[0]));
+\    -js bang ? open5eFilterSpellsByClassInv(readStringOrRegex(args[0]))
+\             : open5eFilterSpellsByClass(readStringOrRegex(args[0]));
+
+command! open5efiltertable
+\    -description "Filter table for entries where column COL matches PATTERN (! = doesn't match)"
+\    -bang
+\    -nargs=+
+\    -js bang ? open5eFilterTableInv(parseInt(args[0])-1, readStringOrRegex(args[1]))
+\             : open5eFilterTable(parseInt(args[0])-1, readStringOrRegex(args[1]))
 
 map <site>fc -description "Filter spell table by class" -b :open5efilterspellsbyclass<Space>
+map <site>f;c -description "Filter spell table for class not matching PATTERN" -b :open5efilterspellsbyclass!<Space>
+map <site>ff -description "Filter table for column COL matching PATTERN" -b :open5efiltertable<Space>
+map <site>f;f -description "Filter table for column COL not matching PATTERN" -b :open5efiltertable!<Space>
 
 group user
 
