@@ -2922,6 +2922,14 @@ map <buffer>dr      -description "Close tabs matching REGEX (case-insensitive)"
 \                   -b :tabremoveregex<Space>"//i"<Left><Left><Left>
 map <buffer>d;r     -description "Close tabs not matching REGEX (case-insensitive)"
 \                   -b :tabfilterregex<Space>"//i"<Left><Left><Left>
+map <buffer>d<r     -description "Close tabs to right matching REGEX (case-insensitive)"
+\                   -b :tabremoveByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
+map <buffer>d<;r    -description "Close tabs to right not matching REGEX (case-insensitive)"
+\                   -b :tabfilterByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
+map <buffer>d>r     -description "Close tabs to right matching REGEX (case-insensitive)"
+\                   -b :tabremoveByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
+map <buffer>d>;r    -description "Close tabs to right not matching REGEX (case-insensitive)"
+\                   -b :tabfilterByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
 map <buffer>dR      -description "Close tabs matching REGEX (case-sensitive)"
 \                   -b :tabremoveregex<Space>"//"<Left><Left>
 map <buffer>d;R     -description "Close tabs not matching REGEX (case-sensitive)"
