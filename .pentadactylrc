@@ -12344,7 +12344,8 @@ function wpGetTopic() {
 
 function wpGotoWiktionary(where='here', lang='en') {
     var topic = wpGetTopic().toLowerCase();
-    dactyl.open(`https://${lang}.wiktionary.org/wiki/${topic}`, where);
+    dactyl.open(`https://${lang}.wiktionary.org/w/index.php?search=${topic}`, where);
+}
 }
 EOF
 
