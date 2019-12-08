@@ -12333,9 +12333,12 @@ function wpGetSections() {
 
 function wpGetTopic() {
     var url = buffer.URL;
-    var regex = /https:\/\/([^./]+)\.wikipedia\.org\/wiki\/([^/]+)/i;
+    var regex = /https:\/\/([^./]+)\.wik.*\.org\/wiki\/([^/]+)/i;
+    var regex2 = /https:\/\/([^./]+)\.wik.*\.org\/w\/index.php\?(.*&)?search=([^&]+)/i;
     var match = url.match(regex);
+    var match2 = url.match(regex2);
     if (match) return match[2];
+    else if (match2) return match2[3];
     else return null;
 }
 
