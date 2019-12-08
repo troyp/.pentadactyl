@@ -12346,6 +12346,11 @@ function wpGotoWiktionary(where='here', lang='en') {
     var topic = wpGetTopic().toLowerCase();
     dactyl.open(`https://${lang}.wiktionary.org/w/index.php?search=${topic}`, where);
 }
+
+function wpGotoWikipedia(where='here', lang='en') {
+    var topic = wpGetTopic().toLowerCase();
+    dactyl.open(`https://${lang}.wikipedia.org/w/index.php?search=${topic}`, where);
+}
 }
 EOF
 
@@ -12377,6 +12382,9 @@ map <site>d
 map <site>D
 \    -description "Open page in Wiktionary (new tab)"
 \    -js wpGotoWiktionary('tab');
+map <site>e
+\    -description "Open page in Wikipedia"
+\    -js wpGotoWikipedia();
 map <site>l
 \    -description "Go to latest revision"
 \    -ex wplatest
