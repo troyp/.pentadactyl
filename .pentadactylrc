@@ -9946,6 +9946,7 @@ var jishoToggleRadicalInput = function() {
     radicalButton.click();
 }
 
+" Get search text from message 'searched for ...' "
 function jishoGetSearchedForText() {
     var searchedforMsg = content.document.getElementById('the_corrector');
     if (!searchedforMsg) return null;
@@ -9955,17 +9956,20 @@ function jishoGetSearchedForText() {
     return match[1];
 }
 
+" Get search text from URL "
 function jishoGetSearchTextFromURL() {
     var re = /https?:\/\/jisho.org\/search\/([^#]*[^# ])/;
     var match = decodeURIComponent(buffer.URL).match(re);
     return match[1];
 }
 
+" Get search text from search box "
 function jishoGetSearchText() {
     var searchbox = content.document.getElementById('keyword');
     return searchbox.value;
 }
 
+" Get search text from message 'searched for ...' or else from box "
 function jishoGetCorrectedSearchText() {
     return jishoGetSearchedForText() || jishoGetSearchText();
 }
