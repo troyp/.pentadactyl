@@ -9902,6 +9902,9 @@ map <site>yy  -description "Yank search term to clipboard" -ex jishoyanksearchte
 map <site>yp  -description "Yank kanji parts"              -ex jishokanjiyankparts
 
 map <site>;   -description "select kanji radical"          -js hints.show("ぶ");
+map <site>\"
+\    -description "open search with term quoted"
+\    -js dactyl.open('https://jisho.org/search/"' + jishoGetSearchTextFromURL() + '"');
 map <site><C-l> -description "Fix modal in viewport" -js jishoFixModal();
 
 imap <A-k> <Space>#kanji
