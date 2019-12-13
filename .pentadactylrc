@@ -1117,6 +1117,9 @@ map <app>c -description "(show bindings: Open in Google Chrome)" -js CommandExMo
 map <app>cc
 \    -description "Open in Google Chrome (minimal profile)"
 \    -ex ochromemin
+map <app>cp
+\    -description "Open URL in clipboard with Google Chrome (minimal profile)"
+\    -js dactyl.execute("ochromeminurl " + dactyl.clipboardRead());
 map <app>cu
 \    -description "Open URL in Google Chrome (minimal profile)"
 \    -b :ochromeminurl<Space>
