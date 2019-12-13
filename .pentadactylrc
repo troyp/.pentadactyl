@@ -1118,13 +1118,13 @@ map <app>c
 \    -ex ochromemin
 map <app>C
 \    -description "Open URL in Google Chrome (minimal profile)"
-\    -ex ochromeminurl
+\    -b :ochromeminurl<Space>
 map <app>;c
 \    -description "Open in Google Chrome (default profile)"
 \    -ex ochrome
 map <app>;C
 \    -description "Open URL in Google Chrome (default profile)"
-\    -ex ochromeurl
+\    -b :ochromeurl<Space>
 map <app>d
 \    -description "(show bindings: Access Downloads)"
 \    -count
