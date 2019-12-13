@@ -1113,16 +1113,17 @@ map <app>ap
 \    -description "Open colour picker (gpick)"
 \    -ex !gpick
 
-map <app>c
+map <app>c -description "(show bindings: Open in Google Chrome)" -js CommandExMode().open("showkeys <app>c");
+map <app>cc
 \    -description "Open in Google Chrome (minimal profile)"
 \    -ex ochromemin
-map <app>C
+map <app>cu
 \    -description "Open URL in Google Chrome (minimal profile)"
 \    -b :ochromeminurl<Space>
-map <app>;c
+map <app>c;c
 \    -description "Open in Google Chrome (default profile)"
 \    -ex ochrome
-map <app>;C
+map <app>c;u
 \    -description "Open URL in Google Chrome (default profile)"
 \    -b :ochromeurl<Space>
 map <app>d
