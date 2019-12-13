@@ -2944,6 +2944,7 @@ map <buffer>du      -description "Close all duplicates adjacent to current tab" 
 map <buffer>dw
 \    -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
+map <buffer><BS>    -description "Close tab to left" -b gTd
 
 map <buffer>h       -description "Go back in history" -b :back<Space>
 map <buffer>l       -description "Go forward in history" -b :forward<Space>
