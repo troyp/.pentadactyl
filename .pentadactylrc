@@ -7474,9 +7474,33 @@ function crDL() {
     dactyl.execute(`!${dlcmd}: &`);
 }
 
+function crGetTitle() {
+    var regex = /https:\/\/www\.crunchyroll\.com\/([^/?#:]+)/;
+    var match = buffer.URL.match(regex);
+    if (match) return match[1];
+}
+
 EOF
 
+map <site>d
+\    -description "(show bindings: [Crunchyroll] Download)"
+\    -js CommandExMode().open("showkeys <site>d");
 map <site>da -description "Download all videos (with youtube-dl)" -js crDL();
+map <site>o -description "(show bindings: [Crunchyroll] Goto)" -js CommandExMode().open("showkeys <site>o");
+map <site>or
+\    -description "Go to Reviews"
+\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/reviews/helpful/page1`, count?"tab":"here");
+map <site>oc
+\    -description "Go to Comments"
+\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/discussions`, count?"tab":"here");
+map <site>ov
+\    -description "Go to Videos"
+\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/videos`, count?"tab":"here");
+map <site>y -description "(show bindings: [Crunchyroll] Yank)" -js CommandExMode().open("showkeys <site>y");
+map <site>yt -description "Yank video title" -js utils.yankWithMsg(crGetTitle());
+map <site>yT
+\    -description "Yank video title (title case)"
+\    -js utils.yankWithMsg(S.toTitleCase(crGetTitle().replace(/-/g, " ")));
 
 command! crdl -js crDL();
 
