@@ -239,13 +239,15 @@ S = {
                               "yet", "so", "for", "in", "to", "of", "at",
                               "by", "up", "for", "off", "on", "as", "x"],
     toTitleCase: function (s, excWords=this.titleCaseExceptionWords) {
+        var words = s.split(/\s+/);
+        var tcWords = words.map(w => excWords.includes(w) ? w : this.capitalize(w));
+
+        " If first word is capitalized, leave it capitalized even if an exception word "
         var initialLetter = s.slice(0, 1);
         var hasInitialCap = this.isUppercase(initialLetter);
-        var words = s.split(/\s+/);
-        var words_ = hasInitialCap ? words.slice(1) : words;
-        var toCapitalize = words_.filter(w=>!excWords.includes(w));
-        toCapitalize.forEach(w=>{ s = s.replace(w, this.capitalize(w)) });
-        return s;
+        if (hasInitialCap) tcWords[0] = words[0];
+
+        return tcWords.join(" ");
     },
     isAlphaAt: function (s, i) {
         ord = s.charCodeAt(i);
