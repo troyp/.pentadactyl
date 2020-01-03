@@ -6093,6 +6093,15 @@ highlight -a Hint[Active]
 "                                  | SITE SPECIFIC |
 "                                  |_______________|
 
+
+map <site><f4>
+\    -description "open .pentadactyl at current group in Emacs"
+\    -js dactyl.execute(`!emacsclient --eval '(progn (find-file "~/.pentadactyl/.pentadactylrc")
+\                                                    (beginning-of-buffer)
+\                                                    (search-forward-regexp "^group ${currentGroup().name}")
+\                                                    (recenter nil)
+\                                                    (beginning-of-line) )'`)
+
 " -----------------------------------------------------------------------------
 " ,----------,
 " | about: * |
