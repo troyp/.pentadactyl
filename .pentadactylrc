@@ -635,6 +635,12 @@ function searchHintModesVerbose(...pats) {
     return filtered;
 }
 
+function currentGroup(url=buffer.URL) {
+    var userGroups = group.instance.children;
+    var currentGroup = userGroups.filter(g=>g.filter(url)).filter(g=>g.name!="temp")[0];
+    return currentGroup;
+}
+
 EOF
 
 " -----------------------------------------------------------------------------
@@ -930,8 +936,8 @@ map <C-q> -modes main <Nop>
 map <ext>a -b <C-v>
 map <C-a>  -b <C-z>
 
-" Show mode "
-map <S-f9> -description "Show mode" -modes base -js utils.message(dactyl.mode.name);
+" Show mode and current group "
+map <S-f9> -description "Show mode" -modes base -js utils.message(`mode: ${dactyl.mode.name} ・ group: ${currentGroup().name}`);
 
 map g. -description "Repeat last ex command" -modes normal -b @:
 
