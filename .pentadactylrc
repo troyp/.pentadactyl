@@ -3002,16 +3002,16 @@ map <A-h>  -ex tabmove! -1
 map <A-l>  -ex tabmove! +1
 map <A-\<> -ex tabmove! 1
 map <A-\>> -ex tabmove! $
-map <A-!>  -ex tabmove! 1
-map <A-@>  -ex tabmove! 2
-map <A-#>  -ex tabmove! 3
-map <A-$>  -ex tabmove! 4
-map <A-%>  -ex tabmove! 5
-map <A-^>  -ex tabmove! 6
-map <A-&>  -ex tabmove! 7
-map <A-*>  -ex tabmove! 8
-map <A-(>  -ex tabmove! 9
-map <A-)>  -ex tabmove! $
+map <C-A-1>  -ex tabmove! 1
+map <C-A-2>  -ex tabmove! 2
+map <C-A-3>  -ex tabmove! 3
+map <C-A-4>  -ex tabmove! 4
+map <C-A-5>  -ex tabmove! 5
+map <C-A-6>  -ex tabmove! 6
+map <C-A-7>  -ex tabmove! 7
+map <C-A-8>  -ex tabmove! 8
+map <C-A-9>  -ex tabmove! 9
+map <C-A-0>  -ex tabmove! $
 " Select buffer:  b  (cycle with gb, gB)
 map \< -b g0
 map \> -b g$
