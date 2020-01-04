@@ -10118,7 +10118,7 @@ hints.addMode(
     'た','open sentence examples',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`)));
 hints.addMode(
-    'た','open sentence examples in new tab',
+    'だ','open sentence examples in new tab',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
 EOF
 
