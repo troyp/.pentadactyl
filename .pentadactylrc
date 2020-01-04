@@ -12319,7 +12319,7 @@ group user
 " ,---------------,
 " | Wikipedia.org |
 " '---------------'
-group wikipedia -locations=wikipedia.org,wikisource.org,wiktionary.org
+group wikipedia -locations=wikipedia.org,wikisource.org,wiktionary.org,wikibooks.org
 
 js <<EOF
 var wpLatest = function() {
