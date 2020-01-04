@@ -9470,6 +9470,7 @@ map <site>tl  -description "Toggle limit=60" -js urlToggleQuery("limit=60");
 
 map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
 
+map <site>w -description "(show bindings: Watercolour Ranges)" -js CommandExMode().open("showkeys <site>w")
 map <site>wds
 \    -description "Daniel Smith watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"tab":"here");
