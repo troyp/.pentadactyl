@@ -5178,6 +5178,7 @@ map <leader>xtc
 map <leader>xtC
 \     -description "Copy table columns (omit rows with too few columns)"
 \     :copytablecols-strict<Space>
+map <leader>xtn -description "Show number of rows in table (HINTS)" -js hints.show("τ");
 map <leader>xtd -description "Delete given columns from all tables." :tableDeleteColumns<Space>
 map <leader>xtw -description "Toggle table-widen style" -ex styletoggle -name table-widen
 map <leader>xtW
@@ -5926,6 +5927,22 @@ hints.addMode(
         dactyl.open(url);
     },
     e => getBackgroundImages().includes(e)
+);
+EOF
+
+" ====== "
+" Tables "
+" ====== "
+set eht+=[τ]:table
+js <<EOF
+hints.addMode(
+    'τ','show number of table rows',
+    t => {
+        var tbodies = Array.from(t.tBodies);
+        var rows = [].concat(...tbodies.map(b => Array.from(b.children)));
+        var dataRows = rows.filter(r => Array.from(r.children).some(c=>c.nodeName=="TD"));
+        utils.message(`TABLE: ${dataRows.length} rows`);
+    }
 );
 EOF
 
