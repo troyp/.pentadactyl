@@ -5172,45 +5172,60 @@ map <leader>x
 map <leader>xt<C-h> -js CommandExMode().open("showkeys <leader>xt")
 map <leader>xt      -js CommandExMode().open("showkeys <leader>xt")
 
-map <leader>xt, -ex table2csv
-map <leader>xtw -ex tablewiden
-map <leader>xtW -ex tablewrap
-map <leader>xtd :tableDeleteColumns<Space>
 map <leader>xtc
-    \ -description "Copy table columns"
-    \ :copytablecols<Space>
+\     -description "Copy table columns"
+\     :copytablecols<Space>
 map <leader>xtC
-    \ -description "Copy table columns (omit rows with too few columns)"
-    \ :copytablecols-strict<Space>
+\     -description "Copy table columns (omit rows with too few columns)"
+\     :copytablecols-strict<Space>
+map <leader>xtd -description "Delete given columns from all tables." :tableDeleteColumns<Space>
+map <leader>xtw -description "Toggle table-widen style" -ex styletoggle -name table-widen
+map <leader>xtW
+\    -description "Toggle table-wrap style (wrap text in cells)" styletoggle -name table-wrap
+\    -ex tablewrap
+map <leader>xt, -description "Convert table data to CSV" -ex table2csv
 map <leader>xt/
-    \ -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
-    \ :filtertablerows<Space>
+\     -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
+\     :filtertablerows<Space>
 
 " Table2CSV
 " table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
 command! table2csv
-    \ -description "Convert table contents to CSV in box under table"
-    \ :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
+\     -description "Convert table contents to CSV in box under table"
+\     :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
 command! yanktablecsvarea
-    \ -description "Yank the contents of table N's CSV. Use after :table2csv"
-    \ -nargs=1
-    \ -js yankTableCSVArea(Number(args[0])-1);
+\     -description "Yank the contents of table N's CSV. Use after :table2csv"
+\     -nargs=1
+\     -js yankTableCSVArea(Number(args[0])-1);
 
 command! filtertablerows
-    \ -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
-    \ -complete javascript
-    \ -nargs=1
-    \ -js dactylArgsSet(args); hints.show('Ⓣ');
+\     -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
+\     -complete javascript
+\     -nargs=1
+\     -js dactylArgsSet(args); hints.show('Ⓣ');
 
 command! copytablecols
-    \ -description "Copy specified columns from table chosen by HINT"
-    \ -nargs=*
-    \ -js dactylArgsSet(args); hints.show('ŧ');
+\     -description "Copy specified columns from table chosen by HINT"
+\     -nargs=*
+\     -js dactylArgsSet(args); hints.show('ŧ');
 
 command! copytablecols-strict
-    \ -description "Copy specified columns from table chosen by HINT (omit rows with too few columns)"
+\     -description "Copy specified columns from table chosen by HINT (omit rows with too few columns)"
+\     -nargs=*
+\     -js dactylArgsSet(args); hints.show('Ŧ');
+
+command! tableDeleteColumns
+    \ -description "Delete given columns from all tables."
     \ -nargs=*
-    \ -js dactylArgsSet(args); hints.show('Ŧ');
+    \ -js tableDeleteCols(args.map(parseInt));
+
+" Table styles "
+style -name=table-widen
+    \ file://*
+    \ body { max-width: 250em !important; }
+style -name=table-wrap
+    \ file://*
+    \ td:first-of-type { white-space: pre-wrap !important; }
 
 js <<EOF
 function yankTableCSVArea(n) {
@@ -5218,26 +5233,6 @@ function yankTableCSVArea(n) {
     var contents = tareas[n].textContent;
     utils.cbWriteWithMessageLimit(contents);
 }
-EOF
-
-" Widen table
-
-style -name=table-widen
-    \ file://*
-    \ body { max-width: 250em !important; }
-command! tablewiden -description "widen table" styletoggle -name table-widen
-
-style -name=table-wrap
-    \ file://*
-    \ td:first-of-type { white-space: pre-wrap !important; }
-command! tablewrap -description "wrap text in table cells" styletoggle -name table-wrap
-
-command! tableDeleteColumns
-    \ -description "Delete given columns from all tables."
-    \ -nargs=*
-    \ -js tableDeleteCols(args.map(parseInt));
-
-js <<EOF
 
 function tableDeleteCols(cols) {
     var tables = content.document.getElementsByTagName('table');
