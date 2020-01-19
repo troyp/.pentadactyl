@@ -941,8 +941,6 @@ map <S-f9> -description "Show mode" -modes base -js utils.message(`mode: ${dacty
 
 map g. -description "Repeat last ex command" -modes normal -b @:
 
-map <browser>. -description "Stop loading"                          -js BrowserStop();
-map <browser>c -description "Stop loading"                          -js BrowserStop();
 map <C-x>h     -description "Select all text"                       -modes normal -b iGvggy
 map <C-x><C-c> -description "Quit browser"    -modes base  -ex quitall
 map <C-x><C-x> -description "Restart browser" -modes normal,visual,menu -ex restart
@@ -1090,6 +1088,13 @@ map <browser>uy
 \    -description "Yank User Agent Override"
 \    -js utils.cbRead(prefroot.getComplexValue(args[0], Components.interfaces.nsISupportsString).data);
 
+" -------------------------------------------------------------------------------
+" ,--------------------,
+" | <browser>. -- Stop |
+" '--------------------'
+map <browser>.  -description "(show bindings: Browser/Stop)" -js CommandExMode().open("showkeys <browser>.")
+map <browser>.. -description "Stop loading"                         -js BrowserStop();
+map <browser>.a -description "Stop loading all"                     -ex stopall
 
 " -------------------------------------------------------------------------------
 " ,------------------------------------------,
