@@ -943,10 +943,6 @@ map g. -description "Repeat last ex command" -modes normal -b @:
 
 map <browser>. -description "Stop loading"                          -js BrowserStop();
 map <browser>c -description "Stop loading"                          -js BrowserStop();
-map <browser>p -description "Print page"                            -b <pass-next-key><C-p>
-map <browser>r -description "Reload .pentadactylrc"                 -ex rc
-map <browser>R -description "Edit .pentadactylrc"                   -ex rce
-map <browser>x -description "Maximize/Remaximize window"            -js window.restore(); window.maximize();
 map <C-x>h     -description "Select all text"                       -modes normal -b iGvggy
 map <C-x><C-c> -description "Quit browser"    -modes base  -ex quitall
 map <C-x><C-x> -description "Restart browser" -modes normal,visual,menu -ex restart
@@ -968,6 +964,29 @@ map <C-x><C-S-S>
 \ -modes normal,insert,visual,command-line
 \ -js saveDocument(getBrowser().selectedBrowser.contentDocument,
 \                  {mafAskSaveArchive: true});
+
+" Copying
+map -modes normal -b <A-w> Y
+" A-Esc: Pass-through Escape
+map <A-Esc> -b <C-v><Esc>
+" C-w closes tab; if last in window closes window.
+map <C-w> -b :q<CR>
+" movement
+map <C-S-D> -modes normal -b <C-u>
+map J       -modes normal -b <C-d>
+map K       -modes normal -b <C-u>
+
+" jumplist
+map <C-j> -description "Show jump list" -b :jumps<CR>f
+
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | <browser> |
+" '-----------'
+map <browser>p -description "Print page"                            -b <pass-next-key><C-p>
+map <browser>r -description "Reload .pentadactylrc"                 -ex rc
+map <browser>R -description "Edit .pentadactylrc"                   -ex rce
+map <browser>x -description "Maximize/Remaximize window"            -js window.restore(); window.maximize();
 
 " -------------------------------------------------------------------------------
 " ,--------------------------,
@@ -1047,6 +1066,17 @@ map <browser>bb -b :sidebar<SPACE>
 map <browser>bc -ex sbclose
 map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
 
+js <<EOF
+var sidebarDoc = sidebar.document;
+
+function showHistorySidebar() { SidebarUI.show('viewHistorySidebar'); }
+function hideHistorySidebar() { SidebarUI.hide(); }
+function toggleHistorySidebar() {
+    if (SidebarUI.isOpen) SidebarUI.hide();
+    else SidebarUI.show('viewHistorySidebar');
+    return SidebarUI.isOpen;
+}
+EOF
 " -------------------------------------------------------------------------------
 " ,--------------------------,
 " | <browser>u -- User Agent |
@@ -1060,31 +1090,6 @@ map <browser>uy
 \    -description "Yank User Agent Override"
 \    -js utils.cbRead(prefroot.getComplexValue(args[0], Components.interfaces.nsISupportsString).data);
 
-js <<EOF
-var sidebarDoc = sidebar.document;
-
-function showHistorySidebar() { SidebarUI.show('viewHistorySidebar'); }
-function hideHistorySidebar() { SidebarUI.hide(); }
-function toggleHistorySidebar() {
-    if (SidebarUI.isOpen) SidebarUI.hide();
-    else SidebarUI.show('viewHistorySidebar');
-    return SidebarUI.isOpen;
-}
-EOF
-
-" Copying
-map -modes normal -b <A-w> Y
-" A-Esc: Pass-through Escape
-map <A-Esc> -b <C-v><Esc>
-" C-w closes tab; if last in window closes window.
-map <C-w> -b :q<CR>
-" movement
-map <C-S-D> -modes normal -b <C-u>
-map J       -modes normal -b <C-d>
-map K       -modes normal -b <C-u>
-
-" jumplist
-map <C-j> -description "Show jump list" -b :jumps<CR>f
 
 " -------------------------------------------------------------------------------
 " ,------------------------------------------,
