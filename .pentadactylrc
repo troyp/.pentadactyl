@@ -5184,10 +5184,10 @@ map <leader>xt      -js CommandExMode().open("showkeys <leader>xt")
 
 map <leader>xtc
 \     -description "Copy table columns"
-\     :copytablecols<Space>
+\     -b :copytablecols<Space>
 map <leader>xtC
 \     -description "Copy table columns (omit rows with too few columns)"
-\     :copytablecols-strict<Space>
+\     -b :copytablecols-strict<Space>
 map <leader>xtn -description "Show number of rows in table (HINTS)" -js hints.show("τ");
 map <leader>xtd -description "Delete given columns from all tables." :tableDeleteColumns<Space>
 map <leader>xtw -description "Toggle table-widen style" -ex styletoggle -name table-widen
