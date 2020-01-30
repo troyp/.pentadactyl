@@ -9452,6 +9452,15 @@ map <site>o3 -description "Goto tab Spec" -js clickSelectorByText("li>a", /^Spec
 map <site>o4 -description "Goto tab Reviews" -js clickSelectorByText("li>a", /^Reviews$/);
 
 map <site>p -description "(show bindings: Pencil Ranges)" -js CommandExMode().open("showkeys <site>p")
+map <site>pbd
+\    -description "Bruynzeel Design pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/bruynzeel-design-colour-pencils", count?"tab":"here");
+map <site>pcl
+\    -description "Caran d'Ache Luminance pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-luminance-colour-pencils", count?"tab":"here");
+map <site>pha
+\    -description "Holbein Artists' pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/holbein-artists-pencil", count?"tab":"here");
 map <site>ppc
 \    -description "Faber Castell Polychromos pencils"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-polychromos-pencils", count?"tab":"here");
