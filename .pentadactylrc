@@ -13295,6 +13295,7 @@ function openOrSummonTab(url, background=false, regex=null) {
 function foreachElement(f, top=content.document) {
     Array.from(top.getElementsByTagName("*")).forEach(f);
 }
+window.foreachElement = foreachElement;
 
 function foreachNode(f, top=content.document) {
     var nodes = [];
@@ -13305,7 +13306,8 @@ function foreachNode(f, top=content.document) {
     }
     recurseNode(top);
     nodes.forEach(f);
-        }
+}
+window.foreachNode = foreachNode;
 
 function listElements(pred, options={}) {
     var top = options.top || content.document;
@@ -13313,14 +13315,14 @@ function listElements(pred, options={}) {
     var elts = [];
     foreachElement(e=>{ if (pred(e)) elts.push(e); }, top);
     return max ? elts.slice(0, max) : elts;
-        }
+}
 function listNodes(pred, options={}) {
     var top = options.top || content.document;
     var max = options.max;
     var nodes = [];
     foreachNode(n=>{ if (pred(n)) elts.push(n); }, top);
     return max ? nodes.slice(0, max) : nodes;
-    }
+}
 window.listElements = listElements;
 window.listNodes = listNodes;
 
