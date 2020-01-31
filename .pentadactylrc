@@ -863,8 +863,10 @@ map gn
 \    -description "Jump to a QuickMark in a new tab (focused if quickmark in 'activate'). See also M and :qmark"
 \    -b gn
 
-map gH -description "Go to first entry in tab's history" -ex back!
-map gL -description "Go to last entry in tab's history" -ex forward!
+map gH  -description "Go to first entry in tab's history" -ex back!
+map gL  -description "Go to last entry in tab's history" -ex forward!
+map g;H -description "Choose entry in tab's backwards history" -b :back<Space>
+map g;L -description "Choose entry in tab's forwards history" -b :forward<Space>
 
 map g# -description "Remove fragment from current URL" -js dactyl.open(buffer.URL.replace(/#.*$/, ""));
 
