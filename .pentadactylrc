@@ -263,6 +263,10 @@ S = {
     arrayWithEmptyStringDefault: function(a) {
         var arr = Array.from(a);
         return arr.map(elem => typeof elem == "undefined" ? "" : String(elem));
+    },
+    escapeRegexSymbols: function (s) {
+        var regexSpecialCharRegex = /[[(){^$\\*+?.|]/g;
+        return s.replace(regexSpecialCharRegex, c=>"\\"+c);
     }
 }
 window.S = S;
@@ -2155,6 +2159,7 @@ map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
 map <yank>u  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>u")
 map <yank>uu -description "Yank buffer URL (unencoded)" -ex yanktrueURL
 map <yank>ud -description "Yank page domain" -js utils.yankWithMsg(buffer.URL.match(/:\/+([^/]+)/)[1])
+map <yank>uD -description "Yank page domain (with protocol) as regex" -js utils.yankWithMsg(S.escapeRegexSymbols(buffer.URL.match(/\w+:\/+[^/]+/)[0]))
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
 map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
