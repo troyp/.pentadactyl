@@ -13377,6 +13377,25 @@ function urlGetNthSuffix(url, n=1, includeQuery=false, includeFragment=false) {
     return url.match(regex)[0];
 }
 
+function urlDomain(url, withProtocol=false, dropSubdomain=false) {
+    var domainMatch = url.match(/[^:]+:\/+([^/]+)/);
+    var domain = domainMatch && domainMatch[withProtocol? 0 : 1];
+    var withoutSubdomainMatch = domain && domain.match(/[^/.]+\.[a-zA-Z0-9]+(\.[a-zA-Z0-9][a-zA-Z0-9])?$/);
+    var withoutSubdomain = withoutSubdomainMatch && withoutSubdomainMatch[0];
+    return dropSubdomain ? withoutSubdomain : domain;
+}
+window.urlDomain = urlDomain;
+
+function urlProtocol(url) {
+    var protocolMatch = url.match(/^[^:]+:/);
+    var protocol = protocolMatch && protocolMatch[0];
+    return protocol;
+}
+
+function urlDomainOrProtocol(url, dropSubdomain=false) {
+    return urlDomain(url, false, dropSubdomain) || urlProtocol(url);
+}
+
 " Escape shell special characters in filename"
 function escapeFilename(f) { return f.replace(/[\[\]\-\\^ '!#$&()*,;<>?`{}|~]/g, '\\$&'); }
 " Escape shell special characters which aren't yet escaped "
