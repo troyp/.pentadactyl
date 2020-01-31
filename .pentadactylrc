@@ -3045,6 +3045,17 @@ map gh  -description "Open previous page in history in background tab"  -js back
 map gl  -description "Open next page in history in background tab"      -js forwardt();
 map gf  -description "Open multiple links in background tabs (HINTS)"   -b g;b
 
+" ,-----------------------------,
+" | <buffer>. -- Current Buffer |
+" '-----------------------------'
+
+map <buffer>..
+\    -description "Switch to next buffer with same domain"
+\    -js dactyl.execute("buffer! " + urlDomainOrProtocol(buffer.URL, true, true));
+map <buffer>.,
+\    -description "Show buffers with same domain"
+\    -js dactyl.execute("buffers " + urlDomainOrProtocol(buffer.URL, true, true));
+
 " ,------------------,
 " | Buffer Selection |
 " '------------------'
