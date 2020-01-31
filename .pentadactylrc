@@ -2321,14 +2321,6 @@ function yankInputFieldN(n) {
         utils.message(`Input field ${n} does not exist. There are only ${N} input fields.`);
 }
 
-function urlGetNthSuffix(url, n=1, includeQuery=false, includeFragment=false) {
-    if (!includeFragment) url = url.replace(/#.*/, "");
-    if (!includeQuery)    url = url.replace(/\?.*/, "");
-    var level = "[^/]+(/|$)";
-    var regex = RegExp(level.repeat(n)+"$");
-    return url.match(regex)[0];
-}
-
 EOF
 
 " ,------,
@@ -13333,6 +13325,68 @@ function listNodes(pred, options={}) {
 window.listElements = listElements;
 window.listNodes = listNodes;
 
+" ,--------------------, "
+" | URLs and Filenames | "
+" '--------------------' "
+var re_label = /(?!-)[-a-z0-9\\u00a1-\\uffff]*[a-z0-9\\u00a1-\\uffff]/;
+window.re_label = re_label;
+var re_http_url = new RegExp(
+    "(https?://|localhost:)?" +
+    `((?:${re_label.source}[.])*${re_label.source})` + "(:\\d+)?" +
+    "(/[^?# \\t]+)?" +
+    "(\\?[^# \\t]+)?" +
+    "(#\\S+)?"
+);
+window.re_http_url = re_http_url;
+var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
+window.re_http_url_groups = re_http_url_groups;
+
+function urlLastComponent(url) {
+    return url.replace(/^.*\//, '');
+}
+
+function getNthFromRootPath(n=1, url=buffer.URL) {
+    n = n || 1;
+    var protocolReStr = "^[^:/]+://";
+    var oneLevelReStr = "[^/]+/";
+    var reStr = protocolReStr + oneLevelReStr.repeat(n);
+    var re = RegExp(reStr);
+    var newUrl = url.match(re)[0];
+    return newUrl;
+}
+function openNthFromRootPath(n=1, url = buffer.URL) {
+    return dactyl.open(getNthFromRootPath(n, url));
+}
+
+function getNthUrlPathParent(n=1, url=buffer.URL) {
+    var oneLevelReStr = "/[^/]+";
+    var reStr = oneLevelReStr.repeat(n||1) + "/?$";
+    var regex = RegExp(reStr);
+    var newUrl = url.replace(regex, "");
+    return newUrl;
+}
+function openNthUrlPathParent(n=1, url=buffer.URL) {
+    return dactyl.open(getNthUrlPathParent(n, url));
+}
+
+function urlGetNthSuffix(url, n=1, includeQuery=false, includeFragment=false) {
+    if (!includeFragment) url = url.replace(/#.*/, "");
+    if (!includeQuery)    url = url.replace(/\?.*/, "");
+    var level = "[^/]+(/|$)";
+    var regex = RegExp(level.repeat(n)+"$");
+    return url.match(regex)[0];
+}
+
+" Escape shell special characters in filename"
+function escapeFilename(f) { return f.replace(/[\[\]\-\\^ '!#$&()*,;<>?`{}|~]/g, '\\$&'); }
+" Escape shell special characters which aren't yet escaped "
+" Occurs when using completion starting from an escaped directory: "
+"   Pentadactyl's completion only escaped spaces. "
+function escapeFilenameUnescapedChars(f) {
+    return f.replace(/\\?(\[|\]|-|\\|\^| |!|#|\$|&|\(|\)|\*|,|;|<|>|\?|`|{|}|\||~|')/g, "\\$&")
+}
+window.escapeFilenameUnescapedChars = escapeFilenameUnescapedChars;
+
 " ,---------------, "
 " | Miscellaneous | "
 " '---------------' "
@@ -13346,10 +13400,6 @@ window.openHTML = openHTML;
 function isAscii(s) {
     return Array.from(s).every(c=>c.charCodeAt(0) <= 128);
 }
-
-function urlLastComponent(url) {
-    return url.replace(/^.*\//, '');
-        }
 
 function indexToOrdinalString(n) {
     // trim in case n is a string to start with
@@ -13481,30 +13531,6 @@ function concatRegex(...regexps) {
 }
 window.concatRegex = concatRegex;
 
-function getNthFromRootPath(n=1, url=buffer.URL) {
-    n = n || 1;
-    var protocolReStr = "^[^:/]+://";
-    var oneLevelReStr = "[^/]+/";
-    var reStr = protocolReStr + oneLevelReStr.repeat(n);
-    var re = RegExp(reStr);
-    var newUrl = url.match(re)[0];
-    return newUrl;
-}
-function openNthFromRootPath(n=1, url = buffer.URL) {
-    return dactyl.open(getNthFromRootPath(n, url));
-}
-
-function getNthUrlPathParent(n=1, url=buffer.URL) {
-    var oneLevelReStr = "/[^/]+";
-    var reStr = oneLevelReStr.repeat(n||1) + "/?$";
-    var regex = RegExp(reStr);
-    var newUrl = url.replace(regex, "");
-    return newUrl;
-}
-function openNthUrlPathParent(n=1, url=buffer.URL) {
-    return dactyl.open(getNthUrlPathParent(n, url));
-}
-
 function addMarginToBody(lr="60px", tb=null) {
     var newstyle = content.document.createElement("style");
     if (!tb)
@@ -13521,16 +13547,6 @@ function getImageUrl(elt) {
     if (elt.parentElement.tagName == "A") return elt.parentElement.href;
     else return elt.src;
 }
-
-" Escape shell special characters in filename"
-function escapeFilename(f) { return f.replace(/[\[\]\-\\^ '!#$&()*,;<>?`{}|~]/g, '\\$&'); }
-" Escape shell special characters which aren't yet escaped "
-" Occurs when using completion starting from an escaped directory: "
-"   Pentadactyl's completion only escaped spaces. "
-function escapeFilenameUnescapedChars(f) {
-    return f.replace(/\\?(\[|\]|-|\\|\^| |!|#|\$|&|\(|\)|\*|,|;|<|>|\?|`|{|}|\||~|')/g, "\\$&")
-}
-window.escapeFilenameUnescapedChars = escapeFilenameUnescapedChars;
 
 function copyqNItemString(n, sep=" ") {
     var cmd = 'for i in $(jot ' + (n-1) + ' 0); do ' +
@@ -13599,6 +13615,51 @@ function updateUSDAUDexchange() {
 function setUSDAUDexchange(rate) { return window.AUDperUSD = rate; }
 function getUSDAUDexchange() { return window.AUDperUSD; }
 window.getUSDAUDexchange = getUSDAUDexchange;
+
+" ,------------, "
+" | formatting | "
+" '------------' "
+function formatSeconds(n) {
+    var hours = Math.floor(n/3600);
+    n -= hours*3600;
+    var mins = Math.floor(n/60);
+    n -= mins*60;
+    var secs = n;
+    if (hours) return sprintf("%d:%02d:%02d", hours, mins, secs);
+    else return sprintf("%d:%02d", mins, secs);
+}
+
+function stringToSmartCaseRegExp(s) {
+    return RegExp(s, s.match(/[A-Z]/) ? '' : 'i' );
+}
+
+function regExpStringRemoveDelimiters(regex) {
+    return String(regex).replace(/^\/|\/$/g,"");
+}
+
+function cutoff(num, min, max) {
+    return Math.min(Math.max(num, min), max);
+}
+
+function newTab(url="about:newtab") {
+    var tabbrowser = getBrowser();
+    var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
+    var tab = tabbrowser.addTab(url, referrer, "utf-8");
+    return tab;
+}
+window.newTab = newTab;
+
+function parseRanges(s) {
+    var result = [];
+    s.split(",").forEach(ss => {
+        var r = ss.split("-");
+        if (r.length == 1) result.push(parseInt(r[0]));
+        else for (i of A.range(parseInt(r[0]), parseInt(r[1])+1))
+            result.push(i);
+    });
+    return result;
+}
+
 " ------------------------------------------------------------------------------- "
 
 function messageArrayItems(a) { utils.message(a.join('\n')); };
@@ -13615,19 +13676,6 @@ window.id = id;
 window.fconst = fconst;
 window.ftrue = ftrue;
 window.ffalse = ffalse;
-
-var re_label = /(?!-)[-a-z0-9\\u00a1-\\uffff]*[a-z0-9\\u00a1-\\uffff]/;
-window.re_label = re_label;
-var re_http_url = new RegExp(
-    "(https?://|localhost:)?" +
-    `((?:${re_label.source}[.])*${re_label.source})` + "(:\\d+)?" +
-    "(/[^?# \\t]+)?" +
-    "(\\?[^# \\t]+)?" +
-    "(#\\S+)?"
-);
-window.re_http_url = re_http_url;
-var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
-window.re_http_url_groups = re_http_url_groups;
 
 " ,---------, "
 " | Loading | "
@@ -13737,47 +13785,6 @@ function trashLastDownload(n=1) {
 }
 
 " ------------------------------------------------------------------------------- "
-
-function formatSeconds(n) {
-    var hours = Math.floor(n/3600);
-    n -= hours*3600;
-    var mins = Math.floor(n/60);
-    n -= mins*60;
-    var secs = n;
-    if (hours) return sprintf("%d:%02d:%02d", hours, mins, secs);
-    else return sprintf("%d:%02d", mins, secs);
-}
-
-function stringToSmartCaseRegExp(s) {
-    return RegExp(s, s.match(/[A-Z]/) ? '' : 'i' );
-}
-
-function regExpStringRemoveDelimiters(regex) {
-    return String(regex).replace(/^\/|\/$/g,"");
-}
-
-function cutoff(num, min, max) {
-    return Math.min(Math.max(num, min), max);
-}
-
-function newTab(url="about:newtab") {
-    var tabbrowser = getBrowser();
-    var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
-    var tab = tabbrowser.addTab(url, referrer, "utf-8");
-    return tab;
-}
-window.newTab = newTab;
-
-function parseRanges(s) {
-    var result = [];
-    s.split(",").forEach(ss => {
-        var r = ss.split("-");
-        if (r.length == 1) result.push(parseInt(r[0]));
-        else for (i of A.range(parseInt(r[0]), parseInt(r[1])+1))
-            result.push(i);
-    });
-    return result;
-}
 
 function getDate(fmt='%y-%m-%d-%T') {
     return io.system(`date '+${fmt}'`).output;
