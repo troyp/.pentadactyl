@@ -7379,6 +7379,26 @@ EOF
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,----------------,
+" | Chessgames.com |
+" '----------------'
+set passkeys+='chessgames.com':'<left><right>'
+
+" ===== GROUP START =====
+group chessgames -locations=chessgames.com
+
+js <<EOF
+EOF
+
+map \- -description "Shrink Board" -ex open javascript:downscaleOLGA();
+map + -description "Shrink Board" -ex open javascript:upscaleOLGA();
+map <site>a -description "Board: Toggle Auto"   -ex clickselector #autoB
+map <site>, -description "Board: Start of game" -ex clickselector #startB
+map <site>. -description "Board: End of game"   -ex clickselector #endB
+
+group user
+
 " -----------------------------------------------------------------------------
 " ,----------,
 " | Coursera |
