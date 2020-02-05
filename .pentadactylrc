@@ -13204,6 +13204,21 @@ window.openLinkBySelectorAll = openLinkBySelectorAll;
 " | Tabs | "
 " '------' "
 
+dactyl.NEW_ADJACENT_TAB = "adjacent";
+dactyl.NEW_ADJACENT_BACKGROUND_TAB = "background-adjacent";
+
+/* See open: in dactyl.js - unlike dactyl.open(), only allows one URL for simplicity */
+function pageOpen(url, params={}, force=false) {
+    if (params.where == dactyl.NEW_ADJACENT_TAB) {
+        tabOpenAdjacent(url, false, force);
+    } else if (params.where == dactyl.NEW_ADJACENT_BACKGROUND_TAB) {
+        tabOpenAdjacent(url, true, force);
+    } else {
+        dactyl.open(url, params, force);
+    }
+}
+window.pageOpen = pageOpen;
+
 function closeTabsLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
     "n = max tabs to close";
