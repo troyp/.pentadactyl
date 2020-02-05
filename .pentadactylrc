@@ -9391,15 +9391,17 @@ group user
 " | JacksonsArt.com |
 " '-----------------'
 command! jacksonsartSearch
+\    -description "Search in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
-\    -js dactyl.open("https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" "), bang?"tab":"here");
+\    -js (bang ? tabOpenAdjacent : dactyl.open)( "https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" ") );
 command! jacksonsartSearchWatercolour
+\    -description "Search for watercolour in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
-\    -js dactyl.open(
-\            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" "),
-\            bang?"tab":"here");
+\    -js (bang ? tabOpenAdjacent : dactyl.open)(
+\            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" ")
+\        );
 
 " =====GROUP START=====
 
