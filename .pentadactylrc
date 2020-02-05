@@ -9496,6 +9496,9 @@ map <site>pbd
 map <site>pcl
 \    -description "Caran d'Ache Luminance pencils"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-luminance-colour-pencils", count?"adjacent":"here");
+map <site>pcn
+\    -description "Caran d'Ache Neocolor I crayons"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-classic-neocolor-i", count?"adjacent":"here");
 map <site>pha
 \    -description "Holbein Artists' pencils"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/holbein-artists-pencil", count?"adjacent":"here");
