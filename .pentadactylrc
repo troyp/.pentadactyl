@@ -9502,6 +9502,10 @@ map <site>pha
 map <site>ppc
 \    -description "Faber Castell Polychromos pencils"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-polychromos-pencils", count?"adjacent":"here");
+map <site>p; -description "(show bindings: Watersoluble Pencil Ranges)" -js CommandExMode().open("showkeys <site>p;")
+map <site>p;cn
+\    -description "Caran d'Ache Neocolor II crayons"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-neocolor-ii-artists-watercolour-crayons", count?"adjacent":"here");
 
 map <site>s      -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
 map <site>s<C-h> -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
