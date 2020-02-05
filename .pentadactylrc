@@ -13266,7 +13266,7 @@ function openOrSelectTab(url, where='tab', regex=null, reload=false, closeOldTab
             tabs.select(existingTab);
             reload && tabs.reload(existingTab);
         }
-        else dactyl.open(url, {where: where});
+        else pageOpen(url, {where: where});
     }
 }
 
@@ -13301,7 +13301,7 @@ function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false
             tb.addEventListener("mouseover", callback);
         }
         else {
-            dactyl.open(url, {where: where});
+            pageOpen(url, {where: where});
             var tb = gBrowser.getBrowserForTab(tabs.getTab());
             var callback = function() {
                 f(true);
@@ -13317,8 +13317,12 @@ function openOrSummonTab(url, background=false, regex=null) {
     if (url) {
         var alltabs = Array.from(tabs.allTabs);
         var existingTab =
-            regex ? alltabs.find(t=>t.linkedBrowser.contentDocument.URL.match(regex))
-                  : alltabs.find(t=>t.linkedBrowser.contentDocument.URL.indexOf(url)>=0);
+            regex ? alltabs.find(lt=>t.linkedBrowser.contentDocument &&
+                                     t.linkedBrowser.contentDocument.URL.match(regex)
+                                )
+                  : alltabs.find( t=>t.linkedBrowser.contentDocument &&
+                                     t.linkedBrowser.contentDocument.URL.indexOf(url)>=0
+                                );
         if (existingTab) {
             tabs.move(existingTab, tabs.getTab().dactylOrdinal+1);
             background || tabs.select(existingTab);
@@ -13326,7 +13330,7 @@ function openOrSummonTab(url, background=false, regex=null) {
             if (background)
                 dactyl.execute("background tabopen " + url);
             else
-                dactyl.open(url, {where: 'tab'});
+                pageOpen(url, {where: "adjacent"});
         }
     }
 }
