@@ -9463,27 +9463,27 @@ map <site>o      -description "(show bindings: Goto)" -js CommandExMode().open("
 map <site>o<C-h> -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"adjacent":"here");
 map <site>h -description "Goto handprint page" -b :handprint<Space>
 map <site>oo
 \    -description "Goto orders"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"adjacent":"here");
 map <site>oO
 \    -description "View latest orders"
 \    -js openOrSelectTabAndRunCode(
 \            "https://www.jacksonsart.com/en-au/sales/order/history/",
 \            ()=> clickSelector(".nobr>a"),
-\            count?"tab":"here"
+\            count?"adjacent":"here"
 \        );
 map <site>ol
 \    -description "Goto login"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"adjacent":"here");
 map <site>os
 \    -description "Goto shipping information"
 \    -js jacksonsartShowShippingInfo(count?"tab":"here");
 map <site>ow
 \    -description "Goto wishlist"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"adjacent":"here");
 map <site>o1 -description "Goto tab Info" -js clickSelectorByText("li>a", /^Info\|$/);
 map <site>o2 -description "Goto tab Q&A" -js clickSelectorByText("li>a", /^Q&A \(\d+\)\|$/);
 map <site>o3 -description "Goto tab Spec" -js clickSelectorByText("li>a", /^Spec\|$/);
@@ -9492,16 +9492,16 @@ map <site>o4 -description "Goto tab Reviews" -js clickSelectorByText("li>a", /^R
 map <site>p -description "(show bindings: Pencil Ranges)" -js CommandExMode().open("showkeys <site>p")
 map <site>pbd
 \    -description "Bruynzeel Design pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/bruynzeel-design-colour-pencils", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/bruynzeel-design-colour-pencils", count?"adjacent":"here");
 map <site>pcl
 \    -description "Caran d'Ache Luminance pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-luminance-colour-pencils", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-luminance-colour-pencils", count?"adjacent":"here");
 map <site>pha
 \    -description "Holbein Artists' pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/holbein-artists-pencil", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/holbein-artists-pencil", count?"adjacent":"here");
 map <site>ppc
 \    -description "Faber Castell Polychromos pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-polychromos-pencils", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-polychromos-pencils", count?"adjacent":"here");
 
 map <site>s      -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
 map <site>s<C-h> -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
@@ -9518,7 +9518,7 @@ map <site>;s
 \    -description "Search for clipboard text (default: current tab)"
 \    -js openOrSelectTab(
 \            `https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`,
-\            count?"tab":"here"
+\            count?"adjacent":"here"
 \        );
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
@@ -9542,17 +9542,17 @@ map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
 map <site>w -description "(show bindings: Watercolour Ranges)" -js CommandExMode().open("showkeys <site>w")
 map <site>wds
 \    -description "Daniel Smith watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"adjacent":"here");
 map <site>wsc
 \    -description "Schmincke watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/schmincke-horadam-watercolour-au", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/schmincke-horadam-watercolour-au", count?"adjacent":"here");
 map <site>wse
 \    -description "Sennelier watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sennelier-watercolour-au", count?"tab":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sennelier-watercolour-au", count?"adjacent":"here");
 map <site>wwn
 \    -description "Winsor & Newton watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/winsor-newton-professional-watercolour",
-\                         count?"tab":"here",
+\                         count?"adjacent":"here",
 \                         /^https:\/\/www.jacksonsart.com\/en-au\/winsor-newton-professional-watercolour$/);
 
 map <site>v
