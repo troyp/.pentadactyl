@@ -3112,7 +3112,7 @@ function openAndRunCode(url, f, where="tab") {
         if (where=="tab") gBrowser.selectedTab = tabUsed;
     }
     var tb = gBrowser.getBrowserForTab(tabUsed);
-    tb.addEventListener("DOMContentLoaded", f);
+    tb.addEventListener("DOMContentLoaded", f, { once: true });
 }
 window.openAndRunCode = openAndRunCode;
 EOF
