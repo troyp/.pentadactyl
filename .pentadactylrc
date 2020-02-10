@@ -12493,6 +12493,13 @@ function wpGotoWikipedia(where='here', lang='en') {
     dactyl.open(`https://${lang}.wikipedia.org/w/index.php?search=${topic}`, where);
 }
 }
+
+function wpGetSearchCommandForSite(url=buffer.URL, invert=false) {
+    if (invert)
+        return url.match("wiktionary.org/") ? "wpsearch" : "wiktionarysearch";
+    else
+        return url.match("wiktionary.org/") ? "wiktionarysearch" : "wpsearch";
+}
 EOF
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
@@ -12514,7 +12521,11 @@ command! wpsearch
 \    -description "Search wikipedia"
 \    -bang
 \    -nargs +
-\    -js openOrSelectTab(`https://en.wikipedia.org/w/index.php?search=${args.join("")}&title=Special%3ASearch&ns0=1`, bang?"tab":"here");
+\    -js openOrSelectTab(`https://en.wikipedia.org/w/index.php?search=${args.join("")}&title=Special%3ASearch&ns0=1`, bang?"adjacent":"here");
+command! wiktionarysearch
+\    -bang
+\    -nargs +
+\    -js openOrSelectTab(`https://en.wiktionary.org/w/index.php?search=${args.join("")}&ns0=1`, bang?"adjacent":"here")
 
 map <site>c :wpsection<Space>
 map <site>d
@@ -12539,12 +12550,16 @@ map <site>p
 map <site>P
 \    -description "Open clipboard text in wiktionary"
 \    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
-map <site>s
-\    -description "Search wikipedia"
+map <site>s -description "(show bindings: wikipedia/search)" -js CommandExMode().open("showkeys <site>s")
+map <site>sd
+\    -description "Search Wiktionary"
+\    -js CommandExMode().open("wiktionarysearch"+(count?"! ":" "));
+map <site>sp
+\    -description "Search site for clipboard text"
+\    -js dactyl.execute(wpGetSearchCommandForSite() + (count?"! ":" ") + readFromClipboard());
+map <site>ss
+\    -description "Search Wikipedia"
 \    -js CommandExMode().open("wpsearch"+(count?"! ":" "));
-map <site>;s
-\    -description "Search for clipboard text"
-\    -js dactyl.execute("wpsearch" + (count?"! ":" ") + readFromClipboard());
 map <site>t
 \    -description "Copy specified columns (single digits) from table chosen by HINT" -b
 \    :wpyanktablecols<Space>
