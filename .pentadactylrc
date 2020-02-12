@@ -13926,64 +13926,66 @@ window.dactylDataGet = dactylDataGet;
 
 EOF
 
-" -----------------------------------------------------------------------------
-" ,-----------------,
-" | USEFUL COMMANDS |
-" '-----------------'
-"
-" call function defined in document: content.wrappedJSObject.page_func()
-" alternative to :execute: :js CommandExMode().open(exCommandString)
-" echo in dactyl status bar: dactyl.echo('');
-" current browser     getBrowser().selectedBrowser
-" current document    getBrowser().selectedBrowser.contentDocument
-"                     content.document
-" current tab:        tabs.getTab()
-" current selection:  buffer.currentWord
-" current URL:        buffer.URL
-" get tab with index i:  tabs.getTab(i)
-" number of tabs:        tabs.count
-" ordinal (one-based) of tab:   t.dactylOrdinal
-" index of tab (zero-based):    t._tPos
-" capture output of shell command:    io.system('command').output
-" simulate mouse event: elt.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}))
-" to override user agent for specific domain, use general.useragent.override.example.com
-" check if window is private: PrivateBrowsingUtils.isContentWindowPrivate(aContentWin)
-"
-" =============================================================================
-" ,----------------------------,
-" | PENTADACTYL/JS/XPCOM NOTES |
-" '-------------------'
-" * If we want to pass a count to a javascript mapping, it will be null if no
-"   count is provided. Eg.:
-"       map x -count -js myFunc(count)
-"   A default argument isn't enough, since it only handles missing (undefined)
-"   arguments.We can handle this with:
-"       function myFunc(n="default") {
-"           n = n || "default";
-"           // ....
-"       }
-"   This also redefines the argument when zero is passed, but if it's only meant
-"   to take a count, it's okay, since counts can't be zero.
-" * When defining a command, if | cannot be used, you can use a new command on each line
-"   (using the line continuation character \).
-"       command! foo feedkeys l
-"           \ feedkeys l
-"           \ feedkeys l
-"   * The downside is that sometimes a single command cannot be split. Eg.:
-"           command! librarysticky silent library |
-"               \ silent ! wmctrl -F -r "Library" -e 0,1081,216,812,815;
-"               \          wmctrl -F -a "Library" -r "Library" -b add,above,sticky;
-"     gives a "not a pentadactyl command" error. You must use a single line, or (when possible,
-"     as in this case) split it into two individual commands.
-" * io.run(prog, [arg1, ...]) will run an external program.
-" * io.system(cmd, input="", async=false) will run a command in a subshell and return output.
-"   * prog can be a string or an array of strings [prog, arg1, ...].
-"   * input is sent on stdin.
-"   * async may be a callback to be run when command returns or boolean (whether to return a promise).
-" * Error reporting: use dactyl.reportError(e) in catch block.
-" * buffer.followLink(elem, where): simulates click on element
-" * completers for commands: you can examine existing completers using eg `commands.get("back").completer`
-" * get tab 24 history entry 2: `tabs.getTab(24).linkedBrowser.sessionHistory.getEntryAtIndex(2,false).URI.asciiSpec`
-" * get tab 24 history list:
-"       var tabHist = tabs.getTab(24).linkedBrowser.sessionHistory;
-"       var tabHistEntries = [...Array(tabHist.count).keys()].map(i=>tabHist.getEntryAtIndex(i,false).URI.asciiSpec);
+" -----------------------------------------------------------------------------                         "
+" ,-----------------,                                                                                   "
+" | USEFUL COMMANDS |                                                                                   "
+" '-----------------'                                                                                   "
+"                                                                                                       "
+" call function defined in document: content.wrappedJSObject.page_func()                                "
+" alternative to :execute: :js CommandExMode().open(exCommandString)                                    "
+" echo in dactyl status bar: dactyl.echo('');                                                           "
+" current browser     getBrowser().selectedBrowser                                                      "
+" current document    getBrowser().selectedBrowser.contentDocument                                      "
+"                     content.document                                                                  "
+" current tab:        tabs.getTab()                                                                     "
+" current selection:  buffer.currentWord                                                                "
+" current URL:        buffer.URL                                                                        "
+" get tab with index i:  tabs.getTab(i)                                                                 "
+" number of tabs:        tabs.count                                                                     "
+" ordinal (one-based) of tab:   t.dactylOrdinal                                                         "
+" index of tab (zero-based):    t._tPos                                                                 "
+" capture output of shell command:    io.system('command').output                                       "
+" simulate mouse event: elt.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}))   "
+" to override user agent for specific domain, use general.useragent.override.example.com                "
+" check if window is private: PrivateBrowsingUtils.isContentWindowPrivate(aContentWin)                  "
+"                                                                                                       "
+" =============================================================================                                   "
+" ,----------------------------,                                                                                  "
+" | PENTADACTYL/JS/XPCOM NOTES |                                                                                  "
+" '----------------------------'                                                                                  "
+" * If we want to pass a count to a javascript mapping, it will be null if no                                     "
+"   count is provided. Eg.:                                                                                       "
+"       map x -count -js myFunc(count)                                                                            "
+"   A default argument isn't enough, since it only handles missing (undefined)                                    "
+"   arguments.We can handle this with:                                                                            "
+"       function myFunc(n='default') {                                                                            "
+"           n = n || 'default';                                                                                   "
+"           // ....                                                                                               "
+"       }                                                                                                         "
+"   This also redefines the argument when zero is passed, but if it's only meant                                  "
+"   to take a count, it's okay, since counts can't be zero.                                                       "
+" * When defining a command, if | cannot be used, you can use a new command on each line                          "
+"   (using the line continuation character \).                                                                    "
+"       command! foo feedkeys l                                                                                   "
+"           \ feedkeys l                                                                                          "
+"           \ feedkeys l                                                                                          "
+"   * The downside is that sometimes a single command cannot be split. Eg.:                                       "
+"           command! librarysticky silent library |                                                               "
+"               \ silent ! wmctrl -F -r 'Library' -e 0,1081,216,812,815;                                          "
+"               \          wmctrl -F -a 'Library' -r 'Library' -b add,above,sticky;                               "
+"     gives a 'not a pentadactyl command' error. You must use a single line, or (when possible,                   "
+"     as in this case) split it into two individual commands.                                                     "
+" * io.run(prog, [arg1, ...]) will run an external program.                                                       "
+" * io.system(cmd, input='', async=false) will run a command in a subshell and return output.                     "
+"   * prog can be a string or an array of strings [prog, arg1, ...].                                              "
+"   * input is sent on stdin.                                                                                     "
+"   * async may be a callback to be run when command returns or boolean (whether to return a promise).            "
+" * Error reporting: use dactyl.reportError(e) in catch block.                                                    "
+" * buffer.followLink(elem, where): simulates click on element                                                    "
+" * completers for commands: you can examine existing completers using eg `commands.get('back').completer`        "
+" * get tab 24 history entry 2:                                                                                   "
+"     tabs.getTab(24).linkedBrowser.sessionHistory.getEntryAtIndex(2,false).URI.asciiSpec                         "
+" * get tab 24 history list:                                                                                      "
+"     var tabHist = tabs.getTab(24).linkedBrowser.sessionHistory;                                                 "
+"     var tabHistEntries =                                                                                        "
+"             [...Array(tabHist.count).keys()].map(i=>tabHist.getEntryAtIndex(i,false).URI.asciiSpec);            "
