@@ -3089,10 +3089,12 @@ command! unpinall tabdo unpintab
 " | Opening Tabs |
 " '--------------'
 js <<EOF
-function tabOpenAdjacent(url, background=false) {
+function tabOpenURLAdjacent(url, background=false) {
     var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
     if (!background) tabs.select(t);
 }
+window.tabOpenURLAdjacent = tabOpenURLAdjacent;
+
 function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
     var search = `${searchEngine} ${searchTerm}`;
     var origOrd = tabs.getTab().dactylOrdinal;
@@ -3103,6 +3105,17 @@ function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
     var n1 = tabs.allTabs.length;
     utils.moveTab(n1, origOrd+1);
 }
+
+function tabOpenAdjacent(urlOrSearch, background=false) {
+    var url = "https://www.google.com";
+    var t_orig = tabs.getTab();
+    var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
+    tabs.select(t);
+    var tb = gBrowser.getBrowserForTab(t);
+    tb.addEventListener("DOMContentLoaded", ()=>dactyl.open(urlOrSearch), { once: true });
+    if (background) tabs.select(t_orig);
+}
+
 function openAndRunCode(url, f, where="tab") {
     if (where=="here") {
         dactyl.open(url, {where: "here"});
@@ -3117,16 +3130,18 @@ function openAndRunCode(url, f, where="tab") {
 window.openAndRunCode = openAndRunCode;
 EOF
 
-command! tabopenadjacent -description "Open adjacent tab [!: in background]"
+command! tabopenurladjacent -description "Open adjacent tab [!: in background]"
 \    -nargs=*
 \    -complete=url
 \    -bang
-\    -js bang ? tabOpenAdjacent(args[0], true) : tabOpenAdjacent(args.join(" "));
+\    -js bang ? tabOpenURLAdjacent(args[0], true) : tabOpenURLAdjacent(args.join(" "));
 
 command! tabsearchadjacent -description "Open search in adjacent tab [!: in background]"
 \    -nargs=+
 \    -bang
 \    -js bang ? tabSearchAdjacent(args[0], args.slice(1), true) : tabSearchAdjacent(args[0], args.slice(1));
+command! tabopenadjacent -nargs=+ -complete=url -js tabOpenAdjacent(args.join(" "));
+command! tabopenadjacentbg -nargs=+ -complete=url -js tabOpenAdjacent(args.join(" "), true);
 
 " ,--------------,
 " | Closing Tabs |
