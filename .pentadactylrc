@@ -13424,6 +13424,9 @@ window.re_http_url = re_http_url;
 var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
 window.re_http_url_groups = re_http_url_groups;
 
+var re_url = /^([a-zA-Z][a-zA-Z0-9+.-]*):(\/\/([^/:@?#]+@)?([^/:@?#]+)(:[^/:@?#]+)?)?(\/[^:@?#]*)([?][^/:@?#]+)?(#[^/:@?#]+)?/;
+window.re_url = re_url;
+
 function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
 }
