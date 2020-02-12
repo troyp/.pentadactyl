@@ -3088,48 +3088,6 @@ command! unpinall tabdo unpintab
 " ,--------------,
 " | Opening Tabs |
 " '--------------'
-js <<EOF
-function tabOpenURLAdjacent(url, background=false) {
-    var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
-    if (!background) tabs.select(t);
-}
-window.tabOpenURLAdjacent = tabOpenURLAdjacent;
-
-function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
-    var search = `${searchEngine} ${searchTerm}`;
-    var origOrd = tabs.getTab().dactylOrdinal;
-    if (background)
-        dactyl.execute("background tabopen " + search);
-    else
-        dactyl.open(search, "tab");
-    var n1 = tabs.allTabs.length;
-    utils.moveTab(n1, origOrd+1);
-}
-
-function tabOpenAdjacent(urlOrSearch, background=false) {
-    var url = "https://www.google.com";
-    var t_orig = tabs.getTab();
-    var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
-    tabs.select(t);
-    var tb = gBrowser.getBrowserForTab(t);
-    tb.addEventListener("DOMContentLoaded", ()=>dactyl.open(urlOrSearch), { once: true });
-    if (background) tabs.select(t_orig);
-}
-
-function openAndRunCode(url, f, where="tab") {
-    if (where=="here") {
-        dactyl.open(url, {where: "here"});
-        var tabUsed = tabs.getTab();
-    } else {
-        var tabUsed = gBrowser.addTab(url);
-        if (where=="tab") gBrowser.selectedTab = tabUsed;
-    }
-    var tb = gBrowser.getBrowserForTab(tabUsed);
-    tb.addEventListener("DOMContentLoaded", f, { once: true });
-}
-window.openAndRunCode = openAndRunCode;
-EOF
-
 command! tabopenurladjacent -description "Open adjacent tab [!: in background]"
 \    -nargs=*
 \    -complete=url
@@ -13243,6 +13201,46 @@ window.openLinkBySelectorAll = openLinkBySelectorAll;
 
 dactyl.NEW_ADJACENT_TAB = "adjacent";
 dactyl.NEW_ADJACENT_BACKGROUND_TAB = "background-adjacent";
+
+function tabOpenURLAdjacent(url, background=false) {
+    var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
+    if (!background) tabs.select(t);
+}
+window.tabOpenURLAdjacent = tabOpenURLAdjacent;
+
+function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
+    var search = `${searchEngine} ${searchTerm}`;
+    var origOrd = tabs.getTab().dactylOrdinal;
+    if (background)
+        dactyl.execute("background tabopen " + search);
+    else
+        dactyl.open(search, "tab");
+    var n1 = tabs.allTabs.length;
+    utils.moveTab(n1, origOrd+1);
+}
+
+function tabOpenAdjacent(urlOrSearch, background=false) {
+    var url = "https://www.google.com";
+    var t_orig = tabs.getTab();
+    var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
+    tabs.select(t);
+    var tb = gBrowser.getBrowserForTab(t);
+    tb.addEventListener("DOMContentLoaded", ()=>dactyl.open(urlOrSearch), { once: true });
+    if (background) tabs.select(t_orig);
+}
+
+function openAndRunCode(url, f, where="tab") {
+    if (where=="here") {
+        dactyl.open(url, {where: "here"});
+        var tabUsed = tabs.getTab();
+    } else {
+        var tabUsed = gBrowser.addTab(url);
+        if (where=="tab") gBrowser.selectedTab = tabUsed;
+    }
+    var tb = gBrowser.getBrowserForTab(tabUsed);
+    tb.addEventListener("DOMContentLoaded", f, { once: true });
+}
+window.openAndRunCode = openAndRunCode;
 
 /* See open: in dactyl.js - unlike dactyl.open(), only allows one URL for simplicity */
 function pageOpen(url, params={}, force=false) {
