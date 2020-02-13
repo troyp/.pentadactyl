@@ -6530,6 +6530,16 @@ function amazonSearch(count, ...args) {
     if (count) dactyl.open(url, "here");
     else tabOpenAdjacent(url);
 }
+
+function amazonToggleTranslateReviews() {
+    var transLinks = getSelectorByText("a",/translate review to english/i);
+    var origLinks =  getSelectorByText("a",/see original/i);
+    var allTranslated = transLinks.every(e=>e.classList.contains("aok-hidden"));
+    if (allTranslated)
+        origLinks.forEach(e=>e.click());
+    else
+        transLinks.forEach(e=>e.click());
+}
 EOF
 
 command! amazonausearch
@@ -6586,6 +6596,7 @@ map <site>to -description "Toggle 'Include out of stock' checkbox"
 map <site>tp -description "Toggle 'prime' checkbox" -js amazonGetCheckbox(/prime/i).click();
 map <site>ts -description "Toggle 'Ship to Australia' checkbox"
 \    -js amazonGetCheckbox(/ship to australia/i).click();
+map <site>tt -description "Toggle translate reviews" -js amazonToggleTranslateReviews();
 map <site>t4 -description "Toggle 4+-stars"
 \    -js clickSelector(".a-star-medium-4");
 map <site>wds -description "Daniel Smith watercolours"
