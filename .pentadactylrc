@@ -2160,14 +2160,19 @@ map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
 " <yank>u -- Yank URL/filename "
 map <yank>u  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>u")
 map <yank>uu -description "Yank buffer URL (unencoded)" -ex yanktrueURL
-map <yank>ud -description "Yank page domain" -js utils.yankWithMsg(urlDomain(buffer.URL));
-map <yank>uD
+map <yank>ud  -description "(show bindings: yank URL/domain)" -js CommandExMode().open("showkeys <yank>ud")
+map <yank>udd
+\    -description "Yank page domain (count=strip subdomains)"
+\    -js utils.yankWithMsg(urlDomain(buffer.URL, false, count));
+map <yank>udp
+\    -description "Yank page domain (with protocol, count=strip subdomains)"
+\    -js utils.yankWithMsg(urlDomain(buffer.URL, true, count));
+map <yank>udr
 \    -description "Yank page domain (with protocol) as regex"
-\    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true)))
+\    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count)))
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
 map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
-map <yank>us -description "Yank page domain (strip subdomain)" -js utils.yankWithMsg(urlDomain(buffer.URL, false, true));
 map <yank>ue
 \    -description "Yank final or n last components"
 \    -count
