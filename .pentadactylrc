@@ -8966,6 +8966,31 @@ map <site>\' -js googleRemoveQuotes();
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,------------------------------,
+" | Greg's Wiki (incl. Bash FAQ) |
+" '------------------------------'
+group gregswiki -locations=mywiki.wooledge.org
+
+js <<EOF
+function gregsTidy() {
+    isolateSelector("#content");
+    getFirstSelector("#content").style.padding="1em";
+}
+function gregsToggleNumber() {
+    if (getFirstSelector(".LineNumber"))
+        removeSelectors(".LineNumber");
+    else
+        clickSelectorAll(".codenumbers");
+}
+EOF
+
+map <site>c  -description "Tidy" -js gregsTidy();
+map <site>tn -description "Toggle Line Numbers" -js gregsToggleNumber();
+
+group user
+
+
 " -----------------------------------------------------------------------------
 " ,------------------,
 " | Google Translate |

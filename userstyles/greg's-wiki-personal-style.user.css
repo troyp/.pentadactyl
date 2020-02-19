@@ -1,0 +1,9 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@-moz-document domain("mywiki.wooledge.org") {
+    a.codenumbers {
+        font-size: xx-small;
+        color: #8FC7F9;
+        float: right;
+    }
+}
