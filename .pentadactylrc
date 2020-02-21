@@ -13563,6 +13563,7 @@ function getHomeDirAsFileURL() {
 function getHomeDir() {
     var homedir = io.system('echo $HOME').output;
     return homedir+'/';
+}
 
 " ,------------, "
 " | conversion | "
