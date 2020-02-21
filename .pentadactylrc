@@ -12886,6 +12886,21 @@ group user
 
 js <<EOF
 
+function messageArrayItems(a) { utils.message(a.join('\n')); };
+function yankArrayItems(a)  { utils.yankWithMsg(a.join('\n')); };
+
+function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
+window.seq = seq;
+
+function id(x) { return x; }
+function fconst(x) { return function(...args) { return x; }; }
+function ftrue(...args) { return true; }
+function ffalse(...args) { return false; }
+window.id = id;
+window.fconst = fconst;
+window.ftrue = ftrue;
+window.ffalse = ffalse;
+
 " ,-----------, "
 " | Selection | "
 " '-----------' "
@@ -13541,6 +13556,225 @@ function escapeFilenameUnescapedChars(f) {
 }
 window.escapeFilenameUnescapedChars = escapeFilenameUnescapedChars;
 
+function getHomeDirAsFileURL() {
+    var homedir = io.system('echo $HOME').output;
+    return `file://${homedir}/`;
+}
+function getHomeDir() {
+    var homedir = io.system('echo $HOME').output;
+    return homedir+'/';
+
+" ,------------, "
+" | conversion | "
+" '------------' "
+function inToCm(x) { return x * 2.54; }
+function cmToIn(x) { return x / 2.54; }
+function kgToLb(x) { return x * 2.205; }
+function lbToKg(x) { return x / 2.205; }
+function paper_lbToGsm(x) { return x * 1.48; }
+function paper_gsmToLb(x) { return x / 1.48; }
+function USFluidOunceToMl(x) { return x * 29.5735295625; }
+function mlToUSFluidOunce(x) { return x / 29.5735295625; }
+window.inToCm = inToCm;
+window.cmToIn = cmToIn;
+window.kgToLb = kgToLb;
+window.lbToKg = lbToKg;
+window.paper_lbToGsm = paper_lbToGsm;
+window.paper_gsmToLb = paper_gsmToLb;
+window.USFluidOunceToMl = USFluidOunceToMl;
+window.mlToUSFluidOunce = mlToUSFluidOunce;
+
+function subCmForInches(s) {
+    var regex = /(-?\d+(\.\d+)?) *("|in(ch(es)?)?)/g;
+    var replaceFn = function(m, m1, m2, m3, m4, m5, start, s, n) {
+        return inToCm(m1) + "cm";
+    };
+    return s.replace(regex, replaceFn);
+}
+window.subCmForInches = subCmForInches;
+
+function FtoC(tempF) { return (tempF-32)/1.8; }
+window.FtoC = FtoC;
+
+function USDtoAUD(x) { return parseFloat(x) * getUSDAUDexchange(); }
+window.USDtoAUD = USDtoAUD;
+
+function subAUDforUSD(s) {
+    var regex = RegExp(/(?!AU)(?:US)?\$(\d+[.]\d\d)/g);
+    var replaceFn = function(m, m1, start, s, n) {
+        return sprintf("AU$%.2f", USDtoAUD(m1));
+    };
+    return s.replace(regex, replaceFn);
+}
+window.subAUDforUSD = subAUDforUSD;
+
+function updateUSDAUDexchange() {
+    var url=`http://openexchangerates.org/latest.json?app_id=${dactyl.user.myopenexchangeratesappid}&base=USD`;
+    fetch(url)
+        .then(response=>response.json())
+        .then(obj => {
+            var base = obj.rates.base;
+            var rate = obj.rates.AUD;
+            window.AUDperUSD = rate;
+            utils.message(rate);
+        });
+}
+
+function setUSDAUDexchange(rate) { return window.AUDperUSD = rate; }
+function getUSDAUDexchange() { return window.AUDperUSD; }
+window.getUSDAUDexchange = getUSDAUDexchange;
+
+" ,------------, "
+" | formatting | "
+" '------------' "
+function formatSeconds(n) {
+    var hours = Math.floor(n/3600);
+    n -= hours*3600;
+    var mins = Math.floor(n/60);
+    n -= mins*60;
+    var secs = n;
+    if (hours) return sprintf("%d:%02d:%02d", hours, mins, secs);
+    else return sprintf("%d:%02d", mins, secs);
+}
+
+function stringToSmartCaseRegExp(s) {
+    return RegExp(s, s.match(/[A-Z]/) ? '' : 'i' );
+}
+
+function regExpStringRemoveDelimiters(regex) {
+    return String(regex).replace(/^\/|\/$/g,"");
+}
+
+function cutoff(num, min, max) {
+    return Math.min(Math.max(num, min), max);
+}
+
+function newTab(url="about:newtab") {
+    var tabbrowser = getBrowser();
+    var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
+    var tab = tabbrowser.addTab(url, referrer, "utf-8");
+    return tab;
+}
+window.newTab = newTab;
+
+function parseRanges(s) {
+    var result = [];
+    s.split(",").forEach(ss => {
+        var r = ss.split("-");
+        if (r.length == 1) result.push(parseInt(r[0]));
+        else for (i of A.range(parseInt(r[0]), parseInt(r[1])+1))
+            result.push(i);
+    });
+    return result;
+}
+
+" ,---------, "
+" | Loading | "
+" '---------' "
+function xopenMaybeFromBufferDir() {
+    var localDirRegex = /^file:\/\/([^?#]*)/;
+    var localDirMatch = buffer.URL.match(localDirRegex);
+    if (localDirMatch) {
+        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
+        CommandExMode().open('xopen ' + localDir);
+    } else {
+        CommandExMode().open('xopen ');
+    }
+}
+
+function openMaffFile(f) {
+    io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browserExec}"`);
+}
+
+function openMaffFileWithFilePicker() {
+    const nsIFilePicker = Components.interfaces.nsIFilePicker;
+    var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+    fp.init(window, "Open MAFF File", nsIFilePicker.modeOpen);
+    fp.appendFilters(nsIFilePicker.filterAll | nsIFilePicker.filterText);
+    fp.open(function (rv) {
+      if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
+        var file = fp.file;
+        var path = fp.file.path;
+        io.system(`runmaff ${path} ${browserExec}`);
+      }
+    });
+}
+
+" ,--------, "
+" | Saving | "
+" '--------' "
+function wget(url=null, optstr="", dirpref="~/Downloads") {
+    if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
+    else url = buffer.URL;
+    var title = buffer.title;
+    dirpref = dirpref.replace("~", env.get("HOME"));
+    var savedir = `${dirpref}/${title}`;
+    dactyl.execute(`!mkdir '${savedir}' || echo "Directory already exists."`);
+    dactyl.execute(`!wget ${optstr} -P '${savedir}' ${url}`);
+}
+
+function wgetm(url=null, optstr="", dirpref="~/Downloads") {
+    wget(url, "-nH -kKpN -rl inf -np --no-remove-listing "+optstr, dirpref);
+}
+
+function wget1(url=null, optstr="", dirpref="~/Downloads") {
+    wget(url, "wget -kKpEHN -rl 1 "+optstr, dirpref);
+}
+
+function curl(url, dir, title, optstr, force) {
+    if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
+    else url = buffer.URL;
+    optstr = optstr || "";
+    dir = dir || "~/Downloads";
+    dir = dir.replace("~", env.get("HOME"));
+    title = title || decodeURIComponent(buffer.URL).replace(/.*\//,"");
+    var savepath = `${dir}/${title}`;
+    dactyl.execute(`!mkdir -p '${dir}'`);
+    if (force)
+        dactyl.execute(`!curl ${optstr} ${url} > '${savepath}'`);
+    else
+        dactyl.execute(`![[ ! -f ${savepath} ]] && curl ${optstr} ${url} > '${savepath}'`);
+}
+
+function savePageDialog() {
+    var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
+    fp.init(content.window, "save file", nsIFilePicker.modeSave);
+    fp.appendFilters(nsIFilePicker.filterText);
+    fp.appendFilters(nsIFilePicker.filterAll);
+    fp.open(function(rv) {
+        var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1']
+                  .createInstance(Components.interfaces.nsIWebBrowserPersist);
+        if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
+            wbp.saveDocument(content.document, fp.file, null, null, null, null);
+        }
+    });
+}
+window.savePageDialog = savePageDialog;
+
+function getLastDownload(n=1) {
+    dlListP = Downloads.getSummary(Downloads.ALL);
+    var resultP = dlListP.then(function (dlList) {
+        return dlList._downloads[dlList._downloads.length - n].target.path;
+    });
+    return resultP;
+}
+window.getLastDownload = getLastDownload;
+
+function xdgOpenLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
+}
+window.xdgOpenLastDownload = xdgOpenLastDownload;
+
+function trashLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) {
+        var cmd=io.system(`trash '${dl}'`);
+        if (cmd.returnValue==0) utils.message("Trashed " + dl);
+        else utils.message("Failed to trash " + dl);
+    });
+}
+
 " ,---------------, "
 " | Miscellaneous | "
 " '---------------' "
@@ -13710,247 +13944,8 @@ function copyqNItemString(n, sep=" ") {
 }
 window.copyqNItemString = copyqNItemString;
 
-" ,------------, "
-" | conversion | "
-" '------------' "
-function inToCm(x) { return x * 2.54; }
-function cmToIn(x) { return x / 2.54; }
-function kgToLb(x) { return x * 2.205; }
-function lbToKg(x) { return x / 2.205; }
-function paper_lbToGsm(x) { return x * 1.48; }
-function paper_gsmToLb(x) { return x / 1.48; }
-function USFluidOunceToMl(x) { return x * 29.5735295625; }
-function mlToUSFluidOunce(x) { return x / 29.5735295625; }
-window.inToCm = inToCm;
-window.cmToIn = cmToIn;
-window.kgToLb = kgToLb;
-window.lbToKg = lbToKg;
-window.paper_lbToGsm = paper_lbToGsm;
-window.paper_gsmToLb = paper_gsmToLb;
-window.USFluidOunceToMl = USFluidOunceToMl;
-window.mlToUSFluidOunce = mlToUSFluidOunce;
-
-function subCmForInches(s) {
-    var regex = /(-?\d+(\.\d+)?) *("|in(ch(es)?)?)/g;
-    var replaceFn = function(m, m1, m2, m3, m4, m5, start, s, n) {
-        return inToCm(m1) + "cm";
-    };
-    return s.replace(regex, replaceFn);
-}
-window.subCmForInches = subCmForInches;
-
-function FtoC(tempF) { return (tempF-32)/1.8; }
-window.FtoC = FtoC;
-
-function USDtoAUD(x) { return parseFloat(x) * getUSDAUDexchange(); }
-window.USDtoAUD = USDtoAUD;
-
-function subAUDforUSD(s) {
-    var regex = RegExp(/(?!AU)(?:US)?\$(\d+[.]\d\d)/g);
-    var replaceFn = function(m, m1, start, s, n) {
-        return sprintf("AU$%.2f", USDtoAUD(m1));
-    };
-    return s.replace(regex, replaceFn);
-}
-window.subAUDforUSD = subAUDforUSD;
-
-function updateUSDAUDexchange() {
-    var url=`http://openexchangerates.org/latest.json?app_id=${dactyl.user.myopenexchangeratesappid}&base=USD`;
-    fetch(url)
-        .then(response=>response.json())
-        .then(obj => {
-            var base = obj.rates.base;
-            var rate = obj.rates.AUD;
-            window.AUDperUSD = rate;
-            utils.message(rate);
-        });
-}
-
-function setUSDAUDexchange(rate) { return window.AUDperUSD = rate; }
-function getUSDAUDexchange() { return window.AUDperUSD; }
-window.getUSDAUDexchange = getUSDAUDexchange;
-
-" ,------------, "
-" | formatting | "
-" '------------' "
-function formatSeconds(n) {
-    var hours = Math.floor(n/3600);
-    n -= hours*3600;
-    var mins = Math.floor(n/60);
-    n -= mins*60;
-    var secs = n;
-    if (hours) return sprintf("%d:%02d:%02d", hours, mins, secs);
-    else return sprintf("%d:%02d", mins, secs);
-}
-
-function stringToSmartCaseRegExp(s) {
-    return RegExp(s, s.match(/[A-Z]/) ? '' : 'i' );
-}
-
-function regExpStringRemoveDelimiters(regex) {
-    return String(regex).replace(/^\/|\/$/g,"");
-}
-
-function cutoff(num, min, max) {
-    return Math.min(Math.max(num, min), max);
-}
-
-function newTab(url="about:newtab") {
-    var tabbrowser = getBrowser();
-    var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
-    var tab = tabbrowser.addTab(url, referrer, "utf-8");
-    return tab;
-}
-window.newTab = newTab;
-
-function parseRanges(s) {
-    var result = [];
-    s.split(",").forEach(ss => {
-        var r = ss.split("-");
-        if (r.length == 1) result.push(parseInt(r[0]));
-        else for (i of A.range(parseInt(r[0]), parseInt(r[1])+1))
-            result.push(i);
-    });
-    return result;
-}
-
-" ------------------------------------------------------------------------------- "
-
-function messageArrayItems(a) { utils.message(a.join('\n')); };
-function yankArrayItems(a)  { utils.yankWithMsg(a.join('\n')); };
-
-function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
-window.seq = seq;
-
-function id(x) { return x; }
-function fconst(x) { return function(...args) { return x; }; }
-function ftrue(...args) { return true; }
-function ffalse(...args) { return false; }
-window.id = id;
-window.fconst = fconst;
-window.ftrue = ftrue;
-window.ffalse = ffalse;
-
-" ,---------, "
-" | Loading | "
-" '---------' "
-function xopenMaybeFromBufferDir() {
-    var localDirRegex = /^file:\/\/([^?#]*)/;
-    var localDirMatch = buffer.URL.match(localDirRegex);
-    if (localDirMatch) {
-        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
-        CommandExMode().open('xopen ' + localDir);
-    } else {
-        CommandExMode().open('xopen ');
-    }
-}
-
-function openMaffFile(f) {
-    io.system(`~/.pentadactyl/scripts/runmaff "${f}" "${browserExec}"`);
-}
-
-function openMaffFileWithFilePicker() {
-    const nsIFilePicker = Components.interfaces.nsIFilePicker;
-    var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
-    fp.init(window, "Open MAFF File", nsIFilePicker.modeOpen);
-    fp.appendFilters(nsIFilePicker.filterAll | nsIFilePicker.filterText);
-    fp.open(function (rv) {
-      if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
-        var file = fp.file;
-        var path = fp.file.path;
-        io.system(`runmaff ${path} ${browserExec}`);
-      }
-    });
-}
-
-" ,--------, "
-" | Saving | "
-" '--------' "
-function wget(url=null, optstr="", dirpref="~/Downloads") {
-    if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
-    else url = buffer.URL;
-    var title = buffer.title;
-    dirpref = dirpref.replace("~", env.get("HOME"));
-    var savedir = `${dirpref}/${title}`;
-    dactyl.execute(`!mkdir '${savedir}' || echo "Directory already exists."`);
-    dactyl.execute(`!wget ${optstr} -P '${savedir}' ${url}`);
-}
-
-function wgetm(url=null, optstr="", dirpref="~/Downloads") {
-    wget(url, "-nH -kKpN -rl inf -np --no-remove-listing "+optstr, dirpref);
-}
-
-function wget1(url=null, optstr="", dirpref="~/Downloads") {
-    wget(url, "wget -kKpEHN -rl 1 "+optstr, dirpref);
-}
-
-function curl(url, dir, title, optstr, force) {
-    if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
-    else url = buffer.URL;
-    optstr = optstr || "";
-    dir = dir || "~/Downloads";
-    dir = dir.replace("~", env.get("HOME"));
-    title = title || decodeURIComponent(buffer.URL).replace(/.*\//,"");
-    var savepath = `${dir}/${title}`;
-    dactyl.execute(`!mkdir -p '${dir}'`);
-    if (force)
-        dactyl.execute(`!curl ${optstr} ${url} > '${savepath}'`);
-    else
-        dactyl.execute(`![[ ! -f ${savepath} ]] && curl ${optstr} ${url} > '${savepath}'`);
-}
-
-function savePageDialog() {
-    var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
-    fp.init(content.window, "save file", nsIFilePicker.modeSave);
-    fp.appendFilters(nsIFilePicker.filterText);
-    fp.appendFilters(nsIFilePicker.filterAll);
-    fp.open(function(rv) {
-        var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1']
-                  .createInstance(Components.interfaces.nsIWebBrowserPersist);
-        if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
-            wbp.saveDocument(content.document, fp.file, null, null, null, null);
-        }
-    });
-}
-window.savePageDialog = savePageDialog;
-
-function getLastDownload(n=1) {
-    dlListP = Downloads.getSummary(Downloads.ALL);
-    var resultP = dlListP.then(function (dlList) {
-        return dlList._downloads[dlList._downloads.length - n].target.path;
-    });
-    return resultP;
-}
-window.getLastDownload = getLastDownload;
-
-function xdgOpenLastDownload(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
-}
-window.xdgOpenLastDownload = xdgOpenLastDownload;
-
-function trashLastDownload(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(function(dl) {
-        var cmd=io.system(`trash '${dl}'`);
-        if (cmd.returnValue==0) utils.message("Trashed " + dl);
-        else utils.message("Failed to trash " + dl);
-    });
-}
-
-" ------------------------------------------------------------------------------- "
-
 function getDate(fmt='%y-%m-%d-%T') {
     return io.system(`date '+${fmt}'`).output;
-}
-
-function getHomeDirAsFileURL() {
-    var homedir = io.system('echo $HOME').output;
-    return `file://${homedir}/`;
-}
-function getHomeDir() {
-    var homedir = io.system('echo $HOME').output;
-    return homedir+'/';
 }
 
 function getStyleProperty(elt, prop) {
@@ -13965,9 +13960,10 @@ function getBackgroundImages() {
     return allElts.filter(e => getStyleProperty(e, "background-image"));
 }
 
-// ,-------------------------,
-// | variables for temp data |
-// '-------------------------'
+" ------------------------------------------------------------------------------- "
+" ,-------------------------,                                                     "
+" | variables for temp data |                                                     "
+" '-------------------------'                                                     "
 
 window._dactylargs = null;
 function dactylArgsSet(value) {
@@ -13992,9 +13988,10 @@ window.dactylDataGet = dactylDataGet;
 EOF
 
 " -----------------------------------------------------------------------------                         "
-" ,-----------------,                                                                                   "
-" | USEFUL COMMANDS |                                                                                   "
-" '-----------------'                                                                                   "
+"                                           _________________                                           "
+"                                          |                 |                                          "
+"                                          | USEFUL COMMANDS |                                          "
+"                                          |_________________|                                          "
 "                                                                                                       "
 " call function defined in document: content.wrappedJSObject.page_func()                                "
 " alternative to :execute: :js CommandExMode().open(exCommandString)                                    "
