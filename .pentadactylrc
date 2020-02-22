@@ -13128,14 +13128,16 @@ function getSelectorContent(sel, target='innerText') {
     return result;
 }
 
-function getSelectorsContent(sels) {
+function getSelectorsContent(sels, useInnerText=false) {
+    if (typeof sels == "string") sels = [sels];
     result = [];
     sels.forEach(sel=>{
         selectedElts = Array.from(content.document.querySelectorAll(sel));
-        selectedElts.forEach(e=>result.push(e.innerText));
+        selectedElts.forEach(e=>result.push(e[useInnerText?"innerText":"textContent"]));
     });
     return result;
 }
+window.getSelectorsContent = getSelectorsContent;
 
 function getSelectorsAttributeContent(attr, sels) {
     result = [];
