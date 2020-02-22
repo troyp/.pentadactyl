@@ -7681,17 +7681,20 @@ function danmurphysEscape() {
     if (getFirstSelector("#wish_list")) clickSelector(".fa-heart");
     clickSelector(".player-close");
 }
+function danmurphysScrollToReviews() { getFirstSelector("#customer-review-container").scrollIntoView() }
 EOF
 
 command! danmurphysnstars -nargs=1 -js danmurphysFilterProductListByStars(args[0]);
 
-map ]] -description "Next Page" -js clickSelector("div.paging-info>a>i.icon-chevron-right");
-map [[ -description "Next Page" -js clickSelector("div.paging-info>a>i.icon-chevron-left");
+map ]] -description "Next Page"
+\    -js clickSelector("div.paging-info>a>i.icon-chevron-right") && danmurphysScrollToReviews();
+map [[ -description "Previous Page"
+\    -js clickSelector("div.paging-info>a>i.icon-chevron-left") && danmurphysScrollToReviews();
 map <site>c -description "(wishlist) toggle pull-down" -js danmurphysGo();
 map <site>n -description "Show only products with >=N stars" -b :danmurphysnstars<Space>
 map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc -description "Go to cart" -js openOrSelectTab("https://www.danmurphys.com.au/dm/ecart/cart", count?"tab":"here", null, true);
-map <site>or -description "Scroll to reviews" -js getFirstSelector("#customer-review-container").scrollIntoView();
+map <site>or -description "Scroll to reviews" -js danmurphysScrollToReviews();
 map <site>ow
 \    -description "Go to Wish List"
 \    -js openOrSelectTabAndRunCode(
