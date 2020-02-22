@@ -12549,6 +12549,10 @@ command! wiktionarysearch
 \    -bang
 \    -nargs +
 \    -js openOrSelectTab(`https://en.wiktionary.org/w/index.php?search=${args.join("")}&ns0=1`, bang?"adjacent":"here")
+command! wikimediasitesearch
+\    -bang
+\    -nargs +
+\    -js openOrSelectTab(`${args[0]}/w/index.php?search=${args.slice(1).join("")}&ns0=1`, bang?"adjacent":"here")
 
 map <site>c :wpsection<Space>
 map <site>d
@@ -12577,6 +12581,9 @@ map <site>s -description "(show bindings: wikipedia/search)" -js CommandExMode()
 map <site>sd
 \    -description "Search Wiktionary"
 \    -js CommandExMode().open("wiktionarysearch"+(count?"! ":" "));
+map <site>sh
+\    -description "Search this site"
+\    -js CommandExMode().open("wikimediasitesearch" + (count?"! ":" ") + '"' + urlDomain(buffer.URL, true) + '" ');
 map <site>sp
 \    -description "Search site for clipboard text"
 \    -js dactyl.execute(wpGetSearchCommandForSite() + (count?"! ":" ") + readFromClipboard());
