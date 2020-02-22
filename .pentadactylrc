@@ -1912,7 +1912,7 @@ function showSunriseSunset() {
 }
 
 function inoreaderSubscribe(url=buffer.URL){
-    tabOpenAdjacent('https://www.inoreader.com/bookmarklet/subscribe/' + encodeURIComponent(url||buffer.URL));
+    tabOpenURLAdjacent('https://www.inoreader.com/bookmarklet/subscribe/' + encodeURIComponent(url||buffer.URL));
 }
 
 function wpEpList (s, where=dactyl.NEW_TAB, force_new=false) {
@@ -2536,7 +2536,7 @@ function multipleEngineSearchWithDefaults(searchEnginesWithDefaults, query) {
     if (query)
         searchEnginesWithDefaults.reverse().forEach(pair => tabSearchAdjacent(pair[0], query, true));
     else
-        searchEnginesWithDefaults.reverse().forEach(pair => tabOpenAdjacent(pair[1]), true);
+        searchEnginesWithDefaults.reverse().forEach(pair => tabOpenURLAdjacent(pair[1]), true);
 }
 function polySearch(searchEngines, queries) {
     queries.reverse().forEach(q =>
@@ -6539,7 +6539,7 @@ function amazonCount() {
 function amazonSearch(count, ...args) {
     var url = "https://www.amazon.com.au/s?k="+args.join("+");
     if (count) dactyl.open(url, "here");
-    else tabOpenAdjacent(url);
+    else tabOpenURLAdjacent(url);
 }
 
 function amazonToggleTranslateReviews() {
@@ -9417,12 +9417,12 @@ command! jacksonsartSearch
 \    -description "Search in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
-\    -js (bang ? tabOpenAdjacent : dactyl.open)( "https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" ") );
+\    -js (bang ? tabOpenURLAdjacent : dactyl.open)( "https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" ") );
 command! jacksonsartSearchWatercolour
 \    -description "Search for watercolour in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
-\    -js (bang ? tabOpenAdjacent : dactyl.open)(
+\    -js (bang ? tabOpenURLAdjacent : dactyl.open)(
 \            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" ")
 \        );
 
@@ -13324,7 +13324,7 @@ function pageOpen(url, params={}, force=false) {
     if (params.where == dactyl.NEW_ADJACENT_TAB) {
         tabOpenAdjacent(url, false, force);
     } else if (params.where == dactyl.NEW_ADJACENT_BACKGROUND_TAB) {
-        tabOpenAdjacent(url, true, force);
+        tabOpenURLAdjacent(url, true, force);
     } else {
         dactyl.open(url, params, force);
     }
