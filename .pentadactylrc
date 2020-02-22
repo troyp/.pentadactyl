@@ -1339,6 +1339,7 @@ map <leader>jkp
     \ -description "Jisho kanji search (clipboard)"
     \ -count
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
+map <leader>jkr -description "Jisho kanji radical search" -js openOrSelectTab("https://jisho.org/#radical", count?"here":"tab");
 map <leader>jkv -description "Visual Kanji Search (similar kanji)"
     \ -count -js openOrSelectTab("https://thekanjimap.com/index.html?k="+dactyl.clipboardRead(),
     \                            count?"here":"tab");
