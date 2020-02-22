@@ -3765,7 +3765,7 @@ map <search>k       -description "(Show bindings)" -js CommandExMode().open("sho
 map <search>k<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <search>k")
 map <search>ka -description "Open selected bookmarks items" -b :bmarks!  -max 30<SPACE>
 map <search>kb -description "search bookmarks with buku"  -ex !buku_run
-map <search>ko -description "Open bookmarks item" -b tabopenbookmark<SPACE>
+map <search>ko -description "Open bookmarks item" -b :tabopenbookmark<SPACE>
 map <browser>k -description "Bookmark page" -b <C-v><C-d>
 
 :if options.get('guioptions').value.includes('c')
