@@ -2908,7 +2908,8 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
 
 " open tabs "
 map ga -description "Open new tab, search in Awesome Bar" -b <C-v><C-t>
-map <buffer>o -description "Open adjacent tab" -b :tabopenadjacent<Space>
+map <buffer>o -description "Open URL in adjacent tab" -b :tabopenurladjacent<Space>
+map <buffer>x -description "Open in new (adjacent) tab" -b :tabopenadjacent<Space>
 " Paste and Search
 " swap p and P
 map p -modes normal -b P
