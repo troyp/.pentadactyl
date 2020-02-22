@@ -13140,6 +13140,7 @@ function getSelectorsContent(sels, useInnerText=false) {
 window.getSelectorsContent = getSelectorsContent;
 
 function getSelectorsAttributeContent(attr, sels) {
+    if (typeof sels == "string") sels = [sels];
     result = [];
     sels.forEach(sel=>{
         selectedElts = Array.from(content.document.querySelectorAll(sel));
@@ -13147,6 +13148,7 @@ function getSelectorsAttributeContent(attr, sels) {
     });
     return result;
 }
+window.getSelectorsAttributeContent = getSelectorsAttributeContent;
 
 function getSelectorWithMatchingAttribute(sel, att, expr) {
     var all_elts = Array.from(content.document.querySelectorAll(sel));
