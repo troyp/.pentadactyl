@@ -4765,8 +4765,8 @@ command! rikcopydef -description "Rikaisama: copy definition to clipboard"
     \ -js rcxMain.copyToClip();
 command! rikcopy -description "Rikaisama: copy word to clipboard"
     \ -js rikCopyWordToClipboard();
-command! rikstick -description "Rikaisama: make current popup sticky"
-    \ -js rcxMain.allowOneTimeSuperSticky();
+command! riksuperstickytoggle -description "Rikaisama: make current popup sticky"
+    \ -js rikSuperSticky();
 command! rikstickytoggle -description "Rikaisama: toggle sticky popups"
     \ -js rikStickyToggle();
 command! riksetpos -description "Rikaisama: set popup position (normal, top, bottom)"
@@ -4815,6 +4815,7 @@ map <ext>r      -description "(show bindings: Rikaisama)" -js CommandExMode().op
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
 map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
+map <ext>rr -description "Rikai: Toggle superSticky (current popup sticky)" -ex riksuperstickytoggle
 map <ext>rs -description "Rikai: Append definition to save file"-js rcxMain.saveToFile()
 
 map <ext>rt  -description "(show bindings: Rikaisama Toggles)" -js CommandExMode().open("showkeys <ext>rt");
@@ -4842,8 +4843,14 @@ function rikStickyToggle() {
     rcxMain.sticky = newval;
     utils.message(`rikai: sticky = ${newval ? 'ON':'OFF'}`);
 }
-function rikStick() {
-    rcxMain.allowOneTimeSuperSticky();
+function rikSuperSticky() {
+    if (rcxMain.superSticky) {
+        rcxMain.superSticky = false;
+    } else {
+        rcxMain.allowOneTimeSuperSticky();
+        rcxMain.superSticky = true;
+        rcxMain.superStickyOkayToShow = true;
+    }
 }
 function rikSetPosition(pos=0) {
     switch (pos) {
