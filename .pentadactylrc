@@ -4825,6 +4825,7 @@ map <ext>rtkh -description "Rikai: Toggle huge kanji"  -ex styletoggle -name rik
 map <ext>rtks -description "Rikai: Toggle kanji style"  -ex styletoggle -name rikaisama-kanji-light
 map <ext>rtm -description "Rikai: Toggle merged divs" -ex riktogglemergedivs
 map <ext>rto -description "Rikai: Toggle on top" -ex styletoggle -name rikaisama-on-top
+map <ext>rtp -description "Rikai: Cycle popup position" -js rikCyclePosition();
 map <ext>rts -description "Rikai: Toggle sticky" -ex rikstickytoggle
 
 js <<EOF
@@ -4865,6 +4866,10 @@ function rikSetPosition(pos=0) {
             break;
     }
     rcxMain.altView = pos;
+}
+function rikCyclePosition() {
+    rcxMain.altView = (rcxMain.altView + 1) % 3;
+    dactyl.utils.message("rcxMain.altView = " + rcxMain.altView);
 }
 function rikPlayAudio() {
     rcxMain.playJDicAudio();
