@@ -4811,22 +4811,20 @@ style -name=rikaisama-kanji-light *
 \    }
 styledisable -name rikaisama-hugekanji
 
-map <ext>r<C-h> -description "(show bindings: Rikaisama)" -js CommandExMode().open("showkeys <ext>r");
 map <ext>r      -description "(show bindings: Rikaisama)" -js CommandExMode().open("showkeys <ext>r");
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
 map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
-map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
 map <ext>rs -description "Rikai: Append definition to save file"-js rcxMain.saveToFile()
-map <ext>rt<C-h> -description "(show bindings: Rikaisama Toggles)"
-\                -js CommandExMode().open("showkeys <ext>rt");
-map <ext>rt      -description "(show bindings: Rikaisama Toggles)"
-\                -js CommandExMode().open("showkeys <ext>rt");
-map <ext>rtk -description "Rikai: Toggle large kanji" -ex styletoggle -name rikaisama-bigkanji
-map <ext>rtK -description "Rikai: Toggle huge kanji"  -ex styletoggle -name rikaisama-hugekanji
+
+map <ext>rt  -description "(show bindings: Rikaisama Toggles)" -js CommandExMode().open("showkeys <ext>rt");
+map <ext>rtk  -description "(show bindings: Rikaisama Toggles/Kanji)" -js CommandExMode().open("showkeys <ext>rtk");
+map <ext>rtkk -description "Rikai: Toggle large kanji" -ex styletoggle -name rikaisama-bigkanji
+map <ext>rtkh -description "Rikai: Toggle huge kanji"  -ex styletoggle -name rikaisama-hugekanji
+map <ext>rtks -description "Rikai: Toggle kanji style"  -ex styletoggle -name rikaisama-kanji-light
 map <ext>rtm -description "Rikai: Toggle merged divs" -ex riktogglemergedivs
 map <ext>rto -description "Rikai: Toggle on top" -ex styletoggle -name rikaisama-on-top
-map <ext>rts -description "Rikai: Toggle kanji style"  -ex styletoggle -name rikaisama-kanji-light
+map <ext>rts -description "Rikai: Toggle sticky" -ex rikstickytoggle
 
 js <<EOF
 function rikLBIsVisible() {
