@@ -4770,6 +4770,7 @@ command! riksuperstickytoggle -description "Rikaisama: make current popup sticky
 command! rikstickytoggle -description "Rikaisama: toggle sticky popups"
     \ -js rikStickyToggle();
 command! riksetpos -description "Rikaisama: set popup position (normal, top, bottom)"
+    \ -complete custom,'[["0","normal"],["1","top"],["2","bottom"]]'
     \ -nargs=? -js rikSetPosition(args[0]||0);
 command! rikepwing -description "Rikaisama: toggle epwing mode"
     \ -js rikEpwingToggle();
