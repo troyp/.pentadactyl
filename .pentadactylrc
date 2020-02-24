@@ -10190,8 +10190,8 @@ function jishoKanjiParts() {
 function jishoSetUniversalLongRepresentation() {
     var divs = getSelectors(".concept_light-wrapper");
     if (divs.length) {
+        divs.forEach(e=>e.classList.contains("concept_light-long_representation") || e.classList.add("added-concept_light-long_representation"));
         divs.forEach(e=>e.classList.add("concept_light-long_representation"));
-        divs.forEach(e=>e.classList.add("added-concept_light-long_representation"));
         return true;
     }
 }
