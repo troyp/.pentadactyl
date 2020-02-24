@@ -9543,6 +9543,27 @@ map <site>p; -description "(show bindings: Watersoluble Pencil Ranges)" -js Comm
 map <site>p;cn
 \    -description "Caran d'Ache Neocolor II crayons"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-neocolor-ii-artists-watercolour-crayons", count?"adjacent":"here");
+map <site>p;cm
+\    -description "Caran d'Ache Museum Aquarelle pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-museum-aquarelle-pencils", count?"adjacent":"here");
+map <site>p;cs
+\    -description "Caran d'Ache Supracolor Soft pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-supracolor-soft-watersoluble-artist-s-pencils", count?"adjacent":"here");
+map <site>p;fa
+\    -description "Faber Castell Albrecht Dürer pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-albrecht-durer-watercolour-pencils-78151", count?"adjacent":"here");
+map <site>p;fA
+\    -description "Faber Castell Albrecht Dürer Magnus pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-albrecht-durer-magnus-watercolour-pencils", count?"adjacent":"here");
+map <site>p;dw
+\    -description "Derwent Watercolour pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-watercolour-pencils-au", count?"adjacent":"here");
+map <site>p;di
+\    -description "Derwent Inktense pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-pencil-au", count?"adjacent":"here");
+map <site>p;dI
+\    -description "Derwent Inktense blocks"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-blocks-au", count?"adjacent":"here");
 
 map <site>s      -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
 map <site>s<C-h> -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
