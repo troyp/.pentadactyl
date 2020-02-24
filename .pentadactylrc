@@ -11646,7 +11646,8 @@ group user
 group reddit -locations=reddit.com
 
 map <site>c -description "Passthrough-mode" -b <C-z>
-map <site>m -description "Remove cruft" -js redditTidy();
+map <site>l -description "Load more replies" -js redditLoadMoreReplies();
+map <site>m -description "Minimal content (Remove cruft)" -js redditTidy();
 map <site>ts -description "Toggle saved post" -js redditToggleSave();
 map <site>to -description "Toggle old reddit" -js toggleUrl("https://www.", "https://old.");
 
@@ -11661,9 +11662,27 @@ map <A-8> 8gt
 map <A-9> 9gt
 
 js <<EOF
+function redditLoadMoreReplies() {
+    getSelectorByText("p","^[0-9]+ more repl(ies|y)").forEach(e=>e.click())
+}
+
 function redditTidy()   {
-    isolateSelectors("div.self", "commentarea", "style");
-    removeSelectors("REScommentSubToggle");
+    redditLoadMoreReplies();
+    var divZeroTabindex = getSelectorWithMatchingAttribute("div","tabindex",0);
+    var articleContent = divZeroTabindex.length && divZeroTabindex[0].parentElement;
+    if (articleContent) {
+        topElements().forEach(elt => elt.remove());
+        content.document.body.appendChild(articleContent);
+    } else {
+        utils.message("Warning: in RedditTidy(): articleContent is not set to an element");
+    }
+    var allDivs = getSelectors("div");
+    allDivs.forEach(d=>(Array.from(d.children)).every(e=>e.nodeName=="BUTTON") && d.remove());
+    removeSelectors(
+        "icon", "button",
+        "body>div>div>div:nth-of-type(2)",
+        "body>div>div>div:nth-of-type(3)"
+    );
 }
 
 
