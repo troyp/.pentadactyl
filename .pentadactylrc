@@ -10304,14 +10304,14 @@ style -name=jisho-kanji-page-kanji-style
 \    }
 style -name=jisho-definitions-page-kanji-style
 \    jisho.org
-\    .concept_light-representation>.text {
+\    .concept_light-representation>.text,.concept_light-long_representation>.text {
 \        font-family: "HiraMinPro-W3","Hiragino Mincho Pro W3","Hiragino Mincho Pro","ヒラギノ明朝 Pro W3",
 \                     "游明朝",YuMincho,"HG明朝E","ＭＳ Ｐ明朝","MS PMincho","MS 明朝","MS Mincho",serif
 \                     !important;
 \    }
 style -name=jisho-large-kanji-style
 \    jisho.org
-\    .concept_light-representation>.text {
+\    .concept_light-representation>.text,.concept_light-long_representation>.text {
 \        font-size: 2em !important;
 \    }
 styledisable -name jisho-definitions-page-kanji-style
