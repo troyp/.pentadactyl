@@ -10187,6 +10187,26 @@ function jishoKanjiParts() {
     return links.map(e=>e.innerText);
 }
 
+function jishoSetUniversalLongRepresentation() {
+    var divs = getSelectors(".concept_light-wrapper");
+    if (divs.length) {
+        divs.forEach(e=>e.classList.add("concept_light-long_representation"));
+        divs.forEach(e=>e.classList.add("added-concept_light-long_representation"));
+        return true;
+    }
+}
+function jishoUnsetUniversalLongRepresentation() {
+    var divs = getSelectors(".added-concept_light-long_representation");
+    if (divs.length) {
+        divs.forEach(e=>e.classList.remove("concept_light-long_representation"));
+        divs.forEach(e=>e.classList.remove("added-concept_light-long_representation"));
+        return true;
+    }
+}
+function jishoToggleUniversalLongRepresentation() {
+    jishoUnsetUniversalLongRepresentation() || jishoSetUniversalLongRepresentation();
+}
+
 EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji:
@@ -10215,6 +10235,10 @@ command! jishokanjiaddlink
     \ -description "args: HREF, TEXT. Add link to kanji. (%s is replaced by kanji)"
     \ -nargs=+ -js jishoKanjiAddLink(args[0], args[1]);
 command! jishokanjiyankparts -js utils.yankWithMsg(jishoKanjiParts().join(''));
+
+command! jishotoggleuniversallongrepresentation
+    \ -description "Set/unset all definitions to have headword on a separate line"
+    \ -js jishoToggleUniversalLongRepresentation();
 
 " ----------
 " Hint modes
