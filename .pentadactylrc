@@ -1559,37 +1559,37 @@ map <leader>v;foz  -description "Convert volume from US fluid oz to ml (fluid oz
 map <leader>v;ml   -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
 
 command! convertunits
-    \ -nargs +
-    \ -description "Convert quantity into other units with GNU units [N UNIT1 UNIT2]"
-    \ -js utils.message(convertUnitsWrapper(...args));
+\    -nargs +
+\    -description "Convert quantity into other units with GNU units [N UNIT1 UNIT2]"
+\    -js utils.message(convertUnitsWrapper(...args));
 command! usd2aud
-    \ -nargs *
-    \ -description "convert $US prices to $AU"
-    \ -js utils.message(args.map(x=>USDtoAUD(x).toFixed(2)).join(" "));
+\    -nargs *
+\    -description "convert $US prices to $AU"
+\    -js utils.message(args.map(x=>USDtoAUD(x).toFixed(2)).join(" "));
 command! setusdaudexchange
-    \ -nargs 1
-    \ -description "Set exchange rate of $AU/$US"
-    \ -js setUSDAUDexchange(args[0]);
+\    -nargs 1
+\    -description "Set exchange rate of $AU/$US"
+\    -js setUSDAUDexchange(args[0]);
 command! sumusd2aud
-    \ -nargs *
-    \ -description "Sum $US prices and convert to $AU"
-    \ -js utils.message(USDtoAUD(args.reduce((a,b)=>parseFloat(a)+parseFloat(b))));
+\    -nargs *
+\    -description "Sum $US prices and convert to $AU"
+\    -js utils.message(USDtoAUD(args.reduce((a,b)=>parseFloat(a)+parseFloat(b))));
 command! convertPaperGSMtoLb
-    \ -nargs *
-    \ -description "Convert paper weights from GSM to Lb"
-    \ -js utils.message(args.map(n=>`${n}GSM=${paper_gsmToLb(n)}Lb`).join(", "));
+\    -nargs *
+\    -description "Convert paper weights from GSM to Lb"
+\    -js utils.message(args.map(n=>`${n}GSM=${paper_gsmToLb(n)}Lb`).join(", "));
 command! convertPaperLbtoGSM
-    \ -nargs *
-    \ -description "Convert paper weights from Lb to GSM"
-    \ -js utils.message(args.map(n=>`${n}Lb=${paper_lbToGsm(n)}GSM`).join(", "));
+\    -nargs *
+\    -description "Convert paper weights from Lb to GSM"
+\    -js utils.message(args.map(n=>`${n}Lb=${paper_lbToGsm(n)}GSM`).join(", "));
 command! convertFluidOzToMl
-    \ -nargs *
-    \ -description "Convert volume from US fluid oz to ml (fluid oz->ml)"
-    \ -js utils.message(args.map(n=>`${n}fluid-oz=${USFluidOunceToMl(n)}ml`).join(", "));
+\    -nargs *
+\    -description "Convert volume from US fluid oz to ml (fluid oz->ml)"
+\    -js utils.message(args.map(n=>`${n}fluid-oz=${USFluidOunceToMl(n)}ml`).join(", "));
 command! convertMlToFluidOz
-    \ -nargs *
-    \ -description "Convert volume from ml to US fluid oz (ml->fluid oz)"
-    \ -js utils.message(args.map(n=>`${n}ml=${mlToUSFluidOunce(n)}fluid-oz`).join(", "));
+\    -nargs *
+\    -description "Convert volume from ml to US fluid oz (ml->fluid oz)"
+\    -js utils.message(args.map(n=>`${n}ml=${mlToUSFluidOunce(n)}fluid-oz`).join(", "));
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
 command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
 map <leader>+ -b :sum<Space>
