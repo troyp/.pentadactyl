@@ -32,4 +32,5 @@ var personal = {
     mybankurl:    "",
     mycreditcard: "",
     myopenexchangeratesappid: "",
+    mycurrencyconverterapikey: "",
 }
