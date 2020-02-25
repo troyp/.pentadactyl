@@ -1550,13 +1550,13 @@ map <leader>v<C-h>
 map <leader>v
 \    -description "(show bindings: Misc/Conversion&Arithmetic)"
 \    -js CommandExMode().open("showkeys <leader>v")
-map <leader>vi  -description "Convert inches to centimeters (by hints)" -js hints.show("”");
-map <leader>vd  -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
-map <leader>vp  -description "Convert paper weight from Lb to GSM (Lb->GSM)" -b :convertPaperLbtoGSM<Space>
-map <leader>v;p -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
-map <leader>vv  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
-map <leader>v;v -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
-map <leader>v,  -description "Convert quantity into other units" -b :convertunits<Space>
+map <leader>vv -description "Convert quantity into other units" -b :convertunits<Space>
+map <leader>vf;in  -description "Convert inches to centimeters (by hints)" -js hints.show("”");
+map <leader>v;usd  -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
+map <leader>v;plb  -description "Convert paper weight from Lb to GSM (Lb->GSM)" -b :convertPaperLbtoGSM<Space>
+map <leader>v;pgsm -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
+map <leader>v;foz  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
+map <leader>v;ml   -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
 
 command! convertunits
     \ -nargs +
