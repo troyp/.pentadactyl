@@ -1557,11 +1557,16 @@ map <leader>v;plb  -description "Convert paper weight from Lb to GSM (Lb->GSM)" 
 map <leader>v;pgsm -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
 map <leader>v;foz  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
 map <leader>v;ml   -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
+map <leader>vx -description "Convert value into other exchangr rate" -b :convertexchangerates<Space>
 
 command! convertunits
 \    -nargs +
 \    -description "Convert quantity into other units with GNU units [N UNIT1 UNIT2]"
 \    -js utils.message(convertUnitsWrapper(...args));
+command! convertexchangerates
+\    -nargs +
+\    -description "Convert amount of currency into another currency (uses API) [N FROMCURR TOCURR]"
+\    -js utils.message(convertExchangeRates(...args));
 command! usd2aud
 \    -nargs *
 \    -description "convert $US prices to $AU"
@@ -1598,6 +1603,17 @@ map <leader>* -b :product<Space>
 js <<EOF
 function convertUnits(n, unit1, unit2) {
     return Number(io.system(`units -t "${n} ${unit1}" ${unit2}`).output);
+}
+function convertExchangeRates(n, FROMCURR, TOCURR) {
+    var f = FROMCURR.toUpperCase();
+    var t = TOCURR.toUpperCase();
+    var querystr = `q=${f}_${t}&compact=ultra&apiKey=${user.mycurrencyconverterapikey}`;
+    var cmd = `curl -s "https://free.currencyconverterapi.com/api/v5/convert?${querystr}"`;
+    var result = io.system(cmd).output;
+    var regex = RegExp(`{"${f}_${t}":([0-9.]+)}`);
+    var match = result.match(regex);
+    /*  alert(`${f}\n${t}\n${querystr}\n${cmd}\n${result}\n${regex}\n${match}`);  */
+    return match && Number(match[1]) * n;
 }
 function convertUnitsWrapper(...args) {
     var n, unit1, unit2;
