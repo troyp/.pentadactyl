@@ -2162,16 +2162,26 @@ map <yank>R -description "Yank link reference (page title and heading)"
 map <yank>s -description "Yank element content by selector" -b :yankselectorcontent<Space>
 map <yank>t -description "Yank page title" -js utils.yankWithMsg(buffer.title)
 map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
+
 " <yank>u -- Yank URL/filename "
 map <yank>u  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>u")
 map <yank>uu -description "Yank buffer URL (unencoded)" -ex yanktrueURL
 map <yank>ud  -description "(show bindings: yank URL/domain)" -js CommandExMode().open("showkeys <yank>ud")
 map <yank>udd
-\    -description "Yank page domain (count=strip subdomains)"
-\    -js utils.yankWithMsg(urlDomain(buffer.URL, false, count));
+\    -description "Yank page domain"
+\    -js utils.yankWithMsg(urlDomain(buffer.URL, false));
 map <yank>udp
-\    -description "Yank page domain (with protocol, count=strip subdomains)"
-\    -js utils.yankWithMsg(urlDomain(buffer.URL, true, count));
+\    -description "Yank page domain (with protocol)"
+\    -js utils.yankWithMsg(urlDomain(buffer.URL, true));
+map <yank>uds
+\    -description "(show bindings: yank URL/domain/strip subdomains)"
+\    -js CommandExMode().open("showkeys <yank>uds")
+map <yank>udsd
+\    -description "Yank page domain, strip 1/count subdomains"
+\    -js utils.yankWithMsg(urlDomain(buffer.URL, false, count||1));
+map <yank>udsp
+\    -description "Yank page domain (with protocol, strip 1/count subdomains)"
+\    -js utils.yankWithMsg(urlDomain(buffer.URL, true, count||1));
 map <yank>udr
 \    -description "Yank page domain (with protocol) as regex"
 \    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count)))
