@@ -2,7 +2,7 @@
 // @name        Jisho Improvements
 // @namespace   jisho
 // @description Jisho Improvements
-// @include     http://jisho.org/*
+// @include     https://jisho.org/*
 // @version     1
 // @grant       none
 // ==/UserScript==
