@@ -25,7 +25,17 @@ for (var kanjidiv of kanjiDetails) {
     new_a.innerText = `Similar to ${kanji}`;
     new_li.appendChild(new_a);
     links.appendChild(new_li);
+// -------------------------------------------------------------------------------
+// ,-------------,
+// | Word Search |
+// '-------------'
+
 }
+
+// -------------------------------------------------------------------------------
+// ,-------------------,
+// | Word Details Page |
+// '-------------------'
 
 // links to current wikipedia revision
 var links = page.getElementsByTagName('a');
@@ -34,6 +44,11 @@ for (var l of links) {
     var match = l.href.match(wikiregex);
     if (match) l.href = match[1];
 }
+
+// -------------------------------------------------------------------------------
+// ,-----,
+// | Ads |
+// '-----'
 
 // move/remove sidebar ad
 var sidebar = document.getElementById('secondary');
@@ -48,3 +63,8 @@ if (REMOVE_ADS) {
     var footer_ad = document.querySelector('.footer-ad');
     footer_ad && footer_ad.remove();
 }
+// -------------------------------------------------------------------------------
+// ,-------,
+// | Kanji |
+// '-------'
+
