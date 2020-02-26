@@ -13,10 +13,6 @@ var REMOVE_ADS = false;
 
 var page = document.getElementById('page_container');
 
-// fix details links
-//var links = document.getElementsByClassName("light-details_link")
-//for (i=0; i<links.length; ++i)
-//    links[i].textContent = links[i].textContent.slice(0, -2);
 
 // add similar kanji link
 var kanjiDetails = Array.from(document.getElementsByClassName("kanji details"));
