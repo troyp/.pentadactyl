@@ -223,6 +223,9 @@ S = {
     capitalize: function(s) {
         return s.replace(/\b\w/g, function (c) { return c.toUpperCase(); });
     },
+    strip: function (s) {
+        return s.replace(/^\s+|\s+$/g, "");
+    },
     toSmartCase: function (s) {
         return (s.toLowerCase()===s) ? S.toStartCase(s) : s;
     },
