@@ -226,6 +226,26 @@ S = {
     strip: function (s) {
         return s.replace(/^\s+|\s+$/g, "");
     },
+    toLines: function (s, n=160, sep=/([^, ]+[, ]+)/) {
+        var lines = s.split("\n");
+        var lines_ = [];
+        for (var line of lines) {
+            var parts = line.split(sep);
+            var line_ = "";
+            var line_length = 0;
+            for (var part of parts) {
+                if (line_length + part.length > n) {
+                    lines_.push(line_);
+                    line_ = part; line_length = part.length;
+                } else {
+                    line_ += part;
+                    line_length += part.length;
+                }
+            }
+            lines_.push(line_);
+        }
+        return lines_;
+    },
     toSmartCase: function (s) {
         return (s.toLowerCase()===s) ? S.toStartCase(s) : s;
     },
