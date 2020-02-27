@@ -10550,6 +10550,99 @@ EOF
 group user
 
 " -------------------------------------------------------------------------------
+" ,----------,
+" | Kanshudo |
+" '----------'
+group kanshudo -locations=kanshudo.com
+
+js <<EOF
+function kanshudoSearch(terms, where="here") {
+    if (terms.length==1)
+        openOrSelectTab("https://www.kanshudo.com/searchq?q="+terms[0], where);
+    else
+        openOrSelectTab(`https://www.kanshudo.com/searchmw?q=${terms.join("|")}&ex=y`, where);
+}
+function kanshudoWord(term, where="here") {
+    openOrSelectTab("https://www.kanshudo.com/word/"+term, where);
+}
+function kanshudoKanjiSearch(terms, where="here") {
+    openOrSelectTab("https://www.kanshudo.com/search?q="+terms.join(""), where);
+}
+function kanshudoNameSearch(term, where="here") {
+    openOrSelectTab("https://www.kanshudo.com/searchn?q="+term, where);
+}
+function kanshudoSearchGrammar(terms, where="here") {
+    openOrSelectTab("https://www.kanshudo.com/searchg?q="+terms.join(" "), where);
+}
+function kanshudoExampleSearch(terms, where="here") {
+    openOrSelectTab("https://www.kanshudo.com/searcht?q="+terms.join(" "), where);
+}
+function kanshudoKanji(term, where="here") {
+    openOrSelectTab("https://www.kanshudo.com/kanji/"+term, where);
+}
+function kanshudoKanjiSearchByComponent(terms, where="here") {
+    openOrSelectTab("https://www.kanshudo.com/searchcg?q="+terms.join(""), where);
+}
+EOF
+
+command! kanshudosearch -bang -nargs + -js kanshudoSearch(args, bang?"adjacent":"here");
+command! kanshudoword -bang -nargs 1 -js kanshudoWord(args[0], bang?"adjacent":"here");
+command! kanshudokanjisearch -bang -nargs + -js kanshudoKanjiSearch(args, bang?"adjacent":"here");
+command! kanshudonamesearch -bang -nargs 1 -js kanshudoNameSearch(args[0], bang?"adjacent":"here");
+command! kanshudosearchgrammar -bang -nargs + -js kanshudoSearchGrammar(args, bang?"adjacent":"here");
+command! kanshudoexamplesearch -bang -nargs + -js kanshudoExampleSearch(args, bang?"adjacent":"here");
+command! kanshudokanji -bang -nargs 1 -js kanshudoKanji(args[0], bang?"adjacent":"here");
+command! kanshudokanjisearchbycomponent
+\    -bang
+\    -nargs +
+\    -js kanshudoKanjiSearchByComponent(args, bang?"adjacent":"here");
+
+map <site>k -description "(show bindings: Kanshudo/Kanji)" -js CommandExMode().open("showkeys <site>k");
+map <site>kc
+\    -description "Kanji Component Picker"
+\    -count
+\    -js openOrSelectTab("https://www.kanshudo.com/search?cb=y", count?"tab":"here");
+
+map <site>s -description "(show bindings: Kanshudo/Search)" -js CommandExMode().open("showkeys <site>s");
+map <site>sg
+\    -description "Search grammar in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudosearchgrammar"+(count?"! ":" "));
+
+map <site>sk -description "(show bindings: Kanshudo/Search/Kanji)" -js CommandExMode().open("showkeys <site>sk");
+map <site>skc
+\    -description "Search Kanji with given kanji as a component in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudokanjisearchbycomponent"+(count?"! ":" "));
+map <site>skk
+\    -description "Open Kanji page in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudokanji"+(count?"! ":" "));
+map <site>sks
+\    -description "Search Kanji in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudokanjisearch"+(count?"! ":" "));
+
+map <site>sn
+\    -description "Search name in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudonamesearch"+(count?"! ":" "));
+map <site>ss
+\    -description "Search Kanshudo in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudosearch"+(count?"! ":" "));
+map <site>sw
+\    -description "Open page for word in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudoword"+(count?"! ":" "));
+map <site>sx
+\    -description "Search Examples in current (count:adjacent) tab"
+\    -count
+\    -js CommandExMode().open("kanshudoexamplesearch"+(count?"! ":" "));
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,--------,
 " | Libgen |
 " '--------'
