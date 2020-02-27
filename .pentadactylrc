@@ -1484,6 +1484,10 @@ map <leader>ra
 map <leader>rbib
 \     -description "King James Bible BOOK [CH:SEC]"
 \     -count -b :kingjames<SPACE>
+
+map <leader>rw
+\    -description "(show bindings: Web Sites/Reference/Wikipedia)"
+\    -js CommandExMode().open("showkeys <leader>rw");
 map <leader>rwc
 \     -description "Goto Wikpedia periodic table of elements"
 \     -count -js openOrSelectTabAndRunCode("https://en.wikipedia.org/wiki/Periodic_table",
