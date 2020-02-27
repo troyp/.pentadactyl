@@ -1475,6 +1475,17 @@ map <leader>r
 map <leader>r<C-h>
 \    -description "(show bindings: Web Sites/Reference)"
 \    -js CommandExMode().open("showkeys <leader>r");
+
+map <leader>rd
+\    -description "(show bindings: Web Sites/Reference/Dictionaries+Language)"
+\    -js CommandExMode().open("showkeys <leader>rd");
+
+map <leader>rdt
+\    -description "(show bindings: Web Sites/Reference/Dictionaries+Language/Thesaurus)"
+\    -js CommandExMode().open("showkeys <leader>rdt");
+map <leader>rdtt -description "Aiksaurus Thesaurus" -b :thesaurusaik<Space>
+map <leader>rdtp -description "Power Thesaurus" -b :thesauruspower<Space>
+
 map <leader>rp
 \    -description "Periodic Table (ptable.com)"
 \    -js openOrSelectTab("ptable.com");
@@ -1498,6 +1509,25 @@ map <leader>rwe
 map <leader>rwp
 \     -description "Goto Wikpedia article"
 \     -count -b :wikipediapage<SPACE>
+
+command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
+command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
+
+js <<EOF
+function thesaurusAik(s, wrap=160) {
+    cmd = `aiksaurus ${s}`;
+    var res = io.system(cmd);
+    var out = "";
+    var lines = S.toLines(res.output, wrap);
+    utils.message(lines.join("\n") + "\n");
+}
+function thesaurusPower(s, wrap=160) {
+    cmd = `curl -sA "Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0" "https://www.powerthesaurus.org/${s}/synonyms" | pup ".pt-thesaurus-card__term-title text{}" | paste -sd ","`;
+    var res = io.system(cmd);
+    utils.message(S.toLines(res.output, wrap).join("\n"));
+}
+EOF
+
 
 " ,---------------------,
 " | <leader>t - toggles |
