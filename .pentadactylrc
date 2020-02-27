@@ -13892,6 +13892,14 @@ function setUSDAUDexchange(rate) { return window.AUDperUSD = rate; }
 function getUSDAUDexchange() { return window.AUDperUSD; }
 window.getUSDAUDexchange = getUSDAUDexchange;
 
+function multiplyNumWithUnit(m, str) {
+    var strMatch = str.match(/([0-9.]+)(.*)/);
+    var num = strMatch && strMatch[1];
+    var unit = strMatch && strMatch[2];
+    return String(num * m) + unit;
+}
+window.multiplyNumWithUnit = multiplyNumWithUnit;
+
 " ,------------, "
 " | formatting | "
 " '------------' "
