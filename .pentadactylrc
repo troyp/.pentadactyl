@@ -11754,7 +11754,7 @@ group reddit -locations=reddit.com
 
 map <site>c -description "Passthrough-mode" -b <C-z>
 map <site>l -description "Load more replies" -js redditLoadMoreReplies();
-map <site>m -description "Minimal content (Remove cruft)" -js redditTidy();
+map <site>m -description "Remove cruft" -js redditTidy();
 map <site>ts -description "Toggle saved post" -js redditToggleSave();
 map <site>to -description "Toggle old reddit" -js toggleUrl("https://www.", "https://old.");
 
@@ -11781,7 +11781,7 @@ function redditTidy()   {
         topElements().forEach(elt => elt.remove());
         content.document.body.appendChild(articleContent);
     } else {
-        utils.message("Warning: in RedditTidy(): articleContent is not set to an element");
+        utils.message("Warning: in RedditTidy(): articleContent not an element");
     }
     var allDivs = getSelectors("div");
     allDivs.forEach(d=>(Array.from(d.children)).every(e=>e.nodeName=="BUTTON") && d.remove());
