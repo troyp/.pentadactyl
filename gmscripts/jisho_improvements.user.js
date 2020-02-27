@@ -13,13 +13,57 @@ var REMOVE_ADS = false;
 
 var page = document.getElementById('page_container');
 
+// keyword
+var kwElt = document.getElementById("keyword");
+var kwTyped = kwElt.value;
+var kw = kwElt.attributes["data-effective-keyword"].value;
 
 // -------------------------------------------------------------------------------
 // ,-------------,
 // | Word Search |
 // '-------------'
 
+// highlight exact matches
+var exactBlock = document.querySelector("div.exact_block");
+if (exactBlock) {
+    exactBlock.style.backgroundColor = "#FFF8F8";
+    exactBlock.style.padding = "1em";
 }
+
+// extra dictionaries
+var dictList = document.querySelector("#other_dictionaries>ul");
+var extraDictLinks = [
+    `<a href='https://www.kanshudo.com/searchq?q=${kw}'>Search Kanshudo for ${kw}</a>`,
+];
+dictList && extraDictLinks.forEach(a => {
+    var liDict = document.createElement("li");
+    liDict.innerHTML = a;
+    dictList.appendChild(liDict);
+})
+
+// wikipedia definitions
+var tags = Array.from(document.getElementsByClassName("meaning-tags"));
+var wpTags = tags.filter(e=>e.textContent.match(/Wikipedia definition/));
+wpTags.forEach(e=>{
+    var wpDefn = e.nextSibling.getElementsByClassName("meaning-meaning")[0];
+    var wpDefnStr = wpDefn && wpDefn.textContent.replace(/^\s+|\s+$/g, "");
+    var resultDiv = e.parentElement.parentElement.parentElement;
+    var wpKanji = resultDiv && resultDiv.getElementsByClassName("text")[0];
+    var wpKanjiStr = wpKanji && wpKanji.textContent.replace(/^\s+|\s+$/g, "");
+    var wpLinks = [
+        `<a href="http://en.wikipedia.org/wiki/${wpDefnStr}">EN.wp</a>`,
+        `<a href="http://ja.wikipedia.org/wiki/${wpKanjiStr}">JA.wp</a>`,
+        `<a href="http://dbpedia.org/resource/${wpDefnStr}">DBpedia</a>`,
+    ];
+    var detailsLink = resultDiv.getElementsByClassName("light-details_link");
+    var linksList = document.createElement("ol");
+    resultDiv.appendChild(linksList, detailsLink);
+    wpLinks.forEach(a=>{
+        var liLink = document.createElement("li");
+        liLink.innerHTML = a;
+        linksList.appendChild(liLink);
+    });
+})
 
 // -------------------------------------------------------------------------------
 // ,-------------------,
