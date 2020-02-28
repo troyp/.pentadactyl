@@ -12766,8 +12766,8 @@ function wpGetSections() {
 
 function wpGetTopicOrSearchTerm() {
     var url = buffer.URL;
-    var regex = /https:\/\/([^./]+)\.wik.*\.org\/wiki\/([^/]+)/i;
-    var regex2 = /https:\/\/([^./]+)\.wik.*\.org\/w\/index.php\?(.*&)?search=([^&]+)/i;
+    var regex = /https:\/\/([^./]+)\.wik.*\.org\/wiki\/([^?#]+)/i;
+    var regex2 = /https:\/\/([^./]+)\.wik.*\.org\/w\/index.php\?(search|title)=([^&]+)/i;
     var match = url.match(regex);
     var match2 = url.match(regex2);
     if (match) return match[2];
