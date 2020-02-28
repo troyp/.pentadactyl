@@ -12582,6 +12582,10 @@ EOF
 command! wikiaremovefandomads
     \ -description "Remove 'Trending Fandom' ads"
     \ removeselector '#recirculation-rail' '.recirculation-rail'
+command! wikiasearch
+\    -description "Search current wikia"
+\    -bang -nargs +
+\    -js openOrSelectTab(wikiaGetSearchURL(args.join(" ")), bang?"adjacent":"here");
 command! wikiasearchbar    -description "Search in search bar"      -js wikiaSearchbar();
 command! wikiaremoveads    -description "Remove ads"                -js wikiaRemoveAds();
 command! wikiaremovecruft  -description "Remove clutter"            -js wikiaRemoveCruft();
@@ -12619,7 +12623,7 @@ map <site>opp -description "My Preferences: My Info"
 map <site>opu -description "My Preferences: Under the Hood"
 \             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"tab");
 map <site>r   -ex wikiasimplepage
-map <site>s   -ex wikiasearchbar
+map <site>s   -b :wikiasearch<Space>
 map <site>t   -description "(show bindings: Wikia/Toggle)" -js CommandExMode().open("showkeys <site>t");
 map <site>tc  -description "Toggle Contents" -js getSelectorByText("a", /show|hide/)[0].click();
 map <site>tn  -description "Toggle Global Navigation" -js wikiaToggleGlobalNav();
