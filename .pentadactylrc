@@ -12551,12 +12551,13 @@ function wikiaSearchbar() {
 }
 
 function wikiaGetURL(pageName) {
-    var baseURL = buffer.URL.match(/https?:\/\/[^./]+\.wikia.com/)[0];
+    var baseURL = buffer.URL.match(/https?:\/\/[^./]+\.(wikia|fandom).com/)[0];
     return baseURL+'/wiki/'+pageName;
 }
 
+
 function wikiaGetUser() {
-    return content.document.querySelector(".wds-avatar").getAttribute("alt");
+    return content.document.querySelector(".wds-avatar").getAttribute("title");
 }
 
 function wikiaClosePopup() { content.document.querySelector(".close.wikia-chiclet-button").click(); }
