@@ -12764,7 +12764,7 @@ function wpGetSections() {
     return formatted;
 }
 
-function wpGetTopic() {
+function wpGetTopicOrSearchTerm() {
     var url = buffer.URL;
     var regex = /https:\/\/([^./]+)\.wik.*\.org\/wiki\/([^/]+)/i;
     var regex2 = /https:\/\/([^./]+)\.wik.*\.org\/w\/index.php\?(.*&)?search=([^&]+)/i;
@@ -12776,12 +12776,12 @@ function wpGetTopic() {
 }
 
 function wpGotoWiktionary(where='here', lang='en') {
-    var topic = wpGetTopic().toLowerCase();
+    var topic = wpGetTopicOrSearchTerm().toLowerCase();
     dactyl.open(`https://${lang}.wiktionary.org/w/index.php?search=${topic}`, where);
 }
 
 function wpGotoWikipedia(where='here', lang='en') {
-    var topic = wpGetTopic().toLowerCase();
+    var topic = wpGetTopicOrSearchTerm().toLowerCase();
     dactyl.open(`https://${lang}.wikipedia.org/w/index.php?search=${topic}`, where);
 }
 }
