@@ -1470,18 +1470,18 @@ EOF
 " '-----------------------'
 
 map <leader>r
-\    -description "(show bindings: Web Sites/Reference)"
+\    -description "(show bindings: Reference)"
 \    -js CommandExMode().open("showkeys <leader>r");
 map <leader>r<C-h>
-\    -description "(show bindings: Web Sites/Reference)"
+\    -description "(show bindings: Reference)"
 \    -js CommandExMode().open("showkeys <leader>r");
 
 map <leader>rd
-\    -description "(show bindings: Web Sites/Reference/Dictionaries+Language)"
+\    -description "(show bindings: Reference/Dictionaries+Language)"
 \    -js CommandExMode().open("showkeys <leader>rd");
 
 map <leader>rdt
-\    -description "(show bindings: Web Sites/Reference/Dictionaries+Language/Thesaurus)"
+\    -description "(show bindings: Reference/Dictionaries+Language/Thesaurus)"
 \    -js CommandExMode().open("showkeys <leader>rdt");
 map <leader>rdtt -description "Aiksaurus Thesaurus" -b :thesaurusaik<Space>
 map <leader>rdtp -description "Power Thesaurus" -b :thesauruspower<Space>
