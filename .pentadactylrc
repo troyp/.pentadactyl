@@ -2225,8 +2225,7 @@ map <yank>P2 -description "PDF: Yank second line" -js utils.yankWithMsg(content.
 map <yank>P3 -description "PDF: Yank third line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[2].textContent);
 map <yank>P4 -description "PDF: Yank fourth line" -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[3].textContent);
 map <yank>P5 -description "PDF: Yank fifth line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[4].textContent);
-map <yank>PL -description "PDF: Yank specified lines (eg. 2-5,11,19)" -b :pdfYankSpecifiedLines<Space>
-map <yank>PP -description "PDF: Yank nth line" -b :pdfYankNthLine<Space>
+map <yank>PL -description "PDF: Yank specified text (eg. 2-5,11,19)" -b :pdfYank<Space>
 
 map <yank>r -description "Yank link reference (page title and url)"
     \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
@@ -2340,14 +2339,10 @@ command! yanktextfield
     \ -nargs=1
     \ -complete custom," (context) => { context.completions = yankSelectorAttributeCompletions('value', 'input'); } "
     \ -js utils.yankWithMsg(args[0].replace(yankheadingDelCharRegex, ""));
-command! pdfYankNthLine
-    \ -description "PDF: Yank nth line"
+command! pdfYankText
+    \ -description "PDF: Yank specified text divs (eg. 2-5,11,19)"
     \ -nargs=1
-    \ -js utils.yankWithMsg(content.document.querySelectorAll('.textLayer>div')[Number(args[0])-1].textContent);
-command! pdfYankSpecifiedLines
-    \ -description "PDF: Yank nth line"
-    \ -nargs=1
-    \ -js pdfYankLines(parseRanges(args[0]));
+    \ -js pdfYankText(parseRanges(args[0]));
 
 js <<EOF
 function yankTextarea(n) {
@@ -2368,11 +2363,21 @@ function yankSelectorAttributeCompletions(attr, ...sels) {
     return getSelectorsAttributeContent(attr, sels).map(e=>[e]);
 }
 
-function pdfGetLines(lines, sep="\n") {
-    var allLines = content.document.querySelectorAll('.textLayer>div');
-    included = [];
-    for (n of lines) { included.push(allLines[n-1].textContent); }
-    return included.join(sep);
+function pdfGetText(divNums, divSep=" ", lineSep="\n") {
+    var textDivs = getSelectors('.textLayer>div');
+    included = divNums.map(n=>textDivs[n-1]);
+    var top = null;
+    var result = "";
+    included.forEach(e=>{
+        if (top) result += (e.style.top > top) ? lineSep : divSep;
+        result += e.textContent;
+        top = e.style.top;
+    });
+    return result;
+}
+
+function pdfYankText(lines, divSep=" ", lineSep="\n") { utils.cbWriteWithMessageLimit(pdfGetText(lines, divSep, lineSep)); }
+
 }
 function pdfYankLines(lines, sep="\n") { utils.cbWriteWithMessageLimit(pdfGetLines(lines)); }
 window.pdfYankLines = pdfYankLines;
