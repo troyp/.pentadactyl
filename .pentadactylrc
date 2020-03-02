@@ -2166,21 +2166,26 @@ command! bingtranslatepage
     \ -description "Bing translate page (!: in new tab)"
     \ -bang
     \ -js bingTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
-command! trans
+command! gtrans
     \ -description "Google translate text"
     \ -nargs=+
     \ -js googleTranslateText(args.join(" "));
 
-map <app>t  -description "(show bindings: translate)" -js CommandExMode().open("showkeys <app>t")
-map <app>tt -description "Bing translate page" -ex bingtranslatepage
-map <app>tg -description "Google translate page" -ex googletranslatepage
-map <app>tx -description "Google translate text" -b :trans<Space>
-map <app>tc -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
-map <app>tv -description "Google translate selection" -ex googletranslateselection
-map <app>tf -description "Google translate text (HINTS)" -js hints.show("ţ");
-map <app>td -description "Google translate element (HINTS)" -js hints.show("Ţ");
-map <app>ta -description "Google append translation (HINTS)" -js hints.show("ʈ");
-map <app>tb -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
+map <app>t   -description "(show bindings: Translate)" -js CommandExMode().open("showkeys <app>t")
+map <app>tf  -description "(show bindings: Translate/Hints)" -js CommandExMode().open("showkeys <app>tf")
+map <app>tfa -description "Google append translation (HINTS)" -js hints.show("ʈ");
+map <app>tfA -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
+map <app>tfe -description "Google translate element (HINTS)" -js hints.show("Ţ");
+map <app>tff -description "Google translate text (HINTS)" -js hints.show("ţ");
+map <app>tp  -description "(show bindings: Translate/Page)" -js CommandExMode().open("showkeys <app>tp")
+map <app>tpp -description "Google translate page" -ex googletranslatepage
+map <app>tpb -description "Bing translate page" -ex bingtranslatepage
+map <app>tv  -description "(show bindings: Translate/Selection)" -js CommandExMode().open("showkeys <app>tv")
+map <app>tvv -description "Google translate selection" -ex googletranslateselection
+map <app>tx  -description "(show bindings: Translate/Entered Text)" -js CommandExMode().open("showkeys <app>tv")
+map <app>txx -description "Google translate text" -b :gtrans<Space>
+map <app>ty  -description "(show bindings: Translate/Yank)" -js CommandExMode().open("showkeys <app>ty")
+map <app>tyy -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
 
 
 " ,------,
