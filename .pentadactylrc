@@ -2170,6 +2170,10 @@ command! gtrans
     \ -description "Google translate text"
     \ -nargs=+
     \ -js googleTranslateText(args.join(" "));
+command! trans
+\    -description "Translate text in command line: [sl:tl] TEXT"
+\    -nargs +
+\    -b !/opt/scripts/trans -no-ansi <args>
 
 map <app>t   -description "(show bindings: Translate)" -js CommandExMode().open("showkeys <app>t")
 map <app>tf  -description "(show bindings: Translate/Hints)" -js CommandExMode().open("showkeys <app>tf")
@@ -2180,13 +2184,13 @@ map <app>tff -description "Google translate text (HINTS)" -js hints.show("ţ");
 map <app>tp  -description "(show bindings: Translate/Page)" -js CommandExMode().open("showkeys <app>tp")
 map <app>tpp -description "Google translate page" -ex googletranslatepage
 map <app>tpb -description "Bing translate page" -ex bingtranslatepage
+map <app>tt  -description "Translate text in command line: [sl:tl] TEXT" -b :trans<Space>
 map <app>tv  -description "(show bindings: Translate/Selection)" -js CommandExMode().open("showkeys <app>tv")
 map <app>tvv -description "Google translate selection" -ex googletranslateselection
 map <app>tx  -description "(show bindings: Translate/Entered Text)" -js CommandExMode().open("showkeys <app>tv")
 map <app>txx -description "Google translate text" -b :gtrans<Space>
 map <app>ty  -description "(show bindings: Translate/Yank)" -js CommandExMode().open("showkeys <app>ty")
 map <app>tyy -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
-
 
 " ,------,
 " | Yank |
