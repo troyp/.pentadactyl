@@ -12806,6 +12806,13 @@ function wpGetSearchCommandForSite(url=buffer.URL, invert=false) {
     else
         return url.match("wiktionary.org/") ? "wiktionarysearch" : "wpsearch";
 }
+function wpGetUserPageHREF() { return getFirstSelector("#pt-userpage>a").href; }
+
+function wpGetUser() {
+    var upageHref = wpGetUserPageHREF();
+    return upageHref.match(/\/User:(.*)/)[1];
+}
+
 EOF
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
@@ -12850,6 +12857,42 @@ map <site>e
 map <site>l
 \    -description "Go to latest revision"
 \    -ex wplatest
+
+map <site>m -description "(show bindings: My)" -js CommandExMode().open("showkeys <site>m")
+map <site>mc
+\    -description "My User Contributions Page"
+\    -js openOrSelectTab("https://en.wikipedia.org/wiki/Special:Contributions/"+wpGetUser(), count?"tab":"here");
+map <site>mg
+\    -description "My User Preferences Gadgets Page"
+\    -js openOrSelectTab("https://en.wikipedia.org/wiki/Special:Preferences#mw-prefsection-gadgets", count?"tab":"here");
+map <site>mj
+\    -description "My common.js Page"
+\    -js openOrSelectTab(wpGetUserPageHREF()+"/common.js", count?"tab":"here");
+map <site>mn
+\    -description "My User Notifications Page"
+\    -js openOrSelectTab("https://en.wikipedia.org/wiki/Special:Notifications", count?"tab":"here");
+map <site>mp
+\    -description "My User Preferences Page"
+\    -js openOrSelectTab("https://en.wikipedia.org/wiki/Special:Preferences", count?"tab":"here");
+map <site>mP
+\    -description "My User Preferences Beta Page"
+\    -js openOrSelectTab("https://en.wikipedia.org/wiki/Special:Preferences#mw-prefsection-betafeatures", count?"tab":"here");
+map <site>ms
+\    -description "My common.css Page"
+\    -js openOrSelectTab(wpGetUserPageHREF()+"/common.css", count?"tab":"here");
+map <site>mS
+\    -description "My User Sandbox"
+\    -js openOrSelectTab(wpGetUserPageHREF()+"/sandbox", count?"tab":"here");
+map <site>mt
+\    -description "My User Talk"
+\    -js openOrSelectTab("https://en.wikipedia.org/wiki/User_talk:"+wpGetUser(), count?"tab":"here");
+map <site>mu
+\    -description "My User Page"
+\    -js openOrSelectTab(wpGetUserPageHREF(), count?"tab":"here");
+map <site>mw
+\    -description "My User Watchlist"
+\    -js openOrSelectTab("https://en.wikipedia.org/wiki/Special:Watchlist", count?"tab":"here");
+
 map <site>o -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>ov
 \    -description "Go WikiVisually page"
