@@ -8888,9 +8888,9 @@ function gmailArchive() {
 }
 
 function gmailToggleBasic() {
-    var basicLink = getSelectorWithMatchingAttribute('input', 'value', 'Load basic HTML');
-    if (basicLink.length) {
-        basicLink[0].click();
+    var basicLink = getFirstSelector('input[value="Load basic HTML"]');
+    if (basicLink) {
+        basicLink.click();
         return "basic";
     } else {
         dactyl.open("https://mail.google.com/mail/u/0/#inbox");
