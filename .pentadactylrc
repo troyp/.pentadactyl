@@ -2280,6 +2280,8 @@ map <yank>V -description "Yank browser name and version"
 
 map <yank>x  -description "(show bindings: yank text)" -js CommandExMode().open("showkeys <yank>x")
 map <yank>xx -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
+map <yank>xs -description "Yank <span> of text" -js hints.show('σ');
+
 map <yank>y -description "Yank buffer URL" -b y
 map <yank>1 -description "Yank all <H1> headings" -ex yankselectorcontent h1
 map <yank>2 -description "Yank all <H2> headings" -ex yankselectorcontent h2
@@ -6029,6 +6031,12 @@ js hints.addMode(' ', '', e=>utils.message(e));           "no-break space 00A0"
 " ======= "
 set eht+=[🄿]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,'xpath:div/p'
 js hints.addMode('🄿','lmnpop',elem => { lmnpop(elem); });
+
+" ==== "
+" Text "
+" ==== "
+set eht+=[σ]:span
+js hints.addMode('σ', 'yank <span> of text', (e)=>utils.cbWrite(e.textContent));
 
 " =======
 " Images
