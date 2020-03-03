@@ -2277,7 +2277,9 @@ map <yank>ue
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
 map <yank>V -description "Yank browser name and version"
 \           -js utils.yankWithMsg(`${xulAppInfo.name} ${xulAppInfo.version}`);
-map <yank>x -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
+
+map <yank>x  -description "(show bindings: yank text)" -js CommandExMode().open("showkeys <yank>x")
+map <yank>xx -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>y -description "Yank buffer URL" -b y
 map <yank>1 -description "Yank all <H1> headings" -ex yankselectorcontent h1
 map <yank>2 -description "Yank all <H2> headings" -ex yankselectorcontent h2
