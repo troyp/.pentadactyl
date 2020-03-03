@@ -8190,9 +8190,28 @@ group user
 " '-------------------'
 group local -locations=file://*
 
+js <<EOF
+function localImgDirPreviews(url=buffer.URL) {
+    var links = getSelectors("body>table a.file");
+    getFirstSelector("body>table").remove();
+    for (l of links) {
+        var a = content.document.createElement("a");
+        a.href = l.href;
+        a.style.height = "120px";
+        var img = content.document.createElement("img");
+        img.src = l.href;
+        img.style.height = "100px";
+        img.style.padding = "3px";
+        a.appendChild(img);
+        content.document.body.appendChild(a);
+    }
+}
+EOF
+
 map <site>e -description "Open in emacsclient"
 \           -count
 \           -js dactyl.execute(`!emacsclient${count?" -c":""} ${buffer.URL.replace("file://", "")}`);
+map <site>ip -description "Image directory previews" -js localImgDirPreviews();
 map <site>yy -description "Yank file location" -js utils.cbWrite(buffer.URL.replace("file://", ""));
 map <site>yf -description "Yank link location" -js hints.show("Λ");
 map <site>v -description "Open in gvim"
