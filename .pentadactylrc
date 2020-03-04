@@ -2234,7 +2234,8 @@ map <yank>P2 -description "PDF: Yank second line" -js utils.yankWithMsg(content.
 map <yank>P3 -description "PDF: Yank third line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[2].textContent);
 map <yank>P4 -description "PDF: Yank fourth line" -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[3].textContent);
 map <yank>P5 -description "PDF: Yank fifth line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[4].textContent);
-map <yank>PL -description "PDF: Yank specified text (eg. 2-5,11,19)" -b :pdfYank<Space>
+map <yank>PL -description "PDF: Yank specified text (eg. 2-5,11,19)" -b :pdfYankText<Space>
+map <yank>PP -description "PDF: Yank specified lines (eg. 2-5,11,19)" -b :pdfYankLines<Space>
 
 map <yank>r -description "Yank link reference (page title and url)"
     \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
@@ -2356,6 +2357,10 @@ command! pdfYankText
     \ -description "PDF: Yank specified text divs (eg. 2-5,11,19)"
     \ -nargs=1
     \ -js pdfYankText(parseRanges(args[0]));
+command! pdfYankLines
+    \ -description "PDF: Yank specified lines (eg. 2-5,11,19)"
+    \ -nargs=1
+    \ -js pdfYankLines(parseRanges(args[0]));
 
 js <<EOF
 function yankTextarea(n) {
@@ -2391,8 +2396,33 @@ function pdfGetText(divNums, divSep=" ", lineSep="\n") {
 
 function pdfYankText(lines, divSep=" ", lineSep="\n") { utils.cbWriteWithMessageLimit(pdfGetText(lines, divSep, lineSep)); }
 
+function pdfGetLines(lines, divSep=" ", requireLowerPos=true) {
+    var last = lines.slice(-1);
+    var textDivs = getSelectors('.textLayer>div');
+    var result = [];
+    var top = null;
+    var line = "";
+    var count = 1;
+    for (div of textDivs) {
+        var testPos = requireLowerPos ? (div.style.top > top) : (div.style.top != top);
+        if (testPos) {
+            count++;
+            if (count > last) { return result; }
+            if (lines.includes(count)) { result.push(line); }
+            line = "";
+        }
+        if (line) line += divSep;
+        line += div.textContent;
+        top = div.style.top;
+    }
+    return result;
 }
-function pdfYankLines(lines, sep="\n") { utils.cbWriteWithMessageLimit(pdfGetLines(lines)); }
+window.pdfGetLines = pdfGetLines;
+
+function pdfYankLines(lines, lineSep="\n", divSep=" ", requireLowerPos=true) {
+    var s = pdfGetLines(lines, divSep, requireLowerPos).join(lineSep);
+    utils.cbWriteWithMessageLimit(s);
+}
 window.pdfYankLines = pdfYankLines;
 
 function yankCollection(a, transform=null) {
