@@ -1805,6 +1805,9 @@ map <leader>ag
 map <leader>ag<C-h>
 \    -description "(show bindings: Web Sites/Repos)"
 \    -js CommandExMode().open("showkeys <leader>ag");
+map <leader>agg
+\    -description "Follow 'Fork me on Github' link"
+\    -js clickSelector(".github");
 map <leader>agh
 \     -description "Open My Github: Repositories"
 \     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
