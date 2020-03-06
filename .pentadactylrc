@@ -1806,11 +1806,11 @@ map <leader>ag<C-h>
 \    -description "(show bindings: Web Sites/Repos)"
 \    -js CommandExMode().open("showkeys <leader>ag");
 map <leader>agh
-    \ -description "Open My Github: Repositories"
-    \ -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
+\     -description "Open My Github: Repositories"
+\     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
 map <leader>agb
-    \ -description "Open My Bitbucket"
-    \ -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
+\     -description "Open My Bitbucket"
+\     -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
 
 " <leader>am - Email "
 map <leader>am
@@ -1820,24 +1820,24 @@ map <leader>am<C-h>
 \    -description "(show bindings: Web Sites/Email)"
 \    -js CommandExMode().open("showkeys <leader>am");
 map <leader>amc
-    \ -description "Open Google Contacts"
-    \ -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"tab");
+\     -description "Open Google Contacts"
+\     -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"tab");
 map <leader>amC
-    \ -description "Open Gmail Contacts (basic)"
-    \ -count -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
-    \                            count?"here":"tab",
-    \                            /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
+\     -description "Open Gmail Contacts (basic)"
+\     -count -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
+\                                count?"here":"tab",
+\                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
 map <leader>amm
-    \ -description "Open Gmail Basic"
-    \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
-    \                            count?"here":"tab",
-    \                            /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*\?&/);
+\     -description "Open Gmail Basic"
+\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
+\                                count?"here":"tab",
+\                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*\?&/);
 map <leader>amg
-    \ -description "Open Gmail"
-    \ -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"tab");
+\     -description "Open Gmail"
+\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"tab");
 map <leader>amy
-    \ -description "Open Y7Mail"
-    \ -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
+\     -description "Open Y7Mail"
+\     -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
 
 " <leader>as - Shopping & Schedules"
 map <leader>as
@@ -1847,28 +1847,28 @@ map <leader>as<C-h>
 \    -description "(show bindings: Shopping)"
 \    -js CommandExMode().open("showkeys <leader>as");
 map <leader>asa
-    \ -description "open Amazon AU"
-    \ -count -js selectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart") ||
-    \                openOrSelectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart", null, /https:\/\/[^.]+\.amazon\.com\.au/);
+\     -description "open Amazon AU"
+\     -count -js selectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart") ||
+\                    openOrSelectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart", null, /https:\/\/[^.]+\.amazon\.com\.au/);
 map <leader>ase
-    \ -description "open eBay"
-    \ -count -js selectTab("https://cart.ebay.com.au") ||
-    \                openOrSelectTab("https://cart.ebay.com.au", null, /https:\/\/[^.]+\.ebay\.com\.au/);
+\     -description "open eBay"
+\     -count -js selectTab("https://cart.ebay.com.au") ||
+\                    openOrSelectTab("https://cart.ebay.com.au", null, /https:\/\/[^.]+\.ebay\.com\.au/);
 map <leader>asj
-    \ -description "open Jackson's Art"
-    \ -count -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
-    \                openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
+\     -description "open Jackson's Art"
+\     -count -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
+\                    openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
 map <leader>asp
-    \ -description "Open Paypal"
-    \ -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
+\     -description "Open Paypal"
+\     -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
 
 map <leader>aq
 \    -description "Open Quix"
 \    -ex tabopen javascript:Quix();function%20Quix(){var%20e=encodeURIComponent;var%20t=window.getSelection?window.getSelection():(document.getSelection?document.getSelection():(document.selection?document.selection.createRange().text:''));var%20c=window.prompt('Quix:%20Type%20`help`%20for%20a%20list%20of%20commands:');if(t!=''){if(c){c+='%20'+t;}else{c=''+t;}}if(c){var%20u='https://www.quixapp.com/go/?c='+e(c)+'&t='+(document.title?e(document.title):'')+'&s='+'&v=090'+'&u='+(document.location?e(document.location):'');d=''+document.location;if(d.substr(0,4)!='http'){window.location=u+'&mode=direct';}else{heads=document.getElementsByTagName('head');if(c.substring(0,1)=='%20'){var%20w=window.open(u+'&mode=direct');w.focus();}else%20if(heads.length==0){window.location=u+'&mode=direct';}else{q=document.getElementById('quix');if(q){q.parentNode.removeChild(q);}sc=document.createElement('script');sc.src=u;sc.id='quix';sc.type='text/javascript';void(heads[0].appendChild(sc));}}}}
 " Time "
 map <leader>at
-    \ -description "Open Time Server"
-    \ -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab", /^https:\/\/time\.is/);
+\     -description "Open Time Server"
+\     -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab", /^https:\/\/time\.is/);
 " <leader>av - Video & Radio"
 map <leader>av
 \    -description "(show bindings: Web Sites/Video&Radio)"
@@ -1877,8 +1877,8 @@ map <leader>av<C-h>
 \    -description "(show bindings: Web Sites/Video&Radio)"
 \    -js CommandExMode().open("showkeys <leader>as");
 map <leader>ava
-    \ -description "AccuRadio Classical"
-    \ -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
+\     -description "AccuRadio Classical"
+\     -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
 :if isPalemoon
     map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
 :else
@@ -1896,26 +1896,26 @@ map <leader>aw<C-h>
 \    -description "(show bindings: Web Sites/Weather)"
 \    -js CommandExMode().open("showkeys <leader>aw");
 map <leader>aww
-    \ -description "Open Lismore Weather (BoM)"
-    \ -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
+\     -description "Open Lismore Weather (BoM)"
+\     -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
 map <leader>aws
-    \ -description "Show Goonellabah Sunrise and Sunset Times"
-    \ -js showSunriseSunset();
+\     -description "Show Goonellabah Sunrise and Sunset Times"
+\     -js showSunriseSunset();
 map <leader>awt
-    \ -description "Open Goonellabah Weather (timeanddate.com)"
-    \ -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
+\     -description "Open Goonellabah Weather (timeanddate.com)"
+\     -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
 " MyGov "
 map <leader>ay
-    \ -description "Open MyGov"
-    \ -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
-    \                            count?"here":"tab");
+\     -description "Open MyGov"
+\     -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
+\                                count?"here":"tab");
 " Amazon "
 map <leader>azz
-    \ -description "Open AU Amazon"
-    \ -count -js openOrSelectTab("https://www.amazon.com");
+\     -description "Open AU Amazon"
+\     -count -js openOrSelectTab("https://www.amazon.com");
 map <leader>azu
-    \ -description "Open US Amazon"
-    \ -count -js openOrSelectTab("https://smile.amazon.com");
+\     -description "Open US Amazon"
+\     -count -js openOrSelectTab("https://smile.amazon.com");
 
 js <<EOF
 function packtGetTodaysTitle() {
