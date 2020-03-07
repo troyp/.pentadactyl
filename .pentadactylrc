@@ -1485,6 +1485,7 @@ map <leader>rdt
 \    -js CommandExMode().open("showkeys <leader>rdt");
 map <leader>rdtt -description "Aiksaurus Thesaurus" -b :thesaurusaik<Space>
 map <leader>rdtp -description "Power Thesaurus" -b :thesauruspower<Space>
+map <leader>rdtw -description "Wiktionary Thesaurus" -b :thesauruswiktionary<Space>
 
 map <leader>rp
 \    -description "Periodic Table (ptable.com)"
@@ -1512,6 +1513,7 @@ map <leader>rwp
 
 command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
 command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
+command! thesauruswiktionary -bang -nargs + -js thesaurusWiktionary(args.join(" "));
 
 js <<EOF
 function thesaurusAik(s, wrap=160) {
@@ -1523,6 +1525,16 @@ function thesaurusAik(s, wrap=160) {
 }
 function thesaurusPower(s, wrap=160) {
     cmd = `curl -sA "Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0" "https://www.powerthesaurus.org/${s}/synonyms" | pup ".pt-thesaurus-card__term-title text{}" | paste -sd ","`;
+    var res = io.system(cmd);
+    utils.message(S.toLines(res.output, wrap).join("\n"));
+}
+function thesaurusWiktionary(s, wrap=190) {
+    "TODO: Fix function for multiword arguments"
+    var url = `https://en.wiktionary.org/wiki/Special:Search?search=${s}&ns110=1&fulltext=Search+Thesaurus`
+    cmd = `curl -s '${encodeURIComponent(url)}' |` +
+          ` pup '.mw-search-result json{}' |` +
+          ` fx '.map(x=>x.children[0].children[0].title+": "+x.children[1].text).join("\\n")' |` +
+          ` perl -n -mHTML::Entities -e ' ; print HTML::Entities::decode_entities(\$_) ;'`;
     var res = io.system(cmd);
     utils.message(S.toLines(res.output, wrap).join("\n"));
 }
