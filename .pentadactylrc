@@ -908,7 +908,7 @@ map l       -modes normal -b <C-n>
 " Let gU take a count "
 map gU -description "Open root path or nth level"
 \    -modes normal
-\    -count -js openNthFromRootPath(count);
+\    -count -js dactyl.open(urlGetNthFromRootPath(count));
 " <C-n> and <C-p> for down and up
 map <C-n>   -modes normal -b <C-v><down>
 map <C-p>   -modes normal -b <C-v><up>
@@ -2283,8 +2283,8 @@ map <yank>udr
 \    -description "Yank page domain (with protocol) as regex"
 \    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count)))
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
-map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(getNthUrlPathParent(count));
-map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(getNthFromRootPath(count));
+map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(urlGetNthParent(count));
+map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(urlGetNthFromRootPath(count));
 map <yank>ue
 \    -description "Yank final or n last components"
 \    -count
@@ -13907,7 +13907,7 @@ function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
 }
 
-function getNthFromRootPath(n=1, url=buffer.URL) {
+function urlGetNthFromRootPath(n=1, url=buffer.URL) {
     n = n || 1;
     var protocolReStr = "^[^:/]+://";
     var oneLevelReStr = "[^/]+/";
@@ -13916,19 +13916,13 @@ function getNthFromRootPath(n=1, url=buffer.URL) {
     var newUrl = url.match(re)[0];
     return newUrl;
 }
-function openNthFromRootPath(n=1, url = buffer.URL) {
-    return dactyl.open(getNthFromRootPath(n, url));
-}
 
-function getNthUrlPathParent(n=1, url=buffer.URL) {
+function urlGetNthParent(n=1, url=buffer.URL) {
     var oneLevelReStr = "/[^/]+";
     var reStr = oneLevelReStr.repeat(n||1) + "/?$";
     var regex = RegExp(reStr);
     var newUrl = url.replace(regex, "");
     return newUrl;
-}
-function openNthUrlPathParent(n=1, url=buffer.URL) {
-    return dactyl.open(getNthUrlPathParent(n, url));
 }
 
 function urlGetNthSuffix(url, n=1, includeQuery=false, includeFragment=false) {
