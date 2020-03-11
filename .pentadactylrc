@@ -905,6 +905,10 @@ map <C-.>   -modes normal -b <Right>
 "   note: <C-n>,gT are opposite motions. gt with arg goes to arg'th tab
 map h       -modes normal -b gT
 map l       -modes normal -b <C-n>
+" Make gu remove fragments, then queries, then path components, then subdomains "
+map gu -description "Open page up one (or COUNT) URL level (remove fragments, then queries, then path components, then subdomains)"
+\    -modes normal
+\    -count -js dactyl.open(urlUp(count||1));
 " Let gU take a count "
 map gU -description "Open root path or nth level"
 \    -modes normal
@@ -2289,6 +2293,10 @@ map <yank>ue
 \    -description "Yank final or n last components"
 \    -count
 \    -js utils.yankWithMsg(urlGetNthSuffix(buffer.URL, count||1));
+map <yank>uU
+\    -description "Yank URL up one (or COUNT) levels (as per gu)"
+\    -count
+\    -js utils.yankWithMsg(urlUp(count||1));
 
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
 map <yank>V -description "Yank browser name and version"
@@ -3257,6 +3265,34 @@ command! tabsearchadjacent -description "Open search in adjacent tab [!: in back
 \    -js bang ? tabSearchAdjacent(args[0], args.slice(1), true) : tabSearchAdjacent(args[0], args.slice(1));
 command! tabopenadjacent -nargs=+ -complete=url -js tabOpenAdjacent(args.join(" "));
 command! tabopenadjacentbg -nargs=+ -complete=url -js tabOpenAdjacent(args.join(" "), true);
+
+" ,-----------------------,
+" | Modifying Current URL |
+" '-----------------------'
+js <<EOF
+function urlUp(n=1, url=buffer.URL) {
+    var newurl = String(url);
+    for (i=0; i<n; ++i) {
+        var u = new URL(newurl);
+        if (u.hash) {
+            "first try removing fragment";
+            newurl = url.replace(u.hash, "");
+        } else if (u.search) {
+            "next try removing query";
+            newurl = url.replace(u.search, "");
+        } else if (u.pathname.length > 1) {
+            "next try removing the last path component";
+            var match = u.pathname.match(/(\/[^/]+)*(\/[^/]+\/?)/);
+            if (match) newurl = newurl.replace(match[2], "");
+        } else {
+            "otherwise, try removing a subdomain";
+            match = u.host.match(/([^.:]+\.)(([^.:]+)\.)*(com|org|net|int|edu|.gov|.mil)(\.[a-z][a-z])?(:\d+)?/i);
+            if (match && match[1]) newurl = newurl.replace(match[1], "");
+        }
+    }
+    return newurl;
+}
+EOF
 
 " ,--------------,
 " | Closing Tabs |
