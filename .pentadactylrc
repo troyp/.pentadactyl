@@ -9185,6 +9185,7 @@ map <site>gl -description "restrict search to pages in a specific language" -b O
 map <site>gc -description "restrict search to pages originating in a specific country" -b O&cr=
 map <site>oi -description "Goto images" -js openOrSelectTab(googleGetImagesUrl(), count?"tab":"here");
 map <site>s  -description "Enter query in search box" -b :searchbox<Space>
+map <site>x  -description "Toggle expand definition" -js clickSelector(".vk_aru") || clickSelector(".vk_ard");
 map <site>\' -js googleRemoveQuotes();
 
 group user
