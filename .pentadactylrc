@@ -6751,6 +6751,10 @@ function amazonToggleTranslateReviews() {
     else
         transLinks.forEach(e=>e.click());
 }
+
+function amazonImageSrcFullSize() {
+    getSelectors(".linkless-review-image-tile").map(img=>img.src=img.src.replace("._SY88", ""));
+}
 EOF
 
 command! amazonausearch
@@ -6762,6 +6766,7 @@ map <site>c
 \    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
 \    -js amazonGo();
 map <site>i -description "(Show bindings: Images)"  -js CommandExMode().open("showkeys <site>i")
+map <site>if -description "Change image sources to full-sized" -js amazonImageSrcFullSize();
 map <site>iv
 \    -description "View image"
 \    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"tab":"here");
