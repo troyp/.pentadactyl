@@ -8827,10 +8827,14 @@ function ghStar() {
     var starBtn = content.document.querySelector('form.unstarred>button');
     var unstarBtn = content.document.querySelector('form.starred>button');
     var starred_p = ghStarInfo()[0]=="Unstar";
-    if (starred_p)
+    if (starred_p) {
         unstarBtn.click();
-    else
+        utils.message("REMOVED STAR");
+    }
+    else {
         starBtn.click();
+        utils.message("STARRED");
+    }
 }
 
 function ghStarInfo() {
