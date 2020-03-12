@@ -1904,6 +1904,9 @@ map <leader>ava
     map <leader>avn -description "Open Netflix"
     \ -count -js openOrSelectNetflix(count?"here":"tab");
 :endif
+map <leader>avp
+\    -description "Goto Amazon Prime Video"
+\    -count -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"tab");
 map <leader>avy
 \    -description "Goto Youtube"
 \    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
