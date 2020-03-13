@@ -8456,6 +8456,12 @@ group user
 " | Github.com |
 " '------------'
 
+command! gitprint
+\    -description "Convert github .md file to PDF with gitprint.com"
+\    -bang
+\    -nargs ?
+\    -js openOrSelectTab((args[0]||buffer.URL).replace("github.com", "gitprint.com"), bang?"tab":"here");
+
 js var ghusername = 'troyp';
 
 js function ghTabopenRepo (s) { dactyl.tabopen(`https://github.com/${s}`); }
