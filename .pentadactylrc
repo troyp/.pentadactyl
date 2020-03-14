@@ -8559,6 +8559,7 @@ map <site>yU       -description "Yank user name" -js ghCopyUser();
 map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
 map <site>y<       -description "Yank pull request URL" -js utils.yankWithMsg(ghGetPRURL());
+map <site>8        -description "Star/Unstar repo" -js ghStar();
 map <site>*        -description "Star/Unstar repo" -js ghStar();
 map <site>/ -ex ghfilefinder
 
