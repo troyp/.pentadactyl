@@ -11879,6 +11879,19 @@ map <site>y -description "Yank Title" -ex yankselectorcontent div.dotd-title>h2
 group user
 
 " -------------------------------------------------------------------------------
+" ,-----,
+" | PDF |
+" '-----'
+group pdf -locations='https?:.*\.pdf'
+
+js <<EOF
+EOF
+
+map <site>s -description "Save PDF" -ex clickselector #download
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,-----------------------,
 " | Pencils4Artists.co.uk |
 " '-----------------------'
