@@ -2021,6 +2021,14 @@ function wpEpList (s, where=dactyl.NEW_TAB, force_new=false) {
     );
 }
 
+function getFirstGithubLink() {
+    return getFirstSelectorWithMatchingAttribute(
+        "a",
+        "href",
+        /https:\/\/github\.com\/[^/]+\/[^/]+/
+    ).href;
+}
+
 EOF
 
 command! inoreadersubscribe
