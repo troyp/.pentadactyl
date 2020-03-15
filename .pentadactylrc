@@ -663,9 +663,8 @@ function searchHintModesVerbose(...pats) {
 }
 
 function currentGroup(url=buffer.URL) {
-    var userGroups = group.instance.children;
-    var currentGroup = userGroups.filter(g=>g.filter(url)).filter(g=>g.name!="temp")[0];
-    return currentGroup;
+    var userGroups = GROUP.instance.children;
+    return userGroups.filter(g=>g.filter(url)).filter(g=>!["temp","user"].includes(g.name))[0];
 }
 
 EOF
