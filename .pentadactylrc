@@ -3161,6 +3161,7 @@ map <buffer>dw
 \    -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
 map <buffer>d<Space>  -description "Close tabs selected via popup menu" -js tabsRemoveWithDMenu();
+map <buffer>d;<Space> -description "Keep only tabs selected via popup menu" -js tabsFilterWithDMenu();
 map <buffer><BS>    -description "Close tab to left" -b gTd
 
 map <buffer>h       -description "Go back in history" -b :back<Space>
@@ -3626,6 +3627,23 @@ function tabsRemoveWithDMenu() {
     var initTab = tabs.getTab();
     var initIdx = initTab._tPos;
     tabnums.forEach(i => tabs.remove(tabs.getTab(i)));
+    if (Number.isNaN(initTab.dactylOrdinal))
+        tabs.select(initTab);
+    else
+        tabs.select(initIdx);
+}
+
+function tabsFilterWithDMenu() {
+    var alltabs = tabs.allTabs;
+    var alltabsitems = alltabs.map((t, i)=>`${i}: ${t.label}   <${t.linkedBrowser.contentDocument.URL}>`);
+    var dmenuInput = alltabsitems.join("\n");
+    var cmd = `dmenuin="$(cat <<'EOF'\n${dmenuInput}\nEOF\n)"; echo "$dmenuin" | rofi -dmenu -format i -p "tabs to keep: " -multi-select -i`;
+    var cmdout = io.system(cmd).output.split("\n");
+    var tabnums = cmdout.map(s=>parseInt(s)).filter(n=>!isNaN(n));
+    var tabnumsToRemove = A.range(0, alltabs.length).filter(i=>!tabnums.includes(i)).reverse();
+    var initTab = tabs.getTab();
+    var initIdx = initTab._tPos;
+    tabnumsToRemove.forEach(i => tabs.remove(tabs.getTab(i)));
     if (Number.isNaN(initTab.dactylOrdinal))
         tabs.select(initTab);
     else
