@@ -171,9 +171,22 @@ A = {
                      subArrays.push(currentSub);
                      return subArrays;
                  },
-    range: function (beg, end) {
-        var n = end-beg;
-        return Array(n).fill().map((x,i)=>i+beg);
+    range: function (...args) {
+        " range([beg=0], end, [step=1]) ";
+        var beg=0, end, step=1;
+        var res=[], curr;
+        if (args.length == 1)
+            [end] = args;
+        else
+            [beg, end, step=1] = args;
+        if (step > 0) {
+            if (end > beg) res[0] = curr = beg;
+            while (curr + step < end) res.push(curr += step);
+        } else if (step < 0) {
+            if (end < beg) res[0] = curr = beg;
+            while (curr + step > end) res.push(curr += step);
+        }
+        return res;
     },
     toLines: (coll) => Array.from(coll).reduce((s,i)=>`${s}\n${i}`)
 }
