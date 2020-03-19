@@ -2239,6 +2239,10 @@ map <app>tyy -description "Google translate text to clipboard" -b :googletransla
 " | Yank |
 " '------'
 map <yank>a -description "Yank text area #N contents" -b :yanktextarea<Space>
+
+map <yank>b  -description "(show bindings: yank tabs)" -js CommandExMode().open("showkeys <yank>b")
+map <yank>bb -description "Yank tabs list (index: label <URL>)" -js yankTabsList();
+
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
 
 " <yank>d -- Yank datetime "
@@ -2513,6 +2517,16 @@ function yankInputFieldN(n) {
         utils.yankWithMsg(textInput[n-1].value);
     else
         utils.message(`Input field ${n} does not exist. There are only ${N} input fields.`);
+}
+
+function yankTabsList({index=true, label=true, url=true}={}) {
+    var alltabs = tabs.allTabs;
+    var alltabsitems =
+        alltabs.map((t, i)=>
+            `${index?i:""}: ${label?t.label:""}   <${url?t.linkedBrowser.contentDocument.URL:""}>`
+        );
+    var resultstr = alltabsitems.join("\n");
+    utils.cbWriteWithMessageLimit(resultstr);
 }
 
 EOF
