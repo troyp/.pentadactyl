@@ -14219,7 +14219,7 @@ window.newTab = newTab;
 
 function parseRanges(s) {
     var result = [];
-    s.split(",").forEach(ss => {
+    s.split(/[ ,]+/).forEach(ss => {
         var r = ss.split("-");
         if (r.length == 1) result.push(parseInt(r[0]));
         else for (i of A.range(parseInt(r[0]), parseInt(r[1])+1))
