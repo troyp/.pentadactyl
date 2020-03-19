@@ -3535,6 +3535,18 @@ function tabURL(t) {
 function tabCount() { return tabs.allTabs.length; }
 window.tabCount = tabCount;
 
+function tabRangePreprocess(s) {
+    var i = gBrowser.mCurrentTab.dactylOrdinal;
+    var n = tabs.allTabs.length;
+    s = s.replace(/\.?\+([0-9]+)/g, (m,g)=>String(i+parseInt(g)));
+    s = s.replace(/\.-([0-9]+)/g, (m,g)=>String(i-parseInt(g)));
+    s = s.replace(/\$\+([0-9]+)/g, (m,g)=>String(n+parseInt(g)));
+    s = s.replace(/\$-([0-9]+)/g, (m,g)=>String(n-parseInt(g)));
+    s = s.replace(/\./g, i);
+    s = s.replace(/\$/g, n);
+    return s;
+}
+
 function tabRemove(f) {
     /* takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]]) */
     var currentOrd = tabs.getTab().dactylOrdinal;
