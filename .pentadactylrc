@@ -5965,7 +5965,7 @@ function pwHashGenerateShortPassword(s) {
 }
 
 function prefsuffSearch(s) {
-             var newtab = gBrowser.addTab('http://www.macroevolution.net/site-search.html')   ;
+    var newtab = gBrowser.addTab('http://www.macroevolution.net/site-search.html')   ;
     gBrowser.selectedTab = newtab;
     var tb = gBrowser.getBrowserForTab(newtab);
     tb.addEventListener("DOMContentLoaded", function () {
