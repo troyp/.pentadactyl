@@ -3178,6 +3178,7 @@ map <buffer>d<Space>  -description "Close tabs selected via popup menu" -js tabs
 map <buffer>d;<Space> -description "Keep only tabs selected via popup menu" -js tabsFilterWithDMenu();
 map <buffer><BS>    -description "Close tab to left" -b gTd
 
+map <buffer>j       -description "Goto jump" -ex jumps
 map <buffer>h       -description "Go back in history" -b :back<Space>
 map <buffer>l       -description "Go forward in history" -b :forward<Space>
 map <buffer>rh      -description "Rename document to h1 heading" -js content.document.title = getFirstSelector("h1").textContent.trim();
@@ -4085,7 +4086,6 @@ EOF
 
 " -------------------------------------------------------------------------------
 
-map <search>j  -description "Goto jump" -ex jumps
 map <search>o -b :set<SPACE>
 map <search>c -b :set!<SPACE>
 
