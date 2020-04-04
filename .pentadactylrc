@@ -2072,7 +2072,7 @@ command! wpeplist
 \    -description "Goto Wikipedia episode list"
 \    -nargs=+
 \    -bang
-\    -js (wpEpList(args.join(" "), dactyl.NEWTAB, bang))
+\    -js wpEpList(args.join(" "), dactyl.NEW_ADJACENT_TAB, bang?{summon:true}:{});
 
 command! kingjames -description "King James Bible BOOK [CH:SEC]"
 \    -nargs=*
