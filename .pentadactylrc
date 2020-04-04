@@ -2281,9 +2281,16 @@ map <yank>da -description "(show bindings: Yank/Datetime/Append)" -js CommandExM
 map <yank>daa
 \    -description "Append current datetime (-yyyy-mm-dd-HH-MM-SS)"
 \    -js utils.cbAppend("-"+(new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
+map <yank>dao
+\    -description "Append current date only as suffix to clipboard (-yyyy-mm-dd)"
+\    -js utils.cbAppend("-"+(new Date).toISOString().replace(/T.*/, ""));
+
 map <yank>dd
 \    -description "Yank current datetime to clipboard (yyyy-mm-dd-HH-MM-SS)"
 \    -js utils.cbWrite((new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
+map <yank>do
+\    -description "Yank current date only to clipboard (yyyy-mm-dd)"
+\    -js utils.cbWrite((new Date).toISOString().replace(/T.*/, ""));
 
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
