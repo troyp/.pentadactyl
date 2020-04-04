@@ -151,7 +151,6 @@ A = {
     find:        (coll, f) => Array.from(coll).find(f),
     every:       (coll, f) => Array.from(coll).every(f),
     some:        (coll, f) => Array.from(coll).some(f),
-    findIndex:   (coll, f) => Array.from(coll).find(f),
     includes:    (coll, f, fromIndex=undefined) => Array.from(coll).includes(f, fromIndex),
     indexOf:     (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex),
     concatMap:   (coll, f) => [].concat.apply([], Array.from(coll).map(e=>Array.from(f(e)))),
@@ -171,6 +170,7 @@ A = {
                      subArrays.push(currentSub);
                      return subArrays;
                  },
+    from: (coll) => Array.from(coll),
     range: function (...args) {
         " range([beg=0], end, [step=1]) ";
         var beg=0, end, step=1;
@@ -188,7 +188,9 @@ A = {
         }
         return res;
     },
-    toLines: (coll) => Array.from(coll).reduce((s,i)=>`${s}\n${i}`)
+    toLines: (coll) => Array.from(coll).reduce((s,i)=>`${s}\n${i}`),
+    /* numeric array */
+    differences: a => a.reduce((acc,c,i,arr) => acc.concat([acc.length && (c-arr[i-1])]), [])
 }
 window.A = A;
 
