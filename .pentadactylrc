@@ -1532,10 +1532,10 @@ map <leader>rwc
 \                    ()=>getFirstSelectorByText('h2','Overview').scrollIntoView());
 map <leader>rwe
 \     -description "Goto Wikpedia episode list"
-\     -count -b :wpeplist<SPACE>
+\     -b :wpeplist<SPACE>
 map <leader>rwp
 \     -description "Goto Wikpedia article"
-\     -count -b :wikipediapage<SPACE>
+\     -b :wikipediapage<SPACE>
 
 command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
 command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
