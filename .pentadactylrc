@@ -1047,6 +1047,21 @@ map <browser>ar -description "Enable Right-click"
 map <browser>as -description "Enable Select"
 \    -js (function(d){var a=d.document,h=function(){},c=a.body||a.getElementsByTagName("body")[0],f=a.documentElement||a.getElementsByTagName("html")[0],k=[c,f,a],l=["webkit","khtml","moz","ms",""],g=["contextmenu","selectstart","select","mousedown","mouseup"],b=d.Selection,e=b&&b.prototype;e&&(e.removeAllRanges=h,b=a.selection)&&(b.clear=h);for(e=k.length;e--;)if(f=k[e]){for(b=g.length;b--;)f["on"+g[b]]=null;if(a=f.style)for(a.cursor="",a.webkitTouchCallout="initial",b=l.length;b--;)a[((c=l[b])?"-"+c+"-":c)+"user-select"]="initial"}(c=d.jQuery||d.Zepto)&&c(d).off(g)})(content);
 
+" ,-----------------------,
+" | <browser>b -- Sidebar |
+" '-----------------------'
+map <browser>b -description "(show bindings: Sidebar)" -js CommandExMode().open("showkeys <browser>b")
+map <browser>bb -b :sidebar<SPACE>
+map <browser>bc -ex sbclose
+map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
+
+" ,-----------------------------,
+" | <browser>c -- Configuration |
+" '-----------------------------'
+map <browser>c -description "(show bindings: Configuration)" -js CommandExMode().open("showkeys <browser>c")
+map <browser>co -description "Set dactyl option" -b :set<SPACE>
+map <browser>cc -description "Set about:config setting" -b :set!<SPACE>
+
 " ,------------------------,
 " | <browser>d -- Download |
 " '------------------------'
@@ -1105,13 +1120,6 @@ map <browser>mh -b :emenu History.
 map <browser>mb -b :emenu Bookmarks.
 map <browser>mt -b :emenu Tools.
 map <browser>m/ -b :emenu Help.
-
-" ,-----------------------,
-" | <browser>b -- Sidebar |
-" '-----------------------'
-map <browser>bb -b :sidebar<SPACE>
-map <browser>bc -ex sbclose
-map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
 
 js <<EOF
 var sidebarDoc = sidebar.document;
@@ -4083,11 +4091,6 @@ function bmRunKeymark(kw, searchterm, where='here') {
     dactyl.open(bmResolveKeymark(kw, searchterm), {where:where});
 }
 EOF
-
-" -------------------------------------------------------------------------------
-
-map <search>o -b :set<SPACE>
-map <search>c -b :set!<SPACE>
 
 " -----------------------------------------------------------------------------
 " ,---------------------,
