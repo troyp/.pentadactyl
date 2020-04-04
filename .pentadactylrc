@@ -2373,10 +2373,10 @@ map <yank>xx -description "Yank page text" -js utils.yankWithMsg(content.documen
 map <yank>xs -description "Yank <span> of text" -js hints.show('σ');
 
 map <yank>y -description "Yank buffer URL" -b y
-map <yank>1 -description "Yank all <H1> headings" -ex yankselectorcontent h1
-map <yank>2 -description "Yank all <H2> headings" -ex yankselectorcontent h2
-map <yank>3 -description "Yank all <H3> headings" -ex yankselectorcontent h3
-map <yank>4 -description "Yank all <H4> headings" -ex yankselectorcontent h4
+map <yank>1 -description "Yank all <H1> headings" -js yankSelectorContent(count ? `h1:nth-of-type(${count})` : "h1");
+map <yank>2 -description "Yank all <H2> headings" -js yankSelectorContent(count ? `h2:nth-of-type(${count})` : "h2");
+map <yank>3 -description "Yank all <H3> headings" -js yankSelectorContent(count ? `h3:nth-of-type(${count})` : "h3");
+map <yank>4 -description "Yank all <H4> headings" -js yankSelectorContent(count ? `h4:nth-of-type(${count})` : "h4");
 map <yank>! -description "Yank <H1> heading (choose with completion)" -b :yankh1<Space>
 map <yank>@ -description "Yank <H2> heading (choose with completion)" -b :yankh2<Space>
 map <yank># -description "Yank <H3> heading (choose with completion)" -b :yankh3<Space>
