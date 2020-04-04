@@ -2275,12 +2275,14 @@ map <yank>bb -description "Yank tabs list (index: label <URL>)" -js yankTabsList
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
 
 " <yank>d -- Yank datetime "
-map <yank>d  -description "(show bindings: yank datetime)" -js CommandExMode().open("showkeys <yank>d")
-map <yank>da
-\    -description "Append current datetime (yyyy-mm-dd-HH-MM-SS)"
+map <yank>d  -description "(show bindings: Yank/Datetime)" -js CommandExMode().open("showkeys <yank>d")
+
+map <yank>da -description "(show bindings: Yank/Datetime/Append)" -js CommandExMode().open("showkeys <yank>da")
+map <yank>daa
+\    -description "Append current datetime (-yyyy-mm-dd-HH-MM-SS)"
 \    -js utils.cbAppend("-"+(new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
 map <yank>dd
-\    -description "Yank current datetime to clipboard (-yyyy-mm-dd-HH-MM-SS)"
+\    -description "Yank current datetime to clipboard (yyyy-mm-dd-HH-MM-SS)"
 \    -js utils.cbWrite((new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
 
 map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
