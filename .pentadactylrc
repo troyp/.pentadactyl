@@ -2373,6 +2373,7 @@ map <yank>xx -description "Yank page text" -js utils.yankWithMsg(content.documen
 map <yank>xs -description "Yank <span> of text" -js hints.show('σ');
 
 map <yank>y -description "Yank buffer URL" -b y
+map <yank>0 -description "Yank empty string to clipboard" -js utils.cbWrite("");
 map <yank>1 -description "Yank all <H1> headings" -js yankSelectorContent(count ? `h1:nth-of-type(${count})` : "h1");
 map <yank>2 -description "Yank all <H2> headings" -js yankSelectorContent(count ? `h2:nth-of-type(${count})` : "h2");
 map <yank>3 -description "Yank all <H3> headings" -js yankSelectorContent(count ? `h3:nth-of-type(${count})` : "h3");
