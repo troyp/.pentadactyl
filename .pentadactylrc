@@ -155,7 +155,8 @@ A = {
     indexOf:     (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex),
     concatMap:   (coll, f) => [].concat.apply([], Array.from(coll).map(e=>Array.from(f(e)))),
     mapProperty: (coll, p) => Array.from(coll).map(e=>e[p]),
-    zip:         (coll1, coll2) => Array.from(coll1).map((e,i)=>[e, coll2[i]]),
+    zip2:        (coll1, coll2) => Array.from(coll1).map((e,i)=>[e, coll2[i]]),
+    zip:         (...colls) => Array.from(colls[0]).map((_,i)=>colls.map(coll=>coll[i])),
     split:       (coll, e) => {
                      var subArrays = [];
                      var currentSub = [];
