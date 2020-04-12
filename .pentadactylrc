@@ -6289,7 +6289,7 @@ set eht+=[ä]:a>strong,a>b
 js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
 
 " open in chrome "
-set eht+=[🄒]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+set eht+=[🄒]:'a',':-moz-any-link'
 js hints.addMode("🄒", "Open link in Chrome", e => dactyl.execute('ochromeurl '+e.href));
 
 " =====                                                          "
