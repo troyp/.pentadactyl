@@ -14037,6 +14037,14 @@ function openOrSummonTab(url, background=false, regex=null) {
     }
 }
 
+function newTab(url="about:newtab") {
+    var tabbrowser = getBrowser();
+    var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
+    var tab = tabbrowser.addTab(url, referrer, "utf-8");
+    return tab;
+}
+window.newTab = newTab;
+
 " ,-------------------------------, "
 " | Iteration and Array functions | "
 " '-------------------------------' "
@@ -14258,14 +14266,6 @@ function regExpStringRemoveDelimiters(regex) {
 function cutoff(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
-
-function newTab(url="about:newtab") {
-    var tabbrowser = getBrowser();
-    var referrer = XpcInstance("@mozilla.org/network/simple-uri;1", Components.interfaces.nsIURI);
-    var tab = tabbrowser.addTab(url, referrer, "utf-8");
-    return tab;
-}
-window.newTab = newTab;
 
 function parseRanges(s) {
     var result = [];
