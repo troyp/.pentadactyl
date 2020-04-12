@@ -6277,6 +6277,21 @@ hints.addMode(
 );
 EOF
 
+" ===== "
+" Links "
+" ===== "
+" copy link url to dactylresult "
+set eht+=[ȧ]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
+js hints.addMode("ȧ", "Copy href to dactylresult", e=>{ window.dactylresult = e.href; });
+
+" bold links: mode ä "
+set eht+=[ä]:a>strong,a>b
+js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
+
+" open in chrome "
+set eht+=[🄒]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
+js hints.addMode("🄒", "Open link in Chrome", e => dactyl.execute('ochromeurl '+e.href));
+
 " =====                                                          "
 " Kanji                                                          "
 " =====                                                          "
@@ -6291,18 +6306,6 @@ EOF
 set eht+=[字カ]:'.w-kanji,.furigana+span.text,.furigana+.unlinked,.character.literal>a,rb,.ja-text,.break-unit,.t_nihongo_kanji,span[lang=ja],#japanese-name'
 js hints.addMode('字', 'copy kanji', elem=>utils.yankWithMsg(elem.innerText));
 js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>window._dactylargs[0](e.innerText));
-
-" copy link url to dactylresult "
-set eht+=[ȧ]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
-js hints.addMode("ȧ", "Copy href to dactylresult", e=>{ window.dactylresult = e.href; });
-
-" bold links: mode ä "
-set eht+=[ä]:a>strong,a>b
-js hints.addMode("ä", "Follow bold link", elem => buffer.followLink(elem, dactyl.CURRENT_TAB));
-
-" open in chrome "
-set eht+=[🄒]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
-js hints.addMode("🄒", "Open link in Chrome", e => dactyl.execute('ochromeurl '+e.href));
 
 " === SITE-SPECIFIC === "
 " JSBin: "
