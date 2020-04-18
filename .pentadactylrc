@@ -921,13 +921,21 @@ map <C-.>   -modes normal -b <Right>
 map h       -modes normal -b gT
 map l       -modes normal -b <C-n>
 " Make gu remove fragments, then queries, then path components, then subdomains "
-map gu -description "Open page up one (or COUNT) URL level (remove fragments, then queries, then path components, then subdomains)"
+map gu
+\    -description "Open page up one (or COUNT) URL level (remove fragments, then queries, then path components, then subdomains)"
 \    -modes normal
 \    -count -js dactyl.open(urlUp(count||1));
+map gtu
+\    -description "Open (new tab) page up one (or COUNT) URL lvl (rem frags->queries->path-comp's->subdomains)"
+\    -modes normal
+\    -count -js pageOpen(urlUp(count||1), "adjacent");
 " Let gU take a count "
 map gU -description "Open root path or nth level"
 \    -modes normal
 \    -count -js dactyl.open(urlGetNthFromRootPath(count));
+map gtU -description "Open (new tab) root path or nth level"
+\    -modes normal
+\    -count -js pageOpen(urlGetNthFromRootPath(count), "adjacent");
 " <C-n> and <C-p> for down and up
 map <C-n>   -modes normal -b <C-v><down>
 map <C-p>   -modes normal -b <C-v><up>
