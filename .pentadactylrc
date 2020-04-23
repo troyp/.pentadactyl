@@ -9958,6 +9958,10 @@ map <site>tl  -description "Toggle limit=60" -js urlToggleQuery("limit=60");
 
 map <site>u -description "Update" -js clickSelectorByText('button',/update/i);
 
+map <site>v
+\    -description "Search for clipboard text (new tab in background)"
+\    -js tabSearchAdjacent("shopja", readFromClipboard(), true);
+
 map <site>w -description "(show bindings: Watercolour Ranges)" -js CommandExMode().open("showkeys <site>w")
 map <site>wds
 \    -description "Daniel Smith watercolours"
@@ -9974,15 +9978,12 @@ map <site>wwn
 \                         count?"adjacent":"here",
 \                         /^https:\/\/www.jacksonsart.com\/en-au\/winsor-newton-professional-watercolour$/);
 
-map <site>v
-\    -description "Search for clipboard text (new tab in background)"
-\    -js tabSearchAdjacent("shopja", readFromClipboard(), true);
-map <site>yy
-\    -description "Copy cart items"
-\    -js utils.cbWriteCollection(jacksonsartItemNames());
 map <site>yu
 \    -description "Copy cart items URLs"
 \    -js var urls=jacksonsartItemUrls(); utils.cbWriteCollection(urls); window._dactylJacksonsartItems=_itemUrls=urls;
+map <site>yy
+\    -description "Copy cart items"
+\    -js utils.cbWriteCollection(jacksonsartItemNames());
 map <site>4
 \    -description "Cart total"
 \    -js utils.message("Cart total: " + jacksonsartGetCartTotal());
