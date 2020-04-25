@@ -984,6 +984,9 @@ map <A-S-p>
 " bind gs as :viewpagesource, free gf for g;b
 map gf <Nop>
 map gs -ex viewpagesource
+" free gF "
+map gS -b <view-source-externally>
+map gF -description "Follow link in adjacent tab [HINTS]" -js hints.show('å');
 " replace builtin <C-a> and <C-x> bindings (inrease/decrease URL by 1)
 map <C-a> <Nop>
 map <A-=> -modes normal -b <C-a>
@@ -6244,6 +6247,12 @@ js hints.addMode(' ', '', e=>utils.message(e));           "no-break space 00A0"
 " ======= "
 set eht+=[🄿]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,'xpath:div/p'
 js hints.addMode('🄿','lmnpop',elem => { lmnpop(elem); });
+
+" ===== "
+" Links "
+" ===== "
+set eht+=[å]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
+js hints.addMode('å', 'Follow link in adjacent tab', elem=>tabOpenAdjacent(elem.href));
 
 " ==== "
 " Text "
