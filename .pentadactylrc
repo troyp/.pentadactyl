@@ -1668,6 +1668,8 @@ map <leader>v;usd  -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Spac
 map <leader>v;plb  -description "Convert paper weight from Lb to GSM (Lb->GSM)" -b :convertPaperLbtoGSM<Space>
 map <leader>v;pgsm -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
 map <leader>v;foz  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
+map <leader>v;cm   -description "Convert length from cm to in (cm->in)" -b :convertCmToIn<Space>
+map <leader>v;in   -description "Convert length from in to cm (in->cm)" -b :convertInToCm<Space>
 map <leader>v;ml   -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
 map <leader>vx -description "Convert value into other exchangr rate" -b :convertexchangerates<Space>
 
@@ -1707,6 +1709,12 @@ command! convertMlToFluidOz
 \    -nargs *
 \    -description "Convert volume from ml to US fluid oz (ml->fluid oz)"
 \    -js utils.message(args.map(n=>`${n}ml=${mlToUSFluidOunce(n)}fluid-oz`).join(", "));
+command! convertCmToIn  -description "Convert lengths from cm to in"
+\    -nargs *
+\    -js utils.message(args.map(n=>`${n}cm=${cmToIn(n)}in`).join(", "));
+command! convertInToCm  -description "Convert lengths from in to cm"
+\    -nargs *
+\    -js utils.message(args.map(n=>`${n}in=${inToCm(n)}cm`).join(", "));
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
 command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
 map <leader>+ -b :sum<Space>
