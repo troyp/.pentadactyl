@@ -33,6 +33,10 @@ if (exactBlock) {
 var tags = Array.from(document.getElementsByClassName("concept_light-tag"));
 tags.forEach(e=>{e.style = "margin: 0"});
 
+// inflections links
+var defnsWithInflections = Array.from(document.getElementsByClassName("show_inflection_table"));
+defnsWithInflections.forEach(e=>{e.text = "Inflections"});
+
 
 // extra dictionaries
 var dictList = document.querySelector("#other_dictionaries>ul");
