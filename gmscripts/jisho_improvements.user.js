@@ -37,6 +37,28 @@ tags.forEach(e=>{e.style = "margin: 0"});
 var defnsWithInflections = Array.from(document.getElementsByClassName("show_inflection_table"));
 defnsWithInflections.forEach(e=>{e.text = "Inflections"});
 
+// definitions (excluding names)
+function uniqKanji(s) {
+    var match = s.match(/[一-龥𠮟]/g);
+    return [...new Set(match)];
+}
+
+var defns = Array.from(document.getElementById("primary").getElementsByClassName("concept_light"));
+defns.forEach((e, i, a)=>{
+    var statusBlock = e.getElementsByClassName("concept_light-status")[0];
+    // var dropdownList = document.getElementsByClassName("f-dropdown");
+
+    // kanji link (incl other forms kanji)
+    var entry = e.querySelector(".concept_light-representation>.text").textContent;
+    var other_forms_tag = Array.from(e.getElementsByClassName("meaning-tags")).find(e=>e.textContent.match("Other forms"));
+    var other_forms_entry = other_forms_tag ? other_forms_tag.nextElementSibling.textContent : "";
+    var kanji = uniqKanji(entry + other_forms_entry);
+    var kanji_url = `https://jisho.org/search/${kanji.join("")}%23kanji`;
+    var new_kanji_link = document.createElement("a");
+    new_kanji_link.href = kanji_url;
+    new_kanji_link.textContent = "Kanji details";
+    statusBlock.appendChild(new_kanji_link);
+});
 
 // extra dictionaries
 var dictList = document.querySelector("#other_dictionaries>ul");
