@@ -29,6 +29,10 @@ if (exactBlock) {
     exactBlock.style.backgroundColor = "#FFF8F8";
     exactBlock.style.padding = "1em";
 }
+// remove margin between tags
+var tags = Array.from(document.getElementsByClassName("concept_light-tag"));
+tags.forEach(e=>{e.style = "margin: 0"});
+
 
 // extra dictionaries
 var dictList = document.querySelector("#other_dictionaries>ul");
