@@ -6852,7 +6852,7 @@ function amazonGo() {
     url = buffer.URL;
     var elt;
     if (url.match(/https:\/\/[^.]+\.amazon\.com(\.[^.]+)?\/gp\/cart\//)) {
-        getSelectorWithMatchingAttribute("input.a-button-input", "name", "proceedToCheckout")[0].click();
+        getFirstSelector("input.a-button-input[name=proceedToCheckout]").click();
     } else if (
         (elt = content.document.querySelector("#buybox-see-all-buying-choices-announce")) ||
         (elt = content.document.querySelector("#add-to-cart-button"))
@@ -9819,7 +9819,7 @@ group jacksons -locations=jacksonsart.com
 
 js <<EOF
 function jacksonsartCount() {
-    var elts = getSelectorWithMatchingAttribute('input', 'title', 'Qty');
+    var elts = getSelectors("input[title=Qty]");
     if (elts.length) {
         return elts.map(e=>Number(e.value)).reduce((n,s)=>n+s);
     }
@@ -12175,7 +12175,7 @@ function redditLoadMoreReplies() {
 
 function redditTidy()   {
     redditLoadMoreReplies();
-    var divZeroTabindex = getSelectorWithMatchingAttribute("div","tabindex",0);
+    var divZeroTabindex = getSelectors("div[tabindex=0]");
     var articleContent = divZeroTabindex.length && divZeroTabindex[0].parentElement;
     if (articleContent) {
         topElements().forEach(elt => elt.remove());
