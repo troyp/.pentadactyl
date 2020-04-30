@@ -13102,6 +13102,22 @@ function wpGetSearchCommandForSite(url=buffer.URL, invert=false) {
     else
         return url.match("wiktionary.org/") ? "wiktionarysearch" : "wpsearch";
 }
+
+function wpParseURL(url=buffer.URL) {
+    var parts = url.match(/https:\/\/([^./]+)\.(wik.*)\.org\/(.*)/i);
+    var [,subdomain, siteName, path] = parts;
+    /* find title */
+    var regex1 = /^wiki\/([^?#]+)/i;
+    var regex2 = /^w\/index.php\?title=([^&]+)/i;
+    var match = path.match(regex1) || path.match(regex2);
+    var title = match && match[1];
+    return {
+        url:url, subdomain:subdomain, siteName:siteName, path:path, title:title,
+        toString: function() { return this.url; }
+    };
+}
+window.wpParseURL = wpParseURL;
+
 function wpGetUserPageHREF() { return getFirstSelector("#pt-userpage>a").href; }
 
 function wpGetUser() {
