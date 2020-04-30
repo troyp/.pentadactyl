@@ -2721,10 +2721,12 @@ map <search>;:
 \        CommandExMode().open(count ? "searchclipboardCaseSensitive! " : "searchclipboardCaseSensitive ");
 map <search>;gh -description "Github search and goto first result" -b :ghsearchgo<SPACE>
 
-command! searchmultiple -description "Multiple query bookmark search"
+command! searchmultiple -description "Search multiple queries [ENGINE QUERY...]"
 \    -nargs=+ -complete=search -js searchMultiple(args[0], args.slice(1));
-command! multipleenginesearch -description "Multiple engine bookmark search"
+command! multipleenginesearch -description "Search query with multiple engines [ENGINE... QUERY]"
 \    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(0,-1), args.slice(-1));
+command! searchwithengines -description "Search query with multiple engines [QUERY ENGINE...]"
+\    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(1), args[0]);
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
 
