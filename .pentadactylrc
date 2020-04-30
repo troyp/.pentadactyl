@@ -2719,18 +2719,39 @@ map <search>;:
 \    -description "Search with engine (clipboard): case-sensitive"
 \    -js utils.message("Searching clipboard contents: " + utils.cbRead({tolowercase: true})),
 \        CommandExMode().open(count ? "searchclipboardCaseSensitive! " : "searchclipboardCaseSensitive ");
-
-" Special site searches "
 map <search>;gh -description "Github search and goto first result" -b :ghsearchgo<SPACE>
 
-command! ghsearchgo -description "Github search and goto first result"
-\    -nargs=1 -js ghSearchAndGo(args[0]);
 command! searchmultiple -description "Multiple query bookmark search"
 \    -nargs=+ -complete=search -js searchMultiple(args[0], args.slice(1));
 command! multipleenginesearch -description "Multiple engine bookmark search"
 \    -nargs=+ -complete=search -js multipleEngineSearch(args.slice(0,-1), args.slice(-1));
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
+
+js <<EOF
+function searchMultiple(searchEngine, queries) {
+    queries.reverse().forEach(q => tabSearchAdjacent(searchEngine, q, true));
+}
+function multipleEngineSearch(searchEngines, query) {
+    searchEngines.reverse().forEach(s => tabSearchAdjacent(s, query, true));
+}
+function multipleEngineSearchWithDefaults(searchEnginesWithDefaults, query) {
+    if (query)
+        searchEnginesWithDefaults.reverse().forEach(pair => tabSearchAdjacent(pair[0], query, true));
+    else
+        searchEnginesWithDefaults.reverse().forEach(pair => tabOpenURLAdjacent(pair[1]), true);
+}
+function polySearch(searchEngines, queries) {
+    queries.reverse().forEach(q =>
+        searchEngines.reverse().forEach(s =>
+            tabSearchAdjacent(s, q, true)));
+}
+EOF
+
+" Special site searches "
+
+command! ghsearchgo -description "Github search and goto first result"
+\    -nargs=1 -js ghSearchAndGo(args[0]);
 
 js searchEngineArtShops = ["e", "amazart", "amazau", "shopja", "shopnarts", "shopjpen", "shopma", "shopcraftol", "shoptas", "shopas", "shopow"];
 js searchEngineArtShopsMain = ["e", "amazau", "shopja"];
@@ -2777,24 +2798,6 @@ function ftSearchMods(maxprice, s, where="tab") {
     var url = "https://www.fasttech.com/category/3099/e-cigarettes#!/177=Mods - VV/VW|-20=1|-2=10|-1=_" +
                   maxprice + "|p=0|s=p|ps=undefined|k=" + s;
     openOrSelectTab(url, where);
-}
-
-function searchMultiple(searchEngine, queries) {
-    queries.reverse().forEach(q => tabSearchAdjacent(searchEngine, q, true));
-}
-function multipleEngineSearch(searchEngines, query) {
-    searchEngines.reverse().forEach(s => tabSearchAdjacent(s, query, true));
-}
-function multipleEngineSearchWithDefaults(searchEnginesWithDefaults, query) {
-    if (query)
-        searchEnginesWithDefaults.reverse().forEach(pair => tabSearchAdjacent(pair[0], query, true));
-    else
-        searchEnginesWithDefaults.reverse().forEach(pair => tabOpenURLAdjacent(pair[1]), true);
-}
-function polySearch(searchEngines, queries) {
-    queries.reverse().forEach(q =>
-        searchEngines.reverse().forEach(s =>
-            tabSearchAdjacent(s, q, true)));
 }
 EOF
 
