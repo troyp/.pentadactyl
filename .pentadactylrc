@@ -13230,6 +13230,9 @@ map <site>sp
 map <site>ss
 \    -description "Search Wikipedia"
 \    -js CommandExMode().open("wpsearch"+(count?"! ":" "));
+map <site>s;; -description "Search ENGINES for title"
+\    -js CommandExMode().open(`searchwithengines '${wpGetTopicOrSearchTerm()}' `);
+
 map <site>t
 \    -description "Copy specified columns (single digits) from table chosen by HINT" -b
 \    :wpyanktablecols<Space>
