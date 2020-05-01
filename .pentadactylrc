@@ -2626,32 +2626,8 @@ findbarToggle = function() {
     else
         gFindBar.close();
 }
-function searchClipboard(engines=["g"], where="tab", options={}) {
-    for (i=0; i<engines.length; i++) {
-        dactyl.open(engines[i] + " " + utils.cbRead(options), {where: where});
-    }
-}
-EOF
 
 command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '));
-command! searchclipboard
-\    -nargs *
-\    -bang
-\    -complete search
-\    -js searchClipboard(
-\            (args.length ? args : undefined),
-\            (bang ? "here" : "tab"),
-\            { tolowercase: true }
-\        );
-
-\command! searchclipboardCaseSensitive
-\    -nargs *
-\    -bang
-\    -complete search
-\    -js searchClipboard(
-\            (args.length ? args : undefined),
-\            (bang ? "here" : "tab")
-\        );
 
 map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
@@ -2711,14 +2687,14 @@ map <search>w   -description "Search for word containing..." -modes normal /\r\w
 map <search>0   -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
 map <search>\'  -description "Link Search: Forward" -modes normal -b /\l
 map <search>\"  -description "Link Search: Backward" -modes normal -b ?\l    "
+
 map <search>;;
-\    -description "Search with engine (clipboard)"
-\    -js utils.message("Searching clipboard contents: " + utils.cbRead()),
-\        CommandExMode().open(count ? "searchclipboard! " : "searchclipboard ");
+\    -description "Search clipboard text with engine(s)"
+\    -js CommandExMode().open(count ? "searchwithengines! " : "searchwithengines " + utils.cbRead({ tolowercase: true }) + " ");
 map <search>;:
-\    -description "Search with engine (clipboard): case-sensitive"
-\    -js utils.message("Searching clipboard contents: " + utils.cbRead({tolowercase: true})),
-\        CommandExMode().open(count ? "searchclipboardCaseSensitive! " : "searchclipboardCaseSensitive ");
+\    -description "Search clipboard text with engine(s): case-sensitive"
+\    -js CommandExMode().open(count ? "searchwithengines! " : "searchwithengines " + utils.cbRead() + " ");
+
 map <search>;gh -description "Github search and goto first result" -b :ghsearchgo<SPACE>
 
 command! searchmultiple -description "Search multiple queries [ENGINE QUERY...]"
