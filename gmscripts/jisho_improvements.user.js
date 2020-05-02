@@ -17,6 +17,7 @@ var page = document.getElementById('page_container');
 var kwElt = document.getElementById("keyword");
 var kwTyped = kwElt.value;
 var kw = kwElt.attributes["data-effective-keyword"].value;
+if (kw=="actual") kw = kwElt.value;
 
 // -------------------------------------------------------------------------------
 // ,-------------,
