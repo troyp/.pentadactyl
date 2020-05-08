@@ -13018,6 +13018,11 @@ function wpGetContents() {
     return Array.from(content.document.querySelectorAll('#toc ul li a'));
 }
 
+function wpCleanup() {
+    removeSelectors("#siteNotice", "#mw-navigation", "#footer", ".noprint", ".mw-editsection", ".navbox", "#xtools", "#kanjiInfo");
+    getFirstSelectorByText("a", "Search Google").remove();
+}
+
 function wpGotoNextHeading() {
     var headings = wpGetContents();
     var fragment = content.window.location.hash;
@@ -13114,9 +13119,7 @@ command! wpapplycss :source ~/.pentadactyl/wikipedia.css
 command! wplatest -description "Go to latest revision" -js wpLatest();
 command! wpyankcontent -description "Yank article text" -js wpYankContent();
 command! wpyankhtml -description "Yank article HTML" -js wpYankHtml();
-command! wpcleanup
-    \ -description "Cleanup article"
-    \ removeselector #siteNotice #mw-navigation #footer .noprint .mw-editsection .navbox
+command! wpcleanup -description "Cleanup article" -js wpCleanup();
 command! wpyanktablecols
     \ -description "Yank specified columns (single digits) from table chosen by HINT"
     \ -nargs=1
