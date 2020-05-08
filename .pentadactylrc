@@ -2626,6 +2626,7 @@ findbarToggle = function() {
     else
         gFindBar.close();
 }
+EOF
 
 command! searchgoogle -nargs * -js openWithPagezipper('https://www.google.com/search?hl=en&q=' + args.join(' '));
 
