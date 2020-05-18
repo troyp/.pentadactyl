@@ -6875,7 +6875,7 @@ function amazonCount() {
 
 function amazonSearch(count, ...args) {
     var url = "https://www.amazon.com.au/s?k="+args.join("+");
-    if (count) dactyl.open(url, "here");
+    if (count) dactyl.open(url, "adjacent");
     else tabOpenURLAdjacent(url);
 }
 
@@ -6906,12 +6906,12 @@ map <site>i -description "(Show bindings: Images)"  -js CommandExMode().open("sh
 map <site>if -description "Change image sources to full-sized" -js amazonImageSrcFullSize();
 map <site>iv
 \    -description "View image"
-\    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"tab":"here");
+\    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"tab":"adjacent");
 map <site>n -description "Count items" -js utils.message("Number of items: " + amazonCount());
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"here", null, true);
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"adjacent", null, true);
 map <site>oi
 \    -description "Scroll to Product Information"
 \    -js content.document.getElementById('prodDetails').scrollIntoView();
@@ -6920,10 +6920,10 @@ map <site>ok
 \    -js clickSelectorByText('.a-carousel-heading','Customers who viewed this item also viewed');
 map <site>ol
 \    -description "Goto lists"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/registry/wishlist/ref=cm_wl_your_lists", count?"tab":"here");
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/registry/wishlist/ref=cm_wl_your_lists", count?"tab":"adjacent");
 map <site>oo
 \    -description "Goto orders"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"here");
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"adjacent");
 map <site>or -description "Goto reviews" -js content.document.getElementById("customerReviews").scrollIntoView();
 map <site>oR
 \    -description "Goto reviews - all"
@@ -6934,10 +6934,10 @@ map <site>o;r
 \    -js amazonGotoUSReviews();
 map <site>ow
 \    -description "Goto wish list"
-\    -js openOrSelectTab(amazonWishlistUrl(), count?"tab":"here");
+\    -js openOrSelectTab(amazonWishlistUrl(), count?"tab":"adjacent");
 map <site>o!
 \    -description "Goto contact form"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/help/customer/contact-us/ref=cu_surl", count?"tab":"here");
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/help/customer/contact-us/ref=cu_surl", count?"tab":"adjacent");
 map <site>ss -description "Search Amazon AU" -b :amazonausearch<Space>
 map <site>ta
 \    -description "Toggle Australian site"
