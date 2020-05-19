@@ -6838,7 +6838,7 @@ function amazonGo() {
     url = buffer.URL;
     var elt;
     if (url.match(/https:\/\/[^.]+\.amazon\.com(\.[^.]+)?\/gp\/cart\//)) {
-        getFirstSelector("input.a-button-input[name=proceedToCheckout]").click();
+        getFirstSelector("input.a-button-input[name=proceedToRetailCheckout]").click();
     } else if (
         (elt = content.document.querySelector("#buybox-see-all-buying-choices-announce")) ||
         (elt = content.document.querySelector("#add-to-cart-button"))
