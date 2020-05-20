@@ -6892,6 +6892,25 @@ function amazonToggleTranslateReviews() {
 function amazonImageSrcFullSize() {
     getSelectors(".linkless-review-image-tile").map(img=>img.src=img.src.replace("._SY88", ""));
 }
+
+function amazonCartPriceChangeElts() {
+    return getSelectors('#sc-important-message-alert ul.a-color-base>li');
+}
+function amazonCartRemoveSmallPriceChanges(r=0.5) {
+    var elts = amazonCartPriceChangeElts();
+    var re = /(.*) has (decreased|increased) from \$([0-9]+\.[0-9][0-9]) to \$([0-9]+\.[0-9][0-9])/;
+    elts.forEach((elt,i,a)=>{
+        var [_, _, _, initial, final] = elt.innerText.match(re);
+        var pInit = parseFloat(initial);
+        var pFin  = parseFloat(final);
+        var changeRatio = Math.abs((pFin-pInit)/pInit);
+        if (changeRatio <= r) {
+            elt.remove();
+            a.splice(i, 1);
+        }
+    });
+    if (elts.length==0) removeFirstSelector("#sc-important-message-alert");
+}
 EOF
 
 command! amazonausearch
@@ -6902,6 +6921,9 @@ command! amazonausearch
 map <site>c
 \    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
 \    -js amazonGo();
+map <site>dc
+\    -description "Remove price change alerts for small changes"
+\    -js amazonCartRemoveSmallPriceChanges(count ? count/100 : 0.05);
 map <site>i -description "(Show bindings: Images)"  -js CommandExMode().open("showkeys <site>i")
 map <site>if -description "Change image sources to full-sized" -js amazonImageSrcFullSize();
 map <site>iv
