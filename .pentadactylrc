@@ -8228,6 +8228,13 @@ map <site>o/ -description "Goto My saved searches" -js openOrSelectTab("https://
 map <site>w -description "Watch/Unwatch" -js ebayWatch();
 map <site><Esc> -description "Click close button" -js clickSelector(".clzBtn"), clickSelector(".oly-c");
 
+map [[
+\    -description "Previous page of results"
+\    -js clickSelector("a.gspr.prev");
+map ]]
+\    -description "Next page of results"
+\    -js clickSelector("a.gspr.next");
+
 group user
 
 " -------------------------------------------------------------------------------
