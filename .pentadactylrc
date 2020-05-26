@@ -6952,6 +6952,9 @@ map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"adjacent", null, true);
+map <site>oh
+\    -description "Goto history"
+\    -js openOrSelectTab("https://www.amazon.com/gp/aw/ybh", count?"tab":"adjacent", null, true);
 map <site>oi
 \    -description "Scroll to Product Information"
 \    -js content.document.getElementById('prodDetails').scrollIntoView();
