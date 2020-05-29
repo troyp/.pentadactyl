@@ -209,7 +209,10 @@ var utils = {
     },
 
     cbRead: function (options={}) {
-        var s = readFromClipboard();
+        if (options.index)
+            var s = io.system(`copyq read ${options.index}`);
+        else
+            var s = readFromClipboard();
         if (!options.notrim) s = s.trim();
         if (options.tolowercase) s = s.toLowerCase();
         return s;
