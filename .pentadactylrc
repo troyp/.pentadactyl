@@ -2709,10 +2709,10 @@ map <search>\"  -description "Link Search: Backward" -modes normal -b ?\l    "
 
 map <search>;;
 \    -description "Search clipboard text with engine(s)"
-\    -js CommandExMode().open(count ? "searchwithengines! " : "searchwithengines " + utils.cbRead({ tolowercase: true }) + " ");
+\    -js CommandExMode().open(`searchwithengines${count?"!":""} '${utils.cbRead({ tolowercase: true })}' `);
 map <search>;:
 \    -description "Search clipboard text with engine(s): case-sensitive"
-\    -js CommandExMode().open(count ? "searchwithengines! " : "searchwithengines " + utils.cbRead() + " ");
+\    -js CommandExMode().open(`searchwithengines${count?"!":""} '${utils.cbRead()}' `);
 
 map <search>;gh -description "Github search and goto first result" -b :ghsearchgo<SPACE>
 
