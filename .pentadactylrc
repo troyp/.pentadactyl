@@ -2709,10 +2709,10 @@ map <search>\"  -description "Link Search: Backward" -modes normal -b ?\l    "
 
 map <search>;;
 \    -description "Search clipboard text with engine(s)"
-\    -js CommandExMode().open(`searchwithengines${count?"!":""} '${utils.cbRead({ tolowercase: true })}' `);
+\    -js CommandExMode().open(`searchclipboardwithengines ${count||1} `);
 map <search>;:
 \    -description "Search clipboard text with engine(s): case-sensitive"
-\    -js CommandExMode().open(`searchwithengines${count?"!":""} '${utils.cbRead()}' `);
+\    -js CommandExMode().open(`searchclipboardwithengines! ${count||1} `);
 
 map <search>;gh -description "Github search and goto first result" -b :ghsearchgo<SPACE>
 
@@ -2726,6 +2726,11 @@ command! searchwithengines
 \    -nargs=+ -complete=search
 \    -js bang ? dactyl.open(`${args[1]} '${args[0]}'`) && multipleEngineSearch(args.slice(2), args[0])
 \             : multipleEngineSearch(args.slice(1), args[0]);
+command! searchclipboardwithengines
+\    -description "Search clipboard entry (!=lowercased) with multiple engines [CBINDEX ENGINE...]"
+\    -bang
+\    -nargs=+ -complete=search
+\    -js for (i=0; i<parseInt(args[0]); ++i) multipleEngineSearch(args.slice(1), utils.cbRead({index: i, tolowercase: bang})); 
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
 
