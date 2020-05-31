@@ -6482,7 +6482,8 @@ map <site><f4>
 \                                                    (beginning-of-buffer)
 \                                                    (search-forward-regexp "^group ${currentGroup().name}")
 \                                                    (recenter nil)
-\                                                    (beginning-of-line) )'`)
+\                                                    (beginning-of-line) )'`) &&
+\        dactyl.execute("!wmctrl -a emacs");
 
 " -----------------------------------------------------------------------------
 " ,----------,
