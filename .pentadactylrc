@@ -13454,7 +13454,42 @@ function ytScreenshot() {
     twod.drawImage(video,0,0,canvas.width,canvas.height);
     win.open(canvas.toDataURL("image/jpeg"))
 }
-EOF
+
+"code adapted from https://github.com/amio/youtube-screenshot-button"
+function ytScreenshot2() {
+    var video = content.document.querySelector('.html5-main-video');
+
+    function createScreenshotFromVideo (video, config) {
+        var canvas = content.document.createElement('canvas');
+        canvas.width = video.clientWidth;
+        canvas.height = video.clientHeight;
+
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        var mime = {
+            png: 'image/png',
+            jpg: 'image/jpeg'
+        }[config && config.type || 'png'];
+
+        return canvas.toDataURL(mime);
+    }
+
+    function saveDataURI(data, fname) {
+        var link = content.document.createElement("a");
+        content.document.body.appendChild(link);
+        link.setAttribute("href", data);
+        link.setAttribute("download", fname);
+        link.click();
+        link.remove();
+    }
+
+    var title = content.document.getElementById("eow-title").title;
+    var time = video.currentTime;
+    var name = `${title}-t=${time}.png`;
+    var data = createScreenshotFromVideo(video);
+    saveDataURI(data, name);
+}
 
 function ytUp(count) {
     clickSelectorByText("a", /Show \d+ more/) || ytAdjustSpeed(0.25 * (count || 1));
@@ -13462,6 +13497,7 @@ function ytUp(count) {
 function ytDown(count) {
     clickSelectorByText("a", /Show fewer/) || ytAdjustSpeed(-0.25 * (count || 1));
 }
+EOF
 command! ytincrate -description "increase playback rate" -js ytAdjustSpeed(0.25);
 command! ytdecrate -description "decrease playback rate" -js ytAdjustSpeed(-0.25);
 command! ytshowrate
@@ -13498,7 +13534,7 @@ map <site>ddd         -description "Download video to Downloads" -ex ytdl
 map <site>dd<Space>   -description "Download video" -b :ytdl<Space>
 map <site>daa         -description "Download audio to Music directory" -ex ytdlaudio
 map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
-map <site>ds          -description "Screeshot" -js ytScreenshot();
+map <site>ds          -description "Screenshot" -js ytScreenshot2();
 map <site>f           -description "Toggle fullscreen" -ex ytfullscreen
 map <site>m           -description "Toggle mute" -ex ytmute
 
@@ -13534,6 +13570,7 @@ map <site>oss
 \    -js CommandExMode().open("ytgotochannel"+(count?"! ":" "));
 map <site>r  -description "Set play rate" -b :ytrate<Space>
 map <site>R  -description "Show play rate" -ex ytshowrate
+map <site>s  -description "Screenshot (open in new tab)" -js ytScreenshot();
 map <site>u  -description "Toggle user agent override" -ex actoggleuaoverride
 map <site>\>
 \    -description "Increase play rate / Show more subscriptions"
