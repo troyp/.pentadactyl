@@ -13492,8 +13492,6 @@ command! ytgotochannel
 \    -complete custom,' (context) => {context.completions = ytGetChannelsCompletion()}'
 \    -js dactyl.open("https://www.youtube.com/channel/" + args[0], {where: bang?"tab":"here"});
 
-map <site>r           -description "Set play rate" -b :ytrate<Space>
-map <site>R           -description "Show play rate" -ex ytshowrate
 map <site>c           -description "Toggle cinema" -ex ytcinema
 map <site>d           -description "(show bindings)" -js CommandExMode().open("showkeys <site>d")
 map <site>ddd         -description "Download video to Downloads" -ex ytdl
@@ -13534,8 +13532,9 @@ map <site>osa
 map <site>oss
 \    -description "Goto Subscription"
 \    -js CommandExMode().open("ytgotochannel"+(count?"! ":" "));
-
-map <site>u           -description "Toggle user agent override" -ex actoggleuaoverride
+map <site>r  -description "Set play rate" -b :ytrate<Space>
+map <site>R  -description "Show play rate" -ex ytshowrate
+map <site>u  -description "Toggle user agent override" -ex actoggleuaoverride
 map <site>\>
 \    -description "Increase play rate / Show more subscriptions"
 \    -count -js ytUp(count);
