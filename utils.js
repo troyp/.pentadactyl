@@ -85,10 +85,10 @@ var utils = {
 
     sourceFromPath: function(s) { dactyl.execute("source " + options.runtimepath + "/" + s); },
 
-    message: function (s) {
+    message: function (s, hlType=commandline.HL_INFOMSG) {
         s = String(s);
         commandline.echo(s,
-                         commandline.HL_INFOMSG,
+                         hlType,
                          commandline.APPEND_TO_MESSAGES);
     },
 
