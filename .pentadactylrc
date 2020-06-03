@@ -911,7 +911,7 @@ map g;L -description "Choose entry in tab's forwards history" -b :forward<Space>
 map g;i -description "Focus last used input field, move to start" gi<C-a>
 
 map g; -description "(show bindings)" -js CommandExMode().open("showkeys g;")
-js mappings.add([modes.NORMAL, modes.VISUAL], ["g;;"], "Enter extended hint mode and enter multiple hints", function ({ count }) { hints.open("g;", { continue: true, count: count }); }, { count: true });
+js group.mappings.add([modes.NORMAL, modes.VISUAL], ["g;;"], "Enter extended hint mode and enter multiple hints", function ({ count }) { hints.open("g;", { continue: true, count: count }); }, { count: true });
 map g;u -description "Remove subdomain(s) from current URL" -js dactyl.open(urlDomain(buffer.URL, true, count||1));
 
 map g# -description "Remove fragment from current URL" -js dactyl.open(buffer.URL.replace(/#.*$/, ""));
