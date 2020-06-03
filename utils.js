@@ -218,9 +218,10 @@ var utils = {
         return s;
     },
 
-    cbWrite: function (s) {
+    cbWrite: function (s, messagePrefix="Copied: ") {
+        if (!messagePrefix) messagePrefix = "";
         dactyl.clipboardWrite(s);
-        utils.message(s);
+        utils.message(messagePrefix+s);
     },
 
     cbWriteWithMessageLimit: function (s) {
