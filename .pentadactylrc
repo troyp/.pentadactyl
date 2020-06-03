@@ -2933,6 +2933,7 @@ map <leader>cR :<up><Home><forward-word><Space>
 " Search clipboard contents using search keyword
 map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
 map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
+map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
 
 " ,-------------------,
 " | Command-line only |
