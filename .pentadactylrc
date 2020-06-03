@@ -145,6 +145,8 @@ if (isWaterfox) browserExec = "/opt/waterfox/waterfox";
 "utility functions"
 // Array methods for other collections
 A = {
+    uniq:        (coll) => [...new RealSet(coll)],
+    from:        (coll) => Array.from(coll),
     map:         (coll, f) => Array.from(coll).map(f),
     filter:      (coll, f) => Array.from(coll).filter(f),
     forEach:     (coll, f) => Array.from(coll).forEach(f),
@@ -153,6 +155,7 @@ A = {
     some:        (coll, f) => Array.from(coll).some(f),
     includes:    (coll, f, fromIndex=undefined) => Array.from(coll).includes(f, fromIndex),
     indexOf:     (coll, f, fromIndex=undefined) => Array.from(coll).indexOf(f, fromIndex),
+    last:        (coll, n=1) => Array.from(coll)[coll.length-n],
     concatMap:   (coll, f) => [].concat.apply([], Array.from(coll).map(e=>Array.from(f(e)))),
     mapProperty: (coll, p) => Array.from(coll).map(e=>e[p]),
     zip2:        (coll1, coll2) => Array.from(coll1).map((e,i)=>[e, coll2[i]]),
@@ -171,7 +174,6 @@ A = {
                      subArrays.push(currentSub);
                      return subArrays;
                  },
-    from: (coll) => Array.from(coll),
     range: function (...args) {
         " range([beg=0], end, [step=1]) ";
         var beg=0, end, step=1;
