@@ -2678,7 +2678,9 @@ map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s      -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>s<C-h> -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>saa -description "Shopping search: art (quick)" -b :shopartquick<Space>
-map <search>saj -description "Shopping search: art (jacksons, ebay, amazonAU)" -b :shopJacksonsEbayAmazau<Space>
+map <search>saj
+\    -description "Shopping search: art (jacksons, ebay, amazonAU)"
+\    -js CommandExMode().open("shopJacksonsEbayAmazau"+(count?"! ":" "));
 map <search>saA -description "Shopping search: art" -b :shopart<Space>
 map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" -b :shopartEbayAmaz<Space>
 map <search>sjj -description "Shopping search: Jacksons UK" -js CommandExMode().open(count?"jacksonsartSearch ":"jacksonsartSearch! ");
@@ -2687,7 +2689,9 @@ map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
 map <search>sv      -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
 map <search>sv<C-h> -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
 map <search>svfm  -description "Shopping search/Vaping: fasttech mods" -b :shopvapeFtMod<Space>
-map <search>sz  -description "Shopping search: ebay + amazon.au" -b :shopEbayAmazau<Space>
+map <search>sz
+\    -description "Shopping search: ebay + amazon.au"
+\    -js CommandExMode().open("shopEbayAmazau"+(count?"! ":" "));
 map <search>;saz
 \    -description "Clipboard Shopping search: art (ebay + amazon + amazon.au)"
 \    -js multipleEngineSearch(["e", "amazart", "amazau"], readFromClipboard());
@@ -2771,20 +2775,25 @@ command! shopartquick -description "Shopping search: art (quick)"
 \    -nargs=* -js multipleEngineSearch(searchEngineArtShopsMain, args.join(" "));
 command! shopEbayAmazau
 \    -description "Shopping search: ebay + amazon"
-\    -nargs=*
+\    -bang -nargs=*
 \    -js multipleEngineSearchWithDefaults(
 \            [
-\                ["e", "https://cart.ebay.com.au"],
-\                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
+\                ["e", bang ? "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2"
+\                           : "https://cart.ebay.com.au"],
+\                [ "amazau", bang ? "https://www.amazon.com.au/gp/css/order-history/ref=nav_nav_orders_first"
+\                                 : "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart" ]
 \            ], args.join(" "));
 command! shopJacksonsEbayAmazau
 \    -description "Shopping search: ebay + amazon"
-\    -nargs=*
+\    -bang -nargs=*
 \    -js multipleEngineSearchWithDefaults(
 \            [
-\                ["shopja", "https://www.jacksonsart.com/en-au/checkout/cart/"],
-\                ["e", "https://cart.ebay.com.au"],
-\                ["amazau", "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart"]
+\                ["shopja", bang ? "https://www.jacksonsart.com/en-au/sales/order/history/"
+\                                : "https://www.jacksonsart.com/en-au/checkout/cart/"],
+\                ["e", bang ? "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2"
+\                           : "https://cart.ebay.com.au"],
+\                [ "amazau", bang ? "https://www.amazon.com.au/gp/css/order-history/ref=nav_nav_orders_first"
+\                                 : "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart" ]
 \            ], args.join(" "));
 command! shopartEbayAmaz -description "Shopping search: ebay + amazon"
 \    -nargs=* -js multipleEngineSearch(["e", "amazart", "amazau"], args.join(" "));
