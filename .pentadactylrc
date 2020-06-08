@@ -1687,6 +1687,7 @@ map <leader>vf;in  -description "Convert inches to centimeters (by hints)" -js h
 map <leader>v;usd  -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
 map <leader>v;plb  -description "Convert paper weight from Lb to GSM (Lb->GSM)" -b :convertPaperLbtoGSM<Space>
 map <leader>v;pgsm -description "Convert paper weight from GSM to Lb (GSM->Lb)" -b :convertPaperGSMtoLb<Space>
+map <leader>v;ps   -description "Show paper size dimensions" -b :papersize<Space>
 map <leader>v;foz  -description "Convert volume from US fluid oz to ml (fluid oz->ml)" -b :convertFluidOzToMl<Space>
 map <leader>v;cm   -description "Convert length from cm to in (cm->in)" -b :convertCmToIn<Space>
 map <leader>v;in   -description "Convert length from in to cm (in->cm)" -b :convertInToCm<Space>
@@ -1735,6 +1736,13 @@ command! convertCmToIn  -description "Convert lengths from cm to in"
 command! convertInToCm  -description "Convert lengths from in to cm"
 \    -nargs *
 \    -js utils.message(args.map(n=>`${n}in=${inToCm(n)}cm`).join(", "));
+
+command! papersize
+\    -description "Show paper size dimensions"
+\    -nargs 1
+\    -complete custom," (context) => { context.completions = paperSizes; } "
+\    -js utils.message(`${args[0]}: ${paperSizes.find(e=>e[0].toUpperCase()==[args[0].toUpperCase()])[1]}`);
+
 command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
 command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
 map <leader>+ -b :sum<Space>
@@ -1768,6 +1776,22 @@ function convertUnitsWrapper(...args) {
     var res = convertUnits(n, unit1, unit2);
     return n + unit1 + " = " + res + unit2;
 }
+
+var paperSizes = [
+    ["4A0", "1682×2378 mm	66.2×93.6 in"],
+    ["2A0", "1189×1682 mm	46.8×66.2 in"],
+    ["A0", "841×1189 mm	33.1×46.8 in"],
+    ["A1", "594×841 mm	23.4×33.1 in"],
+    ["A2", "420×594 mm	16.5×23.4 in"],
+    ["A3", "297×420 mm	11.7×16.5 in"],
+    ["A4", "210×297 mm	8.3×11.7 in"],
+    ["A5", "148×210 mm	5.8×8.3 in"],
+    ["A6", "105×148 mm	4.1×5.8 in"],
+    ["A7", "74×105 mm	2.9×4.1 in"],
+    ["A8", "52×74 mm	2.0×2.9 in"],
+    ["A9", "37×52 mm	1.5×2.0 in"],
+    ["A10", "26×37 mm	1.0×1.5 in"]
+];
 EOF
 
 " Download PDF "
