@@ -2002,6 +2002,15 @@ map <leader>avp
 map <leader>avy
 \    -description "Goto Youtube"
 \    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
+
+" Utils "
+map <leader>au
+\    -description "(show bindings: Web Sites/Utils)"
+\    -js CommandExMode().open("showkeys <leader>au");
+map <leader>aut
+\    -description "Track packages"
+\    -js CommandExMode().open("trackpackages"+(count?"! ":" "));
+
 " Weather "
 map <leader>aw
 \    -description "(show bindings: Web Sites/Weather)"
@@ -2158,6 +2167,12 @@ command! kingjames -description "King James Bible BOOK [CH:SEC]"
 \    -nargs=*
 \    -complete custom," (context) => { context.completions = kingJamesBooks.map(b=>[b, null]); } "
 \    -js kingJames(args[0], args[1]);
+
+command! trackpackages
+\    -description "Track packages"
+\    -bang
+\    -nargs=+
+\    -js openOrSelectTab("https://t.17track.net/en#nums=" + args.join(","), bang?"here":"tab");
 
 " ,--------------,
 " | Bookmarklets |
