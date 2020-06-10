@@ -1983,10 +1983,10 @@ map <leader>at
 " <leader>av - Video & Radio"
 map <leader>av
 \    -description "(show bindings: Web Sites/Video&Radio)"
-\    -js CommandExMode().open("showkeys <leader>as");
+\    -js CommandExMode().open("showkeys <leader>av");
 map <leader>av<C-h>
 \    -description "(show bindings: Web Sites/Video&Radio)"
-\    -js CommandExMode().open("showkeys <leader>as");
+\    -js CommandExMode().open("showkeys <leader>av");
 map <leader>ava
 \     -description "AccuRadio Classical"
 \     -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
