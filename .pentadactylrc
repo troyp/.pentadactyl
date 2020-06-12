@@ -3401,8 +3401,8 @@ map -modes input -b <A-:> <Esc>d<C-^>
 
 " Background Tabs "
 map C   -description "Duplicate current tab"                            -js tabCopyLeftBg();
-map gh  -description "Open previous page in history in background tab"  -js backt();
-map gl  -description "Open next page in history in background tab"      -js forwardt();
+map gh  -description "Open previous page in history in background tab"  -js backt(count||1);
+map gl  -description "Open next page in history in background tab"      -js forwardt(count||1);
 map gf  -description "Open multiple links in background tabs (HINTS)"   -b g;b
 
 " ,-----------------------------,
@@ -5809,22 +5809,22 @@ undob = function() {
 }
 
 " Create adjacent duplicate tab and go back in the browser history "
-backt = function () {
+backt = function (n=1) {
     var dupT = tabs.cloneTab(tabs.getTab(), true);
     var dupTB = gBrowser.getBrowserForTab(dupT);
     var backtListener = function () {
-        gBrowser.goBack();
+        content.window.history.go(-n);
         dupTB.removeEventListener("DOMContentLoaded", backtListener);
     };
     dupTB.addEventListener("DOMContentLoaded", backtListener);
 }
 
 " Create adjacent duplicate tab and go forward in the browser history "
-forwardt = function() {
+forwardt = function(n=1) {
     var dupT = tabs.cloneTab(tabs.getTab(), true);
     var dupTB = gBrowser.getBrowserForTab(dupT);
     var forwardtListener = function () {
-        gBrowser.goForward();
+        content.window.history.go(n);
         dupTB.removeEventListener("DOMContentLoaded", forwardtListener);
     };
     dupTB.addEventListener("DOMContentLoaded", forwardtListener);
