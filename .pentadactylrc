@@ -1540,6 +1540,11 @@ map <leader>rd
 \    -description "(show bindings: Reference/Dictionaries+Language)"
 \    -js CommandExMode().open("showkeys <leader>rd");
 
+map <leader>rdd
+\    -description "(show bindings: Reference/Dictionaries+Language/Dictionary)"
+\    -js CommandExMode().open("showkeys <leader>rdd");
+map <leader>rddd -description "Local Dictionary (dict)" -b :localdict<Space>
+
 map <leader>rdt
 \    -description "(show bindings: Reference/Dictionaries+Language/Thesaurus)"
 \    -js CommandExMode().open("showkeys <leader>rdt");
@@ -1578,8 +1583,17 @@ map <leader>rwp
 command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
 command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
 command! thesauruswiktionary -bang -nargs + -js thesaurusWiktionary(args.join(" "));
+command! localdict -nargs + -js utils.messageWithLineLimit(localdict(args.join(" ")) || "no results found");
 
 js <<EOF
+function localdict(s) {
+    var gcide = io.system(`dict -d gcide '${s}' | perl -000 -lpe 's/ *\n */ /g'`);
+    var wn = io.system(`dict -d wn '${s}'| perl -000 -lpe 's/ *\n */ /g'`);
+    var output = "";
+    if (gcide.returnValue==0) output += gcide.output;
+    if (wn.returnValue==0) output += wn.output;
+    return output;
+}
 function thesaurusAik(s, wrap=160) {
     cmd = `aiksaurus ${s}`;
     var res = io.system(cmd);
