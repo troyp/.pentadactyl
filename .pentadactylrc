@@ -1563,7 +1563,8 @@ map <leader>rw
 map <leader>rwc
 \     -description "Goto Wikpedia periodic table of elements"
 \     -count -js openOrSelectTabAndRunCode("https://en.wikipedia.org/wiki/Periodic_table",
-\                    ()=>getFirstSelectorByText('h2','Overview').scrollIntoView());
+\                    ()=>getFirstSelectorByText('h2','Overview').scrollIntoView(),
+\                    count?"here":"adjacent");
 map <leader>rwe
 \     -description "Goto Wikpedia episode list"
 \     -b :wpeplist<SPACE>
