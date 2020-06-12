@@ -2720,6 +2720,9 @@ map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s      -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>s<C-h> -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>saa -description "Shopping search: art (quick)" -b :shopartquick<Space>
+map <search>sab
+\    -description "Shopping search: art (bunbougu, ebay, amazonAU)"
+\    -js CommandExMode().open("shopBunbouguEbayAmazau"+(count?"! ":" "));
 map <search>saj
 \    -description "Shopping search: art (jacksons, ebay, amazonAU)"
 \    -js CommandExMode().open("shopJacksonsEbayAmazau"+(count?"! ":" "));
@@ -2820,6 +2823,18 @@ command! shopEbayAmazau
 \    -bang -nargs=*
 \    -js multipleEngineSearchWithDefaults(
 \            [
+\                ["e", bang ? "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2"
+\                           : "https://cart.ebay.com.au"],
+\                [ "amazau", bang ? "https://www.amazon.com.au/gp/css/order-history/ref=nav_nav_orders_first"
+\                                 : "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart" ]
+\            ], args.join(" "));
+command! shopBunbouguEbayAmazau
+\    -description "Shopping search: ebay + amazon"
+\    -bang -nargs=*
+\    -js multipleEngineSearchWithDefaults(
+\            [
+\                ["shopbunbougu", bang ? "https://www.bunbougu.com.au/account"
+\                                      : "https://www.bunbougu.com.au/cart"],
 \                ["e", bang ? "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2"
 \                           : "https://cart.ebay.com.au"],
 \                [ "amazau", bang ? "https://www.amazon.com.au/gp/css/order-history/ref=nav_nav_orders_first"
