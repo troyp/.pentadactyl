@@ -1457,7 +1457,7 @@ map <leader>nr -description "Remove cruft" -ex removecruft
 
 js <<EOF
 function isolateArticle() {
-    isolateSelectors("article:first-of-type");
+    isolateSelectors("article:first-of-type", ".article");
     removeSelectors(".sharedaddy");
 }
 EOF
