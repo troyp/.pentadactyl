@@ -1990,6 +1990,9 @@ map <leader>av<C-h>
 map <leader>ava
 \     -description "AccuRadio Classical"
 \     -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
+map <leader>avd -description "Open Disney Plus"
+\    -count
+\    -js openOrSelectTab("https://www.disneyplus.com/en-gb/home", count?"here":"tab");
 :if isPalemoon
     map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
 :else
