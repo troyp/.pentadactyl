@@ -13769,6 +13769,22 @@ function getSelectionDOM() {
 }
 window.getSelectionDOM = getSelectionDOM;
 
+" ,---------------------------, "
+" | Functions taking Elements | "
+" '---------------------------' "
+
+function getStyleProperty(elt, prop) {
+    var style = eltStyle(elt);
+    var val = style.getPropertyValue(prop);
+    return val!="none" && val;
+}
+window.getStyleProperty = getStyleProperty;
+
+function getBackgroundImages() {
+    var allElts = Array.from(content.document.getElementsByTagName("*"));
+    return allElts.filter(e => getStyleProperty(e, "background-image"));
+}
+
 " ,----------------------------------------, "
 " | Functions taking Elements or Selectors | "
 " '----------------------------------------' "
@@ -14403,6 +14419,13 @@ function getHomeDir() {
     return homedir+'/';
 }
 
+function getLinksWithMatchingUrl(s) {
+    var links = Array.from(content.document.getElementsByTagName('a'));
+    var matching = links.filter(l=>l.href.match(s));
+    return matching;
+}
+window.getLinksWithMatchingUrl = getLinksWithMatchingUrl;
+
 " ,------------, "
 " | conversion | "
 " '------------' "
@@ -14743,13 +14766,6 @@ function removeXPath(xpathexpr) {
     }
 }
 
-function getLinksWithMatchingUrl(s) {
-    var links = Array.from(content.document.getElementsByTagName('a'));
-    var matching = links.filter(l=>l.href.match(s));
-    return matching;
-}
-window.getLinksWithMatchingUrl = getLinksWithMatchingUrl;
-
 function matches(var_, regex) { return (var_ && var_.match && var_.match(regex)); }
 window.matches = matches;
 
@@ -14787,17 +14803,6 @@ function getDate(fmt='%y-%m-%d-%T') {
     return io.system(`date '+${fmt}'`).output;
 }
 
-function getStyleProperty(elt, prop) {
-    var style = content.window.getComputedStyle(elt);
-    var val = style.getPropertyValue(prop);
-    return val!="none" && val;
-}
-window.getStyleProperty = getStyleProperty;
-
-function getBackgroundImages() {
-    var allElts = Array.from(content.document.getElementsByTagName("*"));
-    return allElts.filter(e => getStyleProperty(e, "background-image"));
-}
 
 " ------------------------------------------------------------------------------- "
 " ,-------------------------,                                                     "
