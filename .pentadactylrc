@@ -13773,6 +13773,8 @@ window.getSelectionDOM = getSelectionDOM;
 " | Functions taking Elements | "
 " '---------------------------' "
 
+window.eltStyle = eltStyle = elt=>elt.currentStyle||content.window.getComputedStyle(elt, false);
+
 function getStyleProperty(elt, prop) {
     var style = eltStyle(elt);
     var val = style.getPropertyValue(prop);
