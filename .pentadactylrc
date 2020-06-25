@@ -14629,6 +14629,30 @@ function savePageDialog() {
 }
 window.savePageDialog = savePageDialog;
 
+function saveDOM(file, doc=content.document) {
+    var nsifile = new FileUtils.File(file);
+    var wbpc = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'];
+    var wbp = wbpc.createInstance(Components.interfaces.nsIWebBrowserPersist);
+    wbp.saveDocument(doc, nsifile, null, null, null, null);
+}
+window.saveDOM = saveDOM;
+
+function writeToFile(s, filepath, append=false, overwrite=false) {
+    var file = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
+    file.initWithPath(filepath);
+    var outputStream = XpcInstance("@mozilla.org/network/file-output-stream;1", Components.interfaces.nsIFileOutputStream);
+    " PR_OPEN flags: 0x02=open for writing ";
+    " 0x08=create file if not existing (0x08|0x80=error if existing) ";
+    " 0x20=truncate existing file to length 0 ";
+    var flags = 0x02|0x08;
+    if (append) flags |= 0x10;
+    else flags |= (overwrite ? 0x20 : 0x80);
+    outputStream.init(file, flags, -1, 0);
+    var bytesWritten = outputStream.write(s, s.length);
+    utils.message(`${bytesWritten} bytes written to ${filepath}`);
+}
+window.writeToFile = writeToFile;
+
 function getLastDownload(n=1) {
     dlListP = Downloads.getSummary(Downloads.ALL);
     var resultP = dlListP.then(function (dlList) {
