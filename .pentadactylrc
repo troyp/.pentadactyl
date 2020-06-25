@@ -1218,12 +1218,19 @@ function renameLastDownload(n=1) {
     })
 }
 EOF
+
+" ,---------------------------------------,
+" | <app>a -- External Application (misc) |
+" '---------------------------------------'
 map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>ap
 \    -description "Open colour picker (gpick)"
 \    -ex !gpick
 
+" ,-------------------------,
+" | <app>c -- Google Chrome |
+" '-------------------------'
 map <app>c -description "(show bindings: Open in Google Chrome)" -js CommandExMode().open("showkeys <app>c");
 map <app>cc
 \    -description "Open in Google Chrome (minimal profile)"
@@ -1240,6 +1247,10 @@ map <app>c;c
 map <app>c;u
 \    -description "Open URL in Google Chrome (default profile)"
 \    -b :ochromeurl<Space>
+
+" ,---------------------,
+" | <app>d -- Downloads |
+" '---------------------'
 map <app>d
 \    -description "(show bindings: Access Downloads)"
 \    -count
@@ -1333,6 +1344,7 @@ map <app>ps
 map <app>pu
 \    -description "Password hasher: hash site domain"
 \    -b :pwhashdomain<Space>
+
 " ,---------------------------------,
 " | <app>s -- Switch to Application |
 " '---------------------------------'
@@ -1461,7 +1473,6 @@ function isolateArticle() {
     removeSelectors(".sharedaddy");
 }
 EOF
-
 
 " ,------------------,
 " | <leader>o - Open |
