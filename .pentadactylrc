@@ -1253,11 +1253,11 @@ map <app>dm
 \    -count
 \    -js openLastDownloadAsMaff(count||1);
 map <app>dr
-\    -description "Rename last download using xdg-open"
+\    -description "Rename last download"
 \    -count
 \    -js renameLastDownload(count||1)
 map <app>dt
-\    -description "Trash last download using xdg-open"
+\    -description "Trash last download"
 \    -count
 \    -js trashLastDownload(count||1)
 map <app>dx
