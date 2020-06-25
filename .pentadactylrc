@@ -1328,6 +1328,9 @@ map <app>ew
 map <app>D
 \    -description "Open directory in Dolphin"
 \    -ex openDirectoryInDolphin
+map <app>iv
+\    -description "Open (counth) last VLC screenshot"
+\    -js utils.message(io.system(`( cd ~/Pictures/vlc-snapshot; display $(\\ls -t | tail -n+1 | head -n1 | xargs realpath)` ).output);
 map <app>op
 \    -description "Visit Packt Free Learning site in Google Chrome"
 \    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
