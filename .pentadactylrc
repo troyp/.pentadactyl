@@ -5592,6 +5592,28 @@ map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http:/
 
 map <leader>ii -description "View or follow image" -js hints.show("ἱ");
 
+" ,-------------------------------------, "
+" | <leader>it -- Misc/Images/Transform | "
+" '-------------------------------------' "
+map <leader>it -description "(show bindings: Misc/Images/Transform)" -js CommandExMode().open("showkeys <leader>it");
+map <leader>itf -description "Flip image (URL) horizontally" -js imageTransform("flop");
+map <leader>itF -description "Flip image (URL) vertically" -js imageTransform("flip");
+map <leader>itr -description "Rotate image (URL) by Θ degrees" -b :imagerotate<Space>
+
+command! imagerotate -description "Rotate image (URL) by Θ degrees" -nargs 1 -js imageTransform("rotate "+args[0]);
+
+js <<EOF
+function imageTransform(type) {
+    var name = buffer.URL.split("/").pop();
+    var tempdir = io.system("mktemp -d").output;
+    var path = tempdir+"/"+name;
+    dactyl.execute(`saveas ${path.replace(" ", "\ ")}`);
+    " type = argument to mogrify, eg. 'flip' (V reflect), 'flop' (H reflect), 'rotate DEG' ";
+    io.system(`mogrify -${type} '${path}'`);
+    dactyl.open("file://"+path);
+}
+EOF
+
 " -------------------------------------------------------------------------------
 " ,---------------,
 " | Text Encoding |
