@@ -1254,7 +1254,7 @@ map <app>c;u
 map <app>d
 \    -description "(show bindings: Access Downloads)"
 \    -count
-\    -js CommandExMode().open("showkeys <app>a");
+\    -js CommandExMode().open("showkeys <app>d");
 map <app>dd
 \    -description "Open last download directory in Dolphin"
 \    -count
