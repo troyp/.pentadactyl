@@ -1275,6 +1275,10 @@ map <app>dx
 \    -description "Open last download using xdg-open"
 \    -count
 \    -js xdgOpenLastDownload(count||1)
+map <app>dX
+\    -description "Open last download and set default application for type"
+\    -count
+\    -js xdgOpenAndSetAppForLastDownload(count||1)
 map <app>dy
 \    -description "Yank last download path"
 \    -count
@@ -14687,6 +14691,11 @@ function xdgOpenLastDownload(n=1) {
     dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
 }
 window.xdgOpenLastDownload = xdgOpenLastDownload;
+
+function xdgOpenAndSetAppForLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -d '${dl}'"`); });
+}
 
 function trashLastDownload(n=1) {
     var dlP = getLastDownload(n);
