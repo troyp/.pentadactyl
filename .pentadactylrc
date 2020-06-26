@@ -5577,21 +5577,19 @@ function openSelectionLinks() { getSelectionLinks().forEach(l=>openOrSelectTab(l
 function dlSelectionLinks(dir=null, subdir=null) { return dlLinks(getSelectionLinks(), dir, subdir); }
 EOF
 
-" -------------------------------------------------------------------------------
-" ,----------------,
-" | Image Commands |
-" '----------------'
-map <leader>i
-\    -description "(show bindings: Misc/Images)"
-\    -js CommandExMode().open("showkeys <leader>i");
-map <leader>i<C-h>
-\    -description "(show bindings: Misc/Images)"
-\    -js CommandExMode().open("showkeys <leader>i");
-" <leader>id - Misc/Images/Diagrams "
-map <leader>ida
-    \ -description "Open AsciiFlow"
-    \ -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
+" ------------------------------------------------------------------------------- "
+" ,----------------,                                                              "
+" | Image Commands |                                                              "
+" '----------------'                                                              "
+map <leader>i -description "(show bindings: Misc/Images)" -js CommandExMode().open("showkeys <leader>i");
 map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
+
+" ,------------------------------------, "
+" | <leader>id -- Misc/Images/Diagrams | "
+" '------------------------------------' "
+map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
+map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
+
 map <leader>ii -description "View or follow image" -js hints.show("ἱ");
 
 " -------------------------------------------------------------------------------
