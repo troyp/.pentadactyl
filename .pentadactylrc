@@ -1202,28 +1202,6 @@ map <browser>.a -description "Stop loading all"                     -ex stopall
 " ,-------------------------------------,
 " | <app>a -- Open external application |
 " '-------------------------------------'
-js <<EOF
-function openLastDownloadAsMaff(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(f=> openMaffFile(f));
-}
-
-function openLastDownloadDir(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(f=> io.system(`dolphin $(dirname "${f}")`));
-}
-
-function renameLastDownload(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(f=> {
-        utils.message(
-            io.system(
-                `mv ${f} $(zenity --entry --text "Rename" --entry-text="${f}" 2>/dev/null)`
-            ).output);
-    })
-}
-EOF
-
 " ,---------------------------------------,
 " | <app>a -- External Application (misc) |
 " '---------------------------------------'
@@ -1288,19 +1266,28 @@ map <app>dy
 \    -description "Yank last download path"
 \    -count
 \    -js getLastDownload(count||1).then(function (dlPath) { dactyl.utils.cbWrite(dlPath); });
-map <app>f
-\    -description "Open in Firefox"
-\    -ex ofox
-map <app>q
-\    -description "Open in Qutebrowser"
-\    -ex oqute
-map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
-map <app>x
-\    -description "Open local file with xdg-open"
-\    -js xopenMaybeFromBufferDir();
 
-" Open MAFF in browser "
-command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
+js <<EOF
+function openLastDownloadAsMaff(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(f=> openMaffFile(f));
+}
+
+function openLastDownloadDir(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(f=> io.system(`dolphin $(dirname "${f}")`));
+}
+
+function renameLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(f=> {
+        utils.message(
+            io.system(
+                `mv ${f} $(zenity --entry --text "Rename" --entry-text="${f}" 2>/dev/null)`
+            ).output);
+    })
+}
+EOF
 
 " ,-------------------------,
 " | <app>e -- Open in Emacs |
@@ -1316,6 +1303,7 @@ function openPageTextInEmacs(createFrame=true) {
     io.system(cmd);
 }
 EOF
+
 map <app>e -description "(show bindings: Open in Emacs)" -js CommandExMode().open("showkeys <app>e")
 map <app>ee
 \    -description "Open file in Emacs"
@@ -1334,6 +1322,9 @@ map <app>ew
 \    -description "Open page in Emacs w3m"
 \    -js dactyl.execute("!emacsclient -e '(w3m-goto-url "+'"'+buffer.URL+'")'+"'");
 
+map <app>f
+\    -description "Open in Firefox"
+\    -ex ofox
 map <app>D
 \    -description "Open directory in Dolphin"
 \    -ex openDirectoryInDolphin
@@ -1343,6 +1334,10 @@ map <app>iv
 map <app>op
 \    -description "Visit Packt Free Learning site in Google Chrome"
 \    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
+
+" ,--------------------,
+" | <app>p -- Password |
+" '--------------------'
 map <app>p -description "(show bindings: Password Hasher)" -js CommandExMode().open("showkeys <app>p")
 map <app>ph
 \    -description "Password hasher"
@@ -1356,6 +1351,18 @@ map <app>ps
 map <app>pu
 \    -description "Password hasher: hash site domain"
 \    -b :pwhashdomain<Space>
+
+map <app>q
+\    -description "Open in Qutebrowser"
+\    -ex oqute
+map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
+map <app>x
+\    -description "Open local file with xdg-open"
+\    -js xopenMaybeFromBufferDir();
+
+" Open MAFF in browser "
+command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
+command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || buffer.URL} | mpg123 -`)).output);
 
 " ,---------------------------------,
 " | <app>s -- Switch to Application |
