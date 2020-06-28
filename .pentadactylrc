@@ -1242,6 +1242,10 @@ map <app>dd
 \    -description "Open last download directory in Dolphin"
 \    -count
 \    -js openLastDownloadDir(count||1);
+map <app>dD
+\    -description "Open last download directory in browser"
+\    -count
+\    -js openLastDownloadDirInBrowser(count||1);
 map <app>dm
 \    -description "Open last download as MAFF file"
 \    -count
@@ -1262,6 +1266,10 @@ map <app>dX
 \    -description "Open last download and set default application for type"
 \    -count
 \    -js xdgOpenAndSetAppForLastDownload(count||1)
+map <app>dv
+\    -description "Open last download in browser"
+\    -count
+\    -js openLastDownloadInBrowser(count||1)
 map <app>dy
 \    -description "Yank last download path"
 \    -count
@@ -1276,6 +1284,16 @@ function openLastDownloadAsMaff(n=1) {
 function openLastDownloadDir(n=1) {
     var dlP = getLastDownload(n);
     dlP.then(f=> io.system(`dolphin $(dirname "${f}")`));
+}
+
+function openLastDownloadDirInBrowser(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(f=> dactyl.open(`file://${f.replace(/[^/]*$/, "")}`, "tab"));
+}
+
+function openLastDownloadInBrowser(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(f=> openOrSelectTab(`file://${f}`));
 }
 
 function renameLastDownload(n=1) {
