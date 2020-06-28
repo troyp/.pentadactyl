@@ -579,6 +579,11 @@ function searchCommandsBrief(...pats) { searchCommands1(pats, true); }
 window.searchCommands = searchCommands;
 window.searchCommandsBrief = searchCommandsBrief;
 
+function allCommands() { return commands.hives.flatMap(h=>h._list); }
+function getCommand(name) { return allCommands().find(cmd=>cmd.name==name); }
+window.allCommands = allCommands;
+window.getCommand = getCommand;
+
 function getGroups() { return contexts.activeGroups().map(g=>g.name); }
 function getAllCommands() { return commands.hives.flatMap(); }
 function getCommandsByGroup(g) { return commands.hives.find(h=>h.name==g); }
