@@ -5624,7 +5624,18 @@ map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
 map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
 
-map <leader>ii -description "View or follow image" -js hints.show("ἱ");
+" ,---------------------------------------,
+" | <leader>i -- Transform image in-place |
+" '---------------------------------------'
+map <leader>ii -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>ii");
+map <leader>iif -description "Flip image horizontally [HINTS]" -js hints.show("ῑ");
+map <leader>iiF -description "Flip image vertically [HINTS]" -js hints.show("ί");
+map <leader>iii -description "Restore image (cancel transform) [HINTS]" -js hints.show("ɩ");
+map <leader>iim -description "Transform image using matrix [HINTS]" -b :imagematrix<Space>
+map <leader>iir -description "Resize image [HINTS]" -b :imageresize<Space>
+
+command! imageresize -description "Resize image [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ῐ");
+command! imagematrix -description "Transform image using matrix [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ϊ");
 
 " ,-------------------------------------, "
 " | <leader>it -- Misc/Images/Transform | "
@@ -6434,6 +6445,13 @@ js hints.addMode('σ', 'yank <span> of text', (e)=>utils.cbWrite(e.textContent))
 " =======
 set eht+=[ἱ]:img
 js hints.addMode('ἱ', 'View/follow image', elem => dactyl.open(getImageUrl(elem)));
+
+set eht+=[ɩῑίῘΪ]:img
+js hints.addMode('ɩ', 'Remove transformations from image', elem => elem.style.transform="");
+js hints.addMode('ῑ', 'Flip image horizontally', elem => elem.style.transform="scaleX(-1)");
+js hints.addMode('ί', 'Flip image vertically', elem => elem.style.transform="scaleY(-1)");
+js hints.addMode('Ῐ', 'Resize image', elem => elem.style.transform=`scale(${window._dactylargs[0]})`);
+js hints.addMode('Ϊ', 'Transform image using matrix', elem => elem.style.transform=`matrix(${window._dactylargs[0]})`);
 
 " Background Images "
 set eht+=[ι]:a,div,span,header,footer,aside,p,h1,h2
