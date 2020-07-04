@@ -9637,6 +9637,7 @@ command! gtrtogglefontsize
     \ -description "Toggle font size for textarea"
     \ -js gtrTextBoxToggleFontSize();
 
+map <site>i  -description "(show bindings: Input)" -js CommandExMode().open("showkeys <site>i")
 map <site>if -description "Toggle font size" -ex gtrtogglefontsize
 map <site>iF -description "Set font size" :gtrfontsize<Space>
 map <site>y  -description "Copy contents of source area to clipboard"   -ex gtryanksource
@@ -9703,14 +9704,16 @@ function gtrImeCopyCandidate(n=1) {
     return candidateDiv.innerText;
 }
 
-function gtrImeMoveHandWriteBox(h="365px") {
+function gtrImeMoveHandWriteBox(top="560px", left="63px") {
     var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
-    hwBox.style.top = h;
+    hwBox.style.top = top;
+    hwBox.style.left = left;
 }
 
-function gtrImeSetWidth(w) {
+function gtrImeSetWidth(width="") {
+    if (String(width).match(/[0-9]$/)) width = width+"px";
     var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
-    hwBox.style.width = w;
+    hwBox.style.width = width;
 }
 
 function gtrImeGetWidth() {
@@ -9739,15 +9742,16 @@ command! hwoff
     \ -description "Hide Handwritten Input box"
     \ -js gtrImeHideHandWriteInput();
 command! hwboxrepos
+    \ -nargs=+
     \ -description "Reposition Handwritten Input box"
-    \ -js gtrImeMoveHandWriteBox();
+    \ -js gtrImeMoveHandWriteBox(...args);
 command! hwgetwidth
     \ -description "Show width of Handwritten input box"
     \ -js dactyl.utils.message(gtrImeGetWidth());
 command! hwsetwidth
     \ -description "Set width of Handwritten Input box"
     \ -nargs=?
-    \ -js gtrImeSetWidth((args[0] || "425") + "px");
+    \ -js gtrImeSetWidth(...args);
 command! hwtogglewidth
     \ -description "Toggle normal-width/wide IME box"
     \ -js if (gtrImeGetWidth() != "800px") gtrImeSetWidth("800px"); else gtrImeSetWidth("425px");
@@ -9760,6 +9764,9 @@ command! hwjishokanjisearch
     \ -js gtrJishoKanjiSearchSource(bang?'here':'tab');
 
 map <site>h        -description "HW input box: toggle" -js gtrImeToggleHandWriteInput()
+map <site>ii       -description "(show bindings: Input/HWbox)" -js CommandExMode().open("showkeys <site>ii")
+map <site>iiw      -description "HW input box: set width" -b :hwsetwidth<Space>
+map <site>iil      -description "HW input box: reposition" -b :hwboxrepos<Space>
 map <site>k        -description "Open Jisho.org kanji page (new tab)"
     \ -js dactyl.open(`http://jisho.org/search/${gtrImeGetCandidate()}%23kanji`, {where:dactyl.NEW_TAB})
 map <site>K        -description "Open Jisho.org kanji page (current tab)"
