@@ -14729,9 +14729,9 @@ function writeToFile(s, filepath, append=false, overwrite=false) {
     var file = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
     file.initWithPath(filepath);
     var outputStream = XpcInstance("@mozilla.org/network/file-output-stream;1", Components.interfaces.nsIFileOutputStream);
-    " PR_OPEN flags: 0x02=open for writing ";
-    " 0x08=create file if not existing (0x08|0x80=error if existing) ";
-    " 0x20=truncate existing file to length 0 ";
+    " PR_OPEN flags: 0x02 = open for writing ";
+    "                0x08 = create file if not existing (0x08|0x80 = error if existing) ";
+    "                0x20 = truncate existing file to length 0 ";
     var flags = 0x02|0x08;
     if (append) flags |= 0x10;
     else flags |= (overwrite ? 0x20 : 0x80);
