@@ -3387,6 +3387,7 @@ map <buffer>dw
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
 map <buffer>d<Space>  -description "Close tabs selected via popup menu" -js tabsRemoveWithDMenu();
 map <buffer>d;<Space> -description "Keep only tabs selected via popup menu" -js tabsFilterWithDMenu();
+map <buffer>d,      -description "Close a list tabs or tab ranges separated by spaces or commas" -b :tabcloseranges<Space>
 map <buffer><BS>    -description "Close tab to left" -b gTd
 
 map <buffer>j       -description "Goto jump" -ex jumps
@@ -3647,6 +3648,12 @@ command! tabclosefromherebefore
 \ -complete=buffer
 \ -js closeTabsFromHereTo(parseInt(args[0])-1);
 
+command! tabcloseranges
+\    -description "Close a list tabs or tab ranges separated by spaces or commas"
+\    -nargs +
+\    -complete=buffer
+\    -js tabCloseRanges(args.join(","));
+
 js <<EOF
 function closeTabRange(firstOrd, endOrd) {
     "Close tabs from firstOrd to endOrd-1"
@@ -3760,6 +3767,12 @@ function tabRangePreprocess(s) {
     s = s.replace(/\./g, i);
     s = s.replace(/\$/g, n);
     return s;
+}
+
+function tabCloseRanges(...ss) {
+    var tabnums = parseRanges(tabRangePreprocess(ss.join(",")));
+    tabnums.sort((a,b)=>a<b).forEach(i=>tabs.remove(tabs.getTab(i-1)));
+    utils.message(`${tabnums.length} tabs closed`);
 }
 
 function tabRemove(f) {
