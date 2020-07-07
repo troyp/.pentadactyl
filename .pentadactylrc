@@ -3467,6 +3467,7 @@ map gf  -description "Open multiple links in background tabs (HINTS)"   -b g;b
 " | <buffer>. -- Current Buffer |
 " '-----------------------------'
 
+map <buffer>. -description "(show bindings: Current Tab)" -js CommandExMode().open("showkeys <buffer>.")
 map <buffer>..
 \    -description "Switch to next buffer with same domain"
 \    -js tabNextMatchingDomain(count||1);
