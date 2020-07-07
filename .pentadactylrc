@@ -8255,6 +8255,27 @@ function danmurphysScrollToReviews() {
     var reviews = getFirstSelector("#customer-review-container");
     reviews && reviews.scrollIntoView();
 }
+
+function danmurphysMarkupOnlineOffers(limit=1) {
+    var products = getSelectors("ul.product-list shop-product-card");
+    for ([i,p] of products.entries()) {
+        var prices = p.querySelector("div.price-container");
+        if (!prices) continue; "member offer";
+        var promo = prices.getElementsByClassName("promo-price");
+        if (!promo || promo.length==0) continue;
+        else var promoPriceElt = promo[0];
+        var promoPrice = parseFloat(promoPriceElt.getElementsByClassName("value")[1].textContent.slice(1));
+        var allPriceElts = Array.from(prices.getElementsByClassName("price"));
+        var priceElt = allPriceElts.find(e=>!e.classList.contains("promo-price")&&e.innerText.match("per bottle"));
+        if (!priceElt) continue; "unit is not a bottle";
+        var price = parseFloat(priceElt.getElementsByClassName("value")[0].textContent.slice(1));
+        if (price-promoPrice < limit) {
+            var ribbon = p.getElementsByClassName("ribbon")[0];
+            if (ribbon) ribbon.remove();
+            p.querySelector("span.value.pre-text").style.textDecoration="line-through";
+        }
+    }
+}
 EOF
 
 command! danmurphysnstars -nargs=1 -js danmurphysFilterProductListByStars(args[0]);
@@ -8274,6 +8295,7 @@ map <site>ow
 \            "https://www.danmurphys.com.au/dm/mydans/my_lists",
 \            (isNew)=>{ if (isNew) window.setTimeout(()=>clickSelectorByText("span", "Wish List"), 2000) }
 \        );
+map <site>so -description "Style offers with negligible discount" -js danmurphysMarkupOnlineOffers();
 map <site>v -description "View/close video" -js clickSelector(".icon-video")||clickSelector(".player-close");
 map <site><Escape> -description "Close popups" -js danmurphysEscape();
 
