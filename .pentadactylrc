@@ -2032,6 +2032,15 @@ map <leader>asj
 \     -description "open Jackson's Art"
 \     -count -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
 \                    openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
+map <leader>asl
+\    -description "Open liquor specials"
+\    -count
+\    -js [ "https://www.danmurphys.com.au/current-offers?filters=variety(spirits)",
+\          "https://www.liquorland.com.au/specials/spirit-specials",
+\          "https://www.vintagecellars.com.au/specialoffers/spirit-specials",
+\          "https://bws.com.au/productgroup/spirit-specials",
+\          "https://www.firstchoiceliquor.com.au/specials",
+\         ].forEach(u=>openOrSummonTab(u));
 map <leader>asp
 \     -description "Open Paypal"
 \     -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
