@@ -3468,6 +3468,9 @@ map gf  -description "Open multiple links in background tabs (HINTS)"   -b g;b
 
 map <buffer>..
 \    -description "Switch to next buffer with same domain"
+\    -js tabs.select(tabs.allTabs.find(t=>urlDomain(t.linkedBrowser.contentDocument.URL)==urlDomain(buffer.URL)));
+map <buffer>./
+\    -description "Switch to next buffer with same domain (store to be accessed by gb)"
 \    -js dactyl.execute("buffer! " + urlDomainOrProtocol(buffer.URL, true, true));
 map <buffer>.,
 \    -description "Show buffers with same domain"
