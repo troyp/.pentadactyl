@@ -3473,7 +3473,7 @@ map <buffer>..
 map <buffer>./
 \    -description "Switch to next buffer with same domain (store to be accessed by gb)"
 \    -js dactyl.execute("buffer! " + urlDomainOrProtocol(buffer.URL, true, true));
-map <buffer>.,
+map <buffer>.?
 \    -description "Show buffers with same domain"
 \    -js dactyl.execute("buffers " + urlDomainOrProtocol(buffer.URL, true, true));
 
