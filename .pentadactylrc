@@ -10686,6 +10686,19 @@ function jishoMultiSearch(...ss) {
         jishoSearch(s, dactyl.NEW_TAB);
 }
 
+function jishoDetailsEnhanceKanji() {
+    if (!buffer.URL.match("https://jisho.org/word/")) return false;
+    if (getSelectors('.kanji_light_content>.radicals').length) return false;
+    var klds = getSelectors(".kanji_light_content");
+    klds.forEach(k=>{
+        var kanji = k.getElementsByClassName("literal")[0].textContent;
+        var url = `https://jisho.org/search/${encodeURIComponent(kanji)}%20%23kanji`;
+        var radicals = io.system(`curl -s '${url}' | pup '.radicals'`);
+        k.innerHTML += radicals.output;
+    });
+    return klds.length;
+}
+
 EOF
 
 command! cbjishosearch
@@ -10705,6 +10718,7 @@ group jisho -locations=jisho.org
 
 " remove all existing jisholautocmds
 autocmd! -group jisho
+autocmd PageLoad jisho.org jishodetailsenhancekanji
 
 map <site>fl     -description "Links drop down" -js hints.show("リ");
 
@@ -10905,6 +10919,10 @@ command! jishokanjiyankparts -js utils.yankWithMsg(jishoKanjiParts().join(''));
 command! jishotoggleuniversallongrepresentation
     \ -description "Set/unset all definitions to have headword on a separate line"
     \ -js jishoToggleUniversalLongRepresentation();
+
+command! jishodetailsenhancekanji
+\    -description "Enhance word details page with radicals for each kanji"
+\    -js jishoDetailsEnhanceKanji();
 
 " ----------
 " Hint modes
