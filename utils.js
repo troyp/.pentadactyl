@@ -235,9 +235,10 @@ var utils = {
         utils.messageWithLineLimit(s);
     },
 
-    yankWithMsg: function (s) {
-        editor.setRegister(null, s, false);
-        utils.message(s);
+    yankWithMsg: function (s, messagePrefix="Copied: ") {
+        if (!messagePrefix) messagePrefix = "";
+        editor.setRegister("*+", s, false);
+        utils.message(messagePrefix+s);
     },
 
     cbAppend: function (s) {
