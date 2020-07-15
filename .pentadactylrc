@@ -10108,7 +10108,7 @@ group jacksons -locations=jacksonsart.com
 
 js <<EOF
 function jacksonsartCount() {
-    var elts = getSelectors("input[title=Qty]");
+    var elts = getSelectorWithMatchingAttribute('input', 'title', 'Qty');
     if (elts.length) {
         return elts.map(e=>Number(e.value)).reduce((n,s)=>n+s);
     }
@@ -12482,7 +12482,7 @@ function redditLoadMoreReplies() {
 
 function redditTidy()   {
     redditLoadMoreReplies();
-    var divZeroTabindex = getSelectors("div[tabindex=0]");
+    var divZeroTabindex = getSelectorWithMatchingAttribute("div","tabindex",0);
     var articleContent = divZeroTabindex.length && divZeroTabindex[0].parentElement;
     if (articleContent) {
         topElements().forEach(elt => elt.remove());
