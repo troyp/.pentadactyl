@@ -14289,7 +14289,7 @@ window.openLinkBySelectorAll = openLinkBySelectorAll;
 
 function getEltsUnderHeading(typeSel, specified, includeSpecified=true) {
     " Get all sibling elements following the specified selector until the next selector of the type ";
-    " eg. typeSel="h2", specified="h2#section1" will select from h2#section1 until the next h2 (or the end of section1's parent elt)";
+    " eg. typeSel='h2', specified='h2#section1' will select from h2#section1 until the next h2 (or the end of section1's parent elt)";
     " `specified` parameter can be string (selector) or a function (elt->bool) ";
     var eltsOfType = getSelectors(typeSel);
     var f = (typeof specified == "String") ? e=>e.matches(specified) : specified;
