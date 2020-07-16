@@ -1,0 +1,130 @@
+" -----------------------------------------------------------------------------
+" ,----------,
+" | Coursera |
+" '----------'
+group coursera -locations=www.coursera.org
+
+set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
+
+js <<EOF
+
+function courseraTogglePaused() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    if (!vid) return;
+    if (vid.paused) vid.play(); else vid.pause();
+}
+function courseraRateDec() {
+    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
+    var ratedec = buttons[0];
+    ratedec.click();
+}
+function courseraRateInc() {
+    var buttons = content.document.getElementsByClassName('c-playback-rate-button');
+    var rateinc = buttons[1];
+    rateinc.click();
+}
+function courseraRate(r) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.playbackRate = r;
+    dactyl.utils.message(`rate: ${vid.playbackRate.toFixed(1)}`);
+}
+function courseraVolume(vol) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.volume = vol;
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraVolumeDec() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    if (vid.volume <= 0.15) vid.volume /= 2;
+    else vid.volume = vid.volume - 0.1;
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraVolumeInc() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.volume = Math.min(1, vid.volume + 0.1);
+    dactyl.utils.message(`volume: ${vid.volume.toFixed(3)}`);
+}
+function courseraJumpTo(s) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = s;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraJumpBackward(delta) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = vid.currentTime - delta;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraJumpForward(delta) {
+    var vid = content.document.getElementById('c-video_html5_api');
+    vid.currentTime = vid.currentTime + delta;
+    dactyl.utils.message(`time: ${vid.currentTime.toFixed(2)}`);
+}
+function courseraDisplay() {
+    var vid = content.document.getElementById('c-video_html5_api');
+    dactyl.utils.message(`time:\t${vid.currentTime.toFixed(2)}\nvolume:\t${vid.volume.toFixed(3)}\nrate:\t${vid.playbackRate.toFixed(1)}`);
+}
+function courseraScrollToNextHighlighted() {
+    var hilited = Array.from(content.document.querySelectorAll('.highlighted'));
+    "jump to first match below viewport; if none, jump back to first match"
+    var i = Math.max(0, hilited.findIndex(e => e.getBoundingClientRect().y > content.window.innerHeight));
+    "scroll the element into view at bottom of page (since navbar obscures top)"
+    hilited[i].scrollIntoView(false);
+    return i;
+}
+
+EOF
+
+" ,-----------------,
+" | Coursera: hints |
+" '-----------------'
+" coursera: jump to match in transcript: mode ẖ "
+set eht+=[ẖ]:.highlighted
+js hints.addMode("ẖ", "Jump to match in transcript", elem => elem.click());
+
+map <site>f
+    \ -description "Hints mode: jump to match in transcript"
+    \ -js hints.show("ẖ");
+
+" ,---------------------------------,
+" | Coursera: commands and bindings |
+" '---------------------------------'
+command! -nargs=1 courseravolume -js courseraVolume(args[0]);
+command! -nargs=1 courserarate -js courseraRate(args[0]);
+command! -nargs=1 courserajump -js courseraJumpTo(args[0]);
+command! courseradisplay -js courseraDisplay();
+
+map <Space> -js courseraTogglePaused();
+map <Return> -js courseraTogglePaused();
+
+map <site>c -js courseraTogglePaused();
+map <site><A-h> -js courseraJumpBackward(1);
+map <site><A-l> -js courseraJumpForward(1);
+map <site>h -js courseraJumpBackward(5);
+map <site>l -js courseraJumpForward(5);
+map <site>H -js courseraJumpBackward(25);
+map <site>L -js courseraJumpForward(25);
+map <site>r :courserarate<Space>
+map <site>v -count -ex js courseraVolume(parseInt(<count>)/10);
+map <site>V :courseravolume<Space>
+map <site>, -js courseraRateDec();
+map <site>. -js courseraRateInc();
+map <site>j -js courseraVolumeInc();
+map <site>k -js courseraVolumeDec();
+map <site>? -js courseraDisplay();
+map <site><Tab> -js courseraScrollToNextHighlighted();
+
+"Arrow Keys"
+map <S-Left> -js courseraJumpBackward(2);
+map <S-Right> -js courseraJumpForward(2);
+map <Left> -js courseraJumpBackward(5);
+map <Right> -js courseraJumpForward(5);
+map <A-Left> -js courseraJumpBackward(20);
+map <A-Right> -js courseraJumpForward(20);
+map <C-Left> -js courseraJumpBackward(60);
+map <C-Right> -js courseraJumpForward(60);
+map <C-Up> -js courseraVolumeInc();
+map <C-Down> -js courseraVolumeDec();
+
+group user
+
+" -------------------------------------------------------------------------------
