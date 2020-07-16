@@ -1,19 +1,19 @@
-"     ___________________
-"    /                   \
-"    | ,---------------, |
-"    | | PENTADACTYLRC | |
-"    | '---------------' |
-"    \___________________/
-"
-"
+"     ___________________      "
+"    /                   \     "
+"    | ,---------------, |     "
+"    | | PENTADACTYLRC | |     "
+"    | '---------------' |     "
+"    \___________________/     "
+"                              "
+"                              "
 group user
 
-" load javascript utilities
+" load javascript utilities "
 runtime! utils.js
-" load utils into current context
+" load utils into current context "
 js var utils = dactyl.utils.getPlugin("utils");
 
-" load personal details
+" load personal details "
 runtime! personal.js
 js var user = dactyl.utils.getPlugin("personal");
 js var homedir = "/home/troy";
@@ -26,10 +26,10 @@ runtime! js/libs/suncalc/suncalc.js
 runtime! js/simulateHtmlMouseEvent.js
 set passkeys=
 
-" -------------------------------------------------------------------------------
-" ,------------------------,
-" | Javascript helper code |
-" '------------------------'
+" ------------------------------------------------------------------------------- "
+" ,------------------------,                                                      "
+" | Javascript helper code |                                                      "
+" '------------------------'                                                      "
 
 js <<EOF
 
