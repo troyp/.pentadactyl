@@ -8009,11 +8009,31 @@ group coursera -locations=www.coursera.org
 set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
 
 js <<EOF
+function courseraShowMore() {
+        clickSelectorByTextAll('button', /show more/i);
+        window.setTimeout(clickSelectorByTextAll('button', /show all/i), 300);
+    }
+function courseraToggleSeeMore() {
+    if (clickSelectorByTextAll('button', /see all/i)) return true;
+    clickSelectorByTextAll('button', /see less/);
+    return false;
+}
+
+function courseraGo() {
+    var url = buffer.URL;
+    if (url.match(/https:\/\/www\.coursera\.org\/learn\//)) {
+        courseraShowMore();
+        courseraToggleSeeMore();
+    }
+}
 EOF
 
 " ,---------------------------------,
 " | Coursera: commands and bindings |
 " '---------------------------------'
+map <site>c
+\    -description "Expand descriptions, toggle expand materials"
+\    -js courseraGo();
 
 group user
 
