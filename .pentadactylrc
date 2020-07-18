@@ -1250,6 +1250,9 @@ map <app>dm
 \    -description "Open last download as MAFF file"
 \    -count
 \    -js openLastDownloadAsMaff(count||1);
+map <app>do
+\    -description "Open last download, ask for app"
+\    -js xdgOpenAskAppForLastDownload(count||1);
 map <app>dr
 \    -description "Rename last download"
 \    -count
@@ -14761,6 +14764,11 @@ function xdgOpenLastDownload(n=1) {
     dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
 }
 window.xdgOpenLastDownload = xdgOpenLastDownload;
+
+function xdgOpenAskAppForLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -a '${dl}'"`); });
+}
 
 function xdgOpenAndSetAppForLastDownload(n=1) {
     var dlP = getLastDownload(n);
