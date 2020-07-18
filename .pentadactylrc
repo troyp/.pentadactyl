@@ -3072,6 +3072,7 @@ map <leader>cR :<up><Home><forward-word><Space>
 map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
 map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
+map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
 
 " ,-------------------,
 " | Command-line only |
