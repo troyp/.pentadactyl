@@ -8176,6 +8176,9 @@ function danmurphysGo() {
     var url = buffer.URL;
     if        (url == "https://www.danmurphys.com.au/dm/mydans/my_lists") {
         clickSelectorByText("span", "Wish List");
+    } else if (url.startsWith("https://www.danmurphys.com.au/product/")) {
+        clickSelectorAll(".review-card__read-more");
+    }
 }
 function danmurphysFilterProductListByStars(n) {
     function nStars(e) {
@@ -8228,7 +8231,7 @@ map ]] -description "Next Page"
 \    -js clickSelector("div.paging-info>a>i.icon-chevron-right") && danmurphysScrollToReviews();
 map [[ -description "Previous Page"
 \    -js clickSelector("div.paging-info>a>i.icon-chevron-left") && danmurphysScrollToReviews();
-map <site>c -description "(wishlist) toggle pull-down" -js danmurphysGo();
+map <site>c -description "(product) expand reviews, (wishlist) toggle pull-down" -js danmurphysGo();
 map <site>n -description "Show only products with >=N stars" -b :danmurphysnstars<Space>
 map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc -description "Go to cart" -js openOrSelectTab("https://www.danmurphys.com.au/dm/ecart/cart", count?"tab":"here", null, true);
