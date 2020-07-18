@@ -8176,9 +8176,6 @@ function danmurphysGo() {
     var url = buffer.URL;
     if        (url == "https://www.danmurphys.com.au/dm/mydans/my_lists") {
         clickSelectorByText("span", "Wish List");
-    } else if (url.startsWith("https://www.danmurphys.com.au/product/")) {
-        clickSelector(".icon-heart") || clickSelector(".fa-heart");
-    }
 }
 function danmurphysFilterProductListByStars(n) {
     function nStars(e) {
@@ -8244,6 +8241,7 @@ map <site>ow
 \        );
 map <site>so -description "Style offers with negligible discount" -js danmurphysMarkupOnlineOffers();
 map <site>v -description "View/close video" -js clickSelector(".icon-video")||clickSelector(".player-close");
+map <site>* -description "Add to list" -js clickSelector(".icon-heart") || clickSelector(".fa-heart");
 map <site><Escape> -description "Close popups" -js danmurphysEscape();
 
 group user
