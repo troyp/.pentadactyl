@@ -13662,7 +13662,7 @@ function ytScreenshot2() {
         link.remove();
     }
 
-    var title = content.document.getElementById("eow-title").title;
+    var title = getFirstSelector('#container>h1.title').textContent;
     var time = video.currentTime;
     var name = `${title}-t=${time}.png`;
     var data = createScreenshotFromVideo(video);
