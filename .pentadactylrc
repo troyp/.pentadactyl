@@ -13712,7 +13712,7 @@ map <site>ddd         -description "Download video to Downloads" -ex ytdl
 map <site>dd<Space>   -description "Download video" -b :ytdl<Space>
 map <site>daa         -description "Download audio to Music directory" -ex ytdlaudio
 map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
-map <site>ds          -description "Screenshot" -js ytScreenshot2();
+map <site>ds          -description "Screenshot" -js count ? ytScreenshot() : ytScreenshot2();
 map <site>f           -description "Toggle fullscreen" -ex ytfullscreen
 map <site>m           -description "Toggle mute" -ex ytmute
 
