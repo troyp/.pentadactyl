@@ -2885,8 +2885,8 @@ EOF
 command! ghsearchgo -description "Github search and goto first result"
 \    -nargs=1 -js ghSearchAndGo(args[0]);
 
-js searchEngineArtShops = ["e", "amazart", "amazau", "shopja", "shopnarts", "shopjpen", "shopma", "shopcraftol", "shoptas", "shopas", "shopow"];
-js searchEngineArtShopsMain = ["e", "amazau", "shopja"];
+js searchEngineArtShops = ["e", "amazart", "amazau", "shopja", "shopnarts", "shopjpen", "shopma", "shopcraftol", "shoptas", "shopas", "shopbunbougu", "shopow"];
+js searchEngineArtShopsMain = ["e", "amazau", "shopja", "shopbunbougu", "shopow"];
 command! shop -description "Shopping search: ebay + amazon"
 \    -nargs=* -js multipleEngineSearch(["e", "amaz"], args.join(" "));
 command! shopart -description "Shopping search: art"
