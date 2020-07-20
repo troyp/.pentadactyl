@@ -2077,6 +2077,9 @@ map <leader>avd -description "Open Disney Plus"
 map <leader>avp
 \    -description "Goto Amazon Prime Video"
 \    -count -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"tab");
+map <leader>avv
+\    -description "Open video webapps"
+\    -js openOrSelectTab("https://www.netflix.com/browse"); openOrSelectTab("https://www.disneyplus.com/en-gb/home"); openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo");
 map <leader>avy
 \    -description "Goto Youtube"
 \    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
