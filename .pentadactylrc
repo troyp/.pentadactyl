@@ -1438,11 +1438,11 @@ map <app>sv
 command! xopen -nargs=1 -complete=file -js dactyl.execute("!xdg-open " + escapeFilenameUnescapedChars(args[0]));
 
 " Open in Google Chrome "
-command! ochrome :exec `!google-chrome --disable-infobars "${buffer.URL}" &`
-command! ochromeurl -nargs + :exec `!google-chrome --disable-infobars "<args>" &`
-command! ochromesearch -nargs + :exec `!google-chrome --disable-infobars "? <args>" &`
-command! ochromemin :exec `!google-chrome --profile-directory='Profile 1' "${buffer.URL}" &`
-command! ochromeminurl -nargs + :exec `!google-chrome --profile-directory='Profile 1' "<args>" &`
+command! ochrome :exec `!google-chrome --profile-directory='Default' --disable-infobars "${buffer.URL}" &`
+command! ochromeurl -nargs + :exec `!google-chrome --profile-directory='Default' --disable-infobars "<args>" &`
+command! ochromesearch -nargs + :exec `!google-chrome --profile-directory='Default' --disable-infobars "? <args>" &`
+command! ochromemin :exec `!google-chrome --profile-directory='Profile 4' "${buffer.URL}" &`
+command! ochromeminurl -nargs + :exec `!google-chrome --profile-directory='Profile 4' "<args>" &`
 " Open in Firefox "
 command! ofox :exec `!/opt/firefox/firefox -new-tab "${buffer.URL}" &`
 " Open in Qutebrowser "
