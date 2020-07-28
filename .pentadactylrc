@@ -1231,6 +1231,20 @@ map <app>c;u
 \    -description "Open URL in Google Chrome (default profile)"
 \    -b :ochromeurl<Space>
 
+map <app>cv -description "(show bindings: Open in Google Chrome/Video)" -js CommandExMode().open("showkeys <app>cv")
+map <app>cvd
+\    -description "Open Disney Plus in Google Chrome"
+\    -ex ochromeurl "https://www.disneyplus.com/en-gb/home"
+map <app>cvn
+\    -description "Open Netflix in Google Chrome"
+\    -ex ochromeurl "https://www.netflix.com/browse"
+map <app>cvp
+\    -description "Open Amazon Prime Video in Google Chrome"
+\    -ex ochromeurl "https://www.primevideo.com/storefront/home/ref=atv_nb_logo"
+map <app>cvv
+\    -description "Open video webapps in Google Chrome"
+\    -ex ochromeurl "https://www.netflix.com/browse" | ochromeurl "https://www.disneyplus.com/en-gb/home" | ochromeurl "https://www.primevideo.com/storefront/home/ref=atv_nb_logo"
+
 " ,---------------------,
 " | <app>d -- Downloads |
 " '---------------------'
