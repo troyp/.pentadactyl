@@ -46,7 +46,6 @@ Cu.import("resource://gre/modules/osfile.jsm");
 " https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Language_Bindings/Components.utils.importGlobalProperties "
 Components.utils.importGlobalProperties(["TextDecoder"]);
 
-
 "components"
 var Cc = Components.classes;
 function XpcService(url, ifc) {
@@ -2907,7 +2906,7 @@ command! searchclipboardwithengines
 \    -description "Search clipboard entry (!=lowercased) with multiple engines [CBINDEX ENGINE...]"
 \    -bang
 \    -nargs=+ -complete=search
-\    -js for (i=0; i<parseInt(args[0]); ++i) multipleEngineSearch(args.slice(1), utils.cbRead({index: i, tolowercase: bang})); 
+\    -js for (i=0; i<parseInt(args[0]); ++i) multipleEngineSearch(args.slice(1), utils.cbRead({index: i, tolowercase: bang}));
 command! polysearch -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
 \    -nargs=+ -complete=search -js polySearch.apply(null, A.split(args, "/"));
 
@@ -3220,6 +3219,7 @@ command! saveindir
 \    -nargs=1
 \    -complete dir
 \    -js dactyl.execute(`saveas ${joinFilePathFromDactylArgs(args[0])}`);
+
 js <<EOF
 function joinFilePathFromDactylArgs(dir) {
     var name = window._dactylargs && window._dactylargs[0];
@@ -3978,7 +3978,6 @@ function tabsFilterWithDMenu() {
     else
         tabs.select(initIdx);
 }
-
 EOF
 
 " ,-------------,
@@ -6054,6 +6053,7 @@ function splitUrl(url) {
     return [urlMain, queryComponents, fragment];
 }
 window.splitUrl = splitUrl;
+
 function toggleQueryComponent(url, query, altQuery=null) {
     var newurl;
     var qRegexFinal = RegExp("[?&]"+query+"$");
@@ -8044,8 +8044,6 @@ set passkeys+='chessgames.com':'<left><right>'
 " ===== GROUP START =====
 group chessgames -locations=chessgames.com
 
-js <<EOF
-EOF
 
 map \- -description "Shrink Board" -ex open javascript:downscaleOLGA();
 map + -description "Shrink Board" -ex open javascript:upscaleOLGA();
