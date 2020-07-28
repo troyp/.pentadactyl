@@ -1279,6 +1279,40 @@ map <app>dy
 \    -js getLastDownload(count||1).then(function (dlPath) { dactyl.utils.cbWrite(dlPath); });
 
 js <<EOF
+function getLastDownload(n=1) {
+    dlListP = Downloads.getSummary(Downloads.ALL);
+    var resultP = dlListP.then(function (dlList) {
+        return dlList._downloads[dlList._downloads.length - n].target.path;
+    });
+    return resultP;
+}
+window.getLastDownload = getLastDownload;
+
+function xdgOpenLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
+}
+window.xdgOpenLastDownload = xdgOpenLastDownload;
+
+function xdgOpenAskAppForLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -a '${dl}'"`); });
+}
+
+function xdgOpenAndSetAppForLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -d '${dl}'"`); });
+}
+
+function trashLastDownload(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(function(dl) {
+        var cmd=io.system(`trash '${dl}'`);
+        if (cmd.returnValue==0) utils.message("Trashed " + dl);
+        else utils.message("Failed to trash " + dl);
+    });
+}
+
 function openLastDownloadAsMaff(n=1) {
     var dlP = getLastDownload(n);
     dlP.then(f=> openMaffFile(f));
@@ -14753,39 +14787,6 @@ function writeToFile(s, filepath, append=false, overwrite=false) {
 }
 window.writeToFile = writeToFile;
 
-function getLastDownload(n=1) {
-    dlListP = Downloads.getSummary(Downloads.ALL);
-    var resultP = dlListP.then(function (dlList) {
-        return dlList._downloads[dlList._downloads.length - n].target.path;
-    });
-    return resultP;
-}
-window.getLastDownload = getLastDownload;
-
-function xdgOpenLastDownload(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
-}
-window.xdgOpenLastDownload = xdgOpenLastDownload;
-
-function xdgOpenAskAppForLastDownload(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -a '${dl}'"`); });
-}
-
-function xdgOpenAndSetAppForLastDownload(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -d '${dl}'"`); });
-}
-
-function trashLastDownload(n=1) {
-    var dlP = getLastDownload(n);
-    dlP.then(function(dl) {
-        var cmd=io.system(`trash '${dl}'`);
-        if (cmd.returnValue==0) utils.message("Trashed " + dl);
-        else utils.message("Failed to trash " + dl);
-    });
-}
 
 " ,---------------, "
 " | Miscellaneous | "
