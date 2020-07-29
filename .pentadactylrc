@@ -3471,6 +3471,28 @@ map <buffer>p       -description "Toggle pin tab" -ex pintab!
 map <buffer>t       -description "Execute binding in new tab" -b :tab normal<Space>
 map <buffer>v       -description "Toggle mute tab" -js tabs.getTab().toggleMuteAudio();
 
+" ,----------------------,
+" | <buffer>w -- windows |
+" '----------------------'
+map <buffer>w  -description "(show bindings: Windows)" -js CommandExMode().open("showkeys <buffer>w")
+map <buffer>wu -description "Undo close window" -js undoCloseWindow((count||1)-1);
+map <buffer>ww -description "Show close windows" -js showClosedWindows();
+
+js <<EOF
+function showClosedWindows() {
+    var clwins = JSON.parse(nsISessionStore.getClosedWindowData());
+    var clwindescs = clwins.map((w, i)=>
+    [
+        `${i+1}`,
+        `${w.tabs.length} tabs`,
+        w.title,
+        `${new Date(w.closedAt)}`
+    ].join("|"));
+    utils.messageWithLineLimit(clwindescs.join("\n"));
+}
+EOF
+
+
 " undo recent closed tab from list
 map U -b :undo<SPACE>
 
