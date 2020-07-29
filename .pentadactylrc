@@ -7167,9 +7167,9 @@ function amazonCount() {
     }
 }
 
-function amazonSearch(count, ...args) {
+function amazonSearch(openHere, ...args) {
     var url = "https://www.amazon.com.au/s?k="+args.join("+");
-    if (count) dactyl.open(url, "adjacent");
+    if (openHere) dactyl.open(url);
     else tabOpenURLAdjacent(url);
 }
 
@@ -7210,7 +7210,7 @@ EOF
 command! amazonausearch
 \    -nargs *
 \    -bang
-\    -js amazonSearch(count, ...args);
+\    -js amazonSearch(bang, ...args);
 
 map <site>c
 \    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
