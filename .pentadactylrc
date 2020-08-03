@@ -14274,7 +14274,7 @@ window.clickSelectorByText = clickSelectorByText;
 function clickSelectorByTextAll(sel, pattern) {
     var elts = getSelectorByText(sel, pattern);
     for (i=0; i<elts.length; ++i) {
-        selectors[i].click();
+        elts[i].click();
     }
     return elts.length;
 }
