@@ -12561,6 +12561,17 @@ map <site>w -description "Add to Wish List" -js clickSelector(".add-wishlist");
 group user
 
 " -------------------------------------------------------------------------------
+" ,---------------,
+" | rust-lang.org |
+" '---------------'
+group rustlang -locations=rust-lang.org
+
+map ]] -description "Next Page" -ex clickselector .nav-chapters.next
+map [[ -description "Previous Page" -ex clickselector .nav-chapters.previous
+
+group user
+
+" -------------------------------------------------------------------------------
 " ,------------,
 " | Scriptular |
 " '------------'
