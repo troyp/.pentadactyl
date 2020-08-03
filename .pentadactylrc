@@ -832,7 +832,6 @@ map z              -description "(show bindings)" -js CommandExMode().open("show
 " '----------------------------'
 
 map <C-h>        -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
-map <C-h><C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
 map <C-h>b       -description "Search bindings" -b :searchmappings<Space>
 map <C-h>B       -description "Search bindings description" -b :searchmappingsdescriptions<Space>
 map <C-h>c       -description "Search commands" -b :searchcommands<Space>
@@ -847,17 +846,19 @@ map <C-h>ap      -description "Show plugin" -ex addons -type plugin
 map <C-h>as      -description "Show userstyle" -ex addons -type userstyle
 map <C-h>at      -description "Show theme" -ex addons -type theme
 map <C-h>g       -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
-map <C-h>g<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
 map <C-h>gc      -description "List commands by group" -b :listcommandsbygroup<Space>
 map <C-h>gC      -description "List commands by group (verbose)" -b :listcommandsbygroup!<Space>
 map <C-h>gm      -description "List bindings by group" -b :listmappingsbygroup<Space>
-map <C-h>h       -description "Search hint modes/descriptions" -b :searchhintmodes<Space>
-map <C-h>H       -description "Search hint modes/descriptions/actions/filters"
 \                -b :searchhintmodesverbose<Space>
-map <C-h>k       -description "Show hint mode keys" -js utils.cbWrite(Object.keys(hints.modes).sort().join(""));
+map <C-h>h       -description "Open Help topic" :help<Space>
 map <C-h>i       -description "Pentadactyl help - index"
 \                -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+map <C-h>k       -description "Show key bindings matching prefix" :showkeys<Space>
 map <C-h>m       -description "Search bindings by mode" -b :searchmappingsbymode<Space>
+map <C-h>;       -description "(show bindings: Help/Ext Hint Modes)" -js CommandExMode().open("showkeys <C-h>;")
+map <C-h>;;      -description "Search hint modes/descriptions" -b :searchhintmodes<Space>
+map <C-h>;a      -description "Search hint modes/descriptions/actions/filters"
+map <C-h>;k      -description "Show hint mode keys" -js utils.cbWrite(Object.keys(hints.modes).sort().join(""));
 
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
 command! searchmappingsdescriptions -nargs * -js searchMappingsDescriptions.apply(null, args.map(readStringOrRegex));
