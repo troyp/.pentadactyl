@@ -8901,6 +8901,9 @@ command! ghtabopenrepo -nargs=1 -js ghTabopenRepo(args[0]);
 " ===== GROUP START =====
 group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com,github.io
 
+map <site>a        -description "(show bindings: Github/Alterations)" -js CommandExMode().open("showkeys <site>a")
+map <site>ag       -description "Cleanup Gist" -ex ghgistcleanup
+map <site>aG       -description "Cleanup Gist (keep comments)" -ex ghgistcleanup!
 map <site>c        -description "Click README.md" -js ghClickReadme();
 map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
 map <site>dp       -description "Download patch file" -b :ghdlpatch<Space>
@@ -8974,8 +8977,6 @@ map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
 map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
 map <site>sr       -description "Save raw file (hints)" -js hints.show("ⓖ");
 map <site>sR       -description "save this README to /opt/doc/" -ex ghsavethisreadmetodoc
-map <site>xg       -description "Cleanup Gist" -ex ghgistcleanup
-map <site>xG       -description "Cleanup Gist (keep comments)" -ex ghgistcleanup!
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 map <site>y<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 map <site>yg       -description "Yank git repo link" -js ghCopyRepoLinkGit();
