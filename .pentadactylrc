@@ -2840,6 +2840,8 @@ map <A-/> -description "Toggle Firefox Find Box (native search in page)"
 " C-' Firefox link search
 map "<C-'>" -modes normal -description "Firefox Quick Find Link Search (native link search)" -b <C-v>'
 
+map <search>d   -description "Search domain (or nth level path) on google" -js CommandExMode().open(`searchgoogle site:${urlGetNthFromRootPath(count||1)} `)
+map <search>D   -description "Search domain (or nth level path) on google" -js CommandExMode().open(`searchgoogle! site:${urlGetNthFromRootPath(count||1)} `)
 map <search>f   -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
 map <search>g   -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
 map <search>m   -description "Multiple query bookmark search" -b :searchmultiple<Space>
