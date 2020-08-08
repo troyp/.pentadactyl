@@ -2539,8 +2539,11 @@ map <yank>r -description "Yank link reference (page title and url)"
 map <yank>R -description "Yank link reference (page title and heading)"
     \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
 map <yank>s -description "Yank element content by selector" -b :yankselectorcontent<Space>
-map <yank>t -description "Yank page title" -js utils.yankWithMsg(buffer.title)
-map <yank>T -description "Yank page title with date & time" -ex yanktitleanddate
+
+" <yank>t -- Yank page title "
+map <yank>t  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>t")
+map <yank>tt -description "Yank page title" -js utils.yankWithMsg(buffer.title)
+map <yank>td -description "Yank page title with date & time" -ex yanktitleanddate
 
 " <yank>u -- Yank URL/filename "
 map <yank>u  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>u")
