@@ -2313,18 +2313,22 @@ command! pagezipper :open javascript:(function(){if(window['pgzp']){_pgzpToggleB
 map <C-Space> -description "Page Zipper" -ex pagezipper
 
 js <<EOF
-function openWithPagezipper(url) {
-    var newtab = gBrowser.addTab(url);
-    gBrowser.selectedTab = newtab;
-    var tb = gBrowser.getBrowserForTab(newtab);
-    tb.addEventListener("DOMContentLoaded", function () {
+function openWithPagezipper(url, where="tab") {
+    if (where=="here") {
+        var tab = tabs.getTab();
+        content.document.location = url;
+    } else {
+        var tab = gBrowser.addTab(url);
+        gBrowser.selectedTab = tab;
+    }
+    tab.linkedBrowser.addEventListener("DOMContentLoaded", function () {
         window.setTimeout(()=>{
             dactyl.execute('pagezipper');
         }, 1300);
     });
 }
 EOF
-command! openwithpagezipper -nargs 1 -js openWithPagezipper(args[0]);
+command! openwithpagezipper -bang -nargs 1 -js openWithPagezipper(args[0], bang?"tab":"here");
 
 " | Print What You Like |
 command! prwul -description "run PrintWhatYouLike" open javascript:(function(){if(window['ppw']&&ppw['bookmarklet']){ppw.bookmarklet.toggle();}else{window._pwyl_home='//www.printwhatyoulike.com/';window._pwyl_pro_id=null;window._pwyl_bmkl=document.createElement('script');window._pwyl_bmkl.setAttribute('type','text/javascript');window._pwyl_bmkl.setAttribute('src',window._pwyl_home+'static/compressed/pwyl_bookmarklet_10.js');window._pwyl_bmkl.setAttribute('pwyl','true');document.getElementsByTagName('head')[0].appendChild(window._pwyl_bmkl);}})();
