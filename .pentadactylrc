@@ -849,15 +849,13 @@ map <C-h>g       -description "(show bindings)" -js CommandExMode().open("showke
 map <C-h>gc      -description "List commands by group" -b :listcommandsbygroup<Space>
 map <C-h>gC      -description "List commands by group (verbose)" -b :listcommandsbygroup!<Space>
 map <C-h>gm      -description "List bindings by group" -b :listmappingsbygroup<Space>
-\                -b :searchhintmodesverbose<Space>
 map <C-h>h       -description "Open Help topic" :help<Space>
-map <C-h>i       -description "Pentadactyl help - index"
-\                -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+map <C-h>i       -description "Pentadactyl help - index" -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
 map <C-h>k       -description "Show key bindings matching prefix" :showkeys<Space>
 map <C-h>m       -description "Search bindings by mode" -b :searchmappingsbymode<Space>
 map <C-h>;       -description "(show bindings: Help/Ext Hint Modes)" -js CommandExMode().open("showkeys <C-h>;")
 map <C-h>;;      -description "Search hint modes/descriptions" -b :searchhintmodes<Space>
-map <C-h>;a      -description "Search hint modes/descriptions/actions/filters"
+map <C-h>;a      -description "Search hint modes/descriptions/actions/filters" -b :searchhintmodesverbose<Space>
 map <C-h>;k      -description "Show hint mode keys" -js utils.cbWrite(Object.keys(hints.modes).sort().join(""));
 
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
