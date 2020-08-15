@@ -3514,8 +3514,12 @@ map <C-k>   -description "Close tabs to right (inclusive)" <buffer>>d
 map <C-S-K> -description "Close tabs to left (inclusive)" <buffer><d
 " close other tabs "
 map <buffer>1 -description "Close all other tabs" -ex tabonly
-map <buffer>< -description "Close tabs to left"   -ex closetabstoleft
-map <buffer>> -description "Close tabs to right"  -ex closetabstoright
+map <buffer><
+\    -description "Close all (or count) tabs to the left of the current tab"
+\    -js closeTabsToLeft(count);
+map <buffer>>
+\    -description "Close all (or count) tabs to the right of the current tab"
+\    -js closeTabsToRight(count);
 " close adjacent duplicates "
 map <A-S-Space> -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
 
@@ -3664,25 +3668,9 @@ EOF
 " | Closing Tabs |
 " '--------------'
 
-command! closetabstoleft
-    \ -description "Close all tabs to the left of the current tab"
-    \ -js
-    \ var firstTab = tabs.getTab(0);
-    \ var numToClose = tabs.getTab().dactylOrdinal - 1;
-    \ tabs.remove(firstTab, numToClose);
-command! closetabstoright
-    \ -description "Close all tabs to the right of the current tab"
-    \ -js
-    \ tabIndex = tabs.getTab().dactylOrdinal - 1;
-    \ var nextTabIndex = tabIndex + 1;
-    \ var firstTab = tabs.getTab(nextTabIndex);
-    \ var N = tabs.allTabs.length;
-    \ var numToClose = N - nextTabIndex;
-    \ tabs.remove(firstTab, numToClose);
 command! tabcloseduplicates
     \ -description "Close all duplicates adjacent to current tab"
     \ -js tabCloseDuplicates();
-
 
 " close tab range "
 command! tc
@@ -3765,6 +3753,24 @@ command! tabcloseranges
 \    -js tabCloseRanges(args.join(","));
 
 js <<EOF
+function closeTabsToLeft(n) {
+    var firstTab = tabs.getTab(0);
+    if (n==null) {
+        var numToClose = tabs.getTab().dactylOrdinal - 1;
+        tabs.remove(firstTab, numToClose);
+    } else tabs.remove(firstTab, n);
+}
+function closeTabsToRight(n) {
+    tabIndex = tabs.getTab().dactylOrdinal - 1;
+    var nextTabIndex = tabIndex + 1;
+    var firstTab = tabs.getTab(nextTabIndex);
+    if (n==null) {
+        var N = tabs.allTabs.length;
+        var numToClose = N - nextTabIndex;
+        tabs.remove(firstTab, numToClose);
+    } else tabs.remove(firstTab, n);
+}
+
 function closeTabRange(firstOrd, endOrd) {
     "Close tabs from firstOrd to endOrd-1"
     if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
