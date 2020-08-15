@@ -6007,14 +6007,14 @@ command! activator -description "Lightbend (Typesafe) Activator"
 
 js <<EOF
 
-var openAllLinksInCB = function () {
+function openAllLinksInCB () {
     var a = window.readFromClipboard().split(/[ \t\n]+/);
     for (i = 1; i < a.length; ++i) {
         dactyl.open(a[i], {where:dactyl.NEW_TAB});
     };
 }
 
-undob = function() {
+function undob() {
     var currT = gBrowser.selectedTab;
     var altT = tabs.alternate;
     var ssService = Components.interfaces.nsISessionStore;
@@ -6028,10 +6028,10 @@ undob = function() {
 }
 
 " Create adjacent duplicate tab and go back in the browser history "
-backt = function (n=1) {
     var dupT = tabs.cloneTab(tabs.getTab(), true);
+function backt (n=1) {
     var dupTB = gBrowser.getBrowserForTab(dupT);
-    var backtListener = function () {
+    function backtListener () {
         content.window.history.go(-n);
         dupTB.removeEventListener("DOMContentLoaded", backtListener);
     };
@@ -6039,10 +6039,10 @@ backt = function (n=1) {
 }
 
 " Create adjacent duplicate tab and go forward in the browser history "
-forwardt = function(n=1) {
     var dupT = tabs.cloneTab(tabs.getTab(), true);
+function forwardt(n=1) {
     var dupTB = gBrowser.getBrowserForTab(dupT);
-    var forwardtListener = function () {
+    function forwardtListener () {
         content.window.history.go(n);
         dupTB.removeEventListener("DOMContentLoaded", forwardtListener);
     };
@@ -6050,13 +6050,13 @@ forwardt = function(n=1) {
 }
 
 " Create adjacent duplicate tab to right "
-tabCopyRight = function() {
+function tabCopyRight() {
     var currT = gBrowser.selectedTab;
     var dupT = gBrowser.duplicateTab(currT);
     gBrowser.selectedTab = dupT;
 }
 " ...basically equivalent to tabCopyRight, but without waiting for the new tab to load. "
-tabCopyLeftBg = function() {
+function tabCopyLeftBg() {
     var currT = gBrowser.selectedTab;
     var dupT = gBrowser.duplicateTab(currT);
     getBrowser().moveTabForward();
