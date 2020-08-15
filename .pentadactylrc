@@ -1732,6 +1732,9 @@ map <leader>tcc -description "Cycle CSP/CSP strict dynamic"       -ex accyclecsp
 map <leader>tcj -description "Toggle javascript"                  -ex actogglejs
 map <leader>tco -description "Toggle strict origin"               -ex actogglestrictorigin
 map <leader>tcO -description "Toggle OCSP stapling"               -ex actoggleocspstapling
+map <leader>tcr
+\    -description "Toggle right-click (oncontextmenu) event access by non-chrome JS"
+\    -ex actoggleoncontextmenu
 map <leader>tct -description "Toggle related tabs after current"  -ex actogglerelatedtabaftercurrent
 map <leader>tcu -description "Toggle UA override"                 -ex actoggleuaoverride
 map <leader>tcw -description "Toggle open in new window"          -ex actoggleopennewwin
@@ -5014,6 +5017,12 @@ command! acsetotheruaoverride -nargs=1 -js dactyl.execute(`set! general.useragen
 command! actoggleuaoverride -js utils.toggleNsISupportStrPref("general.useragent.override", "Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0");
 command! acgetuaoverride    getnsisupportsstringpref general.useragent.override
 command! acsetuseragent -nargs 1 -js prefroot.setCharPref("general.useragent.override", args[0]);
+
+" Context menu (right-click) event override by non-chrome JS "
+command! acsetoncontextmenu    :set! dom.event.oncontextmenu.enabled=true
+command! acunsetoncontextmenu  :set! dom.event.oncontextmenu.enabled=false
+command! actoggleoncontextmenu toggleconfig dom.event.oncontextmenu.enabled
+command! acgetoncontextmenu    getboolpref  dom.event.oncontextmenu.enabled
 
 " Addon auto-updates "
 command! acsetextupdate    :set! extensions.update.enabled=true
