@@ -6034,8 +6034,10 @@ function undob() {
 }
 
 " Create adjacent duplicate tab and go back in the browser history "
-    var dupT = tabs.cloneTab(tabs.getTab(), true);
 function backt (n=1) {
+    var origT = tabs.getTab();
+    var dupT = tabs.cloneTab(origT, true);
+    tabs.move(dupT, origT.dactylOrdinal+1);
     var dupTB = gBrowser.getBrowserForTab(dupT);
     function backtListener () {
         content.window.history.go(-n);
@@ -6045,9 +6047,11 @@ function backt (n=1) {
 }
 
 " Create adjacent duplicate tab and go forward in the browser history "
-    var dupT = tabs.cloneTab(tabs.getTab(), true);
 function forwardt(n=1) {
+    var origT = tabs.getTab();
+    var dupT = tabs.cloneTab(origT, true);
     var dupTB = gBrowser.getBrowserForTab(dupT);
+    tabs.move(dupT, origT.dactylOrdinal+1);
     function forwardtListener () {
         content.window.history.go(n);
         dupTB.removeEventListener("DOMContentLoaded", forwardtListener);
