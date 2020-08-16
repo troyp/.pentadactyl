@@ -4277,25 +4277,20 @@ map <goto>U       -description "/opt/userstyles/ directory"
 \                 -count -js openOrSelectTab("file:///opt/userstyles", count?"here":"tab");
 map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
-map <goto>w       -description "(Show bindings: goto (new window/dialog))" -js CommandExMode().open("showkeys <goto>w")
-map <goto>w<C-h>  -description "(Show bindings: goto (new window/dialog))" -js CommandExMode().open("showkeys <goto>w")
 map <goto>wk     -description "Bookmarks Dialog"
 \                 -ex dialog bookmarks
-map <goto>wl      -description "Library Dialog (sticky)"
-\                 -ex librarysticky
-map <goto>wi      -description "Page Info"
-\                 -js BrowserPageInfo();
+map <goto>w       -description "(Show bindings: Goto/Open Dialog)" -js CommandExMode().open("showkeys <goto>w")
+map <goto>wl      -description "Library Dialog (sticky)" -ex librarysticky
+map <goto>wi      -description "Page Info" -js BrowserPageInfo();
 
-map <goto>x       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>x")
-map <goto>x<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>x")
+map <goto>x       -description "(Show bindings: Goto/Extensions)" -js CommandExMode().open("showkeys <goto>x")
 map <goto>xc      -description "ChromEdit"
 \                 -count -js openOrSelectTab("chrome://chromedit/content/ChromEdit.xul", count?"here":"tab");
 map <goto>xe      -description "Epub Catalog"
 \                 -count -js openOrSelectTab("about:epubcatalog", count?"here":"tab");
 map <goto>xx      -description "XPCOM Viewer"
 \                 -count -js openOrSelectTab("chrome://xpcomviewer/content/xpcomviewer.xul", count?"here":"tab");
-map <goto>y       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>y")
-map <goto>y<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>y")
+map <goto>y       -description "(Show bindings: Goto/Dactyl)" -js CommandExMode().open("showkeys <goto>y")
 map <goto>yc      -description "~/.pentadactyl/config"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/config`, count?"here":"tab");
 map <goto>yC      -description "~/.pentadactyl/css"
@@ -4307,13 +4302,11 @@ map <goto>yD      -description "~/.pentadactyl/data"
 map <goto>yge     -description "dactyl repo: my local fork (open in Emacs)"
 \                 -ex openinemacs ~/repos/dactyl/common
 map <goto>ygg     -description "dactyl repo: my fork"
-\                 -count -js openOrSelectTab("https://github.com/troyp/dactyl/tree/master",
-\                                            count?"here":"tab");
+\                 -count -js openOrSelectTab("https://github.com/troyp/dactyl/tree/master", count?"here":"tab");
 map <goto>ygx     -description "dactyl repo: my local fork - downloads directory"
 \                 -count -js openOrSelectTab(`file://${homedir}/repos/dactyl/downloads/`, count?"here":"tab");
 map <goto>ygo     -description "dactyl repo: origin"
-\                 -count -js openOrSelectTab("https://github.com/5digits/dactyl/tree/master",
-\                                            count?"here":"tab");
+\                 -count -js openOrSelectTab("https://github.com/5digits/dactyl/tree/master", count?"here":"tab");
 map <goto>yh      -description "~/.pentadactyl/html"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/html`, count?"here":"tab");
 map <goto>yj      -description "~/.pentadactyl/js"
