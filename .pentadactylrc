@@ -4277,10 +4277,17 @@ map <goto>U       -description "/opt/userstyles/ directory"
 \                 -count -js openOrSelectTab("file:///opt/userstyles", count?"here":"tab");
 map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
-map <goto>wk     -description "Bookmarks Dialog"
-\                 -ex dialog bookmarks
 map <goto>w       -description "(Show bindings: Goto/Open Dialog)" -js CommandExMode().open("showkeys <goto>w")
+map <goto>wd      -description "Downloads dialog" -ex dialog downloads
+map <goto>wh      -description "History dialog" -js window.PlacesCommandHook.showPlacesOrganizer("History");
+map <goto>wkg     -description "Bookmarks Tags dialog" -js window.PlacesCommandHook.showPlacesOrganizer("Tags");
+map <goto>wkk     -description "Bookmarks dialog" -js window.PlacesCommandHook.showPlacesOrganizer("AllBookmarks");
+map <goto>wkm     -description "Bookmarks Menu dialog" -js window.PlacesCommandHook.showPlacesOrganizer("BookmarksMenu");
+map <goto>wkt     -description "Bookmarks Toolbar dialog" -js window.PlacesCommandHook.showPlacesOrganizer("BookmarksToolbar");
 map <goto>wl      -description "Library Dialog (sticky)" -ex librarysticky
+map <goto>wm      -description "(Show bindings: Goto/Open Dialog/Mini)" -js CommandExMode().open("showkeys <goto>w")
+map <goto>wmh     -description "History Dialog" -ex dialog history
+map <goto>wmk     -description "Bookmarks Dialog" -ex dialog bookmarks
 map <goto>wi      -description "Page Info" -js BrowserPageInfo();
 
 map <goto>x       -description "(Show bindings: Goto/Extensions)" -js CommandExMode().open("showkeys <goto>x")
