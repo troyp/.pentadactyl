@@ -1426,6 +1426,9 @@ map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
 map <app>x
 \    -description "Open local file with xdg-open"
 \    -js xopenMaybeFromBufferDir();
+map <app>X
+\    -description "Open local file (ask app)"
+\    -js xdgOpenAskAppMaybeFromBufferDir();
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
@@ -14780,6 +14783,17 @@ function xopenMaybeFromBufferDir(url=buffer.URL) {
         CommandExMode().open('xopen ' + localDir);
     } else {
         dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; xdg-open $f`);
+    }
+}
+
+function xdgOpenAskAppMaybeFromBufferDir(url=buffer.URL) {
+    var localDirRegex = /^file:\/\/([^?#]*)/;
+    var localDirMatch = url.match(localDirRegex);
+    if (localDirMatch) {
+        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
+        dactyl.execute(`!roxterm -e zsh -c "mimeopen -a '${localDir}'"`);
+    } else {
+        dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; roxterm -e zsh -c "mimeopen -a '${f}'"`);
     }
 }
 
