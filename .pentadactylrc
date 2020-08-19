@@ -14772,14 +14772,14 @@ function parseRanges(s) {
 " ,---------, "
 " | Loading | "
 " '---------' "
-function xopenMaybeFromBufferDir() {
+function xopenMaybeFromBufferDir(url=buffer.URL) {
     var localDirRegex = /^file:\/\/([^?#]*)/;
-    var localDirMatch = buffer.URL.match(localDirRegex);
+    var localDirMatch = url.match(localDirRegex);
     if (localDirMatch) {
         var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
         CommandExMode().open('xopen ' + localDir);
     } else {
-        CommandExMode().open('xopen ');
+        dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; xdg-open $f`);
     }
 }
 
