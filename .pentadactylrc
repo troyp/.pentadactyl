@@ -6251,48 +6251,30 @@ function removeCruft() {
     }
 }
 
+" Note: Array.prototype.slice.call is faster than Array.from, but less general "
 function removeCruftGeneric() {
     var elts = [];
-    var toarray = Array.prototype.slice;
     var doc = content.document;
-    var coll = doc.getElementsByTagName("header");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var coll = doc.getElementsByClassName("header");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var item = doc.getElementById("header");
-    if (coll) elts.push(item);
-    var coll = doc.getElementsByTagName("aside");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var coll = doc.getElementsByClassName("aside");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var item = doc.getElementById("aside");
-    if (coll) elts.push(item);
-    var coll = doc.getElementsByTagName("footer");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var coll = doc.getElementsByClassName("footer");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var item = doc.getElementById("footer");
-    if (coll) elts.push(item);
-    var coll = doc.getElementsByTagName("form");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var coll = doc.getElementsByClassName("topbar");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var item = doc.getElementById("topbar");
-    if (coll) elts.push(item);
-    var coll = doc.getElementsByClassName("sidebar");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var item = doc.getElementById("sidebar");
-    if (coll) elts.push(item);
-    var coll = doc.getElementsByClassName("comments");
-    if (coll) elts = elts.concat(toarray.call(coll));
-    var item = doc.getElementById("comments");
-    var item = doc.getElementById("feed-link");
-    if (coll) elts.push(item);
-    if (coll) elts.push(item);
-    for (i=elts.length-1; i>=0; --i) {
-        if (elts[i])
-            elts[i].remove();
-    }
+    var item, coll;
+    if (coll = doc.getElementsByTagName("header"))     elts = elts.concat(A.slice(coll));
+    if (coll = doc.getElementsByClassName("header"))   elts = elts.concat(A.slice(coll));
+    if (item = doc.getElementById("header"))           elts.push(item);
+    if (coll = doc.getElementsByTagName("aside"))      elts = elts.concat(A.slice(coll));
+    if (coll = doc.getElementsByClassName("aside"))    elts = elts.concat(A.slice(coll));
+    if (item = doc.getElementById("aside"))            elts.push(item);
+    if (coll = doc.getElementsByTagName("footer"))     elts = elts.concat(A.slice(coll));
+    if (coll = doc.getElementsByClassName("footer"))   elts = elts.concat(A.slice(coll));
+    if (item = doc.getElementById("footer"))           elts.push(item);
+    if (coll = doc.getElementsByTagName("form"))       elts = elts.concat(A.slice(coll));
+    if (coll = doc.getElementsByClassName("topbar"))   elts = elts.concat(A.slice(coll));
+    if (item = doc.getElementById("topbar"))           elts.push(item);
+    if (coll = doc.getElementsByClassName("sidebar"))  elts = elts.concat(A.slice(coll));
+    if (item = doc.getElementById("sidebar"))          elts.push(item);
+    if (coll = doc.getElementsByClassName("comments")) elts = elts.concat(A.slice(coll));
+    if (item = doc.getElementById("comments"))         elts.push(item);
+    if (item = doc.getElementById("feed-link"))        elts.push(item);
+    if (item = doc.getElementById("respond"))          elts.push(item);
+    for (i=elts.length-1; i>=0; --i) { elts[i] && elts[i].remove(); }
 }
 
 function removeIFrames() {
