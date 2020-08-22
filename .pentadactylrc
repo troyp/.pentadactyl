@@ -2529,6 +2529,8 @@ map <yank>L -description "Yank selection links" -ex yankselectionlinks
 map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
 map <yank>M -description "Yank markdown link (using H1 heading as title)"
     \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
+map <yank>o -description "Yank selection, join lines with dash, colon->dash" -js utils.yankWithMsg(content.document.getSelection().toString().replace(/\n|: ?/g, " - "));
+map <yank>O -description "Yank selection, join lines, colon->dash" -js utils.yankWithMsg(content.document.getSelection().toString().replace(/:?\n/g, "").replace(/: ?/g, " - "));
 map <yank>p -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
 " <yank>P -- yank from PDF "
 map <yank>P  -description "(show bindings: yank from PDF)" -js CommandExMode().open("showkeys <yank>P")
