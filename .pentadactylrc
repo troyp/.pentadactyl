@@ -14001,6 +14001,16 @@ function getBackgroundImages() {
 " | Functions taking Elements or Selectors | "
 " '----------------------------------------' "
 
+function hasSelector(sel) {
+    return content.document.querySelector(sel) ? sel : null;
+}
+window.hasSelector = hasSelector;
+
+function hasSelectors(...sels) {
+    return sels.filter(sel => content.document.querySelector(sel));
+}
+window.hasSelectors = hasSelectors;
+
 function getSelectors(...sels) {
     return Array.from(content.document.querySelectorAll(sels.join(",")));
 }
