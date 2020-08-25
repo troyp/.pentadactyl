@@ -14007,6 +14007,7 @@ function removeSelectors(...sels) {
     var elts = getSelectors(...sels);
     elts.forEach(e=>e.parentNode.removeChild(e));
 }
+window.removeSelectors = removeSelectors;
 
 function removeSelectorFiltered(sel, pred) {
     var elts = getSelectors(sel).filter(pred);
@@ -14047,12 +14048,14 @@ function isolateSelector(sel) {
 " TODO: remove nonmatching elements rather than replacing matching ones "
 function isolateSelectors(...sels) {
     selectedElts = [...content.document.querySelectorAll(sels)];
+    if (selectedElts.length==0) return null;
     topElts = [...content.document.body.children];
     topElts.forEach(elt => elt.remove());
     selectedElts.forEach(elt =>
         content.document.body.appendChild(elt)
     );
 }
+
 function isolateSelectorsFiltered(...selPredPairs) {
     " Each argument is either a selector string or a pair [SELECTOR, PRED] "
     var doc = content.document;
@@ -14074,6 +14077,7 @@ function isolateSelectorsFiltered(...selPredPairs) {
         content.document.body.appendChild(elt)
     );
 }
+
 function isolateSelectorsFilteredHelper(...args) {
     var processedArgs = args.map(pair=>[pair[0], eval("(e)=>"+pair[1])]);
     return isolateSelectorsFiltered.call(null, ...processedArgs);
@@ -14173,6 +14177,7 @@ function getSelectorContent(sel, target='innerText') {
     return result;
 }
 
+window.getSelectorContent = getSelectorContent;
 function getSelectorsContent(sels, useInnerText=false) {
     if (typeof sels == "string") sels = [sels];
     result = [];
