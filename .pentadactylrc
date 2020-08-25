@@ -6246,6 +6246,20 @@ function removeCruft() {
     } else if (url.match(/https:\/\/wiki.haskell\.org/)) {
         isolateSelector("#content");
         removeSelectors("#catlinks");
+    } else if (url.match(/https:\/\/www.codeproject\.com/)) {
+        isolateSelectors(".header", "#contentdiv");
+        removeSelectors("img.avatar");
+    } else if (url.match(/https:\/\/onepiece-online-manga\.com/)) {
+        isolateSelectors("article");
+        removeSelectors(".simplesocialbuttons");
+    } else if (url.match(/https:\/\/bartoszmilewski.com/))  {
+        isolateSelectors("#main");
+        removeSelectors(".comment-author.vcard>img");
+    } else if (url.match(/https:\/\/patternsinfp.wordpress.com/))  {
+        isolateSelectors("#site-title,#content");
+        removeSelectors("#nav-above,#nav-below,#jp-post-flair,.reply,.post.pingback,#respond,#eu-cookie-law");
+    } else if (url.match(/https:\/\/dzone.com/))  {
+        removeSelectors("iframe","script",".header",".announcementBar",".breadcrumb-padding",".signin-prompt",".related","#adtoniq-msgr-bar");
     } else {
         removeCruftGeneric();
     }
