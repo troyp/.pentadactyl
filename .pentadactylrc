@@ -1546,7 +1546,7 @@ map <leader>mbp -description "Print What You Like" -ex prwul
 " '--------------------------'
 map <leader>n      -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>n<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
-map <leader>na -description "Isolate Article" -js isolateArticle();
+map <leader>na -description "Isolate Article" -js isolateArticle(count);
 map <leader>ni -description "Remove images" -ex removeimages
 map <leader>nn -description "Remove selector" -b :removeselector<Space>
 map <leader>no -description "Isolate selector" -b :isolateselector<Space>
@@ -1557,9 +1557,11 @@ map <leader>np -description "lmnpop " -js hints.show('🄿');
 map <leader>nr -description "Remove cruft" -ex removecruft
 
 js <<EOF
-function isolateArticle() {
-    isolateSelectors("article:first-of-type", ".article");
+function isolateArticle(conservative=false) {
+    var keep = hasSelectors("article:first-of-type", ".article", "#main", "#content");
+    if (keep.length) isolateSelectors(keep[0]);
     removeSelectors(".sharedaddy");
+    !conservative && removeSelectors("footer");
 }
 EOF
 
