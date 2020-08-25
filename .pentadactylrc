@@ -3344,6 +3344,7 @@ command! isolateselectorsfiltered
 \                pred = pred || true;
 \                return [sel, eval("(e)=>"+pred)];
 \            }));
+command! setbackground -nargs=* -js setBackground(args.slice(1), args[0]);
 command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
 command! unhideselector  -nargs=* -js unhideSelectors.call(null, ...args);
@@ -4518,6 +4519,11 @@ style -name=visitedlinks * a:visited { color: #8E73E6 !important; }
 " ,-----------------------,
 " | <browser>s -- Styling |
 " '-----------------------'
+map <browser>s   -description "(show bindings: Style)" -js CommandExMode().open("showkeys <browser>s")
+map <browser>sb  -description "(show bindings: Style/Background)" -js CommandExMode().open("showkeys <browser>sb")
+map <browser>sbb -description "Style/Set background for selector(s): [COL SEL...]" :setbackground white<Space>
+map <browser>sbw -description "Style/Set background for selector(s) to white" :setbackground white<Space>
+
 map <browser>sm -description "Stylish/manage styles" -ex stylishmanage
 map <browser>sn -description "Stylish/new style" -js stylishCommon.openEdit('new');
 map <browser>sN -description "Style/narrow page" -b :narrowpage<Space>
@@ -14065,6 +14071,19 @@ function removeSelectorsWithPrecedingHeading(...sels) {
         e.parentNode.removeChild(e);
     });
 }
+
+function setBackground(sels, col="white") {
+    var elts = [];
+    if (!isArray(sels)) sels = [sels];
+    for (sel of sels) {
+        if (typeof sel == "string") elts = elts.concat(getSelectors(sel));
+        else elts.push(sel);
+    }
+    for (elt of elts) {
+        elt.style.backgroundColor = col;
+    }
+}
+window.setBackground = setBackground;
 
 function topElements() { return [...content.document.body.children] };
 
