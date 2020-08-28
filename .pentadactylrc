@@ -3458,6 +3458,7 @@ map <buffer>dt<C-h> -description "(show bindings: Delete tabs/delete to)"
 map <buffer>dtt     -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dtx     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du      -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
+map <buffer>dU      -description "Close all adjacent tabs with matching domain" -js tabCloseAdjacentMatchingDomain();
 map <buffer>dw
 \    -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
@@ -3993,6 +3994,27 @@ function tabCloseDuplicates(exact=true) {
         " Remove rightmost tabs first so leftmost tab indices aren't affected ";
         tabs.remove(tabs.getTab(currentIdx+1), n2);
         tabs.remove(tabs.getTab(firstIdx), n1);
+        tabs.select(tabs.getTab(firstIdx));
+        utils.message(`${n} tabs closed`);
+    }
+}
+
+function tabCloseAdjacentMatchingDomain(url=buffer.URL) {
+    var N = tabs.allTabs.length - 1;
+    var currentTab = tabs.getTab();
+    var currentIdx = currentTab.dactylOrdinal - 1;
+    var i, firstIdx, lastIdx;
+    try {
+        for (i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); --i);
+        firstIdx = i;
+        for (i=currentIdx; i<=N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); ++i);
+        lastIdx = i;
+    } catch(error) {
+        utils.message(`i=${i}, N=${N}`);
+    }
+    var n = lastIdx - firstIdx +1;
+    if (n > 0) {
+        tabs.remove(tabs.getTab(firstIdx), n);
         tabs.select(tabs.getTab(firstIdx));
         utils.message(`${n} tabs closed`);
     }
