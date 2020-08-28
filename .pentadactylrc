@@ -3457,7 +3457,7 @@ map <buffer>dt<C-h> -description "(show bindings: Delete tabs/delete to)"
 \                   -js CommandExMode().open("showkeys <buffer>dt")
 map <buffer>dtt     -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dtx     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
-map <buffer>du      -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
+map <buffer>du      -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
 map <buffer>dw
 \    -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
@@ -3529,7 +3529,7 @@ map <buffer>>
 \    -description "Close all (or count) tabs to the right of the current tab"
 \    -js closeTabsToRight(count);
 " close adjacent duplicates "
-map <A-S-Space> -description "Close all duplicates adjacent to current tab" -ex tabcloseduplicates
+map <A-S-Space> -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
 
 " move tabs "
 map gm     -b :tabmove!<SPACE>
@@ -3675,10 +3675,6 @@ EOF
 " ,--------------,
 " | Closing Tabs |
 " '--------------'
-
-command! tabcloseduplicates
-    \ -description "Close all duplicates adjacent to current tab"
-    \ -js tabCloseDuplicates();
 
 " close tab range "
 command! tc
@@ -3968,24 +3964,37 @@ function tabRemoveWhile(f, directions=["forward", "reverse"]) {
 }
 window.tabRemoveWhile = tabRemoveWhile;
 
-function tabCloseDuplicates() {
+function tabCloseDuplicates(exact=true) {
+    " if exact is false, treat adjacents with same domain as duplicates ";
     var url = buffer.URL;
     var N = tabs.allTabs.length - 1;
     var currentTab = tabs.getTab();
     var currentIdx = currentTab.dactylOrdinal - 1;
-    var i;
+    var i, firstIdx, lastIdx;
     try {
-    for (i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL==url; --i);
-    var firstIdx = i;
-    for (i=currentIdx; i<=N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL==url; ++i);
-    var lastIdx = i;
+        if (exact) {
+            for (i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL==url; --i);
+            firstIdx = i;
+            for (i=currentIdx; i<=N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL==url; ++i);
+            lastIdx = i;
+        } else {
+            for (i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); --i);
+            firstIdx = i;
+            for (i=currentIdx; i<=N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); ++i);
+            lastIdx = i;
+        }
     } catch(error) {
         utils.message(`i=${i}, N=${N}`);
     }
-    var n = lastIdx - firstIdx;
+    var n1 = currentIdx - firstIdx;
+    var n2 = lastIdx - currentIdx;
+    var n = n1 + n2;
     if (n > 0) {
-        tabs.remove(tabs.getTab(firstIdx+1), n);
+        " Remove rightmost tabs first so leftmost tab indices aren't affected ";
+        tabs.remove(tabs.getTab(currentIdx+1), n2);
+        tabs.remove(tabs.getTab(firstIdx), n1);
         tabs.select(tabs.getTab(firstIdx));
+        utils.message(`${n} tabs closed`);
     }
 }
 
