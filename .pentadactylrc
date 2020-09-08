@@ -13225,11 +13225,17 @@ function wikiaRemoveImages() {
 
 function wikiaGetNext() {
     var nextprevLinks = content.document.querySelectorAll('.portable-infobox tr a');
-    return nextprevLinks[1].href;
+    if (nextprevLinks.length >= 2)
+        return nextprevLinks[1].href;
+    else
+        return getFirstSelector("div[data-source='next']>div.pi-data-value>a").href;
 }
 function wikiaGetPrevious() {
     var nextprevLinks = content.document.querySelectorAll('.portable-infobox tr a');
-    return nextprevLinks[0].href;
+    if (nextprevLinks.length >= 2)
+        return nextprevLinks[0].href;
+    else
+        return getFirstSelector("div[data-source='previous']>div.pi-data-value>a").href;
 }
 
 function wikiaToggleGlobalNav() {
@@ -13330,8 +13336,8 @@ map <site>t   -description "(show bindings: Wikia/Toggle)" -js CommandExMode().o
 map <site>tc  -description "Toggle Contents" -js getSelectorByText("a", /show|hide/)[0].click();
 map <site>tn  -description "Toggle Global Navigation" -js wikiaToggleGlobalNav();
 map <site>x   -js wikiaClosePopup();
-map <site>]   -ex wikianext
-map <site>[   -ex wikiaprevious
+map ]]   -ex wikianext
+map [[   -ex wikiaprevious
 
 " autocmd DOMload 'https?://.*\.wikia.com/\.*' wikiaremovecruft
 
