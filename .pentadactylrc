@@ -786,6 +786,10 @@ command! showkeys
 \    -nargs=?
 \    -complete custom,' (context) => {context.completions = listActiveGroupMappings()}'
 \    :feedkeys -mode normal <args>
+command! emacssearchkey
+\    -nargs=1
+\    -complete custom,' (context) => {context.completions = listActiveGroupMappings()}'
+\    -js showPentadactylrc(`map ${args[0]}`);
 
 " Unmap prefix keys
 map b <Nop>
@@ -819,6 +823,18 @@ map <C-x>          -description "(show bindings)" -js CommandExMode().open("show
 map g              -description "(show bindings)" -js CommandExMode().open("showkeys g")
 map <search>       -description "(show bindings)" -js CommandExMode().open("showkeys <search>")
 map z              -description "(show bindings)" -js CommandExMode().open("showkeys z")
+
+map <leader><f4>   -description "(show bindings)" -js CommandExMode().open("emacssearchkey <leader>")
+map <goto><f4>     -description "(show bindings)" -js CommandExMode().open("emacssearchkey <goto>")
+map <ext><f4>      -description "(show bindings)" -js CommandExMode().open("emacssearchkey <ext>")
+map <app><f4>      -description "(show bindings)" -js CommandExMode().open("emacssearchkey <app>")
+map <browser><f4>  -description "(show bindings)" -js CommandExMode().open("emacssearchkey <browser>")
+map <buffer><f4>   -description "(show bindings)" -js CommandExMode().open("emacssearchkey <buffer>")
+map <yank><f4>     -description "(show bindings)" -js CommandExMode().open("emacssearchkey <yank>")
+map <C-x><f4>      -description "(show bindings)" -js CommandExMode().open("emacssearchkey <C-x>")
+map g<f4>          -description "(show bindings)" -js CommandExMode().open("emacssearchkey g")
+map <search><f4>   -description "(show bindings)" -js CommandExMode().open("emacssearchkey <search>")
+map z<f4>          -description "(show bindings)" -js CommandExMode().open("emacssearchkey z")
 
 " -------------------------------------------------------------------------------
 " ,----------------------------,
