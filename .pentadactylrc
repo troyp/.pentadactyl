@@ -2864,6 +2864,7 @@ map <search>;sz
 \    -js multipleEngineSearch(["e", "amazau"], readFromClipboard());
 map <search>S   -description "Supermarket search: woolworths + coles" -b :supermarket<Space>
 map <search>w   -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
+map <search>y   -description "Search .pentadactylrc in Emacs" -b :rce<Space>
 map <search>0   -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
 map <search>\'  -description "Link Search: Forward" -modes normal -b /\l
 map <search>\"  -description "Link Search: Backward" -modes normal -b ?\l    "
@@ -3193,8 +3194,8 @@ map gp -ex pasteall
 command! viewpagesource -description "Toggle viewing page / viewing page source" -js viewPageSource();
 
 command! rc source ~/.pentadactylrc
-"command! rce viewsource! file:/home/troy/.pentadactylrc
-command! rce !emacsclient ~/.pentadactylrc 2> /dev/null
+
+command! rce -description "Edit .pentadactyl, jump to SEARCHTERM" -nargs=? -js showPentadactylrc(args[0]);
 
 command! loadutils runtime! utils.js | js var utils = dactyl.utils.getPlugin("utils");
 
@@ -3206,6 +3207,24 @@ command! saveindir
 \    -js dactyl.execute(`saveas ${joinFilePathFromDactylArgs(args[0])}`);
 
 js <<EOF
+function showPentadactylrc(searchterm) {
+    if (searchterm) {
+        dactyl.execute(
+            `!emacsclient --eval '(progn (find-file "~/.pentadactyl/.pentadactylrc")
+                                          (beginning-of-buffer)
+                                          (isearch-mode t t)
+                                          (isearch-yank-string "${searchterm}")
+                                          (recenter nil)
+                                          (beginning-of-line))'
+            `
+        ) && dactyl.execute("!wmctrl -a emacs");
+    } else {
+        dactyl.execute(
+        `!emacsclient --eval '(find-file "~/.pentadactyl/.pentadactylrc")'`
+        ) && dactyl.execute("!wmctrl -a emacs");
+    }
+}
+
 function joinFilePathFromDactylArgs(dir) {
     var name = window._dactylargs && window._dactylargs[0];
     if (!name || typeof name != "string") {
