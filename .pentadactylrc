@@ -2042,10 +2042,13 @@ map <leader>ag
 map <leader>ag<C-h>
 \    -description "(show bindings: Web Sites/Repos)"
 \    -js CommandExMode().open("showkeys <leader>ag");
-map <leader>agg
+map <leader>agf
 \    -description "Follow Github link"
 \    -count
 \    -js openOrSelectTab(getFirstGithubLink(), count?"adjacent":"here");
+map <leader>agg -description "Github goto user/repo"
+\    -count
+\    -js CommandExMode().open(count ? "githubgoto! " : "githubgoto ");
 map <leader>agh
 \     -description "Open My Github: Repositories"
 \     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
@@ -8987,6 +8990,8 @@ command! gitprint
 \    -bang
 \    -nargs ?
 \    -js openOrSelectTab((args[0]||buffer.URL).replace("github.com", "gitprint.com"), bang?"tab":"here");
+
+command! githubgoto -description "Goto Github repo [USER REPO]" -bang -nargs + -js openOrSelectTab(`https://github.com/${args[0]}/${args[1]||""}`, bang?"here":"adjacent");
 
 js var ghusername = 'troyp';
 
