@@ -14901,7 +14901,7 @@ function xdgOpenAskAppMaybeFromBufferDir(url=buffer.URL) {
         var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
         dactyl.execute(`!roxterm -e zsh -c "mimeopen -a '${localDir}'"`);
     } else {
-        dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; roxterm -e zsh -c "mimeopen -a '${f}'"`);
+        dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; roxterm -e zsh -c "mimeopen -a '$f'"`);
     }
 }
 
