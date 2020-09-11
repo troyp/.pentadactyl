@@ -5846,10 +5846,10 @@ map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
 map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
 
-" ,---------------------------------------,
-" | <leader>i -- Transform image in-place |
-" '---------------------------------------'
-map <leader>ii -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>ii");
+" ,--------------------------------,
+" | <leader>i -- Misc/Images/Hints |
+" '--------------------------------'
+map <leader>ii -description "(show bindings: Misc/Images/Hints)" -js CommandExMode().open("showkeys <leader>ii");
 map <leader>iif -description "Flip image horizontally [HINTS]" -js hints.show("ῑ");
 map <leader>iiF -description "Flip image vertically [HINTS]" -js hints.show("ί");
 map <leader>iii -description "Restore image (cancel transform) [HINTS]" -js hints.show("ɩ");
@@ -5859,12 +5859,21 @@ map <leader>iir -description "Resize image [HINTS]" -b :imageresize<Space>
 command! imageresize -description "Resize image [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ῐ");
 command! imagematrix -description "Transform image using matrix [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ϊ");
 
+" ,----------------------------------,
+" | <leader>is -- Misc/Images/Search |
+" '----------------------------------'
+map <leader>is -description "(show bindings: Misc/Images/Hints)" -js CommandExMode().open("showkeys <leader>is");
+map <leader>isr
+\    -description "TinEye reverse image search"
+\    -js openOrSelectTab("https://tineye.com/search/?url="+encodeURIComponent(buffer.URL), count?"adjacent":"here");
+
 " ,-------------------------------------, "
 " | <leader>it -- Misc/Images/Transform | "
 " '-------------------------------------' "
 map <leader>it -description "(show bindings: Misc/Images/Transform)" -js CommandExMode().open("showkeys <leader>it");
 map <leader>itf -description "Flip image (URL) horizontally" -js imageTransform("flop");
 map <leader>itF -description "Flip image (URL) vertically" -js imageTransform("flip");
+map <leader>ito -description "ImgOps (URL)" -js openOrSelectTab("https://imgops.com/" + buffer.URL, count?"adjacent":"here");
 map <leader>itr -description "Rotate image (URL) by Θ degrees" -b :imagerotate<Space>
 
 command! imagerotate -description "Rotate image (URL) by Θ degrees" -nargs 1 -js imageTransform("rotate "+args[0]);
