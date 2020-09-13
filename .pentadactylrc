@@ -1459,7 +1459,7 @@ map <app>sv
 \    -js io.system("wmctrl -a vlc")
 
 " open file with mimeopen
-command! mimeopen -nargs=1 -complete=file -js dactyl.execute("!mimeopen -n " + escapeFilenameUnescapedChars(args[0]));
+command! mimeopen -nargs=1 -complete=file -js dactyl.execute("!mimeopen -n " + escapeFilenameUnescapedChars(args[0]) + " 2>>/dev/null");
 
 " Open in Google Chrome "
 command! ochrome :exec `!google-chrome --profile-directory='Default' --disable-infobars "${buffer.URL}" &`
