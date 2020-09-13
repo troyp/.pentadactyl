@@ -4314,6 +4314,7 @@ map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory"
 map <goto>w       -description "(Show bindings: Goto/Open Dialog)" -js CommandExMode().open("showkeys <goto>w");
 map <goto>wd      -description "Downloads dialog" -ex dialog downloads
 map <goto>wh      -description "History dialog" -js window.PlacesCommandHook.showPlacesOrganizer("History");
+map <goto>wk      -description "(Show bindings: Goto/Open Dialog/Bookmarks)" -js CommandExMode().open("showkeys <goto>wk");
 map <goto>wkg     -description "Bookmarks Tags dialog" -js window.PlacesCommandHook.showPlacesOrganizer("Tags");
 map <goto>wkk     -description "Bookmarks dialog" -js window.PlacesCommandHook.showPlacesOrganizer("AllBookmarks");
 map <goto>wkm     -description "Bookmarks Menu dialog" -js window.PlacesCommandHook.showPlacesOrganizer("BookmarksMenu");
