@@ -9267,11 +9267,14 @@ function ghprGetDiffURL() {
     }
 }
 
-function ghCopyUserAndRepo() { utils.yankWithMsg(ghGetUserAndRepo().join("/")); }
+function ghCopyUserAndRepo() {
+    var [user, repo] = ghGetUserAndRepo();
+    var s = (user && repo) ? `${user}/${repo}` : `${user}${repo}`;
+    return utils.yankWithMsg(s);
+}
 
 function ghCopyUser() {
-    user = ghGetUserAndRepo(true);
-    utils.yankWithMsg(user);
+    return utils.yankWithMsg(ghGetUser());
 }
 
 function ghCopyRepoNameWithURL() {
