@@ -90,6 +90,7 @@ var utils = {
         commandline.echo(s,
                          hlType,
                          commandline.APPEND_TO_MESSAGES);
+        return s;
     },
 
     messageWithLineLimit: function(s, maxL=30) {
@@ -102,6 +103,7 @@ var utils = {
             var msg = lines.slice(0, maxL).join('\n') + "\n....<clip>";
             utils.message(msg);
         }
+        return s;
     },
 
     tempmessage: function (s) {
@@ -111,6 +113,7 @@ var utils = {
         setTimeout(function(){
             commandline.echo('', commandline.HL_INFOMSG);
         }, 500);
+        return s;
     },
 
     dateToYYMMDD: function (date, sep) {
@@ -221,31 +224,33 @@ var utils = {
     cbWrite: function (s, messagePrefix="Copied: ") {
         if (!messagePrefix) messagePrefix = "";
         dactyl.clipboardWrite(s);
-        utils.message(messagePrefix+s);
+        return utils.message(messagePrefix+s);
     },
 
     cbWriteWithMessageLimit: function (s) {
         dactyl.clipboardWrite(s);
-        utils.messageWithLineLimit(s);
+        return utils.messageWithLineLimit(s);
     },
 
     cbWriteCollection: function (coll) {
         s = Array.from(coll).reduce((s,i)=>`${s}\n${i}`);
         dactyl.clipboardWrite(s);
         utils.messageWithLineLimit(s);
+        return s;
     },
 
     yankWithMsg: function (s, messagePrefix="Copied: ") {
         if (!messagePrefix) messagePrefix = "";
         editor.setRegister("*+", s, false);
         utils.message(messagePrefix+s);
+        return s;
     },
 
     cbAppend: function (s) {
         io.system(`echo "\n"; | xsel -aif`);
         io.system(`echo "\n"; echo -n '${s}' | xsel -aif`);
         var cbContents = io.system(`xsel -o`);
-        utils.message(cbContents);
+        return utils.message(cbContents);
     }
 
 // =============================================================================
