@@ -9007,7 +9007,7 @@ js var ghusername = 'troyp';
 js function ghTabopenRepo (s) { dactyl.tabopen(`https://github.com/${s}`); }
 command! ghtabopenrepo -nargs=1 -js ghTabopenRepo(args[0]);
 
-" ===== GROUP START =====
+" ===== GROUP START ===== "
 group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com,github.io
 
 map <site>a        -description "(show bindings: Github/Alterations)" -js CommandExMode().open("showkeys <site>a")
@@ -9264,17 +9264,17 @@ function ghprGetDiffURL() {
     }
 }
 
-function ghCopyUserAndRepo() { dactyl.utils.yankWithMsg(ghGetUserAndRepo().join("/")); }
+function ghCopyUserAndRepo() { utils.yankWithMsg(ghGetUserAndRepo().join("/")); }
 
 function ghCopyUser() {
     user = ghGetUserAndRepo(true);
-    dactyl.utils.yankWithMsg(user);
+    utils.yankWithMsg(user);
 }
 
 function ghCopyRepoNameWithURL() {
     repo = ghGetUserAndRepo()[1];
     var url = buffer.URL;
-    dactyl.utils.yankWithMsg(`${repo} (${url})`);
+    utils.yankWithMsg(`${repo} (${url})`);
 }
 
 function ghCopyWikiGitURL() { dactyl.utils.yankWithMsg(ghGetWikiGitURL()); }
