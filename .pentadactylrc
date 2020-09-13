@@ -1274,7 +1274,7 @@ map <app>dm
 \    -js openLastDownloadAsMaff(count||1);
 map <app>do
 \    -description "Open last download, ask for app"
-\    -js xdgOpenAskAppForLastDownload(count||1);
+\    -js mimeopenAskAppForLastDownload(count||1);
 map <app>dr
 \    -description "Rename last download"
 \    -count
@@ -1284,13 +1284,13 @@ map <app>dt
 \    -count
 \    -js trashLastDownload(count||1)
 map <app>dx
-\    -description "Open last download using xdg-open"
+\    -description "Open last download using mimeopen"
 \    -count
-\    -js xdgOpenLastDownload(count||1)
+\    -js mimeopenLastDownload(count||1)
 map <app>dX
 \    -description "Open last download and set default application for type"
 \    -count
-\    -js xdgOpenAndSetAppForLastDownload(count||1)
+\    -js mimeopenAndSetAppForLastDownload(count||1)
 map <app>dv
 \    -description "Open last download in browser"
 \    -count
@@ -1310,18 +1310,18 @@ function getLastDownload(n=1) {
 }
 window.getLastDownload = getLastDownload;
 
-function xdgOpenLastDownload(n=1) {
+function mimeopenLastDownload(n=1) {
     var dlP = getLastDownload(n);
-    dlP.then(function(dl) { io.system(`xdg-open '${dl}'`); });
+    dlP.then(function(dl) { io.system(`mimeopen -n '${dl}'`); });
 }
-window.xdgOpenLastDownload = xdgOpenLastDownload;
+window.mimeopenLastDownload = mimeopenLastDownload;
 
-function xdgOpenAskAppForLastDownload(n=1) {
+function mimeopenAskAppForLastDownload(n=1) {
     var dlP = getLastDownload(n);
     dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -a '${dl}'"`); });
 }
 
-function xdgOpenAndSetAppForLastDownload(n=1) {
+function mimeopenAndSetAppForLastDownload(n=1) {
     var dlP = getLastDownload(n);
     dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -d '${dl}'"`); });
 }
@@ -1434,11 +1434,11 @@ map <app>q
 \    -ex oqute
 map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
 map <app>x
-\    -description "Open local file with xdg-open"
-\    -js xopenMaybeFromBufferDir();
+\    -description "Open local file with mimeopen"
+\    -js mimeopenMaybeFromBufferDir();
 map <app>X
 \    -description "Open local file (ask app)"
-\    -js xdgOpenAskAppMaybeFromBufferDir();
+\    -js mimeopenAskAppMaybeFromBufferDir();
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
@@ -1458,9 +1458,8 @@ map <app>sv
 \    -description "Switch to VLC"
 \    -js io.system("wmctrl -a vlc")
 
-" open file with xdg-open
-" FIXME: issue with maff files with spaces in directory (not name)
-command! xopen -nargs=1 -complete=file -js dactyl.execute("!xdg-open " + escapeFilenameUnescapedChars(args[0]));
+" open file with mimeopen
+command! mimeopen -nargs=1 -complete=file -js dactyl.execute("!mimeopen -n " + escapeFilenameUnescapedChars(args[0]));
 
 " Open in Google Chrome "
 command! ochrome :exec `!google-chrome --profile-directory='Default' --disable-infobars "${buffer.URL}" &`
@@ -8844,7 +8843,7 @@ map <site>yy -description "Yank file location" -js utils.cbWrite(buffer.URL.repl
 map <site>yf -description "Yank link location" -js hints.show("Λ");
 map <site>v -description "Open in gvim"
 \           -js io.system(`gvim ${buffer.URL.replace("file://", "")}`);
-map <site>x -description "Execute link with xdg-open" -js hints.show("ƛ");
+map <site>x -description "Execute link with mimeopen" -js hints.show("ƛ");
 
 
 " -----
@@ -8853,7 +8852,7 @@ map <site>x -description "Execute link with xdg-open" -js hints.show("ƛ");
 set eht+=[Λ]:'a',':-moz-any-link'
 js hints.addMode("Λ", "Yank local path", e=>{ utils.cbWrite(localGetLinkPath(e)); });
 set eht+=[ƛ]:'a',':-moz-any-link'
-js hints.addMode("ƛ", "Execute link with xdg-open", e=> dactyl.execute("xopen '" + localGetLinkPath(e) + "'"));
+js hints.addMode("ƛ", "Execute link with mimeopen", e=> dactyl.execute("mimeopen '" + localGetLinkPath(e) + "'"));
 
 js <<EOF
 function localBaseURL() { return buffer.URL.replace("file://", ""); }
@@ -14892,18 +14891,18 @@ function parseRanges(s) {
 " ,---------, "
 " | Loading | "
 " '---------' "
-function xopenMaybeFromBufferDir(url=buffer.URL) {
+function mimeopenMaybeFromBufferDir(url=buffer.URL) {
     var localDirRegex = /^file:\/\/([^?#]*)/;
     var localDirMatch = url.match(localDirRegex);
     if (localDirMatch) {
         var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
-        CommandExMode().open('xopen ' + localDir);
+        CommandExMode().open('mimeopen ' + localDir);
     } else {
-        dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; xdg-open $f`);
+        dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; mimeopen -n $f`);
     }
 }
 
-function xdgOpenAskAppMaybeFromBufferDir(url=buffer.URL) {
+function mimeopenAskAppMaybeFromBufferDir(url=buffer.URL) {
     var localDirRegex = /^file:\/\/([^?#]*)/;
     var localDirMatch = url.match(localDirRegex);
     if (localDirMatch) {
