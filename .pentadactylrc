@@ -9198,25 +9198,28 @@ function ghCopyRepoLinkSSH() {
 function ghCopyRepoLinkGit() {
     dactyl.utils.yankWithMsg(ghGetCloneUrl("git"));
 }
-function ghGetUserAndRepo(useronly=false) {
-    // var url = ghGetCloneUrl("https");
-    if (buffer.URL.match(/https:\/\/github.com\/search/))
-        return [null, null];
-    var regex = /[^:]+:\/\/(gist.)?github.com\/([^/]+)\/?([^/#?]+)?(\/.*)?/;
-    var match = buffer.URL.match(regex);
-    if (match) {
-        var user = match[2]!="new" && match[2];
-        var repo = match[3];
-    } else {
-        " github.io "
-        var regex_io = /[^:]+:\/\/([^/]+).github.io\/([^/]+)\/?/;
-        match = buffer.URL.match(regex_io);
-        var user = match && match[1];
-        var repo = match && match[2];
+function ghGetUserAndRepo(url=buffer.URL) {
+    var match, url = buffer.URL;
+    if (url.match(/https:\/\/github.com\/search/))
+        return ["", ""];
+    else if (match=url.match(/https:\/\/([^/]+)\.github.io/))
+        return [match[1], ""];
+    else {
+        var regex = /[^:]+:\/\/(gist.)?github.com\/([^/]+)\/?([^/#?]+)?(\/.*)?/;
+        match = url.match(regex);
+        if (match) {
+            var user = match[2]!="new" && match[2];
+            var repo = match[3];
+        } else {
+            " github.io "
+            var regex_io = /[^:]+:\/\/([^/]+).github.io\/([^/]+)\/?/;
+            match = url.match(regex_io);
+            var user = match && match[1];
+            var repo = match && match[2];
+        }
+        if (user=="settings") user = ghGetAccountUser();
+        return [user||"", repo||""];
     }
-    if (user=="settings") user = ghGetAccountUser();
-    if (useronly) return user;
-    else return [user, repo];
 }
 function ghGetUrlComponents(url=buffer.URL) {
     var regex = /[^:]+:\/\/github.com\/([^/]+)\/([^/#?]+)(\/.*)?/;
