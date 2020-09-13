@@ -4266,8 +4266,8 @@ map <goto>los     -description "/opt/scripts"
 \                 -count -js openOrSelectTab(`/scripts`, count?"here":"tab");
 map <goto>low     -description "/opt/webapps"
 \                 -count -js openOrSelectTab(`/webapps`, count?"here":"tab");
-map <goto>lp      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp")
-map <goto>lp<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp")
+map <goto>lp      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp");
+map <goto>lp<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp");
 map <goto>lp/     -description "~/Pictures/"
 \                 -count -js openOrSelectTab(`file://${homedir}/Pictures`, count?"here":"tab");
 map <goto>lpd     -description "~/Pictures/downloads"
@@ -4278,10 +4278,10 @@ map <goto>lud     -description "/usr/share/doc (existing or new tab)"
 \                 -count -js openOrSelectTab("file:///usr/share/doc/", count?"here":"tab");
 map <goto>luld    -description "/usr/local/share/doc (existing or new tab)"
 \                 -count -js openOrSelectTab("file:///usr/local/share/doc/", count?"here":"tab");
-map <goto>m       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m")
-map <goto>m<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m")
-map <goto>mc       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc")
-map <goto>mc<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc")
+map <goto>m       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m");
+map <goto>m<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m");
+map <goto>mc      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc");
+map <goto>mc<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc");
 map <goto>mcc     -description "chrome:// URL completion"
 \                 -b :openorselect chrome://
 map <goto>mcg     -description "chrome://global/content/ URL completion"
@@ -4311,7 +4311,7 @@ map <goto>U       -description "/opt/userstyles/ directory"
 \                 -count -js openOrSelectTab("file:///opt/userstyles", count?"here":"tab");
 map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
-map <goto>w       -description "(Show bindings: Goto/Open Dialog)" -js CommandExMode().open("showkeys <goto>w")
+map <goto>w       -description "(Show bindings: Goto/Open Dialog)" -js CommandExMode().open("showkeys <goto>w");
 map <goto>wd      -description "Downloads dialog" -ex dialog downloads
 map <goto>wh      -description "History dialog" -js window.PlacesCommandHook.showPlacesOrganizer("History");
 map <goto>wkg     -description "Bookmarks Tags dialog" -js window.PlacesCommandHook.showPlacesOrganizer("Tags");
@@ -4319,12 +4319,12 @@ map <goto>wkk     -description "Bookmarks dialog" -js window.PlacesCommandHook.s
 map <goto>wkm     -description "Bookmarks Menu dialog" -js window.PlacesCommandHook.showPlacesOrganizer("BookmarksMenu");
 map <goto>wkt     -description "Bookmarks Toolbar dialog" -js window.PlacesCommandHook.showPlacesOrganizer("BookmarksToolbar");
 map <goto>wl      -description "Library Dialog (sticky)" -ex librarysticky
-map <goto>wm      -description "(Show bindings: Goto/Open Dialog/Mini)" -js CommandExMode().open("showkeys <goto>w")
+map <goto>wm      -description "(Show bindings: Goto/Open Dialog/Mini)" -js CommandExMode().open("showkeys <goto>w");
 map <goto>wmh     -description "History Dialog" -ex dialog history
 map <goto>wmk     -description "Bookmarks Dialog" -ex dialog bookmarks
 map <goto>wi      -description "Page Info" -js BrowserPageInfo();
 
-map <goto>x       -description "(Show bindings: Goto/Extensions)" -js CommandExMode().open("showkeys <goto>x")
+map <goto>x       -description "(Show bindings: Goto/Extensions)" -js CommandExMode().open("showkeys <goto>x");
 map <goto>xc      -description "ChromEdit"
 \                 -count -js openOrSelectTab("chrome://chromedit/content/ChromEdit.xul", count?"here":"tab");
 map <goto>xe      -description "Epub Catalog"
