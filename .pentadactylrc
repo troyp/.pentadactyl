@@ -1432,6 +1432,9 @@ map <app>pu
 map <app>q
 \    -description "Open in Qutebrowser"
 \    -ex oqute
+map <app>vv
+\    -description "Convert URL/file with pandoc and open"
+\    -js CommandExMode().open(count ? "pandocopen! " : "pandocopen ");
 map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
 map <app>x
 \    -description "Open local file with mimeopen"
@@ -1439,6 +1442,12 @@ map <app>x
 map <app>X
 \    -description "Open local file (ask app)"
 \    -js mimeopenAskAppUrlFile();
+
+command! pandocopen
+\    -description "Convert URL/file with pandoc and open"
+\    -bang
+\    -nargs +
+\    -js pandocConvertOpenUrlFile(args[0], args[1], buffer.URL, bang?"adjacent":"here");
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
@@ -14951,6 +14960,17 @@ function runCommandOnUrlFile(cmd, url=buffer.URL) {
         return io.system(`_F=$(mktemp); curl -s '${url}' > $_F; ${cmd.replace("%f", "$_F")}`);
     }
 }
+
+function pandocConvertUrlFile(from, to, url=buffer.URL) {
+    var cmd = `f=$(mktemp); pandoc -f ${from} -t ${to} %f > $f && echo $f`;
+    return runCommandOnUrlFile(cmd, url);
+}
+
+function pandocConvertOpenUrlFile(from, to, url=buffer.URL, where="here") {
+    var converted = pandocConvertUrlFile(from, to, url);
+    if (converted.returnValue==0) pageOpen(converted.output, where);
+}
+
 
 " ,--------, "
 " | Saving | "
