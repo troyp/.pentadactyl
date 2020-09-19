@@ -1435,10 +1435,10 @@ map <app>q
 map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
 map <app>x
 \    -description "Open local file with mimeopen"
-\    -js mimeopenMaybeFromBufferDir();
+\    -js mimeopenUrlFile();
 map <app>X
 \    -description "Open local file (ask app)"
-\    -js mimeopenAskAppMaybeFromBufferDir();
+\    -js mimeopenAskAppUrlFile();
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
@@ -14898,23 +14898,23 @@ function parseRanges(s) {
 " ,---------, "
 " | Loading | "
 " '---------' "
-function mimeopenMaybeFromBufferDir(url=buffer.URL) {
-    var localDirRegex = /^file:\/\/([^?#]*)/;
-    var localDirMatch = url.match(localDirRegex);
-    if (localDirMatch) {
-        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
-        CommandExMode().open('mimeopen ' + localDir);
+function mimeopenUrlFile(url=buffer.URL) {
+    var localFileRegex = /^file:\/\/([^?#]*)/;
+    var localFileMatch = url.match(localFileRegex);
+    if (localFileMatch) {
+        var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
+        CommandExMode().open('mimeopen ' + localFile);
     } else {
         dactyl.execute(`!f=$(mktemp); curl '${url}' > $f; mimeopen -n $f`);
     }
 }
 
-function mimeopenAskAppMaybeFromBufferDir(url=buffer.URL) {
-    var localDirRegex = /^file:\/\/([^?#]*)/;
-    var localDirMatch = url.match(localDirRegex);
-    if (localDirMatch) {
-        var localDir = decodeURIComponent(localDirMatch[1]).replace(/ /g, '\\ ');
-        dactyl.execute(`!roxterm -e zsh -c "mimeopen -a '${localDir}'"`);
+function mimeopenAskAppUrlFile(url=buffer.URL) {
+    var localFileRegex = /^file:\/\/([^?#]*)/;
+    var localFileMatch = url.match(localFileRegex);
+    if (localFileMatch) {
+        var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
+        dactyl.execute(`!roxterm -e zsh -c "mimeopen -a '${localFile}'"`);
     } else {
         dactyl.execute(`!d=$(mktemp -d); wget -P $d '${url}'; roxterm -e zsh -c "mimeopen -a $d/*"`);
     }
