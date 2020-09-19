@@ -1436,12 +1436,14 @@ map <app>vv
 \    -description "Convert URL/file with pandoc and open"
 \    -js CommandExMode().open(count ? "pandocopen! " : "pandocopen ");
 map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
-map <app>x
-\    -description "Open local file with mimeopen"
-\    -js mimeopenUrlFile();
-map <app>X
-\    -description "Open local file (ask app)"
+
+map <app>x -description "(show bindings: Open/Run)" -js CommandExMode().open("showkeys <app>x")
+map <app>xa
+\    -description "Open file/URL (ask app)"
 \    -js mimeopenAskAppUrlFile();
+map <app>xd
+\    -description "Open file/URL with mimeopen"
+\    -js mimeopenUrlFile();
 
 command! pandocopen
 \    -description "Convert URL/file with pandoc and open"
