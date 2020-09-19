@@ -14941,6 +14941,17 @@ function openMaffFileWithFilePicker() {
     });
 }
 
+function runCommandOnUrlFile(cmd, url=buffer.URL) {
+    var localFileRegex = /^file:\/\/([^?#]*)/;
+    var localFileMatch = url.match(localFileRegex);
+    if (localFileMatch) {
+        var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
+        return io.system(cmd.replace("%f", localFile));
+    } else {
+        return io.system(`_F=$(mktemp); curl -s '${url}' > $_F; ${cmd.replace("%f", "$_F")}`);
+    }
+}
+
 " ,--------, "
 " | Saving | "
 " '--------' "
