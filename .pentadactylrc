@@ -7402,8 +7402,7 @@ map <site>oo
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"adjacent");
 map <site>or
 \    -description "Goto reviews - all"
-\    -js ( content.document.getElementById("dp-summary-see-all-reviews") ||
-\          getSelectorWithMatchingAttribute("a", "data-hook", "cmps-expand-link")[0] ).click();
+\    -js clickSelector("#dp-summary-see-all-reviews", "a[data-hook=see-all-reviews-link-foot]");
 map <site>oR
 \    -description "Goto US reviews"
 \    -js amazonGotoUSReviews();
