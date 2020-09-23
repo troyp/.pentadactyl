@@ -14378,19 +14378,21 @@ function countSelector(sel) {
     return elts.length;
 }
 
-function clickSelector(sel) {
-    if (typeof sel == "string") {
-        /* selector */
-        var getButton = content.document.querySelector(sel);
-        if (getButton) {
-            getButton.click();
-            return true;
-        }
-    } else {
-        /* element */
-        if (sel) {
-            sel.click();
-            return true;
+function clickSelector(...sels) {
+    for (sel of sels) {
+        if (typeof sel == "string") {
+            /* selector */
+            var getButton = content.document.querySelector(sel);
+            if (getButton) {
+                getButton.click();
+                return true;
+            }
+        } else {
+            /* element */
+            if (sel) {
+                sel.click();
+                return true;
+            }
         }
     }
 }
