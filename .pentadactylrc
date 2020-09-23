@@ -9029,7 +9029,6 @@ group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.g
 map <site>a        -description "(show bindings: Github/Alterations)" -js CommandExMode().open("showkeys <site>a")
 map <site>ag       -description "Cleanup Gist" -ex ghgistcleanup
 map <site>aG       -description "Cleanup Gist (keep comments)" -ex ghgistcleanup!
-map <site>al       -description "Fix intra-page links" -js A.from(content.document.links).forEach(l=>l.id=l.id.replace("user-content-", ""));
 map <site>c        -description "Click README.md" -js ghClickReadme();
 map <site>d        -description "(show bindings: Github/Download)" -js CommandExMode().open("showkeys <site>d")
 map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
