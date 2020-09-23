@@ -7380,6 +7380,7 @@ map <site>iv
 \    -description "View image"
 \    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"tab":"adjacent");
 map <site>n -description "Count items" -js utils.message("Number of items: " + amazonCount());
+
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
@@ -7399,12 +7400,11 @@ map <site>ol
 map <site>oo
 \    -description "Goto orders"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"adjacent");
-map <site>or -description "Goto reviews" -js content.document.getElementById("customerReviews").scrollIntoView();
-map <site>oR
+map <site>or
 \    -description "Goto reviews - all"
 \    -js ( content.document.getElementById("dp-summary-see-all-reviews") ||
 \          getSelectorWithMatchingAttribute("a", "data-hook", "cmps-expand-link")[0] ).click();
-map <site>o;r
+map <site>oR
 \    -description "Goto US reviews"
 \    -js amazonGotoUSReviews();
 map <site>ow
@@ -7413,6 +7413,9 @@ map <site>ow
 map <site>o!
 \    -description "Goto contact form"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/help/customer/contact-us/ref=cu_surl", count?"tab":"adjacent");
+
+map <site>r -description "Jump to reviews" -js content.document.getElementById("customerReviews").scrollIntoView();
+
 map <site>ss -description "Search Amazon AU" -b :amazonausearch<Space>
 map <site>so -description "Search Amazon AU for Office Products" -b :amazonausearchstationery<Space>
 map <site>ta
