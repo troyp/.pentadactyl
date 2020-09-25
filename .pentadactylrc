@@ -1525,11 +1525,231 @@ command! tabopenf
     \     file = 'file://' + file;
     \     dactyl.open(file, {where: 'tab'});
 
+" ,----------------------, ,-----------,
+" | Web Sites & Web Apps | | <leader>a |
+" '----------------------' '-----------'
+map <leader>a
+\    -description "(show bindings: Web Sites)"
+\    -js CommandExMode().open("showkeys <leader>a")
+" <leader>aa - Misc Accounts"
+map <leader>aa
+\    -description "(show bindings: Web Sites/Misc Accts)"
+\    -js CommandExMode().open("showkeys <leader>aa");
+map <leader>aai
+    \ -description "Open Inoreader"
+    \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
+
+"  <leader>aap - Packt "
+map <leader>aap
+\    -description "(show bindings: Web Sites/Packt)"
+\    -js CommandExMode().open("showkeys <leader>aap");
+map <leader>aapa
+    \ -description "Append today's Packt free title to library"
+    \ -js packtWriteTitleToListAndShowEndOfList();
+map <leader>aapf
+    \ -description "Open Packt Free Learning"
+    \ -count -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1");
+map <leader>aapl
+    \ -description "Open Packt Library"
+    \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
+map <leader>aapL
+    \ -description "Open Packt Library local list"
+    \ -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/data/packt-library.txt`);
+map <leader>aapn
+    \ -description "Is today's Packt free title already in library?"
+    \ -js utils.message(packtGetTodaysTitle() + ": " + (packtIsTodaysTitleInLibrary() ? "Already in library" : "NOT in library"));
+map <leader>aapt
+    \ -description "Yank today's Packt free title to clipboard"
+    \ -js utils.yankWithMsg(packtGetTodaysTitle());
+
+"<leader>ab - Banking "
+map <leader>ab
+    \ -description "Open Banking (Chrome)"
+    \ -ex ochromeurl ${user.mybankurl}
+
+"  <leader>ad - Art "
+map <leader>ad
+\    -description "(show bindings: Web Sites/Art)"
+\    -js CommandExMode().open("showkeys <leader>ad");
+map <leader>adc
+\    -description "ArtIsCreation.com - watercolour pigment information"
+\    -b :artiscreation<Space>
+map <leader>adf
+\    -description "Figurosity"
+\    -js openOrSelectTab(
+\            "https://figurosity.com/figure-drawing-pose-sets",
+\            count?"here":"tab",
+\            /https:\/\/figurosity\.com/);
+map <leader>adj
+\    -description "JustSketchMe - posable figure model"
+\    -js openOrSelectTab("http://justsketch.me", count?"here":"tab");
+map <leader>adh
+\    -description "Handprint.com - watercolour pigment information"
+\    -b :handprint<Space>
+map <leader>adq
+\    -description "Quickposes"
+\    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
+
+" <leader>ag - Repos "
+map <leader>ag
+\    -description "(show bindings: Web Sites/Repos)"
+\    -js CommandExMode().open("showkeys <leader>ag");
+map <leader>agf
+\    -description "Follow Github link"
+\    -count
+\    -js openOrSelectTab(getFirstGithubLink(), count?"adjacent":"here");
+map <leader>agg -description "Github goto user/repo"
+\    -count
+\    -js CommandExMode().open(count ? "githubgoto! " : "githubgoto ");
+map <leader>agh
+\     -description "Open My Github: Repositories"
+\     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
+map <leader>agb
+\     -description "Open My Bitbucket"
+\     -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
+
+" <leader>am - Email "
+map <leader>am
+\    -description "(show bindings: Web Sites/Email)"
+\    -js CommandExMode().open("showkeys <leader>am");
+map <leader>amc
+\     -description "Open Google Contacts"
+\     -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"tab");
+map <leader>amC
+\     -description "Open Gmail Contacts (basic)"
+\     -count -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
+\                                count?"here":"tab",
+\                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
+map <leader>amm
+\     -description "Open Gmail Basic"
+\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
+\                                count?"here":"tab",
+\                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*\?&/);
+map <leader>amg
+\     -description "Open Gmail"
+\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"tab");
+map <leader>amy
+\     -description "Open Y7Mail"
+\     -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
+
+" <leader>as - Shopping & Schedules"
+map <leader>as
+\    -description "(show bindings: Shopping)"
+\    -js CommandExMode().open("showkeys <leader>as");
+map <leader>asa
+\     -description "open Amazon AU"
+\     -count -js selectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart") ||
+\                    openOrSelectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart", null, /https:\/\/[^.]+\.amazon\.com\.au/);
+map <leader>ase
+\     -description "open eBay"
+\     -count -js selectTab("https://cart.ebay.com.au") ||
+\                    openOrSelectTab("https://cart.ebay.com.au", null, /https:\/\/[^.]+\.ebay\.com\.au/);
+map <leader>asj
+\     -description "open Jackson's Art"
+\     -count -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
+\                    openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
+map <leader>asl
+\    -description "Open liquor specials"
+\    -count
+\    -js [ "https://www.danmurphys.com.au/current-offers?filters=variety(spirits)",
+\          "https://www.liquorland.com.au/specials/spirit-specials",
+\          "https://www.vintagecellars.com.au/specialoffers/spirit-specials",
+\          "https://bws.com.au/productgroup/spirit-specials",
+\          "https://www.firstchoiceliquor.com.au/specials",
+\         ].forEach(u=>openOrSummonTab(u));
+map <leader>asp
+\     -description "Open Paypal"
+\     -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
+
+map <leader>aq
+\    -description "Open Quix"
+\    -ex tabopen javascript:Quix();function%20Quix(){var%20e=encodeURIComponent;var%20t=window.getSelection?window.getSelection():(document.getSelection?document.getSelection():(document.selection?document.selection.createRange().text:''));var%20c=window.prompt('Quix:%20Type%20`help`%20for%20a%20list%20of%20commands:');if(t!=''){if(c){c+='%20'+t;}else{c=''+t;}}if(c){var%20u='https://www.quixapp.com/go/?c='+e(c)+'&t='+(document.title?e(document.title):'')+'&s='+'&v=090'+'&u='+(document.location?e(document.location):'');d=''+document.location;if(d.substr(0,4)!='http'){window.location=u+'&mode=direct';}else{heads=document.getElementsByTagName('head');if(c.substring(0,1)=='%20'){var%20w=window.open(u+'&mode=direct');w.focus();}else%20if(heads.length==0){window.location=u+'&mode=direct';}else{q=document.getElementById('quix');if(q){q.parentNode.removeChild(q);}sc=document.createElement('script');sc.src=u;sc.id='quix';sc.type='text/javascript';void(heads[0].appendChild(sc));}}}}
+" Time "
+map <leader>at
+\     -description "Open Time Server"
+\     -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab", /^https:\/\/time\.is/);
+" <leader>av - Video & Radio"
+map <leader>av
+\    -description "(show bindings: Web Sites/Video&Radio)"
+\    -js CommandExMode().open("showkeys <leader>av");
+map <leader>ava
+\     -description "AccuRadio Classical"
+\     -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
+map <leader>avd -description "Open Disney Plus"
+\    -count
+\    -js openOrSelectTab("https://www.disneyplus.com/en-gb/home", count?"here":"tab");
+:if isPalemoon
+    map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
+:else
+    map <leader>avn -description "Open Netflix"
+    \ -count -js openOrSelectNetflix(count?"here":"tab");
+:endif
+map <leader>avp
+\    -description "Goto Amazon Prime Video"
+\    -count -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"tab");
+map <leader>avv
+\    -description "Open video webapps"
+\    -js openOrSelectTab("https://www.netflix.com/browse"); openOrSelectTab("https://www.disneyplus.com/en-gb/home"); openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo");
+map <leader>avy
+\    -description "Goto Youtube"
+\    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
+
+" Utils "
+map <leader>au
+\    -description "(show bindings: Web Sites/Utils)"
+\    -js CommandExMode().open("showkeys <leader>au");
+map <leader>aut
+\    -description "Track packages"
+\    -js CommandExMode().open("trackpackages"+(count?"! ":" "));
+
+" Weather "
+map <leader>aw
+\    -description "(show bindings: Web Sites/Weather)"
+\    -js CommandExMode().open("showkeys <leader>aw");
+map <leader>aww
+\     -description "Open Lismore Weather (BoM)"
+\     -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
+map <leader>aws
+\     -description "Show Goonellabah Sunrise and Sunset Times"
+\     -js showSunriseSunset();
+map <leader>awt
+\     -description "Open Goonellabah Weather (timeanddate.com)"
+\     -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
+" MyGov "
+map <leader>ay
+\     -description "Open MyGov"
+\     -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
+\                                count?"here":"tab");
+" Amazon "
+map <leader>azz
+\     -description "Open AU Amazon"
+\     -count -js openOrSelectTab("https://www.amazon.com");
+map <leader>azu
+\     -description "Open US Amazon"
+\     -count -js openOrSelectTab("https://smile.amazon.com");
+
+" ,----------------------------------------------------,
+" | <leader>c -- Normal mode bindings for Command-line |
+" '----------------------------------------------------'
+map <leader>c      -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
+map <leader>ca -description "New command with previous arguments" :<up><change-cmd-keep-args>
+map <leader>cc -description "Copy last js command or args to ex command" :<up><S-Home><S-C-Right><S-Right><C-c>
+map <leader>cm -ex messages
+map <leader>cM -ex messclear
+" Repeat search just entered with keyword changed
+map <leader>cr :<C-r>
+" Repeat default just entered search with keyword
+map <leader>cR :<up><Home><forward-word><Space>
+" Search clipboard contents using search keyword
+map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
+map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
+map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
+map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
+
 " ,----------------------,
 " | <leader>j - Japanese |
 " '----------------------'
-map <leader>j      -description "(show bindings: Japanese)" -js CommandExMode().open("showkeys <leader>j")
-map <leader>j<C-h> -description "(show bindings: Japanese)" -js CommandExMode().open("showkeys <leader>j")
+map <leader>j -description "(show bindings: Japanese)" -js CommandExMode().open("showkeys <leader>j")
 map <leader>jf
     \ -description "Jisho kanji search (hints)"
     \ -count
@@ -1538,8 +1758,7 @@ map <leader>jj
     \ -description "Jisho search (clipboard)"
     \ -count
     \ -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <leader>jk      -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
-map <leader>jk<C-h> -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
+map <leader>jk  -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
 map <leader>jkh -description "Google Translate handwritten input"
     \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"tab", /https:\/\/translate\.google\.com\.au\/(#ja\/en\/|.*&sl=ja.*&tl=en).*/);
 map <leader>jkp
@@ -1556,19 +1775,15 @@ map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
 " ,-----------------------------,
 " | <leader>m - Manipulate Page |
 " '-----------------------------'
-map <leader>m      -description "(show bindings: Manipulate Page)"
-\    -js CommandExMode().open("showkeys <leader>m")
-map <leader>m<C-h> -description "(show bindings: Manipulate Page)"
-\    -js CommandExMode().open("showkeys <leader>m")
-map <leader>ms -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"tab");
+map <leader>m   -description "(show bindings: Manipulate Page)" -js CommandExMode().open("showkeys <leader>m")
+map <leader>ms  -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"tab");
 map <leader>mcm -description "Add margins to page body" -b addmargin<SPACE>
 map <leader>mbp -description "Print What You Like" -ex prwul
 
 " ,--------------------------,
 " | <leader>n - edit content |
 " '--------------------------'
-map <leader>n      -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
-map <leader>n<C-h> -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
+map <leader>n  -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>na -description "Isolate Article" -js isolateArticle(count);
 map <leader>ni -description "Remove images" -ex removeimages
 map <leader>nn -description "Remove selector" -b :removeselector<Space>
@@ -1592,10 +1807,8 @@ EOF
 " | <leader>o - Open |
 " '------------------'
 map <leader>o      -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
-map <leader>o<C-h> -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
 
 map <leader>om      -description "(show bindings: Open MAFF)" -js CommandExMode().open("showkeys <leader>om")
-map <leader>om<C-h> -description "(show bindings: Open MAFF)" -js CommandExMode().open("showkeys <leader>om")
 map <leader>omm
 \    -description "Open MAFF file with picker"
 \    -js openMaffFileWithFilePicker();
@@ -1624,7 +1837,6 @@ map <leader>ow
 " '------------------'
 map <leader>s      -description "(show bindings: Save)"
 \    -js CommandExMode().open("showkeys <Leader>s")
-map <leader>s<C-h> -description "(show bindings: Save)"
 \    -js CommandExMode().open("showkeys <Leader>s")
 map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
 map <leader>sv
@@ -1655,9 +1867,6 @@ EOF
 " '-----------------------'
 
 map <leader>r
-\    -description "(show bindings: Reference)"
-\    -js CommandExMode().open("showkeys <leader>r");
-map <leader>r<C-h>
 \    -description "(show bindings: Reference)"
 \    -js CommandExMode().open("showkeys <leader>r");
 
@@ -1705,52 +1914,9 @@ map <leader>rwp
 \     -description "Goto Wikpedia article"
 \     -b :wikipediapage<SPACE>
 
-command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
-command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
-command! thesauruswiktionary -bang -nargs + -js thesaurusWiktionary(args.join(" "));
-command! localdict -nargs + -js utils.messageWithLineLimit(localdict(args.join(" ")) || "no results found");
-
-js <<EOF
-function localdict(s) {
-    var gcide = io.system(`dict -d gcide '${s}' | perl -000 -lpe 's/ *\n */ /g'`);
-    var wn = io.system(`dict -d wn '${s}'| perl -000 -lpe 's/ *\n */ /g'`);
-    var output = "";
-    if (gcide.returnValue==0) output += gcide.output;
-    if (wn.returnValue==0) output += wn.output;
-    return output;
-}
-function thesaurusAik(s, wrap=160) {
-    cmd = `aiksaurus ${s}`;
-    var res = io.system(cmd);
-    var out = "";
-    var lines = S.toLines(res.output, wrap);
-    utils.message(lines.join("\n") + "\n");
-}
-function thesaurusPower(s, wrap=160) {
-    cmd = `curl -sA "Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0" "https://www.powerthesaurus.org/${s}/synonyms" | pup ".pt-thesaurus-card__term-title text{}" | paste -sd ","`;
-    var res = io.system(cmd);
-    utils.message(S.toLines(res.output, wrap).join("\n"));
-}
-function thesaurusWiktionary(s, wrap=190) {
-    "TODO: Fix function for multiword arguments"
-    var url = `https://en.wiktionary.org/wiki/Special:Search?search=${s}&ns110=1&fulltext=Search+Thesaurus`
-    cmd = `curl -s '${encodeURIComponent(url)}' |` +
-          ` pup '.mw-search-result json{}' |` +
-          ` fx '.map(x=>x.children[0].children[0].title+": "+x.children[1].text).join("\\n")' |` +
-          ` perl -n -mHTML::Entities -e ' ; print HTML::Entities::decode_entities(\$_) ;'`;
-    var res = io.system(cmd);
-    utils.message(S.toLines(res.output, wrap).join("\n"));
-}
-EOF
-
-
 " ,---------------------,
 " | <leader>t - toggles |
 " '---------------------'
-map <leader>t<C-h>  -description "(show bindings: Toggles)"
-\                   -js CommandExMode().open("showkeys <Leader>t")
-map <leader>tc<C-h> -description "(show bindings: Config toggles)"
-\                   -js CommandExMode().open("showkeys <Leader>tc")
 map <leader>t   -description "(show bindings: Toggles)"         -js CommandExMode().open("showkeys <Leader>t")
 map <leader>ta  -description "Toggle User Agent Override"         -ex actoggleuaoverride
 map <leader>tc  -description "(show bindings: Config toggles)"  -js CommandExMode().open("showkeys <Leader>tc")
@@ -1781,11 +1947,9 @@ map <leader>?c -description "Display config value" -b :acget
 " | <leader>T - GUI toggles |
 " '-------------------------'
 map <leader>T       -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
-map <leader>T<C-h>  -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
 map <leader>Ta      -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
 map <leader>Tb      -description "Toggle bookmark bar"                -ex set guioptions!=B
 map <leader>Tc      -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
-map <leader>Tc<C-h> -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
 map <leader>Tct     -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
 map <leader>Td      -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
 map <leader>Te      -description "Toggle navigation toolbar"          -ex set guioptions!=T
@@ -1803,25 +1967,12 @@ map <A-Down> -description "Hide navigation & bookmarks toolbars and command line
 " | <leader>u - userscripts |
 " '-------------------------'
 map <leader>u      -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
-map <leader>u<C-h> -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word highlight
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
 
-" ,---------------------------,
-" | <leader>x - miscellaneous |
-" '---------------------------'
-map <leader>x<C-h>
-\    -description "(show bindings: Misc)"
-\    -js CommandExMode().open("showkeys <leader>x")
-map <leader>x
-\    -description "(show bindings: Misc)"
-\    -js CommandExMode().open("showkeys <leader>x")
 " ,---------------------------------------,
 " | <leader>v - Conversion and Arithmetic |
 " '---------------------------------------'
-map <leader>v<C-h>
-\    -description "(show bindings: Misc/Conversion,Arithmetic)"
-\    -js CommandExMode().open("showkeys <leader>v")
 map <leader>v
 \    -description "(show bindings: Misc/Conversion&Arithmetic)"
 \    -js CommandExMode().open("showkeys <leader>v")
@@ -1837,6 +1988,23 @@ map <leader>v;in   -description "Convert length from in to cm (in->cm)" -b :conv
 map <leader>v;ml   -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
 map <leader>vx -description "Convert value into other exchangr rate" -b :convertexchangerates<Space>
 
+" ,---------------------------,
+" | <leader>x - miscellaneous |
+" '---------------------------'
+map <leader>x
+\    -description "(show bindings: Misc)"
+\    -js CommandExMode().open("showkeys <leader>x")
+
+map <leader>+ -b :sum<Space>
+map <leader>* -b :product<Space>
+
+command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
+command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
+command! thesauruswiktionary -bang -nargs + -js thesaurusWiktionary(args.join(" "));
+command! localdict -nargs + -js utils.messageWithLineLimit(localdict(args.join(" ")) || "no results found");
+
+command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
+command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
 command! convertunits
 \    -nargs +
 \    -description "Convert quantity into other units with GNU units [N UNIT1 UNIT2]"
@@ -1886,320 +2054,75 @@ command! papersize
 \    -complete custom," (context) => { context.completions = paperSizes; } "
 \    -js utils.message(`${args[0]}: ${paperSizes.find(e=>e[0].toUpperCase()==[args[0].toUpperCase()])[1]}`);
 
-command! sum -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)+parseFloat(b)));
-command! product -nargs * -js utils.message(args.reduce((a,b)=>parseFloat(a)*parseFloat(b)));
-map <leader>+ -b :sum<Space>
-map <leader>* -b :product<Space>
+command! inoreadersubscribe
+\    -description "Subscribe to site's feed with Inoreader"
+\    -nargs=?
+\    -complete=url
+\    -js inoreaderSubscribe();
 
-js <<EOF
-function convertUnits(n, unit1, unit2) {
-    return Number(io.system(`units -t "${n} ${unit1}" ${unit2}`).output);
-}
-function convertExchangeRates(n, FROMCURR, TOCURR) {
-    var f = FROMCURR.toUpperCase();
-    var t = TOCURR.toUpperCase();
-    var querystr = `q=${f}_${t}&compact=ultra&apiKey=${user.mycurrencyconverterapikey}`;
-    var cmd = `curl -s "https://free.currencyconverterapi.com/api/v5/convert?${querystr}"`;
-    var result = io.system(cmd).output;
-    var regex = RegExp(`{"${f}_${t}":([0-9.]+)}`);
-    var match = result.match(regex);
-    /*  alert(`${f}\n${t}\n${querystr}\n${cmd}\n${result}\n${regex}\n${match}`);  */
-    return match && Number(match[1]) * n;
-}
-function convertUnitsWrapper(...args) {
-    var n, unit1, unit2;
-    if (args.length==2) {
-        var match = args[0].match(/(\d*)(.*)/);
-        n = match[1]||"1";
-        unit1 = match[2];
-        unit2 = args[1];
-    } else {
-        [n, unit1, unit2] = args;
-    }
-    var res = convertUnits(n, unit1, unit2);
-    return n + unit1 + " = " + res + unit2;
-}
+command! wikipediapage -description "Goto Wikipedia article"
+\    -nargs=1
+\    -js openOrSelectTab(`https://en.wikipedia.org/wiki/${S.capitalize(args[0].replace(" ", "_"))}`);
+command! wpeplist
+\    -description "Goto Wikipedia episode list"
+\    -nargs=+
+\    -bang
+\    -js wpEpList(args.join(" "), dactyl.NEW_ADJACENT_TAB, bang?{summon:true}:{});
+command! wpipa
+\    -description "Goto Wikipedia IPA Help page for LANG"
+\    -nargs=+
+\    -bang
+\    -js wpIPA(args.join("_"), dactyl.NEW_ADJACENT_TAB, bang?{summon:true}:{});
 
-var paperSizes = [
-    ["4A0", "1682×2378 mm	66.2×93.6 in"],
-    ["2A0", "1189×1682 mm	46.8×66.2 in"],
-    ["A0", "841×1189 mm	33.1×46.8 in"],
-    ["A1", "594×841 mm	23.4×33.1 in"],
-    ["A2", "420×594 mm	16.5×23.4 in"],
-    ["A3", "297×420 mm	11.7×16.5 in"],
-    ["A4", "210×297 mm	8.3×11.7 in"],
-    ["A5", "148×210 mm	5.8×8.3 in"],
-    ["A6", "105×148 mm	4.1×5.8 in"],
-    ["A7", "74×105 mm	2.9×4.1 in"],
-    ["A8", "52×74 mm	2.0×2.9 in"],
-    ["A9", "37×52 mm	1.5×2.0 in"],
-    ["A10", "26×37 mm	1.0×1.5 in"]
-];
-EOF
+command! kingjames -description "King James Bible BOOK [CH:SEC]"
+\    -nargs=*
+\    -complete custom," (context) => { context.completions = kingJamesBooks.map(b=>[b, null]); } "
+\    -js kingJames(args[0], args[1]);
+
+command! trackpackages
+\    -description "Track packages"
+\    -bang
+\    -nargs=+
+\    -js openOrSelectTab("https://t.17track.net/en#nums=" + args.join(","), bang?"here":"tab");
 
 " Download PDF "
 command! dlpdf
 \    -nargs=1
 \    -complete=dir
 \    -js dlPDF(args[0]);
-js <<EOF
-function dlPDF(dir) {
-    var title = content.document.querySelector('.textLayer>div').textContent;
-    var safeTitle = title.replace("\n", " - ").replace(/\//g, "∕");
-    var path = dir.replace(/\/?$/, "/") + safeTitle;
-    CommandExMode().open(`saveas ${path}.pdf`);
-}
-EOF
 
 js <<EOF
-function wikipediaGotoPage(s, where="tab", openorselect=true) {
-    var page = strToWikiTitle(s);
-    var url = `https://en.wikipedia.org/wiki/${page}`;
-    if (openorselect)
-        openOrSelectTab(url, where);
-    else
-        dactyl.open(url, { where: where });
+function localdict(s) {
+    var gcide = io.system(`dict -d gcide '${s}' | perl -000 -lpe 's/ *\n */ /g'`);
+    var wn = io.system(`dict -d wn '${s}'| perl -000 -lpe 's/ *\n */ /g'`);
+    var output = "";
+    if (gcide.returnValue==0) output += gcide.output;
+    if (wn.returnValue==0) output += wn.output;
+    return output;
 }
-function wiktionaryGotoPage(s, where="tab", openorselect=true) {
-    var page = strToWikiTitle(s, false);
-    var url = `https://en.wiktionary.org/wiki/${page}`;
-    if (openorselect)
-        openOrSelectTab(url, where);
-    else
-        dactyl.open(url, { where: where });
+function thesaurusAik(s, wrap=160) {
+    cmd = `aiksaurus ${s}`;
+    var res = io.system(cmd);
+    var out = "";
+    var lines = S.toLines(res.output, wrap);
+    utils.message(lines.join("\n") + "\n");
+}
+function thesaurusPower(s, wrap=160) {
+    cmd = `curl -sA "Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0" "https://www.powerthesaurus.org/${s}/synonyms" | pup ".pt-thesaurus-card__term-title text{}" | paste -sd ","`;
+    var res = io.system(cmd);
+    utils.message(S.toLines(res.output, wrap).join("\n"));
+}
+function thesaurusWiktionary(s, wrap=190) {
+    "TODO: Fix function for multiword arguments"
+    var url = `https://en.wiktionary.org/wiki/Special:Search?search=${s}&ns110=1&fulltext=Search+Thesaurus`
+    cmd = `curl -s '${encodeURIComponent(url)}' |` +
+          ` pup '.mw-search-result json{}' |` +
+          ` fx '.map(x=>x.children[0].children[0].title+": "+x.children[1].text).join("\\n")' |` +
+          ` perl -n -mHTML::Entities -e ' ; print HTML::Entities::decode_entities(\$_) ;'`;
+    var res = io.system(cmd);
+    utils.message(S.toLines(res.output, wrap).join("\n"));
 }
 EOF
-
-
-" ,----------------------, ,-----------,
-" | Web Sites & Web Apps | | <leader>a |
-" '----------------------' '-----------'
-map <leader>a
-\    -description "(show bindings: Web Sites)"
-\    -js CommandExMode().open("showkeys <leader>a")
-map <leader>a<C-h>
-\    -description "(show bindings: Web Sites)"
-\    -js CommandExMode().open("showkeys <leader>a")
-" <leader>aa - Misc Accounts"
-map <leader>aa
-\    -description "(show bindings: Web Sites/Misc Accts)"
-\    -js CommandExMode().open("showkeys <leader>aa");
-map <leader>aa<C-h>
-\    -description "(show bindings: Web Sites/Misc Accts)"
-\    -js CommandExMode().open("showkeys <leader>aa");
-map <leader>aai
-    \ -description "Open Inoreader"
-    \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
-
-"  <leader>aap - Packt "
-map <leader>aap
-\    -description "(show bindings: Web Sites/Packt)"
-\    -js CommandExMode().open("showkeys <leader>aap");
-map <leader>aap<C-h>
-\    -description "(show bindings: Web Sites/Packt)"
-\    -js CommandExMode().open("showkeys <leader>aap");
-map <leader>aapa
-    \ -description "Append today's Packt free title to library"
-    \ -js packtWriteTitleToListAndShowEndOfList();
-map <leader>aapf
-    \ -description "Open Packt Free Learning"
-    \ -count -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1");
-map <leader>aapl
-    \ -description "Open Packt Library"
-    \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
-map <leader>aapL
-    \ -description "Open Packt Library local list"
-    \ -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/data/packt-library.txt`);
-map <leader>aapn
-    \ -description "Is today's Packt free title already in library?"
-    \ -js utils.message(packtGetTodaysTitle() + ": " + (packtIsTodaysTitleInLibrary() ? "Already in library" : "NOT in library"));
-map <leader>aapt
-    \ -description "Yank today's Packt free title to clipboard"
-    \ -js utils.yankWithMsg(packtGetTodaysTitle());
-
-"<leader>ab - Banking "
-map <leader>ab
-    \ -description "Open Banking (Chrome)"
-    \ -ex ochromeurl ${user.mybankurl}
-
-"  <leader>ad - Art "
-map <leader>ad
-\    -description "(show bindings: Web Sites/Art)"
-\    -js CommandExMode().open("showkeys <leader>ad");
-map <leader>ad<C-h>
-\    -description "(show bindings: Web Sites/Art)"
-\    -js CommandExMode().open("showkeys <leader>ad");
-map <leader>adc
-\    -description "ArtIsCreation.com - watercolour pigment information"
-\    -b :artiscreation<Space>
-map <leader>adf
-\    -description "Figurosity"
-\    -js openOrSelectTab(
-\            "https://figurosity.com/figure-drawing-pose-sets",
-\            count?"here":"tab",
-\            /https:\/\/figurosity\.com/);
-map <leader>adj
-\    -description "JustSketchMe - posable figure model"
-\    -js openOrSelectTab("http://justsketch.me", count?"here":"tab");
-map <leader>adh
-\    -description "Handprint.com - watercolour pigment information"
-\    -b :handprint<Space>
-map <leader>adq
-\    -description "Quickposes"
-\    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
-
-" <leader>ag - Repos "
-map <leader>ag
-\    -description "(show bindings: Web Sites/Repos)"
-\    -js CommandExMode().open("showkeys <leader>ag");
-map <leader>ag<C-h>
-\    -description "(show bindings: Web Sites/Repos)"
-\    -js CommandExMode().open("showkeys <leader>ag");
-map <leader>agf
-\    -description "Follow Github link"
-\    -count
-\    -js openOrSelectTab(getFirstGithubLink(), count?"adjacent":"here");
-map <leader>agg -description "Github goto user/repo"
-\    -count
-\    -js CommandExMode().open(count ? "githubgoto! " : "githubgoto ");
-map <leader>agh
-\     -description "Open My Github: Repositories"
-\     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
-map <leader>agb
-\     -description "Open My Bitbucket"
-\     -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
-
-" <leader>am - Email "
-map <leader>am
-\    -description "(show bindings: Web Sites/Email)"
-\    -js CommandExMode().open("showkeys <leader>am");
-map <leader>am<C-h>
-\    -description "(show bindings: Web Sites/Email)"
-\    -js CommandExMode().open("showkeys <leader>am");
-map <leader>amc
-\     -description "Open Google Contacts"
-\     -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"tab");
-map <leader>amC
-\     -description "Open Gmail Contacts (basic)"
-\     -count -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
-\                                count?"here":"tab",
-\                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
-map <leader>amm
-\     -description "Open Gmail Basic"
-\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
-\                                count?"here":"tab",
-\                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*\?&/);
-map <leader>amg
-\     -description "Open Gmail"
-\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"tab");
-map <leader>amy
-\     -description "Open Y7Mail"
-\     -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
-
-" <leader>as - Shopping & Schedules"
-map <leader>as
-\    -description "(show bindings: Shopping)"
-\    -js CommandExMode().open("showkeys <leader>as");
-map <leader>as<C-h>
-\    -description "(show bindings: Shopping)"
-\    -js CommandExMode().open("showkeys <leader>as");
-map <leader>asa
-\     -description "open Amazon AU"
-\     -count -js selectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart") ||
-\                    openOrSelectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart", null, /https:\/\/[^.]+\.amazon\.com\.au/);
-map <leader>ase
-\     -description "open eBay"
-\     -count -js selectTab("https://cart.ebay.com.au") ||
-\                    openOrSelectTab("https://cart.ebay.com.au", null, /https:\/\/[^.]+\.ebay\.com\.au/);
-map <leader>asj
-\     -description "open Jackson's Art"
-\     -count -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
-\                    openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
-map <leader>asl
-\    -description "Open liquor specials"
-\    -count
-\    -js [ "https://www.danmurphys.com.au/current-offers?filters=variety(spirits)",
-\          "https://www.liquorland.com.au/specials/spirit-specials",
-\          "https://www.vintagecellars.com.au/specialoffers/spirit-specials",
-\          "https://bws.com.au/productgroup/spirit-specials",
-\          "https://www.firstchoiceliquor.com.au/specials",
-\         ].forEach(u=>openOrSummonTab(u));
-map <leader>asp
-\     -description "Open Paypal"
-\     -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
-
-map <leader>aq
-\    -description "Open Quix"
-\    -ex tabopen javascript:Quix();function%20Quix(){var%20e=encodeURIComponent;var%20t=window.getSelection?window.getSelection():(document.getSelection?document.getSelection():(document.selection?document.selection.createRange().text:''));var%20c=window.prompt('Quix:%20Type%20`help`%20for%20a%20list%20of%20commands:');if(t!=''){if(c){c+='%20'+t;}else{c=''+t;}}if(c){var%20u='https://www.quixapp.com/go/?c='+e(c)+'&t='+(document.title?e(document.title):'')+'&s='+'&v=090'+'&u='+(document.location?e(document.location):'');d=''+document.location;if(d.substr(0,4)!='http'){window.location=u+'&mode=direct';}else{heads=document.getElementsByTagName('head');if(c.substring(0,1)=='%20'){var%20w=window.open(u+'&mode=direct');w.focus();}else%20if(heads.length==0){window.location=u+'&mode=direct';}else{q=document.getElementById('quix');if(q){q.parentNode.removeChild(q);}sc=document.createElement('script');sc.src=u;sc.id='quix';sc.type='text/javascript';void(heads[0].appendChild(sc));}}}}
-" Time "
-map <leader>at
-\     -description "Open Time Server"
-\     -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab", /^https:\/\/time\.is/);
-" <leader>av - Video & Radio"
-map <leader>av
-\    -description "(show bindings: Web Sites/Video&Radio)"
-\    -js CommandExMode().open("showkeys <leader>av");
-map <leader>av<C-h>
-\    -description "(show bindings: Web Sites/Video&Radio)"
-\    -js CommandExMode().open("showkeys <leader>av");
-map <leader>ava
-\     -description "AccuRadio Classical"
-\     -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
-map <leader>avd -description "Open Disney Plus"
-\    -count
-\    -js openOrSelectTab("https://www.disneyplus.com/en-gb/home", count?"here":"tab");
-:if isPalemoon
-    map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
-:else
-    map <leader>avn -description "Open Netflix"
-    \ -count -js openOrSelectNetflix(count?"here":"tab");
-:endif
-map <leader>avp
-\    -description "Goto Amazon Prime Video"
-\    -count -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"tab");
-map <leader>avv
-\    -description "Open video webapps"
-\    -js openOrSelectTab("https://www.netflix.com/browse"); openOrSelectTab("https://www.disneyplus.com/en-gb/home"); openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo");
-map <leader>avy
-\    -description "Goto Youtube"
-\    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
-
-" Utils "
-map <leader>au
-\    -description "(show bindings: Web Sites/Utils)"
-\    -js CommandExMode().open("showkeys <leader>au");
-map <leader>aut
-\    -description "Track packages"
-\    -js CommandExMode().open("trackpackages"+(count?"! ":" "));
-
-" Weather "
-map <leader>aw
-\    -description "(show bindings: Web Sites/Weather)"
-\    -js CommandExMode().open("showkeys <leader>aw");
-map <leader>aw<C-h>
-\    -description "(show bindings: Web Sites/Weather)"
-\    -js CommandExMode().open("showkeys <leader>aw");
-map <leader>aww
-\     -description "Open Lismore Weather (BoM)"
-\     -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
-map <leader>aws
-\     -description "Show Goonellabah Sunrise and Sunset Times"
-\     -js showSunriseSunset();
-map <leader>awt
-\     -description "Open Goonellabah Weather (timeanddate.com)"
-\     -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
-" MyGov "
-map <leader>ay
-\     -description "Open MyGov"
-\     -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
-\                                count?"here":"tab");
-" Amazon "
-map <leader>azz
-\     -description "Open AU Amazon"
-\     -count -js openOrSelectTab("https://www.amazon.com");
-map <leader>azu
-\     -description "Open US Amazon"
-\     -count -js openOrSelectTab("https://smile.amazon.com");
 
 js <<EOF
 function packtGetTodaysTitle() {
@@ -2302,45 +2225,138 @@ function getFirstGithubLink() {
     ).href;
 }
 
+function convertUnits(n, unit1, unit2) {
+    return Number(io.system(`units -t "${n} ${unit1}" ${unit2}`).output);
+}
+function convertExchangeRates(n, FROMCURR, TOCURR) {
+    var f = FROMCURR.toUpperCase();
+    var t = TOCURR.toUpperCase();
+    var querystr = `q=${f}_${t}&compact=ultra&apiKey=${user.mycurrencyconverterapikey}`;
+    var cmd = `curl -s "https://free.currencyconverterapi.com/api/v5/convert?${querystr}"`;
+    var result = io.system(cmd).output;
+    var regex = RegExp(`{"${f}_${t}":([0-9.]+)}`);
+    var match = result.match(regex);
+    /*  alert(`${f}\n${t}\n${querystr}\n${cmd}\n${result}\n${regex}\n${match}`);  */
+    return match && Number(match[1]) * n;
+}
+function convertUnitsWrapper(...args) {
+    var n, unit1, unit2;
+    if (args.length==2) {
+        var match = args[0].match(/(\d*)(.*)/);
+        n = match[1]||"1";
+        unit1 = match[2];
+        unit2 = args[1];
+    } else {
+        [n, unit1, unit2] = args;
+    }
+    var res = convertUnits(n, unit1, unit2);
+    return n + unit1 + " = " + res + unit2;
+}
+
+var paperSizes = [
+    ["4A0", "1682×2378 mm	66.2×93.6 in"],
+    ["2A0", "1189×1682 mm	46.8×66.2 in"],
+    ["A0", "841×1189 mm	33.1×46.8 in"],
+    ["A1", "594×841 mm	23.4×33.1 in"],
+    ["A2", "420×594 mm	16.5×23.4 in"],
+    ["A3", "297×420 mm	11.7×16.5 in"],
+    ["A4", "210×297 mm	8.3×11.7 in"],
+    ["A5", "148×210 mm	5.8×8.3 in"],
+    ["A6", "105×148 mm	4.1×5.8 in"],
+    ["A7", "74×105 mm	2.9×4.1 in"],
+    ["A8", "52×74 mm	2.0×2.9 in"],
+    ["A9", "37×52 mm	1.5×2.0 in"],
+    ["A10", "26×37 mm	1.0×1.5 in"]
+];
+
+function dlPDF(dir) {
+    var title = content.document.querySelector('.textLayer>div').textContent;
+    var safeTitle = title.replace("\n", " - ").replace(/\//g, "∕");
+    var path = dir.replace(/\/?$/, "/") + safeTitle;
+    CommandExMode().open(`saveas ${path}.pdf`);
+}
+
+function wikipediaGotoPage(s, where="tab", openorselect=true) {
+    var page = strToWikiTitle(s);
+    var url = `https://en.wikipedia.org/wiki/${page}`;
+    if (openorselect)
+        openOrSelectTab(url, where);
+    else
+        dactyl.open(url, { where: where });
+}
+function wiktionaryGotoPage(s, where="tab", openorselect=true) {
+    var page = strToWikiTitle(s, false);
+    var url = `https://en.wiktionary.org/wiki/${page}`;
+    if (openorselect)
+        openOrSelectTab(url, where);
+    else
+        dactyl.open(url, { where: where });
+}
 EOF
 
-command! inoreadersubscribe
-\    -description "Subscribe to site's feed with Inoreader"
-\    -nargs=?
-\    -complete=url
-\    -js inoreaderSubscribe();
+" ,-----------------------,
+" | <app>t -- Translation |
+" '-----------------------'
+map <app>t   -description "(show bindings: Translate)" -js CommandExMode().open("showkeys <app>t")
+map <app>tf  -description "(show bindings: Translate/Hints)" -js CommandExMode().open("showkeys <app>tf")
+map <app>tfa -description "Google append translation (HINTS)" -js hints.show("ʈ");
+map <app>tfA -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
+map <app>tfe -description "Google translate element (HINTS)" -js hints.show("Ţ");
+map <app>tff -description "Google translate text (HINTS)" -js hints.show("ţ");
+map <app>tp  -description "(show bindings: Translate/Page)" -js CommandExMode().open("showkeys <app>tp")
+map <app>tpp -description "Google translate page" -ex googletranslatepage
+map <app>tpb -description "Bing translate page" -ex bingtranslatepage
+map <app>tt  -description "Translate text in command line: [sl:tl] TEXT" -b :trans<Space>
+map <app>tv  -description "(show bindings: Translate/Selection)" -js CommandExMode().open("showkeys <app>tv")
+map <app>tvv -description "Google translate selection" -ex googletranslateselection
+map <app>tx  -description "(show bindings: Translate/Entered Text)" -js CommandExMode().open("showkeys <app>tv")
+map <app>txx -description "Google translate text" -b :gtrans<Space>
+map <app>ty  -description "(show bindings: Translate/Yank)" -js CommandExMode().open("showkeys <app>ty")
+map <app>tyy -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
 
-command! wikipediapage -description "Goto Wikipedia article"
-\    -nargs=1
-\    -js openOrSelectTab(`https://en.wikipedia.org/wiki/${S.capitalize(args[0].replace(" ", "_"))}`);
-command! wpeplist
-\    -description "Goto Wikipedia episode list"
-\    -nargs=+
-\    -bang
-\    -js wpEpList(args.join(" "), dactyl.NEW_ADJACENT_TAB, bang?{summon:true}:{});
-command! wpipa
-\    -description "Goto Wikipedia IPA Help page for LANG"
-\    -nargs=+
-\    -bang
-\    -js wpIPA(args.join("_"), dactyl.NEW_ADJACENT_TAB, bang?{summon:true}:{});
+command! googletranslatetext
+    \ -description "googletranslatetext TEXT [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js googleTranslateText(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! googletranslateurl
+    \ -description "googletranslateurl URL [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js googleTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! googletranslatepage
+    \ -description "Google translate page (!: in new tab)"
+    \ -bang
+    \ -js googleTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
+command! googletranslateselection
+    \ -description "Google translate selection"
+    \ -nargs=*
+    \ -bang
+    \ -js googleTranslateText(dactyl.clipboardRead(), args[0]||undefined, args[1]||undefined);
+command! googletranslatetextcb
+    \ -description "Google translate text: store translation in clipboard"
+    \ -nargs=+
+    \ -js googleFetchTranslation(args.join(" "));
 
-command! kingjames -description "King James Bible BOOK [CH:SEC]"
-\    -nargs=*
-\    -complete custom," (context) => { context.completions = kingJamesBooks.map(b=>[b, null]); } "
-\    -js kingJames(args[0], args[1]);
-
-command! trackpackages
-\    -description "Track packages"
-\    -bang
-\    -nargs=+
-\    -js openOrSelectTab("https://t.17track.net/en#nums=" + args.join(","), bang?"here":"tab");
-
-" ,-------------,
-" | Translation |
-" '-------------'
-" Translation Prefix: <app>t "
-map <app>t<C-h> -js CommandExMode().open("showkeys <app>t")
-map <app>t      -js CommandExMode().open("showkeys <app>t")
+command! bingwebwidget -js bingAddWebWidget();
+command! bingtranslatetext
+    \ -description "bingtranslatetext TEXT [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js bingTranslateText(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! bingtranslateurl
+    \ -description "bingtranslateurl URL [FROM] [TO] [WHERE]"
+    \ -nargs=+
+    \ -js bingTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
+command! bingtranslatepage
+    \ -description "Bing translate page (!: in new tab)"
+    \ -bang
+    \ -js bingTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
+command! gtrans
+    \ -description "Google translate text"
+    \ -nargs=+
+    \ -js googleTranslateText(args.join(" "));
+command! trans
+\    -description "Translate text in command line: [sl:tl] TEXT"
+\    -nargs +
+\    -b !/opt/scripts/trans -no-ansi <args>
 
 js <<EOF
 
@@ -2412,67 +2428,6 @@ function bingTranslateText(s, from='auto', to='en', where=dactyl.NEW_TAB) {
 }
 
 EOF
-
-command! googletranslatetext
-    \ -description "googletranslatetext TEXT [FROM] [TO] [WHERE]"
-    \ -nargs=+
-    \ -js googleTranslateText(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
-command! googletranslateurl
-    \ -description "googletranslateurl URL [FROM] [TO] [WHERE]"
-    \ -nargs=+
-    \ -js googleTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
-command! googletranslatepage
-    \ -description "Google translate page (!: in new tab)"
-    \ -bang
-    \ -js googleTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
-command! googletranslateselection
-    \ -description "Google translate selection"
-    \ -nargs=*
-    \ -bang
-    \ -js googleTranslateText(dactyl.clipboardRead(), args[0]||undefined, args[1]||undefined);
-command! googletranslatetextcb
-    \ -description "Google translate text: store translation in clipboard"
-    \ -nargs=+
-    \ -js googleFetchTranslation(args.join(" "));
-
-command! bingwebwidget -js bingAddWebWidget();
-command! bingtranslatetext
-    \ -description "bingtranslatetext TEXT [FROM] [TO] [WHERE]"
-    \ -nargs=+
-    \ -js bingTranslateText(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
-command! bingtranslateurl
-    \ -description "bingtranslateurl URL [FROM] [TO] [WHERE]"
-    \ -nargs=+
-    \ -js bingTranslateUrl(args[0], args[1]||undefined, args[2]||undefined, args[3]||undefined);
-command! bingtranslatepage
-    \ -description "Bing translate page (!: in new tab)"
-    \ -bang
-    \ -js bingTranslateUrl(buffer.URL, undefined, undefined, bang?'tab':'here');
-command! gtrans
-    \ -description "Google translate text"
-    \ -nargs=+
-    \ -js googleTranslateText(args.join(" "));
-command! trans
-\    -description "Translate text in command line: [sl:tl] TEXT"
-\    -nargs +
-\    -b !/opt/scripts/trans -no-ansi <args>
-
-map <app>t   -description "(show bindings: Translate)" -js CommandExMode().open("showkeys <app>t")
-map <app>tf  -description "(show bindings: Translate/Hints)" -js CommandExMode().open("showkeys <app>tf")
-map <app>tfa -description "Google append translation (HINTS)" -js hints.show("ʈ");
-map <app>tfA -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
-map <app>tfe -description "Google translate element (HINTS)" -js hints.show("Ţ");
-map <app>tff -description "Google translate text (HINTS)" -js hints.show("ţ");
-map <app>tp  -description "(show bindings: Translate/Page)" -js CommandExMode().open("showkeys <app>tp")
-map <app>tpp -description "Google translate page" -ex googletranslatepage
-map <app>tpb -description "Bing translate page" -ex bingtranslatepage
-map <app>tt  -description "Translate text in command line: [sl:tl] TEXT" -b :trans<Space>
-map <app>tv  -description "(show bindings: Translate/Selection)" -js CommandExMode().open("showkeys <app>tv")
-map <app>tvv -description "Google translate selection" -ex googletranslateselection
-map <app>tx  -description "(show bindings: Translate/Entered Text)" -js CommandExMode().open("showkeys <app>tv")
-map <app>txx -description "Google translate text" -b :gtrans<Space>
-map <app>ty  -description "(show bindings: Translate/Yank)" -js CommandExMode().open("showkeys <app>ty")
-map <app>tyy -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
 
 " ,------,
 " | Yank |
@@ -2851,7 +2806,6 @@ map <search>p   -description "Poly search: multiple queries & engines: :polysear
 map <search>r   -description "Regex search: Forward" -modes normal -b /\r
 map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
 map <search>s      -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
-map <search>s<C-h> -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
 map <search>saa -description "Shopping search: art (quick)" -b :shopartquick<Space>
 map <search>sab
 \    -description "Shopping search: art (bunbougu, ebay, amazonAU)"
@@ -2865,7 +2819,6 @@ map <search>sjj -description "Shopping search: Jacksons UK" -js CommandExMode().
 map <search>sjw -description "Shopping search: Jacksons UK watercolour" -js CommandExMode().open(count?"jacksonsartSearchWatercolour ":"jacksonsartSearchWatercolour! ");
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
 map <search>sv      -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
-map <search>sv<C-h> -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
 map <search>svfm  -description "Shopping search/Vaping: fasttech mods" -b :shopvapeFtMod<Space>
 map <search>sz
 \    -description "Shopping search: ebay + amazon.au"
@@ -3116,25 +3069,6 @@ execute "map <C-S-Z> -modes command-line,insert -b " + user.mypostcode
 execute "map <C-S-Q> -modes command-line,insert -b " + user.mymasterpw
 execute "map <C-S-C> -modes command-line,insert -b " + user.mycreditcard
 map <C-S-W> -modes insert <pwhashsite>
-
-" ,---------------------------------------,
-" | Normal mode bindings for Command-line |
-" '---------------------------------------'
-map <leader>c<C-h> -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
-map <leader>c      -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
-map <leader>ca -description "New command with previous arguments" :<up><change-cmd-keep-args>
-map <leader>cc -description "Copy last js command or args to ex command" :<up><S-Home><S-C-Right><S-Right><C-c>
-map <leader>cm -ex messages
-map <leader>cM -ex messclear
-" Repeat search just entered with keyword changed
-map <leader>cr :<C-r>
-" Repeat default just entered search with keyword
-map <leader>cR :<up><Home><forward-word><Space>
-" Search clipboard contents using search keyword
-map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
-map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
-map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
-map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
 
 " ,-------------------,
 " | Command-line only |
