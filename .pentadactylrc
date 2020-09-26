@@ -1430,6 +1430,15 @@ map <app>pu
 map <app>q
 \    -description "Open in Qutebrowser"
 \    -ex oqute
+
+map <app>u -description "(show bindings: Open URL with)" -js CommandExMode().open("showkeys <app>u")
+map <app>uu
+\    -description "Open URL with Surf"
+\    -ex openwithprogramurl surf
+map <app>ux
+\    -description "Open URL (enter program)"
+\    -b :openwithprogramurl<Space>
+
 map <app>vv
 \    -description "Convert URL/file with pandoc and open"
 \    -js CommandExMode().open(count ? "pandocopen! " : "pandocopen ");
@@ -1442,6 +1451,11 @@ map <app>xa
 map <app>xd
 \    -description "Open file/URL with mimeopen"
 \    -js mimeopenUrlFile();
+
+command! openwithprogramurl
+\    -description "Open current URL with specified program"
+\    -nargs +
+\    -js dactyl.execute(`!${args.join(" ")} ${buffer.URL} &`);
 
 command! pandocopen
 \    -description "Convert URL/file with pandoc and open"
