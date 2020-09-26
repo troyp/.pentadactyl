@@ -1841,24 +1841,6 @@ map <leader>sv
 \    -description "Save clipboard text to file. :savecbtext NAME DIR"
 \    -b :savecbtext<Space>
 
-command! savecbtext
-\    -description "Save clipboard text to file. :savecbtext NAME DIR"
-\    -nargs +
-\    -complete dir
-\    -js saveClipboardTextToFile(args[0], args[1]);
-
-js <<EOF
-function saveClipboardTextToFile(name, dir=homedir) {
-    var text = readFromClipboard();
-    var path = (dir+"/"+name).replace(/rr/,"r");
-    var testS = `[[ -e "${path}" ]]`;
-    var errS = 'echo "File already exists"';
-    var saveS = `echo "${text}" > "${path}"`;
-    var succmessS = `echo "Saved text to ${path}.\n"; head -n 10 "${path}"`;
-    utils.message(io.system(`if ${testS}; then ${errS}; else ${saveS}; ${succmessS}; fi`).output);
-}
-EOF
-
 " -------------------------------------------------------------------------------
 " ,-----------------------, "
 " | <leader>r - Reference | "
@@ -1996,6 +1978,15 @@ map <leader>x
 map <leader>+ -b :sum<Space>
 map <leader>* -b :product<Space>
 
+" ,--------------------------------,
+" | <leader> (associated commands) |
+" '--------------------------------'
+command! savecbtext
+\    -description "Save clipboard text to file. :savecbtext NAME DIR"
+\    -nargs +
+\    -complete dir
+\    -js saveClipboardTextToFile(args[0], args[1]);
+
 command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
 command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
 command! thesauruswiktionary -bang -nargs + -js thesaurusWiktionary(args.join(" "));
@@ -2089,7 +2080,20 @@ command! dlpdf
 \    -complete=dir
 \    -js dlPDF(args[0]);
 
+" ,---------------------------------,
+" | <leader> (associated functions) |
+" '---------------------------------'
 js <<EOF
+function saveClipboardTextToFile(name, dir=homedir) {
+    var text = readFromClipboard();
+    var path = (dir+"/"+name).replace(/rr/,"r");
+    var testS = `[[ -e "${path}" ]]`;
+    var errS = 'echo "File already exists"';
+    var saveS = `echo "${text}" > "${path}"`;
+    var succmessS = `echo "Saved text to ${path}.\n"; head -n 10 "${path}"`;
+    utils.message(io.system(`if ${testS}; then ${errS}; else ${saveS}; ${succmessS}; fi`).output);
+}
+
 function localdict(s) {
     var gcide = io.system(`dict -d gcide '${s}' | perl -000 -lpe 's/ *\n */ /g'`);
     var wn = io.system(`dict -d wn '${s}'| perl -000 -lpe 's/ *\n */ /g'`);
