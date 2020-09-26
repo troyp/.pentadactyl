@@ -6634,7 +6634,10 @@ js hints.addMode('å', 'Follow link in adjacent tab', elem=>tabOpenAdjacent(elem
 " Text "
 " ==== "
 set eht+=[σ]:span
-js hints.addMode('σ', 'yank <span> of text', (e)=>utils.cbWrite(e.textContent));
+js hints.addMode('σ', 'Yank <span> of text', (e)=>utils.cbWrite(e.textContent));
+
+set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre,ul,ol,li,code
+js hints.addMode("ÿ", "Yank paragraph", elem => utils.yankWithMsg(elem.innerText));
 
 " =======
 " Images
@@ -6720,10 +6723,6 @@ js hints.addMode('カ', 'send kanji to callback stored in _dactylargs', e=>windo
 "    ņ - follow link "
 "    Ņ - follow link (background tab) "
 "    ɳ - click button "
-
-" Copy text "
-set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre,ul,ol,li
-js hints.addMode("ÿ", "Copy paragraph", elem => utils.yankWithMsg(elem.innerText));
 
 " Translate text "
 " ( .ReviewContent, .ProsConsContent - fasttech reviews ) "
