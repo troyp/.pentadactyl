@@ -1057,19 +1057,19 @@ map K       -modes normal -b <C-u>
 " jumplist
 map <C-j> -description "Show jump list" -b :jumps<CR>f
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | <browser> |
-" '-----------'
+" ------------------------------------------------------------------------------- "
+" ,-----------, "
+" | <browser> | "
+" '-----------' "
 map <browser>p -description "Print page"                 -b <pass-next-key><C-p>
 map <browser>r -description "Reload .pentadactylrc"      -ex rc
 map <browser>x -description "Maximize/Remaximize window" -js window.restore(); window.maximize();
 map <browser>y -description "Edit .pentadactylrc"        -ex rce
 
-" -------------------------------------------------------------------------------
-" ,--------------------------,
-" | <browser>a -- Annoyances |
-" '--------------------------'
+" ------------------------------------------------------------------------------- "
+" ,--------------------------, "
+" | <browser>a -- Annoyances | "
+" '--------------------------' "
 map <browser>a      -description "(show bindings: Annoyances)" -js CommandExMode().open("showkeys <browser>a")
 map <browser>a<C-h> -description "(show bindings: Annoyances)" -js CommandExMode().open("showkeys <browser>a")
 map <browser>ar -description "Enable Right-click"
@@ -1078,24 +1078,24 @@ map <browser>ar -description "Enable Right-click"
 map <browser>as -description "Enable Select"
 \    -js (function(d){var a=d.document,h=function(){},c=a.body||a.getElementsByTagName("body")[0],f=a.documentElement||a.getElementsByTagName("html")[0],k=[c,f,a],l=["webkit","khtml","moz","ms",""],g=["contextmenu","selectstart","select","mousedown","mouseup"],b=d.Selection,e=b&&b.prototype;e&&(e.removeAllRanges=h,b=a.selection)&&(b.clear=h);for(e=k.length;e--;)if(f=k[e]){for(b=g.length;b--;)f["on"+g[b]]=null;if(a=f.style)for(a.cursor="",a.webkitTouchCallout="initial",b=l.length;b--;)a[((c=l[b])?"-"+c+"-":c)+"user-select"]="initial"}(c=d.jQuery||d.Zepto)&&c(d).off(g)})(content);
 
-" ,-----------------------,
-" | <browser>b -- Sidebar |
-" '-----------------------'
+" ,-----------------------, "
+" | <browser>b -- Sidebar | "
+" '-----------------------' "
 map <browser>b -description "(show bindings: Sidebar)" -js CommandExMode().open("showkeys <browser>b")
 map <browser>bb -b :sidebar<SPACE>
 map <browser>bc -ex sbclose
 map <browser>bh -description "Toggle History Sidebar" -js toggleHistorySidebar();
 
-" ,-----------------------------,
-" | <browser>c -- Configuration |
-" '-----------------------------'
+" ,-----------------------------, "
+" | <browser>c -- Configuration | "
+" '-----------------------------' "
 map <browser>c -description "(show bindings: Configuration)" -js CommandExMode().open("showkeys <browser>c")
 map <browser>co -description "Set dactyl option" -b :set<SPACE>
 map <browser>cc -description "Set about:config setting" -b :set!<SPACE>
 
-" ,------------------------,
-" | <browser>d -- Download |
-" '------------------------'
+" ,------------------------, "
+" | <browser>d -- Download | "
+" '------------------------' "
 map <browser>d      -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
 map <browser>d<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
 map <browser>ddw -description "Download to ~/Downloads/" -ex dlto ~/Downloads
@@ -1156,9 +1156,9 @@ function downloadsList(filter) {
 }
 EOF
 
-" ,---------------------,
-" | <browser>m -- Menus |
-" '---------------------'
+" ,---------------------, "
+" | <browser>m -- Menus | "
+" '---------------------' "
 map <browser>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>mm -b :emenu<SPACE>
@@ -1181,10 +1181,10 @@ function toggleHistorySidebar() {
     return SidebarUI.isOpen;
 }
 EOF
-" -------------------------------------------------------------------------------
-" ,--------------------------,
-" | <browser>u -- User Agent |
-" '--------------------------'
+" ------------------------------------------------------------------------------- "
+" ,--------------------------, "
+" | <browser>u -- User Agent | "
+" '--------------------------' "
 map <browser>u<C-h> -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
 map <browser>u      -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
 map <browser>uh -description "Show User Agent Override"   -ex actoggleuaoverride
@@ -1194,34 +1194,32 @@ map <browser>uy
 \    -description "Yank User Agent Override"
 \    -js utils.cbRead(prefroot.getComplexValue(args[0], Components.interfaces.nsISupportsString).data);
 
-" -------------------------------------------------------------------------------
-" ,--------------------,
-" | <browser>. -- Stop |
-" '--------------------'
+" ------------------------------------------------------------------------------- "
+" ,--------------------, "
+" | <browser>. -- Stop | "
+" '--------------------' "
 map <browser>.  -description "(show bindings: Browser/Stop)" -js CommandExMode().open("showkeys <browser>.")
 map <browser>.. -description "Stop loading"                         -js BrowserStop();
 map <browser>.a -description "Stop loading all"                     -ex stopall
 
-" -------------------------------------------------------------------------------
-" ,------------------------------------------,
-" | <app> -- Open current URL in application |
-" '------------------------------------------'
+" ------------------------------------------------------------------------------- "
+" ,------------------------------------------, "
+" | <app> -- Open current URL in application | "
+" '------------------------------------------' "
 
-" ,-------------------------------------,
-" | <app>a -- Open external application |
-" '-------------------------------------'
-" ,---------------------------------------,
-" | <app>a -- External Application (misc) |
-" '---------------------------------------'
+" ,---------------------------------------, "
+" | <app>a -- External Application (misc) | "
+" '---------------------------------------' "
 map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>ap
 \    -description "Open colour picker (gpick)"
 \    -ex !gpick
 
-" ,-------------------------,
-" | <app>c -- Google Chrome |
-" '-------------------------'
+
+" ,-------------------------, "
+" | <app>c -- Google Chrome | "
+" '-------------------------' "
 map <app>c -description "(show bindings: Open in Google Chrome)" -js CommandExMode().open("showkeys <app>c");
 map <app>cc
 \    -description "Open in Google Chrome (minimal profile)"
@@ -1253,9 +1251,9 @@ map <app>cvv
 \    -description "Open video webapps in Google Chrome"
 \    -ex ochromeurl "https://www.netflix.com/browse" | ochromeurl "https://www.disneyplus.com/en-gb/home" | ochromeurl "https://www.primevideo.com/storefront/home/ref=atv_nb_logo"
 
-" ,---------------------,
-" | <app>d -- Downloads |
-" '---------------------'
+" ,---------------------, "
+" | <app>d -- Downloads | "
+" '---------------------' "
 map <app>d
 \    -description "(show bindings: Access Downloads)"
 \    -count
@@ -1366,9 +1364,9 @@ function renameLastDownload(n=1) {
 }
 EOF
 
-" ,-------------------------,
-" | <app>e -- Open in Emacs |
-" '-------------------------'
+" ,-------------------------, "
+" | <app>e -- Open in Emacs | "
+" '-------------------------' "
 js <<EOF
 /* TODO: How to save text to a file without using clipboard/selection? */
 function openPageTextInEmacs(createFrame=true) {
@@ -1412,9 +1410,9 @@ map <app>op
 \    -description "Visit Packt Free Learning site in Google Chrome"
 \    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
 
-" ,--------------------,
-" | <app>p -- Password |
-" '--------------------'
+" ,--------------------, "
+" | <app>p -- Password | "
+" '--------------------' "
 map <app>p -description "(show bindings: Password Hasher)" -js CommandExMode().open("showkeys <app>p")
 map <app>ph
 \    -description "Password hasher"
@@ -1455,9 +1453,9 @@ command! pandocopen
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
 command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || buffer.URL} | mpg123 -`)).output);
 
-" ,---------------------------------,
-" | <app>s -- Switch to Application |
-" '---------------------------------'
+" ,---------------------------------, "
+" | <app>s -- Switch to Application | "
+" '---------------------------------' "
 map <app>s -description "(show bindings: Switch to Application)" -js CommandExMode().open("showkeys <app>s")
 map <app>sa
 \    -description "Switch to Alarm Clock"
@@ -1525,9 +1523,9 @@ command! tabopenf
     \     file = 'file://' + file;
     \     dactyl.open(file, {where: 'tab'});
 
-" ,----------------------, ,-----------,
-" | Web Sites & Web Apps | | <leader>a |
-" '----------------------' '-----------'
+" ,----------------------, ,-----------, "
+" | Web Sites & Web Apps | | <leader>a | "
+" '----------------------' '-----------' "
 map <leader>a
 \    -description "(show bindings: Web Sites)"
 \    -js CommandExMode().open("showkeys <leader>a")
@@ -1728,9 +1726,9 @@ map <leader>azu
 \     -description "Open US Amazon"
 \     -count -js openOrSelectTab("https://smile.amazon.com");
 
-" ,----------------------------------------------------,
-" | <leader>c -- Normal mode bindings for Command-line |
-" '----------------------------------------------------'
+" ,----------------------------------------------------, "
+" | <leader>c -- Normal mode bindings for Command-line | "
+" '----------------------------------------------------' "
 map <leader>c      -description "(show bindings: Commandline)" -js CommandExMode().open("showkeys <leader>c")
 map <leader>ca -description "New command with previous arguments" :<up><change-cmd-keep-args>
 map <leader>cc -description "Copy last js command or args to ex command" :<up><S-Home><S-C-Right><S-Right><C-c>
@@ -1746,9 +1744,9 @@ map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
 map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
 
-" ,----------------------,
-" | <leader>j - Japanese |
-" '----------------------'
+" ,----------------------, "
+" | <leader>j - Japanese | "
+" '----------------------' "
 map <leader>j -description "(show bindings: Japanese)" -js CommandExMode().open("showkeys <leader>j")
 map <leader>jf
     \ -description "Jisho kanji search (hints)"
@@ -1772,17 +1770,17 @@ map <leader>jkv -description "Visual Kanji Search (similar kanji)"
 map <leader>jm -description "Jisho multiword search" -b :jishomultisearch<Space>
 map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
 
-" ,-----------------------------,
-" | <leader>m - Manipulate Page |
-" '-----------------------------'
+" ,-----------------------------, "
+" | <leader>m - Manipulate Page | "
+" '-----------------------------' "
 map <leader>m   -description "(show bindings: Manipulate Page)" -js CommandExMode().open("showkeys <leader>m")
 map <leader>ms  -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"tab");
 map <leader>mcm -description "Add margins to page body" -b addmargin<SPACE>
 map <leader>mbp -description "Print What You Like" -ex prwul
 
-" ,--------------------------,
-" | <leader>n - edit content |
-" '--------------------------'
+" ,--------------------------, "
+" | <leader>n - edit content | "
+" '--------------------------' "
 map <leader>n  -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>na -description "Isolate Article" -js isolateArticle(count);
 map <leader>ni -description "Remove images" -ex removeimages
@@ -1803,9 +1801,9 @@ function isolateArticle(conservative=false) {
 }
 EOF
 
-" ,------------------,
-" | <leader>o - Open |
-" '------------------'
+" ,------------------, "
+" | <leader>o - Open | "
+" '------------------' "
 map <leader>o      -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
 
 map <leader>om      -description "(show bindings: Open MAFF)" -js CommandExMode().open("showkeys <leader>om")
@@ -1832,9 +1830,9 @@ map <leader>ow
 \    -description "Open in new window"
 \    -count -b :winopen<Space>
 
-" ,------------------,
-" | <leader>s - Save |
-" '------------------'
+" ,------------------, "
+" | <leader>s - Save | "
+" '------------------' "
 map <leader>s      -description "(show bindings: Save)"
 \    -js CommandExMode().open("showkeys <Leader>s")
 \    -js CommandExMode().open("showkeys <Leader>s")
@@ -1862,9 +1860,9 @@ function saveClipboardTextToFile(name, dir=homedir) {
 EOF
 
 " -------------------------------------------------------------------------------
-" ,-----------------------,
-" | <leader>r - Reference |
-" '-----------------------'
+" ,-----------------------, "
+" | <leader>r - Reference | "
+" '-----------------------' "
 
 map <leader>r
 \    -description "(show bindings: Reference)"
@@ -1914,9 +1912,9 @@ map <leader>rwp
 \     -description "Goto Wikpedia article"
 \     -b :wikipediapage<SPACE>
 
-" ,---------------------,
-" | <leader>t - toggles |
-" '---------------------'
+" ,---------------------, "
+" | <leader>t - toggles | "
+" '---------------------' "
 map <leader>t   -description "(show bindings: Toggles)"         -js CommandExMode().open("showkeys <Leader>t")
 map <leader>ta  -description "Toggle User Agent Override"         -ex actoggleuaoverride
 map <leader>tc  -description "(show bindings: Config toggles)"  -js CommandExMode().open("showkeys <Leader>tc")
@@ -1943,9 +1941,9 @@ map <leader>tv  -description "Toggle Visited Links Styling"       -ex styletoggl
 
 map <leader>?c -description "Display config value" -b :acget
 
-" ,-------------------------,
-" | <leader>T - GUI toggles |
-" '-------------------------'
+" ,-------------------------, "
+" | <leader>T - GUI toggles | "
+" '-------------------------' "
 map <leader>T       -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
 map <leader>Ta      -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
 map <leader>Tb      -description "Toggle bookmark bar"                -ex set guioptions!=B
@@ -1963,16 +1961,16 @@ map <A-Up>   -description "Show navigation & bookmarks toolbars and command line
 map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
 \            -ex set guioptions+=mTB | set guioptions-=c | set showtabline=always
 
-" ,-------------------------,
-" | <leader>u - userscripts |
-" '-------------------------'
+" ,-------------------------, "
+" | <leader>u - userscripts | "
+" '-------------------------' "
 map <leader>u      -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word highlight
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
 
-" ,---------------------------------------,
-" | <leader>v - Conversion and Arithmetic |
-" '---------------------------------------'
+" ,---------------------------------------, "
+" | <leader>v - Conversion and Arithmetic | "
+" '---------------------------------------' "
 map <leader>v
 \    -description "(show bindings: Misc/Conversion&Arithmetic)"
 \    -js CommandExMode().open("showkeys <leader>v")
@@ -1988,9 +1986,9 @@ map <leader>v;in   -description "Convert length from in to cm (in->cm)" -b :conv
 map <leader>v;ml   -description "Convert volume from ml to US fluid oz (ml->fluid oz)" -b :convertMlToFluidOz<Space>
 map <leader>vx -description "Convert value into other exchangr rate" -b :convertexchangerates<Space>
 
-" ,---------------------------,
-" | <leader>x - miscellaneous |
-" '---------------------------'
+" ,---------------------------, "
+" | <leader>x - miscellaneous | "
+" '---------------------------' "
 map <leader>x
 \    -description "(show bindings: Misc)"
 \    -js CommandExMode().open("showkeys <leader>x")
