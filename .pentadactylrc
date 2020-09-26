@@ -1758,6 +1758,12 @@ map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
 map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
 
+" ,---------------------------, "
+" | <leader>f -- Focus/Follow | "
+" '---------------------------' "
+map <leader>f -description "(show bindings: Focus-Follow)" -js CommandExMode().open("showkeys <leader>f")
+map <leader>fs -description "Click span by text" -b :clickspan<Space>
+
 " ,----------------------, "
 " | <leader>j - Japanese | "
 " '----------------------' "
@@ -2000,6 +2006,8 @@ command! savecbtext
 \    -nargs +
 \    -complete dir
 \    -js saveClipboardTextToFile(args[0], args[1]);
+
+command! clickspan -description "Click all span elements containing a substring" -nargs + -js $$(`span:contains(${args.join(' ')})`).forEach(s=>s.click());
 
 command! thesauruspower -description "Search PowerThesaurus.com" -nargs + -js thesaurusPower(args.join(" "));
 command! thesaurusaik -description "Search Aiksaurus" -nargs + -js thesaurusAik(args.join(" "));
