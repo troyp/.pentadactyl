@@ -14912,14 +14912,16 @@ function openMaffFileWithFilePicker() {
     });
 }
 
+" In these functions, shell commands inputted use %f to signify the URL ";
 function runCommandOnUrlFile(cmd, url=buffer.URL) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
         var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
-        return io.system(cmd.replace("%f", localFile));
+        var localDir = localFile.replace(/[^/]+\/?$/, "");
+        return io.system(`cd ${localDir}; `+cmd.replace("%f", localFile));
     } else {
-        return io.system(`_F=$(mktemp); curl -s '${url}' > $_F; ${cmd.replace("%f", "$_F")}`);
+        return io.system(`cd $(mktemp -d); curl -s '${url}' > localcopy; ${cmd.replace("%f", localcopy)}`);
     }
 }
 
