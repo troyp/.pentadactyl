@@ -14923,14 +14923,19 @@ function runCommandOnUrlFile(cmd, url=buffer.URL) {
     }
 }
 
-function pandocConvertUrlFile(from, to, url=buffer.URL) {
-    var cmd = `f=$(mktemp); pandoc -f ${from} -t ${to} %f > $f && echo $f`;
-    return runCommandOnUrlFile(cmd, url);
-}
 
 function pandocConvertOpenUrlFile(from, to, url=buffer.URL, where="here") {
-    var converted = pandocConvertUrlFile(from, to, url);
+    var localFileRegex = /^file:\/\/([^?#]*)/;
+    var localFileMatch = url.match(localFileRegex);
+    var converted;
+    if (localFileMatch) {
+        var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
+        converted = io.system(`_Fresult=$(mktemp); pandoc -f ${from} -t ${to} ${localFile} > $_Fresult; echo $_Fresult`);
+    } else {
+        converted = io.system(`_Fdlpage=$(mktemp); curl -s '${url}' > $_Fdlpage; _Fresult=$(mktemp); pandoc -f ${from} -t ${to} $_Fdlpage > $_Fresult; echo $_Fresult`);
+    }
     if (converted.returnValue==0) pageOpen(converted.output, where);
+    utils.message(converted);
 }
 
 
