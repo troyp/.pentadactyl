@@ -1451,6 +1451,9 @@ map <app>xa
 map <app>xd
 \    -description "Open file/URL with mimeopen"
 \    -js mimeopenUrlFile();
+map <app>xp
+\    -description "Process URL/file with shell command and open result as file"
+\    -js CommandExMode().open(count? "shellprocessandopen! " : "shellprocessandopen ");
 map <app>xx
 \    -description "Open file/URL (enter program)"
 \    -js CommandExMode().open(count ? "runcommandonurlfile! " : "runcommandonurlfile ");
@@ -1472,9 +1475,9 @@ command! pandocopen
 \    -js pandocConvertOpenUrlFile(args[0], args[1], buffer.URL, bang?"adjacent":"here");
 
 command! shellprocessandopen
-\    -description "Process URL/file with shell command and open"
+\    -description "Process URL/file with shell command and open result as file"
 \    -bang
-\    -nargs +
+\    -nargs 1
 \    -js shellProcessAndOpenUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
 
 command! runcommandonurlfile
@@ -14951,6 +14954,7 @@ function runCommandOnUrlFile(cmd, url=buffer.URL) {
 }
 
 function shellProcessAndOpenUrlFile(cmd, url=buffer.URL, where="here") {
+    if (!cmd.includes("%f")) cmd += " %f";
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     var converted;
