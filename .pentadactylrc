@@ -1463,6 +1463,12 @@ command! pandocopen
 \    -nargs +
 \    -js pandocConvertOpenUrlFile(args[0], args[1], buffer.URL, bang?"adjacent":"here");
 
+command! shellprocessandopen
+\    -description "Process URL/file with shell command and open"
+\    -bang
+\    -nargs +
+\    -js shellProcessAndOpenUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
+
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
 command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || buffer.URL} | mpg123 -`)).output);
@@ -14925,6 +14931,19 @@ function runCommandOnUrlFile(cmd, url=buffer.URL) {
     }
 }
 
+function shellProcessAndOpenUrlFile(cmd, url=buffer.URL, where="here") {
+    var localFileRegex = /^file:\/\/([^?#]*)/;
+    var localFileMatch = url.match(localFileRegex);
+    var converted;
+    if (localFileMatch) {
+        var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
+        converted = io.system(`_Fresult=$(mktemp); ${cmd.replace("%f", localFile)} > $_Fresult; echo $_Fresult`);
+    } else {
+        converted = io.system(`_dlFile=$(mktemp); curl -s '${url}' > $_dlFile; _resultFile=$(mktemp); ${cmd.replace("%f", $dlFile)} > $_resultFile; echo $_resultFile`);
+    }
+    if (converted.returnValue==0) pageOpen(converted.output, where);
+    utils.message(converted);
+}
 
 function pandocConvertOpenUrlFile(from, to, url=buffer.URL, where="here") {
     var localFileRegex = /^file:\/\/([^?#]*)/;
