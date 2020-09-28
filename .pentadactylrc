@@ -1453,7 +1453,7 @@ map <app>xd
 \    -js mimeopenUrlFile();
 map <app>xx
 \    -description "Open file/URL (enter program)"
-\    -b :openwithprogramurlfile<Space>
+\    -js CommandExMode().open(count ? "runcommandonurlfile! " : "runcommandonurlfile ");
 
 command! openwithprogramurl
 \    -description "Open current URL with specified program"
@@ -1476,6 +1476,12 @@ command! shellprocessandopen
 \    -bang
 \    -nargs +
 \    -js shellProcessAndOpenUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
+
+command! runcommandonurlfile
+\    -description "Run shell command on URL/file (%f)"
+\    -bang
+\    -nargs 1
+\    -js runCommandOnUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
@@ -14932,6 +14938,7 @@ function openMaffFileWithFilePicker() {
 
 " In these functions, shell commands inputted use %f to signify the URL ";
 function runCommandOnUrlFile(cmd, url=buffer.URL) {
+    if (!cmd.includes("%f")) cmd += " %f";
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
