@@ -1451,11 +1451,19 @@ map <app>xa
 map <app>xd
 \    -description "Open file/URL with mimeopen"
 \    -js mimeopenUrlFile();
+map <app>xx
+\    -description "Open file/URL (enter program)"
+\    -b :openwithprogramurlfile<Space>
 
 command! openwithprogramurl
 \    -description "Open current URL with specified program"
 \    -nargs +
 \    -js dactyl.execute(`!${args.join(" ")} ${buffer.URL} &`);
+
+command! openwithprogramurlfile
+\    -description "Open current page with specified program"
+\    -nargs 1
+\    -js openWithProgramUrlFile(args[0]);
 
 command! pandocopen
 \    -description "Convert URL/file with pandoc and open"
@@ -14898,6 +14906,10 @@ function mimeopenAskAppUrlFile(url=buffer.URL) {
     } else {
         dactyl.execute(`!d=$(mktemp -d); wget -P $d '${url}'; roxterm -e zsh -c "mimeopen -a $d/*"`);
     }
+}
+
+function openWithProgramUrlFile(program, url=buffer.URL) {
+    shellProcessUrlFile(program + " %f", url);
 }
 
 function openMaffFile(f) {
