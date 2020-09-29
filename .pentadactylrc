@@ -1963,6 +1963,9 @@ map <leader>tcu -description "Toggle UA override"                 -ex actoggleua
 map <leader>tcw -description "Toggle open in new window"          -ex actoggleopennewwin
 map <leader>te  -description "Toggle designMode"                  -ex designmode
 map <leader>tE  -description "Toggle contentEditable"             -ex contenteditable
+map <leader>th
+\    -description "Toggle numeric hint keys"
+\    -ex cycleoption hintkeys jkl;fdsahgnvurieow 0123456789
 map <leader>tj  -description "Toggle Javascript"                  -ex actogglejs
 map <leader>to  -description "Toggle Online"                      -ex toggleoption online
 map <leader>tp  -description "Toggle Proxy"                       -ex actoggleuseproxy
