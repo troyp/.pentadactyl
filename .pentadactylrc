@@ -700,16 +700,16 @@ EOF
 " '---------'
 "
 command! toggleoption
-    \ -description "Toggle boolean option."
-    \ -nargs=1
-    \ -complete option
-    \ -js utils.toggleOption(args[0]);
+\    -description "Toggle boolean option."
+\    -nargs=1
+\    -complete option
+\    -js utils.toggleOption(args[0]);
 
 command! getoption
-    \ -description "Show boolean option."
-    \ -nargs=1
-    \ -complete option
-    \ -js var opt=options.get(args[0]); utils.message(`${opt.name}=${opt.value}`);
+\    -description "Show boolean option."
+\    -nargs=1
+\    -complete option
+\    -js var opt=options.get(args[0]); utils.message(`${opt.name}=${opt.value}`);
 
 set runtimepath=/home/troy/.pentadactyl
 set incfind
@@ -1969,17 +1969,17 @@ map <leader>?c -description "Display config value" -b :acget
 " ,-------------------------, "
 " | <leader>T - GUI toggles | "
 " '-------------------------' "
-map <leader>T       -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
-map <leader>Ta      -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
-map <leader>Tb      -description "Toggle bookmark bar"                -ex set guioptions!=B
-map <leader>Tc      -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
-map <leader>Tct     -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
-map <leader>Td      -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
-map <leader>Te      -description "Toggle navigation toolbar"          -ex set guioptions!=T
-map <leader>Tm      -description "Toggle menu bar"                    -ex set guioptions!=m
-map <leader>To      -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
-map <leader>Ts      -description "Toggle status bar"                  -ex set guioptions!=s
-map <leader>Tt      -description "Toggle tab bar"                     -ex set showtabline!=always,never
+map <leader>T   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
+map <leader>Ta  -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
+map <leader>Tb  -description "Toggle bookmark bar"                -ex set guioptions!=B
+map <leader>Tc  -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
+map <leader>Tct -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
+map <leader>Td  -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
+map <leader>Te  -description "Toggle navigation toolbar"          -ex set guioptions!=T
+map <leader>Tm  -description "Toggle menu bar"                    -ex set guioptions!=m
+map <leader>To  -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
+map <leader>Ts  -description "Toggle status bar"                  -ex set guioptions!=s
+map <leader>Tt  -description "Toggle tab bar"                     -ex set showtabline!=always,never
 
 map <A-Up>   -description "Show navigation & bookmarks toolbars and command line"
 \            -ex set guioptions-=mTB | set guioptions+=c | set showtabline=never
