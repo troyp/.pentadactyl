@@ -705,6 +705,12 @@ command! toggleoption
 \    -complete option
 \    -js utils.toggleOption(args[0]);
 
+command! cycleoption
+\    -description "Cycle option between several values"
+\    -nargs=+
+\    -complete option
+\    -js utils.cycleOption(args[0], args.slice(1));
+
 command! getoption
 \    -description "Show boolean option."
 \    -nargs=1

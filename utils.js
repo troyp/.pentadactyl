@@ -209,6 +209,17 @@ var utils = {
         var opt = options.get(optname);
         opt.value = !opt.value;
         this.message(`${opt.name}=${opt.value}`);
+        return opt.value;
+    },
+
+    cycleOption: function (optname, values) {
+        var n = values.length;
+        var opt = options.get(optname);
+        var current = opt.value;
+        var newidx = (values.findIndex(e=>e==current)+1) % n;
+        opt.value = values[newidx];
+        this.message(`${opt.name}=${opt.value}`);
+        return opt.value;
     },
 
     cbRead: function (options={}) {
