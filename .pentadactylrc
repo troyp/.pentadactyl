@@ -1374,6 +1374,12 @@ EOF
 " | <app>e -- Open in Emacs | "
 " '-------------------------' "
 js <<EOF
+function openUrlInEmacs(url=buffer.URL) {
+    var file = getFilenameOrUrlAsFile(url);
+    io.system(`emacsclient "${file}"`);
+    utils.message(file);
+}
+
 /* TODO: How to save text to a file without using clipboard/selection? */
 function openPageTextInEmacs(createFrame=true) {
     editor.setRegister("*", content.document.body.innerText, false);
@@ -6280,32 +6286,6 @@ function toggleHTTPS () {
     else if (url.indexOf(sc_https) == 0)
         newurl = url.replace(sc_https, sc_http);
     dactyl.open(newurl);
-}
-
-function getFilenameOrURL(url=buffer.URL) {
-    var text=decodeURIComponent(url.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    return text;
-}
-
-function getFilenameOrUrlAsFile(url=buffer.URL) {
-    var url = decodeURIComponent(url);
-    if (url.match(/^https?:/)) {
-        var tempf = io.system('tempfile').output;
-        io.system(`curl "${url}" > ${tempf};`);
-        return tempf;
-    } else if (url.match(/^file:/)) {
-        return url.replace(/^file:\/\//,'');
-    } else if (url.match(/^[/~]/)) {
-        return url;
-    } else {
-        utils.message('protocol not supported');
-    }
-}
-
-function openUrlInEmacs(url=buffer.URL) {
-    var file = getFilenameOrUrlAsFile(url);
-    io.system(`emacsclient "${file}"`);
-    utils.message(file);
 }
 
 function toggleFooter() {
@@ -14899,6 +14879,26 @@ function parseRanges(s) {
 " ,---------, "
 " | Loading | "
 " '---------' "
+function getFilenameOrURL(url=buffer.URL) {
+    var text=decodeURIComponent(url.replace(/^file:\/\//,'').replace(/[?#].*/,''));
+    return text;
+}
+
+function getFilenameOrUrlAsFile(url=buffer.URL) {
+    var url = decodeURIComponent(url);
+    if (url.match(/^https?:/)) {
+        var tempf = io.system('tempfile').output;
+        io.system(`curl "${url}" > ${tempf};`);
+        return tempf;
+    } else if (url.match(/^file:/)) {
+        return url.replace(/^file:\/\//,'');
+    } else if (url.match(/^[/~]/)) {
+        return url;
+    } else {
+        utils.message('protocol not supported');
+    }
+}
+
 function mimeopenUrlFile(url=buffer.URL) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
