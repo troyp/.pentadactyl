@@ -6282,11 +6282,6 @@ function toggleHTTPS () {
     dactyl.open(newurl);
 }
 
-function filenameOrURL(s) {
-    var text=decodeURIComponent(s.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    return text;
-}
-
 function getFilenameOrURL(url=buffer.URL) {
     var text=decodeURIComponent(url.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     return text;
@@ -6608,7 +6603,7 @@ js hints.addMode('0','make div invisible', utils.undisplay);
 " replace ;t with function for ;b (open in background)
 js hints.addMode("t", "Follow hint in a background tab", elem => buffer.followLink(elem, dactyl.NEW_BACKGROUND_TAB))
 set eht+=[e]:'a',':-moz-any-link'
-js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + filenameOrURL(elem.href) + '"'));
+js hints.addMode('e', 'open in emacs', elem => dactyl.execute('!emacsclient "' + getFilenameOrURL(elem.href) + '"'));
 " Show node (popup)"
 set eht+=[`]:'a',':-moz-any-link',div,iframe,header,footer,aside,form,table,h1,h2,h3,h4,p,ul,ol,dl,img,textarea,pre,code,'input:not([type=hidden])'
 js hints.addMode('`','show node (popup)', e => alert(e.innerHTML || e));
