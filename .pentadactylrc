@@ -156,6 +156,7 @@ if (isWaterfox) browserExec = "/opt/waterfox/waterfox";
 A = {
     uniq:        (coll) => [...new RealSet(coll)],
     from:        (coll) => Array.from(coll),
+    slice:       (coll, ...rest) => Array.prototype.slice.call(coll, ...rest),
     map:         (coll, f) => Array.from(coll).map(f),
     filter:      (coll, f) => Array.from(coll).filter(f),
     forEach:     (coll, f) => Array.from(coll).forEach(f),
