@@ -130,6 +130,13 @@ function createBmark(url, title, folderId=bmarksMenuFolder) {
 }
 window.createBmark = createBmark;
 
+function fetchBmarkUrlByKeyword(kw, callback) {
+    PlacesUtils.keywords.fetch(kw).then(
+        entry => { callback(entry.url.href) },
+        e => { Cu.reportError(`bookmark keyword ${kw} not found.`) });
+}
+window.fetchBmarkUrlByKeyword = fetchBmarkUrlByKeyword;
+
 "Application"
 var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
 
