@@ -1898,7 +1898,6 @@ map <leader>ow
 " '------------------' "
 map <leader>s      -description "(show bindings: Save)"
 \    -js CommandExMode().open("showkeys <Leader>s")
-\    -js CommandExMode().open("showkeys <Leader>s")
 map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
 map <leader>sv
 \    -description "Save clipboard text to file. :savecbtext NAME DIR"
