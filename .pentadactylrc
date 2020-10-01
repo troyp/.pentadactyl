@@ -1230,6 +1230,7 @@ map <app>ap
 \    -description "Open colour picker (gpick)"
 \    -ex !gpick
 
+map <C-Space> -description "Show Albert launcher" -js io.system("albert show");
 
 " ,-------------------------, "
 " | <app>c -- Google Chrome | "
