@@ -33,6 +33,8 @@ set passkeys=
 
 js <<EOF
 
+window.dactyl.rc = plugins[`${homedir}/.pentadactylrc`];
+
 var $$ = function(sel, context) { return Array.from(jQuery(sel, context||content.document)); }
 window.$$ = $$;
 
