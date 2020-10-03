@@ -1391,9 +1391,7 @@ EOF
 " '-------------------------' "
 js <<EOF
 function openUrlInEmacs(url=buffer.URL) {
-    var file = getFilenameOrUrlAsFile(url);
-    io.system(`emacsclient "${file}"`);
-    utils.message(file);
+    return io.system(`emacsclient "${getFilenameOrUrlAsFile(url)}"`);
 }
 
 /* TODO: How to save text to a file without using clipboard/selection? */
@@ -1403,7 +1401,7 @@ function openPageTextInEmacs(createFrame=true) {
         var cmd = "tempfile=`mktemp` && xsel -p > $tempfile && emacsclient -c $tempfile";
     else
         var cmd = "tempfile=`mktemp` && xsel -p > $tempfile && emacsclient $tempfile";
-    io.system(cmd);
+    return io.system(cmd);
 }
 EOF
 
