@@ -1287,9 +1287,6 @@ map <app>dm
 \    -description "Open last download as MAFF file"
 \    -count
 \    -js openLastDownloadAsMaff(count||1);
-map <app>do
-\    -description "Open last download, ask for app"
-\    -js mimeopenAskAppForLastDownload(count||1);
 map <app>dr
 \    -description "Rename last download"
 \    -count
@@ -1298,14 +1295,22 @@ map <app>dt
 \    -description "Trash last download"
 \    -count
 \    -js trashLastDownload(count||1)
-map <app>dx
-\    -description "Open last download using mimeopen"
+
+map <app>dx -description "(show bindings: Downloads/Open)" -js CommandExMode().open("showkeys <app>dx")
+map <app>dxa
+\    -description "Open last download (ask app)"
+\    -count
+\    -js mimeopenAskAppForLastDownload(count||1)
+map <app>dxd
+\    -description "Open last download with mimeopen"
 \    -count
 \    -js mimeopenLastDownload(count||1)
-map <app>dX
+map <app>dx=
 \    -description "Open last download and set default application for type"
 \    -count
+\    -count
 \    -js mimeopenAndSetAppForLastDownload(count||1)
+
 map <app>dv
 \    -description "Open last download in browser"
 \    -count
