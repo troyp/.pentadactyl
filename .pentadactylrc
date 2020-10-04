@@ -1470,6 +1470,9 @@ map <app>vv
 \    -js CommandExMode().open(count ? "pandocopen! " : "pandocopen ");
 map <app>vm -description "Open MAFF file in browser" -b :openmafffile<Space>
 
+" ,--------------------, "
+" | <app>x -- Open/Run | "
+" '--------------------' "
 map <app>x -description "(show bindings: Open/Run)" -js CommandExMode().open("showkeys <app>x")
 map <app>xa
 \    -description "Open file/URL (ask app)"
@@ -1483,6 +1486,10 @@ map <app>xp
 map <app>xx
 \    -description "Open file/URL (enter program)"
 \    -js CommandExMode().open(count ? "shellcommandonurlfile! " : "shellcommandonurlfile ");
+map <app>x=
+\    -description "Open file/URL (ask app) and set default application for type"
+\    -count
+\    -js mimeopenAndSetAppUrlFile(count||1)
 
 command! openwithprogramurl
 \    -description "Open current page with specified program"
@@ -14926,6 +14933,17 @@ function mimeopenAskAppUrlFile(url=buffer.URL) {
         dactyl.execute(`!roxterm -e zsh -c "mimeopen -a '${localFile}'"`);
     } else {
         dactyl.execute(`!d=$(mktemp -d); wget -P $d '${url}'; roxterm -e zsh -c "mimeopen -a $d/*"`);
+    }
+}
+
+function mimeopenAndSetAppUrlFile(url=buffer.URL) {
+    var localFileRegex = /^file:\/\/([^?#]*)/;
+    var localFileMatch = url.match(localFileRegex);
+    if (localFileMatch) {
+        var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
+        dactyl.execute(`!roxterm -e zsh -c "mimeopen -d '${localFile}'"`);
+    } else {
+        dactyl.execute(`!d=$(mktemp -d); wget -P $d '${url}'; roxterm -e zsh -c "mimeopen -d $d/*"`);
     }
 }
 
