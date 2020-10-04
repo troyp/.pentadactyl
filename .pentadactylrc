@@ -1482,17 +1482,12 @@ map <app>xp
 \    -js CommandExMode().open(count? "shellprocessandopen! " : "shellprocessandopen ");
 map <app>xx
 \    -description "Open file/URL (enter program)"
-\    -js CommandExMode().open(count ? "runcommandonurlfile! " : "runcommandonurlfile ");
+\    -js CommandExMode().open(count ? "shellcommandonurlfile! " : "shellcommandonurlfile ");
 
 command! openwithprogramurl
-\    -description "Open current URL with specified program"
-\    -nargs +
-\    -js dactyl.execute(`!${args.join(" ")} ${buffer.URL} &`);
-
-command! openwithprogramurlfile
 \    -description "Open current page with specified program"
 \    -nargs 1
-\    -js openWithProgramUrlFile(args[0]);
+\    -js openWithProgramUrl(args[0]);
 
 command! pandocopen
 \    -description "Convert URL/file with pandoc and open"
@@ -1506,11 +1501,11 @@ command! shellprocessandopen
 \    -nargs 1
 \    -js shellProcessAndOpenUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
 
-command! runcommandonurlfile
+command! shellcommandonurlfile
 \    -description "Run shell command on URL/file (%f)"
 \    -bang
 \    -nargs 1
-\    -js runCommandOnUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
+\    -js shellCommandOnUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
@@ -14934,8 +14929,8 @@ function mimeopenAskAppUrlFile(url=buffer.URL) {
     }
 }
 
-function openWithProgramUrlFile(program, url=buffer.URL) {
-    shellProcessUrlFile(program + " %f", url);
+function openWithProgramUrl(program, url=buffer.URL) {
+    return io.system(`${program} '${url}'`);
 }
 
 function openMaffFile(f) {
@@ -14957,7 +14952,7 @@ function openMaffFileWithFilePicker() {
 }
 
 " In these functions, shell commands inputted use %f to signify the URL ";
-function runCommandOnUrlFile(cmd, url=buffer.URL) {
+function shellCommandOnUrlFile(cmd, url=buffer.URL) {
     if (!cmd.includes("%f")) cmd += " %f";
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
