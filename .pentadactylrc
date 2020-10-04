@@ -1272,7 +1272,7 @@ map <app>cvv
 " | <app>d -- Downloads | "
 " '---------------------' "
 map <app>d
-\    -description "(show bindings: Access Downloads)"
+\    -description "(show bindings: Downloads)"
 \    -count
 \    -js CommandExMode().open("showkeys <app>d");
 map <app>dd
@@ -5528,7 +5528,7 @@ style -name=rikaisama-kanji-light *
 \    }
 styledisable -name rikaisama-hugekanji
 
-map <ext>r      -description "(show bindings: Rikaisama)" -js CommandExMode().open("showkeys <ext>r");
+map <ext>r  -description "(show bindings: Rikaisama)" -js CommandExMode().open("showkeys <ext>r");
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
 map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
@@ -5536,10 +5536,12 @@ map <ext>rr -description "Rikai: Toggle superSticky (current popup sticky)" -ex 
 map <ext>rs -description "Rikai: Append definition to save file"-js rcxMain.saveToFile()
 
 map <ext>rt  -description "(show bindings: Rikaisama Toggles)" -js CommandExMode().open("showkeys <ext>rt");
+
 map <ext>rtk  -description "(show bindings: Rikaisama Toggles/Kanji)" -js CommandExMode().open("showkeys <ext>rtk");
 map <ext>rtkk -description "Rikai: Toggle large kanji" -ex styletoggle -name rikaisama-bigkanji
 map <ext>rtkh -description "Rikai: Toggle huge kanji"  -ex styletoggle -name rikaisama-hugekanji
 map <ext>rtks -description "Rikai: Toggle kanji style"  -ex styletoggle -name rikaisama-kanji-light
+
 map <ext>rtm -description "Rikai: Toggle merged divs" -ex riktogglemergedivs
 map <ext>rto -description "Rikai: Toggle on top" -ex styletoggle -name rikaisama-on-top
 map <ext>rtp -description "Rikai: Cycle popup position" -js rikCyclePosition();
@@ -6239,6 +6241,7 @@ function toggleQueryComponent(url, query, altQuery=null) {
     return newurl;
 }
 window.toggleQueryComponent = toggleQueryComponent;
+
 function urlToggleQuery(query, altQuery=null) {
     var url = buffer.URL;
     content.window.location = toggleQueryComponent(url, query, altQuery);
@@ -8777,6 +8780,7 @@ EOF
 map <site>dd
 \    -description "Download image"
 \    -js figurosityDownloadImage(figurosityDownloadDir);
+
 map <site>o      -description "(show bindings: view image: switch)" -js CommandExMode().open("showkeys <site>o")
 map <site>o<C-h> -description "(show bindings: view image: switch)" -js CommandExMode().open("showkeys <site>o")
 map <site>oi
@@ -8786,26 +8790,24 @@ map <site>om -description "View image: switch to muscle" -js figurosityViewSwitc
 map <site>on -description "View image: switch to normal" -js figurosityViewSwitch("normal");
 map <site>os -description "View image: switch to smooth" -js figurosityViewSwitch("smooth");
 map <site>ou -description "View image: switch to nude"   -js figurosityViewSwitch("nude");
-map <site>v
-\    -description "View"
-\    -js dactyl.open(figurosityGetImageUrl());
+
+map <site>v -description "View" -js dactyl.open(figurosityGetImageUrl());
 map <site>y      -description "(show bindings: site yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>y<C-h> -description "(show bindings: site yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>yd
 \    -description "Yank image download (to set directory) command"
 \    -js utils.cbWrite(`wget -P "${figurosityDownloadDir}" ${figurosityGetImageUrl()}`);
-map <site>yi
-\    -description "Yank image source"
-\    -js utils.cbWrite(figurosityGetImageUrl());
+map <site>yi -description "Yank image source" -js utils.cbWrite(figurosityGetImageUrl());
 map <site>yn
 \    -description "Yank identifying numbers from source URL"
 \    -js utils.cbWrite(figurosityGetIdentifyingNumbers());
 map <site>yp
-\    -description "Yank image download commands for all angles/variants of current pose (sleep between dls, unless count)"
+\    -description "Yank image download commands for all angles/variants of current pose (count=no sleep)"
 \    -js utils.cbWriteWithMessageLimit(figurosityDownloadPoseCmd(count?null:true));
 map <site>yy
 \    -description "Yank image download command"
 \    -js utils.cbWrite("wget " + figurosityGetImageUrl() + "\n");
+
 map <A-`>
 \    -description "Yank image download command"
 \    -js utils.cbWrite("wget " + figurosityGetImageUrl() + "\n");
@@ -9014,7 +9016,9 @@ group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.g
 map <site>a        -description "(show bindings: Github/Alterations)" -js CommandExMode().open("showkeys <site>a")
 map <site>ag       -description "Cleanup Gist" -ex ghgistcleanup
 map <site>aG       -description "Cleanup Gist (keep comments)" -ex ghgistcleanup!
+
 map <site>c        -description "Click README.md" -js ghClickReadme();
+
 map <site>d        -description "(show bindings: Github/Download)" -js CommandExMode().open("showkeys <site>d")
 map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
 map <site>dp       -description "Download patch file" -b :ghdlpatch<Space>
@@ -9024,9 +9028,11 @@ map <site>gc       -description "(show bindings: Github/Git/Clone)" -js CommandE
 map <site>gch      -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
 map <site>gcc      -description "Clone repo to ~/source/git-repos or ~/repos" -js ghCloneRepoToMyDir();
 map <site>gcs      -description "Clone repo via SSH" -b :ghclonessh<Space>
+
 map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
 map <site>ir       -description "List user's repos in mow" -ex ghlistrepos
 map <site>l        -description "Show line(s) in source file" -b :ghgotolines<Space>
+
 map <site>m        -description "(show bindings:Github/My)" -js CommandExMode().open("showkeys <site>m")
 map <site>mg       -count -description "My gists"
 \                  -js openOrSelectTab('https://gist.github.com/'+ghusername, count?"tab":"here");
@@ -9044,8 +9050,7 @@ map <site>mr       -description "My repositories"
 map <site>ms       -description "My stars"
 \                  -count
 \                  -js openOrSelectTab(`https://github.com/${ghusername}?tab=stars`, count?"tab":"here");
-map <site>og       -description "Open gists"
-\                  -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"tab");
+
 map <site>o        -description "(show bindings:Github/Open)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc       -description "Open commits"
 \                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/commits`,
@@ -9054,6 +9059,8 @@ map <site>od       -description "Open PR patch"
 \                  -count -js openOrSelectTab(`${ghprGetPatchURL()}`, count?"tab":"here");
 map <site>oD       -description "Open PR diff"
 \                  -count -js openOrSelectTab(`${ghprGetDiffURL()}`, count?"tab":"here");
+map <site>og       -description "Open gists"
+\                  -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"tab");
 map <site>oh       -description "Open help" -count -js ghOpenHelp(count?"here":"tab");
 map <site>oi       -description "Open issues"
 \                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`,
@@ -9080,6 +9087,7 @@ map <site>ot       -description "Open repo top level"
 \                  -count -js ghGotoRepoRootLevel(count);
 map <site>ow       -description "Open wiki" -js openOrSelectTab(ghGetWikiURL(), count?"tab":"here");
 map <site>o<       -description "Open pull request URL" -js openOrSelectTab(ghGetPRURL(), count?"tab":"here");
+
 map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
 map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
 map <site>s        -description "(show bindings:Github/Save)" -js CommandExMode().open("showkeys <site>s")
@@ -9099,9 +9107,10 @@ map <site>yU       -description "Yank user name" -js ghCopyUser();
 map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
 map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
 map <site>y<       -description "Yank pull request URL" -js utils.yankWithMsg(ghGetPRURL());
+
 map <site>8        -description "Star/Unstar repo" -js ghStar();
 map <site>*        -description "Star/Unstar repo" -js ghStar();
-map <site>/ -ex ghfilefinder
+map <site>/        -ex ghfilefinder
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
@@ -9353,7 +9362,7 @@ function ghOpenHelp(where='here') {
 function ghConvertUrlToRaw(url) {
     [user, repo, relpath] = ghGetUrlComponents(url);
     raw_relpath = relpath.replace(/^\/(blob|tree)\//, '/');
-    var rawurl = `https://raw.githubusercontent.com/${user}/${repo}${raw_relpath}`
+    var rawurl = `https://raw.githubusercontent.com/${user}/${repo}${raw_relpath}`;
     return rawurl;
 }
 
