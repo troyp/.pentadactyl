@@ -8753,7 +8753,10 @@ function figurosityGetIdentifyingNumbers() {
     return match.length>0 && match[1].replace(/\//g, "_");
 }
 function figurosityDownloadPoseCmd(sleep=true) {
-    var s = "";
+    var url = buffer.URL;
+    var pose = url.match(/[0-9]+$/)[0];
+    var posedir = "pose-" + pose;
+    var s = `mkdir ${posedir}; cd ${posedir};\n`;
     var src = figurosityGetImageUrl();
     var regex = /(.*\/)(normal|nude|muscle|smooth)(.*pose-)(\d+)(.*)/;
     var matches = src.match(regex);
