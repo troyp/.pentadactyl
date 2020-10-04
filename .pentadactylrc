@@ -1305,6 +1305,10 @@ map <app>dxd
 \    -description "Open last download with mimeopen"
 \    -count
 \    -js mimeopenLastDownload(count||1)
+map <app>dxx
+\    -description "Open last download (enter program)"
+\    -count
+\    -js CommandExMode().open(`shellcommandondownload ${count||1} `);
 map <app>dx=
 \    -description "Open last download and set default application for type"
 \    -count
@@ -1319,6 +1323,12 @@ map <app>dy
 \    -description "Yank last download path"
 \    -count
 \    -js getLastDownload(count||1).then(function (dlPath) { dactyl.utils.cbWrite(dlPath); });
+
+command! shellcommandondownload
+\    -description "Run shell command on Nth last download (%f)"
+\    -bang
+\    -nargs +
+\    -js shellCommandOnDownload(args[0], args.slice(1).join(" "));
 
 js <<EOF
 function getLastDownload(n=1) {
@@ -1344,6 +1354,17 @@ function mimeopenAskAppForLastDownload(n=1) {
 function mimeopenAndSetAppForLastDownload(n=1) {
     var dlP = getLastDownload(n);
     dlP.then(function(dl) { io.system(`roxterm -e zsh -c "mimeopen -d '${dl}'"`); });
+}
+
+function shellCommandOnDownload(n, cmd) {
+    if (!cmd.includes("%f")) cmd += " %f";
+    var dlP = getLastDownload(n||1);
+    dlP.then(
+        function(file) {
+            var localDir = file.replace(/[^/]+\/?$/, "");
+            io.system(`cd ${localDir}; `+cmd.replace("%f", `'${file}'`));
+        }
+    );
 }
 
 function trashLastDownload(n=1) {
