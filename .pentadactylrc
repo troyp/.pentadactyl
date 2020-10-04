@@ -9093,6 +9093,9 @@ map <site>o<       -description "Open pull request URL" -js openOrSelectTab(ghGe
 map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
 map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
 
+map <site>s        -description "(show bindings:Github/Search)" -js CommandExMode().open("showkeys <site>s")
+map <site>ss       -description "Search commits" -js CommandExMode().open("ghsearchcommits" + (count?"! ":" "));
+
 map <site>y        -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 map <site>y<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
@@ -9151,6 +9154,12 @@ command! ghgistcleanup
 \    -description "Cleanup Gist page. With !, remove comments"
 \    -bang
 \    -js ghGistCleanup(!bang);
+
+command! ghsearchcommits
+\    -description "Search commits"
+\    -bang
+\    -nargs +
+\    -js pageOpen(`https://github.com/search?q=repo:${ghGetUserAndRepo().join("/")}+${args.join(" ").replace(" ", "+")}&type=Commits`, bang?"adjacent":"here");
 
 " === hint modes === "
 set eht+=🄶:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
