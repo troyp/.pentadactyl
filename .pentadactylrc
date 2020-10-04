@@ -1865,7 +1865,7 @@ map <leader>nr -description "Remove cruft" -ex removecruft
 
 js <<EOF
 function isolateArticle(conservative=false) {
-    var keep = hasSelectors("article:first-of-type", ".article", "#main", "#content");
+    var keep = hasSelectors("#content", ".content", "article:first-of-type", ".article", "#main");
     if (keep.length) isolateSelectors(keep[0]);
     removeSelectors(".sharedaddy");
     !conservative && removeSelectors("footer");
