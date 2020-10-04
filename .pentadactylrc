@@ -14966,7 +14966,8 @@ function runCommandOnUrlFile(cmd, url=buffer.URL) {
         var localDir = localFile.replace(/[^/]+\/?$/, "");
         return io.system(`cd ${localDir}; `+cmd.replace("%f", localFile));
     } else {
-        return io.system(`cd $(mktemp -d); curl -s '${url}' > localcopy; ${cmd.replace("%f", localcopy)}`);
+        var name = urlToFileName(url);
+        return io.system(`cd $(mktemp -d); curl -s '${url}' > ${name}; ${cmd.replace("%f", name)}`);
     }
 }
 
