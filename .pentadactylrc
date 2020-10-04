@@ -14924,18 +14924,17 @@ function getFilenameOrURL(url=buffer.URL) {
 }
 
 function getFilenameOrUrlAsFile(url=buffer.URL) {
-    var url = decodeURIComponent(url);
-    if (url.match(/^https?:/)) {
-        var tempf = io.system('tempfile').output;
-        io.system(`curl "${url}" > ${tempf};`);
-        return tempf;
-    } else if (url.match(/^file:/)) {
-        return url.replace(/^file:\/\//,'');
-    } else if (url.match(/^[/~]/)) {
-        return url;
+    url = decodeURIComponent(url);
+    var file;
+    var localFileRegex = /^file:\/\/([^?#]*)/;
+    var localFileMatch = url.match(localFileRegex);
+    if (localFileMatch) {
+        file = localFileMatch[1].replace(/ /g, '\\ ');
     } else {
-        utils.message('protocol not supported');
+        var name = urlToFileName(url);
+        file = io.system(`d=$(mktemp -d); cd $d; curl '${url}' > ${name}; echo $(realpath ${name});`).output;
     }
+    return file;
 }
 
 function mimeopenUrlFile(url=buffer.URL) {
