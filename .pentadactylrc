@@ -9022,7 +9022,9 @@ map <site>c        -description "Click README.md" -js ghClickReadme();
 map <site>d        -description "(show bindings: Github/Download)" -js CommandExMode().open("showkeys <site>d")
 map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
 map <site>dp       -description "Download patch file" -b :ghdlpatch<Space>
-map <site>f        -description "Fork repo" -js ghFork();
+map <site>dr       -description "Download raw file" -js savePageDialog(ghConvertUrlToRaw());
+map <site>dR       -description "Download this README to /opt/doc/" -ex ghsavethisreadmetodoc
+
 map <site>g        -description "(show bindings: Github/Git)" -js CommandExMode().open("showkeys <site>g")
 map <site>gc       -description "(show bindings: Github/Git/Clone)" -js CommandExMode().open("showkeys <site>gc")
 map <site>gch      -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
@@ -9090,9 +9092,7 @@ map <site>o<       -description "Open pull request URL" -js openOrSelectTab(ghGe
 
 map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
 map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
-map <site>s        -description "(show bindings:Github/Save)" -js CommandExMode().open("showkeys <site>s")
-map <site>sr       -description "Save raw file (hints)" -js hints.show("ⓖ");
-map <site>sR       -description "save this README to /opt/doc/" -ex ghsavethisreadmetodoc
+
 map <site>y        -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 map <site>y<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
