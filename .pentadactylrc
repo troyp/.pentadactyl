@@ -3682,7 +3682,10 @@ function urlUp(n=1, url=buffer.URL) {
         } else if (u.pathname.length > 1) {
             "next try removing the last path component";
             var match = u.pathname.match(/(\/[^/]+)*(\/[^/]+\/?)/);
-            if (match) newurl = newurl.replace(match[2], "");
+            if (match) {
+                newurl = newurl.replace(match[2], "");
+                if (match[2].match(/^\/index.html?$/)) i--;
+            }
         } else {
             "otherwise, try removing a subdomain";
             match = u.host.match(/([^.:]+\.)(([^.:]+)\.)*(com|org|net|int|edu|.gov|.mil)(\.[a-z][a-z])?(:\d+)?/i);
