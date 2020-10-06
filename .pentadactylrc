@@ -15057,6 +15057,31 @@ function pandocConvertOpenUrlFile(from, to, url=buffer.URL, where="here") {
     utils.message(converted);
 }
 
+" ,---------------, "
+" | Opening files | "
+" '---------------' "
+
+function shellCommandOnFile(cmd, f) {
+    if (!cmd.includes("%f")) cmd += " %f";
+    var localFile = f.replace(/ /g, '\\ ').replace("~", homedir);
+    var localDir = localFile.replace(/[^/]+\/?$/, "");
+    return io.system(`cd ${localDir}; `+cmd.replace("%f", localFile));
+}
+
+function mimeopenFile(f) {
+    var localFile = f.replace(/ /g, '\\ ').replace("~", homedir);
+    dactyl.execute('!mimeopen ' + localFile);
+}
+
+function mimeopenAskAppFile(f) {
+    var localFile = f.replace(/ /g, '\\ ').replace("~", homedir);
+    dactyl.execute(`!roxterm -e zsh -c "mimeopen -a '${localFile}'"`);
+}
+
+function mimeopenAndSetAppFile(f) {
+    var localFile = f.replace(/ /g, '\\ ').replace("~", homedir);
+    dactyl.execute(`!roxterm -e zsh -c "mimeopen -d '${localFile}'"`);
+}
 
 " ,--------, "
 " | Saving | "
