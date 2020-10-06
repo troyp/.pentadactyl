@@ -1940,11 +1940,16 @@ map <leader>sv
 map <leader>r
 \    -description "(show bindings: Reference)"
 \    -js CommandExMode().open("showkeys <leader>r");
+map <leader>ra
+\     -description "Ballina Airport: Arrivals and Departures"
+\     -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
+map <leader>rbib
+\     -description "King James Bible BOOK [CH:SEC]"
+\     -count -b :kingjames<SPACE>
 
 map <leader>rd
 \    -description "(show bindings: Reference/Dictionaries+Language)"
 \    -js CommandExMode().open("showkeys <leader>rd");
-
 map <leader>rdd
 \    -description "(show bindings: Reference/Dictionaries+Language/Dictionary)"
 \    -js CommandExMode().open("showkeys <leader>rdd");
@@ -1960,12 +1965,6 @@ map <leader>rdtw -description "Wiktionary Thesaurus" -b :thesauruswiktionary<Spa
 map <leader>rp
 \    -description "Periodic Table (ptable.com)"
 \    -js openOrSelectTab("ptable.com");
-map <leader>ra
-\     -description "Ballina Airport: Arrivals and Departures"
-\     -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
-map <leader>rbib
-\     -description "King James Bible BOOK [CH:SEC]"
-\     -count -b :kingjames<SPACE>
 
 map <leader>rw
 \    -description "(show bindings: Web Sites/Reference/Wikipedia)"
