@@ -11402,11 +11402,11 @@ map <site>sx
 
 group user
 
-group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29
 " ----------------------------------------------------------------------------- "
 " ,--------,                                                                    "
 " | Libgen |                                                                    "
 " '--------'                                                                    "
+group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29,library.lol
 
 command! libgendl -js libgenCopyFileNameAndDownload();
 command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
