@@ -54,7 +54,7 @@ defns.forEach((e, i, a)=>{
     var other_forms_tag = Array.from(e.getElementsByClassName("meaning-tags")).find(e=>e.textContent.match("Other forms"));
     var other_forms_entry = other_forms_tag ? other_forms_tag.nextElementSibling.textContent : "";
     var kanji = uniqKanji(entry + other_forms_entry);
-    var kanji_url = `https://jisho.org/search/${kanji.join("")}%23kanji`;
+    var kanji_url = `https://jisho.org/search/${kanji.join("")}%20%23kanji`;
     var new_kanji_link = document.createElement("a");
     new_kanji_link.href = kanji_url;
     new_kanji_link.textContent = "Kanji details";
