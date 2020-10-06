@@ -2638,7 +2638,7 @@ map <yank>V -description "Yank browser name and version"
 
 map <yank>x  -description "(show bindings: yank text)" -js CommandExMode().open("showkeys <yank>x")
 map <yank>xx -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
-map <yank>xs -description "Yank <span> of text" -js hints.show('σ');
+map <yank>xs -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
 
 map <yank>y -description "Yank buffer URL" -b y
 map <yank>0 -description "Yank empty string to clipboard" -js utils.cbWrite("");
@@ -6690,8 +6690,8 @@ js hints.addMode('å', 'Follow link in adjacent tab', elem=>tabOpenAdjacent(elem
 " ==== "
 " Text "
 " ==== "
-set eht+=[σ]:span
-js hints.addMode('σ', 'Yank <span> of text', (e)=>utils.cbWrite(e.textContent));
+set eht+=[σ]:span,code,output,mark,label,kbd,ins,dfn,data,time,cite,acronym,abbr
+js hints.addMode('σ', 'Yank <span> of text (or other inline elements)', (e)=>utils.cbWrite(e.textContent));
 
 set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre,ul,ol,li,code
 js hints.addMode("ÿ", "Yank paragraph", elem => utils.yankWithMsg(elem.innerText));
