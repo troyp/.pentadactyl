@@ -1966,6 +1966,19 @@ map <leader>rp
 \    -description "Periodic Table (ptable.com)"
 \    -js openOrSelectTab("ptable.com");
 
+map <leader>ru
+\    -description "(show bindings: Reference/Unicode)"
+\    -js CommandExMode().open("showkeys <leader>ru");
+map <leader>rup
+\    -description "Lookup unicode (clipboard)"
+\    -js unicode(utils.cbRead());
+map <leader>ruu
+\    -description "Lookup unicode"
+\    -b :unicode<Space>
+map <leader>rux
+\    -description "Lookup unicode hex codes"
+\    -b :unicodepoint<Space>
+
 map <leader>rw
 \    -description "(show bindings: Web Sites/Reference/Wikipedia)"
 \    -js CommandExMode().open("showkeys <leader>rw");
@@ -2174,6 +2187,9 @@ command! dlpdf
 \    -nargs=1
 \    -complete=dir
 \    -js dlPDF(args[0]);
+
+command! unicodepoint -description "Unicode code of character" -nargs + -js unicodePoint(args);
+command! unicode -description "Describe unicode characters" -nargs + -js unicode(args.join(""));
 
 " ,---------------------------------,
 " | <leader> (associated functions) |
@@ -2388,6 +2404,20 @@ function wiktionaryGotoPage(s, where="tab", openorselect=true) {
         openOrSelectTab(url, where);
     else
         dactyl.open(url, { where: where });
+}
+
+function unicodePoint(chars) {
+    chars = Array.from(chars);
+    var out = "";
+    for (c of char) {
+        out += `${c}: U+${c.charCodeAt(0).toString(16)}\n`;
+    }
+    return utils.message(out);
+}
+
+function unicode(s) {
+    var result = io.system("unicode " + s);
+    if (result.returnValue==0) return utils.message(result.output);
 }
 EOF
 
@@ -3307,13 +3337,6 @@ command! allmarks,amarks,am :qmarks | marks
 
 " Troubleshooting information
 command! info :tabopen about:support<CR>
-
-" Unicode code of character
-command! uni
-   \ -js dactyl.echo(
-   \     dactyl.clipboardRead().charCodeAt(0).toString() +
-   \     "\tU+" +
-   \     dactyl.clipboardRead().charCodeAt(0).toString(16));
 
 command! yanktitle js dactyl.clipboardWrite(buffer.title)
 
