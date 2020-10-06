@@ -5553,7 +5553,7 @@ map <ext>r  -description "(show bindings: Rikaisama)" -js CommandExMode().open("
 map <ext>rl -description "Rikai: Toggle Lookup Bar" -ex riklbartoggle
 map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
-map <ext>rr -description "Rikai: Toggle superSticky (current popup sticky)" -ex riksuperstickytoggle
+map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
 map <ext>rs -description "Rikai: Append definition to save file"-js rcxMain.saveToFile()
 
 map <ext>rt  -description "(show bindings: Rikaisama Toggles)" -js CommandExMode().open("showkeys <ext>rt");
