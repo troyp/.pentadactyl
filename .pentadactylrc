@@ -15094,16 +15094,17 @@ function curl(url, dir, title, optstr, force) {
         dactyl.execute(`![[ ! -f ${savepath} ]] && curl ${optstr} ${url} > '${savepath}'`);
 }
 
-function savePageDialog() {
+function savePageDialog(doc=content.document) {
     var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
     fp.init(content.window, "save file", nsIFilePicker.modeSave);
     fp.appendFilters(nsIFilePicker.filterText);
     fp.appendFilters(nsIFilePicker.filterAll);
+    fp.defaultString = docToPageName(doc);
     fp.open(function(rv) {
         var wbp = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1']
                   .createInstance(Components.interfaces.nsIWebBrowserPersist);
         if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
-            wbp.saveDocument(content.document, fp.file, null, null, null, null);
+            wbp.saveDocument(doc, fp.file, null, null, null, null);
         }
     });
 }
