@@ -3321,9 +3321,9 @@ command! yanktitle js dactyl.clipboardWrite(buffer.title)
 " Search commands "
 command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
 command! prefsuffsearch
-    \ -description "Search for prefix/suffix on macroevolution.net"
-    \ -nargs=1
-    \ -js prefsuffSearch(args[0]);
+\    -description "Search for prefix/suffix on macroevolution.net"
+\    -nargs=1
+\    -js prefsuffSearch(args[0]);
 
 " run shell command in terminal
 command! -nargs=1 runinterminal -js runInZSH(args[0]);
@@ -3333,39 +3333,39 @@ command! rubular -nargs=+ -js rubular(args[0], args[1]);
 
 " Password Hasher "
 command! pwhash
-    \ -description "Open Password Hasher"
-    \ -nargs=0
-    \ -js pwHash();
+\    -description "Open Password Hasher"
+\    -nargs=0
+\    -js pwHash();
 command! pwhashgen
-    \ -description "Generate short password from a raw URL using Password Hasher"
-    \ -nargs=1
-    \ -js pwHashGen(args[0]);
+\    -description "Generate short password from a raw URL using Password Hasher"
+\    -nargs=1
+\    -js pwHashGen(args[0]);
 command! pwhashdomain
-    \ -description "Generate short password from an URL (based on simplified domain) using Password Hasher"
-    \ -nargs=1
-    \ -js pwHashDomain(args[0], tabs.getTab());
+\    -description "Generate short password from an URL (based on simplified domain) using Password Hasher"
+\    -nargs=1
+\    -js pwHashDomain(args[0], tabs.getTab());
 command! pwhashsite
-    \ -description "Generate short password from current site's URL using Password Hasher"
-    \ -nargs=0
-    \ -js pwHashDomain(buffer.URL, tabs.getTab());
+\    -description "Generate short password from current site's URL using Password Hasher"
+\    -nargs=0
+\    -js pwHashDomain(buffer.URL, tabs.getTab());
 map -modes input <pwhashsite> -ex pwhashsite
 
 " Page editing commands "
 command! contenteditable
-    \ -description "Make content editable by setting e.contentEditable on each element"
-    \ -js elts = content.document.getElementsByTagName("*");
-    \     for (i=0; i<elts.length; ++i)
-    \         if (elts[i].hasAttribute("contentEditable") && elts[i].contentEditable === "true")
-    \             elts[i].contentEditable = "false";
-    \         else
-    \             elts[i].contentEditable = "true";
+\    -description "Make content editable by setting e.contentEditable on each element"
+\    -js elts = content.document.getElementsByTagName("*");
+\        for (i=0; i<elts.length; ++i)
+\            if (elts[i].hasAttribute("contentEditable") && elts[i].contentEditable === "true")
+\                elts[i].contentEditable = "false";
+\            else
+\                elts[i].contentEditable = "true";
 command! designmode
-    \ -description "Make content editable by setting document.designMode"
-    \ -js content.document.designMode = (content.document.designMode=="on") ? "off" : "on";
+\    -description "Make content editable by setting document.designMode"
+\    -js content.document.designMode = (content.document.designMode=="on") ? "off" : "on";
 command! setbodybyid
-    \ -nargs=1
-    \ -complete=javascript
-    \ -js setBodyById(args[0]);
+\    -nargs=1
+\    -complete=javascript
+\    -js setBodyById(args[0]);
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
