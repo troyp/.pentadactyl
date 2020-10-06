@@ -15133,6 +15133,47 @@ function writeToFile(s, filepath, append=false, overwrite=false) {
 }
 window.writeToFile = writeToFile;
 
+function docToPageName(doc=content.document) {
+    var names = Buffer.getDefaultNames(doc);
+    var pagenameRow = names && names.find(r=>r[1].match(/Page Name/i));
+    if (pagenameRow) {
+        return pagenameRow[0];
+    } else {
+        return urlToFileName(doc.URL);
+    }
+}
+
+function urlToFileName(url=buffer.URL) {
+    var name = (new URL(url)).pathname.replace(/\/?([#?].*)?$/, "").split("/").pop();
+    var extRe = /\.[a-zA-Z0-9]+$/;
+    if (!name.match(extRe)) {
+        var ext, m;
+        if (m = url.match(extRe)) ext = m[0];
+        else {
+            var type = urlContentType(url);
+            ext = type && type.split('/').pop();
+        }
+        if (ext) name = `${name}.${ext}`;
+    }
+    return name.replace(' ', '_');
+}
+
+function urlToPageName(url=buffer.URL) {
+    if (decodeURIComponent(url)==decodeURIComponent(buffer.URL)) {
+        return docToPageName();
+    } else {
+        return urlToFileName(url);
+    }
+}
+
+function urlContentType(url) {
+    url = url.toString();
+    if (url==buffer.URL) return content.document.contentType;
+    else {
+        var res = io.system(`curl -sI ${url} |grep -Pio '(?<=content-type: )[a-zA-Z0-9]+/[a-zA-Z0-9]+'`);
+        if (res.returnValue==0) return res.output;
+    }
+}
 
 " ,---------------, "
 " | Miscellaneous | "
