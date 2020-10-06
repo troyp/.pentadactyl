@@ -8418,7 +8418,7 @@ function danmurphysEscape() {
     clickSelector(".player-close");
 }
 function danmurphysScrollToReviews() {
-    var reviews = getFirstSelector("#customer-review-container");
+    var reviews = getFirstSelector("#customer-review-container,#review-panel-v2");
     reviews && reviews.scrollIntoView();
 }
 
