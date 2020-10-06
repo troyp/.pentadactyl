@@ -6832,29 +6832,29 @@ js hints.addMode("”", "Convert Inches to centimeters", convertInchesToCm);
 
 map <yank_desc> ;Y
 
-" -----------------------------------------------------------------------------
-" ,----------,
-" | hinttags |
-" '----------'
+" ----------------------------------------------------------------------------- "
+" ,----------,                                                                  "
+" | hinttags |                                                                  "
+" '----------'                                                                  "
 "
 set hinttags+='svg'
 " Add hints for anchor elements whose class attribute starts with "vote":
 set hinttags+=a[class^='vote']
 set hinttags+=a[class^='speed']
 
-" -----------------------------------------------------------------------------
-" ,------------------,
-" | extendedhinttags |
-" '------------------'
-"
+" ----------------------------------------------------------------------------- "
+" ,------------------,                                                          "
+" | extendedhinttags |                                                          "
+" '------------------'                                                          "
+
 " FIXME: can't activate context menu on 'body' hint
 ":set eht+=[c]:body,'a',':-moz-any-link',area,button,iframe,input:not([type=hidden]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true]
 
-" -----------------------------------------------------------------------------
-" ,-------------------,
-" | Styling for hints |
-" '-------------------'
-"
+" ----------------------------------------------------------------------------- "
+" ,-------------------,                                                         "
+" | Styling for hints |                                                         "
+" '-------------------'                                                         "
+
 set hintkeys="jkl;fdsahgnvurieow"
 "
 highlight Hint
@@ -6891,11 +6891,11 @@ highlight -a Hint[Active]
     \ border-color: rgb(91, 58, 26);
 
 
-" =============================================================================
-"                                   _______________
-"                                  |               |
-"                                  | SITE SPECIFIC |
-"                                  |_______________|
+" ============================================================================= "
+"                                   _______________                             "
+"                                  |               |                            "
+"                                  | SITE SPECIFIC |                            "
+"                                  |_______________|                            "
 
 
 map <site><f4>
@@ -6907,10 +6907,10 @@ map <site><f4>
 \                                                    (beginning-of-line) )'`) &&
 \        dactyl.execute("!wmctrl -a emacs");
 
-" -----------------------------------------------------------------------------
-" ,----------,
-" | about: * |
-" '----------'
+" ----------------------------------------------------------------------------- "
+" ,----------,                                                                  "
+" | about: * |                                                                  "
+" '----------'                                                                  "
 group about -locations=chrome:*,about:addons,about:config,about:cache,about:debugging,about:downloads,about:performance,about:plugins,about:support
 
 map j        -b <C-v><Down>
@@ -6926,9 +6926,9 @@ map <Return> -b <C-v><Return>
 
 group user
 
-" ,--------,
-" | places |
-" '--------'
+" ,--------, "
+" | places | "
+" '--------' "
 group places -locations=chrome://browser/content/places/places.xul
 map <site>f<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
 map <site>f      -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
@@ -7032,10 +7032,10 @@ EOF
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | About:addons |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | About:addons |                                                              "
+" '--------------'                                                              "
 group aboutaddons -locations=about:addons
 
 js <<EOF
@@ -7069,10 +7069,10 @@ map <site>s -js addonsClickCategory("category-service");
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | about:newtab |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | about:newtab |                                                              "
+" '--------------'                                                              "
 group aboutnewtab -locations=about:newtab
 
 " === hint modes === "
@@ -7128,10 +7128,10 @@ map <site>s -description "Toggle custom styles"
 \        styletoggle -group aboutnewtab -name newtab-selectionstyle
 
 group user
-" -------------------------------------------------------------------------------
-" ,-------------------,
-" | about:preferences |
-" '-------------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------------,                                                         "
+" | about:preferences |                                                         "
+" '-------------------'                                                         "
 group aboutpreferences -locations=about:preferences,about:preferences#*
 
 map <site>z <pass-all-keys>
@@ -7155,10 +7155,10 @@ map <site>v -ex aprefsadvanced
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------------------,
-" | Addons.Mozilla.org |
-" '--------------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------------,                                                        "
+" | Addons.Mozilla.org |                                                        "
+" '--------------------'                                                        "
 group ffaddons -locations=addons.mozilla.org
 
 map <site>a
@@ -7185,10 +7185,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------------------,
-" | AlternativeTo.net |
-" '-------------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------------,                                                         "
+" | AlternativeTo.net |                                                         "
+" '-------------------'                                                         "
 group altnet -locations=alternativeto.net
 
 js <<EOF
@@ -7242,10 +7242,10 @@ map <site>z  -description "Remove cruft" -ex altnetcleanup
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | Amazon.com |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Amazon.com |                                                                "
+" '------------'                                                                "
 group amazon -locations=amazon.com,amazon.com.au,amazon.co.uk
 
 js <<EOF
@@ -7455,10 +7455,10 @@ map ]] -js clickSelectorByText("a", "Next *→");
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------------------,
-" | AnimatedKnots.com |
-" '-------------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------------,                                                         "
+" | AnimatedKnots.com |                                                         "
+" '-------------------'                                                         "
 group animatedknots -locations=animatedknots.com
 
 set passkeys+='https?://animatedknots.com/.*':'<left><right>'
@@ -7512,10 +7512,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------,
-" | AniDB |
-" '-------'
+" ----------------------------------------------------------------------------- "
+" ,-------,                                                                     "
+" | AniDB |                                                                     "
+" '-------'                                                                     "
 
 group anidb -locations=anidb.net
 
@@ -7537,10 +7537,10 @@ map <site>ge
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-----------------,
-" | AnimeLyrics.com |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | AnimeLyrics.com |                                                           "
+" '-----------------'                                                           "
 group animelyrics -locations=animelyrics.com
 
 " Go to "Print view with kanji" if it exists, or else "Print view"
@@ -7548,10 +7548,10 @@ map <site>P -b <C-v>'Print<Space>view<f3><CR>
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-------------,
-" | Archive.org |
-" '-------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------,                                                               "
+" | Archive.org |                                                               "
+" '-------------'                                                               "
 
 js <<EOF
 function waybackToggle(opts={}) {
@@ -7573,7 +7573,7 @@ command! waybacktoggle
     \ -js bang ? waybackToggle({where: dactyl.NEW_TAB}) : waybackToggle()
 map <app>w -ex waybacktoggle
 
-" ===== GROUP START =====
+" ===== GROUP START ===== "
 
 group wayback -locations=web.archive.org
 
@@ -7637,10 +7637,10 @@ EOF
 
 group user
 
-"" -------------------------------------------------------------------------------
-" ,----------------,
-" | ArchLinux Wiki |
-" '----------------'
+"" ---------------------------------------------------------------------------- "
+" ,----------------,                                                            "
+" | ArchLinux Wiki |                                                            "
+" '----------------'                                                            "
 group archwiki -locations=wiki.archlinux.org
 autocmd! -group archwiki
 
@@ -7661,10 +7661,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------,
-" | ArtIsCreation |
-" '---------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------,                                                             "
+" | ArtIsCreation |                                                             "
+" '---------------'                                                             "
 
 js <<EOF
 function artiscreationUrl(...args) {
@@ -7750,10 +7750,10 @@ map <f1>    -description "Pigment table: key to ratings" -js utils.message(artis
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------------,
-" | ArtistsNetwork |
-" '----------------'
+" ----------------------------------------------------------------------------- "
+" ,----------------,                                                            "
+" | ArtistsNetwork |                                                            "
+" '----------------'                                                            "
 group artistsnetwork -locations=www.artistsnetwork.com
 
 js <<EOF
@@ -7769,10 +7769,10 @@ map <site>c -description "Cleanup article" -js artistsnetworkCleanup();
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | BangGood.com |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | BangGood.com |                                                              "
+" '--------------'                                                              "
 group banggood -locations=banggood.com
 
 " .preference>li allows hints for the selection boxes on the settings page "
@@ -7966,10 +7966,10 @@ map <site>7 -description "View seventh photo" -js bgSelectNthProductPhoto(6);
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------,
-" | Bato.to |
-" '---------'
+" ----------------------------------------------------------------------------- "
+" ,---------,                                                                   "
+" | Bato.to |                                                                   "
+" '---------'                                                                   "
 group batoto -locations=www.bato.to
 
 js <<EOF
@@ -8093,10 +8093,10 @@ map <site>c :batogotochapterindex<Space>
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------,
-" | BitBucket.org |
-" '---------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------,                                                             "
+" | BitBucket.org |                                                             "
+" '---------------'                                                             "
 group bitbucket -locations=bitbucket.org
 
 js var bbusername = 'tpracy';
@@ -8145,10 +8145,10 @@ EOF
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,--------,
-" | BookZZ |
-" '--------'
+" ----------------------------------------------------------------------------- "
+" ,--------,                                                                    "
+" | BookZZ |                                                                    "
+" '--------'                                                                    "
 group bookzz -locations=bookzz.org
 
 map <site>z -ex loginAndSearch
@@ -8182,9 +8182,10 @@ EOF
 
 group user
 
-" ,-----------------,
-" | Carrie-Lewis.com |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,------------------,                                                          "
+" | Carrie-Lewis.com |                                                          "
+" '------------------'                                                          "
 group carrielewis -locations=carrie-lewis.com
 
 map <site>c -description "Remove cruft" -ex removecruft
@@ -8200,10 +8201,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------------,
-" | Chessgames.com |
-" '----------------'
+" ----------------------------------------------------------------------------- "
+" ,----------------,                                                            "
+" | Chessgames.com |                                                            "
+" '----------------'                                                            "
 set passkeys+='chessgames.com':'<left><right>'
 
 " ===== GROUP START =====
@@ -8218,10 +8219,10 @@ map <site>. -description "Board: End of game"   -ex clickselector #endB
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,----------,
-" | Coursera |
-" '----------'
+" ----------------------------------------------------------------------------- "
+" ,----------,                                                                  "
+" | Coursera |                                                                  "
+" '----------'                                                                  "
 group coursera -locations=www.coursera.org
 
 set passkeys+='https://class.coursera.org/.*/lecture/.*':'hp-+fc<up><down><left><right>'
@@ -8246,19 +8247,19 @@ function courseraGo() {
 }
 EOF
 
-" ,---------------------------------,
-" | Coursera: commands and bindings |
-" '---------------------------------'
+" ,---------------------------------, "
+" | Coursera: commands and bindings | "
+" '---------------------------------' "
 map <site>c
 \    -description "Expand descriptions, toggle expand materials"
 \    -js courseraGo();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------------,
-" | Crunchyroll |
-" '-------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------,                                                               "
+" | Crunchyroll |                                                               "
+" '-------------'                                                               "
 group crunchyroll -locations=crunchyroll.com
 
 js <<EOF
@@ -8311,10 +8312,10 @@ command! crdl -js crDL();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | Chrome Webstore |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | Chrome Webstore |                                                           "
+" '-----------------'                                                           "
 
 js <<EOF
 function chromeGetExtensionDirById(id, profileDir='') {
@@ -8352,10 +8353,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------------------,
-" | Dactyl Resource URLs |
-" '----------------------'
+" ----------------------------------------------------------------------------- "
+" ,----------------------,                                                      "
+" | Dactyl Resource URLs |                                                      "
+" '----------------------'                                                      "
 group dactylres -locations=resource://dactyl*
 
 map <site>e -description "Open my fork in Emacsclient" -js dactylresOpenMyForkInEmacsclient();
@@ -8383,10 +8384,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | Dan Murphy's |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | Dan Murphy's |                                                              "
+" '--------------'                                                              "
 group danmurphys -locations=danmurphys.com.au
 
 js <<EOF
@@ -8467,10 +8468,10 @@ map <site><Escape> -description "Close popups" -js danmurphysEscape();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | DeviantArt |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | DeviantArt |                                                                "
+" '------------'                                                                "
 group deviantart -locations=deviantart.com
 
 js <<EOF
@@ -8482,10 +8483,10 @@ map <site>* -description "Star/Unstar"
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,------,
-" | eBay |
-" '------'
+" ----------------------------------------------------------------------------- "
+" ,------,                                                                      "
+" | eBay |                                                                      "
+" '------'                                                                      "
 group ebay -locations=ebay.com,ebay.com.*
 
 js <<EOF
@@ -8616,10 +8617,10 @@ map ]]
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | Ebird.org |
-" '-----------'
+" ----------------------------------------------------------------------------- "
+" ,-----------,                                                                 "
+" | Ebird.org |                                                                 "
+" '-----------'                                                                 "
 
 group ebird -locations=ebird.org
 
@@ -8637,10 +8638,10 @@ map <site>c -description "Download image to ~/Pictures/downloads" -js ebirdDownl
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-----,
-" | EdX |
-" '-----'
+" ----------------------------------------------------------------------------- "
+" ,-----,                                                                       "
+" | EdX |                                                                       "
+" '-----'                                                                       "
 group edx -locations=edx.org
 autocmd! -group edx
 
@@ -8668,10 +8669,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | Fasttech.com |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | Fasttech.com |                                                              "
+" '--------------'                                                              "
 group fasttech -locations=fasttech.com
 map <site>o<C-h> -js CommandExMode().open("showkeys <site>o")
 map <site>o      -js CommandExMode().open("showkeys <site>o")
@@ -8747,10 +8748,10 @@ styleenable https://www.fasttech.com/* fasttech-post-separator
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | Figurosity |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Figurosity |                                                                "
+" '------------'                                                                "
 group figurosity -locations=figurosity.com
 
 js <<EOF
@@ -8836,10 +8837,10 @@ map <A-`>
 group user
 
 
-" -----------------------------------------------------------------------------
-" ,-------------------,
-" | Files/Directories |
-" '-------------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------------,                                                         "
+" | Files/Directories |                                                         "
+" '-------------------'                                                         "
 group local -locations=file://*
 
 js <<EOF
@@ -8887,10 +8888,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | GearBest.com |
-" '--------------'
+" ------------------------------------------------------------------------------- "
+" ,--------------,                                                                "
+" | GearBest.com |                                                                "
+" '--------------'                                                                "
 group gb -locations=gearbest.com
 
 js <<EOF
@@ -8912,10 +8913,10 @@ map <site>c -js gbToggleReviews();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------------,
-" | GetComics.Info |
-" '----------------'
+" ----------------------------------------------------------------------------- "
+" ,----------------,                                                            "
+" | GetComics.Info |                                                            "
+" '----------------'                                                            "
 " =====GETCOMICS.INFO=====
 group gci -locations=getcomics.info
 
@@ -8948,12 +8949,12 @@ map [[ -js dactyl.open(gciPreviousPageURL());
 
 map <site>c -description "Download" -js content.document.querySelector('.aio-red').click();
 
-" =====GETCOMICS.GQ=====
+" =====GETCOMICS.GQ===== "
 group gcgq -locations=getcomics.gq,getcomics.ga
 
 map <site>c -description "Get Link" -js content.document.querySelector('.button.green').click();
 
-" =====SAFELINKCONVERTER.COM=====
+" =====SAFELINKCONVERTER.COM===== "
 group gclinkconvert -locations=decrypt2.safelinkconverter.com
 
 map <site>c -description "Convert Link" -js gcConvertLink();
@@ -9013,10 +9014,10 @@ EOF
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,------------,
-" | Github.com |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Github.com |                                                                "
+" '------------'                                                                "
 
 command! gitprint
 \    -description "Convert github .md file to PDF with gitprint.com"
@@ -9458,9 +9459,9 @@ function ghGotoRepoRootLevel(count) {
 
 EOF
 
-" ,-----------------,
-" | Help.Github.com |
-" '-----------------'
+" ,-----------------, "
+" | Help.Github.com | "
+" '-----------------' "
 group githubhelp -locations=help.github.com
 
 map <site>c  -description "Click README.md" -js ghhelpTidy();
@@ -9475,13 +9476,12 @@ function ghhelpTidy() {
 }
 EOF
 
-
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------,
-" | Gmail |
-" '-------'
+" ----------------------------------------------------------------------------- "
+" ,-------,                                                                     "
+" | Gmail |                                                                     "
+" '-------'                                                                     "
 " For the old-style GMail interface. "
 
 group gmail -locations='https://www.google.com/gmail/*','mail.google.com'
@@ -9657,10 +9657,10 @@ command! -nargs=1 gmailremovelabel -js gmailSelectedAction('rc_'+args[0]); gmail
 
  group user
 
-" -------------------------------------------------------------------------------
-" ,---------,
-" | GNU.org |
-" '---------'
+" ----------------------------------------------------------------------------- "
+" ,---------,                                                                   "
+" | GNU.org |                                                                   "
+" '---------'                                                                   "
 group gnu -locations=www.gnu.org/*
 map <site>u -ex gnugoup
 
@@ -9677,10 +9677,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | GoGoAnime |
-" '-----------'
+" ----------------------------------------------------------------------------- "
+" ,-----------,                                                                 "
+" | GoGoAnime |                                                                 "
+" '-----------'                                                                 "
 group gogoanime -locations=gogoanime.io
 
 js <<EOF
@@ -9706,10 +9706,10 @@ map <C-f11> -ex togglefullscreen
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------,
-" | Google |
-" '--------'
+" ----------------------------------------------------------------------------- "
+" ,--------,                                                                    "
+" | Google |                                                                    "
+" '--------'                                                                    "
 
 " Google definitions
 command! ggdef -nargs=1 -js googledef(args[0]);
@@ -9731,7 +9731,7 @@ function googledef (word) {
 
 EOF
 
-" ===== GROUP START =====
+" ===== GROUP START ===== "
 
 group google -locations=https://www.google.com*
 
@@ -9797,10 +9797,10 @@ map <site>\' -js googleRemoveQuotes();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------------------------,
-" | Greg's Wiki (incl. Bash FAQ) |
-" '------------------------------'
+" ----------------------------------------------------------------------------- "
+" ,------------------------------,                                              "
+" | Greg's Wiki (incl. Bash FAQ) |                                              "
+" '------------------------------'                                              "
 group gregswiki -locations=mywiki.wooledge.org
 
 js <<EOF
@@ -9822,10 +9822,10 @@ map <site>tn -description "Toggle Line Numbers" -js gregsToggleNumber();
 group user
 
 
-" -----------------------------------------------------------------------------
-" ,------------------,
-" | Google Translate |
-" '------------------'
+" ----------------------------------------------------------------------------- "
+" ,------------------,                                                          "
+" | Google Translate |                                                          "
+" '------------------'                                                          "
 
 group gtrans -locations='.*://translate.google.com.*'
 
@@ -9868,10 +9868,10 @@ map <site>y  -description "Copy contents of source area to clipboard"   -ex gtry
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-----------------------------,
-" | Google Translate (Japanese) |
-" '-----------------------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------------------,                                               "
+" | Google Translate (Japanese) |                                               "
+" '-----------------------------'                                               "
 
 " Note: Handwriting entry box:
 " - S-Enter copies top candidate to input field.
@@ -10006,10 +10006,10 @@ map <site><C-S-L>  -description "HW input box: toggle width"                  -e
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,----------------,
-" | Graphemica.com |
-" '----------------'
+" ----------------------------------------------------------------------------- "
+" ,----------------,                                                            "
+" | Graphemica.com |                                                            "
+" '----------------'                                                            "
 
 js <<EOF
 
@@ -10030,10 +10030,10 @@ command! graphemicacharselect
     \ -nargs=*
     \ -js graphemicaCharSelect(args);
 
-" -------------------------------------------------------------------------------
-" ,---------------,
-" | Handprint.com |
-" '---------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------,                                                             "
+" | Handprint.com |                                                             "
+" '---------------'                                                             "
 js <<EOF
 function handprintUrl(...args) {
     var wcUrl = "https://www.handprint.com/HP/WCL/";
@@ -10182,10 +10182,10 @@ map <f1>    -description "Pigment table: key to ratings" -js utils.message(handp
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,--------------------,
-" | HouseOfVape.com.au |
-" '--------------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------------,                                                        "
+" | HouseOfVape.com.au |                                                        "
+" '--------------------'                                                        "
 group houseofvape -locations=houseofvape.com.au
 
 js <<EOF
@@ -10210,10 +10210,10 @@ map cc -ex hovshowprices
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------,
-" | Imgur |
-" '-------'
+" ----------------------------------------------------------------------------- "
+" ,-------,                                                                     "
+" | Imgur |                                                                     "
+" '-------'                                                                     "
 group imgur -locations=imgur.com
 
 js <<EOF
@@ -10242,10 +10242,10 @@ map <site>d -ex imgurdl
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | JacksonsArt.com |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | JacksonsArt.com |                                                           "
+" '-----------------'                                                           "
 command! jacksonsartSearch
 \    -description "Search in current tab (! = in new tab)"
 \    -nargs *
@@ -10459,10 +10459,10 @@ command! jacksonsartOpenAllItemPages
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | Jacksons.com.au |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | Jacksons.com.au |                                                           "
+" '-----------------'                                                           "
 group jacksonsau -locations=jacksons.com.au
 
 js <<EOF
@@ -10500,10 +10500,10 @@ map <site>oo
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | JaneBlundellArt |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | JaneBlundellArt |                                                           "
+" '-----------------'                                                           "
 group janeblundell -locations=www.janeblundellart.com
 
 js <<EOF
@@ -10519,10 +10519,10 @@ map <site>yG
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,---------------------,
-" | J HTTP SERVER (JHS) |
-" '---------------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------------,                                                       "
+" | J HTTP SERVER (JHS) |                                                       "
+" '---------------------'                                                       "
 
 group jserver -locations=http://127.0.0.1:65001/jijx,http://127.0.0.1:65001/jfile,http://127.0.0.1:65001/jfiles,http://127.0.0.1:65001/jijs,http://127.0.0.1:65001/jfif,http://127.0.0.1:65001/jal,http://127.0.0.1:65001/jhelp,http://localhost:65001/jijx,http://localhost:65001/jfile,http://localhost:65001/jfiles,http://localhost:65001/jijs,http://localhost:65001/jfif,http://localhost:65001/jal,http://localhost:65001/jhelp
 
@@ -10613,10 +10613,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | JapanDict |
-" '-----------'
+" ----------------------------------------------------------------------------- "
+" ,-----------,                                                                 "
+" | JapanDict |                                                                 "
+" '-----------'                                                                 "
 group japandict -locations=japandict.com
 
 map ck -js japandictToggleKanji();
@@ -10639,10 +10639,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------------------------,
-" | Japanese Compound Verb Database |
-" '---------------------------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------------------------,                                           "
+" | Japanese Compound Verb Database |                                           "
+" '---------------------------------'                                           "
 
 js <<EOF
 function japDoSearchCompVerb(type, s) {
@@ -10696,7 +10696,7 @@ command! jdocompvb2
 \ -nargs=1
 \ -js japDoSearchCompVerb(2, args)
 
-" -------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------- "
 group vvlex -locations=vvlexicon.ninjal.ac.jp
 
 js <<EOF
@@ -10734,10 +10734,10 @@ map <site>2 -js vvlexSearchV2();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------,
-" | Jetpens |
-" '---------'
+" ----------------------------------------------------------------------------- "
+" ,---------,                                                                   "
+" | Jetpens |                                                                   "
+" '---------'                                                                   "
 group jetpens -locations=jetpens.com
 
 js <<EOF
@@ -10778,10 +10778,10 @@ map <site>os
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-----------,
-" | JSBin.com |
-" '-----------'
+" ----------------------------------------------------------------------------- "
+" ,-----------,                                                                 "
+" | JSBin.com |                                                                 "
+" '-----------'                                                                 "
 group jsbin -locations=jsbin.com
 
 " remove all existing jsbin autocmds
@@ -10822,10 +10822,10 @@ EOF
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-----------,
-" | Jisho.org |
-" '-----------'
+" ----------------------------------------------------------------------------- "
+" ,-----------,                                                                 "
+" | Jisho.org |                                                                 "
+" '-----------'                                                                 "
 
 js <<EOF
 
@@ -10869,7 +10869,7 @@ command! jishomultisearch
     \ -js jishoMultiSearch.apply(null, args);
 
 
-" =====GROUP START=====
+" =====GROUP START===== "
 
 group jisho -locations=jisho.org
 
@@ -10935,9 +10935,9 @@ map [[ -description "Previous page" -js if (buffer.URL.match(/page=[0-9]+(#.*)?/
 
 imap <A-k> <Space>#kanji
 
-" -----------------
-" jishotoggleromaji
-" -----------------
+" ----------------- "
+" jishotoggleromaji "
+" ----------------- "
 js <<EOF
 
 var jishoToggleRomaji = function() {
@@ -11048,7 +11048,7 @@ function jishoToggleUniversalLongRepresentation() {
 
 EOF
 
-" adds/removes #romaji tag to toggle between kana and romaji:
+" adds/removes #romaji tag to toggle between kana and romaji: "
 
 command! jishoyanksearchterm
     \ -description "Yank search term to clipboard"
@@ -11083,9 +11083,9 @@ command! jishodetailsenhancekanji
 \    -description "Enhance word details page with radicals for each kanji"
 \    -js jishoDetailsEnhanceKanji();
 
-" ----------
-" Hint modes
-" ----------
+" ---------- "
+" Hint modes "
+" ---------- "
 " TODO: work out site/group-specific hinting.
 "       - autocmd to reset eht and hints.addMode?
 "       - use common dispatch function in hints.addMode?
@@ -11134,9 +11134,9 @@ command! jishohintselectradical       -js hints.show("ぶ");
 command! jishohintyankentry           -js hints.show("ヤ");
 command! jishohintclicklinks          -js hints.show("リ");
 
-" -----------
-" Kanji style
-" -----------
+" ----------- "
+" Kanji style "
+" ----------- "
 style -name=jisho-kanji-page-kanji-style
 \    jisho.org
 \    .kanji .character, .kanji_light .character,
@@ -11160,9 +11160,9 @@ style -name=jisho-large-kanji-style
 styledisable -name jisho-definitions-page-kanji-style
 styledisable -name jisho-large-kanji-style
 
-" -----------
-" Modal style
-" -----------
+" ----------- "
+" Modal style "
+" ----------- "
 style -name=jisho-modal-fix-position-style
 \    jisho.org
 \    #inflection_modal {
@@ -11178,9 +11178,9 @@ style -name=jisho-modal-fix-position-style
 \        position: fixed;
 \    }
 
-" ---------------------
-" Stroke order diagrams
-" ---------------------
+" --------------------- "
+" Stroke order diagrams "
+" --------------------- "
 js <<EOF
 
 function jishoScaleSOD(scale=0.5, ignore_min=false) {
@@ -11227,9 +11227,9 @@ command! ss
 
 autocmd PageLoad jisho.org :jishoshrinksod
 
-" ---------
-" Modal Box
-" ---------
+" --------- "
+" Modal Box "
+" --------- "
 " TODO: have :jishofixmodal applied automatically.
 
 js <<EOF
@@ -11247,9 +11247,9 @@ function jishoFixModal() {
 
 EOF
 
-" -----------
-" Entry Links
-" -----------
+" ----------- "
+" Entry Links "
+" ----------- "
 js <<EOF
 
 function jishoToggleAllLinkULs() {
@@ -11281,10 +11281,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------,
-" | JPopAsia |
-" '----------'
+" ----------------------------------------------------------------------------- "
+" ,----------,                                                                  "
+" | JPopAsia |                                                                  "
+" '----------'                                                                  "
 group jpopasia -locations=jpopasia.com
 
 command! jpopcleanlyrics -js jpopasiaCleanLyrics();
@@ -11309,10 +11309,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------,
-" | Kanshudo |
-" '----------'
+" ----------------------------------------------------------------------------- "
+" ,----------,                                                                  "
+" | Kanshudo |                                                                  "
+" '----------'                                                                  "
 group kanshudo -locations=kanshudo.com
 
 js <<EOF
@@ -11402,11 +11402,11 @@ map <site>sx
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------,
-" | Libgen |
-" '--------'
 group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29
+" ----------------------------------------------------------------------------- "
+" ,--------,                                                                    "
+" | Libgen |                                                                    "
+" '--------'                                                                    "
 
 command! libgendl -js libgenCopyFileNameAndDownload();
 command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
@@ -11472,9 +11472,9 @@ function libgenCopyFileNameAndDownload() {
 
 EOF
 
-" ,----------------,
-" | gen.lib.rus.ec |
-" '----------------'
+" ,----------------, "
+" | gen.lib.rus.ec | "
+" '----------------' "
 group genlib -locations=gen.lib.rus.ec
 
 js <<EOF
@@ -11554,10 +11554,10 @@ map [[ -count -js genlibPreviousPage(count);
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | MaggiSensei.com |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | MaggiSensei.com |                                                           "
+" '-----------------'                                                           "
 group maggiesensei -locations=maggiesensei.com
 autocmd! -group maggiesensei
 
@@ -11599,10 +11599,10 @@ map <site>c -js maggieRemoveCruft(count);
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | MangaReader.net |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | MangaReader.net |                                                           "
+" '-----------------'                                                           "
 
 js <<EOF
 
@@ -11678,20 +11678,20 @@ map <site>c -js mangareaderGetNextChapter();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | Medium.com |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Medium.com |                                                                "
+" '------------'                                                                "
 group medium -locations=medium.com
 
 map <site>c -description "Remove cruft" -ex isolateselector .section--body
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | MyAnimeList.net |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | MyAnimeList.net |                                                           "
+" '-----------------'                                                           "
 group mal -locations=myanimelist.net
 
 js <<EOF
@@ -11712,10 +11712,10 @@ map <site>f
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------------,
-" | Netflix.com |
-" '-------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------,                                                               "
+" | Netflix.com |                                                               "
+" '-------------'                                                               "
 
 group netflix -locations=netflix.com
 
@@ -11903,9 +11903,9 @@ command! netflixcard
 \   -complete custom,' (context) => {context.completions = netflixGetCardLinksCompletions()}'
 \   -js netflixClickCardByTitle(args[0]);
 
-" ,--------------,
-" | netflixwatch |
-" '--------------'
+" ,--------------, "
+" | netflixwatch | "
+" '--------------' "
 
 group netflixwatch -locations=https://www.netflix.com/watch/*
 
@@ -12107,10 +12107,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------------------,
-" | Newtown Art Supplies |
-" '----------------------'
+" ----------------------------------------------------------------------------- "
+" ,----------------------,                                                      "
+" | Newtown Art Supplies |                                                      "
+" '----------------------'                                                      "
 
 group newtownart -locations=www.newtownartsupplies.com.au
 
@@ -12154,10 +12154,10 @@ map <Space>  -description "Load more" -ex open javascript:ENV.Express_more()
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | Open5e.com |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Open5e.com |                                                                "
+" '------------'                                                                "
 group open5e -locations=open5e.com
 
 js <<EOF
@@ -12208,10 +12208,10 @@ map <site>f;f -description "Filter table for column COL not matching PATTERN" -b
 group user
 
 
-" -------------------------------------------------------------------------------
-" ,-------------,
-" | OReilly.com |
-" '-------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------,                                                               "
+" | OReilly.com |                                                               "
+" '-------------'                                                               "
 group oreilly -locations=oreilly.com
 
 js <<EOF
@@ -12253,10 +12253,10 @@ map <site>ed -ex oreillyFreeEbookDl
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | PacktPub.com |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | PacktPub.com |                                                              "
+" '--------------'                                                              "
 group packt -locations=packtpub.com
 
 set ht+='.product-top-line'
@@ -12461,9 +12461,9 @@ style -name=packt-thin-lines https://www.packtpub.com/account/my-ebooks
 \    .product-account-list { margin-top: 0 !important;  }
 \    h1 { padding-bottom: 0 !important; }
 
-" ,----------------------------------------------,
-" | www.packtpub.com//packt/offers/free-learning |
-" '----------------------------------------------'
+" ,----------------------------------------------, "
+" | www.packtpub.com//packt/offers/free-learning | "
+" '----------------------------------------------' "
 group packtlearn -locations=https://www.packtpub.com//packt/offers/free-learning?login=1,https://www.packtpub.com//packt/offers/free-learning
 
 js <<EOF
@@ -12485,10 +12485,10 @@ map <site>y -description "Yank Title" -ex yankselectorcontent div.dotd-title>h2
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----,
-" | PDF |
-" '-----'
+" ----------------------------------------------------------------------------- "
+" ,-----,                                                                       "
+" | PDF |                                                                       "
+" '-----'                                                                       "
 group pdf -locations='https?:.*\.pdf'
 
 js <<EOF
@@ -12498,10 +12498,10 @@ map <site>s -description "Save PDF" -ex clickselector #download
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------------------,
-" | Pencils4Artists.co.uk |
-" '-----------------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------------,                                                     "
+" | Pencils4Artists.co.uk |                                                     "
+" '-----------------------'                                                     "
 group pencils4artists -locations=pencils4artists.co.uk
 
 map <site>o   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
@@ -12541,10 +12541,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | Poets.org |
-" '-----------'
+" ----------------------------------------------------------------------------- "
+" ,-----------,                                                                 "
+" | Poets.org |                                                                 "
+" '-----------'                                                                 "
 group poets -locations=poets.org
 
 js <<EOF
@@ -12557,9 +12557,9 @@ EOF
 
 map <site>c -js poetsGotoPrintable();
 
-" ,------------------,
-" | Poets.org/print/ |
-" '------------------'
+" ,------------------, "
+" | Poets.org/print/ | "
+" '------------------' "
 group poetsprint -locations=https://www.poets.org/print/*
 
 js <<EOF
@@ -12576,10 +12576,10 @@ map <site>c -js poetsTidy();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | Ptable.com |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Ptable.com |                                                                "
+" '------------'                                                                "
 group ptable -locations=ptable.com
 
 js <<EOF
@@ -12590,10 +12590,10 @@ map <site>w -js ptableToggleWP();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,----------------,
-" | QuickPoses.com |
-" '----------------'
+" ----------------------------------------------------------------------------- "
+" ,----------------,                                                            "
+" | QuickPoses.com |                                                            "
+" '----------------'                                                            "
 group quickposes -locations=quickposes.com
 
 map <site>c -description "Toggle pause" -js qpTogglePause();
@@ -12612,10 +12612,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | Reddit.com |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Reddit.com |                                                                "
+" '------------'                                                                "
 group reddit -locations=reddit.com
 
 map <site>c -description "Passthrough-mode" -b <C-z>
@@ -12668,10 +12668,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------,
-" | Rosemary & Co |
-" '---------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------,                                                             "
+" | Rosemary & Co |                                                             "
+" '---------------'                                                             "
 group rosemary -locations=rosemaryandco.com
 
 js <<EOF
@@ -12718,10 +12718,10 @@ map <site>w -description "Add to Wish List" -js clickSelector(".add-wishlist");
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------,
-" | rust-lang.org |
-" '---------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------,                                                             "
+" | rust-lang.org |                                                             "
+" '---------------'                                                             "
 group rustlang -locations=rust-lang.org
 
 map ]] -description "Next Page" -ex clickselector .nav-chapters.next
@@ -12729,19 +12729,19 @@ map [[ -description "Previous Page" -ex clickselector .nav-chapters.previous
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------,
-" | Scriptular |
-" '------------'
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Scriptular |                                                                "
+" '------------'                                                                "
 
 style -name=scriptular http://scriptular.com,file:///opt/webapps/scriptular/index.html
     \ #quick_reference,#quick_reference>.scrollable { height: 700px !important; margin-top: 0; }
 styleenable -name scriptular
 
-" -------------------------------------------------------------------------------
-" ,----------,
-" | Sparkfun |
-" '----------'
+" ----------------------------------------------------------------------------- "
+" ,----------,                                                                  "
+" | Sparkfun |                                                                  "
+" '----------'                                                                  "
 
 group sparkfun -locations=learn.sparkfun.com
 
@@ -12756,10 +12756,10 @@ map <site>c -description "Remove cruft" -js sparkfunSimple();
 
 group user
 
-" -----------------------------------------------------------------------------
-" ,-------------------,
-" | StackOverflow.com |
-" '-------------------'
+" ---------------------------------------------------------------------------- "
+" ,-------------------,                                                        "
+" | StackOverflow.com |                                                        "
+" '-------------------'                                                        "
 group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
 
 " === hint modes === "
@@ -12852,10 +12852,10 @@ autocmd PageLoad stackprinter.com :removeselector #adsense
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------------,
-" | Subs.com.ru |
-" '-------------'
+" ----------------------------------------------------------------------------- "
+" ,-------------,                                                               "
+" | Subs.com.ru |                                                               "
+" '-------------'                                                               "
 
 js <<EOF
 
@@ -12884,10 +12884,10 @@ command! subsrusearch
     \ -js searchSubsRu(args[0]);
 
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | TheHylia.com |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | TheHylia.com |                                                              "
+" '--------------'                                                              "
 group hylia -locations=anime.thehylia.com
 
 command! hyliacurlallsongs
@@ -12964,19 +12964,19 @@ EOF
 
 group user
 
-" ,-----------------,
-" | TheKanjiMap.com |
-" '-----------------'
+" ,-----------------, "
+" | TheKanjiMap.com | "
+" '-----------------' "
 group kanjimap -locations=thekanjimap.com
 
 map <site>c -description "close box" -ex clickselector .close　　
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------------,
-" | ThingsAndStuff Wiki |
-" '---------------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------------,                                                       "
+" | ThingsAndStuff Wiki |                                                       "
+" '---------------------'                                                       "
 group thingstuff -locations=wiki.thingsandstuff.org
 autocmd! -group thingstuff
 
@@ -13014,20 +13014,20 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------,
-" | Time.Is |
-" '---------'
+" ----------------------------------------------------------------------------- "
+" ,---------,                                                                   "
+" | Time.Is |                                                                   "
+" '---------'                                                                   "
 group timeis -locations=time.is
 
 map <site>c -description "Toggle simple" -js content.document.getElementById('twd').click();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,--------------,
-" | TutsPlus.com |
-" '--------------'
+" ----------------------------------------------------------------------------- "
+" ,--------------,                                                              "
+" | TutsPlus.com |                                                              "
+" '--------------'                                                              "
 
 group tutsplus -locations=code.tutsplus.com
 autocmd! -group tutsplus
@@ -13058,10 +13058,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------------,
-" | UbuntuForums.org |
-" '------------------'
+" ----------------------------------------------------------------------------- "
+" ,------------------,                                                          "
+" | UbuntuForums.org |                                                          "
+" '------------------'                                                          "
 
 group ubuntuforums -locations=ubuntuforums.org
 
@@ -13095,10 +13095,10 @@ map <site>c -description "Style and Remove cruft" -js ubforTidy();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------------,
-" | UrbanDictionary.com |
-" '---------------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------------,                                                       "
+" | UrbanDictionary.com |                                                       "
+" '---------------------'                                                       "
 
 group urbandictionary -locations=urbandictionary.com
 
@@ -13125,10 +13125,10 @@ style -name=ud-fix-autolinks urbandictionary.com
 group user
 
 
-" -----------------------------------------------------------------------------
-" ,-----------------,
-" | Userscripts.org |
-" '-----------------'
+" ----------------------------------------------------------------------------- "
+" ,-----------------,                                                           "
+" | Userscripts.org |                                                           "
+" '-----------------'                                                           "
 
 js <<EOF
 
@@ -13149,10 +13149,10 @@ command! userscriptsmirror -nargs=?
     \     else
     \         userscriptsMirror(args[0]);
 
-" -------------------------------------------------------------------------------
-" ,-----------------,
-" | VapeKing.com.au |
-" '-----------------'
+" ------------------------------------------------------------------------------- "
+" ,-----------------,                                                             "
+" | VapeKing.com.au |                                                             "
+" '-----------------'                                                             "
 group vapeking -locations=vapeking.com.au
 
 map <site>c -description "enter" -js vkEnter();
@@ -13166,10 +13166,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | Weblio.jp |
-" '-----------'
+" ------------------------------------------------------------------------------- "
+" ,-----------,                                                                   "
+" | Weblio.jp |                                                                   "
+" '-----------'                                                                   "
 group weblio -locations=weblio.jp,ejje.weblio.jp
 
 map <site>c -ex webliotidy
@@ -13216,10 +13216,10 @@ EOF
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,---------------,
-" | WetCanvas.com |
-" '---------------'
+" ------------------------------------------------------------------------------- "
+" ,---------------,                                                               "
+" | WetCanvas.com |                                                               "
+" '---------------'                                                               "
 group wetcanvas -locations=wetcanvas.com
 
 
@@ -13231,10 +13231,10 @@ map <site>yy -description "Yank post (via hints)" -js hints.show("Π");
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | Wikia.com |
-" '-----------'
+" ------------------------------------------------------------------------------- "
+" ,-----------,                                                                   "
+" | Wikia.com |                                                                   "
+" '-----------'                                                                   "
 group wikia -locations='.*\.wikia\.com/','.*\.fandom\.com/'
 autocmd! -group wikia
 
@@ -13243,9 +13243,9 @@ var wikiaPrefsURL = "http://babylon5.wikia.com/wiki/Special:Preferences";
 var wikiaHelpURL = "http://community.wikia.com/wiki/Help:Contents";
 EOF
 
-" ,- - - - - - - - - - - - - - - - - - - - - - - - - ,
-" ' override f to work on Wikia collapsible sections '
-" '- - - - - - - - - - - - - - - - - - - - - - - - - '
+" ,- - - - - - - - - - - - - - - - - - - - - - - - - , "
+" ' override f to work on Wikia collapsible sections ' "
+" '- - - - - - - - - - - - - - - - - - - - - - - - - ' "
 set eht+=🅆:'a',':-moz-any-link',area,button,iframe,'input:not([type=hidden]):not([disabled])','label[for]',select,textarea,'[onclick]','[onmouseover]','[onmousedown]','[onmouseup]','[oncommand]','[tabindex]','[role=link]','[role=button]','[contenteditable=true]',svg,'a[class^=vote]','a[class^=speed]',div.ita-hwt-candidate,.preference>li,section.pi-collapse
 js <<EOF
 hints.addMode(
@@ -13429,9 +13429,9 @@ map [[   -ex wikiaprevious
 
 " autocmd DOMload 'https?://.*\.wikia.com/\.*' wikiaremovecruft
 
-" ,-------------------------,
-" | AdventureTime.Wikia.com |
-" '-------------------------'
+" ,-------------------------, "
+" | AdventureTime.Wikia.com | "
+" '-------------------------' "
 group wikiaadvtime -locations='adventuretime\.wikia\.com/wiki/'
 autocmd! -group wikiaadvtime
 
@@ -13458,9 +13458,9 @@ map <site>c -ex advtimeToggleTranscript
 
 group user
 
-" ,--------------,
-" | dc.wikia.com |
-" '--------------'
+" ,--------------, "
+" | dc.wikia.com | "
+" '--------------' "
 group wikiadc -locations='dc\.wikia\.com/wiki/'
 
 js <<EOF
@@ -13479,10 +13479,10 @@ map <site>tu -description "Toggle New Earth/Prime Earth" -js dcToggleEarth();
 group user
 
 
-" -----------------------------------------------------------------------------
-" ,---------------,
-" | Wikipedia.org |
-" '---------------'
+" ----------------------------------------------------------------------------- "
+" ,---------------,                                                             "
+" | Wikipedia.org |                                                             "
+" '---------------'                                                             "
 group wikipedia -locations=wikipedia.org,wikisource.org,wiktionary.org,wikibooks.org,wikimedia.org
 
 js <<EOF
@@ -13746,10 +13746,10 @@ map K
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,------------------,
-" | WolframAlpha.com |
-" '------------------'
+" ------------------------------------------------------------------------------- "
+" ,------------------,                                                            "
+" | WolframAlpha.com |                                                            "
+" '------------------'                                                            "
 group wolfram -locations=wolframalpha.com
 
 " warning: wolframalpha.com uses multiple 'plaintext' ids when more than one box is showing"
@@ -13771,10 +13771,10 @@ map <site>c -ex wolframresult
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-----------,
-" | Wordpress |
-" '-----------'
+" ------------------------------------------------------------------------------- "
+" ,-----------,                                                                   "
+" | Wordpress |                                                                   "
+" '-----------'                                                                   "
 group wordpress -locations=wordpress.com
 
 js <<EOF
@@ -13789,10 +13789,10 @@ map <site>c -description "Cleanup" -js wordpressCleanup();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------------,
-" | Youtube.com |
-" '-------------'
+" ------------------------------------------------------------------------------- "
+" ,-------------,                                                                 "
+" | Youtube.com |                                                                 "
+" '-------------'                                                                 "
 group youtube -locations=youtube.com
 
 js <<EOF
@@ -14049,10 +14049,10 @@ command! ytBindSpacebar -ex map <Space> -js ytTogglePause();
 
 group user
 
-" -------------------------------------------------------------------------------
-" ,-------------,
-" | OTHER SITES |
-" '-------------'
+" -------------------------------------------------------------------------------  "
+" ,-------------,                                                                  "
+" | OTHER SITES |                                                                  "
+" '-------------'                                                                  "
 
 group tipsonjap -locations=meadowlake001.blogspot.jp
 " Tips on Japanese
@@ -14067,11 +14067,11 @@ EOF
 
 group user
 
-" ===============================================================================
-"                                 __________________
-"                                |                  |
-"                                | HELPER FUNCTIONS |
-"                                |__________________|
+" =============================================================================== "
+"                                 __________________                              "
+"                                |                  |                             "
+"                                | HELPER FUNCTIONS |                             "
+"                                |__________________|                             "
 
 js <<EOF
 
