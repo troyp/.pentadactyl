@@ -1383,7 +1383,7 @@ function openLastDownloadAsMaff(n=1) {
 
 function openLastDownloadDir(n=1) {
     var dlP = getLastDownload(n);
-    dlP.then(f=> io.system(`dolphin $(dirname "${f}")`));
+    dlP.then(f=> io.system(`dolphin "$(dirname '${f}')"`));
 }
 
 function openLastDownloadDirInBrowser(n=1) {
