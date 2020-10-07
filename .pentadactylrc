@@ -1175,7 +1175,6 @@ EOF
 " ,---------------------, "
 " | <browser>m -- Menus | "
 " '---------------------' "
-map <browser>m<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>mm -b :emenu<SPACE>
 map <browser>mf -b :emenu File.
@@ -1201,7 +1200,6 @@ EOF
 " ,--------------------------, "
 " | <browser>u -- User Agent | "
 " '--------------------------' "
-map <browser>u<C-h> -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
 map <browser>u      -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
 map <browser>uh -description "Show User Agent Override"   -ex actoggleuaoverride
 map <browser>ut -description "Toggle User Agent Override" -ex actoggleuaoverride
@@ -1227,7 +1225,6 @@ map <browser>.a -description "Stop loading all"                     -ex stopall
 " | <app>a -- External Application (misc) | "
 " '---------------------------------------' "
 map <app>a -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
-map <app>a<C-h> -description "(show bindings: External application)" -js CommandExMode().open("showkeys <app>a")
 map <app>ap
 \    -description "Open colour picker (gpick)"
 \    -ex !gpick
@@ -3507,7 +3504,6 @@ map <A-p> -description "Open clipboard contents in new background tab"
 " | <buffer>a -- all tabs |
 " '-----------------------'
 map <buffer>a       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
-map <buffer>a<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
 map <buffer>aP      -description "Unpin all tabs" -ex unpinall
 map <buffer>ar      -description "Reload all tabs"                  -ex reloadall
 map <buffer>aR      -description "Reload all tabs (without cache)"  -ex reloadall!
@@ -3518,7 +3514,6 @@ map <buffer>b       -description "Switch to buffer matching PATTERN" -builtin b
 " | <buffer>d -- delete tabs |
 " '--------------------------'
 map <buffer>d       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
-map <buffer>d<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
 map <buffer>da      -description "Close alternate tab" -js tabCloseAlternate();
 map <buffer>db      -description "Close tab from list" -b :bdelete<SPACE>
 map <buffer>dd      -description "Close tab range" -b :tc<SPACE>
@@ -3560,8 +3555,6 @@ map <buffer>d;R     -description "Close tabs not matching REGEX (case-sensitive)
 \                   -b :tabfilterregex<Space>"//"<Left><Left>
 map <buffer>dt      -description "(show bindings: Delete tabs/delete to)"
 \                   -js CommandExMode().open("showkeys <buffer>dt")
-map <buffer>dt<C-h> -description "(show bindings: Delete tabs/delete to)"
-\                   -js CommandExMode().open("showkeys <buffer>dt")
 map <buffer>dtt     -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dtx     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du      -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
@@ -3583,7 +3576,6 @@ map <buffer>rh      -description "Rename document to h1 heading" -js content.doc
 " | <buffer>m -- move tabs |
 " '------------------------'
 map <buffer>m       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
-map <buffer>m<C-h>  -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
 map <buffer>mm      -description "Move tab to ordinal P" -b :tabmove<SPACE>
 map <buffer>mn      -description "Move N tabs to start or ordinal P" -b :moventabs<Space>
 map <buffer>mr      -description "Move tabs right of N to ordinal P" -arg -ex movealltabsrightofn <arg>
@@ -4303,9 +4295,7 @@ var newTabPage = function(where=dactyl.NEW_TAB) {
 EOF
 
 map <goto>        -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>")
-map <goto><C-h>   -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>")
 map <goto>a       -description "(Show bindings: Goto Addons)" -js CommandExMode().open("showkeys <goto>a")
-map <goto>a<C-h>  -description "(Show bindings: Goto Addons)" -js CommandExMode().open("showkeys <goto>a")
 map <goto>aa      -description "Addons"
 \                 -ex dialog addons
 map <goto>ac      -description "Classic Addons"
@@ -4340,13 +4330,11 @@ map <goto>k       -description "places (bookmarks & history)"
 map <goto>K       -description "Bookmarks"
 \                 -count -js openOrSelectTab("chrome://browser/content/bookmarks/bookmarksPanel.xul", count?"here":"tab");
 map <goto>l       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>l")
-map <goto>l<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>l")
 map <goto>ldw     -description "~/Downloads/"
 \                 -count -js openOrSelectTab(`${homedir}/Downloads`, count?"here":"tab");
 map <goto>ldc     -description "~/Documents/"
 \                 -count -js openOrSelectTab(`${homedir}/Documents`, count?"here":"tab");
 map <goto>le      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>le")
-map <goto>le<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>le")
 map <goto>le/     -description "~/ebooks/"
 \                 -count -js openOrSelectTab(`${homedir}/ebooks`, count?"here":"tab");
 map <goto>lec     -description "~/ebooks/coding"
@@ -4358,7 +4346,6 @@ map <goto>les     -description "~/ebooks/css"
 map <goto>lea     -description "~/ebooks/articles"
 \                 -count -js openOrSelectTab(`${homedir}/ebooks/articles`, count?"here":"tab");
 map <goto>lh      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lh")
-map <goto>lh<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lh")
 map <goto>lhe     -description "~/.emacs.d/private"
 \                 -count -js openOrSelectTab(`${homedir}/.emacs.d/private`, count?"here":"tab");
 map <goto>lhp     -description "~/.pentadactyl"
@@ -4368,7 +4355,6 @@ map <goto>lhr     -description "~/repos"
 map <goto>lhs     -description "~/source"
 \                 -count -js openOrSelectTab(`${homedir}/source`, count?"here":"tab");
 map <goto>lo      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lo")
-map <goto>lo<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lo")
 map <goto>lo/     -description "/opt/"
 \                 -count -js openOrSelectTab(`/opt`, count?"here":"tab");
 map <goto>loc     -description "/opt/chrome-extensions"
@@ -4382,7 +4368,6 @@ map <goto>los     -description "/opt/scripts"
 map <goto>low     -description "/opt/webapps"
 \                 -count -js openOrSelectTab(`/webapps`, count?"here":"tab");
 map <goto>lp      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp");
-map <goto>lp<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp");
 map <goto>lp/     -description "~/Pictures/"
 \                 -count -js openOrSelectTab(`file://${homedir}/Pictures`, count?"here":"tab");
 map <goto>lpd     -description "~/Pictures/downloads"
@@ -4394,9 +4379,7 @@ map <goto>lud     -description "/usr/share/doc (existing or new tab)"
 map <goto>luld    -description "/usr/local/share/doc (existing or new tab)"
 \                 -count -js openOrSelectTab("file:///usr/local/share/doc/", count?"here":"tab");
 map <goto>m       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m");
-map <goto>m<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m");
 map <goto>mc      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc");
-map <goto>mc<C-h> -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc");
 map <goto>mcc     -description "chrome:// URL completion"
 \                 -b :openorselect chrome://
 map <goto>mcg     -description "chrome://global/content/ URL completion"
@@ -4506,7 +4489,6 @@ command! tabopenhistory -nargs 1 -complete history tabopen <args>
 
 " Select:
 map <search>h       -description "(Show bindings)" -js CommandExMode().open("showkeys <search>h")
-map <search>h<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <search>h")
 map <search>ha -description "Open selected history items" -b :history! -max 30 -sort -date<SPACE>
 map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
 
@@ -4523,7 +4505,6 @@ map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
 " '-----------'
 
 map <search>k       -description "(Show bindings)" -js CommandExMode().open("showkeys <search>k")
-map <search>k<C-h>  -description "(Show bindings)" -js CommandExMode().open("showkeys <search>k")
 map <search>ka -description "Open selected bookmarks items" -b :bmarks!  -max 30<SPACE>
 map <search>kb -description "search bookmarks with buku"  -ex !buku_run
 map <search>ko -description "Open bookmarks item" -b :tabopenbookmark<SPACE>
@@ -4701,7 +4682,6 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 " ,------------------------, ,-----------,
 " | Javascript Evalutation | | <leader>e |
 " '------------------------' '-----------'
-map <leader>e<C-h> -description "(show bindings: Javascript Eval)" -js CommandExMode().open("showkeys <leader>e")
 map <leader>e      -description "(show bindings: Javascript Eval)" -js CommandExMode().open("showkeys <leader>e")
 
 " JS Repl
@@ -4738,13 +4718,9 @@ map <leader>es -description "Show elements matching selector(s)" -b :getselector
 " ,---------------------------------, ,-----------,
 " | Mozilla DevTools & DOM Inspector| | <leader>d |
 " '---------------------------------' '-----------'
-map <leader>d<C-h>
-\    -description "(show bindings: Devtools)"
-\    -js CommandExMode().open("showkeys <leader>d")
 map <leader>d
 \    -description "(show bindings: Devtools)"
 \    -js CommandExMode().open("showkeys <leader>d")
-map <leader>di<C-h> -js CommandExMode().open("showkeys <leader>di")
 map <leader>di      -js CommandExMode().open("showkeys <leader>di")
 
 map <leader>db -ex browserconsole
@@ -4862,7 +4838,6 @@ EOF
 
 command! mozrepltoggle -js mozReplToggle();
 
-map <ext>m<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <ext>m")
 map <ext>m      -description "(show bindings)" -js CommandExMode().open("showkeys <ext>m")
 map <ext>mm -description "MozREPL toggle" -js mozReplToggle();
 map <ext>mp -description "MozREPL set port" -js mozrepl.changePort();
@@ -4876,7 +4851,6 @@ map <ext>ma -description "MozREPL toggle autostart" -ex toggleconfig extensions.
 " '-----------------'
 command! jash -js jashToggle();
 
-map <ext>j<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <ext>j")
 map <ext>j      -description "(show bindings)" -js CommandExMode().open("showkeys <ext>j")
 map <ext>jj -ex jash
 map <ext>je -js jashEvalTab();
@@ -4965,7 +4939,6 @@ map <A-f1> -js viewTiledToggle()
 " '-----------------------'
 " Accessing features via Javascript requires v1.x.x. Version 2.x is a webextension "
 
-map <ext>d<C-h> -description "(show bindings)" -js CommandExMode().open("<ext>d")
 map <ext>d      -description "(show bindings)" -js CommandExMode().open("<ext>d")
 map <ext>dwi -description "Show/hide element classes and ids" -ex toggledisplayclassid
 map <ext>dwr -description "Show/hide ruler"                   -ex ruler
@@ -5341,11 +5314,8 @@ command! listextensions
     \ -js getExtensions();
 
 
-map <ext>x<C-h> -js CommandExMode().open("showkeys <ext>x");
 map <ext>x      -js CommandExMode().open("showkeys <ext>x");
-map <ext>n<C-h> -js CommandExMode().open("showkeys <ext>n");
 map <ext>n      -js CommandExMode().open("showkeys <ext>n");
-map <ext>s<C-h> -js CommandExMode().open("showkeys <ext>s");
 map <ext>s      -js CommandExMode().open("showkeys <ext>s");
 map <ext>st -ex dialog customizetoolbar
 map <ext>xe       -description "enable extension" :extenable<Space>
@@ -5760,9 +5730,6 @@ EOF
 " ,-------, ,-----------,
 " | Links | | <leader>l |
 " '-------' '-----------'
-map <leader>l<C-h>
-\    -description "(show bindings: Links)"
-\    -js CommandExMode().open("showkeys <leader>l")
 map <leader>l
 \    -description "(show bindings: Links)"
 \    -js CommandExMode().open("showkeys <leader>l")
@@ -6017,9 +5984,6 @@ command! encuni :emenu View.Text Encoding.Unicode
 command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
 command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
 
-map <leader>xe<C-h>
-\    -description "(show bindings: Text Encodings)"
-\    -js CommandExMode().open("showkeys <leader>xe")
 map <leader>xe
 \    -description "(show bindings: Text Encodings)"
 \    -js CommandExMode().open("showkeys <leader>xe")
@@ -6029,13 +5993,9 @@ map <leader>xeu -ex emenu View.Text Encoding.Unicode
 " ,----------------,
 " | Table Commands |
 " '----------------'
-map <leader>x<C-h>
-\    -description "(show bindings: Misc/Tables)"
-\    -js CommandExMode().open("showkeys <leader>x")
 map <leader>x
 \    -description "(show bindings: Misc/Tables)"
 \    -js CommandExMode().open("showkeys <leader>x")
-map <leader>xt<C-h> -js CommandExMode().open("showkeys <leader>xt")
 map <leader>xt      -js CommandExMode().open("showkeys <leader>xt")
 
 map <leader>xtc
@@ -6996,9 +6956,7 @@ group user
 " | places | "
 " '--------' "
 group places -locations=chrome://browser/content/places/places.xul
-map <site>f<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
 map <site>f      -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
-map <site>s<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>s")
 map <site>s      -description "(show bindings)" -js CommandExMode().open("showkeys <site>s")
 
 map <site>b   -description "Open in background tab"  -js placesOpenInBackground();
@@ -8005,9 +7963,6 @@ map <site>og -description "View account/giftcards"
 map <site>ok
 \    -description "(show bindings: Goto/Recommended Products)"
 \    -js CommandExMode().open("showkeys <site>ok")
-map <site>ok<C-h>
-\    -description "(show bindings: Goto/Recommended Products)"
-\    -js CommandExMode().open("showkeys <site>ok")
 map <site>okb
 \    -description "Goto Also Bought Products"
 \    -js content.document.querySelector('.AlsoBought').scrollIntoView();
@@ -8740,9 +8695,7 @@ group user
 " | Fasttech.com |                                                              "
 " '--------------'                                                              "
 group fasttech -locations=fasttech.com
-map <site>o<C-h> -js CommandExMode().open("showkeys <site>o")
 map <site>o      -js CommandExMode().open("showkeys <site>o")
-map <site>t<C-h> -js CommandExMode().open("showkeys <site>t")
 map <site>t      -js CommandExMode().open("showkeys <site>t")
 
 " === hint modes === "
@@ -8870,7 +8823,6 @@ map <site>dd
 \    -js figurosityDownloadImage(figurosityDownloadDir);
 
 map <site>o      -description "(show bindings: view image: switch)" -js CommandExMode().open("showkeys <site>o")
-map <site>o<C-h> -description "(show bindings: view image: switch)" -js CommandExMode().open("showkeys <site>o")
 map <site>oi
 \    -description "View image"
 \    -js openOrSelectTab(getSelectors("#image-holder>img")[0].src, count?"tab":"here");
@@ -8881,7 +8833,6 @@ map <site>ou -description "View image: switch to nude"   -js figurosityViewSwitc
 
 map <site>v -description "View" -js dactyl.open(figurosityGetImageUrl());
 map <site>y      -description "(show bindings: site yank)" -js CommandExMode().open("showkeys <site>y")
-map <site>y<C-h> -description "(show bindings: site yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>yd
 \    -description "Yank image download (to set directory) command"
 \    -js utils.cbWrite(`wget -P "${figurosityDownloadDir}" ${figurosityGetImageUrl()}`);
@@ -9186,7 +9137,6 @@ map <site>ss       -description "Search commits" -js CommandExMode().open("ghsea
 
 map <site>y        -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
-map <site>y<C-h>   -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 map <site>yg       -description "Yank git repo link" -js ghCopyRepoLinkGit();
 map <site>yh       -description "Yank https repo link" -js ghCopyRepoLinkHttps();
 map <site>yn       -description "Yank repo name" -js utils.yankWithMsg(ghGetUserAndRepo()[1]);
@@ -10200,7 +10150,6 @@ command! handprint
 \    -js openOrSelectHandprintUrl(bang ? "here" : "tab", ...args);
 
 map <f9> <handprint>
-map <handprint><C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <handprint>")
 map <handprint>      -description "(show bindings)" -js CommandExMode().open("showkeys <handprint>")
 map <handprint>m
 \    -description "Open handprint guide: magenta here"
@@ -10382,7 +10331,6 @@ map <site>c -description "Go (cart: checkout; orders page: view most recent)" -j
 map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
 
 map <site>o      -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
-map <site>o<C-h> -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"adjacent":"here");
@@ -10454,7 +10402,6 @@ map <site>p;dI
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-blocks-au", count?"adjacent":"here");
 
 map <site>s      -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
-map <site>s<C-h> -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
 map <site>ss
 \    -description "Search"
 \    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
@@ -10472,10 +10419,8 @@ map <site>;s
 \        );
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
-map <site>t<C-h> -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>ta  -description "Toggles Australian site" -js jacksonsartToggleAU();
 map <site>th      -description "(show bindings: Toggle hairtype)" -js CommandExMode().open("showkeys <site>t")
-map <site>th<C-h> -description "(show bindings: Toggle hairtype)" -js CommandExMode().open("showkeys <site>t")
 map <site>thg -description "Toggle hairtype: Goat" -js jacksonsartToggleHairType("Goat");
 map <site>thh -description "Toggle hairtype: Hog" -js jacksonsartToggleHairType("Hog");
 map <site>thk -description "Toggle hairtype: Kolinsky Sable" -js jacksonsartToggleHairType("Kolinsky Sable");
@@ -10619,7 +10564,6 @@ map -modes normal,insert <A-p> -description "Previous cell" -js jCopyPreviousCel
 map -modes normal,insert <A-n> -description "Next cell" -js jCopyNextCellToPrompt();
 map -modes insert <C-u> -description "Clear prompt" -js jClearPrompt();
 
-map <site>o<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>o      -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>oo -description "Goto JIJX" -ex open http://127.0.0.1:65001/jijx
 map <site>of -description "Goto jfile" -ex open http://127.0.0.1:65001/jfile
@@ -10952,7 +10896,6 @@ map <site>gs  -description "Halve the dimensions of stroke order diagrams"
 \             -ex jishoshrinksod
 map <site>gS  -description "Scale the dimensions of stroke order diagrams"
 \             -b :jishoscalesod<Space>
-map <site>k<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
 map <site>k      -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
 
 " <site>o  --  Open"
@@ -11977,7 +11920,6 @@ group netflixwatch -locations=https://www.netflix.com/watch/*
 
 "<site>a : audio"
 map <site>a      -description "(show bindings)"   -js CommandExMode().open("showkeys <site>a")
-map <site>a<C-h> -description "(show bindings)"   -js CommandExMode().open("showkeys <site>a")
 map <site>ae     -description "Audio: English"    -js netflixSetAudio("english");
 map <site>af     -description "Audio: French"     -js netflixSetAudio("french");
 map <site>aj     -description "Audio: Japanese"   -js netflixSetAudio("japanese");
@@ -11987,7 +11929,6 @@ map <site>D      -description "Download all subtitles"
 \   -js document.querySelector('.track.download -all').click();
 "<site>t : toggles"
 map <site>t      -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
-map <site>t<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>t")
 map <site>tb     -description "Toggle Bit Rate Select" -b <C-S-A-s>
 map <site>td     -description "Toggle A/V Stats"       -b <C-S-A-d>
 map <site>tf     -description "Toggle Fullscreen"      -js netflixFullscreen();
@@ -11995,7 +11936,6 @@ map <site>tl     -description "Toggle Logging"         -b <C-S-A-l>
 map <site>ts     -description "Toggle subtitles"       -js netflixToggleSubs();
 "<site>y : yank"
 map <site>y      -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
-map <site>y<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
 map <site>yt     -description "Yank title"                  -js netflixYankTitle();
 map <site>ye     -description "Yank episode title"          -js netflixYankEpisodeTitle();
 map <site>yE     -description "Yank episode number & title" -js netflixYankEpisodeNumberAndTitle();
