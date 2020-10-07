@@ -1271,18 +1271,18 @@ map <app>cvv
 " ,---------------------, "
 " | <app>d -- Downloads | "
 " '---------------------' "
-map <app>d
-\    -description "(show bindings: Downloads)"
-\    -count
-\    -js CommandExMode().open("showkeys <app>d");
-map <app>dd
-\    -description "Open last download directory in Dolphin"
-\    -count
-\    -js openLastDownloadDir(count||1);
-map <app>dD
+map <app>d -description "(show bindings: Downloads)" -count -js CommandExMode().open("showkeys <app>d");
+
+map <app>dd -description "(show bindings: Downloads/Directory)" -count -js CommandExMode().open("showkeys <app>dd");
+map <app>ddb
 \    -description "Open last download directory in browser"
 \    -count
 \    -js openLastDownloadDirInBrowser(count||1);
+map <app>ddd
+\    -description "Open last download directory in Dolphin"
+\    -count
+\    -js openLastDownloadDir(count||1);
+
 map <app>dm
 \    -description "Open last download as MAFF file"
 \    -count
