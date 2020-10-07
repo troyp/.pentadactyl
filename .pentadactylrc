@@ -1282,6 +1282,10 @@ map <app>ddd
 \    -description "Open last download directory in Dolphin"
 \    -count
 \    -js openLastDownloadDir(count||1);
+map <app>ddx
+\    -count
+\    -description "Open last download directory (enter program)"
+\    -js CommandExMode().open(`shellcommandondownloaddir ${count||1} `);
 
 map <app>dm
 \    -description "Open last download as MAFF file"
@@ -1329,6 +1333,11 @@ command! shellcommandondownload
 \    -bang
 \    -nargs +
 \    -js shellCommandOnDownload(args[0], args.slice(1).join(" "));
+command! shellcommandondownloaddir
+\    -description "Run shell command on Nth last download dir (%d)"
+\    -bang
+\    -nargs +
+\    -js shellCommandOnDownloadDir(args[0], args.slice(1).join(" "));
 
 js <<EOF
 function getLastDownload(n=1) {
@@ -1363,6 +1372,18 @@ function shellCommandOnDownload(n, cmd) {
         function(file) {
             var localDir = file.replace(/[^/]+\/?$/, "");
             io.system(`cd ${localDir}; `+cmd.replace("%f", `'${file}'`));
+        }
+    );
+}
+
+function shellCommandOnDownloadDir(n, cmd) {
+    if (!cmd.includes("%d")) cmd += " %d";
+    var dlP = getLastDownload(n||1);
+    dlP.then(
+        function(file) {
+            var dir = file.replace(/\/[^/]+$/, "");
+            var parentDir = file.replace(/\/[^/]+$/, "");
+            io.system(`cd ${parentDir}; `+cmd.replace("%d", `'${dir}'`));
         }
     );
 }
