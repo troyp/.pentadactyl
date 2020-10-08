@@ -19,9 +19,8 @@ map -modes insert <C-/> <C-v><C-z>
 map -modes command-line,insert <snip> <f8>
 map -modes command-line,insert <snip><C-h> :map <Lt>snip
 
-map -modes command-line,insert <snip>vr (rebuildable OR rba)
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,--------,
 " | Styles |
 " '--------'
@@ -75,7 +74,7 @@ style -name=fixruby japanese.stackexchange.com
 " not working
 style highlight-tree-row * treechildren::-moz-tree-row(selected) { bg-color: #ABD0ED !important; }
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,---------------,
 " | Alias Command |
 " '---------------'
@@ -85,29 +84,29 @@ js <<EOF
 
 createAlias = function(alias, def) {
   var cmd = "dactyl.execute(\"'" + def + "' + (bang ? '! ' : ' ') + ' '.join(args);\")"
-  dactyl.execute("command! " + alias + " -nargs=* -bang -js " + cmd); 
+  dactyl.execute("command! " + alias + " -nargs=* -bang -js " + cmd);
 }
 
 EOF
 
-command! alias -nargs=+ 
-    \ -js createAlias(args[0], args[1]);
+command! alias -nargs=+
+\    -js createAlias(args[0], args[1]);
 
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,-----------,
 " | Autopager |
 " '-----------'
 
 command! apoff -description "Autopager off"
-    \ :js autopagerMain.enabledThisSite()
+\    :js autopagerMain.enabledThisSite()
 command! ap -description "Autopager on"
-    \ :js autopagerMain.onEnable()
+\    :js autopagerMain.onEnable()
 map -b gp -ex ap
 map -b gP -ex apoff
 
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,------------,
 " | PageZipper |
 " '------------'
@@ -118,7 +117,7 @@ command! pz -description "PageZipper"
 " see also scratch.js
 
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,-------,
 " | JSBin |
 " '-------'
@@ -133,7 +132,7 @@ command! pz -description "PageZipper"
 "map -modes pass-through -b <A-8> <C-8>
 "map -modes pass-through -b <A-9> <C-9>
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " ,------------------,
 " | Removed Commands |
 " '------------------'
@@ -165,13 +164,13 @@ EOF
 
 command! firebugToggleInspecting -js eval(fbugToggleInspectCmd);
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,---------,
 " | MozREPL |
 " '---------'
 set! extensions.mozrepl.initUrl=file:///home/troy/.mozreplrc
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,-------------------,
 " | Developer Toolbar |
 " '-------------------'
@@ -214,7 +213,7 @@ set eht+=[ö]:.openseadragon-container>:nth-child(2)>div>div>div;
 
 group user
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 
 " ,--------------,
 " | VapeKing.com |
@@ -227,20 +226,20 @@ style -name=vapeking_visitedlinks www.vapeking.com.au body a:visited { color: ##
 
 group user
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,---------,
 " | toktogi |
 " '---------'
 js AddonManager.getAddonByID('toktogi@toktogi.com', a=>{ window.toktogi = a; })
 
-" -------------------------------------------------------------------------------
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,----------------------------------------------,
 " | Rikaisama with Google Translate HW Input Box |
 " '----------------------------------------------'
 
 style -name=gtr-under-rikaichan https://translate.google.com.au,https://translate.google.com
-    \ .ita-hwt-ime { z-index: 2 !important; }
+\    .ita-hwt-ime { z-index: 2 !important; }
 map <site>tr -ex styletoggle gtr-under-rikaichan
 
 style -name=rikaisama-on-top * #rikaichan-window { z-index: 8888888888 !important; }
@@ -269,7 +268,7 @@ EOF
 command! hwtogglerikaichanontop -js gtrToggleRikaichanOnTop();
 map <site>tr -ex hwtogglerikaichanontop
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,------,
 " | eBay |
 " '------'
@@ -278,83 +277,83 @@ style -group ebay -name=ebaystyle https?://www.ebay.com.au/.*
 \ .im-idp>p>a { font-size: 80% !important; }
 styleenable -group ebay -name ebaystyle
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,---------------,
 " | StackExchange |
 " '---------------'
 
 style -group stackexchange -name=seruby https?://japanese.stackexchange.com/.*
-    \ rt,ruby,rb,span.rt,span.rb{
-    \     text-align:center !important;
-    \     ruby-align:end !important;
-    \     ruby-position:under !important;
-    \ }
-    \ ruby,p ruby,ruby.ruby-rp.popups {
-    \     display:inline-block !important;
-    \     text-indent:0 !important;
-    \     white-space:nowrap !important;
-    \     line-height:1em !important;
-    \     position:relative !important;
-    \     vertical-align:baseline !important;
-    \     // margin:-1px !important;
-    \     margin: 0 !important;
-    \     border: 1px solid transparent !important;
-    \     border-collapse: collapse !important;
-    \     margin-bottom: 0 !important;
-    \     padding-bottom: 0 !important;
-    \     border-bottom: 0 !important;
-    \     ruby-align:end !important;
-    \     ruby-position:over !important;
-    \     height: 2em !important;
-    \ ruby:before, ruby:after {
-    \     content: "\00200B"
-    \ }
-    \ strong.ja-text {
-    \     margin: 0 !important;
-    \     padding: 0 !important;
-    \     border: 0 !important;
-    \     margin-bottom: 0 !important;
-    \     padding-bottom: 0 !important;
-    \     border-bottom: 0 !important;
-    \
-    \ }
-    \ rb,span.rb{
-    \     display:ruby-base !important;
-    \     line-height:1em !important;
-    \     height:1em !important;
-    \     font-size:1em !important;
-    \     border:none !important;
-    \     margin:0 !important;
-    \     padding:0 !important;
-    \     white-space:nowrap !important;
-    \     //padding-top: 0.5em !important;
-    \     padding-top: 1em !important;
-    \     vertical-align: bottom !important;
-    \ }
-    \ rt,span.rt{
-    \     position:relative !important;
-    \     display:ruby-text !important;
-    \     font-size:0.75em !important;
-    \     line-height:1.3em !important;
-    \     height:1.3em !important;
-    \     white-space:nowrap !important;
-    \     border:none !important;
-    \     margin:0 !important;
-    \     padding:0 !important;
-    \     padding-top: 1em !important;
-    \     top: 0 !important;
-    \     vertical-align: top !important;
-    \ }
-    \ rbc {
-    \     display:ruby-base-container !important;
-    \ }
-    \ rtc {
-    \     vertical-align: top !important;
-    \     display:ruby-text-container !important;
-    \ }
+\    rt,ruby,rb,span.rt,span.rb{
+\        text-align:center !important;
+\        ruby-align:end !important;
+\        ruby-position:under !important;
+\    }
+\    ruby,p ruby,ruby.ruby-rp.popups {
+\        display:inline-block !important;
+\        text-indent:0 !important;
+\        white-space:nowrap !important;
+\        line-height:1em !important;
+\        position:relative !important;
+\        vertical-align:baseline !important;
+\        // margin:-1px !important;
+\        margin: 0 !important;
+\        border: 1px solid transparent !important;
+\        border-collapse: collapse !important;
+\        margin-bottom: 0 !important;
+\        padding-bottom: 0 !important;
+\        border-bottom: 0 !important;
+\        ruby-align:end !important;
+\        ruby-position:over !important;
+\        height: 2em !important;
+\    ruby:before, ruby:after {
+\        content: "\00200B"
+\    }
+\    strong.ja-text {
+\        margin: 0 !important;
+\        padding: 0 !important;
+\        border: 0 !important;
+\        margin-bottom: 0 !important;
+\        padding-bottom: 0 !important;
+\        border-bottom: 0 !important;
+\
+\    }
+\    rb,span.rb{
+\        display:ruby-base !important;
+\        line-height:1em !important;
+\        height:1em !important;
+\        font-size:1em !important;
+\        border:none !important;
+\        margin:0 !important;
+\        padding:0 !important;
+\        white-space:nowrap !important;
+\        //padding-top: 0.5em !important;
+\        padding-top: 1em !important;
+\        vertical-align: bottom !important;
+\    }
+\    rt,span.rt{
+\        position:relative !important;
+\        display:ruby-text !important;
+\        font-size:0.75em !important;
+\        line-height:1.3em !important;
+\        height:1.3em !important;
+\        white-space:nowrap !important;
+\        border:none !important;
+\        margin:0 !important;
+\        padding:0 !important;
+\        padding-top: 1em !important;
+\        top: 0 !important;
+\        vertical-align: top !important;
+\    }
+\    rbc {
+\        display:ruby-base-container !important;
+\    }
+\    rtc {
+\        vertical-align: top !important;
+\        display:ruby-text-container !important;
+\    }
 styleenable -group stackexchange -name seruby
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,--------------------,
 " | OnePiece.Wikia.com |
 " '--------------------'
@@ -387,7 +386,7 @@ map <site>c -ex advtimeToggleTranscript
 
 group user
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,-------------------,
 " | Developer Toolbar |
 " '-------------------'
@@ -433,7 +432,7 @@ function websocketCmd(cmd) {
 }
 window.websocketCmd = websocketCmd;
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,----------------------------,
 " | Site-Specialized Hint Mode |
 " '----------------------------'
@@ -485,7 +484,7 @@ function redditShowCommandLine() {
 EOF
 group user
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,---------,
 " | Sidebar |
 " '---------'
@@ -512,16 +511,16 @@ group user
 " map <search>P -ex sidebar! Preferences
 " map <sidebar>P :sidebar! Preferences<CR><f6><f6><C-z>
 
-" -------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " ,---------------------------,
 " | Packt: Check Todays Ebook |
 " '---------------------------'
 map <leader>aapc
-    \ -description "Check if today's title is already in library"
-    \ -js utils.message(
-    \         packtGetTodaysTitle() + ": " +
-    \         (packtIsTodaysBookInLibrary() ? "already in library" : "NOT in library")
-    \     );
+\    -description "Check if today's title is already in library"
+\    -js utils.message(
+\            packtGetTodaysTitle() + ": " +
+\            (packtIsTodaysBookInLibrary() ? "already in library" : "NOT in library")
+\        );
 js <<EOF
 function packtIsTodaysBookInLibrary() {
     var todaysTitle = packtGetTodaysTitle();
