@@ -9835,6 +9835,7 @@ function gtrTextBoxToggleFontSize() {
     else
         tarea.style['font-size']=`12pt`;
 }
+function gtrPlay() { buffer.followLink($$('.jfk-button[data-tooltip=Listen]')[0]); }
 EOF
 
 command! gtryanksource
@@ -9851,6 +9852,7 @@ command! gtrtogglefontsize
 map <site>i  -description "(show bindings: Input)" -js CommandExMode().open("showkeys <site>i")
 map <site>if -description "Toggle font size" -ex gtrtogglefontsize
 map <site>iF -description "Set font size" :gtrfontsize<Space>
+map <site>p  -description "Play" -js gtrPlay();
 map <site>y  -description "Copy contents of source area to clipboard"   -ex gtryanksource
 
 group user
