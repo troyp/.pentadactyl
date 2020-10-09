@@ -116,12 +116,10 @@ function setStrPref(pref, value) {
 var nsINavBookmarksService = XpcService("@mozilla.org/browser/nav-bookmarks-service;1", Components.interfaces.nsINavBookmarksService);
 var bmarksMenuFolder = nsINavBookmarksService.bookmarksMenuFolder;
 window.nsINavBookmarksService = nsINavBookmarksService;
-window.bmarksMenuFolder = bmarksMenuFolder;
 
 var nsIIOService = XpcService("@mozilla.org/network/io-service;1", Components.interfaces.nsIIOService);
 function createURI(url) { return nsIIOService.newURI(url, null, null); }
 window.nsIIOService = nsIIOService;
-window.createURI = createURI;
 
 function createBmark(url, title, folderId=bmarksMenuFolder) {
     return nsINavBookmarksService.insertBookmark(
@@ -130,14 +128,12 @@ function createBmark(url, title, folderId=bmarksMenuFolder) {
         nsINavBookmarksService.DEFAULT_INDEX,
         title);
 }
-window.createBmark = createBmark;
 
 function fetchBmarkUrlByKeyword(kw, callback) {
     PlacesUtils.keywords.fetch(kw).then(
         entry => { callback(entry.url.href) },
         e => { Cu.reportError(`bookmark keyword ${kw} not found.`) });
 }
-window.fetchBmarkUrlByKeyword = fetchBmarkUrlByKeyword;
 
 "Application"
 var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
@@ -353,7 +349,6 @@ function makeDisplayToggle(selector) {
     }
     return displayToggle;
 }
-window.makeDisplayToggle = makeDisplayToggle;
 
 "Patched Classes"
 Number.prototype.inRange = function (a, b) {
@@ -370,7 +365,6 @@ function evalStringOrFunction(s) {
         return eval(s);
     } else { return s || null; }
 }
-window.evalStringOrFunction = evalStringOrFunction;
 
 function evalWithScriptTag(code, doc) {
     var script = content.document.createElement("script");
@@ -415,13 +409,12 @@ function readStringOrRegex(s) {
 }
 
 function getMappings() { return Array.from(mappings); }
-window.getMappings = getMappings;
 
 " matchMappingsByKey: key may be a string or regex "
 function matchMappingsByKey(key) {
     return getMappings().filter(m=>m.keys.map(k=>k.search(key)>=0).reduce((x,y)=>(x||y), false));
 }
-window.matchMappingsByKey = matchMappingsByKey;
+
 " matchMappingsByKeyAndMode: mode may be a string, regex or Mode instance "
 function matchMappingsByKeyAndMode(key, mode=modes.NORMAL) {
     return getMappings().filter(
@@ -431,22 +424,22 @@ function matchMappingsByKeyAndMode(key, mode=modes.NORMAL) {
                      m.modes.includes(mode)>=0 );
         });
 }
-window.matchMappingsByKeyAndMode = matchMappingsByKeyAndMode;
+
 " matchMappingsByDescription: desc may be a string or regex "
 function matchMappingsByDescription(desc) {
     return getMappings().filter(m=>m.description.search(desc)>=0);
 }
-window.matchMappingsByDescription = matchMappingsByDescription;
+
 " mappingsByGroup: name is a string matching the name of an active group "
 function mappingsByGroup(name) {
     return getMappings().filter((m)=>m.hive.name==name);
 }
-window.mappingsByGroup = mappingsByGroup;
+
 " listGroupMappings: name is a string matching the name of an active group "
 function listGroupMappings(name) {
     return mappingsByGroup(name).map(m=>[m.name, m.description+':  '+m.action]);
 }
-window.listGroupMappings = listGroupMappings;
+
 " listActiveGroupMappings: list mappings and descriptions for active groups "
 function listActiveGroupMappings() {
     var activegroups = contexts.activeGroups();
@@ -456,7 +449,7 @@ function listActiveGroupMappings() {
         );
     return activemappings.map(m=>[m.name, m.description+':  '+m.action]);
 }
-window.listActiveGroupMappings = listActiveGroupMappings;
+
 " eg. getHive('jisho', MapHive) "
 function getHive(name, type) {
     var groupByName = group.children.filter(g=>g.name==name)[0];
@@ -464,7 +457,6 @@ function getHive(name, type) {
         isinstance(hive, type) || hive._class_.toString()==`[class ${type}]`;
     return groupByName.hives.filter(matchesType)[0];
 }
-window.getHive = getHive;
 
 function searchMappings(...pats) {
     var activegroups = contexts.activeGroups();
@@ -497,7 +489,6 @@ function searchMappings(...pats) {
     );
     return filtered;
 }
-window.searchMappings = searchMappings;
 
 function searchMappingsDescriptions(...pats) {
     var activegroups = contexts.activeGroups();
@@ -588,13 +579,9 @@ function searchCommands1(pats, brief=true, searchAction=true) {
 }
 function searchCommands(...pats) { searchCommands1(pats, false); }
 function searchCommandsBrief(...pats) { searchCommands1(pats, true); }
-window.searchCommands = searchCommands;
-window.searchCommandsBrief = searchCommandsBrief;
 
 function allCommands() { return commands.hives.flatMap(h=>h._list); }
 function getCommand(name) { return allCommands().find(cmd=>cmd.name==name); }
-window.allCommands = allCommands;
-window.getCommand = getCommand;
 
 function getGroups() { return contexts.activeGroups().map(g=>g.name); }
 function getAllCommands() { return commands.hives.flatMap(); }
@@ -641,14 +628,12 @@ function getHintModes() {
     for (k in hints.modes) result.push([k, hints.modes[k]]);
     return result;
 }
-window.getHintModes = getHintModes;
 
 function getHintModeKeys() {
     var result = [];
     for (k in hints.modes) result.push(k);
     return result;
 }
-window.getHintModeKeys = getHintModeKeys;
 
 function searchHintModes(...pats) {
     var keys = getHintModeKeys();
@@ -2326,13 +2311,11 @@ function kingJames(book=null, chSec=null) {
 var kingJamesBooks = ["Genesis", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "1_Samuel", "2_Samuel", "1_Kings", "2_Kings", "1_Chronicles", "2_Chronicles", "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song_of_Solomon", "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi", "1_Esdras", "2_Esdras", "1_Esdras", "2_Esdras", "Tobit", "Judith", "Rest_of_Esther", "Wisdom_of_Solomon", "Ecclesiasticus", "Baruch", "Prayer_of_Azarias_and_Hymn_of_the_Three_Children", "Susanna", "Bel_and_the_Dragon", "Prayer_of_Manasseh", "1_Maccabees", "2_Maccabees", "Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1_Corinthians", "2_Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1_Thessalonians", "2_Thessalonians", "1_Timothy", "2_Timothy", "Titus", "Philemon", "Hebrews", "James", "1_Peter", "2_Peter", "1_John", "2_John", "3_John", "Jude", "Revelation"];
 
 var goonellabahLatLong = [-28.816782, 153.321018];
-window.goonellabahLatLong = goonellabahLatLong;
 
 function sunTimes() {
     var [lat, long] = goonellabahLatLong;
     return SunCalc.getTimes(new Date(), lat, long);
 }
-window.sunTimes = sunTimes;
 
 function sunriseSunset() {
     var times = sunTimes();
@@ -2569,7 +2552,6 @@ function googleInsertTranslationForElement(elt) {
         }, 1000);
     });
 }
-window.googleInsertTranslationForElement = googleInsertTranslationForElement;
 
 function bingAddWebWidget() {
     var d=content.document.createElement('div');
@@ -2845,13 +2827,11 @@ function pdfGetLines(lines, divSep=" ", requireLowerPos=true) {
     }
     return result;
 }
-window.pdfGetLines = pdfGetLines;
 
 function pdfYankLines(lines, lineSep="\n", divSep=" ", requireLowerPos=true) {
     var s = pdfGetLines(lines, divSep, requireLowerPos).join(lineSep);
     utils.cbWriteWithMessageLimit(s);
 }
-window.pdfYankLines = pdfYankLines;
 
 function yankCollection(a, transform=null) {
     var s;
@@ -3894,7 +3874,7 @@ function closeTabRange(firstOrd, endOrd) {
     utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
     if (toEnd) tabs.remove(tabs.getTab());
 }
-window.closeTabRange = closeTabRange;
+
 function closeTabRangeInclusiveBidirectional(ordA, ordB=".") {
     "Close tabs in range [ordA, ordB] or [ordB, ordA]";
     var initTab = tabs.getTab();
@@ -3925,7 +3905,6 @@ function closeTabRangeInclusiveBidirectional(ordA, ordB=".") {
 
     return n;
 }
-window.closeTabRangeInclusiveBidirectional = closeTabRangeInclusiveBidirectional;
 
 function closeTabRangeExclusiveBidirectional(ordA, ordB=".") {
     "Close tabs in range [ordA, ordB) or (ordB, ordA]";
@@ -3978,7 +3957,6 @@ function tabURL(t) {
     return gBrowser.getBrowserForTab(t).contentDocument.URL;
 }
 function tabCount() { return tabs.allTabs.length; }
-window.tabCount = tabCount;
 
 function tabRangePreprocess(s) {
     var i = gBrowser.mCurrentTab.dactylOrdinal;
@@ -4065,7 +4043,6 @@ function tabRemoveWhile(f, directions=["forward", "reverse"]) {
     utils.message(`${N_closed} tabs closed`);
     return N_closed;
 }
-window.tabRemoveWhile = tabRemoveWhile;
 
 function tabCloseDuplicates(exact=true) {
     " if exact is false, treat adjacents with same domain as duplicates ";
@@ -4768,7 +4745,6 @@ function toggleGCLI() {
 var mozdevtools = {};
 for (tool of Array.from(gDevTools._tools))
     mozdevtools[tool[0]] = tool[1];
-window.mozdevtools = mozdevtools;
 
 function browserToolboxOn() {
     window.browsertoolbox = new BrowserToolboxProcess();
@@ -5378,7 +5354,6 @@ function addonToggle(id) {
         }
     });
 }
-window.addonToggle = addonToggle;
 
 function addonEnable(id, enable=true) {
     AddonManager.getAddonByID(id, function(addon) {
@@ -5390,7 +5365,6 @@ function addonEnable(id, enable=true) {
         }
     });
 }
-window.addonEnable = addonEnable;
 
 // getExtensions produces an array and passes it to an optional callback.
 // By default, it prints the result list and copies it to clipboard.
@@ -5403,7 +5377,6 @@ function getExtensions(arrayCallback) {
         arrayCallback.call(null, result);
     });
 }
-window.getExtensions = getExtensions;
 
 // from https://developer.mozilla.org/en-US/docs/Archive/Add-ons/Code_snippets/Toolbar#Adding_button_by_default
 /**
@@ -5434,12 +5407,10 @@ function installButton(toolbarId, id, afterId) {
             toolbar.collapsed = false;
     }
 }
-window.installButton = installButton;
 
 function navbarAddItem(itemID, afterID=null) {
     installButton('nav-bar', itemID, afterID);
 }
-window.navbarAddItem = navbarAddItem;
 
 function navbarToggleItem(itemID, afterID=null) {
     var navbar = document.getElementById('nav-bar');
@@ -5448,13 +5419,11 @@ function navbarToggleItem(itemID, afterID=null) {
     else
         navbarAddItem(itemID, afterID);
 }
-window.navbarToggleItem = navbarToggleItem;
 
 function navbarRemoveItem(itemID) {
     var navbar = document.getElementById('nav-bar');
     navbar.currentSet = navbar.currentSet.replace(','+itemID, '');
 }
-window.navbarRemoveItem = navbarRemoveItem;
 EOF
 
 " ,-------------,
@@ -5682,7 +5651,6 @@ map <ext>ssb -ex bmarksbarbuttontogglestyle
 map <ext>snb -js bookmarksToolbarButtonToggle();
 
 js <<EOF
-
 function bookmarksToolbarButtonToggle() {
     if (document.getElementById('reader-mode-button')) {
         navbarToggleItem("personal-bookmarks-menu-button", "reader-mode-button");
@@ -5697,8 +5665,6 @@ function bookmarksToolbarButtonToggle() {
         navbarToggleItem("personal-bookmarks-menu-button");
     }
     }
-window.bookmarksToolbarButtonToggle = bookmarksToolbarButtonToggle;
-
 EOF
 
 style -name=bmarksbar-button
@@ -5871,7 +5837,6 @@ function dlLinks(links, dir=null, subdir=null) {
     }
     dactyl.execute(`!zsh -c 'cd "${newdir}"; for x in ${s}; do wget $x; done;'`);
 }
-window.dlLinks = dlLinks;
 
 function dlChooseLinks(links, dir=null, title=null) {
     home = env.get("HOME");
@@ -5896,7 +5861,6 @@ function dlChooseLinks(links, dir=null, title=null) {
         dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; cat ${tempfile} | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
     }
 }
-window.dlChooseLinks = dlChooseLinks;
 
 function dlChoosePageLinks(dir=null) { dlChooseLinks(content.document.links, dir, buffer.title) }
 
@@ -6124,7 +6088,6 @@ function extractTableColumns(table, columns, strict=false) {
     }
     return output;
 }
-window.extractTableColumns = extractTableColumns;
 
 function copySpecifiedTableColumns(table, strict=false) {
     var extracted = extractTableColumns(table, window._dactylargs, strict);
@@ -6254,7 +6217,6 @@ function toggleUrl (x, y, x_canon, y_canon) {
         return newurl;
     }
 }
-window.toggleUrl = toggleUrl;
 
 function splitUrl(url) {
     var regex = /^([^?#]+)(\?([^#]*))?(#.*)?$/;
@@ -6265,7 +6227,6 @@ function splitUrl(url) {
     var queryComponents = query ? query.split("&") : [];
     return [urlMain, queryComponents, fragment];
 }
-window.splitUrl = splitUrl;
 
 function toggleQueryComponent(url, query, altQuery=null) {
     var newurl;
@@ -6287,13 +6248,11 @@ function toggleQueryComponent(url, query, altQuery=null) {
         newurl = url + "?" + query;
     return newurl;
 }
-window.toggleQueryComponent = toggleQueryComponent;
 
 function urlToggleQuery(query, altQuery=null) {
     var url = buffer.URL;
     content.window.location = toggleQueryComponent(url, query, altQuery);
 }
-window.urlToggleQuery = urlToggleQuery;
 
 viewPageSource = function() {
     var loc = content.location;
@@ -6456,7 +6415,6 @@ function pwHashGen(s, fromtab) {
             gBrowser.selectedTab = fromtab;
     });
 }
-window.pwHashGen = pwHashGen;
 
 function pwHashDomain(s, fromtab) {
     var domain = s.replace(/^\w+:\/\//,"").replace(/\/.*/,"").replace(/www\./,"").replace(/signin\./,"").replace(/reg\./,"");
@@ -6851,7 +6809,6 @@ js <<EOF
 function convertInchesToCm(elt) {
     elt.innerText = subCmForInches(elt.innerText);
 }
-window.convertInchesToCm = convertInchesToCm;
 EOF
 set eht+=[”]:h1,h2,h3,h4,h5,h6,p,li,td,dd,pre,.ReviewContent,.ProsConsContent
 js hints.addMode("”", "Convert Inches to centimeters", convertInchesToCm);
@@ -6989,7 +6946,6 @@ function placesGetLocation() {
     var url = placesView.querySelector('#editBMPanel_locationField').value;
     return url;
 }
-window.placesGetLocation = placesGetLocation;
 
 function placesCopyLocation() {
     utils.yankWithMsg(placesGetLocation());
@@ -11846,7 +11802,6 @@ function listActiveGroupMappings() {
 function netflixGetCards() {
     return Array.from(content.document.querySelectorAll('.title-card'));
 }
-window.netflixGetCards = netflixGetCards;
 
 function netflixGetCardLinks() {
     var cards = netflixGetCards();
@@ -11862,7 +11817,6 @@ function netflixGetCardLinks() {
     })
     return result;
 }
-window.netflixGetCardLinks = netflixGetCardLinks;
 
 function netflixGetCardLinksCompletions() {
     return netflixGetCardLinks().map(l=>{
@@ -11870,7 +11824,6 @@ function netflixGetCardLinksCompletions() {
         return [label.replace(/ /g, "_"), ""];
     });
 }
-window.netflixGetCardLinksCompletions = netflixGetCardLinksCompletions;
 
 function netflixClickCardByTitle(title) {
     var title = title.replace(/_/g, " ");
@@ -11878,7 +11831,6 @@ function netflixClickCardByTitle(title) {
     var link = links.find(l=>l && l.getAttribute("aria-label") && l.getAttribute("aria-label") == title);
     link.click();
 }
-window.netflixClickCardByTitle = netflixClickCardByTitle;
 
 function netflixMyProfile() {
     function scrollToSection() {
@@ -11904,7 +11856,6 @@ function netflixMyProfile() {
 
 var netflixGenres = JSON.parse(io.system("cat ~/.pentadactyl/data/netflix-genres.json").output);
 var netflixGenreList = Object.entries(netflixGenres);
-window.netflixGenres = netflixGenres;
 EOF
 
 command! netflixcard
@@ -11969,7 +11920,6 @@ function netflixGetTitleComponents() {
     var episode = seasonAndEpisode.length>1 ? parseInt(seasonAndEpisode[1].slice(1)) : '';
     return [seriesTitle, season, episode, episodeTitle];
 }
-window.netflixGetTitleComponents = netflixGetTitleComponents;
 
 function netflixYankTitle() {
     utils.cbWrite(netflixGetTitleComponents()[0]);
@@ -13607,7 +13557,6 @@ function wpParseURL(url=buffer.URL) {
         toString: function() { return this.url; }
     };
 }
-window.wpParseURL = wpParseURL;
 
 function wpGetUserPageHREF() { return getFirstSelector("#pt-userpage>a").href; }
 
@@ -13806,7 +13755,6 @@ function ytplayer() {
     var player = content.document.getElementById("movie_player");
     return player && player.wrappedJSObject;
 }
-window.ytplayer = ytplayer;
 
 var ytMinSpeed = 0.25;
 function ytGetSpeed() { return ytplayer() && ytplayer().getPlaybackRate(); }
@@ -14123,27 +14071,24 @@ function getSelectionHtml() {
     }
     return html;
 }
-window.getSelectionHtml = getSelectionHtml;
 
 function getSelectionDOM() {
     var str = getSelectionHtml();
     var parser = new DOMParser();
     return parser.parseFromString(str, "text/html");
 }
-window.getSelectionDOM = getSelectionDOM;
 
 " ,---------------------------, "
 " | Functions taking Elements | "
 " '---------------------------' "
 
-window.eltStyle = eltStyle = elt=>elt.currentStyle||content.window.getComputedStyle(elt, false);
+eltStyle = elt=>elt.currentStyle||content.window.getComputedStyle(elt, false);
 
 function getStyleProperty(elt, prop) {
     var style = eltStyle(elt);
     var val = style.getPropertyValue(prop);
     return val!="none" && val;
 }
-window.getStyleProperty = getStyleProperty;
 
 function getBackgroundImages() {
     var allElts = Array.from(content.document.getElementsByTagName("*"));
@@ -14173,7 +14118,6 @@ function removeSelectors(...sels) {
     var elts = getSelectors(...sels);
     elts.forEach(e=>e.parentNode.removeChild(e));
 }
-window.removeSelectors = removeSelectors;
 
 function removeSelectorFiltered(sel, pred) {
     var elts = getSelectors(sel).filter(pred);
@@ -14214,7 +14158,6 @@ function setBackground(sels, col="white") {
         elt.style.backgroundColor = col;
     }
 }
-window.setBackground = setBackground;
 
 function topElements() { return [...content.document.body.children] };
 
@@ -14270,14 +14213,12 @@ function hideElement(e) {
                        : css + " display: none !important;";
     e.setAttribute('style', newcss);
 }
-window.hideElement = hideElement;
 
 function unhideElement(e) {
     var css = e.getAttribute('style') || '';
     var hideregex = /(^|;| ) *display: *none *(!important)? *;/g;
     e.setAttribute('style', css.replace(hideregex, ''));
 }
-window.unhideElement = unhideElement;
 
 function hideSelectors(...sels) {
     var doc = content.document;
@@ -14356,7 +14297,6 @@ function getSelectorContent(sel, target='innerText') {
     return result;
 }
 
-window.getSelectorContent = getSelectorContent;
 function getSelectorsContent(sels, useInnerText=false) {
     if (typeof sels == "string") sels = [sels];
     result = [];
@@ -14366,7 +14306,6 @@ function getSelectorsContent(sels, useInnerText=false) {
     });
     return result;
 }
-window.getSelectorsContent = getSelectorsContent;
 
 function getSelectorsAttributeContent(attr, sels) {
     if (typeof sels == "string") sels = [sels];
@@ -14377,28 +14316,24 @@ function getSelectorsAttributeContent(attr, sels) {
     });
     return result;
 }
-window.getSelectorsAttributeContent = getSelectorsAttributeContent;
 
 function getSelectorWithMatchingAttribute(sel, att, expr) {
     var all_elts = Array.from(content.document.querySelectorAll(sel));
     var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
     return matching;
 }
-window.getSelectorWithMatchingAttribute = getSelectorWithMatchingAttribute;
 
 function getFirstSelectorWithMatchingAttribute(sel, att, expr) {
     var all_elts = Array.from(content.document.querySelectorAll(sel));
     var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
     return matching && matching[0];
 }
-window.getFirstSelectorWithMatchingAttribute = getFirstSelectorWithMatchingAttribute;
 
 function removeSelectorWithMatchingAttribute(sel, att, expr) {
     var all_elts = Array.from(content.document.querySelectorAll(sel));
     var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
     matching.forEach(e => e.parentNode.removeChild(e));
 }
-window.removeSelectorWithMatchingAttribute = removeSelectorWithMatchingAttribute;
 
 // TODO: allow multiple selectors (prevent duplication of elements)
 function countSelector(sel) {
@@ -14424,7 +14359,6 @@ function clickSelector(...sels) {
         }
     }
 }
-window.clickSelector = clickSelector;
 
 function clickSelectorAll(sel) {
     if (typeof sel == "string") {
@@ -14442,7 +14376,6 @@ function clickSelectorAll(sel) {
         }
     }
 }
-window.clickSelectorAll = clickSelectorAll;
 
 function dispatchClickSelector(sel) {
     if (typeof sel == "string") {
@@ -14454,20 +14387,17 @@ function dispatchClickSelector(sel) {
         dispatchClickEvent(sel);
     }
 }
-window.dispatchClickSelector = dispatchClickSelector;
 
 function dispatchClickEvent(elt) {
    var ev = document.createEvent("MouseEvents");
    ev.initEvent("click", true, true);
    elt.dispatchEvent(ev);
 }
-window.dispatchClickEvent = dispatchClickEvent;
 
 function getSelectorByText(sel, pattern, useInnerText=false) {
     var elts = getSelectors(sel);
     return elts.filter(elt => (useInnerText ? elt.innerText : elt.textContent).trim().match(pattern));
 }
-window.getSelectorByText = getSelectorByText;
 function getFirstSelectorByText(sel, pattern) {
     var elts = getSelectors(sel)
     return elts.find(elt => elt.textContent.trim().match(pattern));
@@ -14483,8 +14413,6 @@ function clickSelectorByText(sel, pattern) {
         return false;
     }
 }
-window.clickSelectorByText = clickSelectorByText;
-
 function clickSelectorByTextAll(sel, pattern) {
     var elts = getSelectorByText(sel, pattern);
     for (i=0; i<elts.length; ++i) {
@@ -14492,7 +14420,6 @@ function clickSelectorByTextAll(sel, pattern) {
     }
     return elts.length;
 }
-window.clickSelectorByTextAll = clickSelectorByTextAll;
 
 function openLinkBySelectorAll(sel) {
     var elts = content.document.querySelectorAll(sel);
@@ -14500,7 +14427,6 @@ function openLinkBySelectorAll(sel) {
         dactyl.open(elts[i].href, {where: "background-tab"});
     }
 }
-window.openLinkBySelectorAll = openLinkBySelectorAll;
 
 function getEltsUnderHeading(typeSel, specified, includeSpecified=true) {
     " Get all sibling elements following the specified selector until the next selector of the type ";
@@ -14517,7 +14443,6 @@ function getEltsUnderHeading(typeSel, specified, includeSpecified=true) {
     var endIdx = siblings.indexOf(nextOfType);
     return siblings.slice(startIdx, endIdx);
 }
-window.getEltsUnderHeading = getEltsUnderHeading;
 
 " ,------, "
 " | Tabs | "
@@ -14530,7 +14455,6 @@ function tabOpenURLAdjacent(url, background=false) {
     var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
     if (!background) tabs.select(t);
 }
-window.tabOpenURLAdjacent = tabOpenURLAdjacent;
 
 function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
     var search = `${searchEngine} ${searchTerm}`;
@@ -14564,7 +14488,6 @@ function openAndRunCode(url, f, where="tab") {
     var tb = gBrowser.getBrowserForTab(tabUsed);
     tb.addEventListener("DOMContentLoaded", f, { once: true });
 }
-window.openAndRunCode = openAndRunCode;
 
 /* See open: in dactyl.js - unlike dactyl.open(), only allows one URL for simplicity */
 function pageOpen(url, params={}, force=false) {
@@ -14744,7 +14667,7 @@ window.listNodes = listNodes;
 " | URLs and Filenames | "
 " '--------------------' "
 var re_label = /(?!-)[-a-z0-9\\u00a1-\\uffff]*[a-z0-9\\u00a1-\\uffff]/;
-window.re_label = re_label;
+
 var re_http_url = new RegExp(
     "(https?://|localhost:)?" +
     `((?:${re_label.source}[.])*${re_label.source})` + "(:\\d+)?" +
@@ -14752,12 +14675,10 @@ var re_http_url = new RegExp(
     "(\\?[^# \\t]+)?" +
     "(#\\S+)?"
 );
-window.re_http_url = re_http_url;
+
 var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query", "fragment"];
-window.re_http_url_groups = re_http_url_groups;
 
 var re_url = /^([a-zA-Z][a-zA-Z0-9+.-]*):(\/\/([^/:@?#]+@)?([^/:@?#]+)(:[^/:@?#]+)?)?(\/[^:@?#]*)([?][^/:@?#]+)?(#[^/:@?#]+)?/;
-window.re_url = re_url;
 
 function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
@@ -14800,7 +14721,6 @@ function urlDomain(url, withProtocol=false, dropSubdomains=0) {
         return (withProtocol?protocol:"") + domain;
     }
 }
-window.urlDomain = urlDomain;
 
 function urlProtocol(url) {
     var protocolMatch = url.match(/^[^:]+:/);
@@ -14820,7 +14740,6 @@ function escapeFilename(f) { return f.replace(/[\[\]\-\\^ '!#$&()*,;<>?`{}|~]/g,
 function escapeFilenameUnescapedChars(f) {
     return f.replace(/\\?(\[|\]|-|\\|\^| |!|#|\$|&|\(|\)|\*|,|;|<|>|\?|`|{|}|\||~|')/g, "\\$&")
 }
-window.escapeFilenameUnescapedChars = escapeFilenameUnescapedChars;
 
 function getHomeDirAsFileURL() {
     var homedir = io.system('echo $HOME').output;
@@ -14836,7 +14755,6 @@ function getLinksWithMatchingUrl(s) {
     var matching = links.filter(l=>l.href.match(s));
     return matching;
 }
-window.getLinksWithMatchingUrl = getLinksWithMatchingUrl;
 
 " ,------------, "
 " | conversion | "
@@ -14880,7 +14798,6 @@ function subAUDforUSD(s) {
     };
     return s.replace(regex, replaceFn);
 }
-window.subAUDforUSD = subAUDforUSD;
 
 function updateUSDAUDexchange() {
     var url=`http://openexchangerates.org/latest.json?app_id=${dactyl.user.myopenexchangeratesappid}&base=USD`;
@@ -14896,7 +14813,6 @@ function updateUSDAUDexchange() {
 
 function setUSDAUDexchange(rate) { return window.AUDperUSD = rate; }
 function getUSDAUDexchange() { return window.AUDperUSD; }
-window.getUSDAUDexchange = getUSDAUDexchange;
 
 function multiplyNumWithUnit(m, str) {
     var strMatch = str.match(/([0-9.]+)(.*)/);
@@ -14904,7 +14820,6 @@ function multiplyNumWithUnit(m, str) {
     var unit = strMatch && strMatch[2];
     return String(num * m) + unit;
 }
-window.multiplyNumWithUnit = multiplyNumWithUnit;
 
 " ,------------, "
 " | formatting | "
@@ -15139,7 +15054,6 @@ function savePageDialog(doc=content.document) {
         }
     });
 }
-window.savePageDialog = savePageDialog;
 
 function saveDOM(file, doc=content.document) {
     var nsifile = new FileUtils.File(file);
@@ -15147,7 +15061,6 @@ function saveDOM(file, doc=content.document) {
     var wbp = wbpc.createInstance(Components.interfaces.nsIWebBrowserPersist);
     wbp.saveDocument(doc, nsifile, null, null, null, null);
 }
-window.saveDOM = saveDOM;
 
 function writeToFile(s, filepath, append=false, overwrite=false) {
     var file = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
@@ -15163,7 +15076,6 @@ function writeToFile(s, filepath, append=false, overwrite=false) {
     var bytesWritten = outputStream.write(s, s.length);
     utils.message(`${bytesWritten} bytes written to ${filepath}`);
 }
-window.writeToFile = writeToFile;
 
 function docToPageName(doc=content.document) {
     var names = Buffer.getDefaultNames(doc);
@@ -15215,7 +15127,6 @@ function openHTML(html, where='tab') {
     var dataURI = "data:text/html," + encodeURIComponent(html);
     dactyl.open(dataURI, where);
 }
-window.openHTML = openHTML;
 
 function isAscii(s) {
     return Array.from(s).every(c=>c.charCodeAt(0) <= 128);
@@ -15309,7 +15220,6 @@ function searchCommandSets(regex) {
            utils.message(cmd.id+': '+cmd.oncommand);
     }
 }
-window.searchCommandSets = searchCommandSets;
 
 function getMenuItems(regex) {
     var mitems = document.querySelectorAll('menuitem');
@@ -15320,7 +15230,6 @@ function getMenuItems(regex) {
     }
     return result;
 }
-window.getMenuItems = getMenuItems;
 
 function removeXPath(xpathexpr) {
     var elts =
@@ -15367,7 +15276,6 @@ function copyqNItemString(n, sep=" ") {
               'copyq read ' + (n-1);
     return io.system(cmd).output
 }
-window.copyqNItemString = copyqNItemString;
 
 function getDate(fmt='%y-%m-%d-%T') {
     return io.system(`date '+${fmt}'`).output;
