@@ -103,6 +103,12 @@ window.WebBrowserPersist = WebBrowserPersist;
 
 var nsISessionStore = XpcService("@mozilla.org/browser/sessionstore;1", Components.interfaces.nsISessionStore)
 
+" Firefox current directory ";
+function ffWorkingDir() {
+    var nsIDirServiceP = XpcService("@mozilla.org/file/directory_service;1", Ci.nsIDirectoryServiceProvider);
+    return nsIDirServiceP.getFile("CurWorkD", {}).path;
+}
+
 "Firefox Preferences"
 var prefservice = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
 function prefbranch(branch) { return prefservice.getBranch(branch); }
