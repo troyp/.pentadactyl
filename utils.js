@@ -41,6 +41,15 @@ var utils = {
         return N;
     },
 
+    closeTabsFromToInclusive: function (firstSpec, endSpecExc, spec='') {
+	      var firstIx = tabs.indexFromSpec(firstSpec);
+	      var endIx = tabs.indexFromSpec(endSpecExc);
+	      var firstTab = tabs.getTab(firstIx);
+	      var N = endIx - firstIx + 1;
+	      tabs.remove(firstTab, N);
+        return N;
+    },
+
     numberOfTabs: function () { return tabs.allTabs.length; },
 
     removeTab: function (ord) {
