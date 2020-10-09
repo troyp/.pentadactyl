@@ -13536,7 +13536,6 @@ function wpGotoWikipedia(where='here', lang='en') {
     var topic = wpGetTopicOrSearchTerm().toLowerCase();
     dactyl.open(`https://${lang}.wikipedia.org/w/index.php?search=${topic}`, where);
 }
-}
 
 function wpGetSearchCommandForSite(url=buffer.URL, invert=false) {
     if (invert)
