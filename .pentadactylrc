@@ -6255,6 +6255,8 @@ function splitUrl(url) {
 }
 
 function toggleQueryComponent(url, query, altQuery=null) {
+    if (query instanceof RegExp) query = query.source;
+    if (altQuery instanceof RegExp) altQuery = altQuery.source;
     var newurl;
     var qRegexFinal = RegExp("[?&]"+query+"$");
     var qRegexNonfinal = RegExp(query+"[&#]");
