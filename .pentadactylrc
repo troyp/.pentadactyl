@@ -9044,6 +9044,7 @@ map <site>d        -description "(show bindings: Github/Download)" -js CommandEx
 map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
 map <site>dp       -description "Download patch file" -b :ghdlpatch<Space>
 map <site>dr       -description "Download raw file" -js savePageDialog(ghConvertUrlToRaw());
+map <site>d;r      -description "Download raw file (hints)" -js hints.show("ⓖ");
 map <site>dR       -description "Download this README to /opt/doc/" -ex ghsavethisreadmetodoc
 
 map <site>g        -description "(show bindings: Github/Git)" -js CommandExMode().open("showkeys <site>g")
