@@ -89,7 +89,7 @@ var env = XpcService("@mozilla.org/process/environment;1",
 window.env = env;
 
 var user = dactyl.utils.getPlugin("personal");
-var homedir = "/home/troy";
+var homedir = env.get("HOME");
 var musicdir = homedir + "/Music/Music";
 var downloadsdir = homedir + "/Downloads";
 
@@ -5821,7 +5821,7 @@ function appendLinkTextAndUrls (urlFirst=null, sort=null) {
 }
 
 function dlLinks(links, dir=null, subdir=null) {
-    home = env.get("HOME");
+    home = homedir;
     dir = dir || `${home}/Downloads`;
     var newdir;
     if (subdir) {
@@ -5840,7 +5840,7 @@ function dlLinks(links, dir=null, subdir=null) {
 }
 
 function dlChooseLinks(links, dir=null, title=null) {
-    home = env.get("HOME");
+    home = homedir;
     dir = dir || `${home}/Downloads`;
     var title = title || "downloads";
     var newdir = `${dir}/${title}`;
@@ -15011,7 +15011,7 @@ function wget(url=null, optstr="", dirpref="~/Downloads") {
     if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
     else url = buffer.URL;
     var title = buffer.title;
-    dirpref = dirpref.replace("~", env.get("HOME"));
+    dirpref = dirpref.replace("~", homedir);
     var savedir = `${dirpref}/${title}`;
     dactyl.execute(`!mkdir '${savedir}' || echo "Directory already exists."`);
     dactyl.execute(`!wget ${optstr} -P '${savedir}' ${url}`);
@@ -15030,7 +15030,7 @@ function curl(url, dir, title, optstr, force) {
     else url = buffer.URL;
     optstr = optstr || "";
     dir = dir || "~/Downloads";
-    dir = dir.replace("~", env.get("HOME"));
+    dir = dir.replace("~", homedir);
     title = title || decodeURIComponent(buffer.URL).replace(/.*\//,"");
     var savepath = `${dir}/${title}`;
     dactyl.execute(`!mkdir -p '${dir}'`);
