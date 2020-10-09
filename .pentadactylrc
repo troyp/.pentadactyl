@@ -9377,7 +9377,7 @@ function ghOpenHelp(where='here') {
     window.setTimeout(()=>dactyl.execute('normal gi'), 1200);
 }
 
-function ghConvertUrlToRaw(url) {
+function ghConvertUrlToRaw(url=buffer.URL) {
     [user, repo, relpath] = ghGetUrlComponents(url);
     raw_relpath = relpath.replace(/^\/(blob|tree)\//, '/');
     var rawurl = `https://raw.githubusercontent.com/${user}/${repo}${raw_relpath}`;
