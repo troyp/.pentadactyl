@@ -14868,10 +14868,6 @@ function stringToSmartCaseRegExp(s) {
     return RegExp(s, s.match(/[A-Z]/) ? '' : 'i' );
 }
 
-function regExpStringRemoveDelimiters(regex) {
-    return String(regex).replace(/^\/|\/$/g,"");
-}
-
 function cutoff(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
