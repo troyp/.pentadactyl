@@ -3631,10 +3631,10 @@ map <C-S-K> -description "Close tabs to left (inclusive)" <buffer><d
 map <buffer>1 -description "Close all other tabs" -ex tabonly
 map <buffer><
 \    -description "Close all (or count) tabs to the left of the current tab"
-\    -js closeTabsToLeft(count);
+\    -js tabCloseNToLeft(count);
 map <buffer>>
 \    -description "Close all (or count) tabs to the right of the current tab"
-\    -js closeTabsToRight(count);
+\    -js tabCloseNToRight(count);
 " close adjacent duplicates "
 map <A-S-Space> -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
 
@@ -3790,11 +3790,11 @@ EOF
 command! tc
     \ -description "close tab range [START, END]"
     \ -nargs=+
-    \ -js utils.message(closeTabRangeInclusiveBidirectional(args[0], args[1]));
+    \ -js utils.message(tabCloseOrdRangeInclusiveBidirectional(args[0], args[1]));
 command! tcx
     \ -description "close tab range [START, END)"
     \ -nargs=+
-    \ -js utils.message(closeTabRangeExclusiveBidirectional(args[0], args[1]));
+    \ -js utils.message(tabCloseOrdRangeExclusiveBidirectional(args[0], args[1]));
 
 " filter tabs "
 command! tabfilter
@@ -3853,12 +3853,12 @@ command! tabclosefromhereto
 \ -description "Close tabs from the current tab (incl) to the chosen tab (incl)"
 \ -nargs=1
 \ -complete=buffer
-\ -js closeTabsFromHereTo(args[0]);
+\ -js tabCloseFromHereToOrd(args[0]);
 command! tabclosefromherebefore
 \ -description "Close tabs from the current tab (incl) to the chosen tab (excl)"
 \ -nargs=1
 \ -complete=buffer
-\ -js closeTabsFromHereTo(parseInt(args[0])-1);
+\ -js tabCloseFromHereToOrd(parseInt(args[0])-1);
 
 command! tabcloseranges
 \    -description "Close a list tabs or tab ranges separated by spaces or commas"
@@ -3867,14 +3867,14 @@ command! tabcloseranges
 \    -js tabCloseRanges(args.join(","));
 
 js <<EOF
-function closeTabsToLeft(n) {
+function tabCloseNToLeft(n) {
     var firstTab = tabs.getTab(0);
     if (n==null) {
         var numToClose = tabs.getTab().dactylOrdinal - 1;
         tabs.remove(firstTab, numToClose);
     } else tabs.remove(firstTab, n);
 }
-function closeTabsToRight(n) {
+function tabCloseNToRight(n) {
     tabIndex = tabs.getTab().dactylOrdinal - 1;
     var nextTabIndex = tabIndex + 1;
     var firstTab = tabs.getTab(nextTabIndex);
@@ -3885,7 +3885,7 @@ function closeTabsToRight(n) {
     } else tabs.remove(firstTab, n);
 }
 
-function closeTabRange(firstOrd, endOrd) {
+function tabCloseOrdRange(firstOrd, endOrd) {
     "Close tabs from firstOrd to endOrd-1"
     if (firstOrd == '.') firstOrd = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
     if (endOrd == '.')   endOrd   = gBrowser.mCurrentTab.dactylOrdinal;  /* current */
@@ -3933,7 +3933,7 @@ function closeTabRangeInclusiveBidirectional(ordA, ordB=".") {
     return n;
 }
 
-function closeTabRangeExclusiveBidirectional(ordA, ordB=".") {
+function tabCloseOrdRangeExclusiveBidirectional(ordA, ordB=".") {
     "Close tabs in range [ordA, ordB) or (ordB, ordA]";
     var initTab = tabs.getTab();
     var initIdx = curTab._tPos;
@@ -3961,8 +3961,8 @@ function closeTabRangeExclusiveBidirectional(ordA, ordB=".") {
 
     return n;
 }
-function closeTabsFromHereTo(endOrd) {
-    closeTabRange(gBrowser.mCurrentTab.dactylOrdinal, parseInt(endOrd));
+function tabCloseFromHereToOrd(endOrd) {
+    tabCloseOrdRange(gBrowser.mCurrentTab.dactylOrdinal, parseInt(endOrd));
 }
 function tabIdxToOrd (idx) { return idx+1; }
 function tabOrdToIdx (ord) { return ord-1; }
@@ -8959,14 +8959,14 @@ group gclinkconvert -locations=decrypt2.safelinkconverter.com
 map <site>c -description "Convert Link" -js gcConvertLink();
 map <site>d -description "Close tabs" -js gcClose();
 
-command! gcclose -js closeTabsLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//, 3);
+command! gcclose -js tabCloseLeftWhileMatching(/(getcomics.g.|shorte.st|sh.st|viid.me|safelinkconverter.com)\//, 3);
 
 js <<EOF
 function gcConvertLinkOrClose() {
     var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
     var redirect = content.document.querySelector('.redirect_url div');
     if (redirect.innerText.match(/three.comicfiles.ru/)) {
-        closeTabsLeftWhileMatching(URLsRegex, 3);
+        tabCloseLeftWhileMatching(URLsRegex, 3);
         utils.message("three")
     }
     else {
@@ -8981,7 +8981,7 @@ function gcConvertLink() {
 
 function gcClose() {
     var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
-    closeTabsLeftWhileMatching(URLsRegex, 3);
+    tabCloseLeftWhileMatching(URLsRegex, 3);
 }
 EOF
 
@@ -8995,7 +8995,7 @@ js <<EOF
 function shortestClickOrClose() {
     var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
     if (content.document.alreadyClicked)
-        closeTabsLeftWhileMatching(URLsRegex, 3);
+        tabCloseLeftWhileMatching(URLsRegex, 3);
     else {
         shortestClick();
         content.document.alreadyClicked = true;
@@ -9007,7 +9007,7 @@ function shortestClick() {
 }
 function shortestClose() {
     var URLsRegex = /(getcomics.g.|shorte.st|sh.st|viid.me|cllkme.com|safelinkconverter.com)\//;
-    closeTabsLeftWhileMatching(URLsRegex, 3);
+    tabCloseLeftWhileMatching(URLsRegex, 3);
 }
 EOF
 
@@ -14541,7 +14541,7 @@ function pageOpen(url, params={}, force=false) {
 }
 window.pageOpen = pageOpen;
 
-function closeTabsLeftWhileMatching(regex, n) {
+function tabCloseLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
     "n = max tabs to close";
     var currentTab = tabs.getTab();
