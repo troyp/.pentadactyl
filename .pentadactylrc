@@ -9187,7 +9187,7 @@ js hints.addMode("🄶", "open raw file", e=>dactyl.open(e.href+'?raw=true', whe
 set eht+=🅶:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("🅶", "open raw file (new tab)", e=>dactyl.open(e.href+'?raw=true', where='tab'));
 set eht+=ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
-js hints.addMode("ⓖ", "download raw file", e=>savePageDialog(ghConvertUrlToRaw(e.href)));
+js hints.addMode("ⓖ", "download raw file", e=>CommandExMode().open(`wget ${ghConvertUrlToRaw(e.href)} `));
 set eht+=Ⓖ:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode("Ⓖ", "copy raw file url", e=>utils.yankWithMsg(ghConvertUrlToRaw(e.href), where='tab'));
 set eht+=🄪:'.js-zeroclipboard','.sha'
