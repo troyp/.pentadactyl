@@ -14417,6 +14417,9 @@ function getFirstSelectorByText(sel, pattern) {
 }
 window.getFirstSelectorByText = getFirstSelectorByText;
 
+" Note: to choose a selector from those with given text, ";
+"       you can use an appropriate hint mode with        ";
+"           hints.show(mode, { filter:<TEXT> });         ";
 function clickSelectorByText(sel, pattern) {
     var selectors = getSelectorByText(sel, pattern);
     if (selectors.length) {
