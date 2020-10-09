@@ -3994,7 +3994,8 @@ function tabCloseRanges(...ss) {
 
 function tabRemove(f) {
     /* takes a function of 1 to 3 args (current tab, [current ordinal, [original ordinal]]) */
-    var currentOrd = tabs.getTab().dactylOrdinal;
+    var currentTab = tabs.getTab();
+    var currentOrd = currentTab.dactylOrdinal;
     var alltabs = Array.from(tabs.allTabs);
     var N_0 = alltabs.length;  /* initial number of tabs */
     var i, t;
@@ -4005,6 +4006,7 @@ function tabRemove(f) {
         if (f(t, i+1, currentOrd)) tabs.remove(tab_i);
     }
     var N_closed = N_0 - tabCount();
+    tabs.select(isNaN(currentTab.dactylOrdinal) ? currentOrd : currentTab);
     utils.message(`${N_closed} tabs closed`);
     return N_closed;
 }
