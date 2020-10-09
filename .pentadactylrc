@@ -14057,6 +14057,14 @@ window.fconst = fconst;
 window.ftrue = ftrue;
 window.ffalse = ffalse;
 
+function array2dGetColumnMaxima(rows, nCols=rows[0].length) {
+    var zeroes = []; for (i=0; i<nCols; ++i) zeroes.push(0);
+    return rows.reduce(
+        (acc,val)=> acc.map((acci,i) => i in val ? Math.max(acci, val[i]) : acci),
+        zeroes
+    );
+}
+
 " ,-----------, "
 " | Selection | "
 " '-----------' "
