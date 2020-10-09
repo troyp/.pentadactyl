@@ -11,14 +11,96 @@ js group.options.add(["audexchange", "aud"], "$AU exchange rate in $US", "number
 " | Keybindings |
 " '-------------'
 
+map <buffer>dk      -description "Close all tabs except first matching each pattern" -b :tabkeepfirst<Space>
+
+map <leader>nb -description "Remove background" -js content.document.body.background='';
+map <leader>nm -description "Isolate #main" -js isolateSelectors("#main");
+
 " undo "
 map -modes command-line -b <C-/> <C-z>
 map -modes insert <C-/> <C-v><C-z>
+
+" Insert-mode clipboard bindings "
+"FIXME"
+map <clipboard-select-2nd-line> -modes insert -js io.system("copyq select 1");
+map <C-S-v> -modes insert <clipboard-select-2nd-line><C-v>
+map <f7> -modes insert <clipboard-select-2nd-line><C-v>
 
 " Snippet pseudo-key "
 map -modes command-line,insert <snip> <f8>
 map -modes command-line,insert <snip><C-h> :map <Lt>snip
 
+" -----------------------------------------------------------------------------
+" ,----------,
+" | Commands |
+" '----------'
+" Alternative save-clipboard command "
+command! savecb
+\    -description "Save clipboard text to file. :savecbtext FILE"
+\    -nargs 1
+\    -complete dir
+\    -b :!xclip -o > "<args>"<CR>
+
+" ,---------------,
+" | Alias Command |
+" '---------------'
+" FIXME
+js <<EOF
+createAlias = function(alias, def) {
+  var cmd = "dactyl.execute(\"'" + def + "' + (bang ? '! ' : ' ') + ' '.join(args);\")"
+  dactyl.execute("command! " + alias + " -nargs=* -bang -js " + cmd);
+}
+EOF
+
+command! alias -nargs=+
+\    -js createAlias(args[0], args[1]);
+
+" ,------------------,
+" | Replace selector |
+" '------------------'
+
+command! replaceselectortext
+\    -description "Replace selector text"
+\    -js regexReplaceSelectorText(
+\            window.prompt("SELECTOR: "),
+\            window.prompt("REGEX: "),
+\            window.prompt("replacement: ")
+\        );
+
+js <<EOF
+function regexReplaceText(getTextFn, setTextFn, regex, replace) {
+    var text = getTextFn();
+    setTextFn(text.replace(regex, replace));
+}
+function regexReplaceSelectorText(sel, regex, replace) {
+    var elts = getSelectors(sel);
+    for (elt of elts) {
+        regexReplaceText(()=>elt.textContent, (s)=>elt.textContent = s, regex, replace);
+    }
+}
+function sedReplaceText(getTextFn, setTextFn, sedcmd) {
+    var text = getTextFn();
+    var cmdRes = io.system(`cat <<< '${text}' | sed '${regex}'`);
+    setTextFn(cmdRes.output);
+}
+EOF
+
+" ,---------,
+" | History |
+" '---------'
+js <<EOF
+function getHistoryItems(filter, n) { return Array.from(history.get(filter || (_=>true), n)); }
+function mapHistoryItems(f, filter, n) {
+     var items = getHistoryItems(filter, n);
+     return items.map(f);
+}
+function tabOpenHistoryItems(filter, n) {
+    var items = getHistoryItems(filter, n);
+    return items.map(h=>dactyl.open(h.url, {where: "tab"}));
+}
+EOF
+
+command! tabopenhistoryitems -nargs + -js tabOpenHistoryItems(parseInt(args[1]), eval(args[0]))
 
 " -----------------------------------------------------------------------------
 " ,--------,
@@ -74,24 +156,57 @@ style -name=fixruby japanese.stackexchange.com
 " not working
 style highlight-tree-row * treechildren::-moz-tree-row(selected) { bg-color: #ABD0ED !important; }
 
-" -----------------------------------------------------------------------------
-" ,---------------,
-" | Alias Command |
-" '---------------'
-" FIXME
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | Functions |
+" '-----------'
 
 js <<EOF
 
-createAlias = function(alias, def) {
-  var cmd = "dactyl.execute(\"'" + def + "' + (bang ? '! ' : ' ') + ' '.join(args);\")"
-  dactyl.execute("command! " + alias + " -nargs=* -bang -js " + cmd);
+function keywordSearchSubstitute(engine, input) {
+    var res;
+    for (i=0; i<engine.length; ++i) {
+        var c = engine[i];
+        if (!escaped && c != "%") {
+            res += c;
+        } else if (!escaped && c == "%") {
+            escaped = true;
+        } else if (escaped && c == "%") {
+            res += "%";
+            escaped = false;
+        } else if (escaped && c == "s") {
+            res += input.replace("#", "%23").replace("%", "%25").replace("/", "%2F").replace("@", "%40");
+        } else if (escaped && c == "S") {
+            res += input;
+        } else {
+            res += "%" + c;
+        }
+    }
+    return res;
+}
+
+function keywordSearchTwoStageSubstitute(engine, template, input) {
+    return keywordSearchSubstitute(
+               engine,
+               keywordSearchSubstitute(template, input));
+}
+
+/* FIX ME */
+function saveURLDialog(url) {
+    var fp = XpcInstance("@mozilla.org/filepicker;1", nsIFilePicker);
+    fp.init(content.window, "save file", nsIFilePicker.modeSave);
+    fp.appendFilters(nsIFilePicker.filterText);
+    fp.appendFilters(nsIFilePicker.filterAll);
+    fp.defaultString = urlGetNthSuffix(url);
+    fp.open(function(rv) {
+        if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
+            alert(fp.file.load().name);
+            io.system(`curl ${url} > ${fp.file}`);
+        }
+    });
 }
 
 EOF
-
-command! alias -nargs=+
-\    -js createAlias(args[0], args[1]);
-
 
 " -----------------------------------------------------------------------------
 " ,-----------,
@@ -131,6 +246,16 @@ command! pz -description "PageZipper"
 "map -modes pass-through -b <A-7> <C-7>
 "map -modes pass-through -b <A-8> <C-8>
 "map -modes pass-through -b <A-9> <C-9>
+
+" -----------------------------------------------------------------------------
+" ,-------------,
+" | SVG Crowbar |
+" '-------------'
+
+function svgCrowbarCompletions() {
+    var divs = getSelectors("div.svg-crowbar>button").map(btn=>btn.parentElement);
+    return divs.map(div=>[div.textContent, div]);
+}
 
 " -----------------------------------------------------------------------------
 " ,------------------,
@@ -528,4 +653,63 @@ function packtIsTodaysBookInLibrary() {
     var grepPage = io.system(`curl -s https://www.packtpub.com/account/my-ebooks | grep -F '${todaysTitle}'`);
     return grepPage.returnValue==0;
 }
+EOF
+
+" -------------------------------------------------------------------------------
+" ,------------,
+" | Figurosity |
+" '------------'
+js <<EOF
+function figurosityDownloadPose(dir=null, sleep=true) {
+    dir = dir || homedir+"/ebooks/art/_images/figurosity";
+    var cmd = figurosityDownloadPoseCmd(sleep);
+    io.system(`mkdir -p "${dir}"; cd "${dir}"; ${cmd}`)
+}
+function figurosityGetPose(type=null, i=null) {
+    var src = figurosityGetImageUrl();
+    var regex = /(.*\/)(normal|nude|muscle|smooth)(.*pose-)(\d+)(.*)/;
+    var matches = src.match(regex);
+    var url = matches[1]+(type||matches[2])+matches[3]+(i==null ? matches[4] : sprintf("%02d", matches[4])+matches[5]);
+    return url;
+}
+"FIXME"
+function figurosityViewPose(type=null, i=null, where="here") {
+    var url = figurosityGetPose(type, i);
+    dactyl.open(url, {where: where});
+}
+EOF
+
+" -------------------------------------------------------------------------------
+" ,-----------,
+" | Wikipedia |
+" '-----------'
+
+" command! wpyanktitleorsearchterm -js utils.yankWithMsg(wpGetTopicOrSearchTerm());
+" command! wpyanktitle -js utils.yankWithMsg(wpGetTopic());
+
+js <<EOF
+function wpYankRHSBoxes() {
+    var infobox  = getFirstSelector(".infobox").innerText;
+    var quotebox = getFirstSelector(".floatright.quotebox");
+    var xpdopen  = getFirstSelector( "#rhs_block .xpdopen").innerText;
+    var rhsTable = getSelectorWithMatchingAttribute("table","style",/float: ?right/);
+    infobox  && infobox
+    quotebox && quotebox
+    xpdopen  && xpdopen
+    rhsTable && rhsTable
+}
+
+function wpGetScriptSourceURL(url=buffer.URL) {
+    var {subdomain, siteName, title} = wpParseURL(url);
+    return `https://${subdomain}.${siteName}.org/w/index.php?title=${title}&action=raw&ctype=text/javascript`;
+}
+
+function wpGetNyms() {
+    var spans = getSelectors("span.nyms");
+    var hdSpanSelectors = A.concatMap(["Synonyms","Hyponyms","Hypernyms","Coordinate_terms"], type=>["h4>span#"+type, "h5>span#"+type]);
+    var hdSpans = getSelectors(...hdSpanSelectors);
+    var uls = hdSpans.map(e=>e.parentElement.nextElementSibling);
+    return spans.map(e=>e.textContent).concat(uls.map((e,i)=>hdSpans[i].textContent+"\n"+e.textContent));
+}
+
 EOF
