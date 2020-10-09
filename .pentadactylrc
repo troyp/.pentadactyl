@@ -8376,11 +8376,11 @@ function dactylresGetRelativeFilePath() {
     }
 }
 function dactylresOpenInEmacsclient() {
-    var path = getHomeDir() + 'source/git-repos/dactyl/' + dactylresGetRelativeFilePath();
+    var path = homedir + 'source/git-repos/dactyl/' + dactylresGetRelativeFilePath();
     dactyl.execute(`!emacsclient ${path}`);
 }
 function dactylresOpenMyForkInEmacsclient() {
-    var path = getHomeDir() + 'repos/dactyl/' + dactylresGetRelativeFilePath();
+    var path = homedir + 'repos/dactyl/' + dactylresGetRelativeFilePath();
     dactyl.execute(`!emacsclient ${path}`);
 }
 EOF
@@ -14778,15 +14778,6 @@ function escapeFilename(f) { return f.replace(/[\[\]\-\\^ '!#$&()*,;<>?`{}|~]/g,
 "   Pentadactyl's completion only escaped spaces. "
 function escapeFilenameUnescapedChars(f) {
     return f.replace(/\\?(\[|\]|-|\\|\^| |!|#|\$|&|\(|\)|\*|,|;|<|>|\?|`|{|}|\||~|')/g, "\\$&")
-}
-
-function getHomeDirAsFileURL() {
-    var homedir = io.system('echo $HOME').output;
-    return `file://${homedir}/`;
-}
-function getHomeDir() {
-    var homedir = io.system('echo $HOME').output;
-    return homedir+'/';
 }
 
 function getLinksWithMatchingUrl(s) {
