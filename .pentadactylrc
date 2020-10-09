@@ -12624,11 +12624,8 @@ function redditTidy()   {
     }
     var allDivs = getSelectors("div");
     allDivs.forEach(d=>(Array.from(d.children)).every(e=>e.nodeName=="BUTTON") && d.remove());
-    removeSelectors(
-        "icon", "button",
-        "body>div>div>div:nth-of-type(2)",
-        "body>div>div>div:nth-of-type(3)"
-    );
+    removeSelectors(".icon");
+    getSelectors("button").forEach(e=>!e.classList.contains("CommentSort--SortPicker") && e.remove());
 }
 
 
