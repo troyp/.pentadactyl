@@ -85,6 +85,14 @@ var utils = {
 
     sourceFromPath: function(s) { dactyl.execute("source " + options.runtimepath + "/" + s); },
 
+    sprintObject: function(x) {
+        var s="";
+        for (i in x) {
+            if (x.hasOwnProperty(i)) s+= `${i}: ${x[i]}\n`;
+        }
+        return s;
+    },
+
     message: function (s, hlType=commandline.HL_INFOMSG) {
         s = String(s);
         commandline.echo(s,
@@ -104,6 +112,19 @@ var utils = {
             utils.message(msg);
         }
         return s;
+    },
+
+    messageCollection: function(coll, maxL=30) {
+        s = Array.from(coll).reduce((s,i)=>`${s}\n${i}`);
+        var lines = s.split('\n');
+        if (lines.length < maxL) {
+            utils.message(s);
+        }
+        else {
+            var msg = lines.slice(0, maxL).join('\n') + "\n....<clip>";
+            utils.message(msg);
+        }
+        return coll;
     },
 
     tempmessage: function (s) {
