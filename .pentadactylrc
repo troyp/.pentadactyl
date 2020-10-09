@@ -14509,7 +14509,10 @@ function openAndRunCode(url, f, where="tab") {
 function pageOpen(url, params={}, force=false) {
     if (typeof params == "string") params = { where: params };
     if (params.where == dactyl.NEW_ADJACENT_TAB) {
-        tabOpenAdjacent(url, false, force);
+        if (url.split(" ").length==1 && url.match(re_url))
+            tabOpenURLAdjacent(url, false, force);
+        else
+            tabOpenAdjacent(url);
     } else if (params.where == dactyl.NEW_ADJACENT_BACKGROUND_TAB) {
         tabOpenURLAdjacent(url, true, force);
     } else {
