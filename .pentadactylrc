@@ -3460,10 +3460,21 @@ command! imgsalttotitle
     \ -description "Add ALT text to TITLE for all images on page"
     \ -js imgsAddAltTextToTitle();
 
-command! wget -nargs=* -js wget(args[0], args[1], args[2]);
-command! wgetm -nargs=* -js wgetm(args[0], args[1], args[2]);
-command! wget1 -nargs=* -js wget1(args[0], args[1], args[2]);
-command! curlto -nargs=? -complete=dir -js curl(null, args[0]);
+command! wget
+\    -description "wget URL DIR FILE OPTS: Use wget to download URL as FILE in DIR using OPTS"
+\    -nargs=*
+\    -complete file
+\    -js wget(...args);
+command! wgetm
+\    -description "wget URL DIR OPTS: Use wget to mirror URL in DIR using OPTS"
+\    -nargs=*
+\    -complete file
+\    -js wgetm(args[0], args[1], args[3]);
+command! curl
+\    -description "curl URL DIR FILE: Use curl to download URL to FILE in DIR"
+\    -nargs +
+\    -complete file
+\    -js curl(...args);
 
 " Exchange Rate Info "
 command! updateUSDAUDexchange -js updateUSDAUDexchange();
@@ -15034,31 +15045,30 @@ function mimeopenAndSetAppFile(f) {
 " ,--------, "
 " | Saving | "
 " '--------' "
-function wget(url=null, optstr="", dirpref="~/Downloads") {
-    if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
-    else url = buffer.URL;
-    var title = buffer.title;
-    dirpref = dirpref.replace("~", homedir);
-    var savedir = `${dirpref}/${title}`;
-    dactyl.execute(`!mkdir '${savedir}' || echo "Directory already exists."`);
-    dactyl.execute(`!wget ${optstr} -P '${savedir}' ${url}`);
+function wget(url=null, dir="~/Downloads", title=null, optstr="") {
+    if (url) {
+        title = title || decodeURIComponent(url).replace(/.*\//,"");
+    } else {
+        url = buffer.URL;
+        title = title || buffer.title;
+    }
+    dir = dir.replace("~", homedir).replace(/\/$/, "");
+    dactyl.execute(`!mkdir -p '${dir}'`);
+    dactyl.execute(`!wget ${optstr} -O '${dir}/${title}' '${url}'`);
 }
 
-function wgetm(url=null, optstr="", dirpref="~/Downloads") {
-    wget(url, "-nH -kKpN -rl inf -np --no-remove-listing "+optstr, dirpref);
+function wgetm(url=null, dir="~/Downloads", optstr="") {
+    wget(url, dir, null, "-nH -kKpN -rl inf -np --no-remove-listing "+optstr);
 }
 
-function wget1(url=null, optstr="", dirpref="~/Downloads") {
-    wget(url, "wget -kKpEHN -rl 1 "+optstr, dirpref);
+function wget1(url=null, dir="~/Downloads", title=null, optstr="") {
+    wget(url, dir, title, "wget -kKpEHN -rl 1 "+optstr);
 }
 
-function curl(url, dir, title, optstr, force) {
-    if (url) dactyl.open(url, {where: dactyl.NEW_TAB});
-    else url = buffer.URL;
-    optstr = optstr || "";
-    dir = dir || "~/Downloads";
-    dir = dir.replace("~", homedir);
-    title = title || decodeURIComponent(buffer.URL).replace(/.*\//,"");
+function curl(url=null, dir="~/Downloads", title=null, optstr="", force=false) {
+    url = url || buffer.URL;
+    dir = dir.replace("~", homedir).replace(/\/$/, "");
+    title = title || decodeURIComponent(url).replace(/.*\//,"");
     var savepath = `${dir}/${title}`;
     dactyl.execute(`!mkdir -p '${dir}'`);
     if (force)
