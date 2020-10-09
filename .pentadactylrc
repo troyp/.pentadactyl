@@ -12,13 +12,8 @@ group user
 runtime! utils.js
 " load utils into current context "
 js var utils = dactyl.utils.getPlugin("utils");
-
 " load personal details "
 runtime! personal.js
-js var user = dactyl.utils.getPlugin("personal");
-js var homedir = "/home/troy";
-js var musicdir = homedir + "/Music/Music";
-js var downloadsdir = homedir + "/Downloads";
 
 runtime! js/libs/jquery-3.3.1.min.js
 runtime! js/libs/sprintf.js
@@ -86,10 +81,19 @@ function XpcQueryInterface(elt, ifc) {
 }
 window.XpcQueryInterface = XpcQueryInterface;
 
+" ----------------------------------------------------------------------------- "
+
 "System"
 var env = XpcService("@mozilla.org/process/environment;1",
                       Components.interfaces.nsIEnvironment);
 window.env = env;
+
+var user = dactyl.utils.getPlugin("personal");
+var homedir = "/home/troy";
+var musicdir = homedir + "/Music/Music";
+var downloadsdir = homedir + "/Downloads";
+
+" ----------------------------------------------------------------------------- "
 
 var nsIFilePicker = Ci.nsIFilePicker;
 window.nsIFilePicker = nsIFilePicker;
@@ -5654,17 +5658,14 @@ js <<EOF
 function bookmarksToolbarButtonToggle() {
     if (document.getElementById('reader-mode-button')) {
         navbarToggleItem("personal-bookmarks-menu-button", "reader-mode-button");
-    }
-    else if (document.getElementById('bookmarks-menu-button')) {
+    } else if (document.getElementById('bookmarks-menu-button')) {
         navbarToggleItem("personal-bookmarks-menu-button", "bookmarks-menu-button");
-    }
-    else if (document.getElementById('urlbar-container')) {
+    } else if (document.getElementById('urlbar-container')) {
         navbarToggleItem("personal-bookmarks-menu-button", "urlbar-container");
-    }
-    else {
+    } else {
         navbarToggleItem("personal-bookmarks-menu-button");
     }
-    }
+}
 EOF
 
 style -name=bmarksbar-button
