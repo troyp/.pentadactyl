@@ -2658,6 +2658,12 @@ map <yank>s -description "Yank element content by selector" -b :yankselectorcont
 " <yank>t -- Yank page title "
 map <yank>t  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>t")
 map <yank>tt -description "Yank page title" -js utils.yankWithMsg(buffer.title)
+map <yank>tf
+\    -description "Yank page file name (Buffer.getDefaultNames)"
+\    -js utils.yankWithMsg(Buffer.getDefaultNames(doc).find(r=>r[1].match(/File Name/i))[0]);
+map <yank>tF
+\    -description "Yank page file name (remove queries/fragments)"
+\    -js utils.yankWithMsg(urlToFileName());
 map <yank>td -description "Yank page title with date & time" -ex yanktitleanddate
 
 " <yank>u -- Yank URL/filename "
