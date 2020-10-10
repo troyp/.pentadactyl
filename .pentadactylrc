@@ -14986,7 +14986,8 @@ function shellProcessAndOpenUrlFile(cmd, url=buffer.URL, where="here") {
         var localFile = decodeURIComponent(localFileMatch[1]).replace(/ /g, '\\ ');
         converted = io.system(`_Fresult=$(mktemp); ${cmd.replace("%f", localFile)} > $_Fresult; echo $_Fresult`);
     } else {
-        converted = io.system(`_dlFile=$(mktemp); curl -s '${url}' > $_dlFile; _resultFile=$(mktemp); ${cmd.replace("%f", $dlFile)} > $_resultFile; echo $_resultFile`);
+        cmd = cmd.replace("%f", "$_dlFile");
+        converted = io.system(`_dlFile=$(mktemp); curl -s '${url}' > $_dlFile; _resultFile=$(mktemp); ${cmd} > $_resultFile; echo $_resultFile`);
     }
     if (converted.returnValue==0) pageOpen(converted.output, where);
     utils.message(converted);
