@@ -6385,7 +6385,13 @@ function removeCruft() {
         isolateSelectors("#site-title,#content");
         removeSelectors("#nav-above,#nav-below,#jp-post-flair,.reply,.post.pingback,#respond,#eu-cookie-law");
     } else if (url.match(/https:\/\/dzone.com/))  {
-        removeSelectors("iframe","script",".header",".announcementBar",".breadcrumb-padding",".signin-prompt",".related","#adtoniq-msgr-bar");
+        removeSelectors("iframe","script",".header",".announcementBar",".breadcrumb-padding",".signin-prompt",
+            ".related","#adtoniq-msgr-bar");
+    } else if (url.match(/https:\/\/www\.japanesewithanime\.com/)) {
+        isolateSelectors("article");
+        $1("article").style.padding = "1em";
+        removeSelectors(".social-buttons-strip", "aside#sub-fold-ad", ".categoryNavbox", ".comment-footer",
+            ".avatar-image-container", ".comment-reply", "#top-continue", ".article-end-footer");
     } else {
         removeCruftGeneric();
     }
