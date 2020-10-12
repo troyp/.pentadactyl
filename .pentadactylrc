@@ -8,11 +8,8 @@
 "                              "
 group user
 
-" load javascript utilities "
 runtime! utils.js
-" load utils into current context "
 js var utils = dactyl.utils.getPlugin("utils");
-" load personal details "
 runtime! personal.js
 
 runtime! js/libs/jquery-3.3.1.min.js
@@ -31,12 +28,23 @@ js <<EOF
 window.dactyl.rc = plugins[`${homedir}/.pentadactylrc`];
 
 var $$ = function(sel, context) { return Array.from(jQuery(sel, context||content.document)); }
-window.$$ = $$;
 var $1 = function(sel, context) { return A.first($$(sel, context)); }
 
 var Cc = Components.classes;
 var Ci = Components.interfaces;
 var Cu = Components.utils;
+
+" ----------------------------------------------------------------------------- "
+
+" System ";
+var env = Cc["@mozilla.org/process/environment;1"].getService(Components.interfaces.nsIEnvironment);
+
+var user = dactyl.utils.getPlugin("personal");
+var homedir = env.get("HOME");
+var musicdir = homedir + "/Music/Music";
+var downloadsdir = homedir + "/Downloads";
+
+" ----------------------------------------------------------------------------- "
 
 "imports"
 Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
@@ -46,6 +54,8 @@ Cu.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
 Cu.import("resource://gre/modules/osfile.jsm");
 " https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Language_Bindings/Components.utils.importGlobalProperties "
 Components.utils.importGlobalProperties(["TextDecoder"]);
+
+" ----------------------------------------------------------------------------- "
 
 "components"
 var Cc = Components.classes;
@@ -58,7 +68,6 @@ function XpcService(url, ifc) {
         return null;
     }
 }
-window.XpcService = XpcService;
 
 function XpcInstance(url, ifc) {
     try {
@@ -69,7 +78,6 @@ function XpcInstance(url, ifc) {
         return null;
     }
 }
-window.XpcInstance = XpcInstance;
 
 function XpcQueryInterface(elt, ifc) {
     try {
@@ -80,27 +88,12 @@ function XpcQueryInterface(elt, ifc) {
 	      return null;
     }
 }
-window.XpcQueryInterface = XpcQueryInterface;
-
-" ----------------------------------------------------------------------------- "
-
-"System"
-var env = XpcService("@mozilla.org/process/environment;1",
-                      Components.interfaces.nsIEnvironment);
-window.env = env;
-
-var user = dactyl.utils.getPlugin("personal");
-var homedir = env.get("HOME");
-var musicdir = homedir + "/Music/Music";
-var downloadsdir = homedir + "/Downloads";
 
 " ----------------------------------------------------------------------------- "
 
 var nsIFilePicker = Ci.nsIFilePicker;
-window.nsIFilePicker = nsIFilePicker;
 var WebBrowserPersist = Components.Constructor("@mozilla.org/embedding/browser/nsWebBrowserPersist;1",
                                                  "nsIWebBrowserPersist");
-window.WebBrowserPersist = WebBrowserPersist;
 
 var nsISessionStore = XpcService("@mozilla.org/browser/sessionstore;1", Components.interfaces.nsISessionStore)
 
@@ -114,9 +107,7 @@ function ffWorkingDir() {
 var prefservice = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
 function prefbranch(branch) { return prefservice.getBranch(branch); }
 var prefroot = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-window.prefservice = prefservice
-window.prefbranch = prefbranch
-window.prefroot = prefroot
+
 " String Preferences: prefroot.(g|s)etCharPref for ASCII, prefroot.getComplexValue for unicode... "
 function getStrPref(pref) { return prefroot.getComplexValue(pref, Components.interfaces.nsISupportsString); }
 function setStrPref(pref, value) {
@@ -126,11 +117,9 @@ function setStrPref(pref, value) {
 "Bookmarks"
 var nsINavBookmarksService = XpcService("@mozilla.org/browser/nav-bookmarks-service;1", Components.interfaces.nsINavBookmarksService);
 var bmarksMenuFolder = nsINavBookmarksService.bookmarksMenuFolder;
-window.nsINavBookmarksService = nsINavBookmarksService;
 
 var nsIIOService = XpcService("@mozilla.org/network/io-service;1", Components.interfaces.nsIIOService);
 function createURI(url) { return nsIIOService.newURI(url, null, null); }
-window.nsIIOService = nsIIOService;
 
 function createBmark(url, title, folderId=bmarksMenuFolder) {
     return nsINavBookmarksService.insertBookmark(
@@ -214,7 +203,6 @@ A = {
     /* numeric array */
     differences: a => a.reduce((acc,c,i,arr) => acc.concat([acc.length && (c-arr[i-1])]), [])
 }
-window.A = A;
 
 // String methods
 S = {
@@ -335,7 +323,6 @@ S = {
         }
     }
 }
-window.S = S;
 
 // Object methods
 Object.prototype.map = function(f) {
@@ -372,7 +359,7 @@ Number.prototype.inRange = function (a, b) {
     return (a <= this && this < b);
 }
 
-window.AUDperUSD = 1.36;
+var AUDperUSD = 1.36;
 
 " Eval Functions "
 
@@ -392,7 +379,6 @@ function evalWithScriptTag(code, doc) {
     content.document.head.appendChild(script);
     script.parentNode.removeChild(script);
 }
-window.evalWithScriptTag = evalWithScriptTag;
 
 function readFromFile(f) {
     " Returns a promise. Usage: readFromFile(f).then(s=>doSomething(s)); "
@@ -3498,6 +3484,10 @@ command! updateUSDAUDexchange -js updateUSDAUDexchange();
 "                            |________________|
 "
 " ------------------------------------------------------------------------
+js <<EOF
+dactyl.NEW_ADJACENT_TAB = "adjacent";
+dactyl.NEW_ADJACENT_BACKGROUND_TAB = "background-adjacent";
+EOF
 
 " switch buffers "
 :if options.get('guioptions').value.includes('c')
@@ -14078,16 +14068,11 @@ function messageArrayItems(a) { utils.message(a.join('\n')); };
 function yankArrayItems(a)  { utils.yankWithMsg(a.join('\n')); };
 
 function seq(n) { return Array.from(new Array(n), (_,i)=>i); }
-window.seq = seq;
 
 function id(x) { return x; }
 function fconst(x) { return function(...args) { return x; }; }
 function ftrue(...args) { return true; }
 function ffalse(...args) { return false; }
-window.id = id;
-window.fconst = fconst;
-window.ftrue = ftrue;
-window.ffalse = ffalse;
 
 function array2dGetColumnMaxima(rows, nCols=rows[0].length) {
     var zeroes = []; for (i=0; i<nCols; ++i) zeroes.push(0);
@@ -14097,9 +14082,9 @@ function array2dGetColumnMaxima(rows, nCols=rows[0].length) {
     );
 }
 
-" ,-----------, "
-" | Selection | "
-" '-----------' "
+/* ,-----------, */
+/* | Selection | */
+/* '-----------' */
 
 function getSelectionText() {
     return content.getSelection().text;
@@ -14131,9 +14116,9 @@ function getSelectionDOM() {
     return parser.parseFromString(str, "text/html");
 }
 
-" ,---------------------------, "
-" | Functions taking Elements | "
-" '---------------------------' "
+/* ,---------------------------, */
+/* | Functions taking Elements | */
+/* '---------------------------' */
 
 eltStyle = elt=>elt.currentStyle||content.window.getComputedStyle(elt, false);
 
@@ -14148,24 +14133,21 @@ function getBackgroundImages() {
     return allElts.filter(e => getStyleProperty(e, "background-image"));
 }
 
-" ,----------------------------------------, "
-" | Functions taking Elements or Selectors | "
-" '----------------------------------------' "
+/* ,----------------------------------------, */
+/* | Functions taking Elements or Selectors | */
+/* '----------------------------------------' */
 
 function hasSelector(sel) {
     return content.document.querySelector(sel) ? sel : null;
 }
-window.hasSelector = hasSelector;
 
 function hasSelectors(...sels) {
     return sels.filter(sel => content.document.querySelector(sel));
 }
-window.hasSelectors = hasSelectors;
 
 function getSelectors(...sels) {
     return Array.from(content.document.querySelectorAll(sels.join(",")));
 }
-window.getSelectors = getSelectors;
 
 function removeSelectors(...sels) {
     var elts = getSelectors(...sels);
@@ -14181,7 +14163,6 @@ function getFirstSelector(sel) {
     " Return the first element matching selector sel ";
     return content.document.querySelector(sel);
 }
-window.getFirstSelector = getFirstSelector;
 
 function removeFirstSelector(sel) {
     "Remove the first element matching sel."
@@ -14455,7 +14436,6 @@ function getFirstSelectorByText(sel, pattern) {
     var elts = getSelectors(sel)
     return elts.find(elt => elt.textContent.trim().match(pattern));
 }
-window.getFirstSelectorByText = getFirstSelectorByText;
 
 " Note: to choose a selector from those with given text, ";
 "       you can use an appropriate hint mode with        ";
@@ -14500,10 +14480,10 @@ function getEltsUnderHeading(typeSel, specified, includeSpecified=true) {
     return siblings.slice(startIdx, endIdx);
 }
 
-" ,------, "
-" | Tabs | "
-" '------' "
-
+/* ,------, */
+/* | Tabs | */
+/* '------' */
+;
 dactyl.NEW_ADJACENT_TAB = "adjacent";
 dactyl.NEW_ADJACENT_BACKGROUND_TAB = "background-adjacent";
 
@@ -14559,7 +14539,6 @@ function pageOpen(url, params={}, force=false) {
         dactyl.open(url, params, force);
     }
 }
-window.pageOpen = pageOpen;
 
 function tabCloseLeftWhileMatching(regex, n) {
     "Close tabs from current, working left, while url matches regex";
@@ -14682,16 +14661,14 @@ function newTab(url="about:newtab") {
     var tab = tabbrowser.addTab(url, referrer, "utf-8");
     return tab;
 }
-window.newTab = newTab;
 
-" ,-------------------------------, "
-" | Iteration and Array functions | "
-" '-------------------------------' "
-
+/* ,-------------------------------, */
+/* | Iteration and Array functions | */
+/* '-------------------------------' */
+;
 function foreachElement(f, top=content.document) {
     Array.from(top.getElementsByTagName("*")).forEach(f);
 }
-window.foreachElement = foreachElement;
 
 function foreachNode(f, top=content.document) {
     var nodes = [];
@@ -14703,7 +14680,6 @@ function foreachNode(f, top=content.document) {
     recurseNode(top);
     nodes.forEach(f);
 }
-window.foreachNode = foreachNode;
 
 function listElements(pred, options={}) {
     var top = options.top || content.document;
@@ -14719,12 +14695,10 @@ function listNodes(pred, options={}) {
     foreachNode(n=>{ if (pred(n)) elts.push(n); }, top);
     return max ? nodes.slice(0, max) : nodes;
 }
-window.listElements = listElements;
-window.listNodes = listNodes;
 
-" ,--------------------, "
-" | URLs and Filenames | "
-" '--------------------' "
+/* ,--------------------, */
+/* | URLs and Filenames | */
+/* '--------------------' */
 var re_label = /(?!-)[-a-z0-9\\u00a1-\\uffff]*[a-z0-9\\u00a1-\\uffff]/;
 
 var re_http_url = new RegExp(
@@ -14806,9 +14780,9 @@ function getLinksWithMatchingUrl(s) {
     return matching;
 }
 
-" ,------------, "
-" | conversion | "
-" '------------' "
+/* ,------------, */
+/* | conversion | */
+/* '------------' */
 function inToCm(x) { return x * 2.54; }
 function cmToIn(x) { return x / 2.54; }
 function kgToLb(x) { return x * 2.205; }
@@ -14817,14 +14791,6 @@ function paper_lbToGsm(x) { return x * 1.48; }
 function paper_gsmToLb(x) { return x / 1.48; }
 function USFluidOunceToMl(x) { return x * 29.5735295625; }
 function mlToUSFluidOunce(x) { return x / 29.5735295625; }
-window.inToCm = inToCm;
-window.cmToIn = cmToIn;
-window.kgToLb = kgToLb;
-window.lbToKg = lbToKg;
-window.paper_lbToGsm = paper_lbToGsm;
-window.paper_gsmToLb = paper_gsmToLb;
-window.USFluidOunceToMl = USFluidOunceToMl;
-window.mlToUSFluidOunce = mlToUSFluidOunce;
 
 function subCmForInches(s) {
     var regex = /(-?\d+(\.\d+)?) *("|in(ch(es)?)?)/g;
@@ -14833,13 +14799,10 @@ function subCmForInches(s) {
     };
     return s.replace(regex, replaceFn);
 }
-window.subCmForInches = subCmForInches;
 
 function FtoC(tempF) { return (tempF-32)/1.8; }
-window.FtoC = FtoC;
 
 function USDtoAUD(x) { return parseFloat(x) * getUSDAUDexchange(); }
-window.USDtoAUD = USDtoAUD;
 
 function subAUDforUSD(s) {
     var regex = RegExp(/(?!AU)(?:US)?\$(\d+[.]\d\d)/g);
@@ -14856,13 +14819,13 @@ function updateUSDAUDexchange() {
         .then(obj => {
             var base = obj.rates.base;
             var rate = obj.rates.AUD;
-            window.AUDperUSD = rate;
+            AUDperUSD = rate;
             utils.message(rate);
         });
 }
 
-function setUSDAUDexchange(rate) { return window.AUDperUSD = rate; }
-function getUSDAUDexchange() { return window.AUDperUSD; }
+function setUSDAUDexchange(rate) { return AUDperUSD = rate; }
+function getUSDAUDexchange() { return AUDperUSD; }
 
 function multiplyNumWithUnit(m, str) {
     var strMatch = str.match(/([0-9.]+)(.*)/);
@@ -14871,9 +14834,9 @@ function multiplyNumWithUnit(m, str) {
     return String(num * m) + unit;
 }
 
-" ,------------, "
-" | formatting | "
-" '------------' "
+/* ,------------, */
+/* | formatting | */
+/* '------------' */
 function formatSeconds(n) {
     var hours = Math.floor(n/3600);
     n -= hours*3600;
@@ -14903,9 +14866,9 @@ function parseRanges(s) {
     return result;
 }
 
-" ,---------, "
-" | Loading | "
-" '---------' "
+/* ,---------, */
+/* | Loading | */
+/* '---------' */
 function getFilenameOrURL(url=buffer.URL) {
     var text=decodeURIComponent(url.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     return text;
@@ -15025,10 +14988,10 @@ function pandocConvertOpenUrlFile(from, to, url=buffer.URL, where="here") {
     utils.message(converted);
 }
 
-" ,---------------, "
-" | Opening files | "
-" '---------------' "
-
+/* ,---------------, */
+/* | Opening files | */
+/* '---------------' */
+;
 function shellCommandOnFile(cmd, f) {
     if (!cmd.includes("%f")) cmd += " %f";
     var localFile = f.replace(/ /g, '\\ ').replace("~", homedir);
@@ -15051,9 +15014,9 @@ function mimeopenAndSetAppFile(f) {
     dactyl.execute(`!roxterm -e zsh -c "mimeopen -d '${localFile}'"`);
 }
 
-" ,--------, "
-" | Saving | "
-" '--------' "
+/* ,--------, */
+/* | Saving | */
+/* '--------' */
 function wget(url=null, dir="~/Downloads", title=null, optstr="") {
     if (url) {
         title = title || decodeURIComponent(url).replace(/.*\//,"");
@@ -15165,9 +15128,9 @@ function urlContentType(url) {
     }
 }
 
-" ,---------------, "
-" | Miscellaneous | "
-" '---------------' "
+/* ,---------------, */
+/* | Miscellaneous | */
+/* '---------------' */
 
 function openHTML(html, where='tab') {
     var dataURI = "data:text/html," + encodeURIComponent(html);
@@ -15222,7 +15185,6 @@ function alertobj(obj) {
     }
     alert(s);
 }
-window.alertobj = alertobj;
 
 function alertall(...xs) {
     var s = "";
@@ -15231,7 +15193,6 @@ function alertall(...xs) {
     }
     alert(s);
 }
-window.alertall = alertall;
 
 function runInZSH(cmd) {
     var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
@@ -15240,7 +15201,6 @@ function runInZSH(cmd) {
     process.init(executable);
     process.runAsync(["-e",`zsh -c 'source ~/.sh-aliases; source .sh-functions; ${cmd}; zsh'`], 2);
 }
-window.runInZSH = runInZSH;
 
 function runInPlainZSH(cmd) {
     var executable = XpcInstance("@mozilla.org/file/local;1", Components.interfaces.nsILocalFile);
@@ -15249,7 +15209,6 @@ function runInPlainZSH(cmd) {
     process.init(executable);
     process.runAsync(["-e",`zsh -f --no-rcs -c '${cmd}; zsh'`], 2);
 }
-window.runInPlainZSH = runInPlainZSH;
 
 // modulus function taking negative n (base assumed to be positive)
 function mod(n,b) { return n<0 ? n%b + Number(b) : n%b; }
@@ -15292,12 +15251,10 @@ function removeXPath(xpathexpr) {
 }
 
 function matches(var_, regex) { return (var_ && var_.match && var_.match(regex)); }
-window.matches = matches;
 
 function concatRegex(...regexps) {
     return RegExp(regexps.map(r=>`(${r.source})`).join(""));
 }
-window.concatRegex = concatRegex;
 
 function addMarginToBody(lr="60px", tb=null) {
     var newstyle = content.document.createElement("style");
@@ -15329,10 +15286,10 @@ function getDate(fmt='%y-%m-%d-%T') {
 
 var kanjiRegex = /[[一-龥]/;
 
-" ------------------------------------------------------------------------------- "
-" ,-------------------------,                                                     "
-" | variables for temp data |                                                     "
-" '-------------------------'                                                     "
+/* ------------------------------------------------------------------------------- */
+/* ,-------------------------,                                                     */
+/* | variables for temp data |                                                     */
+/* '-------------------------'                                                     */
 
 window._dactylargs = null;
 function dactylArgsSet(value) {
@@ -15348,11 +15305,62 @@ window._dactyldata = {};
 function dactylDataSet(key, value) {
     window._dactyldata[key] = value;
 }
-window.dactylDataSet = dactylDataSet;
 function dactylDataGet(key) {
     return window._dactyldata[key];
 }
-window.dactylDataGet = dactylDataGet;
+
+/* ------------------------------------------------------------------------------- */
+/* ,------------------,                                                            */
+/* | export to window |                                                            */
+/* '------------------'                                                            */
+
+var EXPORT_TO_WINDOW = [
+    "$$",
+    "$1",
+    "env",
+    "A",
+    "S",
+    "evalWithScriptTag",
+    "seq",
+    "id",
+    "fconst",
+    "ftrue",
+    "ffalse",
+    "hasSelector",
+    "hasSelectors",
+    "getSelectors",
+    "getFirstSelector",
+    "getFirstSelectorByText",
+    "pageOpen",
+    "newTab",
+    "foreachElement",
+    "foreachNode",
+    "listElements",
+    "listNodes",
+    "inToCm",
+    "cmToIn",
+    "kgToLb",
+    "lbToKg",
+    "paper_lbToGsm",
+    "paper_gsmToLb",
+    "USFluidOunceToMl",
+    "mlToUSFluidOunce",
+    "FtoC",
+    "USDtoAUD",
+    "alertobj",
+    "listNodes",
+    "alertall",
+    "runInZSH",
+    "runInPlainZSH",
+    "matches",
+    "kanjiRegex",
+    "concatRegex",
+    "dactylDataSet",
+    "dactylDataGet"
+];
+
+for (k of EXPORT_TO_WINDOW) {
+    window[k] = k;
+}
 
 EOF
-
