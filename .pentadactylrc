@@ -324,9 +324,15 @@ S = {
         var arr = Array.from(a);
         return arr.map(elem => typeof elem == "undefined" ? "" : String(elem));
     },
-    escapeRegexSymbols: function (s) {
-        var regexSpecialCharRegex = /[[(){^$\\*+?.|]/g;
-        return s.replace(regexSpecialCharRegex, c=>"\\"+c);
+    escapeRegexSymbols: function (s, opts={}) {
+        var regexSpecialCharRegex;
+        if (opts.forwardSlashDelimiters) {
+            regexSpecialCharRegex = /[[(){^$\\*+?.|\/]/g;
+            return "/" + s.replace(regexSpecialCharRegex, c=>"\\"+c) + "/";
+        } else {
+            regexSpecialCharRegex = /[[(){^$\\*+?.|]/g;
+            return s.replace(regexSpecialCharRegex, c=>"\\"+c);
+        }
     }
 }
 window.S = S;
