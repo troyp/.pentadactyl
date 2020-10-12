@@ -32,6 +32,7 @@ window.dactyl.rc = plugins[`${homedir}/.pentadactylrc`];
 
 var $$ = function(sel, context) { return Array.from(jQuery(sel, context||content.document)); }
 window.$$ = $$;
+var $1 = function(sel, context) { return A.first($$(sel, context)); }
 
 var Cc = Components.classes;
 var Ci = Components.interfaces;
