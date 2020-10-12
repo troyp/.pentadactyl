@@ -2693,8 +2693,13 @@ map <yank>udsp
 \    -description "Yank page domain (with protocol, strip 1/count subdomains)"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, true, count||1));
 map <yank>udr
-\    -description "Yank page domain (with protocol) as regex"
+\    -description "Yank page domain (with protocol) as regex source"
 \    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count)))
+map <yank>udR
+\    -description "Yank page domain (with protocol) as regex (including /.../ delimiters)"
+\    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count),
+\                          { forwardSlashDelimiters: true }))
+
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(urlGetNthParent(count));
 map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(urlGetNthFromRootPath(count));
