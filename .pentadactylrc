@@ -8835,13 +8835,21 @@ function figurosityViewSwitch(type="normal") {
     var url = figurosityGetImageUrl();
     dactyl.open(url.replace(/\/(normal|nude|muscle|smooth)\//, "/"+type+"/"));
 }
+
+function figurosityFlipHorizontal() {
+    var imgClasses = $1('#image-holder>img').classList;
+    if (imgClasses.contains('flip-horizontal'))
+        imgClasses.remove('flip-horizontal');
+    else
+        imgClasses.add('flip-horizontal');
+}
 EOF
 
 map <site>dd
 \    -description "Download image"
 \    -js figurosityDownloadImage(figurosityDownloadDir);
 
-map <site>o      -description "(show bindings: view image: switch)" -js CommandExMode().open("showkeys <site>o")
+map <site>o  -description "(show bindings: View Image)" -js CommandExMode().open("showkeys <site>o")
 map <site>oi
 \    -description "View image"
 \    -js openOrSelectTab(getSelectors("#image-holder>img")[0].src, count?"tab":"here");
@@ -8849,6 +8857,9 @@ map <site>om -description "View image: switch to muscle" -js figurosityViewSwitc
 map <site>on -description "View image: switch to normal" -js figurosityViewSwitch("normal");
 map <site>os -description "View image: switch to smooth" -js figurosityViewSwitch("smooth");
 map <site>ou -description "View image: switch to nude"   -js figurosityViewSwitch("nude");
+
+map <site>t  -description "(show bindings: Figurosity/Toggle)" -js CommandExMode().open("showkeys <site>o")
+map <site>tf -description "Toggle flip horizontal" -js figurosityFlipHorizontal();
 
 map <site>v -description "View" -js dactyl.open(figurosityGetImageUrl());
 map <site>y      -description "(show bindings: site yank)" -js CommandExMode().open("showkeys <site>y")
