@@ -942,13 +942,17 @@ map gL  -description "Go to last entry in tab's history" -ex forward!
 map g;H -description "Choose entry in tab's backwards history" -b :back<Space>
 map g;L -description "Choose entry in tab's forwards history" -b :forward<Space>
 
-map g;i -description "Focus last used input field, move to start" gi<C-a>
-
 map g; -description "(show bindings)" -js CommandExMode().open("showkeys g;")
-js group.mappings.add([modes.NORMAL, modes.VISUAL], ["g;;"], "Enter extended hint mode and enter multiple hints", function ({ count }) { hints.open("g;", { continue: true, count: count }); }, { count: true });
-map g;u -description "Remove subdomain(s) from current URL" -js dactyl.open(urlDomain(buffer.URL, true, count||1));
-
-map g# -description "Remove fragment from current URL" -js dactyl.open(buffer.URL.replace(/#.*$/, ""));
+map g;i -description "Focus last used input field, move to start" gi<C-a>
+js <<EOF
+group.mappings.add(
+    [modes.NORMAL, modes.VISUAL],
+    ["g;;"],
+    "Enter extended hint mode and enter multiple hints",
+    function ({ count }) { hints.open("g;", { continue: true, count: count }); },
+    { count: true }
+);
+EOF
 
 " REPLACE DEFAULT BINDINGS:
 " free C-h, use C-,, C-. to replace h, l
@@ -958,22 +962,26 @@ map <C-.>   -modes normal -b <Right>
 "   note: <C-n>,gT are opposite motions. gt with arg goes to arg'th tab
 map h       -modes normal -b gT
 map l       -modes normal -b <C-n>
+
 " Make gu remove fragments, then queries, then path components, then subdomains "
 map gu
 \    -description "Open page up one (or COUNT) URL level (remove fragments, then queries, then path components, then subdomains)"
 \    -modes normal
 \    -count -js dactyl.open(urlUp(count||1));
-map gtu
-\    -description "Open (new tab) page up one (or COUNT) URL lvl (rem frags->queries->path-comp's->subdomains)"
-\    -modes normal
-\    -count -js pageOpen(urlUp(count||1), "adjacent");
 " Let gU take a count "
 map gU -description "Open root path or nth level"
 \    -modes normal
 \    -count -js dactyl.open(urlGetNthFromRootPath(count));
-map gtU -description "Open (new tab) root path or nth level"
+map g;uu
+\    -description "Open (new tab) page up one (or COUNT) URL lvl (rem frags->queries->path-comp's->subdomains)"
+\    -modes normal
+\    -count -js pageOpen(urlUp(count||1), "adjacent");
+map g;uU -description "Open (new tab) root path or nth level"
 \    -modes normal
 \    -count -js pageOpen(urlGetNthFromRootPath(count), "adjacent");
+map g;ud -description "Remove subdomain(s) from current URL" -js dactyl.open(urlDomain(buffer.URL, true, count||1));
+map g;u# -description "Remove fragment from current URL" -js dactyl.open(buffer.URL.replace(/#.*$/, ""));
+
 " <C-n> and <C-p> for down and up
 map <C-n>   -modes normal -b <C-v><down>
 map <C-p>   -modes normal -b <C-v><up>
