@@ -14912,19 +14912,24 @@ function parseRanges(s) {
 /* ,---------, */
 /* | Loading | */
 /* '---------' */
-function getFilenameOrURL(url=buffer.URL) {
-    var text=decodeURIComponent(url.replace(/^file:\/\//,'').replace(/[?#].*/,''));
-    return text;
-}
-
-function getFilenameOrUrlAsFile(url=buffer.URL) {
-    url = decodeURIComponent(url);
-    var file;
+function getFilenameOrURL(url, escapeSpaces=false) {
+    url = decodeURIComponent(url || buffer.URL);
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
-    if (localFileMatch) {
-        file = localFileMatch[1].replace(/ /g, '\\ ');
+    if (localFileMatch && escapeSpaces) {
+        return localFileMatch[1].replace(/ /g, '\\ ');
+    } else if (localFileMatch) {
+        return localFileMatch[1];
     } else {
+        return url;
+    }
+}
+
+function getFilenameOrUrlAsFile(url, escapeSpaces=false) {
+    url = url || buffer.URL;
+    var file = getFilenameOrURL(url, escapeSpaces);
+    var localFileMatch = file.match(/^\/|^~/);
+    if (!localFileMatch) {
         var name = urlToFileName(url);
         file = io.system(`d=$(mktemp -d); cd $d; curl '${url}' > ${name}; echo $(realpath ${name});`).output;
     }
