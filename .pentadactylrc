@@ -1629,14 +1629,16 @@ command! openDirectoryInDired
     \ -description "Open the current file's directory in Dired."
     \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     \     var dir = file.replace(/[^/]*$/,'');
-    \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`);
+    \     dactyl.execute(`!emacsclient -e '(dired "${dir}")'`) &&
+    \     dactyl.execute("!wmctrl -a emacs");
 command! openinemacs
     \ -description "Open the current file for editing in Emacs."
     \ -nargs=?
     \ -complete=file
     \ -js openUrlInEmacs(args[0]);
 command! openUrlInEWW -description "Open in EWW in Emacsclient"
-    \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'");
+    \ -js dactyl.execute("!emacsclient -e '(eww "+'"'+buffer.URL+'")'+"'") &&
+    \     dactyl.execute("!wmctrl -a emacs");
 
 " Open in Dolphin "
 command! openDirectoryInDolphin
@@ -3353,6 +3355,7 @@ command! saveindir
 js <<EOF
 function showPentadactylrc(searchterm) {
     if (searchterm) {
+        dactyl.execute("!wmctrl -a emacs") &&
         dactyl.execute(
             `!emacsclient --eval '(progn (find-file "~/.pentadactyl/.pentadactylrc")
                                           (beginning-of-buffer)
@@ -3361,11 +3364,10 @@ function showPentadactylrc(searchterm) {
                                           (recenter nil)
                                           (beginning-of-line))'
             `
-        ) && dactyl.execute("!wmctrl -a emacs");
+        );
     } else {
-        dactyl.execute(
-        `!emacsclient --eval '(find-file "~/.pentadactyl/.pentadactylrc")'`
-        ) && dactyl.execute("!wmctrl -a emacs");
+        dactyl.execute(`!emacsclient --eval '(find-file "~/.pentadactyl/.pentadactylrc")'`) &&
+        dactyl.execute("!wmctrl -a emacs");
     }
 }
 
