@@ -9824,6 +9824,10 @@ function googleGetImagesUrl() {
     return (imgLinks.length > 1) ? imgLinks[1].href : imgLinks[0].href;
 }
 
+function googleNormalizeLinks() {
+    Array.from(content.document.links).forEach(e=>e.href=e.href.replace(/https:\/\/www.google.com(\.[a-zA-Z]+)?\/url\?q=([^&]+)&.*/, "$2"));
+}
+
 EOF
 
 command! searchbox -description "Enter string search box." -nargs="*" -js googleSearchBox(args.join(' '));
@@ -9842,6 +9846,7 @@ map <site>c  -description "Pagezipper: continuous paging" -ex pagezipper
 map <site>d  -description "Google definitions: expand" -js googleDefExpand();
 map <site>gl -description "restrict search to pages in a specific language" -b O&lr=lang_
 map <site>gc -description "restrict search to pages originating in a specific country" -b O&cr=
+map <site>l  -description "Normalize (de-googleify) links" -js googleNormalizeLinks();
 map <site>oi -description "Goto images" -js openOrSelectTab(googleGetImagesUrl(), count?"tab":"here");
 map <site>s  -description "Enter query in search box" -b :searchbox<Space>
 map <site>x  -description "Toggle expand definition" -js clickSelector(".vk_aru") || clickSelector(".vk_ard");
