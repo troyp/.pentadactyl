@@ -5977,9 +5977,14 @@ map <leader>it -description "(show bindings: Misc/Images/Transform)" -js Command
 map <leader>itf -description "Flip image (URL) horizontally" -js imageTransform("flop");
 map <leader>itF -description "Flip image (URL) vertically" -js imageTransform("flip");
 map <leader>ito -description "ImgOps (URL)" -js openOrSelectTab("https://imgops.com/" + buffer.URL, count?"adjacent":"here");
+map <leader>itt -description "Apply image transformation with mogrify" -b :imagetransform<Space>
 map <leader>itr -description "Rotate image (URL) by Θ degrees" -b :imagerotate<Space>
 
 command! imagerotate -description "Rotate image (URL) by Θ degrees" -nargs 1 -js imageTransform("rotate "+args[0]);
+command! imagetransform
+\    -description "transform image (URL) with mogrify"
+\    -nargs +
+\    -js imageTransform(...args)
 
 js <<EOF
 function imageTransform(...ops) {
