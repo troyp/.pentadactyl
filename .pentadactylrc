@@ -5982,13 +5982,13 @@ map <leader>itr -description "Rotate image (URL) by Θ degrees" -b :imagerotate<
 command! imagerotate -description "Rotate image (URL) by Θ degrees" -nargs 1 -js imageTransform("rotate "+args[0]);
 
 js <<EOF
-function imageTransform(type) {
+function imageTransform(...ops) {
     var name = buffer.URL.split("/").pop();
     var tempdir = io.system("mktemp -d").output;
     var path = tempdir+"/"+name;
     dactyl.execute(`saveas ${path.replace(" ", "\ ")}`);
-    " type = argument to mogrify, eg. 'flip' (V reflect), 'flop' (H reflect), 'rotate DEG' ";
-    io.system(`mogrify -${type} '${path}'`);
+    " ops = arguments to mogrify, eg. 'flip' (V reflect), 'flop' (H reflect), 'rotate DEG' ";
+    io.system(`mogrify ${ops.map(s=>`-${s}`).join(" ")} '${path}'`);
     dactyl.open("file://"+path);
 }
 EOF
