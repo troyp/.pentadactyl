@@ -6747,6 +6747,15 @@ js hints.addMode('🄿','lmnpop',elem => { lmnpop(elem); });
 set eht+=[å]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
 js hints.addMode('å', 'Follow link in adjacent tab', elem=>tabOpenAdjacent(elem.href));
 
+set eht+=[Ẇ]:'a',':-moz-any-link','area[href]','img[src]','iframe[src]'
+js <<EOF
+hints.addMode(
+    'Ẇ',
+    'Follow link with archive.org wayback machine in new tab',
+    e=>pageOpen(`http://web.archive.org/web/${e.href}`, "adjacent")
+);
+EOF
+
 " ==== "
 " Text "
 " ==== "
@@ -7628,6 +7637,7 @@ command! waybacktoggle
     \ -description "Toggle web page and archive.org copy"
     \ -js bang ? waybackToggle({where: dactyl.NEW_TAB}) : waybackToggle()
 map <app>w -ex waybacktoggle
+map <app>W -js hints.show("Ẇ");
 
 " ===== GROUP START ===== "
 
