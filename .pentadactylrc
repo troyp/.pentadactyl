@@ -22,10 +22,13 @@ set passkeys=
 " ,------------------------,                                                      "
 " | Javascript helper code |                                                      "
 " '------------------------'                                                      "
+command! setdactylrc
+\    -description "Set dactyl.rc property in the global context"
+\    -js window.dactyl.rc = plugins[`${env.get("HOME")}/.pentadactylrc`];
 
 js <<EOF
 
-window.dactyl.rc = plugins[`${homedir}/.pentadactylrc`];
+window.dactyl.rc = plugins[`${env.get("HOME")}/.pentadactylrc`];
 
 var $$ = function(sel, context) { return Array.from(jQuery(sel, context||content.document)); }
 var $1 = function(sel, context) { return A.first($$(sel, context)); }
