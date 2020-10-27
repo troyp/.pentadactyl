@@ -6414,6 +6414,9 @@ function removeCruft() {
         $1("article").style.padding = "1em";
         removeSelectors(".social-buttons-strip", "aside#sub-fold-ad", ".categoryNavbox", ".comment-footer",
             ".avatar-image-container", ".comment-reply", "#top-continue", ".article-end-footer");
+    } else if (url.match(/https:\/\/opensource\.com/)) {
+        isolateSelectors("#article-template");
+        removeSelectors(".os-article__image", ".os-article__left", ".os-article__bottom", ".authorbio__thumbnail", ".user-picture-badges");
     } else {
         removeCruftGeneric();
     }
