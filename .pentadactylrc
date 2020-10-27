@@ -8848,11 +8848,25 @@ function figurosityFlipHorizontal() {
     else
         imgClasses.add('flip-horizontal');
 }
+
+function figurosityLabelThumbnails() {
+    $$('.thumbnail').forEach(t=>{
+        var sp = content.document.createElement("span");
+        sp.style.fontSize="8px";
+        var thumbhrefs = t.getElementsByClassName("thumbnail-href");
+        var thumbhref = thumbhrefs && thumbhrefs[0].href;
+        sp.innerHTML = thumbhref.split(/.*\//)[1];
+        t.parentElement.appendChild(sp);
+    });
+}
 EOF
 
 map <site>dd
 \    -description "Download image"
 \    -js figurosityDownloadImage(figurosityDownloadDir);
+
+map <site>i  -description "(show bindings: Images)" -js CommandExMode().open("showkeys <site>i")
+map <site>il -description "Label thumbnails" -js figurosityLabelThumbnails();
 
 map <site>o  -description "(show bindings: View Image)" -js CommandExMode().open("showkeys <site>o")
 map <site>oi
