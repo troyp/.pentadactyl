@@ -2385,11 +2385,12 @@ function wpIPA(lang="English", where=dactyl.NEW_ADJACENT_TAB, options={}) {
 }
 
 function getFirstGithubLink() {
-    return getFirstSelectorWithMatchingAttribute(
+    var sel = getFirstSelectorWithMatchingAttribute(
         "a",
         "href",
-        /https:\/\/github\.com\/[^/]+\/[^/]+/
-    ).href;
+        /\/\/github\.com\/[^/]+\/[^/]+/
+    );
+    return sel && sel.href;
 }
 
 function convertUnits(n, unit1, unit2) {
