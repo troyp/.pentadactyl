@@ -3936,7 +3936,7 @@ function tabCloseOrdRange(firstOrd, endOrd) {
     if (toEnd) tabs.remove(tabs.getTab());
 }
 
-function closeTabRangeInclusiveBidirectional(ordA, ordB=".") {
+function tabCloseOrdRangeInclusiveBidirectional(ordA, ordB=".") {
     "Close tabs in range [ordA, ordB] or [ordB, ordA]";
     var initTab = tabs.getTab();
     var initIdx = initTab._tPos;
