@@ -15437,5 +15437,6 @@ var EXPORT_TO_WINDOW = [
 for (k of EXPORT_TO_WINDOW) {
     window[k] = this[k];
 }
+utils.message(".pentadactylrc: FINISHED");
 
 EOF
