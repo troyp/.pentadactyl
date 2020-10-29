@@ -1987,6 +1987,7 @@ map <leader>ow
 " '------------------' "
 map <leader>s      -description "(show bindings: Save)"
 \    -js CommandExMode().open("showkeys <Leader>s")
+map <leader>si -description "Save image [HINTS]" -js hints.show("Ị");
 map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
 map <leader>sv
 \    -description "Save clipboard text to file. :savecbtext NAME DIR"
@@ -6768,8 +6769,9 @@ js hints.addMode("ÿ", "Yank paragraph", elem => utils.yankWithMsg(elem.innerTex
 " =======
 " Images
 " =======
-set eht+=[ἱ]:img
+set eht+=[ἱỊ]:img
 js hints.addMode('ἱ', 'View/follow image', elem => dactyl.open(getImageUrl(elem)));
+js hints.addMode('Ị', 'Save image', elem => wgetSaveDialog(elem.src, elem.alt));
 
 set eht+=[ɩῑίῘΪ]:img
 js hints.addMode('ɩ', 'Remove transformations from image', elem => elem.style.transform="");
