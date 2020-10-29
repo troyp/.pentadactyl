@@ -28,6 +28,7 @@ command! setdactylrc
 
 js <<EOF
 
+var env = Components.classes["@mozilla.org/process/environment;1"].getService(Components.interfaces.nsIEnvironment);
 window.dactyl.rc = plugins[`${env.get("HOME")}/.pentadactylrc`];
 
 var $$ = function(sel, context) { return Array.from(jQuery(sel, context||content.document)); }
@@ -40,7 +41,6 @@ var Cu = Components.utils;
 " ----------------------------------------------------------------------------- "
 
 " System ";
-var env = Cc["@mozilla.org/process/environment;1"].getService(Components.interfaces.nsIEnvironment);
 
 var user = dactyl.utils.getPlugin("personal");
 var homedir = env.get("HOME");
