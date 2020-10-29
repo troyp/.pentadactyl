@@ -15114,6 +15114,15 @@ function wget(url=null, dir="~/Downloads", title=null, optstr="") {
     dactyl.execute(`!wget ${optstr} -O '${dir}/${title}' '${url}'`);
 }
 
+function wgetSaveDialog(url, title=null, dir=null, optstr="") {
+    dir = dir || window._dactyldata.lastDir || `${homedir}/Downloads`;
+    title = title || url.replace(/.*([^\/]*)\/*$/, "$1") || content.document.title;
+    var fname = io.system(`2>/dev/null zenity --file-selection --save --filename "${dir}/${title}"`).output;
+    [dir, title] = fname.split(/\/(?!.*\/)/);
+    window._dactyldata.lastDir = dir;
+    wget(url, dir, title, optstr);
+}
+
 function wgetm(url=null, dir="~/Downloads", optstr="") {
     wget(url, dir, null, "-nH -kKpN -rl inf -np --no-remove-listing "+optstr);
 }
@@ -15154,6 +15163,16 @@ function saveDOM(file, doc=content.document) {
     var wbpc = Components.classes['@mozilla.org/embedding/browser/nsWebBrowserPersist;1'];
     var wbp = wbpc.createInstance(Components.interfaces.nsIWebBrowserPersist);
     wbp.saveDocument(doc, nsifile, null, null, null, null);
+}
+
+function saveOrOpenURI(href, filename="") {
+    "Only triggers dialog for image on same origin; otherwise, loads URI in new tab";
+    var dlLink = content.document.createElement("a");
+    content.document.body.appendChild(dlLink);
+    dlLink.setAttribute("href", href);
+    dlLink.setAttribute("download", filename);
+    dlLink.click();
+    dlLink.remove();
 }
 
 function writeToFile(s, filepath, append=false, overwrite=false) {
