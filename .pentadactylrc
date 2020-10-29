@@ -5970,7 +5970,7 @@ command! imagematrix -description "Transform image using matrix [HINTS]" -nargs 
 " ,----------------------------------,
 " | <leader>is -- Misc/Images/Search |
 " '----------------------------------'
-map <leader>is -description "(show bindings: Misc/Images/Hints)" -js CommandExMode().open("showkeys <leader>is");
+map <leader>is -description "(show bindings: Misc/Images/Search)" -js CommandExMode().open("showkeys <leader>is");
 map <leader>isr
 \    -description "TinEye reverse image search"
 \    -js openOrSelectTab("https://tineye.com/search/?url="+encodeURIComponent(buffer.URL), count?"adjacent":"here");
