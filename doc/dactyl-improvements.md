@@ -24,3 +24,8 @@ Or, if you want to define a hint mode inline, you can use the simplified form:
     /* equivalent to: */
     map KEY -js hints.show(HintMode(scheme, action, filter=none))
 
+# IPC
+
+## control browser from OS
+
+* Allow OS to send messages to pentadactyl via (eg) FIFO to control browser
