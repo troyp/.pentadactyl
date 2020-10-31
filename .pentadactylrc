@@ -19,10 +19,10 @@ runtime! js/simulateHtmlMouseEvent.js
 runtime! js/svg-pan-zoom.min.js
 set passkeys=
 
-" ------------------------------------------------------------------------------- "
-" ,------------------------,                                                      "
-" | Javascript helper code |                                                      "
-" '------------------------'                                                      "
+" ----------------------------------------------------------------------------- "
+" ,------------------------,                                                    "
+" | Javascript helper code |                                                    "
+" '------------------------'                                                    "
 command! setdactylrc
 \    -description "Set dactyl.rc property in the global context"
 \    -js window.dactyl.rc = plugins[`${env.get("HOME")}/.pentadactylrc`];
@@ -428,9 +428,9 @@ EOF
 " '-------------------------------'
 
 js <<EOF
-" readStringOrRegex: converts a string to a regex if possible, else returns the string "
-" Can be used to accept either a string or regex argument for a command:               "
-" -js doSomething(args.map(readStringOrRegex))                                              "
+/* readStringOrRegex: converts a string to a regex if possible, else returns   */
+/*     the string. Can be used to accept either a string or regex argument for */
+/*     a command:     `-js doSomething(args.map(readStringOrRegex))`           */
 function readStringOrRegex(s) {
     var matches = s.match(/^\/([^/]*)\/([gimuy]*)$/);
     if (matches)
