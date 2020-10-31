@@ -15518,6 +15518,7 @@ var EXPORT_TO_WINDOW = [
     "runInZSH",
     "runInPlainZSH",
     "matches",
+    "math",
     "kanjiRegex",
     "concatRegex",
     "dactylDataSet",
