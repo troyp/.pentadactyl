@@ -45,6 +45,7 @@ var Cu = Components.utils;
 
 var user = dactyl.utils.getPlugin("personal");
 var homedir = env.get("HOME");
+var rcdir = homedir + "/.pentadactyl";
 var musicdir = homedir + "/Music/Music";
 var downloadsdir = homedir + "/Downloads";
 
@@ -58,6 +59,12 @@ Cu.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
 Cu.import("resource://gre/modules/osfile.jsm");
 " https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Language_Bindings/Components.utils.importGlobalProperties "
 Components.utils.importGlobalProperties(["TextDecoder"]);
+
+var mozIJSSubScriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
+/*    mozIJSSubScriptLoader.loadSubScript(url, targetObj=global)    */
+
+/*    load math.js (as `math`)    */
+mozIJSSubScriptLoader.loadSubScript(`file://${rcdir}/js/math.min.js`);
 
 " ----------------------------------------------------------------------------- "
 
