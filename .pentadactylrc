@@ -12,10 +12,11 @@ runtime! utils.js
 js var utils = dactyl.utils.getPlugin("utils");
 runtime! personal.js
 
-runtime! js/libs/jquery-3.3.1.min.js
-runtime! js/libs/sprintf.js
-runtime! js/libs/suncalc/suncalc.js
+runtime! js/jquery-3.3.1.min.js
+runtime! js/sprintf.js
+runtime! js/suncalc/suncalc.js
 runtime! js/simulateHtmlMouseEvent.js
+runtime! js/svg-pan-zoom.min.js
 set passkeys=
 
 " ------------------------------------------------------------------------------- "
@@ -6705,7 +6706,6 @@ set eht+=[\]:'a',':-moz-any-link'
 js hints.addMode('\\', 'wayback open link in new tab', elem=>{ dactyl.open(`http://web.archive.org/web/${elem.href}`, {where:dactyl.NEW_TAB}) })
 
 " svg: FIXME
-runtime! js/libs/svg-pan-zoom.min.js
 set eht+=[G]:svg
 js hints.addMode('G','pan & zoom SVG',alert);
 " openseadragon: image zoom and pan "
@@ -13761,7 +13761,7 @@ map <site>mw
 
 map <site>o -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>ov
-\    -description "Go WikiVisually page"
+\    -description "Go to WikiVisually page"
 \    -js openOrSelectTab(buffer.URL.replace("en.wikipedia.org", "wikivisually.com"), count?"tab":"here");
 map <site>p
 \    -description "Open clipboard text in wikipedia"
