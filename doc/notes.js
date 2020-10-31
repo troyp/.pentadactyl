@@ -199,3 +199,12 @@ var placesViewsDeck = content.document.getElementById('placesViewsDeck'); // xul
 /*     var tabHist = tabs.getTab(24).linkedBrowser.sessionHistory;                                          */
 /*     var tabHistEntries =                                                                                 */
 /*             [...Array(tabHist.count).keys()].map(i=>tabHist.getEntryAtIndex(i,false).URI.asciiSpec);     */
+/* * tab history:                                                                                           */
+/*       webnav = window.getWebNavigation();                                                                */
+/*       his = webnav.sessionHistory;     // nsISHistory object for current tab                             */
+/*       his.count                        // number of history items                                        */
+/*       his.index                        // 0-based index of current item                                  */
+/*       his.getEntryAtIndex(i, false)    // get nsISHEntry object for item i                               */
+/*       his.getEntryAtIndex(i, true))    // get nsISHEntry object for item i and jump to item i in history */
+/*       his.getEntryAtIndex(i, false)).URI.asciiSpec    // get URI for item i                              */
+
