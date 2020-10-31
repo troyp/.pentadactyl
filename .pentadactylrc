@@ -13682,6 +13682,13 @@ function wpGetUser() {
     return upageHref.match(/\/User:(.*)/)[1];
 }
 
+function wpGetWikiwandPage(url=buffer.URL) {
+    return url.replace(
+        /https:\/\/(\w+)\.wikipedia.org\/wiki\/([^?]*)(\?[^#]+)?(#.*)?/,
+        "https:www.wikiwand.com/$1/$3"
+    );
+}
+
 EOF
 
 command! wpapplycss :source ~/.pentadactyl/wikipedia.css
@@ -13763,6 +13770,9 @@ map <site>o -description "(show bindings)" -js CommandExMode().open("showkeys <s
 map <site>ov
 \    -description "Go to WikiVisually page"
 \    -js openOrSelectTab(buffer.URL.replace("en.wikipedia.org", "wikivisually.com"), count?"tab":"here");
+map <site>ow
+\    -description "Go to Wikiwand page"
+\    -js openOrSelectTab(wpGetWikiwandPage(), count?"tab":"here");
 map <site>p
 \    -description "Open clipboard text in wikipedia"
 \    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
@@ -13815,6 +13825,27 @@ map J
 map K
 \    -description "Scroll to previous heading"
 \    -js wpGotoPreviousHeading();
+
+group user
+
+" -------------------------------------------------------------------------------
+" ,--------------,
+" | Wikiwand.com |
+" '--------------'
+group wikiwand -locations=wikiwand.com
+
+js <<EOF
+function wpGetWikipediaPage(url=buffer.URL) {
+    return url.replace(
+        /https:\/\/www\.wikiwand.com\/(\w+)\/([^?]*)(\?[^#]+)?(#.*)?/,
+        "https://$1.wikipedia.org/wiki/$3"
+    );
+}
+EOF
+
+map <site>ow
+\    -description "Go to Wikipedia page"
+\    -js openOrSelectTab(wpGetWikipediaPage(), count?"tab":"here");
 
 group user
 
