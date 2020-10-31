@@ -2728,6 +2728,18 @@ map <yank>udR
 \                          { forwardSlashDelimiters: true }))
 
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
+map <yank>ugH
+\    -description "Yank first URL in tab history"
+\    -js utils.yankWithMsg(historyGetUrl(0));
+map <yank>ugL
+\    -description "Yank last URL in tab history"
+\    -js utils.yankWithMsg(historyGetUrl("$"));
+map <yank>uH
+\    -description "Yank (nth) previous URL"
+\    -js utils.yankWithMsg(historyGetUrl(`-${count||1}`));
+map <yank>uL
+\    -description "Yank (nth) succeeding URL"
+\    -js utils.yankWithMsg(historyGetUrl(`+${count||1}`));
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(urlGetNthParent(count));
 map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(urlGetNthFromRootPath(count));
 map <yank>ue
@@ -2844,6 +2856,15 @@ function yankSelectorCompletions(...sels) {
 
 function yankSelectorAttributeCompletions(attr, ...sels) {
     return getSelectorsAttributeContent(attr, sels).map(e=>[e]);
+}
+
+function historyGetUrl(spec) {
+    var hist = window.getWebNavigation().sessionHistory;
+    var specstr = String(spec).replace("$", hist.count-1);
+    /* +n or -n indicates relative index */
+    if (/^-|^\+/.test(specstr)) specstr = hist.index + specstr;
+    var entry = hist.getEntryAtIndex(math.evaluate(specstr), false);
+    return entry.URI.asciiSpec;
 }
 
 function pdfGetText(divNums, divSep=" ", lineSep="\n") {
