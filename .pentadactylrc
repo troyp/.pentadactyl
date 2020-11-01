@@ -14,7 +14,7 @@ runtime! personal.js
 
 runtime! js/jquery-3.3.1.min.js
 runtime! js/sprintf.js
-runtime! js/suncalc/suncalc.js
+runtime! js/suncalc.js
 runtime! js/simulateHtmlMouseEvent.js
 runtime! js/svg-pan-zoom.min.js
 set passkeys=
