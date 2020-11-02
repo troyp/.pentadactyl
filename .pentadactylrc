@@ -52,6 +52,8 @@ var downloadsdir = homedir + "/Downloads";
 " ----------------------------------------------------------------------------- "
 
 "imports"
+/* Cu.import loads JS code modules (.jsm files). See https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules */
+
 Cu.import("resource://gre/modules/BookmarkHTMLUtils.jsm");
 Cu.import("resource://gre/modules/FileUtils.jsm");
 Cu.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
