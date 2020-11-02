@@ -743,7 +743,7 @@ command! getoption
 \    -complete option
 \    -js var opt=options.get(args[0]); utils.message(`${opt.name}=${opt.value}`);
 
-set runtimepath=/home/troy/.pentadactyl
+set runtimepath=~/.pentadactyl
 set incfind
 set hlfind
 set findcase=smart
