@@ -1591,6 +1591,9 @@ map <app>xd
 map <app>xp
 \    -description "Process URL/file with shell command and open result as file"
 \    -js CommandExMode().open(count? "shellprocessandopen! " : "shellprocessandopen ");
+map <app>xt
+\    -description "Open file/URL (enter program) in roxterm"
+\    -js CommandExMode().open("shellcommandonurlfileinroxterm ");
 map <app>xx
 \    -description "Open file/URL (enter program)"
 \    -js CommandExMode().open("shellcommandonurlfile ");
@@ -1621,6 +1624,12 @@ command! shellcommandonurlfile
 \    -bang
 \    -nargs 1
 \    -js shellCommandOnUrlFile(args[0], buffer.URL);
+
+command! shellcommandonurlfileinroxterm
+\    -description "Run shell command on URL/file (%f) in terminal emulator"
+\    -bang
+\    -nargs 1
+\    -js shellCommandOnUrlFileinRoxterm(args[0], buffer.URL);
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
@@ -15124,6 +15133,13 @@ function shellCommandOnUrlFile(cmd, url=buffer.URL) {
         var name = urlToFileName(url);
         return io.system(`cd $(mktemp -d); curl -s '${url}' > ${name}; ${cmd.replace("%f", name)}`);
     }
+}
+
+function shellCommandOnUrlFileinRoxterm(cmd, url=buffer.URL, roxtermOpts=null) {
+    roxtermOpts = roxtermOpts || "";
+    if (!roxtermOpts.includes("--geometry")) roxtermOpts = `--geometry=80x40+182-90 ${roxtermOpts}`;
+    var fullcmd = `roxterm ${roxtermOpts} -e "${cmd.replace('"', '\"')}"`;
+    return shellCommandOnUrlFile(fullcmd, url);
 }
 
 function shellProcessAndOpenUrlFile(cmd, url=buffer.URL, where="here") {
