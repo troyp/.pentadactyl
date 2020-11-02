@@ -3867,9 +3867,9 @@ function urlUp(n=1, url=buffer.URL) {
             newurl = url.replace(u.search, "");
         } else if (u.pathname.length > 1) {
             "next try removing the last path component";
-            var match = u.pathname.match(/(\/[^/]+)*(\/[^/]+\/?)/);
+            var match = u.pathname.match(/(\/[^/]+)*(\/[^/]+\/?$)/);
             if (match) {
-                newurl = newurl.replace(match[2], "");
+                newurl = newurl.replace(/\/[^/]+\/?$/, "");
                 if (match[2].match(/^\/index.html?$/)) i--;
             }
         } else {
