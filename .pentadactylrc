@@ -1571,7 +1571,7 @@ map <app>xp
 \    -js CommandExMode().open(count? "shellprocessandopen! " : "shellprocessandopen ");
 map <app>xx
 \    -description "Open file/URL (enter program)"
-\    -js CommandExMode().open(count ? "shellcommandonurlfile! " : "shellcommandonurlfile ");
+\    -js CommandExMode().open("shellcommandonurlfile ");
 map <app>x=
 \    -description "Open file/URL (ask app) and set default application for type"
 \    -count
@@ -1598,7 +1598,7 @@ command! shellcommandonurlfile
 \    -description "Run shell command on URL/file (%f)"
 \    -bang
 \    -nargs 1
-\    -js shellCommandOnUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
+\    -js shellCommandOnUrlFile(args[0], buffer.URL);
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
