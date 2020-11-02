@@ -1515,9 +1515,31 @@ map <app>f
 map <app>D
 \    -description "Open directory in Dolphin"
 \    -ex openDirectoryInDolphin
+
+" ,------------------, "
+" | <app>i -- Images | "
+" '------------------' "
+map <app>i -description "(show bindings: Images)" -js CommandExMode().open("showkeys <app>i")
+map <app>is -description "(show bindings: Images/Screenshots)" -js CommandExMode().open("showkeys <app>is")
+map <app>iss
+\    -description "Open screenshot of current url (pageres)"
+\    -ex screenshotpageres
+
 map <app>iv
 \    -description "Open (counth) last VLC screenshot"
 \    -js utils.message(io.system('( cd ~/Pictures/vlc-snapshot; display $(command ls -t | tail -n+1 | head -n1 | xargs realpath))' ).output);
+
+js <<EOF
+function screenshotPageres(url=buffer.URL) {
+    return io.system(`dir=$(mktemp -d); cd $dir; pageres '${url}'; feh *.png;`);
+}
+EOF
+
+command! screenshotpageres
+\    -description "Open screenshot of current url (pageres)"
+\    -nargs ?
+\    -js screenshotPageres(...args)
+
 map <app>op
 \    -description "Visit Packt Free Learning site in Google Chrome"
 \    -ex ochromeurl "https://www.packtpub.com/packt/offers/free-learning"
