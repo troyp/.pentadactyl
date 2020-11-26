@@ -3895,10 +3895,12 @@ EOF
 command! tc
     \ -description "close tab range [START, END]"
     \ -nargs=+
+    \ -complete buffer
     \ -js utils.message(tabCloseOrdRangeInclusiveBidirectional(args[0], args[1]));
 command! tcx
     \ -description "close tab range [START, END)"
     \ -nargs=+
+    \ -complete buffer
     \ -js utils.message(tabCloseOrdRangeExclusiveBidirectional(args[0], args[1]));
 
 " filter tabs "
