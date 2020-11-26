@@ -844,6 +844,9 @@ map ,  -description "Leader key prefix"    <leader>
 
 imap <A-return> <Esc><site>
 
+cmap <A-y> <yank>
+imap <A-y> <yank>
+
 " List mappings by prefix (using commandline completion)
 map <site>         -description "(show bindings)" -js CommandExMode().open("showkeys <site>")
 map <leader>       -description "(show bindings)" -js CommandExMode().open("showkeys <leader>")
