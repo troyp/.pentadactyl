@@ -2669,6 +2669,8 @@ map <yank>a -description "Yank text area #N contents" -b :yanktextarea<Space>
 
 map <yank>b  -description "(show bindings: yank tabs)" -js CommandExMode().open("showkeys <yank>b")
 map <yank>bb -description "Yank tabs list (index: label <URL>)" -js yankTabsList();
+map <yank>btn -description "Yank title of tab N" -b :yanktabtitle<Space>
+map <yank>bun -description "Yank URL of tab N" -b :yanktaburl<Space>
 
 map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
 
