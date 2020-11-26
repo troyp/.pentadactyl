@@ -1619,29 +1619,29 @@ command! pandocopen
 \    -description "Convert URL/file with pandoc and open"
 \    -bang
 \    -nargs +
-\    -js pandocConvertOpenUrlFile(args[0], args[1], buffer.URL, bang?"adjacent":"here");
+\    -js pandocConvertOpenUrlFile(args[0], args[1], getCurrentURL(), bang?"adjacent":"here");
 
 command! shellprocessandopen
 \    -description "Process URL/file with shell command and open result as file"
 \    -bang
 \    -nargs 1
-\    -js shellProcessAndOpenUrlFile(args[0], buffer.URL, bang?"adjacent":"here");
+\    -js shellProcessAndOpenUrlFile(args[0], getCurrentURL(), bang?"adjacent":"here");
 
 command! shellcommandonurlfile
 \    -description "Run shell command on URL/file (%f)"
 \    -bang
 \    -nargs 1
-\    -js shellCommandOnUrlFile(args[0], buffer.URL);
+\    -js shellCommandOnUrlFile(args[0], getCurrentURL());
 
 command! shellcommandonurlfileinroxterm
 \    -description "Run shell command on URL/file (%f) in terminal emulator"
 \    -bang
 \    -nargs 1
-\    -js shellCommandOnUrlFileinRoxterm(args[0], buffer.URL);
+\    -js shellCommandOnUrlFileinRoxterm(args[0], getCurrentURL());
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
-command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || buffer.URL} | mpg123 -`)).output);
+command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || getCurrentURL()} | mpg123 -`)).output);
 
 " ,---------------------------------, "
 " | <app>s -- Switch to Application | "
