@@ -11035,7 +11035,7 @@ group jisho -locations=jisho.org
 autocmd! -group jisho
 autocmd PageLoad jisho.org jishodetailsenhancekanji
 
-map <site>fl     -description "Links drop down" -js hints.show("リ");
+map <site>fl     -description "Toggle link drop down [HINTS]" -js hints.show("リ");
 
 " <site>g  --  adjust page "
 map <site>g      -description "(show bindings Jisho/Adjust Page)" -js CommandExMode().open("showkeys <site>g")
@@ -11071,7 +11071,7 @@ map <site>tss -description "Toggle heavy/light kanji style (kanji details)"
 \             -ex styletoggle -group jisho -name jisho-kanji-page-kanji-style
 map <site>te     -description "Toggle between sentences page and regular results"  -ex jishotogglesentences
 map <site>tk     -description "Toggle between kanji page and regular results"      -ex jishotogglekanji
-map <site>tl     -description "Show all link lists"                                -ex jishotogglelinklists
+map <site>tl     -description "Toggle all link lists"                              -ex jishotogglelinklists
 map <site>tr     -description "Toggle kanji radical input dialog"                  -ex jishotoggleradicalinput
 map <site>tR     -description "Toggle between kana and romaji"                     -ex jishotoggleromaji
 
