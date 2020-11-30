@@ -3413,9 +3413,6 @@ command! backt -description "Create adjacent duplicate tab and go back in the br
 command! forwardt -description "Create adjacent duplicate tab and go forward in the browser history" -js forwardt()
 command! tabdupa -description "Create adjacent duplicate tab" -js tabCopyLeftBg()
 
-command! pasteall -description "open all links in clipboard" -js openAllLinksInCB();
-map gp -ex pasteall
-
 command! viewpagesource -description "Toggle viewing page / viewing page source" -js viewPageSource();
 
 command! rc source ~/.pentadactylrc
@@ -3606,15 +3603,21 @@ EOF
 map ga -description "Open new tab, search in Awesome Bar" -b <C-v><C-t>
 map <buffer>o -description "Open URL in adjacent tab" -b :tabopenurladjacent<Space>
 map <buffer>x -description "Open in new (adjacent) tab" -b :tabopenadjacent<Space>
-" Paste and Search
-" swap p and P
+
+" Paste and Search "
+" swap p and P "
 map P -modes normal -b p
 map p -description "Open clipboard contents in a new tab"
 \     -modes normal
 \     -js for (i=0; i<(count||1); ++i) dactyl.open(utils.cbRead({index: i}), {where: dactyl.NEW_TAB});
+map g;p -description "Open all links in current selection" -js openAllLinksInCB();
+map gp
+\    -description "Open (put) URL based on selection in adjacent tab"
+\    -js tabOpenAdjacent(utils.cbRead({index: count||1}, false));
 map <A-p> -description "Open clipboard contents in new background tab"
 \    -modes normal
 \    -js for (i=0; i<(count||1); ++i) dactyl.execute(`background tabopen ${utils.cbRead({index: i})}`);
+
 " ,-----------------------,
 " | <buffer>a -- all tabs |
 " '-----------------------'
