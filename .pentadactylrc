@@ -2800,7 +2800,7 @@ map <yank>x  -description "(show bindings: yank text)" -js CommandExMode().open(
 map <yank>xx -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>xs -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
 
-map <yank>y -description "Yank buffer URL" -b y
+map <yank>y -description "Yank buffer URL" -js utils.cbWrite(getCurrentURL());
 map <yank>0 -description "Yank empty string to clipboard" -js utils.cbWrite("");
 map <yank>1 -description "Yank all <H1> headings" -js yankSelectorContent(count ? `h1:nth-of-type(${count})` : "h1");
 map <yank>2 -description "Yank all <H2> headings" -js yankSelectorContent(count ? `h2:nth-of-type(${count})` : "h2");
