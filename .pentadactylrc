@@ -2880,6 +2880,9 @@ command! pdfYankLines
     \ -nargs=1
     \ -js pdfYankLines(parseRanges(args[0]));
 
+command! cbdecodeuri -description "Decode URI in clipboard" -js utils.cbWrite(decodeURIComponent(utils.cbRead()));
+command! cbencodeuri -description "Encode URI in clipboard" -js utils.cbWrite(encodeURIComponent(utils.cbRead()));
+
 js <<EOF
 function yankTextarea(n) {
     var contents = getTextArea(n);
