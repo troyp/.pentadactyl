@@ -4475,17 +4475,21 @@ map <goto>lhs     -description "~/source"
 \                 -count -js openOrSelectTab(`${homedir}/source`, count?"here":"tab");
 map <goto>lo      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lo")
 map <goto>lo/     -description "/opt/"
-\                 -count -js openOrSelectTab(`/opt`, count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt", count?"here":"tab");
 map <goto>loc     -description "/opt/chrome-extensions"
-\                 -count -js openOrSelectTab(`/chrome-extensions`, count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/chrome-extensions", count?"here":"tab");
 map <goto>lod     -description "/opt/deb"
-\                 -count -js openOrSelectTab(`/deb`, count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/deb", count?"here":"tab");
 map <goto>lof     -description "/opt/ff-addons"
-\                 -count -js openOrSelectTab(`/opt/ff-addons`, count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/ff-addons", count?"here":"tab");
 map <goto>los     -description "/opt/scripts"
-\                 -count -js openOrSelectTab(`/scripts`, count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/scripts", count?"here":"tab");
+map <goto>lou     -description "/opt/userscripts"
+\                 -count -js openOrSelectTab("/opt/userscripts", count?"here":"tab");
+map <goto>loU     -description "/opt/userstyles"
+\                 -count -js openOrSelectTab("/opt/userstyles", count?"here":"tab");
 map <goto>low     -description "/opt/webapps"
-\                 -count -js openOrSelectTab(`/webapps`, count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/webapps", count?"here":"tab");
 map <goto>lp      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp");
 map <goto>lp/     -description "~/Pictures/"
 \                 -count -js openOrSelectTab(`file://${homedir}/Pictures`, count?"here":"tab");
