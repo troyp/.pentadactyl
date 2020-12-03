@@ -11233,6 +11233,10 @@ command! jishotogglekanji
      \ -description "Toggle between kanji page and regular results"
      \ -js jishoToggleKanji();
 
+command! jishotogglelinklists
+     \ -description "Show all link lists"
+     \ -js jishoToggleAllLinkULs();
+
 command! jishotogglesentences
      \ -description "Toggle between sentences page and regular results"
      \ -js jishoToggleSentences();
@@ -11259,7 +11263,7 @@ command! jishodetailsenhancekanji
 "
 set eht+=[たヤヱヹ]:div.concept_light-representation>span.text,.character
 set eht+=[かが]:div.concept_light-representation>span.text,.character,.break-unit
-set eht+=[リ]:a[class="concept_light-status_link"]
+set eht+=[リ]:a.concept_light-status_link[data-dropdown]
 set eht+=[ぶ]:li.radical.available,li.radical.selected
 
 js <<EOF
@@ -11425,10 +11429,13 @@ function jishoToggleAllLinkULs() {
         linklists[i].focus();
         var llstyle = linklists[i].style;
         leftvalmatch = llstyle.cssText.match(/left: *(-?\d+\w*);/);
-        if (leftvalmatch && parseInt(leftvalmatch[1])>-200) {
+        if (leftvalmatch && parseInt(leftvalmatch[1])>-250) {
+        linklists[i].classList.remove("open");
             llstyle.cssText = "";
         } else {
-            llstyle.cssText = "position: relative; left: -120px; top: 0;";
+            linklists[i].classList.add("open");
+            llstyle.cssText.replace(/left:[^;]+;/, "");
+            llstyle.cssText += " left: -220px;";
         }
     }
 }
@@ -11437,10 +11444,14 @@ function jishoToggleLinksUL(ul) {
     ul.focus();
     var llstyle = ul.style;
     leftvalmatch = llstyle.cssText.match(/left: *(-?\d+\w*);/);
-    if (leftvalmatch && parseInt(leftvalmatch[1])>-200) {
+    if (leftvalmatch && parseInt(leftvalmatch[1])>-250) {
+        ul.classList.remove("open");
         llstyle.cssText = "";
     } else {
-        llstyle.cssText = "position: relative; left: -120px; top: 0;";
+        ul.classList.add("open");
+        llstyle.cssText.replace(/left:[^;]+;/, "");
+        // llstyle.cssText += " left: -220px;";
+        llstyle.cssText += " left: 0px; background-color: rgba(255, 255, 255, 0.7);";
     }
 }
 
