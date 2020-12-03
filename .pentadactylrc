@@ -14918,6 +14918,8 @@ var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query"
 
 var re_url = /^([a-zA-Z][a-zA-Z0-9+.-]*):(\/\/([^/:@?#]+@)?([^/:@?#]+)(:[^/:@?#]+)?)?(\/[^:@?#]*)([?][^/:@?#]+)?(#[^/:@?#]+)?/;
 
+function getCurrentURL() { return document.querySelector('#urlbar')._value; }
+
 function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
 }
@@ -15075,7 +15077,7 @@ function parseRanges(s) {
 /* | Loading | */
 /* '---------' */
 function getFilenameOrURL(url, escapeSpaces=false) {
-    url = decodeURIComponent(url || buffer.URL);
+    url = decodeURIComponent(url || getCurrentURL());
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch && escapeSpaces) {
@@ -15088,7 +15090,7 @@ function getFilenameOrURL(url, escapeSpaces=false) {
 }
 
 function getFilenameOrUrlAsFile(url, escapeSpaces=false) {
-    url = url || buffer.URL;
+    url = decodeURIComponent(url || getCurrentURL());
     var file = getFilenameOrURL(url, escapeSpaces);
     var localFileMatch = file.match(/^\/|^~/);
     if (!localFileMatch) {
@@ -15098,7 +15100,7 @@ function getFilenameOrUrlAsFile(url, escapeSpaces=false) {
     return file;
 }
 
-function mimeopenUrlFile(url=buffer.URL) {
+function mimeopenUrlFile(url=getCurrentURL()) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
@@ -15109,7 +15111,7 @@ function mimeopenUrlFile(url=buffer.URL) {
     }
 }
 
-function mimeopenAskAppUrlFile(url=buffer.URL) {
+function mimeopenAskAppUrlFile(url=getCurrentURL()) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
@@ -15120,7 +15122,7 @@ function mimeopenAskAppUrlFile(url=buffer.URL) {
     }
 }
 
-function mimeopenAndSetAppUrlFile(url=buffer.URL) {
+function mimeopenAndSetAppUrlFile(url=getCurrentURL()) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
@@ -15131,7 +15133,7 @@ function mimeopenAndSetAppUrlFile(url=buffer.URL) {
     }
 }
 
-function openWithProgramUrl(program, url=buffer.URL) {
+function openWithProgramUrl(program, url=getCurrentURL()) {
     return io.system(`${program} '${url}'`);
 }
 
@@ -15168,14 +15170,14 @@ function shellCommandOnUrlFile(cmd, url=buffer.URL) {
     }
 }
 
-function shellCommandOnUrlFileinRoxterm(cmd, url=buffer.URL, roxtermOpts=null) {
+function shellCommandOnUrlFileinRoxterm(cmd, url=getCurrentURL(), roxtermOpts=null) {
     roxtermOpts = roxtermOpts || "";
     if (!roxtermOpts.includes("--geometry")) roxtermOpts = `--geometry=80x40+182-90 ${roxtermOpts}`;
     var fullcmd = `roxterm ${roxtermOpts} -e "${cmd.replace('"', '\"')}"`;
     return shellCommandOnUrlFile(fullcmd, url);
 }
 
-function shellProcessAndOpenUrlFile(cmd, url=buffer.URL, where="here") {
+function shellProcessAndOpenUrlFile(cmd, url=getCurrentURL(), where="here") {
     if (!cmd.includes("%f")) cmd += " %f";
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
@@ -15191,7 +15193,7 @@ function shellProcessAndOpenUrlFile(cmd, url=buffer.URL, where="here") {
     utils.message(converted);
 }
 
-function pandocConvertOpenUrlFile(from, to, url=buffer.URL, where="here") {
+function pandocConvertOpenUrlFile(from, to, url=getCurrentURL(), where="here") {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     var converted;
@@ -15332,7 +15334,7 @@ function docToPageName(doc=content.document) {
     }
 }
 
-function urlToFileName(url=buffer.URL) {
+function urlToFileName(url=getCurrentURL()) {
     var name = (new URL(url)).pathname.replace(/\/?([#?].*)?$/, "").split("/").pop();
     var extRe = /\.[a-zA-Z0-9]+$/;
     if (!name.match(extRe)) {
