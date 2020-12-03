@@ -2070,9 +2070,16 @@ map <leader>rdtt -description "Aiksaurus Thesaurus" -b :thesaurusaik<Space>
 map <leader>rdtp -description "Power Thesaurus" -b :thesauruspower<Space>
 map <leader>rdtw -description "Wiktionary Thesaurus" -b :thesauruswiktionary<Space>
 
+map <leader>rm
+\    -description "(show bindings: Reference/Maps)"
+\    -js CommandExMode().open("showkeys <leader>rm");
+map <leader>rmm
+\    -description "World map (geology.com)"
+\    -js openOrSelectTab("https://geology.com/world/world-map.shtml", count?"here":"adjacent");
+
 map <leader>rp
 \    -description "Periodic Table (ptable.com)"
-\    -js openOrSelectTab("ptable.com");
+\    -js openOrSelectTab("ptable.com", bang?"here":"adjacent");
 
 map <leader>ru
 \    -description "(show bindings: Reference/Unicode)"
