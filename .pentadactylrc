@@ -897,7 +897,7 @@ map <C-h>gc      -description "List commands by group" -b :listcommandsbygroup<S
 map <C-h>gC      -description "List commands by group (verbose)" -b :listcommandsbygroup!<Space>
 map <C-h>gm      -description "List bindings by group" -b :listmappingsbygroup<Space>
 map <C-h>h       -description "Open Help topic" :help<Space>
-map <C-h>i       -description "Pentadactyl help - index" -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+map <C-h>i       -description "Pentadactyl help - index" -count -js openOrSelectTab("dactyl://help/index", count?"here":"adjacent");
 map <C-h>k       -description "Show key bindings matching prefix" :showkeys<Space>
 map <C-h>m       -description "Search bindings by mode" -b :searchmappingsbymode<Space>
 map <C-h>;       -description "(show bindings: Help/Ext Hint Modes)" -js CommandExMode().open("showkeys <C-h>;")
@@ -1768,17 +1768,17 @@ map <leader>adf
 \    -description "Figurosity"
 \    -js openOrSelectTab(
 \            "https://figurosity.com/figure-drawing-pose-sets",
-\            count?"here":"tab",
+\            count?"here":"adjacent",
 \            /https:\/\/figurosity\.com/);
 map <leader>adj
 \    -description "JustSketchMe - posable figure model"
-\    -js openOrSelectTab("http://justsketch.me", count?"here":"tab");
+\    -js openOrSelectTab("http://justsketch.me", count?"here":"adjacent");
 map <leader>adh
 \    -description "Handprint.com - watercolour pigment information"
 \    -b :handprint<Space>
 map <leader>adq
 \    -description "Quickposes"
-\    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"tab");
+\    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"adjacent");
 
 " <leader>ag - Repos "
 map <leader>ag
@@ -1793,10 +1793,10 @@ map <leader>agg -description "Github goto user/repo"
 \    -js CommandExMode().open(count ? "githubgoto! " : "githubgoto ");
 map <leader>agh
 \     -description "Open My Github: Repositories"
-\     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"tab");
+\     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"adjacent");
 map <leader>agb
 \     -description "Open My Bitbucket"
-\     -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"tab");
+\     -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"adjacent");
 
 " <leader>am - Email "
 map <leader>am
@@ -1804,23 +1804,23 @@ map <leader>am
 \    -js CommandExMode().open("showkeys <leader>am");
 map <leader>amc
 \     -description "Open Google Contacts"
-\     -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"tab");
+\     -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"adjacent");
 map <leader>amC
 \     -description "Open Gmail Contacts (basic)"
 \     -count -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
-\                                count?"here":"tab",
+\                                count?"here":"adjacent",
 \                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
 map <leader>amm
 \     -description "Open Gmail Basic"
 \     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
-\                                count?"here":"tab",
+\                                count?"here":"adjacent",
 \                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*\?&/);
 map <leader>amg
 \     -description "Open Gmail"
-\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"tab");
+\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"adjacent");
 map <leader>amy
 \     -description "Open Y7Mail"
-\     -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"tab");
+\     -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"adjacent");
 
 " <leader>as - Shopping & Schedules"
 map <leader>as
@@ -1849,7 +1849,7 @@ map <leader>asl
 \         ].forEach(u=>openOrSummonTab(u));
 map <leader>asp
 \     -description "Open Paypal"
-\     -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"tab");
+\     -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"adjacent");
 
 map <leader>aq
 \    -description "Open Quix"
@@ -1857,7 +1857,7 @@ map <leader>aq
 " Time "
 map <leader>at
 \     -description "Open Time Server"
-\     -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"tab", /^https:\/\/time\.is/);
+\     -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"adjacent", /^https:\/\/time\.is/);
 " <leader>av - Video & Radio"
 map <leader>av
 \    -description "(show bindings: Web Sites/Video&Radio)"
@@ -1867,22 +1867,22 @@ map <leader>ava
 \     -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
 map <leader>avd -description "Open Disney Plus"
 \    -count
-\    -js openOrSelectTab("https://www.disneyplus.com/en-gb/home", count?"here":"tab");
+\    -js openOrSelectTab("https://www.disneyplus.com/en-gb/home", count?"here":"adjacent");
 :if isPalemoon
     map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
 :else
     map <leader>avn -description "Open Netflix"
-    \ -count -js openOrSelectNetflix(count?"here":"tab");
+    \ -count -js openOrSelectNetflix(count?"here":"adjacent");
 :endif
 map <leader>avp
 \    -description "Goto Amazon Prime Video"
-\    -count -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"tab");
+\    -count -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"adjacent");
 map <leader>avv
 \    -description "Open video webapps"
 \    -js openOrSelectTab("https://www.netflix.com/browse"); openOrSelectTab("https://www.disneyplus.com/en-gb/home"); openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo");
 map <leader>avy
 \    -description "Goto Youtube"
-\    -js openOrSelectTab("https://www.youtube.com/", count?"here":"tab");
+\    -js openOrSelectTab("https://www.youtube.com/", count?"here":"adjacent");
 
 " Utils "
 map <leader>au
@@ -1898,18 +1898,18 @@ map <leader>aw
 \    -js CommandExMode().open("showkeys <leader>aw");
 map <leader>aww
 \     -description "Open Lismore Weather (BoM)"
-\     -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"tab");
+\     -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"adjacent");
 map <leader>aws
 \     -description "Show Goonellabah Sunrise and Sunset Times"
 \     -js showSunriseSunset();
 map <leader>awt
 \     -description "Open Goonellabah Weather (timeanddate.com)"
-\     -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"tab");
+\     -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"adjacent");
 " MyGov "
 map <leader>ay
 \     -description "Open MyGov"
 \     -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
-\                                count?"here":"tab");
+\                                count?"here":"adjacent");
 " Amazon "
 map <leader>azz
 \     -description "Open AU Amazon"
@@ -1957,15 +1957,15 @@ map <leader>jj
     \ -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
 map <leader>jk  -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
 map <leader>jkh -description "Google Translate handwritten input"
-    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"tab", /https:\/\/translate\.google\.com\.au\/(#ja\/en\/|.*&sl=ja.*&tl=en).*/);
+    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"adjacent", /https:\/\/translate\.google\.com\.au\/(#ja\/en\/|.*&sl=ja.*&tl=en).*/);
 map <leader>jkp
     \ -description "Jisho kanji search (clipboard)"
     \ -count
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
-map <leader>jkr -description "Jisho kanji radical search" -js openOrSelectTab("https://jisho.org/#radical", count?"here":"tab");
+map <leader>jkr -description "Jisho kanji radical search" -js openOrSelectTab("https://jisho.org/#radical", count?"here":"adjacent");
 map <leader>jkv -description "Visual Kanji Search (similar kanji)"
     \ -count -js openOrSelectTab("https://thekanjimap.com/index.html?k="+dactyl.clipboardRead(),
-    \                            count?"here":"tab");
+    \                            count?"here":"adjacent");
 map <leader>jm -description "Jisho multiword search" -b :jishomultisearch<Space>
 map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
 
@@ -1973,7 +1973,7 @@ map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
 " | <leader>m - Manipulate Page | "
 " '-----------------------------' "
 map <leader>m   -description "(show bindings: Manipulate Page)" -js CommandExMode().open("showkeys <leader>m")
-map <leader>ms  -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"tab");
+map <leader>ms  -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"adjacent");
 map <leader>mcm -description "Add margins to page body" -b addmargin<SPACE>
 map <leader>mbp -description "Print What You Like" -ex prwul
 
@@ -2021,10 +2021,10 @@ map <leader>oL
 \    -b :tabopenf<Space>
 map <leader>opd
 \    -description "Open clipboard text in wiktionary"
-\    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+\    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
 map <leader>opw
 \    -description "Open clipboard text in wikipedia"
-\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
 map <leader>ow
 \    -description "Open in new window"
 \    -count -b :winopen<Space>
@@ -2295,7 +2295,7 @@ command! trackpackages
 \    -description "Track packages"
 \    -bang
 \    -nargs=+
-\    -js openOrSelectTab("https://t.17track.net/en#nums=" + args.join(","), bang?"here":"tab");
+\    -js openOrSelectTab("https://t.17track.net/en#nums=" + args.join(","), bang?"here":"adjacent");
 
 " Download PDF "
 command! dlpdf
@@ -3816,7 +3816,7 @@ command! openorselect -description "Open URL in current (! new) tab, or switch t
 \  -nargs=+
 \  -bang
 \  -complete=url
-\  -js openOrSelectTab(args[0], args[1]?"here":"tab");
+\  -js openOrSelectTab(args[0], args[1]?"here":"adjacent");
 command! openorsummon -description "Open URL in new tab, or move existing tab after current. Select unless !"
 \  -nargs=+
 \  -bang
@@ -4425,89 +4425,89 @@ map <goto>a       -description "(Show bindings: Goto Addons)" -js CommandExMode(
 map <goto>aa      -description "Addons"
 \                 -ex dialog addons
 map <goto>ac      -description "Classic Addons"
-\                 -count -js openOrSelectTab("caa:list", count?"here":"tab");
+\                 -count -js openOrSelectTab("caa:list", count?"here":"adjacent");
 map <goto>ap      -description "Palemoon Extensions"
-\                 -count -js openOrSelectTab("https://addons.palemoon.org/extensions/", count?"here":"tab");
+\                 -count -js openOrSelectTab("https://addons.palemoon.org/extensions/", count?"here":"adjacent");
 map <goto><C-a>   -description "Palemoon Incompatible Extensions"
-\                 -count -js openOrSelectTab("https://addons.palemoon.org/incompatible/", count?"here":"tab");
+\                 -count -js openOrSelectTab("https://addons.palemoon.org/incompatible/", count?"here":"adjacent");
 map <goto>;a      -description "Addons Directory"
-\                 -count -js openOrSelectTab("file:///opt/ff-addons/", count?"here":"tab");
+\                 -count -js openOrSelectTab("file:///opt/ff-addons/", count?"here":"adjacent");
 map <goto>b       -description "Firefox Keyboard Shortcuts"
 \                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/doc/firefox-kb-shortcuts.html`,
-\                                            count?"here":"tab");
+\                                            count?"here":"adjacent");
 map <goto>c       -description "about:config (existing or new tab)"
-\                 -count -js openOrSelectTab("about:config", count?"here":"tab");
+\                 -count -js openOrSelectTab("about:config", count?"here":"adjacent");
 map <goto>d       -description "Downloads"
 \                 -count -b :openorselect about:downloads <count><CR><C-z>
 map <goto>D       -description "about:debugging"
-\                 -count -js openOrSelectTab("about:debugging", count?"here":"tab");
+\                 -count -js openOrSelectTab("about:debugging", count?"here":"adjacent");
 map <goto>f       -description "about:about"
-\                 -count -js openOrSelectTab("tabopen about:about", count?"here":"tab");
+\                 -count -js openOrSelectTab("tabopen about:about", count?"here":"adjacent");
 map <goto>h       -description "Pentadactyl help"
 \                 -ex help
 map <goto>H       -description "Pentadactyl help - single page"
 \                 -ex helpall
 map <goto>;h      -description "Pentadactyl help - index"
-\                 -count -js openOrSelectTab("dactyl://help/index", count?"here":"tab");
+\                 -count -js openOrSelectTab("dactyl://help/index", count?"here":"adjacent");
 map <goto>i       -description "Profiles"
-\                 -count -js openOrSelectTab("about:profiles", count?"here":"tab");
+\                 -count -js openOrSelectTab("about:profiles", count?"here":"adjacent");
 map <goto>k       -description "places (bookmarks & history)"
 \                 -count -b :openorselect chrome://browser/content/places/places.xul <count><CR>gi<C-z>
 map <goto>K       -description "Bookmarks"
-\                 -count -js openOrSelectTab("chrome://browser/content/bookmarks/bookmarksPanel.xul", count?"here":"tab");
+\                 -count -js openOrSelectTab("chrome://browser/content/bookmarks/bookmarksPanel.xul", count?"here":"adjacent");
 map <goto>l       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>l")
 map <goto>ldw     -description "~/Downloads/"
-\                 -count -js openOrSelectTab(`${homedir}/Downloads`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/Downloads`, count?"here":"adjacent");
 map <goto>ldc     -description "~/Documents/"
-\                 -count -js openOrSelectTab(`${homedir}/Documents`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/Documents`, count?"here":"adjacent");
 map <goto>le      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>le")
 map <goto>le/     -description "~/ebooks/"
-\                 -count -js openOrSelectTab(`${homedir}/ebooks`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks`, count?"here":"adjacent");
 map <goto>lec     -description "~/ebooks/coding"
-\                 -count -js openOrSelectTab(`${homedir}/ebooks/coding`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks/coding`, count?"here":"adjacent");
 map <goto>led     -description "~/ebooks/dl"
-\                 -count -js openOrSelectTab(`file://${homedir}/ebooks/dl`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/ebooks/dl`, count?"here":"adjacent");
 map <goto>les     -description "~/ebooks/css"
-\                 -count -js openOrSelectTab(`${homedir}/ebooks/css`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks/css`, count?"here":"adjacent");
 map <goto>lea     -description "~/ebooks/articles"
-\                 -count -js openOrSelectTab(`${homedir}/ebooks/articles`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/ebooks/articles`, count?"here":"adjacent");
 map <goto>lh      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lh")
 map <goto>lhe     -description "~/.emacs.d/private"
-\                 -count -js openOrSelectTab(`${homedir}/.emacs.d/private`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/.emacs.d/private`, count?"here":"adjacent");
 map <goto>lhp     -description "~/.pentadactyl"
-\                 -count -js openOrSelectTab(`${homedir}/.pentadactyl`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/.pentadactyl`, count?"here":"adjacent");
 map <goto>lhr     -description "~/repos"
-\                 -count -js openOrSelectTab(`${homedir}/repos`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/repos`, count?"here":"adjacent");
 map <goto>lhs     -description "~/source"
-\                 -count -js openOrSelectTab(`${homedir}/source`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`${homedir}/source`, count?"here":"adjacent");
 map <goto>lo      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lo")
 map <goto>lo/     -description "/opt/"
-\                 -count -js openOrSelectTab("/opt", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt", count?"here":"adjacent");
 map <goto>loc     -description "/opt/chrome-extensions"
-\                 -count -js openOrSelectTab("/opt/chrome-extensions", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/chrome-extensions", count?"here":"adjacent");
 map <goto>lod     -description "/opt/deb"
-\                 -count -js openOrSelectTab("/opt/deb", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/deb", count?"here":"adjacent");
 map <goto>lof     -description "/opt/ff-addons"
-\                 -count -js openOrSelectTab("/opt/ff-addons", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/ff-addons", count?"here":"adjacent");
 map <goto>los     -description "/opt/scripts"
-\                 -count -js openOrSelectTab("/opt/scripts", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/scripts", count?"here":"adjacent");
 map <goto>lou     -description "/opt/userscripts"
-\                 -count -js openOrSelectTab("/opt/userscripts", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/userscripts", count?"here":"adjacent");
 map <goto>loU     -description "/opt/userstyles"
-\                 -count -js openOrSelectTab("/opt/userstyles", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/userstyles", count?"here":"adjacent");
 map <goto>low     -description "/opt/webapps"
-\                 -count -js openOrSelectTab("/opt/webapps", count?"here":"tab");
+\                 -count -js openOrSelectTab("/opt/webapps", count?"here":"adjacent");
 map <goto>lp      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp");
 map <goto>lp/     -description "~/Pictures/"
-\                 -count -js openOrSelectTab(`file://${homedir}/Pictures`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/Pictures`, count?"here":"adjacent");
 map <goto>lpd     -description "~/Pictures/downloads"
-\                 -count -js openOrSelectTab(`file://${homedir}/Pictures/downloads`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/Pictures/downloads`, count?"here":"adjacent");
 map <goto>lpa     -description "~/Pictures/art"
-\                 -count -js openOrSelectTab(`file://${homedir}/Pictures/art`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/Pictures/art`, count?"here":"adjacent");
 map <goto>lud     -description "/usr/share/doc (existing or new tab)"
-\                 -count -js openOrSelectTab("file:///usr/share/doc/", count?"here":"tab");
+\                 -count -js openOrSelectTab("file:///usr/share/doc/", count?"here":"adjacent");
 map <goto>luld    -description "/usr/local/share/doc (existing or new tab)"
-\                 -count -js openOrSelectTab("file:///usr/local/share/doc/", count?"here":"tab");
+\                 -count -js openOrSelectTab("file:///usr/local/share/doc/", count?"here":"adjacent");
 map <goto>m       -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m");
 map <goto>mc      -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc");
 map <goto>mcc     -description "chrome:// URL completion"
@@ -4517,28 +4517,28 @@ map <goto>mcg     -description "chrome://global/content/ URL completion"
 map <goto>N       -description "New Tab Page"
 \                 -js newTabPage();
 map <goto>o       -description "/opt/ directory"
-\                 -count -js openOrSelectTab("file:///opt", count?"here":"tab");
+\                 -count -js openOrSelectTab("file:///opt", count?"here":"adjacent");
 map <goto>p       -description "Plugins"
-\                 -count -js openOrSelectTab("about:plugins", count?"here":"tab");
+\                 -count -js openOrSelectTab("about:plugins", count?"here":"adjacent");
 :if isPalemoon
     map <goto>P   -description "Preferences"
-\                 -count -js openOrSelectTab("tchrome://browser/content/preferences/preferences.xul", count?"here":"tab");
+\                 -count -js openOrSelectTab("tchrome://browser/content/preferences/preferences.xul", count?"here":"adjacent");
 :else
     map <goto>P   -description "Preferences"
 \                 -count -b :openorselect about:preferences <count><CR><C-z>
 :endif
 map <goto>q       -description "Password manager"
-\                 -count -js openOrSelectTab("chrome://passwordmgr/content/passwordManager.xul", count?"here":"tab");
+\                 -count -js openOrSelectTab("chrome://passwordmgr/content/passwordManager.xul", count?"here":"adjacent");
 map <goto>r       -description "Session restore"
-\                 -count -js openOrSelectTab("about:sessionrestore", count?"here":"tab");
+\                 -count -js openOrSelectTab("about:sessionrestore", count?"here":"adjacent");
 map <goto>s       -description "Support"
-\                 -count -js openOrSelectTab("about:support", count?"here":"tab");
+\                 -count -js openOrSelectTab("about:support", count?"here":"adjacent");
 map <goto>u       -description "/opt/userscripts/ directory"
-\                 -count -js openOrSelectTab("file:///opt/userscripts", count?"here":"tab");
+\                 -count -js openOrSelectTab("file:///opt/userscripts", count?"here":"adjacent");
 map <goto>U       -description "/opt/userstyles/ directory"
-\                 -count -js openOrSelectTab("file:///opt/userstyles", count?"here":"tab");
+\                 -count -js openOrSelectTab("file:///opt/userstyles", count?"here":"adjacent");
 map <goto>;u      -description "~/.pentadactyl/gmscripts/ directory"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"adjacent");
 map <goto>w       -description "(Show bindings: Goto/Open Dialog)" -js CommandExMode().open("showkeys <goto>w");
 map <goto>wd      -description "Downloads dialog" -ex dialog downloads
 map <goto>wh      -description "History dialog" -js window.PlacesCommandHook.showPlacesOrganizer("History");
@@ -4555,52 +4555,52 @@ map <goto>wi      -description "Page Info" -js BrowserPageInfo();
 
 map <goto>x       -description "(Show bindings: Goto/Extensions)" -js CommandExMode().open("showkeys <goto>x");
 map <goto>xc      -description "ChromEdit"
-\                 -count -js openOrSelectTab("chrome://chromedit/content/ChromEdit.xul", count?"here":"tab");
+\                 -count -js openOrSelectTab("chrome://chromedit/content/ChromEdit.xul", count?"here":"adjacent");
 map <goto>xe      -description "Epub Catalog"
-\                 -count -js openOrSelectTab("about:epubcatalog", count?"here":"tab");
+\                 -count -js openOrSelectTab("about:epubcatalog", count?"here":"adjacent");
 map <goto>xx      -description "XPCOM Viewer"
-\                 -count -js openOrSelectTab("chrome://xpcomviewer/content/xpcomviewer.xul", count?"here":"tab");
+\                 -count -js openOrSelectTab("chrome://xpcomviewer/content/xpcomviewer.xul", count?"here":"adjacent");
 map <goto>y       -description "(Show bindings: Goto/Dactyl)" -js CommandExMode().open("showkeys <goto>y")
 map <goto>yc      -description "~/.pentadactyl/config"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/config`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/config`, count?"here":"adjacent");
 map <goto>yC      -description "~/.pentadactyl/css"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/css`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/css`, count?"here":"adjacent");
 map <goto>yd      -description "~/.pentadactyl/doc"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/doc`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/doc`, count?"here":"adjacent");
 map <goto>yD      -description "~/.pentadactyl/data"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/data`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/data`, count?"here":"adjacent");
 map <goto>yge     -description "dactyl repo: my local fork (open in Emacs)"
 \                 -ex openinemacs ~/repos/dactyl/common
 map <goto>ygg     -description "dactyl repo: my fork"
-\                 -count -js openOrSelectTab("https://github.com/troyp/dactyl/tree/master", count?"here":"tab");
+\                 -count -js openOrSelectTab("https://github.com/troyp/dactyl/tree/master", count?"here":"adjacent");
 map <goto>ygl     -description "dactyl repo: my local fork - downloads directory"
-\                 -count -js openOrSelectTab(`file://${homedir}/repos/dactyl/downloads/`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/repos/dactyl/downloads/`, count?"here":"adjacent");
 map <goto>ygo     -description "dactyl repo: origin"
-\                 -count -js openOrSelectTab("https://github.com/5digits/dactyl/tree/master", count?"here":"tab");
+\                 -count -js openOrSelectTab("https://github.com/5digits/dactyl/tree/master", count?"here":"adjacent");
 map <goto>yh      -description "~/.pentadactyl/html"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/html`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/html`, count?"here":"adjacent");
 map <goto>yj      -description "~/.pentadactyl/js"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/js`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/js`, count?"here":"adjacent");
 map <goto>ym      -description "~/.pentadactyl/misc"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/misc`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/misc`, count?"here":"adjacent");
 map <goto>yp      -description "~/.pentadactyl/plugins"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/plugins`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/plugins`, count?"here":"adjacent");
 map <goto>yP      -description "~/.pentadactyl/plugins_inactive"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/plugins_inactive`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/plugins_inactive`, count?"here":"adjacent");
 map <goto>ys      -description "~/.pentadactyl/src"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/src`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/src`, count?"here":"adjacent");
 map <goto>yS      -description "resource://dactyl/ (Dactyl source)"
-\                 -count -js openOrSelectTab("resource://dactyl/", count?"here":"tab");
+\                 -count -js openOrSelectTab("resource://dactyl/", count?"here":"adjacent");
 map <goto>yu      -description "~/.pentadactyl/gmscripts"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"adjacent");
 map <goto>yU      -description "~/.pentadactyl/userstyles"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/userstyles`, count?"here":"tab");
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/userstyles`, count?"here":"adjacent");
 map <goto>yy      -description "~/.pentadactyl"
-\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl`, count?"here":"tab", RegExp(`^file://${homedir}/.pentadactyl/?$`));
+\                 -count -js openOrSelectTab(`file://${homedir}/.pentadactyl`, count?"here":"adjacent", RegExp(`^file://${homedir}/.pentadactyl/?$`));
 map <goto>`       -description "Home directory"
-\                 -count -js openOrSelectTab("dactyl.open(`file://${homedir}`,", count?"here":"tab");
+\                 -count -js openOrSelectTab("dactyl.open(`file://${homedir}`,", count?"here":"adjacent");
 map <goto>/       -description "Root directory"
-\                 -count -js openOrSelectTab("file:///", count?"here":"tab");
+\                 -count -js openOrSelectTab("file:///", count?"here":"adjacent");
 
 
 command! appcache
@@ -5381,7 +5381,7 @@ EOF
 command! addonssearch -description "Search Mozilla Addons site for extensions in new (!=current) tab"
 \    -nargs=*
 \    -bang
-\    -js searchAddonsMozilla(args.join(" "), bang?"here":"tab");
+\    -js searchAddonsMozilla(args.join(" "), bang?"here":"adjacent");
 
 
 " ============================================================================
@@ -6042,7 +6042,7 @@ map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 " | <leader>id -- Misc/Images/Diagrams | "
 " '------------------------------------' "
 map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
-map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"tab");
+map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"adjacent");
 
 " ,--------------------------------,
 " | <leader>i -- Misc/Images/Hints |
@@ -7379,7 +7379,7 @@ command! altnetopen -description "Open application page"
 command! altnettabopen -description "Open (or switch to) application page in another tab"
 \   -nargs=1
 \   -complete custom,' (context) => {context.completions = altnetCompletions()}'
-\   -count -js openOrSelectTab(altnetGetOfficialWebsite(args[0].replace(/.*…+/, "")), count?"here":"tab");
+\   -count -js openOrSelectTab(altnetGetOfficialWebsite(args[0].replace(/.*…+/, "")), count?"here":"adjacent");
 command! altnetyankofficialwebsite -description "Yank URL of official website for application"
 \   -nargs=1
 \   -complete custom,' (context) => {context.completions = altnetCompletions()}'
@@ -8448,13 +8448,13 @@ map <site>da -description "Download all videos (with youtube-dl)" -js crDL();
 map <site>o -description "(show bindings: [Crunchyroll] Goto)" -js CommandExMode().open("showkeys <site>o");
 map <site>or
 \    -description "Go to Reviews"
-\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/reviews/helpful/page1`, count?"tab":"here");
+\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/reviews/helpful/page1`, count?"adjacent":"here");
 map <site>oc
 \    -description "Go to Comments"
-\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/discussions`, count?"tab":"here");
+\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/discussions`, count?"adjacent":"here");
 map <site>ov
 \    -description "Go to Videos"
-\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/videos`, count?"tab":"here");
+\    -js openOrSelectTab(`https://www.crunchyroll.com/${crGetTitle()}/videos`, count?"adjacent":"here");
 map <site>y -description "(show bindings: [Crunchyroll] Yank)" -js CommandExMode().open("showkeys <site>y");
 map <site>yt -description "Yank video title" -js utils.yankWithMsg(crGetTitle());
 map <site>yT
@@ -8606,7 +8606,7 @@ map [[ -description "Previous Page"
 map <site>c -description "(product) expand reviews, (wishlist) toggle pull-down" -js danmurphysGo();
 map <site>n -description "Show only products with >=N stars" -b :danmurphysnstars<Space>
 map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
-map <site>oc -description "Go to cart" -js openOrSelectTab("https://www.danmurphys.com.au/dm/ecart/cart", count?"tab":"here", null, true);
+map <site>oc -description "Go to cart" -js openOrSelectTab("https://www.danmurphys.com.au/dm/ecart/cart", count?"adjacent":"here", null, true);
 map <site>or -description "Scroll to reviews" -js danmurphysScrollToReviews();
 map <site>ow
 \    -description "Go to Wish List"
@@ -8743,15 +8743,15 @@ map <site>c -description "Click button (Add to cart/Go to checkout)" -js ebayGo(
 map <site>n -description "Count items" -js utils.message("Number of items: " + ebayCount());
 map <site>o -js CommandExMode().open("showkeys <site>o")
 map <site>oa -description "Goto Account Page"
-\    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"tab":"here", null, true);
-map <site>oc -description "Goto Cart" -js openOrSelectTab("https://cart.ebay.com.au", count?"tab":"here", null, true);
-map <site>of -description "Leave feedback" -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"tab":"here");
+\    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"adjacent":"here", null, true);
+map <site>oc -description "Goto Cart" -js openOrSelectTab("https://cart.ebay.com.au", count?"adjacent":"here", null, true);
+map <site>of -description "Leave feedback" -js openOrSelectTab("https://www.ebay.com.au/fdbk/leave_feedback", count?"adjacent":"here");
 map <site>ok -description "Goto Similar Items" -js getSelectorByText('h2','Similar items you may be interested in')[0].scrollIntoView();
-map <site>om -description "Goto Inbox" -js openOrSelectTab("https://mesg.ebay.com.au/mesgweb/ViewMessages/0", count?"tab":"here");
+map <site>om -description "Goto Inbox" -js openOrSelectTab("https://mesg.ebay.com.au/mesgweb/ViewMessages/0", count?"adjacent":"here");
 map <site>oo -description "Goto Orders (Purchase history)"
 \    -js openOrSelectTab(
 \            "https://www.ebay.com.au/myb/PurchaseHistory#PurchaseHistoryOrdersContainer?ipp=100&Period=2",
-\            count?"tab":"here");
+\            count?"adjacent":"here");
 map <site>os -description "Goto My Saved Sellers"
 \    -js openOrSelectTab("https://www.ebay.com.au/myb/SavedSellers", count?"tab":"here", null, true);
 map <site>ov -description "Goto seller's store" -js openOrSelectTab(ebayGetStoreUrl(), count?"tab":"here");
@@ -9259,7 +9259,7 @@ map <site>od       -description "Open PR patch"
 map <site>oD       -description "Open PR diff"
 \                  -count -js openOrSelectTab(`${ghprGetDiffURL()}`, count?"tab":"here");
 map <site>og       -description "Open gists"
-\                  -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"tab");
+\                  -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"adjacent");
 map <site>oh       -description "Open help" -count -js ghOpenHelp(count?"here":"tab");
 map <site>oi       -description "Open issues"
 \                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`,
@@ -12309,20 +12309,20 @@ map <site>o   -description "(show bindings: Goto)" -js CommandExMode().open("sho
 map <site>oa
 \    -description "Go to account"
 \    -count
-\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/account.php", count?"here":"tab",
+\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/account.php", count?"here":"adjacent",
 \                        /https:\/\/www\.newtownartsupplies\.com\.au\/account\.php$/);
 map <site>oc
 \    -description "Go to cart"
 \    -count
-\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/cart.php", count?"here":"tab");
+\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/cart.php", count?"here":"adjacent");
 map <site>ol
 \    -description "Go to login"
 \    -count
-\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/login.php", count?"here":"tab");
+\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/login.php", count?"here":"adjacent");
 map <site>oo
 \    -description "Go to orders"
 \    -count
-\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/account.php?action=order_status", count?"here":"tab");
+\    -js openOrSelectTab("https://www.newtownartsupplies.com.au/account.php?action=order_status", count?"here":"adjacent");
 map <site>n  -description "Count items" -js utils.message("Number of items: " + newtownartCount());
 map <Space>  -description "Load more" -ex open javascript:ENV.Express_more()
 
@@ -12683,19 +12683,19 @@ group pencils4artists -locations=pencils4artists.co.uk
 map <site>o   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>oa  -description "Goto Account"
 \             -count
-\             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
+\             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"adjacent");
 map <site>oc  -description "Goto Cart"
 \             -count
 \             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBShoppingCart.asp?PBMInit=1",
-\                                 count?"here":"tab");
+\                                 count?"here":"adjacent");
 map <site>ol  -description "Goto Login"
 \             -count
-\             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserLogin.asp?CCode=33", count?"here":"tab");
+\             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserLogin.asp?CCode=33", count?"here":"adjacent");
 map <site>oo  -description "Goto Orders"
 \             -count
 \             -js buffer.URL=="http://www.pencils4artists.co.uk/PBUserAccount.asp" ?
 \                     dactyl.open("javascript:SubmitAction(8,null,0,null,1);") :
-\                     openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"tab");
+\                     openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"adjacent");
 map <site>n   -description "Cart: count items"
 \             -js utils.message("Number of items: " + p4aCountItems());
 map <site>s   -description "Cart: save cart"
@@ -13575,21 +13575,21 @@ map <site>c   -ex wikiaremovecruft
 map <site>i   -ex wikiaremoveimages
 map <site>m   -description "(show bindings: Wikia/My)" -js CommandExMode().open("showkeys <site>m")
 map <site>mt  -description "My Talk"
-\             -count -js openOrSelectTab(wikiaGetURL("User_talk:"+wikiaGetUser()), count?"here":"tab");
+\             -count -js openOrSelectTab(wikiaGetURL("User_talk:"+wikiaGetUser()), count?"here":"adjacent");
 map <site>mu  -description "My Profile"
-\             -count -js openOrSelectTab(wikiaGetURL("User:"+wikiaGetUser()), count?"here":"tab");
+\             -count -js openOrSelectTab(wikiaGetURL("User:"+wikiaGetUser()), count?"here":"adjacent");
 map <site>o   -description "(show bindings:Wikia/Open)" -js CommandExMode().open("showkeys <site>o")
 map <site>oh  -description "Help"
-\             -count -js openOrSelectTab(wikiaHelpURL, count?"here":"tab");
+\             -count -js openOrSelectTab(wikiaHelpURL, count?"here":"adjacent");
 map <site>op  -description "(show bindings: Wikia/Open/Preferences)" -js CommandExMode().open("showkeys <site>op")
 map <site>ope -description "My Preferences: Editing"
-\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-editing", count?"here":"tab");
+\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-editing", count?"here":"adjacent");
 map <site>opm -description "My Preferences: Email"
-\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-emailv2", count?"here":"tab");
+\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-emailv2", count?"here":"adjacent");
 map <site>opp -description "My Preferences: My Info"
-\             -count -js openOrSelectTab(wikiaPrefsURL, count?"here":"tab");
+\             -count -js openOrSelectTab(wikiaPrefsURL, count?"here":"adjacent");
 map <site>opu -description "My Preferences: Under the Hood"
-\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"tab");
+\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"adjacent");
 map <site>p   -b :wikiapage<Space>
 map <site>r   -ex wikiasimplepage
 map <site>s   -b :wikiasearch<Space>
@@ -13874,7 +13874,7 @@ map <site>ow
 \    -js openOrSelectTab(wpGetWikiwandPage(), count?"tab":"here");
 map <site>p
 \    -description "Open clipboard text in wikipedia"
-\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"_", true);
 map <site>P
 \    -description "Open clipboard text in wiktionary"
 \    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
@@ -14185,13 +14185,13 @@ map <site>o
 \    -js CommandExMode().open("showkeys <site>o")
 map <site>oh
 \    -description "Goto history"
-\    -js openOrSelectTab("https://www.youtube.com/feed/history", count?"here":"tab");
+\    -js openOrSelectTab("https://www.youtube.com/feed/history", count?"here":"adjacent");
 map <site>ok
 \    -description "Goto keyboard shortcuts overlay"
 \    -js getSelectorByText(".yt-simple-endpoint", /keyboard shortcut/i)[0].click();
 map <site>ol
 \    -description "Goto library"
-\    -js openOrSelectTab("https://www.youtube.com/feed/library", count?"here":"tab");
+\    -js openOrSelectTab("https://www.youtube.com/feed/library", count?"here":"adjacent");
 map <site>op
 \    -description "(show bindings: Goto Playlist)"
 \    -js CommandExMode().open("showkeys <site>o");
@@ -14200,13 +14200,13 @@ map <site>opp
 \    -js CommandExMode().open("ytgotoplaylist" + (count?"! ":" "));
 map <site>opl
 \    -description "Goto Watch Later playlist"
-\    -js openOrSelectTab("https://www.youtube.com/playlist?list=WL", count?"here":"tab");
+\    -js openOrSelectTab("https://www.youtube.com/playlist?list=WL", count?"here":"adjacent");
 map <site>os
 \    -description "(show bindings: Goto Subscriptions)"
 \    -js CommandExMode().open("showkeys <site>o");
 map <site>osa
 \    -description "Goto Subscriptions list"
-\    -js openOrSelectTab("https://www.youtube.com/feed/subscriptions", count?"here":"tab");
+\    -js openOrSelectTab("https://www.youtube.com/feed/subscriptions", count?"here":"adjacent");
 map <site>oss
 \    -description "Goto Subscription"
 \    -js CommandExMode().open("ytgotochannel"+(count?"! ":" "));
