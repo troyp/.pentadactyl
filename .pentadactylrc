@@ -2502,7 +2502,7 @@ function wikipediaGotoPage(s, where="tab", openorselect=true) {
     if (openorselect)
         openOrSelectTab(url, where);
     else
-        dactyl.open(url, { where: where });
+        pageOpen(url, { where: where });
 }
 function wiktionaryGotoPage(s, where="tab", openorselect=true) {
     var page = strToWikiTitle(s, false);
@@ -2510,7 +2510,7 @@ function wiktionaryGotoPage(s, where="tab", openorselect=true) {
     if (openorselect)
         openOrSelectTab(url, where);
     else
-        dactyl.open(url, { where: where });
+        pageOpen(url, { where: where });
 }
 
 function unicodePoint(chars) {
@@ -5365,7 +5365,7 @@ function searchAddonsMozilla(sterm, where="tab") {
     var origPrevVal = prefroot.getBoolPref("security.csp.enable");
     prefroot.setBoolPref("security.csp.enable", false);
     window.setTimeout(()=>{
-        dactyl.open(`https://addons.mozilla.org/en-US/firefox/search/?q=${sterm}&type=extension`,
+        pageOpen(`https://addons.mozilla.org/en-US/firefox/search/?q=${sterm}&type=extension`,
                     { "where": where });
         prefroot.setBoolPref("security.csp.enable", origPrevVal);
     }, 2000);
@@ -15372,7 +15372,7 @@ function urlContentType(url) {
 
 function openHTML(html, where='tab') {
     var dataURI = "data:text/html," + encodeURIComponent(html);
-    dactyl.open(dataURI, where);
+    pageOpen(dataURI, where);
 }
 
 function isAscii(s) {
