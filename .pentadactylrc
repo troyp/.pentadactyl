@@ -14550,31 +14550,29 @@ function getSelectorsContent(sels, useInnerText=false) {
     return getSelectors(sels).map(e=>e[prop].replace(/^\s+|\s+$/g, ""));
 }
 
-function getSelectorsAttributeContent(attr, sels) {
-    if (typeof sels == "string") sels = [sels];
-    result = [];
-    sels.forEach(sel=>{
-        selectedElts = Array.from(content.document.querySelectorAll(sel));
-        selectedElts.forEach(e=>result.push(e[attr]));
-    });
-    return result;
+function getSelectorsAttributeContent(attr, sels, useGetAttribute=false) {
+    if (useGetAttribute)
+        return getSelectors(sels).map(e=>e.hasAttribute(attr) && e.getAttribute(attr).replace(/^\s+|\s+$/g, ""));
+    else
+        return getSelectors(sels).map(e=>e[attr].replace(/^\s+|\s+$/g, ""));
 }
 
-function getSelectorWithMatchingAttribute(sel, att, expr) {
-    var all_elts = Array.from(content.document.querySelectorAll(sel));
-    var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
-    return matching;
+function getSelectorWithMatchingAttribute(sel, att, expr, useGetAttribute=false) {
+    if (useGetAttribute)
+        return getSelectors(sel).filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
+    else
+        return getSelectors(sel).filter(e=>e[att].match(expr));
 }
 
-function getFirstSelectorWithMatchingAttribute(sel, att, expr) {
-    var all_elts = Array.from(content.document.querySelectorAll(sel));
-    var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
-    return matching && matching[0];
+function getFirstSelectorWithMatchingAttribute(sel, att, expr, useGetAttribute=false) {
+    if (useGetAttribute)
+        return getSelectors(sel).find(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
+    else
+        return getSelectors(sel).find(e=>e[att].match(expr));
 }
 
-function removeSelectorWithMatchingAttribute(sel, att, expr) {
-    var all_elts = Array.from(content.document.querySelectorAll(sel));
-    var matching = all_elts.filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
+function removeSelectorWithMatchingAttribute(sel, att, expr, useGetAttribute=false) {
+    var matching = getSelectorWithMatchingAttribute(sel, att, expr, useGetAttribute);
     matching.forEach(e => e.parentNode.removeChild(e));
 }
 
