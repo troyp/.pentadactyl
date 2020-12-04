@@ -5856,7 +5856,7 @@ map <leader>ld -description "Choose links from page and download" -b :dlchooseli
 map <leader>lD -description "Download selected links" -b :dlselectionlinks<Space>
 map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
 map <leader>ll -description "List all links in page" -ex listlinks
-map <leader>ls -description "Open links in selection" -ex openselectionlinks
+map <leader>ls -description "Open links in selection" -js openSelectionLinks(count?"tab":"adjacent");
 map <leader>lt -description "Append link text & destinations to end of page" -ex appendlinktextandurls
 map <leader>lT -description "Append link destinations & text to end of page" -ex appendlinkurlsandtext
 map <leader>lv -description "Open links in clipboard" -ex tabopencblinks
@@ -5893,7 +5893,8 @@ command! tabopencblinks
 \    -js openCBLinks();
 command! openselectionlinks
 \    -description "Open links in selection"
-\    -js openSelectionLinks();
+\    -bang
+\    -js openSelectionLinks(bang?"tab":"adjacent");
 command! dlselectionlinks
 \    -description "Download links in selection. With ! save links in subdirectory."
 \    -bang -nargs=?
@@ -6026,7 +6027,7 @@ function openListLinks(links, opts={where: dactyl.NEW_TAB}) {
 
 function getSelectionLinks() { return Array.from(getSelectionDOM().links); }
 
-function openSelectionLinks() { getSelectionLinks().forEach(l=>openOrSelectTab(l, count?"here":"tab")); }
+function openSelectionLinks(where="adjacent") { getSelectionLinks().forEach(l=>openOrSelectTab(l, where)); }
 
 function dlSelectionLinks(dir=null, subdir=null) { return dlLinks(getSelectionLinks(), dir, subdir); }
 EOF
