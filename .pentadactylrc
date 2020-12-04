@@ -148,6 +148,16 @@ function fetchBmarkUrlByKeyword(kw, callback) {
         e => { Cu.reportError(`bookmark keyword ${kw} not found.`) });
 }
 
+"History"
+var nsIHistoryService = Cc["@mozilla.org/browser/nav-history-service;1"].getService(Ci.nsINavHistoryService);
+function uri(spec) {
+  return Cc["@mozilla.org/network/io-service;1"].
+         getService(Ci.nsIIOService).
+         newURI(spec, null, null);
+}
+var nsIBrowserHistory = nsIHistoryService.QueryInterface(Ci.nsIBrowserHistory);
+function historyRemoveURI(url=getCurrentURL()) { nsIBrowserHistory.removePage(uri(url)); }
+
 "Application"
 var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
 
@@ -1201,10 +1211,19 @@ function downloadsList(filter) {
 }
 EOF
 
+" ,-----------------------, "
+" | <browser>h -- History | "
+" '-----------------------' "
+command! historyremoveuri -description "Remove URL from history" -nargs 1 -js historyRemoveURI(args[0]);
+
+map <browser>h -description "(Show bindings: History)" -js CommandExMode().open("showkeys <browser>h")
+map <browser>hd -description "Remove current URL from history" -js historyRemoveURI();
+map <browser>hD -description "Remove URL from history" -b :historyremoveuri<Space>
+
 " ,---------------------, "
 " | <browser>m -- Menus | "
 " '---------------------' "
-map <browser>m      -description "(Show bindings)" -js CommandExMode().open("showkeys <browser>m")
+map <browser>m -description "(Show bindings: Menu)" -js CommandExMode().open("showkeys <browser>m")
 map <browser>mm -b :emenu<SPACE>
 map <browser>mf -b :emenu File.
 map <browser>me -b :emenu Edit.
@@ -15564,6 +15583,7 @@ var EXPORT_TO_WINDOW = [
     "env",
     "A",
     "S",
+    "historyRemoveURI",
     "evalWithScriptTag",
     "seq",
     "id",
