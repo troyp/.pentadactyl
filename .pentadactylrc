@@ -14546,13 +14546,8 @@ function getSelectorContent(sel, target='innerText') {
 }
 
 function getSelectorsContent(sels, useInnerText=false) {
-    if (typeof sels == "string") sels = [sels];
-    result = [];
-    sels.forEach(sel=>{
-        selectedElts = Array.from(content.document.querySelectorAll(sel));
-        selectedElts.forEach(e=>result.push(e[useInnerText?"innerText":"textContent"]));
-    });
-    return result;
+    var prop = useInnerText ? "innerText" : "textContent";
+    return getSelectors(sels).map(e=>e[prop].replace(/^\s+|\s+$/g, ""));
 }
 
 function getSelectorsAttributeContent(attr, sels) {
