@@ -13691,7 +13691,8 @@ function wpGetContents() {
 
 function wpCleanup() {
     removeSelectors("#siteNotice", "#mw-navigation", "#footer", ".noprint", ".mw-editsection", ".navbox", "#xtools", "#kanjiInfo");
-    getFirstSelectorByText("a", "Search Google").remove();
+    var searchGoogle = getFirstSelectorByText("a", "Search Google");
+    searchGoogle && searchGoogle.remove();
 }
 
 function wpGotoNextHeading() {
