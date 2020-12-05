@@ -13897,7 +13897,7 @@ map <site>ow
 \    -js openOrSelectTab(wpGetWikiwandPage(), count?"tab":"here");
 map <site>p
 \    -description "Open clipboard text in wikipedia"
-\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"_", true);
+\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
 map <site>P
 \    -description "Open clipboard text in wiktionary"
 \    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
