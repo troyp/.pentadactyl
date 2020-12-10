@@ -13654,6 +13654,8 @@ map <site>r   -ex wikiasimplepage
 map <site>s   -b :wikiasearch<Space>
 map <site>t   -description "(show bindings: Wikia/Toggle)" -js CommandExMode().open("showkeys <site>t");
 map <site>tc  -description "Toggle Contents" -js getSelectorByText("a", /show|hide/)[0].click();
+map <site>te  -description "Open all 'expand' regions" -ex clickselectorall ".mw-collapsed a.mw-collapsible-text"
+map <site>tE  -description "Toggle all 'expand' regions" -ex clickselectorall "a.mw-collapsible-text"
 map <site>tn  -description "Toggle Global Navigation" -js wikiaToggleGlobalNav();
 map <site>x   -js wikiaClosePopup();
 map ]]   -ex wikianext
