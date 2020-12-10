@@ -6552,6 +6552,25 @@ function removeCruft() {
     } else if (url.match(/https:\/\/opensource\.com/)) {
         isolateSelectors("#article-template");
         removeSelectors(".os-article__image", ".os-article__left", ".os-article__bottom", ".authorbio__thumbnail", ".user-picture-badges");
+    } else if (url.match(/https:\/\/www\.geeksforgeeks\.org/)) {
+        if (!hasSelector("meta[property='dactyl:removecruft']")) {
+            isolateSelectors(".leftSideBarParent", "#primary");
+            removeSelectors("iframe[allow*=autoplay]", ".entry-meta", ".upvoteArticle", ".nav-single");
+            removeSelectorFiltered("div", e=>e.id.match(/^AP_G4GR/));
+            getFirstSelector("#primary").style.width="70%";
+            appendElement(
+                "meta",
+                content.document.head,
+                { property: "dactyl:removecruft" }
+            );
+        } else {
+            var disq = getFirstSelector("#disqus_thread>iframe").contentDocument;
+            ["#posts>#form", "#thread-share-bar", "#recommend-button", "a.user>img", "div.avatar img.user"]
+                .map(sel=>disq.querySelectorAll(sel))
+                .map(l=>Array.from(l))
+                .flatMap()
+                .forEach(e=>e.remove());
+        }
     } else {
         removeCruftGeneric();
     }
