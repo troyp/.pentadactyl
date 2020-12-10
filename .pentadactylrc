@@ -3555,37 +3555,52 @@ command! setbodybyid
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
-command! removeselector -nargs=* -js removeSelectors.call(null, ...args);
-command! removefirstselector -nargs=1 -js removeFirstSelector.call(null, args[0]);
-command! removeselectorwithmatchingattribute -nargs=+ -js removeSelectorWithMatchingAttribute.call(null, ...args);
+command! removeselector -nargs=* -js removeSelectors(...args);
+command! removefirstselector -nargs=1 -js removeFirstSelector(args[0]);
+command! removeselectorwithmatchingattribute -nargs=+ -js removeSelectorWithMatchingAttribute(...args);
 command! removecruft -js removeCruft();
 command! removeiframes -js removeIFrames();
-command! isolateselector -nargs=* -js isolateSelectors.call(null, ...args);
+command! isolateselector -nargs=* -js isolateSelectors(...args);
 command! isolateselectorsfiltered
 \    -description "Isolate selectors when (optional) EXPR holds. Escape quotes. args: SEL:EXPR [SEL2:EXPR2] ..."
 \    -nargs=*
-\    -js isolateSelectorsFiltered.call(
+\    -js isolateSelectorsFiltered.apply(
 \            null,
-\            ...args.map(pr=>{
+\            args.map(pr=>{
 \                var [sel,pred]=pr.split(":");
 \                pred = pred || true;
 \                return [sel, eval("(e)=>"+pred)];
 \            }));
 command! setbackground -nargs=* -js setBackground(args.slice(1), args[0]);
-command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
-command! unhideselector  -nargs=* -js unhideSelectors.call(null, ...args);
-command! hidefirstselector  -nargs=1 -js hideFirstSelector.call(null, args[0]);
-command! blankselector  -nargs=* -js blankSelectors.call(null, ...args);
-command! removexpath -nargs=1 open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
-command! countselector -nargs=1 -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelector(args[0])}`);
 command! clickselector -description "Click the first matching element" -nargs=+ -js clickSelector(...args);
 command! clickselectorall -description "Click all matching elements" -nargs=+ -js clickSelectorAll(...args);
 command! clickselectorbytext -description "Click the first matching element [SELECTOR TEXT]" -nargs=+ -js clickSelectorByText(...args);
 command! clickselectorbytextall -description "Click the first matching element [SELECTOR TEXT]" -nargs=+ -js clickSelectorByTextAll(...args);
+command! hideselector -description "Hide all matching elements" -nargs=* -js hideSelectors(...args);
+command! unhideselector
+\    -description "Unhide all matching elements (display:none)"
+\    -nargs=*
+\    -js unhideSelectors(...args);
+command! hidefirstselector -description "Hide the first matching element" -nargs=1 -js hideFirstSelector(args[0]);
+command! blankselector
+\    -description "Blank all matching elements (visibility:hidden)"
+\    -nargs=*
+\    -js blankSelectors(...args);
 command! addmargin -nargs=+ -js addMarginToBody(args[0], args[1]);
 
+command! removexpath
+\    -nargs=1
+\    -ex open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
+
 " Page info commands "
-command! getselector -nargs=* -js dactyl.execute(`echo getSelectors('${args.join(",")}')`);
+command! getselector
+\    -description "Show matching elements"
+\    -nargs=*
+\    -js dactyl.execute(`echo getSelectors('${args.join(",")}')`);
+command! countselector
+\    -description "Count matching elements"
+\    -nargs=1
+\    -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelector(args[0])}`);
 command! imgsalttotitle
     \ -description "Add ALT text to TITLE for all images on page"
     \ -js imgsAddAltTextToTitle();
@@ -4837,7 +4852,7 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 map <leader>e      -description "(show bindings: Javascript Eval)" -js CommandExMode().open("showkeys <leader>e")
 
 " JS Repl
-command! jsrepl -js repl=CommandREPLMode.call(); repl.open(); repl.update();
+command! jsrepl -js repl=CommandREPLMode(); repl.open(); repl.update();
 command! evalwithscripttag
     \ -nargs *
     \ -complete javascript
@@ -5549,7 +5564,7 @@ function getExtensions(arrayCallback) {
         var result = [];
         for (let ext of exts)
             result.push(ext.name+': '+ext.id);
-        arrayCallback.call(null, result);
+        arrayCallback(result);
     });
 }
 
@@ -14388,17 +14403,14 @@ function getSelectors(...sels) {
 }
 
 function removeSelectors(...sels) {
-    var elts = getSelectors(...sels);
-    elts.forEach(e=>e.parentNode.removeChild(e));
+    getSelectors(...sels).forEach(e=>e.parentNode.removeChild(e));
 }
 
 function removeSelectorFiltered(sel, pred) {
-    var elts = getSelectors(sel).filter(pred);
-    elts.forEach(e=>e.remove());
+    getSelectors(sel).filter(pred).forEach(e=>e.remove());
 }
 
 function getFirstSelector(sel) {
-    " Return the first element matching selector sel ";
     return content.document.querySelector(sel);
 }
 
@@ -14434,14 +14446,14 @@ function setBackground(sels, col="white") {
 function topElements() { return [...content.document.body.children] };
 
 function isolateSelector(sel) {
-    selectedElt = content.document.querySelector(sel);
+    selectedElt = getFirstSelector(sel);
     topElements().forEach(elt => elt.remove());
     content.document.body.appendChild(selectedElt);
 }
 
 " TODO: remove nonmatching elements rather than replacing matching ones "
 function isolateSelectors(...sels) {
-    selectedElts = [...content.document.querySelectorAll(sels)];
+    selectedElts = getSelectors(...sels);
     if (selectedElts.length==0) return null;
     topElts = [...content.document.body.children];
     topElts.forEach(elt => elt.remove());
@@ -14461,7 +14473,7 @@ function isolateSelectorsFiltered(...selPredPairs) {
         } else {
             var [sel, pred] = arg;
             pred = pred || ((e)=>true);
-            eltsForSel = [...content.document.querySelectorAll(sel)];
+            eltsForSel = getSelectors(sel);
             eltsForSelFiltered = eltsForSel.filter(pred);
             keep = keep.concat(eltsForSelFiltered);
         }
@@ -14474,7 +14486,7 @@ function isolateSelectorsFiltered(...selPredPairs) {
 
 function isolateSelectorsFilteredHelper(...args) {
     var processedArgs = args.map(pair=>[pair[0], eval("(e)=>"+pair[1])]);
-    return isolateSelectorsFiltered.call(null, ...processedArgs);
+    return isolateSelectorsFiltered(...processedArgs);
 }
 
 function hideElement(e) {
@@ -14493,33 +14505,19 @@ function unhideElement(e) {
 }
 
 function hideSelectors(...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(hideElement);
-    });
+    getSelectors(...sels).forEach(hideElement);
 }
 
 function unhideSelectors(...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(unhideElement);
-    });
+    getSelectors(...sels).forEach(unhideElement);
 }
 
 function toggleHideSelectors(...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>{
-            var css = e.getAttribute('style') || '';
-            var hideregex = /(^|;| ) *display: *none *(!important)? *;/g;
-            if (css.match(hideregex))
-                e.setAttribute('style', css.replace(hideregex, ''));
-            else
-                e.setAttribute('style', css+" display: none !important;");
-        });
+    getSelectors(...sels).forEach(e=>{
+        var css = e.getAttribute('style') || '';
+        var hideregex = /(^|;| ) *display: *none *(!important)? *;/g;
+        if (css.match(hideregex)) e.setAttribute('style', css.replace(hideregex, ''));
+        else e.setAttribute('style', css+" display: none !important;");
     });
 }
 
@@ -14529,24 +14527,14 @@ function hideFirstSelector(...sels) {
 }
 
 function blankSelectors(...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>{
-            var css = e.getAttribute('style') || '';
-            e.setAttribute('style', css+" visibility: hidden !important;");
-        });
+    getSelectors(...sels).forEach(e=>{
+        var css = e.getAttribute('style') || '';
+        e.setAttribute('style', css+" visibility: hidden !important;");
     });
 }
 
 function setSelectorsOpacity(opacity, ...sels) {
-    var doc = content.document;
-    sels.forEach(sel=>{
-        var elts = Array.from(doc.querySelectorAll(sel));
-        elts.forEach(e=>{
-            e.style.opacity = opacity;
-        });
-    });
+    getSelectors(...sels).forEach(e=>{ e.style.opacity = opacity; });
 }
 
 function getSelectorContent(sel, target='innerText') {
@@ -14622,7 +14610,7 @@ function clickSelectorAll(...sels) {
 function dispatchClickSelector(sel) {
     if (typeof sel == "string") {
         /* selector */
-        var elt = content.document.querySelector(sel);
+        var elt = getFirstSelector(sel);
         dispatchClickEvent(elt);
     } else {
         /* element */
