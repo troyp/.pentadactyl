@@ -14626,9 +14626,9 @@ function getSelectorByText(sel, pattern, useInnerText=false) {
     var elts = getSelectors(sel);
     return elts.filter(elt => (useInnerText ? elt.innerText : elt.textContent).trim().match(pattern));
 }
-function getFirstSelectorByText(sel, pattern) {
+function getFirstSelectorByText(sel, pattern, useInnerText=false) {
     var elts = getSelectors(sel)
-    return elts.find(elt => elt.textContent.trim().match(pattern));
+    return elts.find(elt => (useInnerText ? elt.innerText : elt.textContent).trim().match(pattern));
 }
 
 " Note: to choose a selector from those with given text, ";
