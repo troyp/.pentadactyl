@@ -184,6 +184,7 @@ A = {
     filter:      (coll, f) => Array.from(coll).filter(f),
     forEach:     (coll, f) => Array.from(coll).forEach(f),
     find:        (coll, f) => Array.from(coll).find(f),
+    sorted:      (coll) => Array.from(coll).slice().sort(),
     every:       (coll, f) => Array.from(coll).every(f),
     some:        (coll, f) => Array.from(coll).some(f),
     includes:    (coll, f, fromIndex=undefined) => Array.from(coll).includes(f, fromIndex),
