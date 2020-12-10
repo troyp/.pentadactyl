@@ -15086,6 +15086,13 @@ function cutoff(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
 
+/* ,--------, */
+/* | Ranges | */
+/* '--------' */
+
+/* converting directly to integer ranges before combining */
+/* may be slow for large ranges */
+
 function parseRanges(s) {
     var result = [];
     s.split(/[ ,]+/).forEach(ss => {
@@ -15095,6 +15102,90 @@ function parseRanges(s) {
             result.push(i);
     });
     return result;
+}
+
+/* using NumRange struct */
+
+var NumRange = Struct("start", "end");
+function parseNumRange(s) {
+    let parts = s.split("-");
+    start = parseInt(parts[0]);
+    end = parseInt(parts[1] || parts[0]);
+    return NumRange(start, end);
+}
+
+function mkNumRangeList(str) {
+    return str.replace(/ /g, "")
+        .split(",")
+        .map(parseNumRange);
+}
+
+function joinNumRanges(r1, r2) {
+    if (r1.start <= r2.start) {
+        if (r2.end <= r1.end) {
+            return [r1];
+        } else if (r2.start <= r1.end+1 && r1.end < r2.end) {
+            return [NumRange(r1.start, r2.end)];
+        } else {
+            return [r1, r2];
+        }
+    } else /* r2.start < r1.start */ {
+        if (r1.end <= r2.end) {
+            return [r2];
+        } else if (r1.start <= r2.end+1 && r2.end < r1.end) {
+            return [NumRange(r2.start, r1.end)];
+        } else {
+            return [r2, r1];
+        }
+    }
+}
+function numRangeListAddRange(r, rangelist) {
+    /* rangelist is a sorted array of NumRanges */
+    var rr = rangelist.slice();
+    var n = rr.length;
+    for (i=0; i<n; ++i) { if (rr[i].start >= r.start) break; }
+    for (j=i; j<n; ++j) { if (rr[j].start >= r.end) break; }
+    /*    rr[i-1].start < r.start <= rr[i].start    *
+     *    rr[j-1].start < r.end   <= rr[j].start    */
+    if (i==0 || rr[i-1].end+1 < r.start) {
+    /* start of r lies outside (and not adjacent to) previous range (if any) */
+        if (j==n || r.end < rr[j].start-1) {
+        /* r.end lies outside (and not adjacent to) following range (if any) */
+            rr.splice(i, j-i, r);
+        } else {
+            rr.splice(i, j-i+1 , NumRange(r.start, rr[j].end));
+        }
+    } else {
+    /* start of r lies within (or straight after) rr[i-1] */
+        if (j==n || r.end < rr[j].start-1) {
+        /* r.end lies outside (and not adjacent to) following range (if any) */
+            rr.splice(i-1, j-i+1, NumRange(rr[i-1].start, r.end));
+        } else {
+        /* r.end joins start of rr[j] */
+            rr.splice(i-1, j-i+2, NumRange(rr[i-1].start, rr[j].end));
+        }
+    }
+    return rr;
+}
+
+function combineRanges(rr) {
+    return rr.reduce(
+        (acc, curr) => numRangeListAddRange(curr, acc),
+        []
+    );
+}
+
+function rangesToIntegers(...ss) {
+    combineRanges(
+        mkNumRangeList(ss.join(","))
+    ).flatMap(r=>A.range(r.start, r.end+1))
+     .sort((a,b)=>a-b);
+}
+
+function numRangeListToString(rangelist) {
+    return rangelist
+        .map(rl => `${rl.start}-${rl.end}`)
+        .join(",");
 }
 
 /* ,---------, */
@@ -15601,6 +15692,13 @@ var EXPORT_TO_WINDOW = [
     "foreachNode",
     "listElements",
     "listNodes",
+    "NumRange",
+    "parseNumRange",
+    "mkNumRangeList",
+    "numRangeListAddRange",
+    "combineRanges",
+    "rangesToIntegers",
+    "numRangeListToString",
     "inToCm",
     "cmToIn",
     "kgToLb",
