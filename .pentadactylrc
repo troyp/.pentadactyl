@@ -14386,6 +14386,18 @@ function getBackgroundImages() {
     return allElts.filter(e => getStyleProperty(e, "background-image"));
 }
 
+function appendElement(tagname, parent, attrs) {
+    var newElt = content.document.createElement(tagname);
+    parent.appendChild(newElt);
+    for (attr in attrs) {
+        if (['innerText', 'innerHTML'].includes(attr)) {
+            newElt[attr] = attrs[attr];
+        } else {
+            newElt.setAttribute(attr, attrs[attr]);
+        }
+    }
+}
+
 /* ,----------------------------------------, */
 /* | Functions taking Elements or Selectors | */
 /* '----------------------------------------' */
@@ -15556,6 +15568,7 @@ var EXPORT_TO_WINDOW = [
     "fconst",
     "ftrue",
     "ffalse",
+    "appendElement",
     "hasSelector",
     "hasSelectors",
     "getSelectors",
