@@ -14520,11 +14520,9 @@ function toggleHideSelectors(...sels) {
     });
 }
 
-function hideFirstSelector(sel) {
-    "Hide the first element matching sel."
-    var doc = content.document;
-    var elt = doc.querySelector(sel);
-    e.setAttribute('style', css+" display: none !important;");
+function hideFirstSelector(...sels) {
+    var e = getFirstSelector(...sels);
+    e && hideElement(e);
 }
 
 function blankSelectors(...sels) {
