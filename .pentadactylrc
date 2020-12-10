@@ -6888,7 +6888,7 @@ EOF
 " ==== "
 " Text "
 " ==== "
-set eht+=[σ]:span,code,output,mark,label,kbd,ins,dfn,data,time,cite,acronym,abbr
+set eht+=[σ]:span,a,code,output,mark,label,kbd,ins,dfn,data,time,cite,acronym,abbr
 js hints.addMode('σ', 'Yank <span> of text (or other inline elements)', (e)=>utils.cbWrite(e.textContent));
 
 set eht+=[ÿ]:h1,h2,h3,h4,h5,h6,p,tr,pre,ul,ol,li,code
