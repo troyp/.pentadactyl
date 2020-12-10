@@ -3572,13 +3572,16 @@ command! isolateselectorsfiltered
 \                return [sel, eval("(e)=>"+pred)];
 \            }));
 command! setbackground -nargs=* -js setBackground(args.slice(1), args[0]);
-command! clickselector -nargs=1 -js clickSelector(content.document.querySelector(args[0]));
 command! hideselector  -nargs=* -js hideSelectors.call(null, ...args);
 command! unhideselector  -nargs=* -js unhideSelectors.call(null, ...args);
 command! hidefirstselector  -nargs=1 -js hideFirstSelector.call(null, args[0]);
 command! blankselector  -nargs=* -js blankSelectors.call(null, ...args);
 command! removexpath -nargs=1 open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
 command! countselector -nargs=1 -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelector(args[0])}`);
+command! clickselector -description "Click the first matching element" -nargs=+ -js clickSelector(...args);
+command! clickselectorall -description "Click all matching elements" -nargs=+ -js clickSelectorAll(...args);
+command! clickselectorbytext -description "Click the first matching element [SELECTOR TEXT]" -nargs=+ -js clickSelectorByText(...args);
+command! clickselectorbytextall -description "Click the first matching element [SELECTOR TEXT]" -nargs=+ -js clickSelectorByTextAll(...args);
 command! addmargin -nargs=+ -js addMarginToBody(args[0], args[1]);
 
 " Page info commands "
@@ -14602,39 +14605,18 @@ function countSelector(sel) {
 }
 
 function clickSelector(...sels) {
-    for (sel of sels) {
-        if (typeof sel == "string") {
-            /* selector */
-            var getButton = content.document.querySelector(sel);
-            if (getButton) {
-                getButton.click();
-                return true;
-            }
-        } else {
-            /* element */
-            if (sel) {
-                sel.click();
-                return true;
-            }
-        }
+    var button = getFirstSelector(...sels);
+    if (button) {
+        button.click();
+        return true;
     }
 }
 
-function clickSelectorAll(sel) {
-    if (typeof sel == "string") {
-        /* selector */
-        var elts = content.document.querySelectorAll(sel);
-        for (i=0; i<elts.length; ++i) {
-            elts[i].click();
-        }
-        return elts.length;
-    } else {
-        /* element */
-        if (sel) {
-            sel.click();
-            return true;
-        }
-    }
+function clickSelectorAll(...sels) {
+    getSelectors(...sels).forEach(button=>{
+        button.click();
+        return true;
+    });
 }
 
 function dispatchClickSelector(sel) {
