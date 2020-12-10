@@ -14411,7 +14411,7 @@ function hasSelectors(...sels) {
 }
 
 function getSelectors(...sels) {
-    return Array.from(content.document.querySelectorAll(sels.join(",")));
+    return Array.from(content.document.querySelectorAll(sels));
 }
 
 function removeSelectors(...sels) {
