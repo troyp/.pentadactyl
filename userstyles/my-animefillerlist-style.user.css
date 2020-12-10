@@ -1,0 +1,7 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@-moz-document domain("animefillerlist.com") {
+    tr.anime_canon>td.Type>span {
+        background-color: #a14a40 !important;
+    }
+}
