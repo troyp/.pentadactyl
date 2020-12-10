@@ -3600,7 +3600,7 @@ command! getselector
 command! countselector
 \    -description "Count matching elements"
 \    -nargs=1
-\    -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelector(args[0])}`);
+\    -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelectors(args[0])}`);
 command! imgsalttotitle
     \ -description "Add ALT text to TITLE for all images on page"
     \ -js imgsAddAltTextToTitle();
@@ -5916,7 +5916,7 @@ command! listlinks
 \     :open listalllinks
 command! countlinks
 \     -description "Count links"
-\     -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelector('a'));
+\     -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelectors('a'));
 command! listlinktext
 \     -description "List the text of all links in page"
 \     -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
@@ -14586,10 +14586,8 @@ function removeSelectorWithMatchingAttribute(sel, att, expr, useGetAttribute=fal
     matching.forEach(e => e.parentNode.removeChild(e));
 }
 
-// TODO: allow multiple selectors (prevent duplication of elements)
-function countSelector(sel) {
-    var elts = content.document.querySelectorAll(sel);
-    return elts.length;
+function countSelectors(...sels) {
+    return getSelectors(...sels).length();
 }
 
 function clickSelector(...sels) {
