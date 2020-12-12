@@ -402,6 +402,31 @@ style -group ebay -name=ebaystyle https?://www.ebay.com.au/.*
 \ .im-idp>p>a { font-size: 80% !important; }
 styleenable -group ebay -name ebaystyle
 
+" -------------------------------------------------------------------------------
+" ,--------,
+" | Github |
+" '--------'
+
+map <site>il -description "Show last commit date" -js utils.message(ghGetLastCommitDate().output);
+
+js <<EOF
+// TODO: test, fix
+function ghGetLastCommitDate(url=buffer.URL) {
+    [user, repo] = ghGetUserAndRepo(url);
+    return io.system(`curl -s "https://github.com/${user}/${repo}/pulse" | pup ".Subhead-heading.mt-3.mt-sm-0 text{}" | tr -d " \n" | sed 's/–.*//'`);
+}
+function ghGetNthPreviousCommit(n, url=buffer.URL) {
+    [user, repo] = ghGetUserAndRepo(url);
+    return io.system(`curl -s "https://github.com/${user}/${repo}/commits/master" | pup ".paginate-container > div > a:last-of-type attr{href}" | sed "s/+[0-9]\\+/+$((${n} - 1))/"`);
+}
+// FIXME
+function ghGetFirstCommit(url=buffer.URL) {
+    var [user, repo] = ghGetUserAndRepo(url);
+    var n = io.system(`curl -s "https://github.com/${user}/${repo}" | pup ".js-details-container > div > ul > li > a > span text{}" | tr -d "\n " | sed -r 's/commits//'`).output;
+    var url = io.system(`curl -s "https://github.com/${user}/${repo}/commits/master" | pup ".paginate-container > div > a:last-of-type attr{href}" | sed "s/+[0-9]\\+/+$((${n} - 2))/"`);
+}
+EOF
+
 " -----------------------------------------------------------------------------
 " ,---------------,
 " | StackExchange |
