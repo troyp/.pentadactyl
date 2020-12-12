@@ -6553,6 +6553,8 @@ function removeCruft() {
     } else if (url.match(/https:\/\/opensource\.com/)) {
         isolateSelectors("#article-template");
         removeSelectors(".os-article__image", ".os-article__left", ".os-article__bottom", ".authorbio__thumbnail", ".user-picture-badges");
+    } else if (url.match(/https:\/\/martinfowler\.com/)) {
+        removeSelectors("#banner", "#page-footer", ".author-photo");
     } else if (url.match(/https:\/\/www\.geeksforgeeks\.org/)) {
         if (!hasSelector("meta[property='dactyl:removecruft']")) {
             isolateSelectors(".leftSideBarParent", "#primary");
