@@ -10423,6 +10423,21 @@ map <f1>    -description "Pigment table: key to ratings" -js utils.message(handp
 
 group user
 
+" -------------------------------------------------------------------------------
+" ,---------------,
+" | Homestuck.com |
+" '---------------'
+group homestuck -locations=homestuck.com
+
+map ]]
+\    -description "Next page"
+\    -js getFirstSelectorByText("span",">").nextElementSibling.click();
+map [[
+\    -description "Previous page"
+\    -js clickSelectorByText("li.o_game-nav-item>a","Go Back");
+
+group user
+
 
 " ----------------------------------------------------------------------------- "
 " ,--------------------,                                                        "
