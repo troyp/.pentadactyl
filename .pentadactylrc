@@ -11726,20 +11726,29 @@ group genlib -locations=gen.lib.rus.ec
 
 js <<EOF
 
-function genlibLibgen() {
-    var link = content.document.querySelector('tbody :nth-child(2) :nth-child(3) a');
-    if (!link) link = content.document.querySelector('tbody :nth-child(1) :nth-child(3) a');
-    var title = link.innerText;
-    var year = content.document.querySelector('tbody :nth-child(6) :nth-child(2)').innerText;
-    var ed_raw = content.document.querySelector('tbody :nth-child(6) :nth-child(4)').innerText;
-    var ed_match = ed_raw.trim().match(/\d+/);
-    var ed = ed_match ? indexToOrdinalString(ed_match[0]) : "1st";
-    if (typeof ed == 'undefined') ed="1st";
-    var filename = title +
-                   (ed=="1st" ? '' : `, ${ed} ed`) +
-                   (year ? ` (${year})` : '');
-    utils.yankWithMsg(filename);
-    link.click();
+function genlibGo() {
+    let _;
+    if (buffer.URL.match(/http:\/\/gen\.lib\.rus\.ec\/fiction\//)) {
+        let title = ( _ = $1(".record_title") ) ? _.textContent : "";
+        let year = ( _ = $1("td.field:contains('Year')") ) ? _.nextElementSibling.textContent : "";
+        let filename = title + (year ? `(${year})` : "");
+        utils.yankWithMsg(filename);
+        $1('ul.record_mirrors>li>a').click();
+    } else {
+        let link = content.document.querySelector('tbody :nth-child(2) :nth-child(3) a')
+                || content.document.querySelector('tbody :nth-child(1) :nth-child(3) a');
+        let title = link && link.innerText;
+        let year = (_ = content.document.querySelector('tbody :nth-child(6) :nth-child(2)')) ? _.innerText : "";
+        let ed_raw = (_ = content.document.querySelector('tbody :nth-child(6) :nth-child(4)')) ? _.innerText : "";
+        let ed_match = ed_raw.trim().match(/\d+/);
+        let ed = ed_match ? indexToOrdinalString(ed_match[0]) : "1st";
+        if (typeof ed == 'undefined') ed="1st";
+        let filename = title +
+                      (ed=="1st" ? '' : `, ${ed} ed`) +
+                      (year ? ` (${year})` : '');
+        utils.yankWithMsg(filename);
+        link.click();
+    }
 }
 
 function genlibGetTitle() {
@@ -11794,7 +11803,7 @@ function genlibPreviousPage(k=1) {
 
 EOF
 
-map <site>c -js genlibLibgen();
+map <site>c -js genlibGo();
 map <yank>t -js utils.yankWithMsg(genlibGetTitle());
 map ]] -count -js genlibNextPage(count);
 map [[ -count -js genlibPreviousPage(count);
