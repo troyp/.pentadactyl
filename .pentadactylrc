@@ -15180,18 +15180,25 @@ function numRangeListAddRange(r, rangelist) {
     return rr;
 }
 
-function combineRanges(rr) {
-    return rr.reduce(
+function combineRangeLists(...rr) {
+    /* rr is an unordered list of NumRanges */
+    return rr.flatMap().reduce(
         (acc, curr) => numRangeListAddRange(curr, acc),
         []
     );
 }
 
-function rangesToIntegers(...ss) {
-    combineRanges(
-        mkNumRangeList(ss.join(","))
-    ).flatMap(r=>A.range(r.start, r.end+1))
-     .sort((a,b)=>a-b);
+function combineRangeStrings(...ss) {
+    return ss.map(mkNumRangeList).flatMap().reduce(
+        (acc, curr) => numRangeListAddRange(curr, acc),
+        []
+    );
+}
+
+function rangeStringsToIntegers(...ss) {
+    return combineRangeStrings(...ss)
+        .flatMap(r=>A.range(r.start, r.end+1))
+        .sort((a,b)=>a-b);
 }
 
 function numRangeListToString(rangelist) {
@@ -15718,8 +15725,9 @@ var EXPORT_TO_WINDOW = [
     "parseNumRange",
     "mkNumRangeList",
     "numRangeListAddRange",
-    "combineRanges",
-    "rangesToIntegers",
+    "combineRangeLists",
+    "combineRangeStrings",
+    "rangeStringsToIntegers",
     "numRangeListToString",
     "inToCm",
     "cmToIn",
