@@ -9362,6 +9362,7 @@ map <site>yh       -description "Yank https repo link" -js ghCopyRepoLinkHttps()
 map <site>yn       -description "Yank repo name" -js utils.yankWithMsg(ghGetUserAndRepo()[1]);
 map <site>yr       -description "Yank raw file URL" -js hints.show("Ⓖ");
 map <site>ys       -description "Yank SHA" -js hints.show("🄪");
+map <site>yt       -description "Yank file contents" -ex yankselectorcontent div.Box>div.data
 map <site>yR       -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
 map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
 map <site>yU       -description "Yank user name" -js ghCopyUser();
