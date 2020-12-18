@@ -14789,6 +14789,11 @@ function openAndRunCode(url, f, where="tab") {
 /* See open: in dactyl.js - unlike dactyl.open(), only allows one URL for simplicity */
 function pageOpen(url, params={}, force=false) {
     if (typeof params == "string") params = { where: params };
+    if (params.where == dactyl.NEW_BACKGROUND_TAB) {
+        params.where = dactyl.NEW_TAB;
+        params.background = true;
+    }
+
     if (params.where == dactyl.NEW_ADJACENT_TAB) {
         if (url.split(" ").length==1 && url.match(re_url))
             tabOpenURLAdjacent(url, false, force);
