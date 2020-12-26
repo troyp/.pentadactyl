@@ -6564,24 +6564,11 @@ function removeCruft() {
         removeSelectors(".et_post_meta_wrapper>img");
         $1("body").style.margin = "3em";
     } else if (url.match(/https:\/\/www\.geeksforgeeks\.org/)) {
-        if (!hasSelector("meta[property='dactyl:removecruft']")) {
-            isolateSelectors(".leftSideBarParent", "#primary");
-            removeSelectors("iframe[allow*=autoplay]", ".entry-meta", ".upvoteArticle", ".nav-single");
-            removeSelectorFiltered("div", e=>e.id.match(/^AP_G4GR/));
-            getFirstSelector("#primary").style.width="70%";
-            appendElement(
-                "meta",
-                content.document.head,
-                { property: "dactyl:removecruft" }
-            );
-        } else {
-            var disq = getFirstSelector("#disqus_thread>iframe").contentDocument;
-            ["#posts>#form", "#thread-share-bar", "#recommend-button", "a.user>img", "div.avatar img.user"]
-                .map(sel=>disq.querySelectorAll(sel))
-                .map(l=>Array.from(l))
-                .flatMap()
-                .forEach(e=>e.remove());
-        }
+        if (removeCruftDisqus()) return;
+        isolateSelectors(".leftSideBarParent", "#primary");
+        removeSelectors("iframe[allow*=autoplay]", ".entry-meta", ".upvoteArticle", ".nav-single");
+        removeSelectorFiltered("div", e=>e.id.match(/^AP_G4GR/));
+        getFirstSelector("#primary").style.width="70%";
     } else {
         removeCruftGeneric();
     }
@@ -14759,6 +14746,26 @@ function getSelectorsFromDoc(doc, ...sels) {
 function removeSelectorsFromDoc(doc, ...sels) {
     getSelectorsFromDoc(doc, ...sels).forEach(e=>e.remove());
 }
+
+function removeCruftDisqus() {
+    /* Disqus reloads on changes, so disqus elements must be deleted separately some time    *
+     * after everything else - better to use two separate calls to a function.               *
+     * The first time this is called, it adds a meta elt with "dactyl:removecruft" property; *
+     * The next time, it removes elements and returns true.                                  *
+     * To use, place "if (removeCruftDisqus()) return;" at the start of the function.        */
+    if (!hasSelector("meta[property='dactyl:removecruft']")) {
+        appendElement(
+            "meta",
+            content.document.head,
+            { property: "dactyl:removecruft" }
+        );
+    } else {
+        var disq = getFirstSelector("#disqus_thread>iframe").contentDocument;
+        removeSelectorsFromDoc(disq, "#posts>#form", "#thread-share-bar", "#recommend-button", "a.user>img", "div.avatar img.user");
+        return true;
+    }
+}
+
 
 /* ,------, */
 /* | Tabs | */
