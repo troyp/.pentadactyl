@@ -2026,9 +2026,9 @@ EOF
 " ,------------------, "
 " | <leader>o - Open | "
 " '------------------' "
-map <leader>o      -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
+map <leader>o -description "(show bindings: Open)" -js CommandExMode().open("showkeys <leader>o")
 
-map <leader>om      -description "(show bindings: Open MAFF)" -js CommandExMode().open("showkeys <leader>om")
+map <leader>om -description "(show bindings: Open MAFF)" -js CommandExMode().open("showkeys <leader>om")
 map <leader>omm
 \    -description "Open MAFF file with picker"
 \    -js openMaffFileWithFilePicker();
@@ -2055,7 +2055,7 @@ map <leader>ow
 " ,------------------, "
 " | <leader>s - Save | "
 " '------------------' "
-map <leader>s      -description "(show bindings: Save)"
+map <leader>s -description "(show bindings: Save)"
 \    -js CommandExMode().open("showkeys <Leader>s")
 map <leader>si -description "Save image [HINTS]" -js hints.show("Ị");
 map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
