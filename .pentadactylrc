@@ -14744,6 +14744,14 @@ function getEltsUnderHeading(typeSel, specified, includeSpecified=true) {
     return siblings.slice(startIdx, endIdx);
 }
 
+function getSelectorsFromDoc(doc, ...sels) {
+    return Array.from(doc.querySelectorAll(sels));
+}
+
+function removeSelectorsFromDoc(doc, ...sels) {
+    getSelectorsFromDoc(doc, ...sels).forEach(e=>e.remove());
+}
+
 /* ,------, */
 /* | Tabs | */
 /* '------' */
