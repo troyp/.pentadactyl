@@ -6558,6 +6558,11 @@ function removeCruft() {
         removeSelectors(".os-article__image", ".os-article__left", ".os-article__bottom", ".authorbio__thumbnail", ".user-picture-badges");
     } else if (url.match(/https:\/\/martinfowler\.com/)) {
         removeSelectors("#banner", "#page-footer", ".author-photo");
+    } else if (url.match(/https:\/\/blog\.sigplan\.org/)) {
+        if (removeCruftDisqus()) return;
+        isolateSelectors("article");
+        removeSelectors(".et_post_meta_wrapper>img");
+        $1("body").style.margin = "3em";
     } else if (url.match(/https:\/\/www\.geeksforgeeks\.org/)) {
         if (!hasSelector("meta[property='dactyl:removecruft']")) {
             isolateSelectors(".leftSideBarParent", "#primary");
