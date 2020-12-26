@@ -1319,6 +1319,9 @@ map <app>cvv
 " '---------------------' "
 map <app>d -description "(show bindings: Downloads)" -count -js CommandExMode().open("showkeys <app>d");
 
+map <app>da -description "DownThemAll" -ex dta
+map <app>dA -description "DownThemAll Manager" -ex dtamanager
+
 map <app>dd -description "(show bindings: Downloads/Directory)" -count -js CommandExMode().open("showkeys <app>dd");
 map <app>ddb
 \    -description "Open last download directory in browser"
