@@ -6135,6 +6135,17 @@ function imageTransform(...ops) {
 }
 EOF
 
+" ,--------------------------------, "
+" | <leader>iv -- Misc/Images/View | "
+" '--------------------------------' "
+map <leader>iv -description "(show bindings: Misc/Images/View)" -js CommandExMode().open("showkeys <leader>iv");
+map <leader>ivv
+\    -description "View all images"
+\    -ex open javascript:document.write("<center>"%20+%20Array.from(document.images).map(i=>`<img%20src=${i.src}%3E`).join("<br>")%20+%20"</center>");%20document.close();void(0);
+map <leader>ivV
+\    -description "View all images (compact)"
+\    -ex open javascript:document.write(Array.from(document.images).map(i=>`<img%20src=${i.src}%3E`).join(""));%20document.close();void(0);
+
 " -------------------------------------------------------------------------------
 " ,---------------,
 " | Text Encoding |
