@@ -13062,11 +13062,14 @@ function seCleanup(showSnippetResults) {
         '.post-taglist', '.special-status', '.bounty-notification',
         '.star-off', '.favoritecount', '#tabs',
         '#PrinterFriendly',    // added-by-userscript
+        '.grid.s-btn-group',
         '.vt',    //  share-edit-flag
         '.vote-up-off', '.vote-down-off', '.js-add-link',
         '.user-gravatar32', '.-flair',
         '.bottom-notice', 'form', '#footer', '#feed-link'
     );
+    getFirstSelector(".bounty").parentElement.parentElement.remove();
+    getSelectors(".post-menu").forEach(e=>e.parentElement.remove());
     content.document.getElementsByTagName("body")[0].style.paddingTop='0';
 }
 
