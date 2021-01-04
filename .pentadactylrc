@@ -13151,6 +13151,14 @@ function sePrintPost(e) {
     );
 }
 
+function seGetChatUrl(url=buffer.URL) {
+    var [_, _, subdomain, site] = url.asciiHost.match(/(([^.]+)\.)?(stackoverflow\.com|superuser\.com|[^.]+\.stackexchange\.com)/);
+    if (site == "stackoverflow.com") {
+        return "https://chat.stackoverflow.com/?tab=site&host=stackoverflow.com";
+    } else {
+        return "https://chat.stackexchange.com/?tab=site&host=" + site;
+    }
+}
 EOF
 
 command! secleanup
@@ -13160,6 +13168,11 @@ command! secleanup
 
 map <site>a -description "Remove ads" -js seRemoveAds();
 map <site>c -description "Expand links and remove cruft." -js  seExpandAllComments(); seCleanup(count);
+
+map <site>o -description "(show bindings: Stackexchange/Goto)" -js CommandExMode().open("showkeys <site>o");
+map <site>oc
+\    -description "Goto Chat"
+\    -js openOrSelectTab(seGetChatUrl(), count?"here":"adjacent", null, true);
 
 map <site>p -description "Print post (via hint)" -js hints.show("π");
 map <site>y -description "Yank post (via hint)"  -js hints.show("Π");
