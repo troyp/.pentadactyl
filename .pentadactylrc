@@ -14585,6 +14585,7 @@ function isolateSelector(sel) {
     selectedElt = getFirstSelector(sel);
     topElements().forEach(elt => elt.remove());
     content.document.body.appendChild(selectedElt);
+    $1("body").style.padding = "3em";
 }
 
 " TODO: remove nonmatching elements rather than replacing matching ones "
@@ -14596,6 +14597,7 @@ function isolateSelectors(...sels) {
     selectedElts.forEach(elt =>
         content.document.body.appendChild(elt)
     );
+    $1("body").style.padding = "3em";
 }
 
 function isolateSelectorsFiltered(...selPredPairs) {
