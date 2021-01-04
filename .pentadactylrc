@@ -4505,6 +4505,9 @@ map <goto>lec
 map <goto>led
 \    -description "~/ebooks/dl"
 \    -js openOrSelectTab(`file://${homedir}/ebooks/dl`, count?"here":"adjacent");
+map <goto>lel
+\    -description "~/.readinglist"
+\    -js openOrSelectTab(`${homedir}/.readinglist`, count?"here":"adjacent");
 map <goto>les -description "~/ebooks/css" -js openOrSelectTab(`${homedir}/ebooks/css`, count?"here":"adjacent");
 map <goto>lea
 \    -description "~/ebooks/articles"
