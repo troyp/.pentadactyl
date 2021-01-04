@@ -1332,6 +1332,10 @@ map <app>ddd
 \    -description "Open last download directory in Dolphin"
 \    -count
 \    -js openLastDownloadDir(count||1);
+map <app>ddr
+\    -description "Open last download directory in Ranger"
+\    -count
+\    -js openLastDownloadDirInRanger(count||1);
 map <app>ddx
 \    -count
 \    -description "Open last download directory (enter program)"
@@ -1483,6 +1487,14 @@ function openLastDownloadDir(n=1) {
 function openLastDownloadDirInBrowser(n=1) {
     var dlP = getLastDownload(n);
     dlP.then(f=> dactyl.open(`file://${f.replace(/[^/]*$/, "")}`, "tab"));
+}
+
+function openLastDownloadDirInRanger(n=1) {
+    var dlP = getLastDownload(n);
+    dlP.then(f=>{
+        var dir = f.replace(/\/[^/]+$/, "");
+        shellCommandOnUrlFileinRoxterm(`ranger --selectfile "${f}" "${dir}"`);
+    });
 }
 
 function openLastDownloadInBrowser(n=1) {
