@@ -5994,7 +5994,7 @@ command! tabopencblinks
 command! openselectionlinks
 \    -description "Open links in selection"
 \    -bang
-\    -js openSelectionLinks(bang?"tab":"adjacent");
+\    -js openSelectionLinks(bang?"here":"adjacent");
 command! dlselectionlinks
 \    -description "Download links in selection. With ! save links in subdirectory."
 \    -bang -nargs=?
@@ -7666,16 +7666,16 @@ map <site>i -description "(Show bindings: Images)"  -js CommandExMode().open("sh
 map <site>if -description "Change image sources to full-sized" -js amazonImageSrcFullSize();
 map <site>iv
 \    -description "View image"
-\    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"tab":"adjacent");
+\    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"here":"adjacent");
 map <site>n -description "Count items" -js utils.message("Number of items: " + amazonCount());
 
 map <site>o  -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"tab":"adjacent", null, true);
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"here":"adjacent", null, true);
 map <site>oh
 \    -description "Goto history"
-\    -js openOrSelectTab("https://www.amazon.com/gp/aw/ybh", count?"tab":"adjacent", null, true);
+\    -js openOrSelectTab("https://www.amazon.com/gp/aw/ybh", count?"here":"adjacent", null, true);
 map <site>oi
 \    -description "Scroll to Product Information"
 \    -js content.document.getElementById('prodDetails').scrollIntoView();
@@ -7684,10 +7684,10 @@ map <site>ok
 \    -js clickSelectorByText('.a-carousel-heading','Customers who viewed this item also viewed');
 map <site>ol
 \    -description "Goto lists"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/registry/wishlist/ref=cm_wl_your_lists", count?"tab":"adjacent");
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/registry/wishlist/ref=cm_wl_your_lists", count?"here":"adjacent");
 map <site>oo
 \    -description "Goto orders"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"tab":"adjacent");
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"here":"adjacent");
 map <site>or
 \    -description "Goto reviews - all"
 \    -js clickSelector("#dp-summary-see-all-reviews", "a[data-hook=see-all-reviews-link-foot]");
@@ -7696,10 +7696,10 @@ map <site>oR
 \    -js amazonGotoUSReviews();
 map <site>ow
 \    -description "Goto wish list"
-\    -js openOrSelectTab(amazonWishlistUrl(), count?"tab":"adjacent");
+\    -js openOrSelectTab(amazonWishlistUrl(), count?"here":"adjacent");
 map <site>o!
 \    -description "Goto contact form"
-\    -js openOrSelectTab(amazonGetPrefix()+"/gp/help/customer/contact-us/ref=cu_surl", count?"tab":"adjacent");
+\    -js openOrSelectTab(amazonGetPrefix()+"/gp/help/customer/contact-us/ref=cu_surl", count?"here":"adjacent");
 
 map <site>r -description "Jump to reviews" -js content.document.getElementById("customerReviews").scrollIntoView();
 
