@@ -5725,6 +5725,7 @@ map <ext>lpc -ex popjisyochinesecolumns
 "   rcxMain.htmlParser(aHTMLString)
 "   rcxMain.lookupSearch(text)            // perform lookupbar search (results in popup)
 "   rcxMain.showPopup(text)               // show text using Rikaisama popup
+"   rcxMain.hidePopup()                   // hide Rikaisama popup
 
 " Saved definitions/audio"
 set! extensions.rikaisama.sfile=~/Documents/rikai-saved
@@ -5756,6 +5757,20 @@ command! rikprefs -description "Rikaisama: preferences"
 \    open chrome://rikaichan/content/options.xul
 command! rikprefspopup -description "Rikaisama: preferences (popup)"
 \    emenu Tools.Extension Preferences.Rikaisama  22.9.3
+
+command! riktextsearch
+\    -description "Rikaisama: search text; show in message area"
+\    -nargs +
+\    -js utils.message(rcxData.textSearch(args.join(" ")).data.join("\n"));
+command! rikwordsearch
+\    -description "Rikaisama: search text; show in message area"
+\    -nargs +
+\    -js utils.message(rcxData.wordSearch(args.join(" ")).data.join("\n"));
+command! riklookupbarsearch
+\    -description "Rikaisama: search with lookupbar"
+\    -nargs +
+\    -js utils.message(rcxMain.lookupSearch(args.join(" ")).data.join("\n"));
+
 " Preferences "
 command! riksetmergedivs
 \    -description "Rikaisama: set merged divs preference"
@@ -5794,6 +5809,10 @@ map <ext>ro -description "Rikai: Toggle Sanseido mode" -ex riksanseido
 map <ext>rp -description "Rikai: Preferences (new tab)" -ex tab rikprefs
 map <ext>rr -description "Rikai: Toggle sticky" -ex rikstickytoggle
 map <ext>rt  -description "(show bindings: Rikaisama Toggles)" -js CommandExMode().open("showkeys <ext>rt");
+
+map <ext>rss -description "Rikai: Text search" -b :riktextsearch<Space>
+map <ext>rsl -description "Rikai: Lookupbar search" -b :riklookupbarsearch<Space>
+map <ext>rsw -description "Rikai: Word search" -b :rikwordsearch<Space>
 
 map <ext>rtk  -description "(show bindings: Rikaisama Toggles/Kanji)" -js CommandExMode().open("showkeys <ext>rtk");
 map <ext>rtkk -description "Rikai: Toggle large kanji" -ex styletoggle -name rikaisama-bigkanji
