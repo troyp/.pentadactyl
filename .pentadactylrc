@@ -1108,8 +1108,6 @@ map <A-Esc> -b <C-v><Esc>
 map <C-w> -b :q<CR>
 " movement
 map <C-S-D> -modes normal -b <C-u>
-map J       -modes normal -b <C-d>
-map K       -modes normal -b <C-u>
 
 " jumplist
 map <C-j> -description "Show jump list" -b :jumps<CR>f
@@ -4893,6 +4891,8 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 " ,------------------------, ,-----------,
 " | Javascript Evalutation | | <leader>e |
 " '------------------------' '-----------'
+map J -description "Evaluate JS expression" -b :js doc=content.doc<CR>:echo<Space>
+map K -description "JS REPL" -ex js!
 
 map <leader>e -description "(show bindings: Javascript Eval)" -js CommandExMode().open("showkeys <leader>e")
 
