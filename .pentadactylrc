@@ -6466,65 +6466,6 @@ function tabCopyLeftBg() {
     getBrowser().moveTabForward();
 }
 
-function toggleUrl (x, y, x_canon, y_canon) {
-    " General purpose URL toggle function: swaps x and y in URL "
-    " If an argument is a regex, then canonical strings corresponding "
-    " to x and y must be provided to be used in replacement."
-    " Note: x is checked first, then y if x fails. "
-    " So if one of the search expressions may be a substring of the other,"
-    " the larger must be passed as the first argument x."
-    if (x_canon === undefined) x_canon = x;
-    if (y_canon === undefined) y_canon = y;
-    var url = content.location.href;
-    var newurl;
-    if (url.search(x) >= 0)
-        newurl = url.replace(x, y_canon);
-    else if (url.search(y) >= 0)
-        newurl = url.replace(y, x_canon);
-    if (newurl) {
-        dactyl.open(newurl);
-        return newurl;
-    }
-}
-
-function splitUrl(url) {
-    var regex = /^([^?#]+)(\?([^#]*))?(#.*)?$/;
-    var match = url.match(regex);
-    var urlMain = match[1];
-    var query = match[3];
-    var fragment = match[4];
-    var queryComponents = query ? query.split("&") : [];
-    return [urlMain, queryComponents, fragment];
-}
-
-function toggleQueryComponent(url, query, altQuery=null) {
-    if (query instanceof RegExp) query = query.source;
-    if (altQuery instanceof RegExp) altQuery = altQuery.source;
-    var newurl;
-    var qRegexFinal = RegExp("[?&]"+query+"$");
-    var qRegexNonfinal = RegExp(query+"[&#]");
-    var qAltRegexFinal = RegExp("[?&]"+altQuery+"$");
-    var qAltRegexNonfinal = RegExp(altQuery+"[&#]");
-    if (url.match(qRegexFinal))
-        newurl = url.replace(qRegexFinal, "");
-    else if (url.match(qRegexNonfinal))
-        newurl = url.replace(qRegexNonfinal, "");
-    else if (altQuery && url.match(qAltRegexFinal))
-        newurl = url.replace(qAltRegexFinal, query);
-    else if (altQuery && url.match(qAltRegexNonfinal))
-        newurl = url.replace(qAltRegexNonfinal, query);
-    else if (url.match(/[?]/))
-        newurl = url + "&" + query;
-    else
-        newurl = url + "?" + query;
-    return newurl;
-}
-
-function urlToggleQuery(query, altQuery=null) {
-    var url = buffer.URL;
-    content.window.location = toggleQueryComponent(url, query, altQuery);
-}
-
 viewPageSource = function() {
     var loc = content.location;
     if (loc.protocol === 'view-source:')
@@ -15158,6 +15099,65 @@ function getLinksWithMatchingUrl(s) {
     var links = Array.from(content.document.getElementsByTagName('a'));
     var matching = links.filter(l=>l.href.match(s));
     return matching;
+}
+
+function toggleUrl (x, y, x_canon, y_canon) {
+    " General purpose URL toggle function: swaps x and y in URL "
+    " If an argument is a regex, then canonical strings corresponding "
+    " to x and y must be provided to be used in replacement."
+    " Note: x is checked first, then y if x fails. "
+    " So if one of the search expressions may be a substring of the other,"
+    " the larger must be passed as the first argument x."
+    if (x_canon === undefined) x_canon = x;
+    if (y_canon === undefined) y_canon = y;
+    var url = content.location.href;
+    var newurl;
+    if (url.search(x) >= 0)
+        newurl = url.replace(x, y_canon);
+    else if (url.search(y) >= 0)
+        newurl = url.replace(y, x_canon);
+    if (newurl) {
+        dactyl.open(newurl);
+        return newurl;
+    }
+}
+
+function splitUrl(url) {
+    var regex = /^([^?#]+)(\?([^#]*))?(#.*)?$/;
+    var match = url.match(regex);
+    var urlMain = match[1];
+    var query = match[3];
+    var fragment = match[4];
+    var queryComponents = query ? query.split("&") : [];
+    return [urlMain, queryComponents, fragment];
+}
+
+function toggleQueryComponent(url, query, altQuery=null) {
+    if (query instanceof RegExp) query = query.source;
+    if (altQuery instanceof RegExp) altQuery = altQuery.source;
+    var newurl;
+    var qRegexFinal = RegExp("[?&]"+query+"$");
+    var qRegexNonfinal = RegExp(query+"[&#]");
+    var qAltRegexFinal = RegExp("[?&]"+altQuery+"$");
+    var qAltRegexNonfinal = RegExp(altQuery+"[&#]");
+    if (url.match(qRegexFinal))
+        newurl = url.replace(qRegexFinal, "");
+    else if (url.match(qRegexNonfinal))
+        newurl = url.replace(qRegexNonfinal, "");
+    else if (altQuery && url.match(qAltRegexFinal))
+        newurl = url.replace(qAltRegexFinal, query);
+    else if (altQuery && url.match(qAltRegexNonfinal))
+        newurl = url.replace(qAltRegexNonfinal, query);
+    else if (url.match(/[?]/))
+        newurl = url + "&" + query;
+    else
+        newurl = url + "?" + query;
+    return newurl;
+}
+
+function urlToggleQuery(query, altQuery=null) {
+    var url = buffer.URL;
+    content.window.location = toggleQueryComponent(url, query, altQuery);
 }
 
 /* ,------------, */
