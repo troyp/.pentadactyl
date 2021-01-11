@@ -3672,7 +3672,7 @@ map p -description "Open clipboard contents in a new tab"
 map g;p -description "Open all links in current selection" -js openAllLinksInCB();
 map gp
 \    -description "Open (put) URL based on selection in adjacent tab"
-\    -js tabOpenAdjacent(utils.cbRead({index: count||1}, false));
+\    -js tabOpenAdjacent(utils.cbRead({index: count||0}, false));
 map <A-p> -description "Open clipboard contents in new background tab"
 \    -modes normal
 \    -js for (i=0; i<(count||1); ++i) dactyl.execute(`background tabopen ${utils.cbRead({index: i})}`);
