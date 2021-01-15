@@ -4910,7 +4910,7 @@ command! evalwithjsscheme
 map <leader>eb
 \    -description "Evaluate JS as bookmarklet"
 \    -b :open javascript:;void(0);<Left><Left><Left><Left><Left><Left><Left><Left><Left>
-map <leader>ee -description "Evaluate JS expression" -b :js doc=content.doc<CR>:echo<Space>
+map <leader>ee -description "Evaluate JS expression" -b :js doc=content.document<CR>:echo<Space>
 map <leader>ef
 \    -description "Evaluate JS expression: doc=1st frame doc"
 \    -b :js doc=content.window.frames[0].document<CR>:echo<Space>
