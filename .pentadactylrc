@@ -11675,7 +11675,7 @@ group user
 " ,--------,                                                                    "
 " | Libgen |                                                                    "
 " '--------'                                                                    "
-group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29,library.lol
+group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29,library.lol,libgen.is,libgen.in
 
 command! libgendl -js libgenCopyFileNameAndDownload();
 command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
@@ -11691,7 +11691,7 @@ function libgenGetDetails(field) {
         var match = bibtext.match(regex);
         return match ? match[1] : '';
     } else {
-        var info = content.document.getElementById('info');
+        var info = getFirstSelector("#info");
         switch(field) {
             case 'title':
                 var elt = info.querySelector('h1');
@@ -11712,8 +11712,14 @@ function libgenGetDetails(field) {
     }
 }
 
+function libgenLibLolDL() {
+    var info = getFirstSelector("#info>#download");
+    if (info && clickSelector("#info>#download>h2>a")) return true;
+}
+
 function libgenCopyFileNameAndDownload() {
-        // "libgen.io or libgen.pw second page"
+    if (buffer.URL.match(/\/fiction\//)) return libgenFictionCopyFileNameAndDownload();
+    // "libgen.io or libgen.pw second page"
     var name = libgenGetDetails('title');
     var ed_raw = libgenGetDetails('edition') || "1";
     var ed_match = ed_raw.trim().match(/\d+/);
@@ -11725,11 +11731,11 @@ function libgenCopyFileNameAndDownload() {
                   (year ? ` (${year})` : '');
     utils.yankWithMsg(filename);
     utils.yankWithMsg(filename);
-    var bibtextElt = content.document.getElementById('bibtext');
+    var bibtextElt = getFirstSelector("#bibtext");
     if (bibtextElt) {
-        var links = Array.from(content.document.querySelectorAll('a h2'));
-        var link = links.find(a=>["download", "get"].includes(a.innerText.toLowerCase()));
+        var link = getSelectors("a h2").find(a=>["download", "get"].includes(a.innerText.toLowerCase()));
         dactyl.open(link.parentNode.href);
+        return true;
     } else {
         // "first page"
         var cellLink = content.document.querySelector('td h2 a') ||
@@ -11737,6 +11743,44 @@ function libgenCopyFileNameAndDownload() {
         // if (cellLink && cellLink.innerText == "Open download page")
         if (cellLink) cellLink.click();
     }
+}
+
+function libgenFictionGetDetails(field) {
+    if (hasSelector("table.record")) {
+        var getfield = pat => {
+                           var fieldelt = getFirstSelectorByText(".record td.field", pat);
+                           return fieldelt && fieldelt.nextElementSibling.textContent;
+                       };
+        switch(field) {
+            case "title":
+                return getfield(/Title:/);
+            case "year":
+                return getfield(/Year:/);
+            case "author":
+                var authorfield = getFirstSelectorByText(".record td.field", /Author\(s\)/);
+                return [ ...authorfield.nextElementSibling.getElementsByTagName("li")]
+                           .map(e=>e.textContent).join(";")
+            case "series":
+                return getfield(/Series:/);
+        }
+    }
+}
+
+function libgenFictionCopyFileNameAndDownload() {
+    /* second page */
+    if (libgenLibLolDL()) return true;
+    /* first page */
+    var title = libgenFictionGetDetails("title");
+    var year = libgenFictionGetDetails("year");
+    var series = libgenFictionGetDetails("series");
+    var author = libgenFictionGetDetails("author");
+    var filename = (series ? `(${series}) ` : "")
+                       + title
+                       + (author ? ` - ${author}` : "")
+                       + (year ? ` (${year})` : "");
+    utils.yankWithMsg(filename);
+    utils.yankWithMsg(filename);
+    clickSelector("ul.record_mirrors>li>a");
 }
 
 EOF
