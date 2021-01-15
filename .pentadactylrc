@@ -2784,7 +2784,7 @@ map <yank>td -description "Yank page title with date & time" -ex yanktitleanddat
 
 " <yank>u -- Yank URL/filename "
 map <yank>u  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>u")
-map <yank>uu -description "Yank buffer URL (unencoded)" -ex yanktrueURL
+
 map <yank>ud  -description "(show bindings: yank URL/domain)" -js CommandExMode().open("showkeys <yank>ud")
 map <yank>udd
 \    -description "Yank page domain"
@@ -2809,6 +2809,10 @@ map <yank>udR
 \    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count),
 \                          { forwardSlashDelimiters: true }))
 
+map <yank>ue
+\    -description "Yank final or n last components"
+\    -count
+\    -js utils.yankWithMsg(urlGetNthSuffix(buffer.URL, count||1));
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>ugH
 \    -description "Yank first URL in tab history"
@@ -2824,14 +2828,15 @@ map <yank>uL
 \    -js utils.yankWithMsg(historyGetUrl(`+${count||1}`));
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(urlGetNthParent(count));
 map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(urlGetNthFromRootPath(count));
-map <yank>ue
-\    -description "Yank final or n last components"
-\    -count
-\    -js utils.yankWithMsg(urlGetNthSuffix(buffer.URL, count||1));
+map <yank>uu -description "Yank buffer URL (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL));
 map <yank>uU
 \    -description "Yank URL up one (or COUNT) levels (as per gu)"
 \    -count
 \    -js utils.yankWithMsg(urlUp(count||1));
+map <yank>uv -description "Yank visible URL" -js utils.yankWithMsg(document.querySelector("#urlbar").textValue);
+map <yank>uV
+\    -description "Yank visible URL (unencoded)"
+\    -js utils.yankWithMsg(decodeURIComponent(document.querySelector("#urlbar").textValue));
 
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
 map <yank>V -description "Yank browser name and version"
@@ -2854,14 +2859,6 @@ map <yank>$ -description "Yank <H4> heading (choose with completion)" -b :yankh4
 map <yank>,, -description "Append buffer URL to selection" -js utils.cbAppend(buffer.URL);
 
 " Yank commands "
-command! yanktrueURL
-    \ -description "Yank the uncoded URL of the current buffer"
-    \ -js var text=decodeURIComponent(buffer.URL);
-    \     utils.yankWithMsg(text);
-command! yankLastURLComponent
-    \ -description "Yank the last component of the uncoded current buffer URL"
-    \ -js var text=decodeURIComponent(buffer.URL);
-    \     utils.yankWithMsg(text.replace(/.*\//,''));
 command! yankfilenameorURL
     \ -description "Yank the unencoded filename or the hierarchical part of the current buffer's URL. Removes queries and fragments."
     \ -js var text=decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
