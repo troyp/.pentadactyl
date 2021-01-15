@@ -9922,6 +9922,48 @@ group user
 
 " ----------------------------------------------------------------------------- "
 " ,-----------,                                                                 "
+" | Goodreads |                                                                 "
+" '-----------'                                                                 "
+group goodreads -locations=goodreads.com
+
+js <<EOF
+function grGo() {
+    clickSelectorByTextAll("a", /^\.\.\.more$/);
+    removeSelectors(
+        ".ReactComponents.ShareDialog",
+        ".recommendItBar",
+        ".ReactComponents.GoogleBannerAd"
+    );
+}
+EOF
+
+command! grsearch
+\    -description "Search Goodreads"
+\    -bang
+\    -nargs +
+\    -js openOrSelectTab(`https://www.goodreads.com/search?q=${args.join(" ")}`, bang?"adjacent":"here");
+
+map <site>c -description "Expand sections and clean up" -js grGo();
+map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o");
+map <site>ob
+\    -description "Goto books"
+\    -js openOrSelectTab("https://www.goodreads.com/review/list/97663762-troy?ref=nav_mybooks",
+\                        count?"adjacent":"here",
+\                        /https:\/\/www.goodreads.com\/review\/list\/97663762-troy\?(.+&)?ref=nav_mybooks/
+\                       );
+map <site>or
+\    -description "Goto read books"
+\    -js openOrSelectTab("https://www.goodreads.com/review/list/97663762-troy?ref=nav_mybooks&shelf=read",
+\                        count?"adjacent":"here"
+\                       );
+map <site>os
+\    -description "Search Goodreads"
+\    -js CommandExMode().open("grsearch"+(count?"! ":" "));
+
+group user
+
+" ----------------------------------------------------------------------------- "
+" ,-----------,                                                                 "
 " | GoGoAnime |                                                                 "
 " '-----------'                                                                 "
 group gogoanime -locations=gogoanime.io
