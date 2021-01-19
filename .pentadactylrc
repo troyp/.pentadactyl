@@ -11230,7 +11230,7 @@ map <site><C-l> -description "Fix modal in viewport" -js jishoFixModal();
 map ]] -description "Next page" -ex clickselector .more
 map [[ -description "Previous page" -js if (buffer.URL.match(/page=[0-9]+(#.*)?/)) buffer.incrementURL(-(count||1));
 
-imap <A-k> <Space>#kanji
+map -modes insert,command-line <A-k> <Space>#kanji
 
 " ----------------- "
 " jishotoggleromaji "
