@@ -3082,7 +3082,10 @@ findbarToggle = function() {
 }
 EOF
 
-command! searchgoogle -bang -nargs * -js dactyl.open('https://www.google.com/search?hl=en&q=' + args.join(' '), bang?"tab":"here");
+command! searchgoogle
+\    -description "Search google for arguments"
+\    -bang -nargs *
+\    -js pageOpen("https://www.google.com/search?hl=en&q=" + args.join(" "), bang?"adjacent":"here");
 
 map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
