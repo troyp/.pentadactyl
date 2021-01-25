@@ -4265,7 +4265,8 @@ function tabCloseDuplicates(exact=true) {
             lastIdx = i;
         }
     } catch(error) {
-        utils.message(`i=${i}, N=${N}`);
+        utils.message(`tabCloseDuplicates() ERROR: i=${i}, N=${N}`);
+        throw error;
     }
     var n1 = currentIdx - firstIdx;
     var n2 = lastIdx - currentIdx;
