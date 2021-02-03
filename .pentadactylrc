@@ -11718,7 +11718,7 @@ group user
 " ,--------,                                                                    "
 " | Libgen |                                                                    "
 " '--------'                                                                    "
-group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29,library.lol,libgen.is,libgen.in
+group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29,library.lol,libgen.is,libgen.in,libgen.rs
 
 command! libgendl -js libgenCopyFileNameAndDownload();
 command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
@@ -11728,13 +11728,14 @@ js <<EOF
 
 function libgenGetDetails(field) {
     var bibtextDiv = content.document.getElementById('bibtext');
+    var info = getFirstSelector("#info");
+    var tableElt = getFirstSelector("ul#menu+table");
     if (bibtextDiv) {
         var bibtext = bibtextDiv.value;
         var regex = RegExp(`${field} = +{([^}]+)}`)
         var match = bibtext.match(regex);
         return match ? match[1] : '';
-    } else {
-        var info = getFirstSelector("#info");
+    } else if (info) {
         switch(field) {
             case 'title':
                 var elt = info.querySelector('h1');
@@ -11752,6 +11753,16 @@ function libgenGetDetails(field) {
                 return elt && elt.innerText.replace(/Author\(s\): */, '');
                 break;
         }
+    } else if (tableElt) {
+        var regexes = {
+            "title":   /Title:/,
+            "edition": /Edition:/,
+            "year":    /Year:/,
+            "author":  /Author\(s\):/
+        };
+        var regex = regexes[field];
+        var headingElt = $$("td").find(e=>regex.test(e.textContent));
+        return headingElt.nextElementSibling.textContent;
     }
 }
 
