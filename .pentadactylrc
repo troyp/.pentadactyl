@@ -3755,12 +3755,10 @@ map <buffer>rh      -description "Rename document to h1 heading" -js content.doc
 map <buffer>m   -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
 map <buffer>mm  -description "Move tab to ordinal P" -b :tabmove<SPACE>
 map <buffer>mn  -description "Move N tabs to start or ordinal P" -b :moventabs<Space>
-map <buffer>mr  -description "Move tabs right of N to ordinal P" -arg -ex movealltabsrightofn <arg>
-map <buffer>m>  -description "Move COUNT tabs to end" -count -ex movetabstoend <count>
-map <buffer>m<  -description "Move COUNT tabs to start" -count -ex movetabstostart <count>
-map <buffer>m.  -description "Move last COUNT tabs to ordinal ARG"
-\               -arg -count -ex movelastntabs <count> <arg>
-map <buffer>m\' -description "Move COUNT tabs to ordianl ARG" -arg -count -ex moventabs <count> <arg>
+map <buffer>mr  -description "Move tabs right of N to ordinal P" -b :movealltabsrightofn<Space>
+map <buffer>m>  -description "Move COUNT tabs to end" -ex movetabstoend <count>
+map <buffer>m<  -description "Move COUNT tabs to start" -ex movetabstostart <count>
+map <buffer>m.  -description "Move last N tabs to ordinal P" -b :movelastntabs<Space>
 map <buffer>ma  -description "Move tab after alternate" -js moveTabAfterAlternate();
 map <buffer>mA  -description "Move alternate after tab" -js moveAlternateAfterTab();
 
