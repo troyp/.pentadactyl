@@ -2837,6 +2837,7 @@ map <yank>uv -description "Yank visible URL" -js utils.yankWithMsg(document.quer
 map <yank>uV
 \    -description "Yank visible URL (unencoded)"
 \    -js utils.yankWithMsg(decodeURIComponent(document.querySelector("#urlbar").textValue));
+map <yank>u# -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
 
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
 map <yank>V -description "Yank browser name and version"
@@ -2857,6 +2858,7 @@ map <yank>@ -description "Yank <H2> heading (choose with completion)" -b :yankh2
 map <yank># -description "Yank <H3> heading (choose with completion)" -b :yankh3<Space>
 map <yank>$ -description "Yank <H4> heading (choose with completion)" -b :yankh4<Space>
 map <yank>,, -description "Append buffer URL to selection" -js utils.cbAppend(buffer.URL);
+map <yank># -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
 
 " Yank commands "
 command! yankfilenameorURL
