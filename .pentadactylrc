@@ -13738,6 +13738,21 @@ function wikiaCopyLyrics() {
     }
 }
 
+var wikiaRegex = /https:\/\/(.*)\.(wikia|fandom)\.com\/wiki\/(.*)/;
+
+function wikiaGetTopic(url=buffer.URL) {
+    var match = url.match(wikiaRegex);
+    if (match) {
+        var path = match[3]||"";
+        var querytopic = path.match(/Special:Search\?query=([^&]+)/);
+        if (querytopic) {
+            return querytopic[1];
+        } else {
+            return path.replace(/[?#].*$/, "");
+        }
+    }
+}
+
 EOF
 
 command! wikiaremovefandomads
@@ -13780,9 +13795,11 @@ map <site>mt  -description "My Talk"
 \             -count -js openOrSelectTab(wikiaGetURL("User_talk:"+wikiaGetUser()), count?"here":"adjacent");
 map <site>mu  -description "My Profile"
 \             -count -js openOrSelectTab(wikiaGetURL("User:"+wikiaGetUser()), count?"here":"adjacent");
+
 map <site>o   -description "(show bindings:Wikia/Open)" -js CommandExMode().open("showkeys <site>o")
 map <site>oh  -description "Help"
 \             -count -js openOrSelectTab(wikiaHelpURL, count?"here":"adjacent");
+
 map <site>op  -description "(show bindings: Wikia/Open/Preferences)" -js CommandExMode().open("showkeys <site>op")
 map <site>ope -description "My Preferences: Editing"
 \             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-editing", count?"here":"adjacent");
@@ -13792,16 +13809,26 @@ map <site>opp -description "My Preferences: My Info"
 \             -count -js openOrSelectTab(wikiaPrefsURL, count?"here":"adjacent");
 map <site>opu -description "My Preferences: Under the Hood"
 \             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"adjacent");
+
 map <site>p   -b :wikiapage<Space>
 map <site>r   -ex wikiasimplepage
+
+map <site>s -description "(show bindings: Wikia/Search)" -js CommandExMode().open("showkeys <site>s");
 map <site>sa  -b :wikiasearchcrosswiki<Space>
 map <site>ss  -b :wikiasearch<Space>
+
 map <site>t   -description "(show bindings: Wikia/Toggle)" -js CommandExMode().open("showkeys <site>t");
 map <site>tc  -description "Toggle Contents" -js getSelectorByText("a", /show|hide/)[0].click();
 map <site>te  -description "Open all 'expand' regions" -ex clickselectorall ".mw-collapsed a.mw-collapsible-text"
 map <site>tE  -description "Toggle all 'expand' regions" -ex clickselectorall "a.mw-collapsible-text"
 map <site>tn  -description "Toggle Global Navigation" -js wikiaToggleGlobalNav();
+
 map <site>x   -js wikiaClosePopup();
+
+map <site>y -description "(show bindings: Wikia/Yank)" -js CommandExMode().open("showkeys <site>y");
+map <site>ys -description "Yank subtopic" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
+map <site>yy -description "Yank topic" -js utils.yankWithMsg(wikiaGetTopic());
+
 map ]]   -ex wikianext
 map [[   -ex wikiaprevious
 
