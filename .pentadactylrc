@@ -2843,10 +2843,10 @@ map <yank>uU
 \    -description "Yank URL up one (or COUNT) levels (as per gu)"
 \    -count
 \    -js utils.yankWithMsg(urlUp(count||1));
-map <yank>uv -description "Yank visible URL" -js utils.yankWithMsg(document.querySelector("#urlbar").textValue);
-map <yank>uV
+map <yank>uv
 \    -description "Yank visible URL (unencoded)"
 \    -js utils.yankWithMsg(decodeURIComponent(document.querySelector("#urlbar").textValue));
+map <yank>uV -description "Yank visible URL (encoded)" -js utils.yankWithMsg(document.querySelector("#urlbar").textValue);
 map <yank>u# -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
 
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
