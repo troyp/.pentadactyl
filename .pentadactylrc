@@ -6187,6 +6187,16 @@ map <leader>iir -description "Resize image [HINTS]" -b :imageresize<Space>
 command! imageresize -description "Resize image [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ῐ");
 command! imagematrix -description "Transform image using matrix [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ϊ");
 
+" ,-----------------------------------, "
+" | <leader>ir -- Misc/Images/Replace | "
+" '-----------------------------------' "
+map <leader>ira -description "Replace images with alt text" -b :imagereplace<Space>
+
+command! imagereplace
+\    -description "Replace images in SEL with alt text"
+\    -nargs *
+\    -js $$("img", $$(args.join(" "))).forEach(e=>{dactyl.rc.appendElement("p",e.parentElement,{ innerText: e.alt }); e.remove()});
+
 " ,----------------------------------, "
 " | <leader>is -- Misc/Images/Search | "
 " '----------------------------------' "
@@ -6264,6 +6274,7 @@ map <leader>xtc
 map <leader>xtC
 \     -description "Copy table columns"
 \     -b :copytablecols<Space>
+map <leader>xti -description "Replace table images with alt text" -ex imagereplace td
 map <leader>xtn -description "Show number of rows in table (HINTS)" -js hints.show("τ");
 map <leader>xtd -description "Delete given columns from all tables." :tableDeleteColumns<Space>
 map <leader>xtw -description "Toggle table-widen style" -ex styletoggle -name table-widen
