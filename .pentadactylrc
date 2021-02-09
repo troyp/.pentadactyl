@@ -2837,6 +2837,8 @@ map <yank>uL
 \    -description "Yank (nth) succeeding URL"
 \    -js utils.yankWithMsg(historyGetUrl(`+${count||1}`));
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(urlGetNthParent(count));
+map <yank>uq -description "Yank URL query (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
+map <yank>uQ -description "Yank URL query (encoded)" -js utils.yankWithMsg(buffer.URL.replace(/^[^?]*[?]?/,""));
 map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(urlGetNthFromRootPath(count));
 map <yank>uu -description "Yank buffer URL (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL));
 map <yank>uU
@@ -2848,6 +2850,7 @@ map <yank>uv
 \    -js utils.yankWithMsg(decodeURIComponent(document.querySelector("#urlbar").textValue));
 map <yank>uV -description "Yank visible URL (encoded)" -js utils.yankWithMsg(document.querySelector("#urlbar").textValue);
 map <yank>u# -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
+map <yank>u? -description "Yank URL query (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
 
 map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
 map <yank>V -description "Yank browser name and version"
@@ -2868,7 +2871,8 @@ map <yank>@ -description "Yank <H2> heading (choose with completion)" -b :yankh2
 map <yank># -description "Yank <H3> heading (choose with completion)" -b :yankh3<Space>
 map <yank>$ -description "Yank <H4> heading (choose with completion)" -b :yankh4<Space>
 map <yank>,, -description "Append buffer URL to selection" -js utils.cbAppend(buffer.URL);
-map <yank># -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
+map <yank>/ -description "Yank URL (unencoded) as escaped regex literal"
+\           -js S.escapeRegexSymbols(decodeURIComponent(buffer.URL), {forwardSlashDelimiters:true})
 
 " Yank commands "
 command! yankfilenameorURL
