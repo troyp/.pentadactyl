@@ -5943,11 +5943,17 @@ map <leader>la -description "Append links to end of page" -ex appendlinks
 map <leader>lc -description "Count links" -ex countlinks
 map <leader>ld -description "Choose links from page and download" -b :dlchooselinks<Space>
 map <leader>lD -description "Download selected links" -b :dlselectionlinks<Space>
-map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
+
+map <leader>lf -description "(show bindings: Links/Find)" -js CommandExMode().open("showkeys <leader>lf")
+map <leader>lf;
+\    -description "Find links matching href in clipboard"
+\    -js utils.message(findLinks(utils.cbRead({index: (count||0)}), {dactyl_search_link: true, text_content: true}).join("\n"));
+
 map <leader>ll -description "List all links in page" -ex listlinks
 map <leader>ls -description "Open links in selection" -js openSelectionLinks(count?"tab":"adjacent");
 map <leader>lt -description "Append link text & destinations to end of page" -ex appendlinktextandurls
 map <leader>lT -description "Append link destinations & text to end of page" -ex appendlinkurlsandtext
+map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
 map <leader>lv -description "Open links in clipboard" -ex tabopencblinks
 
 command! appendlinks
@@ -6119,6 +6125,34 @@ function getSelectionLinks() { return Array.from(getSelectionDOM().links); }
 function openSelectionLinks(where="adjacent") { getSelectionLinks().forEach(l=>openOrSelectTab(l, where)); }
 
 function dlSelectionLinks(dir=null, subdir=null) { return dlLinks(getSelectionLinks(), dir, subdir); }
+
+/*
+    findLinks(href, options)
+    matching options:
+        exact_match:  match href exactly (if false, the link's href must include HREF)
+    additional action options:
+        scroll_into_view
+        dactyl_search_link
+    return-value options:
+        first_only:   return only the first result (if any)
+        text_content: return the textContent of item(s) only
+ */
+function findLinks(href, options={}) {
+    var links = $$("a").filter(options.exact_match ? e=>e.href==href : e=>e.href.includes(href));
+    /* actions */
+    if (options.dactyl_search_link && links.length)
+        dactyl.execute(`feedkeys /${links[0].textContent}<CR>`);
+    if (options.scroll_into_view && links.length)
+        links[0].scrollIntoView();
+    /* return value */
+    if (options.text_content)
+        links = links.map(e=>e.textContent);
+    return options.first_only
+      ? links.length
+        ? links[0]
+        : (options.text_content ? "" : null)
+      : links;
+}
 EOF
 
 " ------------------------------------------------------------------------------- "
@@ -16010,6 +16044,7 @@ var EXPORT_TO_WINDOW = [
     "foreachNode",
     "listElements",
     "listNodes",
+    "findLinks",
     "NumRange",
     "parseNumRange",
     "mkNumRangeList",
