@@ -6146,9 +6146,9 @@ map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
 map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"adjacent");
 
-" ,--------------------------------,
-" | <leader>i -- Misc/Images/Hints |
-" '--------------------------------'
+" ,--------------------------------, "
+" | <leader>i -- Misc/Images/Hints | "
+" '--------------------------------' "
 map <leader>ii -description "(show bindings: Misc/Images/Hints)" -js CommandExMode().open("showkeys <leader>ii");
 map <leader>iif -description "Flip image horizontally [HINTS]" -js hints.show("ῑ");
 map <leader>iiF -description "Flip image vertically [HINTS]" -js hints.show("ί");
@@ -6159,9 +6159,9 @@ map <leader>iir -description "Resize image [HINTS]" -b :imageresize<Space>
 command! imageresize -description "Resize image [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ῐ");
 command! imagematrix -description "Transform image using matrix [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ϊ");
 
-" ,----------------------------------,
-" | <leader>is -- Misc/Images/Search |
-" '----------------------------------'
+" ,----------------------------------, "
+" | <leader>is -- Misc/Images/Search | "
+" '----------------------------------' "
 map <leader>is -description "(show bindings: Misc/Images/Search)" -js CommandExMode().open("showkeys <leader>is");
 map <leader>isr
 \    -description "TinEye reverse image search"
@@ -6206,10 +6206,10 @@ map <leader>ivV
 \    -description "View all images (compact)"
 \    -ex open javascript:document.write(Array.from(document.images).map(i=>`<img%20src=${i.src}%3E`).join(""));%20document.close();void(0);
 
-" -------------------------------------------------------------------------------
-" ,---------------,
-" | Text Encoding |
-" '---------------'
+" ------------------------------------------------------------------------------- "
+" ,---------------,                                                               "
+" | Text Encoding |                                                               "
+" '---------------'                                                               "
 "command! encuni :execute "emenu View.Text Encoding.Unicode"
 "command! encjis :execute "emenu View.Text Encoding.Japanese (Shift_JIS)"
 command! encuni :emenu View.Text Encoding.Unicode
@@ -6221,10 +6221,10 @@ map <leader>xe
 \    -js CommandExMode().open("showkeys <leader>xe")
 map <leader>xeu -ex emenu View.Text Encoding.Unicode
 
-" -------------------------------------------------------------------------------
-" ,----------------,
-" | Table Commands |
-" '----------------'
+" ------------------------------------------------------------------------------- "
+" ,----------------,                                                              "
+" | Table Commands |                                                              "
+" '----------------'                                                              "
 map <leader>x
 \    -description "(show bindings: Misc/Tables)"
 \    -js CommandExMode().open("showkeys <leader>x")
