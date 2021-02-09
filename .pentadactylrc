@@ -9999,30 +9999,38 @@ function grGo() {
         ".ReactComponents.GoogleBannerAd"
     );
 }
+
+function grGotoList(query, adjacentTab) {
+    openOrSelectTab(`https://www.goodreads.com/review/list/97663762-troy?${query}`, adjacentTab?"adjacent":"here");
+}
 EOF
 
 command! grsearch
 \    -description "Search Goodreads"
-\    -bang
-\    -nargs +
+\    -bang -nargs +
 \    -js openOrSelectTab(`https://www.goodreads.com/search?q=${args.join(" ")}`, bang?"adjacent":"here");
+command! grsearchbyauthor
+\    -description "Search Goodreads: by Author"
+\    -bang -nargs +
+\    -js openOrSelectTab(`https://www.goodreads.com/search?utf8=✓&q=${args.join(" ")}&search_type=books&search[field]=author`, bang?"adjacent":"here");
 
 map <site>c -description "Expand sections and clean up" -js grGo();
-map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o");
+
+map <site>o -description "(show bindings: Goodreads/Goto)" -js CommandExMode().open("showkeys <site>o");
+map <site>oa -description "Goto my books: ALL" -s grGotoList("ref=nav_mybooks&shelf=currently-reading", count);
 map <site>ob
 \    -description "Goto books"
 \    -js openOrSelectTab("https://www.goodreads.com/review/list/97663762-troy?ref=nav_mybooks",
 \                        count?"adjacent":"here",
 \                        /https:\/\/www.goodreads.com\/review\/list\/97663762-troy\?(.+&)?ref=nav_mybooks/
 \                       );
-map <site>or
-\    -description "Goto read books"
-\    -js openOrSelectTab("https://www.goodreads.com/review/list/97663762-troy?ref=nav_mybooks&shelf=read",
-\                        count?"adjacent":"here"
-\                       );
-map <site>os
-\    -description "Search Goodreads"
-\    -js CommandExMode().open("grsearch"+(count?"! ":" "));
+map <site>oc -description "Goto currently-reading books" -js grGotoList("ref=nav_mybooks&shelf=currently-reading", count);
+map <site>or -description "Goto read books" -js grGotoList("ref=nav_mybooks&shelf=read", count);
+map <site>ow -description "Goto want-ro-read books" -js grGotoList("ref=nav_mybooks&shelf=to-read", count);
+
+map <site>s -description "(show bindings: Goodreads/Search)" -js CommandExMode().open("showkeys <site>s");
+map <site>sa -description "Search Goodreads: by Author" -js CommandExMode().open("grsearchbyauthor"+(count?"! ":" "));
+map <site>ss -description "Search Goodreads" -js CommandExMode().open("grsearch"+(count?"! ":" "));
 
 group user
 
