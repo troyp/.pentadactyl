@@ -1977,6 +1977,16 @@ map <leader>cyy -description "Copy result of javascript expression or ex command
 map <leader>f -description "(show bindings: Focus-Follow)" -js CommandExMode().open("showkeys <leader>f")
 map <leader>fs -description "Click span by text" -b :clickspan<Space>
 
+" ,----------------------,
+" | <leader>h -- History |
+" '----------------------'
+map <search>h -description "(Show bindings)" -js CommandExMode().open("showkeys <search>h")
+map <search>ha -description "Open all matching history items" -b :history! -max 30 -sort -date<SPACE>
+map <search>hh -description "search history" -b :history -sort -date<SPACE>
+map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
+
+command! tabopenhistory -nargs 1 -complete history tabopen <args>
+
 " ,----------------------, "
 " | <leader>j - Japanese | "
 " '----------------------' "
@@ -4690,24 +4700,6 @@ command! appcache
 set passkeys+='chrome://browser/content/bookmarks/bookmarksPanel.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://browser/content/places/places.xul':'<Up><Down><Left><Right>'
 set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Left><Right>'
-
-" ,---------,
-" | History |
-" '---------'
-
-command! tabopenhistory -nargs 1 -complete history tabopen <args>
-
-" Select:
-map <search>h       -description "(Show bindings)" -js CommandExMode().open("showkeys <search>h")
-map <search>ha -description "Open selected history items" -b :history! -max 30 -sort -date<SPACE>
-map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
-
-" List/Search:
-:if options.get('guioptions').value.includes('c')
-    map <search>hh -description "search history" -b :history -max 41 -sort -date<SPACE>
-:else
-    map <search>hh -description "search history" -b :history -sort -date<SPACE>
-:endif
 
 " -------------------------------------------------------------------------------
 " ,-----------,
