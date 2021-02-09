@@ -3812,6 +3812,7 @@ map U -b :undo<SPACE>
 " close tabs to right/left (inclusive) "
 map <C-k>   -description "Close tabs to right (inclusive)" <buffer>>d
 map <C-S-K> -description "Close tabs to left (inclusive)" <buffer><d
+map <A-BS>  -description "Close tab to left" -js tabCloseNToLeft(count||1);
 " close other tabs "
 map <buffer>1 -description "Close all other tabs" -ex tabonly
 map <buffer><
