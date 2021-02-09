@@ -13061,6 +13061,14 @@ group reddit -locations=reddit.com
 map <site>c -description "Passthrough-mode" -b <C-z>
 map <site>l -description "Load more replies" -js redditLoadMoreReplies();
 map <site>m -description "Remove cruft" -js redditTidy();
+map <site>n
+\    -description "Insert user names"
+\    -js redditInsertUserNames();
+map <site>s -description "(show bindings: Reddit/Search)" -js CommandExMode().open("showkeys <site>s");
+map <site>ss
+\    -description "Search subreddit name on Google"
+\    -js pageOpen("https://www.google.com/search?hl=en&q="+redditGetSub(), count?"here":"adjacent");
+map <site>t -description "(show bindings: Reddit/Toggle)" -js CommandExMode().open("showkeys <site>t");
 map <site>ts -description "Toggle saved post" -js redditToggleSave();
 map <site>to -description "Toggle old reddit" -js toggleUrl("https://www.", "https://old.");
 
@@ -13075,6 +13083,23 @@ map <A-8> 8gt
 map <A-9> 9gt
 
 js <<EOF
+function redditGetSub(url=buffer.URL) {
+    var match = url.match(/(old\.)?reddit.com\/r\/([^/]+)\/.*/);
+    return match && match[2];
+}
+
+function redditInsertUserNames() {
+    $$("a").filter(l=>l.href.match(/\/user\//)).forEach(l=>{
+        newDiv = content.document.createElement("div");
+        newDiv.textContent = l.href.split("/").slice(-2)[0];
+        newDiv.setAttribute("class", "dactylrcInsertedUserName");
+        newDiv.style.color = "green";
+        nextDiv = l.nextElementSibling;
+        parent = l.parentElement;
+        nextDiv && parent.insertBefore(newDiv, nextDiv);
+    });
+}
+
 function redditLoadMoreReplies() {
     getSelectorByText("p","^[0-9]+ more repl(ies|y)").forEach(e=>e.click())
 }
