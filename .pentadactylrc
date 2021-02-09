@@ -4049,22 +4049,18 @@ command! tabcloseranges
 \    -js tabCloseRanges(args.join(","));
 
 js <<EOF
-function tabCloseNToLeft(n) {
-    var firstTab = tabs.getTab(0);
-    if (n==null) {
-        var numToClose = tabs.getTab().dactylOrdinal - 1;
-        tabs.remove(firstTab, numToClose);
-    } else tabs.remove(firstTab, n);
+function tabCloseNToLeft(n=null) {
+    var tabIndex = tabs.getTab().dactylOrdinal - 1;
+    var numToClose = (n==null) ? tabIndex : n;
+    tabs.select(-numToClose);
+    tabs.remove(tabs.getTab(), numToClose);
 }
-function tabCloseNToRight(n) {
-    tabIndex = tabs.getTab().dactylOrdinal - 1;
-    var nextTabIndex = tabIndex + 1;
-    var firstTab = tabs.getTab(nextTabIndex);
-    if (n==null) {
-        var N = tabs.allTabs.length;
-        var numToClose = N - nextTabIndex;
-        tabs.remove(firstTab, numToClose);
-    } else tabs.remove(firstTab, n);
+function tabCloseNToRight(n=null) {
+    var tabOrdinal = tabs.getTab().dactylOrdinal;
+    tabs.select("+1");
+    var N = tabs.allTabs.length;
+    var numToClose = (n==null) ? N-tabOrdinal : n;
+    tabs.remove(tabs.getTab(), numToClose);
 }
 
 function tabCloseOrdRange(firstOrd, endOrd) {
