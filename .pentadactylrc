@@ -8429,6 +8429,43 @@ map <site>. -description "Board: End of game"   -ex clickselector #endB
 
 group user
 
+" ------------------------------------------------------------------------------- "
+" ,----------------,                                                              "
+" | Coppermind.net |                                                              "
+" '----------------'                                                              "
+group coppermind -locations=coppermind.net
+
+js <<EOF
+function coppermindGetTopic(url=buffer.URL) {
+    var match =
+        url.match(/https:\/\/coppermind\.net\/wiki\/Special:Search\?search=([^&]+)/)
+        || url.match(/https:\/\/coppermind\.net\/wiki\/([^/?#]+)/);
+    return match && match[1];
+}
+EOF
+
+command! coppermindsearch
+\    -description "Search Coppermind.net wiki"
+\    -bang -nargs +
+\    -js openOrSelectTab(`https://coppermind.net/wiki/Special%3ASearch?search=${args.join(" ")}&&&go=Go` + args.join(" "), bang?"adjacent":"here");
+command! stormlightarchivewikiasearch
+\    -description "Search StormlightArchive.fandom.com"
+\    -bang -nargs +
+\    -js openOrSelectTab("https://stormlightarchive.fandom.com/wiki/Special:Search?query=" + args.join(" "), bang?"adjacent":"here");
+
+map <site>s  -description "(show bindings: Coppermind.net/Search)" -js CommandExMode().open("showkeys <site>s");
+map <site>ss -description "Search Coppermind wiki" -js CommandExMode().open("coppermindsearch" + (count?"! ":" "));
+map <site>sw -description "Search stormlightarchive.fandom.com" -js CommandExMode().open("stormlightarchivewikiasearch" + (count?"! ":" "));
+
+map <site>w -description "Search page on stormlightarchive.fandom.com"
+\           -js openOrSelectTab("https://stormlightarchive.fandom.com/wiki/Special:Search?query=" + coppermindGetTopic(), count?"adjacent":"here");
+
+map <site>yy -description "Yank topic" -js utils.yankWithMsg(coppermindGetTopic());
+
+group user
+
+
+
 " ----------------------------------------------------------------------------- "
 " ,----------,                                                                  "
 " | Coursera |                                                                  "
