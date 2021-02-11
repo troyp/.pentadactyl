@@ -3097,12 +3097,28 @@ findbarToggle = function() {
     else
         gFindBar.close();
 }
+
+function searchKanjiDamage(s) {
+    var newtab = gBrowser.addTab('http://www.kanjidamage.com');
+    gBrowser.selectedTab = newtab;
+    var tb = gBrowser.getBrowserForTab(newtab);
+    tb.addEventListener("DOMContentLoaded", function () {
+        var box = content.document.getElementById('q')
+        box.value=s;
+        box.form.submit();
+    });
+}
 EOF
 
 command! searchgoogle
 \    -description "Search google for arguments"
 \    -bang -nargs *
 \    -js pageOpen("https://www.google.com/search?hl=en&q=" + args.join(" "), bang?"adjacent":"here");
+command! prefsuffsearch
+\    -description "Search for prefix/suffix on macroevolution.net"
+\    -nargs=1
+\    -js prefsuffSearch(args[0]);
+command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
 
 map <findbarOpenFocus> <C-v><C-f>
 map <hide-inputs> -ex hideselector input
@@ -3112,26 +3128,32 @@ map / <hide-inputs><find-forward>
 map ? <hide-inputs><find-backward>
 map <C-/> -ex noh
 map <C-?> <unhide-inputs>
-" Search from top of page
-map g/ -modes normal -b gg/
-" Firefox find box
+map g/ -description "Search from top of page" -modes normal -b gg/
 map <A-/> -description "Toggle Firefox Find Box (native search in page)"
 \    -modes base
 \    -js findbarToggle();
-" C-' Firefox link search
 map "<C-'>" -modes normal -description "Firefox Quick Find Link Search (native link search)" -b <C-v>'
 
-map <search>d   -description "Search domain (or nth level path) on google" -js CommandExMode().open(`searchgoogle site:${urlGetNthFromRootPath(count||1)} `)
-map <search>D   -description "Search domain (or nth level path) on google" -js CommandExMode().open(`searchgoogle! site:${urlGetNthFromRootPath(count||1)} `)
-map <search>f   -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
-map <search>g   -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
-map <search>m   -description "Multiple query bookmark search" -b :searchmultiple<Space>
-map <search>M   -description "Multiple engine bookmark search" -b :multipleenginesearch<Space>
-map <search>p   -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
-\               -b :polysearch<Space>
-map <search>r   -description "Regex search: Forward" -modes normal -b /\r
-map <search>R   -description "Regex search: Backward" -modes normal -b ?\r
-map <search>s      -description "(show bindings: shopping search)" -js CommandExMode().open("showkeys <search>s")
+map <search>d
+\    -description "Search domain (or nth level path) on google"
+\    -js CommandExMode().open(`searchgoogle site:${urlGetNthFromRootPath(count||1)} `)
+map <search>D
+\    -description "Search domain (or nth level path) on google"
+\    -js CommandExMode().open(`searchgoogle! site:${urlGetNthFromRootPath(count||1)} `)
+map <search>f -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
+map <search>g -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
+map <search>m -description "Multiple query bookmark search" -b :searchmultiple<Space>
+map <search>M -description "Multiple engine bookmark search" -b :multipleenginesearch<Space>
+map <search>p -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
+\             -b :polysearch<Space>
+map <search>r -description "Regex search: Forward" -modes normal -b /\r
+map <search>R -description "Regex search: Backward" -modes normal -b ?\r
+
+" ,------------------------------, "
+" | <search>s -- Shopping Search | "
+" '------------------------------' "
+map <search>s -description "(show bindings: Shopping Search)" -js CommandExMode().open("showkeys <search>s")
+map <search>sa -description "(show bindings: Shopping Search/Art)" -js CommandExMode().open("showkeys <search>sa")
 map <search>saa -description "Shopping search: art (quick)" -b :shopartquick<Space>
 map <search>sab
 \    -description "Shopping search: art (bunbougu, ebay, amazonAU)"
@@ -3144,7 +3166,7 @@ map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" 
 map <search>sjj -description "Shopping search: Jacksons UK" -js CommandExMode().open(count?"jacksonsartSearch ":"jacksonsartSearch! ");
 map <search>sjw -description "Shopping search: Jacksons UK watercolour" -js CommandExMode().open(count?"jacksonsartSearchWatercolour ":"jacksonsartSearchWatercolour! ");
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
-map <search>sv      -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
+map <search>sv  -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
 map <search>svfm  -description "Shopping search/Vaping: fasttech mods" -b :shopvapeFtMod<Space>
 map <search>sz
 \    -description "Shopping search: ebay + amazon.au"
@@ -3165,6 +3187,7 @@ map <search>;sz
 \    -description "Clipboard Shopping search: ebay + amazon.au"
 \    -js multipleEngineSearch(["e", "amazau"], readFromClipboard());
 map <search>S   -description "Supermarket search: woolworths + coles" -b :supermarket<Space>
+
 map <search>w   -description "Search for word containing..." -modes normal /\r\w*\w*<Left><Left><left>
 map <search>y   -description "Search .pentadactylrc in Emacs" -b :rce<Space>
 map <search>0   -description "Search for word beginning with..." -modes normal -b /\r\w*<Left><Left><left>
@@ -3470,17 +3493,14 @@ command! undob -description "Undo tab in background" -js undob()
 command! backt -description "Create adjacent duplicate tab and go back in the browser history" -js backt()
 command! forwardt -description "Create adjacent duplicate tab and go forward in the browser history" -js forwardt()
 command! tabdupa -description "Create adjacent duplicate tab" -js tabCopyLeftBg()
-
 command! viewpagesource -description "Toggle viewing page / viewing page source" -js viewPageSource();
 
 command! rc source ~/.pentadactylrc
-
 command! rce -description "Edit .pentadactyl, jump to SEARCHTERM" -nargs=? -js showPentadactylrc(args[0]);
-
 command! loadutils runtime! utils.js | js var utils = dactyl.utils.getPlugin("utils");
-
 command! showsource -nargs=1 -js (alert(self[args[0]].toString()))
 
+command! runinterminal -description "run shell command in terminal" -nargs=1 -js runInZSH(args[0]);
 command! saveindir
 \    -nargs=1
 \    -complete dir
@@ -3515,41 +3535,35 @@ function joinFilePathFromDactylArgs(dir) {
 }
 EOF
 
-" enable jQuery in content document
-command! jQueryLoad -js <<EOF
-    var scripttag = content.document.createElement('script');
-    scripttag.type = 'text/javascript';
-    scripttag.async = true;
-    scripttag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js';
-    var parent = ( content.document.getElementsByTagName('head') ||
-                    content.document.getElementsByTagName('body') )[0];
-    parent.appendChild(scripttag);
+
+command! jQueryLoad
+\    -description "enable jQuery in content document"
+\    -js <<EOF
+  var scripttag = content.document.createElement('script');
+  scripttag.type = 'text/javascript';
+  scripttag.async = true;
+  scripttag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js';
+  var parent = ( content.document.getElementsByTagName('head') ||
+                  content.document.getElementsByTagName('body') )[0];
+  parent.appendChild(scripttag);
 EOF
-" Stop page from intercepting key events:
-command! nointercept -js document.addEventListener('keydown', function(e) { e.stopImmediatePropagation(); return false;}, true);
 
-" Show all marks (quickmarks and url/local marks)
-command! allmarks,amarks,am :qmarks | marks
+command! nointercept
+\    -description "Stop page from intercepting key events"
+\    -js document.addEventListener('keydown', function(e) { e.stopImmediatePropagation(); return false;}, true);
 
-" Troubleshooting information
-command! info :tabopen about:support<CR>
-
+command! allmarks,amarks,am -description "Show all marks (quickmarks and url/local marks)" :qmarks | marks
+command! info -description "Troubleshooting info: open about:info" :tabopen about:support<CR>
 command! yanktitle js dactyl.clipboardWrite(buffer.title)
 
-" Search commands "
-command! jkdamage -nargs=1 -js searchKanjiDamage(args[0]);
-command! prefsuffsearch
-\    -description "Search for prefix/suffix on macroevolution.net"
-\    -nargs=1
-\    -js prefsuffSearch(args[0]);
+command! rubular
+\    -description "[REGEX S] Test string S against REGEX with Rubular.com"
+\    -nargs=+
+\    -js rubular(args[0], args[1]);
 
-" run shell command in terminal
-command! -nargs=1 runinterminal -js runInZSH(args[0]);
-
-" rubular
-command! rubular -nargs=+ -js rubular(args[0], args[1]);
-
-" Password Hasher "
+" ,-----------------, "
+" | Password Hasher | "
+" '-----------------' "
 command! pwhash
 \    -description "Open Password Hasher"
 \    -nargs=0
@@ -3568,7 +3582,9 @@ command! pwhashsite
 \    -js pwHashDomain(buffer.URL, tabs.getTab());
 map -modes input <pwhashsite> -ex pwhashsite
 
-" Page editing commands "
+" ,-----------------------, "
+" | Page editing commands | "
+" '-----------------------' "
 command! contenteditable
 \    -description "Make content editable by setting e.contentEditable on each element"
 \    -js elts = content.document.getElementsByTagName("*");
@@ -3587,6 +3603,26 @@ command! setbodybyid
 command! hidefooter -js toggleFooter();
 command! removefooter -js removeSelectors('footer');
 command! removeimages -js removeSelectors('img');
+command! setbackground -nargs=* -js setBackground(args.slice(1), args[0]);
+command! addmargin -nargs=+ -js addMarginToBody(args[0], args[1]);
+command! removexpath
+\    -nargs=1
+\    -ex open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
+command! imgsalttotitle
+\    -description "Add ALT text to TITLE for all images on page"
+\    -js imgsAddAltTextToTitle();
+
+" ,-------------------, "
+" | selector commands | "
+" '-------------------' "
+command! getselector
+\    -description "Show matching elements"
+\    -nargs=*
+\    -js dactyl.execute(`echo getSelectors('${args.join(",")}')`);
+command! countselector
+\    -description "Count matching elements"
+\    -nargs=1
+\    -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelectors(args[0])}`);
 command! removeselector -nargs=* -js removeSelectors(...args);
 command! removefirstselector -nargs=1 -js removeFirstSelector(args[0]);
 command! removeselectorwithmatchingattribute -nargs=+ -js removeSelectorWithMatchingAttribute(...args);
@@ -3603,7 +3639,6 @@ command! isolateselectorsfiltered
 \                pred = pred || true;
 \                return [sel, eval("(e)=>"+pred)];
 \            }));
-command! setbackground -nargs=* -js setBackground(args.slice(1), args[0]);
 command! clickselector -description "Click the first matching element" -nargs=+ -js clickSelector(...args);
 command! clickselectorall -description "Click all matching elements" -nargs=+ -js clickSelectorAll(...args);
 command! clickselectorbytext -description "Click the first matching element [SELECTOR TEXT]" -nargs=+ -js clickSelectorByText(...args);
@@ -3618,25 +3653,10 @@ command! blankselector
 \    -description "Blank all matching elements (visibility:hidden)"
 \    -nargs=*
 \    -js blankSelectors(...args);
-command! addmargin -nargs=+ -js addMarginToBody(args[0], args[1]);
 
-command! removexpath
-\    -nargs=1
-\    -ex open javascript:(function (xpathexpr) {var elts = document.evaluate(xpathexpr, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null); for (var i=0; i < elts.snapshotLength; i++) {var elt = elts.snapshotItem(i); elt.parentNode.removeChild(elt);}})('<args>');
-
-" Page info commands "
-command! getselector
-\    -description "Show matching elements"
-\    -nargs=*
-\    -js dactyl.execute(`echo getSelectors('${args.join(",")}')`);
-command! countselector
-\    -description "Count matching elements"
-\    -nargs=1
-\    -js utils.messageWithLineLimit(`Number of elements matching selector ${args[0]}: ${countSelectors(args[0])}`);
-command! imgsalttotitle
-    \ -description "Add ALT text to TITLE for all images on page"
-    \ -js imgsAddAltTextToTitle();
-
+" ,-------------------, "
+" | download commands | "
+" '-------------------' "
 command! wget
 \    -description "wget URL DIR FILE OPTS: Use wget to download URL as FILE in DIR using OPTS"
 \    -nargs=*
@@ -6767,17 +6787,6 @@ function wiktionaryWordToIndexPage (word)
     }
 
     return page + "#" + id;
-}
-
-function searchKanjiDamage(s) {
-    var newtab = gBrowser.addTab('http://www.kanjidamage.com');
-    gBrowser.selectedTab = newtab;
-    var tb = gBrowser.getBrowserForTab(newtab);
-    tb.addEventListener("DOMContentLoaded", function () {
-        var box = content.document.getElementById('q')
-        box.value=s;
-        box.form.submit();
-    });
 }
 
 function setBody(elt) {
