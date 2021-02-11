@@ -3653,6 +3653,10 @@ command! blankselector
 \    -description "Blank all matching elements (visibility:hidden)"
 \    -nargs=*
 \    -js blankSelectors(...args);
+command! scrolltoselector
+\    -description "Scroll matching element into view"
+\    -nargs 1
+\    -js $1(args[0]).scrollIntoView();
 
 " ,-------------------, "
 " | download commands | "
