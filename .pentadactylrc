@@ -2124,7 +2124,7 @@ map <leader>rmm
 
 map <leader>rp
 \    -description "Periodic Table (ptable.com)"
-\    -js openOrSelectTab("ptable.com", bang?"here":"adjacent");
+\    -js openOrSelectTab("ptable.com", count?"here":"adjacent");
 
 map <leader>ru
 \    -description "(show bindings: Reference/Unicode)"
