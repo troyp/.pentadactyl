@@ -10054,6 +10054,8 @@ map <site>oc -description "Goto currently-reading books" -js grGotoList("ref=nav
 map <site>or -description "Goto read books" -js grGotoList("ref=nav_mybooks&shelf=read", count);
 map <site>ow -description "Goto want-ro-read books" -js grGotoList("ref=nav_mybooks&shelf=to-read", count);
 
+map <site>r -description "Jump to reviews" -ex scrolltoselector #other_reviews
+
 map <site>s -description "(show bindings: Goodreads/Search)" -js CommandExMode().open("showkeys <site>s");
 map <site>sa -description "Search Goodreads: by Author" -js CommandExMode().open("grsearchbyauthor"+(count?"! ":" "));
 map <site>ss -description "Search Goodreads" -js CommandExMode().open("grsearch"+(count?"! ":" "));
