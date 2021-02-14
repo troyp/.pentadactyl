@@ -906,6 +906,8 @@ map <C-h>gC  -description "List commands by group (verbose)" -b :listcommandsbyg
 map <C-h>gm  -description "List bindings by group" -b :listmappingsbygroup<Space>
 map <C-h>h   -description "Open Help topic" :help<Space>
 map <C-h>i   -description "Pentadactyl help - index" -count -js openOrSelectTab("dactyl://help/index", count?"here":"adjacent");
+map <C-h>k   -description "Search browser keybindings" -b :searchbrowserkeybindings<Space>
+map <C-h>K   -description "Search browser keybindings by name" -b :searchbrowserkeybindingsbyname<Space>
 map <C-h>m   -description "Search bindings by mode" -b :searchmappingsbymode<Space>
 map <C-h>r   -description "Jump to .pentadactylrc entry" -b :rce<Space>
 map <C-h>x   -description "Execute key bindings matching prefix" :showkeys<Space>
@@ -941,6 +943,49 @@ command! searchhintmodes -description "Search hint modes and descriptions"
 \    -nargs * -js searchHintModes.apply(null, args.map(readStringOrRegex));
 command! searchhintmodesverbose -description "Search hint modes and descriptions, actions and filters"
 \    -nargs * -js searchHintModesVerbose.apply(null, args.map(readStringOrRegex));
+command! searchbrowserkeybindings -nargs 1 -js utils.cbWriteCollection(searchBrowserKeybindings(readStringOrRegex(args[0])));
+command! searchbrowserkeybindingsbyname -nargs 1 -js utils.cbWriteCollection(searchBrowserKeybindingsByName(readStringOrRegex(args[0])));
+
+js <<EOF
+function getBrowserKeybindings() {
+    return $$("key", document).map(e=>{
+        var id = e.id;
+        var key = e.getAttribute("key") || e.getAttribute("keycode");
+        var [modifiers, command, oncommand] = ["modifiers", "command", "oncommand"].map(att=>e.getAttribute(att));
+        var modArray = modifiers ? modifiers.split(",") : [];
+        var keystr = modArray.map(k=>{
+            switch(k) {
+              case "accel":
+              case "control": return "C";
+              case "shift": return "S";
+              case "alt": return "A";
+            }
+        }).concat([key]).join("-");
+        var name = id || command || oncommand;
+        return {
+            "name": name,
+            "keystr": keystr,
+            toString: function () { return `${this.keystr}: \t${this.name}`; }
+        };
+    });
+}
+function searchBrowserKeybindings(pat) {
+    if (typeof pat == "function")
+        var f = pat;
+    else if (typeof pat == "string" && pat == pat.toLowerCase())
+        var f = k=>k.keystr.toLowerCase().match(pat);
+    else
+        var f = k=>k.keystr.match(pat);
+    return getBrowserKeybindings().filter(f);
+}
+function searchBrowserKeybindingsByName(pat) {
+    if (typeof pat == "string" && pat == pat.toLowerCase())
+        var f = k=>k.name.toLowerCase().match(pat);
+    else
+        var f = k=>k.name.match(pat);
+    return getBrowserKeybindings().filter(f);
+}
+EOF
 
 " -------------------------------------------------------------------------------
 " ,------------------,
