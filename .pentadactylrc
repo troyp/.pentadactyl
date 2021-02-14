@@ -828,10 +828,6 @@ unmap!
 " | Prefix Keys |
 " '-------------'
 
-command! showkeys
-\    -nargs=?
-\    -complete custom,' (context) => {context.completions = listActiveGroupMappings()}'
-\    :feedkeys -mode normal <args>
 command! emacssearchkey
 \    -nargs=1
 \    -complete custom,' (context) => {context.completions = listActiveGroupMappings()}'
@@ -890,34 +886,39 @@ map z<f4>          -description "(show bindings)" -js CommandExMode().open("emac
 " | Help Commands and Bindings |
 " '----------------------------'
 
-map <C-h>    -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>")
+map <C-h>    -description "(show bindings: Help)" -js CommandExMode().open("showkeys <C-h>")
+map <C-h>a   -description "(show bindings: Help/Addons)" -js CommandExMode().open("showkeys <C-h>")
+map <C-h>ag  -description "Show Greasemonkey scripts" -ex addons -type greasemonkey-user-script
+map <C-h>al  -description "Show locale" -b :addons -type locale<Space>
+map <C-h>ap  -description "Show plugin" -ex addons -type plugin
+map <C-h>as  -description "Show userstyle" -ex addons -type userstyle
+map <C-h>at  -description "Show theme" -ex addons -type theme
 map <C-h>b   -description "Search bindings" -b :searchmappings<Space>
 map <C-h>B   -description "Search bindings description" -b :searchmappingsdescriptions<Space>
 map <C-h>c   -description "Search commands" -b :searchcommands<Space>
 map <C-h>C   -description "Search commands description" -js CommandExMode().open("searchcommandsdescriptions" + (count?"! ":" "));
 map <C-h>d   -description "Pentadactyl help" -ex help
 map <C-h>D   -description "Pentadactyl help - single page" -ex helpall
-map <C-h>:   -description "Pentadactyl :help..." -b :help<Space>
 map <C-h>e   -description "Show extensions" -b :addons -type extension<Space>
-map <C-h>ag  -description "Show Greasemonkey scripts" -ex addons -type greasemonkey-user-script
-map <C-h>al  -description "Show locale" -b :addons -type locale<Space>
-map <C-h>ap  -description "Show plugin" -ex addons -type plugin
-map <C-h>as  -description "Show userstyle" -ex addons -type userstyle
-map <C-h>at  -description "Show theme" -ex addons -type theme
-map <C-h>g   -description "(show bindings)" -js CommandExMode().open("showkeys <C-h>g")
+map <C-h>g   -description "(show bindings: Help/By Group)" -js CommandExMode().open("showkeys <C-h>g")
 map <C-h>gc  -description "List commands by group" -b :listcommandsbygroup<Space>
 map <C-h>gC  -description "List commands by group (verbose)" -b :listcommandsbygroup!<Space>
 map <C-h>gm  -description "List bindings by group" -b :listmappingsbygroup<Space>
 map <C-h>h   -description "Open Help topic" :help<Space>
 map <C-h>i   -description "Pentadactyl help - index" -count -js openOrSelectTab("dactyl://help/index", count?"here":"adjacent");
-map <C-h>k   -description "Show key bindings matching prefix" :showkeys<Space>
 map <C-h>m   -description "Search bindings by mode" -b :searchmappingsbymode<Space>
 map <C-h>r   -description "Jump to .pentadactylrc entry" -b :rce<Space>
+map <C-h>x   -description "Execute key bindings matching prefix" :showkeys<Space>
+map <C-h>:   -description "Pentadactyl :help..." -b :help<Space>
 map <C-h>;   -description "(show bindings: Help/Ext Hint Modes)" -js CommandExMode().open("showkeys <C-h>;")
 map <C-h>;;  -description "Search hint modes/descriptions" -b :searchhintmodes<Space>
 map <C-h>;a  -description "Search hint modes/descriptions/actions/filters" -b :searchhintmodesverbose<Space>
 map <C-h>;k  -description "Show hint mode keys" -js utils.cbWrite(Object.keys(hints.modes).sort().join(""));
 
+command! showkeys
+\    -nargs=?
+\    -complete custom,' (context) => {context.completions = listActiveGroupMappings()}'
+\    :feedkeys -mode normal <args>
 command! searchmappings -nargs * -js searchMappings.apply(null, args.map(readStringOrRegex));
 command! searchmappingsdescriptions -nargs * -js searchMappingsDescriptions.apply(null, args.map(readStringOrRegex));
 command! searchmappingsbymode -nargs * -js searchMappingsByMode.apply(null, args.map(readStringOrRegex));
