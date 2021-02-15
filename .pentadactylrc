@@ -4641,6 +4641,9 @@ map <goto>lpa
 map <goto>lpd
 \    -description "~/Pictures/downloads"
 \    -js openOrSelectTab(`file://${homedir}/Pictures/downloads`, count?"here":"adjacent");
+map <goto>lpv
+\    -description "~/Pictures/vlc-snapshot"
+\    -js openOrSelectTab(`file://${homedir}/Pictures/vlc-snapshot`, count?"here":"adjacent");
 map <goto>lud
 \    -description "/usr/share/doc (existing or new tab)"
 \    -js openOrSelectTab("file:///usr/share/doc/", count?"here":"adjacent");
