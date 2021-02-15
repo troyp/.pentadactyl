@@ -4555,8 +4555,9 @@ var newTabPage = function(where=dactyl.NEW_TAB) {
 }
 EOF
 
-map <goto>   -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>")
-map <goto>a  -description "(Show bindings: Goto Addons)" -js CommandExMode().open("showkeys <goto>a")
+map <goto>   -description "(Show bindings: Goto)" -js CommandExMode().open("showkeys <goto>")
+
+map <goto>a  -description "(Show bindings: Goto/Addons)" -js CommandExMode().open("showkeys <goto>a")
 map <goto>aa -description "Addons" -ex dialog addons
 map <goto>ac -description "Classic Addons" -js openOrSelectTab("caa:list", count?"here":"adjacent");
 map <goto>ap
@@ -4566,6 +4567,7 @@ map <goto><C-a>
 \    -description "Palemoon Incompatible Extensions"
 \    -js openOrSelectTab("https://addons.palemoon.org/incompatible/", count?"here":"adjacent");
 map <goto>;a -description "Addons Directory" -js openOrSelectTab("file:///opt/ff-addons/", count?"here":"adjacent");
+
 map <goto>b  -description "Firefox Keyboard Shortcuts"
 \            -js openOrSelectTab(`file://${homedir}/.pentadactyl/doc/firefox-kb-shortcuts.html`,
 \                count?"here":"adjacent");
@@ -4587,10 +4589,11 @@ map <goto>k
 map <goto>K
 \    -description "Bookmarks"
 \    -js openOrSelectTab("chrome://browser/content/bookmarks/bookmarksPanel.xul", count?"here":"adjacent");
-map <goto>l   -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>l")
+map <goto>l   -description "(Show bindings: Goto/Local)" -js CommandExMode().open("showkeys <goto>l")
 map <goto>ldw -description "~/Downloads/" -js openOrSelectTab(`${homedir}/Downloads`, count?"here":"adjacent");
 map <goto>ldc -description "~/Documents/" -js openOrSelectTab(`${homedir}/Documents`, count?"here":"adjacent");
-map <goto>le  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>le")
+
+map <goto>le  -description "(Show bindings: Goto/Local/Ebooks)" -js CommandExMode().open("showkeys <goto>le")
 map <goto>le/ -description "~/ebooks/" -js openOrSelectTab(`${homedir}/ebooks`, count?"here":"adjacent");
 map <goto>lec
 \    -description "~/ebooks/coding"
@@ -4605,7 +4608,8 @@ map <goto>les -description "~/ebooks/css" -js openOrSelectTab(`${homedir}/ebooks
 map <goto>lea
 \    -description "~/ebooks/articles"
 \    -js openOrSelectTab(`${homedir}/ebooks/articles`, count?"here":"adjacent");
-map <goto>lh -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lh")
+
+map <goto>lh -description "(Show bindings: Goto/Local/Home)" -js CommandExMode().open("showkeys <goto>lh")
 map <goto>lhe
 \    -description "~/.emacs.d/private"
 \    -js openOrSelectTab(`${homedir}/.emacs.d/private`, count?"here":"adjacent");
@@ -4614,7 +4618,8 @@ map <goto>lhp
 \    -js openOrSelectTab(`${homedir}/.pentadactyl`, count?"here":"adjacent");
 map <goto>lhr -description "~/repos" -js openOrSelectTab(`${homedir}/repos`, count?"here":"adjacent");
 map <goto>lhs -description "~/source" -js openOrSelectTab(`${homedir}/source`, count?"here":"adjacent");
-map <goto>lo  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lo")
+
+map <goto>lo  -description "(Show bindings: Goto/Local/Opt)" -js CommandExMode().open("showkeys <goto>lo")
 map <goto>lo/ -description "/opt/" -js openOrSelectTab("/opt", count?"here":"adjacent");
 map <goto>loc
 \    -description "/opt/chrome-extensions"
@@ -4625,16 +4630,17 @@ map <goto>los -description "/opt/scripts" -js openOrSelectTab("/opt/scripts", co
 map <goto>lou -description "/opt/userscripts" -js openOrSelectTab("/opt/userscripts", count?"here":"adjacent");
 map <goto>loU -description "/opt/userstyles" -js openOrSelectTab("/opt/userstyles", count?"here":"adjacent");
 map <goto>low -description "/opt/webapps" -js openOrSelectTab("/opt/webapps", count?"here":"adjacent");
-map <goto>lp  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>lp");
+
+map <goto>lp  -description "(Show bindings: Goto/Local/Pictures)" -js CommandExMode().open("showkeys <goto>lp");
 map <goto>lp/
 \    -description "~/Pictures/"
 \    -js openOrSelectTab(`file://${homedir}/Pictures`, count?"here":"adjacent");
-map <goto>lpd
-\    -description "~/Pictures/downloads"
-\    -js openOrSelectTab(`file://${homedir}/Pictures/downloads`, count?"here":"adjacent");
 map <goto>lpa
 \    -description "~/Pictures/art"
 \    -js openOrSelectTab(`file://${homedir}/Pictures/art`, count?"here":"adjacent");
+map <goto>lpd
+\    -description "~/Pictures/downloads"
+\    -js openOrSelectTab(`file://${homedir}/Pictures/downloads`, count?"here":"adjacent");
 map <goto>lud
 \    -description "/usr/share/doc (existing or new tab)"
 \    -js openOrSelectTab("file:///usr/share/doc/", count?"here":"adjacent");
@@ -4642,8 +4648,8 @@ map <goto>luld
 \    -description "/usr/local/share/doc (existing or new tab)"
 \    -js openOrSelectTab("file:///usr/local/share/doc/", count?"here":"adjacent");
 
-map <goto>m   -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>m");
-map <goto>mc  -description "(Show bindings)" -js CommandExMode().open("showkeys <goto>mc");
+map <goto>m   -description "(Show bindings: Goto/Misc)" -js CommandExMode().open("showkeys <goto>m");
+map <goto>mc  -description "(Show bindings: Goto/Misc/Chrome:)" -js CommandExMode().open("showkeys <goto>mc");
 map <goto>mcc -description "chrome:// URL completion" -b :openorselect chrome://
 map <goto>mcg -description "chrome://global/content/ URL completion" -b :openorselect chrome://global/content/
 
@@ -4671,11 +4677,11 @@ map <goto>;u
 \    -description "~/.pentadactyl/gmscripts/ directory"
 \    -js openOrSelectTab(`file://${homedir}/.pentadactyl/gmscripts`, count?"here":"adjacent");
 
-map <goto>w  -description "(Show bindings: Goto/Open Dialog)" -js CommandExMode().open("showkeys <goto>w");
+map <goto>w  -description "(Show bindings: Goto/Window)" -js CommandExMode().open("showkeys <goto>w");
 map <goto>wd -description "Downloads dialog" -ex dialog downloads
 map <goto>wh -description "History dialog" -js window.PlacesCommandHook.showPlacesOrganizer("History");
 map <goto>wk
-\    -description "(Show bindings: Goto/Open Dialog/Bookmarks)"
+\    -description "(Show bindings: Goto/Window/Bookmarks)"
 \    -js CommandExMode().open("showkeys <goto>wk");
 map <goto>wkg -description "Bookmarks Tags dialog" -js window.PlacesCommandHook.showPlacesOrganizer("Tags");
 map <goto>wkk -description "Bookmarks dialog" -js window.PlacesCommandHook.showPlacesOrganizer("AllBookmarks");
@@ -4687,7 +4693,7 @@ map <goto>wkt
 \    -js window.PlacesCommandHook.showPlacesOrganizer("BookmarksToolbar");
 map <goto>wl -description "Library Dialog (sticky)" -ex librarysticky
 map <goto>wm
-\    -description "(Show bindings: Goto/Open Dialog/Mini)"
+\    -description "(Show bindings: Goto/Window/Mini)"
 \    -js CommandExMode().open("showkeys <goto>w");
 map <goto>wmh -description "History Dialog" -ex dialog history
 map <goto>wmk -description "Bookmarks Dialog" -ex dialog bookmarks
