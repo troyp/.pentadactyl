@@ -1776,7 +1776,7 @@ command! openDirectoryInDolphin
     \ -description "Open the current file's directory in Dolphin."
     \ -js var file = decodeURIComponent(buffer.URL.replace(/^file:\/\//,'').replace(/[?#].*/,''));
     \     var dir = file.replace(/[^/]*$/,'');
-    \     dactyl.execute(`!dolphin "${dir}" 2>/dev/null`);
+    \     io.system(`if [[ -d "${file}" ]]; then dolphin "${file}" &; else dolphin "${dir}" &; fi`);
 
 " Open File/Directory "
 command! openf
