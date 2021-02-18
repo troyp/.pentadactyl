@@ -14809,8 +14809,8 @@ function appendElement(tagname, parent, attrs) {
 /* | Functions taking Elements or Selectors | */
 /* '----------------------------------------' */
 
-function hasSelector(sel) {
-    return content.document.querySelector(sel) ? sel : null;
+function hasSelector(sel, context=content.document) {
+    return context.querySelector(sel) ? sel : null;
 }
 
 function hasSelectors(...sels) {
