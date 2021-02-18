@@ -102,11 +102,11 @@ var utils = {
         return s;
     },
 
-    message: function (s, hlType=commandline.HL_INFOMSG) {
+    message: function (s, hlType=null, flags=0) {
         s = String(s);
         commandline.echo(s,
-                         hlType,
-                         commandline.APPEND_TO_MESSAGES);
+                         hlType || commandline.HL_INFOMSG,
+                         flags | commandline.APPEND_TO_MESSAGES);
         return s;
     },
 
