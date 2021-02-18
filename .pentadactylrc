@@ -13557,6 +13557,41 @@ map <site>c -description "close box" -ex clickselector .close　　
 
 group user
 
+" ------------------------------------------------------------------------------- "
+" ,--------------, "
+" | STLyrics.com | "
+" '--------------' "
+group stlyrics -locations=stlyrics.com
+
+js <<EOF
+function stlyricsDownload(url=buffer.URL) {
+    var fname = url.replace(/.*\/([^/]+).html?/, "$1") + ".txt";
+    return io.system(`curl -s "${url}" | pup -p '#page text{}' > "${homedir}/Downloads/${fname}"`);
+}
+function stlyricsDownloadAll() {
+    var album = $1("h1").textContent.replace(/ lyrics */, "");
+    var dir = `${homedir}/Downloads/${album}`;
+    io.system(`mkdir "${dir}"`);
+    var songs = $$(".songList>a");
+    for (song of songs) {
+        var songname = song.textContent.trim().replace(/›/, "").replace("/", "|");
+        var res = io.system(`curl -s "${song.href}" | pup -p '#page text{}' > "${dir}/${songname}.txt"`);
+        if (res.returnValue == 0)
+            utils.message(`${songname} downloaded`, null, commandline.FORCE_MULTILINE);
+        else
+            utils.message(`FAILED: ${songname} not downloaded`, null, commandline.FORCE_MULTILINE);
+    }
+}
+EOF
+
+map <site> -description "(show bindings: STLyrics)" -js CommandExMode().open("showkeys <site>");
+
+map <site>d -description "(show bindings: STLyrics/Downloads)" -js CommandExMode().open("showkeys <site>d");
+map <site>da -description "Download album lyrics" -js stlyricsDownloadAll();
+map <site>dd -description "Download lyrics" -js utils.message(stlyricsDownload());
+
+group user
+
 " ----------------------------------------------------------------------------- "
 " ,---------------------,                                                       "
 " | ThingsAndStuff Wiki |                                                       "
