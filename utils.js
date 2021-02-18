@@ -274,7 +274,7 @@ var utils = {
     },
 
     cbWriteCollection: function (coll) {
-        s = Array.from(coll).reduce((s,i)=>`${s}\n${i}`);
+        s = Array.from(coll).reduce((s,i)=>`${s}\n${i}`, "");
         dactyl.clipboardWrite(s);
         utils.messageWithLineLimit(s);
         return s;
