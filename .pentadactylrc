@@ -3476,6 +3476,8 @@ map <C-s> -modes command-line <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Hom
 map <C-1> -modes command-line (?= |^)
 map <C-2> -modes command-line (?= |$)
 
+map <C-S-D> -modes command-line -b content.document
+
 " -----------------------------------------------------------------------------
 " ,--------------------------------,  MAP COMMANDS.
 " | Caret and visual mode bindings |  vmap: visual mode
