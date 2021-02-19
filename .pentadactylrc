@@ -4971,7 +4971,7 @@ command! stylishtoggleoverlay -description "Stylish/toggle overlay" -js stylishT
 " ,------------------------, ,-----------,
 " | Javascript Evalutation | | <leader>e |
 " '------------------------' '-----------'
-map J -description "Evaluate JS expression" -b :js doc=content.doc<CR>:echo<Space>
+map J -description "Evaluate JS expression" -b :js doc=content.document<CR>:echo<Space>
 map K -description "JS REPL" -ex js!
 
 map <leader>e -description "(show bindings: Javascript Eval)" -js CommandExMode().open("showkeys <leader>e")
