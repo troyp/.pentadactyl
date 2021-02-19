@@ -3359,10 +3359,58 @@ EOF
 
 
 " -----------------------------------------------------------------------------
-" ,---------------------------------------,  MAP COMMANDS.
-" | Command mode and insert mode bindings |  cmap: command-line mode
-" '---------------------------------------'  imap: insert mode
+" ,--------------------------------------------,  MAP COMMANDS.
+" | Command-line mode and insert mode bindings |  cmap: command-line mode
+" '--------------------------------------------'  imap: insert mode
 
+map <C-y>   -modes command-line,insert -b <C-v><C-v>
+map <C-p>   -modes command-line,insert -b <Up>
+map <C-n>   -modes command-line,insert -b <Down>
+map <C-S-P> -modes command-line,insert -b <S-Up>
+map <C-S-N> -modes command-line,insert -b <S-Down>
+map <C-f>   -modes command-line,insert -b <Right>
+map <C-b>   -modes command-line,insert -b <Left>
+map <C-S-F> -modes command-line,insert -b <C-Right>
+map <C-S-B> -modes command-line,insert -b <C-Left>
+map <C-l>   -modes command-line,insert -b <Del>
+map <C-A-l> -modes command-line,insert -b <BS>
+map <C-g>   -modes command-line,insert -b <C-u><Escape>
+
+" SPACES (TODO)
+" insert space with C-SPACE (When typing search keywords in
+" a japanese IME, double-width spaces don't work. If F10
+" won't convert spaces to single width, C-SPACE can be used.
+map -modes command-line,insert -b <C-SPACE> <SPACE>
+" TODO: Work out how to get current textarea. See insertAtCaret()
+" nbsp
+map -modes command-line,insert <C-S-s> -js alert("not implemented");
+" em-space
+" FIXME: Doesn't work.
+"map -modes insert -b <C-s> \u2003
+"execute "map -modes insert -b <C-s> \u2003"
+
+" ,------------------, "
+" | insert-mode only | "
+" '------------------' "
+
+execute "map <C-m>   -modes insert -b " + user.myemail
+execute "map <C-S-m> -modes insert -b " + user.myemail2
+execute "map <C-S-I> -modes insert -b " + user.myname
+execute "map <C-S-T> -modes insert -b " + user.myfirstname
+execute "map <C-S-L> -modes insert -b " + user.mylastname
+execute "map <C-S-A> -modes insert -b " + user.mystreet
+execute "map <C-S-S> -modes insert -b " + user.mysuburb
+execute "map <C-S-D> -modes insert -b " + user.myaddress
+execute "map <C-S-P> -modes insert -b " + user.myphone
+execute "map <C-S-Z> -modes insert -b " + user.mypostcode
+execute "map <C-S-Q> -modes insert -b " + user.mymasterpw
+execute "map <C-S-C> -modes insert -b " + user.mycreditcard
+map <C-S-W> -modes insert <pwhashsite>
+
+
+" ,------------------------,
+" | command-line mode only |
+" '------------------------'
 js <<EOF
 function getCmdline() { return CommandExMode().command; }
 function copyCmdlineOrJS() {
@@ -3376,7 +3424,6 @@ function copyCmdlineOrConvertedJS() {
     utils.cbWrite(cmdOrJS.replace(/content\.(document|window)/, "$1"));
 }
 EOF
-
 
 " Useful pseudo-keys
 map <copy-command-to-cb>   -modes command-line -b <A-a><C-v><C-c><End>
@@ -3417,19 +3464,6 @@ map <C-.>   -description "Cycle wildmode completion (backwards)" -modes command-
 map <A-/>   -description "Cycle altwildmode completion" -modes command-line -b <A-Tab>
 map <A-S-/> -description "Cycle altwildmode completion (backwards)" -modes command-line -b <A-S-Tab>
 
-map <C-y>   -modes command-line,insert -b <C-v><C-v>
-map <C-p>   -modes command-line,insert -b <Up>
-map <C-n>   -modes command-line,insert -b <Down>
-map <C-S-P> -modes command-line,insert -b <S-Up>
-map <C-S-N> -modes command-line,insert -b <S-Down>
-map <C-f>   -modes command-line,insert -b <Right>
-map <C-b>   -modes command-line,insert -b <Left>
-map <C-S-F> -modes command-line,insert -b <C-Right>
-map <C-S-B> -modes command-line,insert -b <C-Left>
-map <C-l>   -modes command-line,insert -b <Del>
-map <C-A-l> -modes command-line,insert -b <BS>
-map <C-g>   -modes command-line,insert -b <C-u><Escape>
-
 " repeat last search with a new keyword:
 "   uses clipboard and javascript to do text processing, since <C-Del>, <C-BS>, <C-S-Left>, etc aren't working in map commands
 "   TODO: remove dependence on clipboard and ad-hoc pseudo-keyword (either by getting delete-word keys working in `map`, or finding
@@ -3438,36 +3472,6 @@ map <C-r> -modes command-line <up><A-a><C-v><C-c><down><cb-change-first-arg><C-v
 map <C-s> -modes command-line <A-a><C-v><C-x><cb-change-first-arg><C-v><C-v><Home><C-Right><Space>
 " map -modes command-line <C-s> <change-first-arg>
 
-" SPACES (TODO)
-" insert space with C-SPACE (When typing search keywords in
-" a japanese IME, double-width spaces don't work. If F10
-" won't convert spaces to single width, C-SPACE can be used.
-map -modes command-line,insert -b <C-SPACE> <SPACE>
-" TODO: Work out how to get current textarea. See insertAtCaret()
-" nbsp
-map -modes command-line,insert <C-S-s> -js alert("not implemented");
-" em-space
-" FIXME: Doesn't work.
-"map -modes insert -b <C-s> \u2003
-"execute "map -modes insert -b <C-s> \u2003"
-
-execute "map <C-m>   -modes command-line,insert -b " + user.myemail
-execute "map <C-S-m> -modes command-line,insert -b " + user.myemail2
-execute "map <C-S-I> -modes command-line,insert -b " + user.myname
-execute "map <C-S-T> -modes command-line,insert -b " + user.myfirstname
-execute "map <C-S-L> -modes command-line,insert -b " + user.mylastname
-execute "map <C-S-A> -modes command-line,insert -b " + user.mystreet
-execute "map <C-S-S> -modes command-line,insert -b " + user.mysuburb
-execute "map <C-S-D> -modes command-line,insert -b " + user.myaddress
-execute "map <C-S-P> -modes command-line,insert -b " + user.myphone
-execute "map <C-S-Z> -modes command-line,insert -b " + user.mypostcode
-execute "map <C-S-Q> -modes command-line,insert -b " + user.mymasterpw
-execute "map <C-S-C> -modes command-line,insert -b " + user.mycreditcard
-map <C-S-W> -modes insert <pwhashsite>
-
-" ,-------------------,
-" | Command-line only |
-" '-------------------'
 " regex search: word boundary
 map <C-1> -modes command-line (?= |^)
 map <C-2> -modes command-line (?= |$)
