@@ -11909,7 +11909,10 @@ group libgen -locations=libgen.io,libgen.pw,library1.org,lib1.org,93.174.95.29,l
 
 command! libgendl -js libgenCopyFileNameAndDownload();
 command! libgendetails -nargs 1 -js utils.yankWithMsg(libgenGetDetails(args[0]));
-map <site>c -ex libgendl
+map <site>c -description "Yank filename and download" -ex libgendl
+map <site>y -description "(show bindings: Libgen/Yank)" -js CommandExMode().open("showkeys <site>y");
+map <site>yf -description "Yank filename" -js utils.yankWithMsg(libgenGetFileName());
+map <site>yy -description "Yank title" -js utils.yankWithMsg(libgenGetDetails("title"));
 
 js <<EOF
 
