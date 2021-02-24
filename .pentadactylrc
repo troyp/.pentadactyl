@@ -3807,6 +3807,8 @@ map <buffer>d<;e
 \    -b :tabfilter<Space>"n>=n0 || "<Left>
 map <buffer>dm   -description "Close tabs matching STRING" -b :tabremoveregex<Space>""<Left>
 map <buffer>d;m  -description "Close tabs not matching STRING" -b :tabfilterregex<Space>""<Left>
+map <buffer>dn   -description "Close tabs given by RANGES"
+\    -js if (count) tabCloseRanges(String(count)); else CommandExMode().open("tabcloseranges ");
 map <buffer>dr   -description "Close tabs matching REGEX (case-insensitive)"
 \    -b :tabremoveregex<Space>"//i"<Left><Left><Left>
 map <buffer>d;r  -description "Close tabs not matching REGEX (case-insensitive)"
