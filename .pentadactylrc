@@ -11914,6 +11914,7 @@ map <site>c -ex libgendl
 js <<EOF
 
 function libgenGetDetails(field) {
+    if (buffer.URL.match(/\/fiction\//)) return libgenFictionGetDetails(field);
     var bibtextDiv = content.document.getElementById('bibtext');
     var info = getFirstSelector("#info");
     var tableElt = getFirstSelector("ul#menu+table");
@@ -11958,8 +11959,8 @@ function libgenLibLolDL() {
     if (info && clickSelector("#info>#download>h2>a")) return true;
 }
 
-function libgenCopyFileNameAndDownload() {
-    if (buffer.URL.match(/\/fiction\//)) return libgenFictionCopyFileNameAndDownload();
+function libgenGetFileName() {
+    if (buffer.URL.match(/\/fiction\//)) return libgenFictionGetFileName();
     // "libgen.io or libgen.pw second page"
     var name = libgenGetDetails('title');
     var ed_raw = libgenGetDetails('edition') || "1";
@@ -11970,6 +11971,27 @@ function libgenCopyFileNameAndDownload() {
     var filename = name +
                   (ed=="1st" ? '' : `, ${ed} ed`) +
                   (year ? ` (${year})` : '');
+    return filename;
+}
+
+function libgenFictionGetFileName() {
+    /* second page */
+    if ($1("#info>#download")) return null;
+    /* first page */
+    var title = libgenFictionGetDetails("title");
+    var year = libgenFictionGetDetails("year");
+    var series = libgenFictionGetDetails("series");
+    var author = libgenFictionGetDetails("author");
+    var filename = (series ? `(${series}) ` : "")
+                       + title
+                       + (author ? ` - ${author}` : "")
+                       + (year ? ` (${year})` : "");
+    return filename;
+}
+
+function libgenCopyFileNameAndDownload() {
+    if (buffer.URL.match(/\/fiction\//)) return libgenFictionCopyFileNameAndDownload();
+    var filename = libgenGetFileName();
     utils.yankWithMsg(filename);
     utils.yankWithMsg(filename);
     var bibtextElt = getFirstSelector("#bibtext");
@@ -12011,14 +12033,7 @@ function libgenFictionCopyFileNameAndDownload() {
     /* second page */
     if (libgenLibLolDL()) return true;
     /* first page */
-    var title = libgenFictionGetDetails("title");
-    var year = libgenFictionGetDetails("year");
-    var series = libgenFictionGetDetails("series");
-    var author = libgenFictionGetDetails("author");
-    var filename = (series ? `(${series}) ` : "")
-                       + title
-                       + (author ? ` - ${author}` : "")
-                       + (year ? ` (${year})` : "");
+    var filename = libgenFictionGetFileName();
     utils.yankWithMsg(filename);
     utils.yankWithMsg(filename);
     clickSelector("ul.record_mirrors>li>a");
