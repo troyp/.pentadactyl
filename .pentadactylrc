@@ -4257,9 +4257,11 @@ function tabRangePreprocess(s) {
 }
 
 function tabCloseRanges(...ss) {
+    var initTab = tabs.getTab();
     var tabnums = parseRanges(tabRangePreprocess(ss.join(",")));
     tabnums.sort((a,b)=>a<b).forEach(i=>tabs.remove(tabs.getTab(i-1)));
     utils.message(`${tabnums.length} tabs closed`);
+    if (!isNaN(initTab.dactylOrdinal)) tabs.select(initTab);
 }
 
 function tabRemove(f) {
