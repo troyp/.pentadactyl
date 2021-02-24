@@ -3805,42 +3805,41 @@ map <buffer>d<e
 map <buffer>d<;e
 \    -description "Close tabs to left not satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
 \    -b :tabfilter<Space>"n>=n0 || "<Left>
-map <buffer>dm      -description "Close tabs matching STRING" -b :tabremoveregex<Space>""<Left>
-map <buffer>d;m     -description "Close tabs not matching STRING" -b :tabfilterregex<Space>""<Left>
-map <buffer>dr      -description "Close tabs matching REGEX (case-insensitive)"
-\                   -b :tabremoveregex<Space>"//i"<Left><Left><Left>
-map <buffer>d;r     -description "Close tabs not matching REGEX (case-insensitive)"
-\                   -b :tabfilterregex<Space>"//i"<Left><Left><Left>
-map <buffer>d<r     -description "Close tabs to right matching REGEX (case-insensitive)"
-\                   -b :tabremoveByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
-map <buffer>d<;r    -description "Close tabs to right not matching REGEX (case-insensitive)"
-\                   -b :tabfilterByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
-map <buffer>d>r     -description "Close tabs to right matching REGEX (case-insensitive)"
-\                   -b :tabremoveByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
-map <buffer>d>;r    -description "Close tabs to right not matching REGEX (case-insensitive)"
-\                   -b :tabfilterByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
-map <buffer>dR      -description "Close tabs matching REGEX (case-sensitive)"
-\                   -b :tabremoveregex<Space>"//"<Left><Left>
-map <buffer>d;R     -description "Close tabs not matching REGEX (case-sensitive)"
-\                   -b :tabfilterregex<Space>"//"<Left><Left>
-map <buffer>dt      -description "(show bindings: Delete tabs/delete to)"
-\                   -js CommandExMode().open("showkeys <buffer>dt")
-map <buffer>dtt     -description "Close from here to ARG" -b :tabclosefromhereto<Space>
-map <buffer>dtx     -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
-map <buffer>du      -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
-map <buffer>dU      -description "Close all adjacent tabs with matching domain" -js tabCloseAdjacentMatchingDomain();
-map <buffer>dw
-\    -description "Close window unless last"
+map <buffer>dm   -description "Close tabs matching STRING" -b :tabremoveregex<Space>""<Left>
+map <buffer>d;m  -description "Close tabs not matching STRING" -b :tabfilterregex<Space>""<Left>
+map <buffer>dr   -description "Close tabs matching REGEX (case-insensitive)"
+\    -b :tabremoveregex<Space>"//i"<Left><Left><Left>
+map <buffer>d;r  -description "Close tabs not matching REGEX (case-insensitive)"
+\    -b :tabfilterregex<Space>"//i"<Left><Left><Left>
+map <buffer>d<r  -description "Close tabs to right matching REGEX (case-insensitive)"
+\    -b :tabremoveByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
+map <buffer>d<;r -description "Close tabs to right not matching REGEX (case-insensitive)"
+\    -b :tabfilterByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
+map <buffer>d>r  -description "Close tabs to right matching REGEX (case-insensitive)"
+\    -b :tabremoveByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
+map <buffer>d>;r -description "Close tabs to right not matching REGEX (case-insensitive)"
+\    -b :tabfilterByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
+map <buffer>dR   -description "Close tabs matching REGEX (case-sensitive)"
+\    -b :tabremoveregex<Space>"//"<Left><Left>
+map <buffer>d;R  -description "Close tabs not matching REGEX (case-sensitive)"
+\    -b :tabfilterregex<Space>"//"<Left><Left>
+map <buffer>dt   -description "(show bindings: Delete tabs/delete to)"
+\    -js CommandExMode().open("showkeys <buffer>dt")
+map <buffer>dtt  -description "Close from here to ARG" -b :tabclosefromhereto<Space>
+map <buffer>dtx  -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
+map <buffer>du   -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
+map <buffer>dU   -description "Close all adjacent tabs with matching domain" -js tabCloseAdjacentMatchingDomain();
+map <buffer>dw   -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
 map <buffer>d<Space>  -description "Close tabs selected via popup menu" -js tabsRemoveWithDMenu();
 map <buffer>d;<Space> -description "Keep only tabs selected via popup menu" -js tabsFilterWithDMenu();
-map <buffer>d,      -description "Close a list tabs or tab ranges separated by spaces or commas" -b :tabcloseranges<Space>
-map <buffer><BS>    -description "Close tab to left" -b gTd
+map <buffer>d,   -description "Close a list tabs or tab ranges separated by spaces or commas" -b :tabcloseranges<Space>
+map <buffer><BS> -description "Close tab to left" -b gTd
 
-map <buffer>j       -description "Goto jump" -ex jumps
-map <buffer>h       -description "Go back in history" -b :back<Space>
-map <buffer>l       -description "Go forward in history" -b :forward<Space>
-map <buffer>rh      -description "Rename document to h1 heading" -js content.document.title = getFirstSelector("h1").textContent.trim();
+map <buffer>j  -description "Goto jump" -ex jumps
+map <buffer>h  -description "Go back in history" -b :back<Space>
+map <buffer>l  -description "Go forward in history" -b :forward<Space>
+map <buffer>rh -description "Rename document to h1 heading" -js content.document.title = getFirstSelector("h1").textContent.trim();
 
 " ,------------------------,
 " | <buffer>m -- move tabs |
