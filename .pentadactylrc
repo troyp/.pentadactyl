@@ -6297,6 +6297,7 @@ map <leader>isr
 " | <leader>it -- Misc/Images/Transform | "
 " '-------------------------------------' "
 map <leader>it -description "(show bindings: Misc/Images/Transform)" -js CommandExMode().open("showkeys <leader>it");
+map <leader>ite -description "Edit image with pinta" -ex shellcommandonurlfile pinta
 map <leader>itf -description "Flip image (URL) horizontally" -js imageTransform("flop");
 map <leader>itF -description "Flip image (URL) vertically" -js imageTransform("flip");
 map <leader>ito -description "ImgOps (URL)" -js openOrSelectTab("https://imgops.com/" + buffer.URL, count?"adjacent":"here");
