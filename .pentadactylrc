@@ -10848,6 +10848,9 @@ map <site>pcl
 map <site>pcn
 \    -description "Caran d'Ache Neocolor I crayons"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-classic-neocolor-i", count?"adjacent":"here");
+map <site>pds
+\    -description "Derwent Studio pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-studio-pencil-au", count?"adjacent":"here");
 map <site>pha
 \    -description "Holbein Artists' pencils"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/holbein-artists-pencil", count?"adjacent":"here");
