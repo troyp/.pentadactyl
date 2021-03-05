@@ -10309,7 +10309,7 @@ group gtrans -locations='.*://translate.google.com.*'
 
 js <<EOF
 function gtrGetSource() {
-    var textarea = content.document.getElementById('source');
+    var textarea = $1("textarea.source") || $1("textarea[aria-label='Source text']") || $$("textarea")[0];
     return textarea.value;
 }
 
