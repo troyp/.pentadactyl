@@ -13388,18 +13388,25 @@ function seCleanup(showSnippetResults) {
         removeSelectors('.snippet-result');
     }
     removeSelectors(
-        'script',
-        'header','#sidebar', '.aside-cta', '#left-sidebar',   // header, sidebar, ask a question
-        '.post-taglist', '.special-status', '.bounty-notification',
+        'script', 'iframe',
+        'header','#sidebar', '.aside-cta', '#left-sidebar',    // header, sidebar, ask a question
+        '.js-dismissable-hero',                                // join this community banner
+        '.post-taglist', '.special-status',
+        '.bounty-notification',
         '.star-off', '.favoritecount', '#tabs',
-        '#PrinterFriendly',    // added-by-userscript
+        '#PrinterFriendly',                                    // added-by-userscript
         '.grid.s-btn-group',
-        '.vt',    //  share-edit-flag
+        '.vt',                                                 //  share-edit-flag
         '.vote-up-off', '.vote-down-off', '.js-add-link',
+        '#onetrust-consent-sdk', '#onetrust-banner-sdk',
+        '#ot-pc-content', '#onetrust-style',
+        '.adsbox',
+        '.js-consent-banner',                                  // cookie consent dialog
         '.user-gravatar32', '.-flair',
-        '.bottom-notice', 'form', '#footer', '#feed-link'
+        '.bottom-notice', 'form', '#footer', '#feed-link',
+        '.s-modal'
     );
-    getFirstSelector(".bounty").parentElement.parentElement.remove();
+    getSelectors(".bounty").forEach(e=>e.parentElement.parentElement.remove());
     getSelectors(".post-menu").forEach(e=>e.parentElement.remove());
     content.document.getElementsByTagName("body")[0].style.paddingTop='0';
 }
