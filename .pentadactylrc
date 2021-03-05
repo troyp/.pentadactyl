@@ -13354,7 +13354,7 @@ group user
 " ,-------------------,                                                        "
 " | StackOverflow.com |                                                        "
 " '-------------------'                                                        "
-group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com
+group stackexchange -locations=stackoverflow.com,stackexchange.com,superuser.com,askubuntu.com
 
 " === hint modes === "
 set eht+=π:'.answer'
