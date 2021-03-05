@@ -65,6 +65,10 @@ defns.forEach((e, i, a)=>{
 var dictList = document.querySelector("#other_dictionaries>ul");
 var extraDictLinks = [
     `<a href='https://www.kanshudo.com/searchq?q=${kw}'>Search Kanshudo for ${kw}</a>`,
+    `<a href='https://en.wiktionary.org/w/index.php?search=${kw}'>Search English Wiktionary for ${kw}</a>`,
+    `<a href='https://ja.wiktionary.org/w/index.php?search=${kw}'>Search Japanese Wiktionary for ${kw}</a>`,
+    `<a href='https://en.wikipedia.org/w/index.php?search=${kw}'>Search English Wikipedia for ${kw}</a>`,
+    `<a href='https://ja.wikipedia.org/w/index.php?search=${kw}'>Search Japanese Wikipedia for ${kw}</a>`,
 ];
 dictList && extraDictLinks.forEach(a => {
     var liDict = document.createElement("li");
