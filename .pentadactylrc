@@ -1125,17 +1125,39 @@ map <S-f9> -description "Show mode" -modes base -js utils.message(`mode: ${dacty
 
 map g. -description "Repeat last ex command" -modes normal -b @:
 
-map <C-x>h     -description "Select all text"                       -modes normal -b iGvggy
-map <C-x><C-c> -description "Quit browser"    -modes base  -ex quitall
-map <C-x><C-x> -description "Restart browser" -modes normal,visual,menu -ex restart
-map <C-x>;     -description "Command-line: Hide messages"           -modes base   -b :<Esc>
-map <C-x>:     -description "Command-line: Hide and clear messages" -modes base   -b :messclear<Cr>
-map gR         -description "Redraw screen"                         -ex redraw
-map g;i        -description "Focus second input area"               -modes normal -b 2gi
-map !          -description "Shell command"                         -b :!<Space>
-map gD         -description "Focus address bar"                     <A-d><C-e>
-map gK         -description "Focus search bar"                      -b <pass-next-key><C-k>
-
+map <C-x>h
+\    -description "Select all text"
+\    -modes normal
+\    -b iGvggy
+map <C-x><C-c>
+\    -description "Quit browser"
+\    -modes base
+\    -ex quitall
+map <C-x><C-x>
+\    -description "Restart browser"
+\    -modes base
+\    -ex restart
+map <C-x>;
+\    -description "Command-line: Hide messages"
+\    -modes base
+\    -b :<Esc>
+map <C-x>:
+\    -description "Command-line: Hide and clear messages"
+\    -modes base
+\    -b :messclear<Cr>
+map gR -description "Redraw screen" -ex redraw
+map g;i
+\    -description "Focus second input area"
+\    -modes normal
+\    -b 2gi
+map !
+\    -description "Shell command"
+\    -b :!<Space>
+map gD
+\    -description "Focus address bar" <A-d><C-e>
+map gK
+\    -description "Focus search bar"
+\    -b <pass-next-key><C-k>
 " Save "
 map <C-x><C-s>
 \ -description "Save page"
