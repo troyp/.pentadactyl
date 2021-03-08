@@ -3279,7 +3279,7 @@ command! searchwithengines
 \    -description "Search query with multiple engines [QUERY ENGINE...]"
 \    -bang
 \    -nargs=+ -complete=search
-\    -js bang ? dactyl.open(`${args[1]} '${args[0]}'`) && multipleEngineSearch(args.slice(2), args[0])
+\    -js bang ? dactyl.open(`${args[1]||"g"} '${args[0]}'`) && multipleEngineSearch(args.slice(2), args[0])
 \             : multipleEngineSearch(args.slice(1), args[0]);
 command! searchclipboardwithengines
 \    -description "Search clipboard entry (!=lowercased) with multiple engines [CBINDEX ENGINE...]"
@@ -3294,6 +3294,7 @@ function searchMultiple(searchEngine, queries) {
     queries.reverse().forEach(q => tabSearchAdjacent(searchEngine, q, true));
 }
 function multipleEngineSearch(searchEngines, query) {
+    if (!searchEngines || searchEngines.length==0) { searchEngines = ["g"]; }
     searchEngines.reverse().forEach(s => tabSearchAdjacent(s, query, true));
 }
 function multipleEngineSearchWithDefaults(searchEnginesWithDefaults, query) {
