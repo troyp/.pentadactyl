@@ -7628,6 +7628,12 @@ function amazonGetPrefix(url) {
     var parts = S.arrayWithEmptyStringDefault(amazonGetUrlParts());
     return `https://${parts[1]}amazon.com${parts[2]}`;
 }
+function amazonGetItemOrSearchTerm() {
+    var terms =
+        S.getRegexMatch(buffer.URL, /https:\/\/(?:[^/]+\.)?amazon\.com(?:\.[a-zA-Z]+)?\/s\?k=([^&]+)/) ||
+        S.getRegexMatch(buffer.URL, /https:\/\/(?:[^/]+\.)?amazon\.com(?:\.[a-zA-Z]+)\/([^/]+)\/dp/);
+    return terms.replace("+", " ");
+}
 function amazonNextPage() {
     var l = content.document.getElementById("pagnNextLink");
     if (l) l.click();
@@ -7790,6 +7796,9 @@ map <site>o!
 
 map <site>r -description "Jump to reviews" -js content.document.getElementById("customerReviews").scrollIntoView();
 
+map <site>se
+\    -description "Search ebay for item/search term"
+\    -js dactyl.execute("ebaysearch" + (count?" ":"! ") + amazonGetItemOrSearchTerm());
 map <site>ss -description "Search Amazon AU" -b :amazonausearch<Space>
 map <site>so -description "Search Amazon AU for Office Products" -b :amazonausearchstationery<Space>
 map <site>ta
