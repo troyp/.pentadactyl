@@ -1324,6 +1324,7 @@ EOF
 " '--------------------------' "
 map <browser>t   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <browser>t")
 map <browser>ta  -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
+map <browser>tc  -description "Toggle command line"                -ex set guioptions!=c
 map <browser>tb  -description "Toggle bookmark bar"                -ex set guioptions!=B
 map <browser>td  -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
 map <browser>te  -description "Toggle navigation toolbar"          -ex set guioptions!=T
