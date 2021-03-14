@@ -363,6 +363,11 @@ S = {
             regexSpecialCharRegex = /[[(){^$\\*+?.|]/g;
             return s.replace(regexSpecialCharRegex, c=>"\\"+c);
         }
+    },
+    /* can be used to check multiple regexes, eg. S.getRegexMatch(re1)||S.getRegexMatch(re2) */
+    getRegexMatch: function (s, regex, group_num=1) {
+        var match = s.match(regex);
+        return match && match[group_num] || "";
     }
 }
 
