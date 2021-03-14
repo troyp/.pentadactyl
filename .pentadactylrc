@@ -1318,6 +1318,28 @@ function toggleHistorySidebar() {
     return SidebarUI.isOpen;
 }
 EOF
+
+" ,--------------------------, "
+" | <browser>t - GUI toggles | "
+" '--------------------------' "
+map <browser>t   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <browser>t")
+map <browser>ta  -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
+map <browser>tb  -description "Toggle bookmark bar"                -ex set guioptions!=B
+map <browser>td  -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
+map <browser>te  -description "Toggle navigation toolbar"          -ex set guioptions!=T
+map <browser>tm  -description "Toggle menu bar"                    -ex set guioptions!=m
+map <browser>to  -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
+map <browser>ts  -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <browser>tc")
+map <browser>tst -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
+
+map <browser>tS  -description "Toggle status bar"                  -ex set guioptions!=s
+map <browser>tt  -description "Toggle tab bar"                     -ex set showtabline!=always,never
+
+map <A-Up>   -description "Show navigation & bookmarks toolbars and command line"
+\            -ex set guioptions-=mTB | set guioptions+=c | set showtabline=never
+map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
+\            -ex set guioptions+=mTB | set guioptions-=c | set showtabline=always
+
 " ------------------------------------------------------------------------------- "
 " ,--------------------------, "
 " | <browser>u -- User Agent | "
@@ -2261,26 +2283,6 @@ map <leader>tu  -description "Toggle User Mode (Minimal Styling)" -ex set usermo
 map <leader>tv  -description "Toggle Visited Links Styling"       -ex styletoggle  -name visitedlinks
 
 map <leader>?c -description "Display config value" -b :acget
-
-" ,-------------------------, "
-" | <leader>T - GUI toggles | "
-" '-------------------------' "
-map <leader>T   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <Leader>T")
-map <leader>Ta  -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
-map <leader>Tb  -description "Toggle bookmark bar"                -ex set guioptions!=B
-map <leader>Tc  -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <Leader>Tc")
-map <leader>Tct -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
-map <leader>Td  -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
-map <leader>Te  -description "Toggle navigation toolbar"          -ex set guioptions!=T
-map <leader>Tm  -description "Toggle menu bar"                    -ex set guioptions!=m
-map <leader>To  -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
-map <leader>Ts  -description "Toggle status bar"                  -ex set guioptions!=s
-map <leader>Tt  -description "Toggle tab bar"                     -ex set showtabline!=always,never
-
-map <A-Up>   -description "Show navigation & bookmarks toolbars and command line"
-\            -ex set guioptions-=mTB | set guioptions+=c | set showtabline=never
-map <A-Down> -description "Hide navigation & bookmarks toolbars and command line"
-\            -ex set guioptions+=mTB | set guioptions-=c | set showtabline=always
 
 " ,-------------------------, "
 " | <leader>u - userscripts | "
