@@ -26,6 +26,7 @@ var personal = {
         mycountry:    "",
     },
     myphone:      "",
+    mymobile:     "",
     mymasterpw:   "",
     myemail:      "",
     myemail2:     "",

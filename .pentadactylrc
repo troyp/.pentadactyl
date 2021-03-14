@@ -3433,6 +3433,7 @@ execute "map <C-S-A> -modes insert -b " + user.mystreet
 execute "map <C-S-S> -modes insert -b " + user.mysuburb
 execute "map <C-S-D> -modes insert -b " + user.myaddress
 execute "map <C-S-P> -modes insert -b " + user.myphone
+execute "map <C-S-B> -modes insert -b " + user.mymobile
 execute "map <C-S-Z> -modes insert -b " + user.mypostcode
 execute "map <C-S-Q> -modes insert -b " + user.mymasterpw
 execute "map <C-S-C> -modes insert -b " + user.mycreditcard
