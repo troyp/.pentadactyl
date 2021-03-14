@@ -779,8 +779,8 @@ set complete=search,bookmark,location,file
 " nextpattern, previouspattern
 " default: '^\s*Next Page\s*$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»)$','\bmore\b',
 " default: '^\s*Prev(ious)? Page\s*$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)',
-set nextpattern='^\W*\bForward\b\W*$','^\s*Next( Page\s*)?$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»|▸)$','\bMore Words\b','\bmore\b','(O|o)lder'
-set previouspattern='^\W*\bBack\b\W*$','^\s*Prev(ious)?( Page\s*)?$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)','(<|«|◂)$','(N|n)ewer'
+set nextpattern='^\W*\bForward\b\W*$','^\s*Next( Page\s*)?$','^\s*Next [>»]','\bnext\b',^>$,'^(>>|»)$','^(>|»)','(>|»|▸|►)$','\bMore Words\b','\bmore\b','(O|o)lder'
+set previouspattern='^\W*\bBack\b\W*$','^\s*Prev(ious)?( Page\s*)?$','[<«] Prev\s*$','\bprev(ious)?\b',^<$,'^(<<|«)$','^(<|«)','(<|«|◂|◄)$','(N|n)ewer'
 
 set wildignore='~$','^(.*/)?\..*\.sw[m-p]$','^(.*/)?#.+#$'
 
