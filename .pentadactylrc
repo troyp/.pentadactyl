@@ -2589,7 +2589,9 @@ function convertExchangeRates(n, FROMCURR, TOCURR) {
 }
 function convertUnitsWrapper(...args) {
     var n, unit1, unit2;
-    if (args.length==2) {
+    if (args.length==1) {
+        return io.system(`units -t ${args[0]}`).output;
+    } else if (args.length==2) {
         var match = args[0].match(/(\d*)(.*)/);
         n = match[1]||"1";
         unit1 = match[2];
