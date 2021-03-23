@@ -7762,17 +7762,21 @@ command! amazonausearchstationery
 map <site>c
 \    -description "Click button: Add to cart, See all buying options, Proceed to checkout"
 \    -js amazonGo();
-map <site>dc
+
+map <site>a -description "(show bindings: Amazon/Alterations)" -js CommandExMode().open("showkeys <site>a");
+map <site>ac
 \    -description "Remove price change alerts for small changes"
 \    -js amazonCartRemoveSmallPriceChanges(count ? count/100 : 0.05);
-map <site>i -description "(Show bindings: Images)"  -js CommandExMode().open("showkeys <site>i")
+
+map <site>i -description "(Show bindings: Amazon/Images)"  -js CommandExMode().open("showkeys <site>i")
 map <site>if -description "Change image sources to full-sized" -js amazonImageSrcFullSize();
 map <site>iv
 \    -description "View image"
 \    -js openOrSelectTab(getFirstSelector(".imageElement").src, count?"here":"adjacent");
+
 map <site>n -description "Count items" -js utils.message("Number of items: " + amazonCount());
 
-map <site>o  -js CommandExMode().open("showkeys <site>o")
+map <site>o -description "(show bindings: Amazon/Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/cart/view.html/ref=nav_cart", count?"here":"adjacent", null, true);
@@ -7806,11 +7810,14 @@ map <site>o!
 
 map <site>r -description "Jump to reviews" -js content.document.getElementById("customerReviews").scrollIntoView();
 
+map <site>s -description "(show bindings: Amazon/Search)" -js CommandExMode().open("showkeys <site>s");
 map <site>se
 \    -description "Search ebay for item/search term"
 \    -js dactyl.execute("ebaysearch" + (count?" ":"! ") + amazonGetItemOrSearchTerm());
 map <site>ss -description "Search Amazon AU" -b :amazonausearch<Space>
 map <site>so -description "Search Amazon AU for Office Products" -b :amazonausearchstationery<Space>
+
+map <site>t -description "(show bindings: Amazon/Toggle)" -js CommandExMode().open("showkeys <site>t");
 map <site>ta
 \    -description "Toggle Australian site"
 \    -js toggleUrl('www.amazon.com.au', /(www|smile)\.amazon\.com/, 'www.amazon.com.au', 'smile.amazon.com');
@@ -7824,14 +7831,19 @@ map <site>ts -description "Toggle 'Ship to Australia' checkbox"
 map <site>tt -description "Toggle translate reviews" -js amazonToggleTranslateReviews();
 map <site>t4 -description "Toggle 4+-stars"
 \    -js clickSelector(".a-star-medium-4");
+
+map <site>w -description "(show bindings: Amazon/Watercolours)" -js CommandExMode().open("showkeys <site>w");
 map <site>wds -description "Daniel Smith watercolours"
 \    -js openOrSelectTab("https://www.amazon.com.au/gp/product/B001PTAWZI/");
 map <site>wmg -description "M Graham watercolours"
 \    -js openOrSelectTab("https://www.amazon.com.au/gp/product/B001JPH5QW/");
 map <site>who -description "Holbein watercolours"
 \    -js openOrSelectTab("https://www.amazon.com.au/gp/product/B07FSBPX9R/");
+
+map <site>y -description "(show bindings: Amazon/Yank)" -js CommandExMode().open("showkeys <site>y");
 map <site>yd -description "Yank drop-down contents" -js yankSelectorContent("#centerCol select");
 map <site>yy -description "Yank title" -js utils.cbWrite(getFirstSelector("#productTitle").textContent.trim());
+
 map <site><esc> -description "Close popup"
 \    -js clickSelector(".a-button-close");
 map <site>/  -description "Search Amazon AU" -b :amazonausearch<Space>
