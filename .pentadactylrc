@@ -7670,6 +7670,12 @@ function amazonGo() {
     ) elt.click();
 }
 
+function amazonGotoReviews() {
+    var reviews = $1("#customerReviews");
+    if (reviews) reviews.scrollIntoView();
+    else clickSelector("#dp-summary-see-all-reviews", "a[data-hook=see-all-reviews-link-foot]");
+}
+
 function amazonGotoUSReviews() {
     if (buffer.URL.match(/amazon.com\//))
         var link = content.document.getElementById("dp-summary-see-all-reviews");
@@ -7787,7 +7793,7 @@ map <site>oo
 \    -js openOrSelectTab(amazonGetPrefix()+"/gp/css/order-history/ref=nav_nav_orders_first", count?"here":"adjacent");
 map <site>or
 \    -description "Goto reviews - all"
-\    -js clickSelector("#dp-summary-see-all-reviews", "a[data-hook=see-all-reviews-link-foot]");
+\    -js amazonGotoReviews();
 map <site>oR
 \    -description "Goto US reviews"
 \    -js amazonGotoUSReviews();
