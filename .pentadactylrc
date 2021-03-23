@@ -11391,19 +11391,12 @@ group user
 
 js <<EOF
 
-function jishoSearch(s, where='here', keepCase) {
+function jishoSearch(s, where="adjacent", keepCase=false) {
     s = keepCase ? s : s.toLowerCase();
-    dactyl.open(`http://jisho.org/search/${s}`, where);
+    pageOpen(`http://jisho.org/search/${s}`, where);
 }
-
-function jishoKanjiSearch(s, where='here') {
-    dactyl.open(`http://jisho.org/search/${s}%20%23kanji`, where);
-}
-
-function jishoMultiSearch(...ss) {
-    for (s of ss)
-        jishoSearch(s, dactyl.NEW_TAB);
-}
+function jishoKanjiSearch(s, where="adjacent") { jishoSearch(s+"%20%23kanji", where); }
+function jishoMultiSearch(...ss) { for (s of ss) jishoSearch(s, "adjacent"); }
 
 function jishoDetailsEnhanceKanji() {
     if (!buffer.URL.match("https://jisho.org/word/")) return false;
@@ -11420,15 +11413,21 @@ function jishoDetailsEnhanceKanji() {
 
 EOF
 
-command! cbjishosearch
+command! jishosearch
     \ -bang -description "search on jisho.org"
-    \ -js jishoSearch(dactyl.clipboardRead(), bang?'here':'tab');
-command! cbkanjisearch
+    \ -js jishoSearch(args.join(" "), bang?"here":"adjacent");
+command! jishokanjisearch
     \ -bang -description "kanji search on jisho.org"
-    \ -js jishoKanjiSearch(dactyl.clipboardRead(), bang?'here':'tab');
+    \ -js jishoKanjiSearch(args.join(" "), bang?"here":"adjacent");
+command! jishocbsearch
+    \ -bang -description "search clipboard contents on jisho.org"
+    \ -js jishoSearch(dactyl.clipboardRead(), bang?"here":"adjacent");
+command! jishocbkanjisearch
+    \ -bang -description "kanji search clipboard contents on jisho.org"
+    \ -js jishoKanjiSearch(dactyl.clipboardRead(), bang?"here":"adjacent");
 command! jishomultisearch
     \ -nargs=* -description "search multiple words on jisho.org"
-    \ -js jishoMultiSearch.apply(null, args);
+    \ -js jishoMultiSearch(...args);
 
 
 " =====GROUP START===== "
@@ -11463,6 +11462,13 @@ map <site>o;d
 map <site>o;e -description "open sentence examples (new tab)" -js hints.show("だ");
 map <site>o;k -description "open kanji details (new tab)"     -js hints.show("が");
 map <site>o;w -description "search entry in Weblio (new tab)" -js hints.show("ヹ");
+
+" <site>s -- Search "
+map <site>s -description "(show bindings: Jisho/Search)" -js CommandExMode().open("showkeys <site>s");
+map <site>ss -description "Search Jisho" -js CommandExMode().open("jishosearch" + (count?"! ":" "))
+map <site>sk -description "Search kanji on Jisho" -js CommandExMode().open("jishokanjisearch" + (count?"! ":" "))
+map <site>sy -description "Search clipboard on Jisho" -ex jishocbsearch
+map <site>sY -description "Search clipboard kanji on Jisho" -ex jishocbkanjisearch
 
 " <site>t  --  Toggles "
 map <site>t -description "(show bindings: Jisho/Toggle)" -js CommandExMode().open("showkeys <site>t")
