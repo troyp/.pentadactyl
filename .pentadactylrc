@@ -11439,60 +11439,60 @@ group jisho -locations=jisho.org
 autocmd! -group jisho
 autocmd PageLoad jisho.org jishodetailsenhancekanji
 
-map <site>fl     -description "Toggle link drop down [HINTS]" -js hints.show("リ");
+map <site>fl -description "Toggle link drop down [HINTS]" -js hints.show("リ");
 
-" <site>g  --  adjust page "
-map <site>g      -description "(show bindings Jisho/Adjust Page)" -js CommandExMode().open("showkeys <site>g")
-map <site>gm     -description "Fix modal in viewport" -js jishoFixModal();
-map <site>gs  -description "Halve the dimensions of stroke order diagrams"
-\             -ex jishoshrinksod
-map <site>gS  -description "Scale the dimensions of stroke order diagrams"
-\             -b :jishoscalesod<Space>
-map <site>k      -description "(show bindings)" -js CommandExMode().open("showkeys <site>k")
+" <site>g  --  Adjust Page "
+map <site>g -description "(show bindings Jisho/Adjust Page)" -js CommandExMode().open("showkeys <site>g")
+map <site>gm -description "Fix modal in viewport" -js jishoFixModal();
+map <site>gs  -description "Halve the dimensions of stroke order diagrams" -ex jishoshrinksod
+map <site>gS  -description "Scale the dimensions of stroke order diagrams" -b :jishoscalesod<Space>
 
 " <site>o  --  Open"
-map <site>o  -description "(show bindings: Jisho/Open)" -js CommandExMode().open("showkeys <site>o")
-map <site>od -description "open documentation: Tags (current tab)"
-\            -js openAndRunCode("https://jisho.org/docs", ()=>getFirstSelectorByText("section", /^Tags/).scrollIntoView(), "here");
+map <site>o -description "(show bindings: Jisho/Open)" -js CommandExMode().open("showkeys <site>o")
+map <site>od
+\    -description "open documentation: Tags (current tab)"
+\    -js openAndRunCode("https://jisho.org/docs", ()=>getFirstSelectorByText("section", /^Tags/).scrollIntoView(), "here");
 map <site>oe -description "open sentence examples (current tab)" -js hints.show("た");
 map <site>ok -description "open kanji details (current tab)"     -js hints.show("か");
 map <site>ow -description "search entry in Weblio (current tab)" -js hints.show("ヱ");
 
-map <site>o;  -description "(show bindings: Jisho/Open/New Tab)" -js CommandExMode().open("showkeys <site>o")
-map <site>o;d -description "open documentation: Tags (new tab)"
-\             -js openAndRunCode("https://jisho.org/docs", ()=>getFirstSelectorByText("section", /^Tags/).scrollIntoView(), "tab");
-map <site>o;e -description "open sentence examples (new tab)"     -js hints.show("だ");
-map <site>o;k -description "open kanji details (new tab)"         -js hints.show("が");
-map <site>o;w -description "search entry in Weblio (new tab)"     -js hints.show("ヹ");
+map <site>o; -description "(show bindings: Jisho/Open/New Tab)" -js CommandExMode().open("showkeys <site>o")
+map <site>o;d
+\    -description "open documentation: Tags (new tab)"
+\    -js openAndRunCode("https://jisho.org/docs", ()=>getFirstSelectorByText("section", /^Tags/).scrollIntoView(), "tab");
+map <site>o;e -description "open sentence examples (new tab)" -js hints.show("だ");
+map <site>o;k -description "open kanji details (new tab)"     -js hints.show("が");
+map <site>o;w -description "search entry in Weblio (new tab)" -js hints.show("ヹ");
 
 " <site>t  --  Toggles "
-map <site>t      -description "(show bindings: Jisho/Toggles)" -js CommandExMode().open("showkeys <site>t")
-map <site>tsd -description "Toggle heavy/light kanji style (definitions)"
-\             -ex styletoggle -group jisho -name jisho-definitions-page-kanji-style
-map <site>tsl -description "Toggle large kanji style (definitions)"
-\             -ex styletoggle -group jisho -name jisho-large-kanji-style
-map <site>tss -description "Toggle heavy/light kanji style (kanji details)"
-\             -ex styletoggle -group jisho -name jisho-kanji-page-kanji-style
-map <site>te     -description "Toggle between sentences page and regular results"  -ex jishotogglesentences
-map <site>tk     -description "Toggle between kanji page and regular results"      -ex jishotogglekanji
-map <site>tl     -description "Toggle all link lists"                              -ex jishotogglelinklists
-map <site>tr     -description "Toggle kanji radical input dialog"                  -ex jishotoggleradicalinput
-map <site>tR     -description "Toggle between kana and romaji"                     -ex jishotoggleromaji
+map <site>t -description "(show bindings: Jisho/Toggle)" -js CommandExMode().open("showkeys <site>t")
+
+map <site>ts -description "(show bindings: Jisho/Toggle/Style)" -js CommandExMode().open("showkeys <site>ts");
+map <site>tsd -description "Toggle heavy/light kanji style (definitions)" -ex styletoggle -name jisho-definitions-page-kanji-style
+map <site>tsl -description "Toggle large kanji style (definitions)" -ex styletoggle -name jisho-large-kanji-style
+map <site>tss -description "Toggle heavy/light kanji style (kanji details)" -ex styletoggle -name jisho-kanji-page-kanji-style
+
+map <site>te -description "Toggle between sentences page and regular results" -ex jishotogglesentences
+map <site>tk -description "Toggle between kanji page and regular results" -ex jishotogglekanji
+map <site>tl -description "Toggle all link lists" -ex jishotogglelinklists
+map <site>tr -description "Toggle kanji radical input dialog" -ex jishotoggleradicalinput
+map <site>tR -description "Toggle between kana and romaji" -ex jishotoggleromaji
 
 " <site>y  --  Yank "
-map <site>y<C -h> -description "(show bindings: Jisho/Yank)" -js CommandExMode().open("showkeys <site>y")
-map <site>y       -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
-map <site>ye  -description "Yank entry"                    -js hints.show("ヤ");
-map <site>yy  -description "Yank search term to clipboard" -ex jishoyanksearchterm
-map <site>yp  -description "Yank kanji parts"              -ex jishokanjiyankparts
+map <site>y -description "(show bindings Jisho/Yank)" -js CommandExMode().open("showkeys <site>y")
+map <site>ye -description "Yank entry" -js hints.show("ヤ");
+map <site>yy -description "Yank search term to clipboard" -ex jishoyanksearchterm
+map <site>yp -description "Yank kanji parts" -ex jishokanjiyankparts
 
-map <site>;   -description "select kanji radical"          -js hints.show("ぶ");
+map <site>; -description "select kanji radical" -js hints.show("ぶ");
 map <site>\"
 \    -description "open search with term quoted"
 \    -js dactyl.open('https://jisho.org/search/"' + jishoGetSearchTextFromURL() + '"');
 map <site><C-l> -description "Fix modal in viewport" -js jishoFixModal();
 map ]] -description "Next page" -ex clickselector .more
-map [[ -description "Previous page" -js if (buffer.URL.match(/page=[0-9]+(#.*)?/)) buffer.incrementURL(-(count||1));
+map [[
+\    -description "Previous page"
+\    -js if (buffer.URL.match(/page=[0-9]+(#.*)?/)) buffer.incrementURL(-(count||1));
 
 map -modes insert,command-line <A-k> <Space>#kanji
 
