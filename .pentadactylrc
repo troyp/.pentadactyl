@@ -15578,8 +15578,12 @@ function urlDomain(url, withProtocol=false, dropSubdomains=0) {
     if (domainMatch) {
         var domain = domainMatch[2];
         var protocol = domainMatch[1];
-        for (var i=0; i<dropSubdomains; ++i) {
-            domain = domain.replace(/^[^/.]+\./, "");
+        if (dropSubdomains==Infinity) {
+            domain = domain.replace(/^([^/.]+\.)+/, "");
+        } else {
+            for (var i=0; i<dropSubdomains; ++i) {
+                domain = domain.replace(/^[^/.]+\./, "");
+            }
         }
         return (withProtocol?protocol:"") + domain;
     }
