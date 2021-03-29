@@ -13313,6 +13313,13 @@ function redditGetSub(url=buffer.URL) {
 }
 
 function redditInsertUserNames() {
+    /* Insert OP name */
+    var opIcon = $1('a[href*="/user/"]+div i.icon-op');
+    var opLink = opIcon.parentElement.parentElement.previousElementSibling;
+    var op = opLink.href.split("/").slice(-2)[0];
+    var postedBySpan = $1('div.Post span:contains("Posted by")');
+    postedBySpan.innerHTML += ` <a href='${opLink.href}'>${op}</a>`;
+    /* Insert commenter names */
     $$("a").filter(l=>l.href.match(/\/user\//)).forEach(l=>{
         newDiv = content.document.createElement("div");
         newDiv.textContent = l.href.split("/").slice(-2)[0];
