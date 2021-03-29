@@ -2592,7 +2592,7 @@ function convertUnitsWrapper(...args) {
     if (args.length==1) {
         return io.system(`units -t ${args[0]}`).output;
     } else if (args.length==2) {
-        var match = args[0].match(/(\d*)(.*)/);
+        var match = args[0].match(/([0-9.]*)(.*)/);
         n = match[1]||"1";
         unit1 = match[2];
         unit2 = args[1];
