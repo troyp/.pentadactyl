@@ -10197,6 +10197,14 @@ function grGo() {
 function grGotoList(query, adjacentTab) {
     openOrSelectTab(`https://www.goodreads.com/review/list/97663762-troy?${query}`, adjacentTab?"adjacent":"here");
 }
+function grShowAll(url=buffer.URL, where="here") {
+    var match = null;
+    if (url.match(/\/book\/show\//)) {
+        var allUrl = getFirstSelectorByText("a", "All Editions");
+        pageOpen(allUrl + "?utf8=✓&per_page=100");
+    }
+}
+
 EOF
 
 command! grsearch
@@ -10220,6 +10228,7 @@ map <site>ob
 \                       );
 map <site>oc -description "Goto currently-reading books" -js grGotoList("ref=nav_mybooks&shelf=currently-reading", count);
 map <site>or -description "Goto read books" -js grGotoList("ref=nav_mybooks&shelf=read", count);
+map <site>oo -description "Show all editions" -js grShowAll();
 map <site>ow -description "Goto want-ro-read books" -js grGotoList("ref=nav_mybooks&shelf=to-read", count);
 
 map <site>r -description "Jump to reviews" -ex scrolltoselector #other_reviews
