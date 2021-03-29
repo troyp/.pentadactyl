@@ -13285,6 +13285,9 @@ map <site>m -description "Remove cruft" -js redditTidy();
 map <site>n
 \    -description "Insert user names"
 \    -js redditInsertUserNames();
+
+map <site>op -description "Go to preferences" -js openOrSelectTab(redditPath("prefs"), count?"here":"adjacent");
+
 map <site>s -description "(show bindings: Reddit/Search)" -js CommandExMode().open("showkeys <site>s");
 map <site>ss
 \    -description "Search subreddit name on Google"
@@ -13346,6 +13349,11 @@ function redditToggleSave() {
     var saveBtn = content.document.querySelector('.link-save-button>a');
     var unsaveBtn = content.document.querySelector('.link-unsave-button>a');
     (saveBtn || unsaveBtn).click();
+}
+
+function redditPath(path) {
+    var url = buffer.URL;
+    return `${url.scheme}://${url.host}/${path}`;
 }
 EOF
 
