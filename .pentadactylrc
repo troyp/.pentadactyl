@@ -12354,7 +12354,20 @@ group user
 " '------------'                                                                "
 group medium -locations=medium.com
 
-map <site>c -description "Remove cruft" -ex isolateselector .section--body
+js <<EOF
+function mediumTidy() {
+    isolateSelector('article');
+    /* remove cover image */
+    $1("img").remove();
+    /* remove social buttons */
+    $1("div[aria-describedby='postFooterSocialMenu']").parentElement.parentElement.parentElement.remove();
+    /* remove author thumbnail */
+    removeSelectors("img[src*='miro.medium.com/fit/c/56/56/']");
+}
+EOF
+
+
+map <site>c -description "Remove cruft" -js mediumTidy();
 
 group user
 
