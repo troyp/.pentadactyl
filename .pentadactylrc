@@ -7635,7 +7635,11 @@ function amazonGetPrefix(url) {
     return `https://${parts[1]}amazon.com${parts[2]}`;
 }
 function amazonGetItemOrSearchTerm() {
-    var urls = { actual: buffer.URL, canonical: $1("link[rel='canonical']").href };
+    var canonURLLink = $1("link[rel='canonical']");
+    var urls = {
+        actual:    buffer.URL,
+        canonical: canonURLLink && canonURLLink.href
+    };
     var terms =
         S.getRegexMatch(urls.actual, /https:\/\/(?:[^/]+\.)?amazon\.com(?:\.[a-zA-Z]+)?\/s\?k=([^&]+)/) ||
         S.getRegexMatch(urls.actual, /https:\/\/(?:[^/]+\.)?amazon\.com(?:\.[a-zA-Z]+)\/([^/]+)\/dp/) ||
