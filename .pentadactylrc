@@ -7858,8 +7858,11 @@ map <site>/  -description "Search Amazon AU" -b :amazonausearch<Space>
 map <site>* -description "Wish list"
 \    -js clickSelector("#add-to-wishlist-button-submit");
 
-map [[ -js clickSelectorByText("a", "← *Previous");
-map ]] -js clickSelectorByText("a", "Next *→");
+map [[ -description "Previous page" -js clickSelectorByText("a", "← *Previous") || clickSelectorByText("a", "←Previous");
+map ]] -description "Next page" -js clickSelectorByText("a", "Next *→") || clickSelectorByText("a", "Next page→");
+
+map <C-[><C-[> -description "carousels: previous page" -js getSelectors(".a-carousel-goto-prevpage").forEach(e=>e.click());
+map <C-]><C-]> -description "carousels: next page" -js getSelectors(".a-carousel-goto-nextpage").forEach(e=>e.click());
 
 group user
 
