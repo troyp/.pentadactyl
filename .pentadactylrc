@@ -13336,21 +13336,15 @@ function redditLoadMoreReplies() {
 }
 
 function redditTidy()   {
-    redditLoadMoreReplies();
-    var divZeroTabindex = getSelectorWithMatchingAttribute("div","tabindex",0);
-    var articleContent = divZeroTabindex.length && divZeroTabindex[0].parentElement;
-    if (articleContent) {
-        topElements().forEach(elt => elt.remove());
-        content.document.body.appendChild(articleContent);
+    if (buffer.URL.match(/\/old\.reddit\.com\//)) {
+        redditLoadMoreReplies();
+        isolateSelector("div.content");
+        removeSelectors(".reddit-infobar", ".thumbnail", "arrow", ".usertext-edit", ".buttons");
     } else {
-        utils.message("Warning: in RedditTidy(): articleContent not an element");
+        redditInsertUserNames();
+        /* TODO */
     }
-    var allDivs = getSelectors("div");
-    allDivs.forEach(d=>(Array.from(d.children)).every(e=>e.nodeName=="BUTTON") && d.remove());
-    removeSelectors(".icon");
-    getSelectors("button").forEach(e=>!e.classList.contains("CommentSort--SortPicker") && e.remove());
 }
-
 
 function redditToggleSave() {
     var saveBtn = content.document.querySelector('.link-save-button>a');
