@@ -15185,9 +15185,9 @@ function getSelectorsAttributeContent(attr, sels, useGetAttribute=false) {
 
 function getSelectorWithMatchingAttribute(sel, att, expr, useGetAttribute=false) {
     if (useGetAttribute)
-        return getSelectors(sel).filter(e=>e.hasAttribute(att) && e.getAttribute(att).match(expr));
+        return getSelectors(sel).filter(e => e.hasAttribute(att) && e.getAttribute(att).match(expr));
     else
-        return getSelectors(sel).filter(e=>e[att].match(expr));
+        return getSelectors(sel).filter(e => e[att] && e[att].match(expr));
 }
 
 function getFirstSelectorWithMatchingAttribute(sel, att, expr, useGetAttribute=false) {
