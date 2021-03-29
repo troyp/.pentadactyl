@@ -2834,6 +2834,7 @@ map <yank>I
 \    -description "Yank all image locations"
 \    -js yankCollection(content.document.images, l=>l.src);
 map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
+map <yank>K -description "Yank bookmark URL by keyword" -b :yankbmarkurlbykeyword<Space>
 map <yank>l
 \    -description "Yank all links"
 \    -js yankCollection(content.document.links, l=>l.href);
@@ -3015,6 +3016,11 @@ command! pdfYankLines
 
 command! cbdecodeuri -description "Decode URI in clipboard" -js utils.cbWrite(decodeURIComponent(utils.cbRead()));
 command! cbencodeuri -description "Encode URI in clipboard" -js utils.cbWrite(encodeURIComponent(utils.cbRead()));
+
+command! yankbmarkurlbykeyword
+\    -description "Yank bookmark URL by keyword"
+\    -nargs +
+\    -js utils.cbWriteCollection(args.map(e=>bookmarks.getSearchURL(e)));
 
 js <<EOF
 function yankTextarea(n) {
