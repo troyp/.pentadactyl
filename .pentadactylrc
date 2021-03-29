@@ -9092,6 +9092,7 @@ map [[
 map ]]
 \    -description "Next page of results"
 \    -js clickSelector("a.gspr.next");
+map <A-Escape> -description "Close popup" -ex clickselector .clzBtn
 
 group user
 
