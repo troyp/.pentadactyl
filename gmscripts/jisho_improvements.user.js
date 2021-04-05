@@ -27,7 +27,7 @@ if (kw=="actual") kw = kwElt.value;
 // highlight exact matches
 var exactBlock = document.querySelector("div.exact_block");
 if (exactBlock) {
-    exactBlock.style.backgroundColor = "#FFF8F8";
+    exactBlock.style.backgroundColor = "#FFF5F5";
     exactBlock.style.padding = "1em";
 }
 // remove margin between tags
