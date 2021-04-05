@@ -1663,7 +1663,7 @@ map <app>iss
 
 map <app>iv
 \    -description "Open (counth) last VLC screenshot"
-\    -js utils.message(io.system('( cd ~/Pictures/vlc-snapshot; display $(command ls -t | tail -n+1 | head -n1 | xargs realpath))' ).output);
+\    -js utils.message(io.system(`( cd ~/Pictures/vlc-snapshot; display $(command ls -t | tail -n+${count||1} | head -n1 | xargs realpath))` ).output);
 
 js <<EOF
 function screenshotPageres(url=buffer.URL) {
