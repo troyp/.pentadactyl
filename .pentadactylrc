@@ -9103,6 +9103,8 @@ map <site>p -description "Toggle eBay Plus checkbox" -js urlToggleQuery("LH_Ebay
 map <site>ss -description "Search" -js CommandExMode().open("ebaysearch" + (count?" ":"! "));
 
 map <site>w -description "Watch/Unwatch" -js ebayWatch();
+
+map <site>yc -description "Yank coupon code" -js utils.yankWithMsg($1("#vi-inc-cpn-msg div.nowrap").textContent);
 map <site><Esc> -description "Click close button" -js clickSelector(".clzBtn"), clickSelector(".oly-c");
 
 map [[
