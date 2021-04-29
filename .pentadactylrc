@@ -15433,13 +15433,20 @@ function tabOpenAdjacent(urlOrSearch, background=false) {
     if (background) tabs.select(t_orig);
 }
 
-function openAndRunCode(url, f, where="tab") {
-    if (where=="here") {
+function openAndRunCode(url, f, where="adjacent") {
+    switch(where) {
+      case "here":
         dactyl.open(url, {where: "here"});
         var tabUsed = tabs.getTab();
-    } else {
+        break;
+      case "adjacent":
+        var tabUsed = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
+        gBrowser.selectedTab = tabUsed;
+        break;
+      case "tab":
         var tabUsed = gBrowser.addTab(url);
-        if (where=="tab") gBrowser.selectedTab = tabUsed;
+        gBrowser.selectedTab = tabUsed;
+      break;
     }
     var tb = gBrowser.getBrowserForTab(tabUsed);
     tb.addEventListener("DOMContentLoaded", f, { once: true });
