@@ -11009,18 +11009,30 @@ map <site>s      -description "(show bindings: Search)" -js CommandExMode().open
 map <site>ss
 \    -description "Search"
 \    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
+map <site>sS
+\    -description "Search (new tab)"
+\    -b :jacksonsartSearch<Space>
 map <site>sw
 \    -description "Search Watercolour"
 \    -js CommandExMode().open("jacksonsartSearchWatercolour"+(count?"! ":" "));
+map <site>sW
+\    -description "Search Watercolour (new tab)"
+\    -b :jacksonsartSearchWatercolour<Space>
 map <site>s;w
 \    -description "Search watercolour for clipboard text (default: current tab)"
 \    -js dactyl.execute("jacksonsartSearchWatercolour"+(count?"! ":" ")+readFromClipboard());
+map <site>s;W
+\    -description "Search watercolour for clipboard text (new tab)"
+\    -b :jacksonsartSearchWatercolour<Space>
 map <site>;s
 \    -description "Search for clipboard text (default: current tab)"
 \    -js openOrSelectTab(
 \            `https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`,
 \            count?"adjacent":"here"
 \        );
+map <site>;S
+\    -description "Search for clipboard text (new tab)"
+\    -js tabOpenURLAdjacent(`https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`);
 
 map <site>t      -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
 map <site>ta  -description "Toggles Australian site" -js jacksonsartToggleAU();
