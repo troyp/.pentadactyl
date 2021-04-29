@@ -9097,7 +9097,11 @@ map <site>ov -description "Goto seller's store" -js openOrSelectTab(ebayGetStore
 map <site>ow -description "Goto watch list" -js openOrSelectTab("https://www.ebay.com.au/myb/WatchList", count?"tab":"here");
 map <site>oy -description "Goto My eBay" -js openOrSelectTab("https://www.ebay.com.au/myb/Summary", count?"tab":"here");
 map <site>o/ -description "Goto My saved searches" -js openOrSelectTab("https://www.ebay.com.au/myb/SavedSearches", count?"tab":"here");
+
+map <site>p -description "Toggle eBay Plus checkbox" -js urlToggleQuery("LH_EbayPlus=1");
+
 map <site>ss -description "Search" -js CommandExMode().open("ebaysearch" + (count?" ":"! "));
+
 map <site>w -description "Watch/Unwatch" -js ebayWatch();
 map <site><Esc> -description "Click close button" -js clickSelector(".clzBtn"), clickSelector(".oly-c");
 
