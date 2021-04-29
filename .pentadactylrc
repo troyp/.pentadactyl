@@ -2132,6 +2132,7 @@ map <leader>mbp -description "Print What You Like" -ex prwul
 map <leader>n  -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>na -description "Isolate Article" -js isolateArticle(count);
 map <leader>ni -description "Remove images" -ex removeimages
+map <leader>nI -description "Remove first image" -ex removeselector img:first-of-type
 map <leader>nn -description "Remove selector" -b :removeselector<Space>
 map <leader>no -description "Isolate selector" -b :isolateselector<Space>
 map <leader>nO
