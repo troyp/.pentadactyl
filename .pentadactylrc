@@ -10914,6 +10914,15 @@ function jacksonsartGo(count=undefined) {
         clickSelectorByText("button", "Proceed to Checkout");
     }
 }
+
+function jacksonsyankDefault() {
+    var url = buffer.URL;
+    var s = "";
+    if (url.match(/https:\/\/www\.jacksonsart\.com\/.*\/checkout\/cart\//))
+        utils.cbWriteCollection(jacksonsartItemNames());
+    else
+        utils.yankWithMsg($1('.product-name>h1').textContent);
+}
 EOF
 
 map <site>c -description "Go (cart: checkout; orders page: view most recent)" -js jacksonsartGo(count);
@@ -11070,12 +11079,15 @@ map <site>wwn
 \                         count?"adjacent":"here",
 \                         /^https:\/\/www.jacksonsart.com\/en-au\/winsor-newton-professional-watercolour$/);
 
+map <site>yc
+\    -description "Copy item SKU (product code)"
+\    -js utils.yankWithMsg($1('.product-name>p[itemprop*="sku"]').textContent);
 map <site>yu
 \    -description "Copy cart items URLs"
 \    -js var urls=jacksonsartItemUrls(); utils.cbWriteCollection(urls); window._dactylJacksonsartItems=_itemUrls=urls;
 map <site>yy
-\    -description "Copy cart items"
-\    -js utils.cbWriteCollection(jacksonsartItemNames());
+\    -description "Copy cart items or item name"
+\    -js jacksonsyankDefault();
 map <site>4
 \    -description "Cart total"
 \    -js utils.message("Cart total: " + jacksonsartGetCartTotal());
