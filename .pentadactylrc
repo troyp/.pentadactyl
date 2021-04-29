@@ -10963,6 +10963,13 @@ map <site>oc
 \    -description "Goto cart"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"adjacent":"here");
 map <site>h -description "Goto handprint page" -b :handprint<Space>
+
+map <site>m -description "(show bindings: Jacksons/Modify)" -js CommandExMode().open("showkeys <site>m");
+map <site>mc -description "(show bindings: Jacksons/Modify/Cart)" -js CommandExMode().open("showkeys <site>mc");
+map <site>mce
+\    -description "Empty cart"
+\    -js $$("#shopping-cart-table input.form-control--prod").map(e=>e.value="0") && $1("button.btn-update").click();
+
 map <site>oo
 \    -description "Goto orders"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"adjacent":"here");
