@@ -2023,6 +2023,13 @@ map <leader>au
 map <leader>aut
 \    -description "Track packages"
 \    -js CommandExMode().open("trackpackages"+(count?"! ":" "));
+map <leader>auu
+\    -description "Shorten URL with is.gd"
+\    -js openAndRunCode(
+\            'http://is.gd/create.php?longurl='+encodeURIComponent(buffer.URL),
+\            ()=>utils.yankWithMsg($1("#short_url").value),
+\            "adjacent"
+\        );
 
 " Weather "
 map <leader>aw
