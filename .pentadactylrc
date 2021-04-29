@@ -1192,6 +1192,7 @@ map <C-j> -description "Show jump list" -b :jumps<CR>f
 " '-----------' "
 map <browser>p -description "Print page"                 -b <pass-next-key><C-p>
 map <browser>r -description "Reload .pentadactylrc"      -ex rc
+map <browser>wp -description "Open new private browsing window" -b <C-v><C-A-p>
 map <browser>x -description "Maximize/Remaximize window" -js window.restore(); window.maximize();
 map <browser>y -description "Edit .pentadactylrc"        -ex rce
 
