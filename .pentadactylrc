@@ -10936,6 +10936,14 @@ function jacksonsartGo(count=undefined) {
     }
 }
 
+function jacksonsGoToOrder(n=1, where="adjacent") {
+    openAndRunCode(
+        "https://www.jacksonsart.com/en-au/sales/order/history/",
+        f => getSelectors("#my-orders-table>tbody>tr>td.a-center>span>a:first-of-type")[n-1].click(),
+        where
+    );
+}
+
 function jacksonsyankDefault() {
     var url = buffer.URL;
     var s = "";
@@ -10959,12 +10967,11 @@ map <site>oo
 \    -description "Goto orders"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"adjacent":"here");
 map <site>oO
-\    -description "View latest orders"
-\    -js openOrSelectTabAndRunCode(
-\            "https://www.jacksonsart.com/en-au/sales/order/history/",
-\            ()=> clickSelector(".nobr>a"),
-\            count?"adjacent":"here"
-\        );
+\    -description "View latest order"
+\    -js jacksonsGoToOrder(count||1, "here");
+map <site>o<C-o>
+\    -description "View latest order (new tab)"
+\    -js jacksonsGoToOrder(count||1, "adjacent");
 map <site>ol
 \    -description "Goto login"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"adjacent":"here");
