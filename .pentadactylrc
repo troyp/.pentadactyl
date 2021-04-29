@@ -10958,6 +10958,18 @@ map <site>pcl
 map <site>pcn
 \    -description "Caran d'Ache Neocolor I crayons"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-classic-neocolor-i", count?"adjacent":"here");
+map <site>pcp
+\    -description "Caran d'Ache Pablo pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-pablo-pencils", count?"adjacent":"here");
+map <site>pdc
+\    -description "Derwent Coloursoft pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-coloursoft-pencils-au", count?"adjacent":"here");
+map <site>pdl
+\    -description "Derwent Lightfast pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-lightfast-colour-pencil-au", count?"adjacent":"here");
+map <site>pdp
+\    -description "Derwent Procolour pencils"
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-procolour-colour-pencils-au", count?"adjacent":"here");
 map <site>pds
 \    -description "Derwent Studio pencils"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-studio-pencil-au", count?"adjacent":"here");
