@@ -2378,17 +2378,17 @@ command! convertPaperLbtoGSM
 command! convertFluidOzToMl
 \    -nargs *
 \    -description "Convert volume from US fluid oz to ml (fluid oz->ml)"
-\    -js utils.message(args.map(n=>`${n}fluid-oz=${USFluidOunceToMl(n)}ml`).join(", "));
+\    -js utils.message(args.map(n=>`${n}fluid-oz=${USFluidOunceToMl(eval(n))}ml`).join(", "));
 command! convertMlToFluidOz
 \    -nargs *
 \    -description "Convert volume from ml to US fluid oz (ml->fluid oz)"
-\    -js utils.message(args.map(n=>`${n}ml=${mlToUSFluidOunce(n)}fluid-oz`).join(", "));
+\    -js utils.message(args.map(n=>`${n}ml=${mlToUSFluidOunce(eval(n))}fluid-oz`).join(", "));
 command! convertCmToIn  -description "Convert lengths from cm to in"
 \    -nargs *
-\    -js utils.message(args.map(n=>`${n}cm=${cmToIn(n)}in`).join(", "));
+\    -js utils.message(args.map(n=>`${n}cm=${cmToIn(eval(n))}in`).join(", "));
 command! convertInToCm  -description "Convert lengths from in to cm"
 \    -nargs *
-\    -js utils.message(args.map(n=>`${n}in=${inToCm(n)}cm`).join(", "));
+\    -js utils.message(args.map(n=>`${n}in=${inToCm(eval(n))}cm`).join(", "));
 
 command! papersize
 \    -description "Show paper size dimensions"
@@ -2608,7 +2608,7 @@ function convertUnitsWrapper(...args) {
     } else {
         [n, unit1, unit2] = args;
     }
-    var res = convertUnits(n, unit1, unit2);
+    var res = convertUnits(eval(n), unit1, unit2);
     return n + unit1 + " = " + res + unit2;
 }
 
