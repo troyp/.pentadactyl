@@ -6174,7 +6174,7 @@ function appendLinkUrls () {
             la[lc] = s[i];
         }
     for(i = 1; i<=lc; i++)
-        tmpStr += la[i].href + '<br>';
+        tmpStr += decodeURIComponent(la[i].href) + '<br>';
     d.body.insertAdjacentHTML(
         'beforeEnd',
         `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${tmpStr}</div><hr>`
@@ -6195,9 +6195,9 @@ function appendLinkTextAndUrls (urlFirst=null, sort=null) {
         }
     for(i = 1; i<=lc; i++)
         if (urlFirst)
-            lines.push(la[i].href + " ⸻ " + la[i].innerText);
+            lines.push(decodeURIComponent(la[i].href) + " ⸻ " + la[i].innerText);
         else
-            lines.push(la[i].innerText + " ⸻ " + la[i].href);
+            lines.push(la[i].innerText + " ⸻ " + decodeURIComponent(la[i].href));
     if (sort)
         linesStr = lines.sort().join("<br>");
     else
