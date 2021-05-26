@@ -2070,8 +2070,6 @@ map <leader>cr :<C-r>
 " Repeat default just entered search with keyword
 map <leader>cR :<up><Home><forward-word><Space>
 " Search clipboard contents using search keyword
-map <leader>cv -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
-map <leader>cV -b :<C-v><C-v><Home>open<Space><Space><Left>
 map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
 map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
 map <leader>cyy -description "Copy result of javascript expression or ex command" -b :yank<Space>
@@ -3241,6 +3239,12 @@ map <search>mm -description "Multiple query keyword search" -b :searchmultiple<S
 map <search>m/
 \    -description "Multiple engine/query keyword search: :polysearch ENG... / Q..."
 \    -b :polysearch<Space>
+map <search>p
+\    -description "open keyword search with clipboard contents in new tab"
+\    -b :<C-v><C-v><Home>tabopen<Space><Space><Left>
+map <search>P
+\    -description "open keyword search with clipboard contents in current tab"
+\    -b :<C-v><C-v><Home>open<Space><Space><Left>
 map <search>r -description "Regex search: Forward" -modes normal -b /\r
 map <search>R -description "Regex search: Backward" -modes normal -b ?\r
 
