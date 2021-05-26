@@ -2095,16 +2095,6 @@ command! execoncb
 map <leader>f -description "(show bindings: Focus-Follow)" -js CommandExMode().open("showkeys <leader>f")
 map <leader>fs -description "Click span by text" -b :clickspan<Space>
 
-" ,----------------------,
-" | <leader>h -- History |
-" '----------------------'
-map <search>h -description "(Show bindings)" -js CommandExMode().open("showkeys <search>h")
-map <search>ha -description "Open all matching history items" -b :history! -max 30 -sort -date<SPACE>
-map <search>hh -description "search history" -b :history -sort -date<SPACE>
-map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
-
-command! tabopenhistory -nargs 1 -complete history tabopen <args>
-
 " ,----------------------, "
 " | <leader>j - Japanese | "
 " '----------------------' "
@@ -3261,6 +3251,16 @@ map <search>P
 \    -b :<C-v><C-v><Home>open<Space><Space><Left>
 map <search>r -description "Regex search: Forward" -modes normal -b /\r
 map <search>R -description "Regex search: Backward" -modes normal -b ?\r
+
+" ,----------------------, "
+" | <search>h -- History | "
+" '----------------------' "
+map <search>h -description "(show bindings: Search/History)" -js CommandExMode().open("showkeys <search>h");
+map <search>ha -description "Open all matching history items" -b :history! -max 30 -sort -date<SPACE>
+map <search>hh -description "search history" -b :history -sort -date<SPACE>
+map <search>ho -description "Open history item" -b :tabopenhistory<SPACE>
+
+command! tabopenhistory -nargs 1 -complete history tabopen <args>
 
 " ,------------------------------, "
 " | <search>s -- Shopping Search | "
