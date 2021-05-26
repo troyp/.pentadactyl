@@ -3235,10 +3235,12 @@ map <search>D
 \    -js CommandExMode().open(`searchgoogle! site:${urlGetNthFromRootPath(count||1)} `)
 map <search>f -description "Firefox Search-bar" -modes normal -b <C-v><C-j>
 map <search>g -description "Google Search (pagezipper)" -b :openwithpagezipper<Space>
-map <search>m -description "Multiple query bookmark search" -b :searchmultiple<Space>
-map <search>M -description "Multiple engine bookmark search" -b :multipleenginesearch<Space>
-map <search>p -description "Poly search: multiple queries & engines: :polysearch ENG... / Q..."
-\             -b :polysearch<Space>
+map <search>m -description "(show bindings: Search/Multi)" -js CommandExMode().open("showkeys <search>m");
+map <search>me -description "Multiple engine keyword search" -b :multipleenginesearch<Space>
+map <search>mm -description "Multiple query keyword search" -b :searchmultiple<Space>
+map <search>m/
+\    -description "Multiple engine/query keyword search: :polysearch ENG... / Q..."
+\    -b :polysearch<Space>
 map <search>r -description "Regex search: Forward" -modes normal -b /\r
 map <search>R -description "Regex search: Backward" -modes normal -b ?\r
 
