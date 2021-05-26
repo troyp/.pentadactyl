@@ -2063,11 +2063,13 @@ map <leader>azu
 map <leader>c -description "(show bindings: Command-line)" -js CommandExMode().open("showkeys <leader>c")
 map <leader>ca -description "New command with previous arguments" :<up><change-cmd-keep-args>
 map <leader>cc -description "Copy last js command or args to ex command" :<up><S-Home><S-C-Right><S-Right><C-c>
-map <leader>cym -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
 map <leader>cm -description "Show messages" -ex messages
 map <leader>cM -description "Clear messages" -ex messclear
 map <leader>cr -description "Repeat search just entered with keyword changed" :<C-r>
 map <leader>cR -description "Repeat default just entered search with keyword" :<up><Home><forward-word><Space>
+map <leader>cy -description "(show bindings: Command-line/Yank)" -js CommandExMode().open("showkeys <leader>cy");
+map <leader>cym -description "Yank COUNT-th last message" -js utils.cbWrite(A.last(commandline._messageHistory._messages, count||1).message);
+map <leader>cyM -description "Yank the last COUNT messages" -js cmdlineYankLastNMessages(count||1);
 map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
 map <leader>cyy -description "Copy result of javascript expression or ex command" -b :yank<Space>
 
