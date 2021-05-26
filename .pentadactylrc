@@ -2065,6 +2065,7 @@ map <leader>ca -description "New command with previous arguments" :<up><change-c
 map <leader>cc -description "Copy last js command or args to ex command" :<up><S-Home><S-C-Right><S-Right><C-c>
 map <leader>cm -description "Show messages" -ex messages
 map <leader>cM -description "Clear messages" -ex messclear
+map <leader>cp -description "Execute commands on clipboard text" -b :execoncb<Space>
 map <leader>cr -description "Repeat search just entered with keyword changed" :<C-r>
 map <leader>cR -description "Repeat default just entered search with keyword" :<up><Home><forward-word><Space>
 map <leader>cy -description "(show bindings: Command-line/Yank)" -js CommandExMode().open("showkeys <leader>cy");
@@ -2072,6 +2073,21 @@ map <leader>cym -description "Yank COUNT-th last message" -js utils.cbWrite(A.la
 map <leader>cyM -description "Yank the last COUNT messages" -js cmdlineYankLastNMessages(count||1);
 map <leader>cyc -description "Copy last command" :<up><S-Home><C-c>
 map <leader>cyy -description "Copy result of javascript expression or ex command" -b :yank<Space>
+
+js <<EOF
+function cmdlineYankLastNMessages(n) {
+    var messages = commandline._messageHistory._messages;
+    var N = messages.length;
+    n = n||1;
+    utils.cbWriteCollection(messages.slice(N-n), n);
+}
+EOF
+
+command! execoncb
+\    -description "Execute command on clipboard text"
+\    -nargs *
+\    -complete command
+\    -js for (cmd of args) { dactyl.execute(`${cmd} ${readFromClipboard()}`); }
 
 " ,---------------------------, "
 " | <leader>f -- Focus/Follow | "
