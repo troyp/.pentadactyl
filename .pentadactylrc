@@ -2435,7 +2435,7 @@ command! dlpdf
 \    -complete=dir
 \    -js dlPDF(args[0]);
 
-command! unicodepoint -description "Unicode code of character" -nargs + -js unicodePoint(args);
+command! unicodepoint -description "Unicode code of character" -nargs + -js unicodePoint(args.join(""));
 command! unicode -description "Describe unicode characters" -nargs + -js unicode(args.join(""));
 
 " ,---------------------------------,
@@ -2657,7 +2657,7 @@ function wiktionaryGotoPage(s, where="tab", openorselect=true) {
 function unicodePoint(chars) {
     chars = Array.from(chars);
     var out = "";
-    for (c of char) {
+    for (c of chars) {
         out += `${c}: U+${c.charCodeAt(0).toString(16)}\n`;
     }
     return utils.message(out);
