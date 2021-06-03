@@ -1705,6 +1705,23 @@ map <app>q
 \    -description "Open in Qutebrowser"
 \    -ex oqute
 
+" ,---------------------------------, "
+" | <app>s -- Switch to Application | "
+" '---------------------------------' "
+map <app>s -description "(show bindings: Switch to Application)" -js CommandExMode().open("showkeys <app>s")
+map <app>sa
+\    -description "Switch to Alarm Clock"
+\    -js io.system("alarm-clock-applet")
+map <app>se
+\    -description "Switch to Emacs"
+\    -js io.system("wmctrl -a emacs")
+map <app>sv
+\    -description "Switch to VLC"
+\    -js io.system("wmctrl -a vlc")
+
+" ,-------------------------, "
+" | <app>u -- Open URL with | "
+" '-------------------------' "
 map <app>u -description "(show bindings: Open URL with)" -js CommandExMode().open("showkeys <app>u")
 map <app>uu
 \    -description "Open URL with Surf"
@@ -1713,6 +1730,9 @@ map <app>ux
 \    -description "Open URL (enter program)"
 \    -b :openwithprogramurl<Space>
 
+" ,----------------------------, "
+" | <app>v -- Convert and Open | "
+" '----------------------------' "
 map <app>vv
 \    -description "Convert URL/file with pandoc and open"
 \    -js CommandExMode().open(count ? "pandocopen! " : "pandocopen ");
@@ -1774,20 +1794,6 @@ command! shellcommandonurlfileinroxterm
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
 command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || getCurrentURL()} | mpg123 -`)).output);
-
-" ,---------------------------------, "
-" | <app>s -- Switch to Application | "
-" '---------------------------------' "
-map <app>s -description "(show bindings: Switch to Application)" -js CommandExMode().open("showkeys <app>s")
-map <app>sa
-\    -description "Switch to Alarm Clock"
-\    -js io.system("alarm-clock-applet")
-map <app>se
-\    -description "Switch to Emacs"
-\    -js io.system("wmctrl -a emacs")
-map <app>sv
-\    -description "Switch to VLC"
-\    -js io.system("wmctrl -a vlc")
 
 " open file with mimeopen
 command! mimeopen
