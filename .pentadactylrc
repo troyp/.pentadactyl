@@ -2101,6 +2101,89 @@ command! execoncb
 map <leader>f -description "(show bindings: Focus-Follow)" -js CommandExMode().open("showkeys <leader>f")
 map <leader>fs -description "Click span by text" -b :clickspan<Space>
 
+" ,---------------------, "
+" | <leader>i -- Images | "
+" '---------------------' "
+map <leader>i -description "(show bindings: Misc/Images)" -js CommandExMode().open("showkeys <leader>i");
+map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
+
+" ,------------------------------------, "
+" | <leader>id -- Misc/Images/Diagrams | "
+" '------------------------------------' "
+map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
+map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"adjacent");
+
+" ,---------------------------------, "
+" | <leader>ii -- Misc/Images/Hints | "
+" '---------------------------------' "
+map <leader>ii -description "(show bindings: Misc/Images/Hints)" -js CommandExMode().open("showkeys <leader>ii");
+map <leader>iif -description "Flip image horizontally [HINTS]" -js hints.show("ῑ");
+map <leader>iiF -description "Flip image vertically [HINTS]" -js hints.show("ί");
+map <leader>iii -description "Restore image (cancel transform) [HINTS]" -js hints.show("ɩ");
+map <leader>iim -description "Transform image using matrix [HINTS]" -b :imagematrix<Space>
+map <leader>iir -description "Resize image [HINTS]" -b :imageresize<Space>
+
+command! imageresize -description "Resize image [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ῐ");
+command! imagematrix -description "Transform image using matrix [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ϊ");
+
+" ,-----------------------------------, "
+" | <leader>ir -- Misc/Images/Replace | "
+" '-----------------------------------' "
+map <leader>ira -description "Replace images with alt text" -b :imagereplace<Space>
+
+command! imagereplace
+\    -description "Replace images in SEL with alt text"
+\    -nargs *
+\    -js $$("img", $$(args.join(" "))).forEach(e=>{dactyl.rc.appendElement("p",e.parentElement,{ innerText: e.alt }); e.remove()});
+
+" ,----------------------------------, "
+" | <leader>is -- Misc/Images/Search | "
+" '----------------------------------' "
+map <leader>is -description "(show bindings: Misc/Images/Search)" -js CommandExMode().open("showkeys <leader>is");
+map <leader>isr
+\    -description "TinEye reverse image search"
+\    -js openOrSelectTab("https://tineye.com/search/?url="+encodeURIComponent(buffer.URL), count?"adjacent":"here");
+
+" ,-------------------------------------, "
+" | <leader>it -- Misc/Images/Transform | "
+" '-------------------------------------' "
+map <leader>it -description "(show bindings: Misc/Images/Transform)" -js CommandExMode().open("showkeys <leader>it");
+map <leader>ite -description "Edit image with pinta" -ex shellcommandonurlfile pinta
+map <leader>itf -description "Flip image (URL) horizontally" -js imageTransform("flop");
+map <leader>itF -description "Flip image (URL) vertically" -js imageTransform("flip");
+map <leader>ito -description "ImgOps (URL)" -js openOrSelectTab("https://imgops.com/" + buffer.URL, count?"adjacent":"here");
+map <leader>itt -description "Apply image transformation with mogrify" -b :imagetransform<Space>
+map <leader>itr -description "Rotate image (URL) by Θ degrees" -b :imagerotate<Space>
+
+command! imagerotate -description "Rotate image (URL) by Θ degrees" -nargs 1 -js imageTransform("rotate "+args[0]);
+command! imagetransform
+\    -description "transform image (URL) with mogrify"
+\    -nargs +
+\    -js imageTransform(...args)
+
+js <<EOF
+function imageTransform(...ops) {
+    var name = buffer.URL.split("/").pop();
+    var tempdir = io.system("mktemp -d").output;
+    var path = tempdir+"/"+name;
+    dactyl.execute(`saveas ${path.replace(" ", "\ ")}`);
+    " ops = arguments to mogrify, eg. 'flip' (V reflect), 'flop' (H reflect), 'rotate DEG' ";
+    io.system(`mogrify ${ops.map(s=>`-${s}`).join(" ")} '${path}'`);
+    dactyl.open("file://"+path);
+}
+EOF
+
+" ,--------------------------------, "
+" | <leader>iv -- Misc/Images/View | "
+" '--------------------------------' "
+map <leader>iv -description "(show bindings: Misc/Images/View)" -js CommandExMode().open("showkeys <leader>iv");
+map <leader>ivv
+\    -description "View all images"
+\    -ex open javascript:document.write("<center>"%20+%20Array.from(document.images).map(i=>`<img%20src=${i.src}%3E`).join("<br>")%20+%20"</center>");%20document.close();void(0);
+map <leader>ivV
+\    -description "View all images (compact)"
+\    -ex open javascript:document.write(Array.from(document.images).map(i=>`<img%20src=${i.src}%3E`).join(""));%20document.close();void(0);
+
 " ,----------------------, "
 " | <leader>j - Japanese | "
 " '----------------------' "
@@ -2126,6 +2209,229 @@ map <leader>jkv -description "Visual Kanji Search (similar kanji)"
     \                            count?"here":"adjacent");
 map <leader>jm -description "Jisho multiword search" -b :jishomultisearch<Space>
 map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
+
+" ,--------------------,
+" | <leader>l -- Links |
+" '--------------------'
+map <leader>l
+\    -description "(show bindings: Links)"
+\    -js CommandExMode().open("showkeys <leader>l")
+
+map <leader>la -description "Append links to end of page" -ex appendlinks
+map <leader>lc -description "Count links" -ex countlinks
+map <leader>ld -description "Choose links from page and download" -b :dlchooselinks<Space>
+map <leader>lD -description "Download selected links" -b :dlselectionlinks<Space>
+
+map <leader>lf -description "(show bindings: Links/Find)" -js CommandExMode().open("showkeys <leader>lf")
+map <leader>lf;
+\    -description "Find links matching href in clipboard"
+\    -js utils.message(findLinks(utils.cbRead({index: (count||0)}), {dactyl_search_link: true, text_content: true}).join("\n"));
+
+map <leader>ll -description "List all links in page" -ex listlinks
+map <leader>ls -description "Open links in selection" -js openSelectionLinks(count?"tab":"adjacent");
+map <leader>lt -description "Append link text & destinations to end of page" -ex appendlinktextandurls
+map <leader>lT -description "Append link destinations & text to end of page" -ex appendlinkurlsandtext
+map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
+map <leader>lv -description "Open links in clipboard" -ex tabopencblinks
+
+command! appendlinks
+\     -description "Append links to end of page"
+\     -js appendLinks();
+command! appendlinkurls
+\     -description "Append link destinations to end of page"
+\     -js appendLinkUrls();
+command! appendlinktextandurls
+\     -description "Append link text & destinations to end of page"
+\     -js appendLinkTextAndUrls();
+command! appendlinkurlsandtext
+\     -description "Append sorted link destinations & text to end of page"
+\     -js appendLinkTextAndUrls(true, true);
+" trigger listlinks keyword bookmarklet
+command! listlinks
+\     -description "List all links in page"
+\     :open listalllinks
+command! countlinks
+\     -description "Count links"
+\     -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelectors('a'));
+command! listlinktext
+\     -description "List the text of all links in page"
+\     -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
+command! dlchooselinks
+\    -description "Select links from page and download"
+\    -nargs=?
+\    -complete=dir
+\    -js dlChoosePageLinks(args[0]);
+command! tabopencblinks
+\    -description "Open links in clipboard"
+\    -js openCBLinks();
+command! openselectionlinks
+\    -description "Open links in selection"
+\    -bang
+\    -js openSelectionLinks(bang?"here":"adjacent");
+command! dlselectionlinks
+\    -description "Download links in selection. With ! save links in subdirectory."
+\    -bang -nargs=?
+\    -complete=dir
+\    -js bang? dlSelectionLinks(null, true) : dlSelectionLinks();
+command! yankselectionlinks
+\    -description "Yank links in selection"
+\    -js utils.cbWriteWithMessageLimit(getSelectionLinks().join("\n"));
+
+js <<EOF
+function appendLinks () {
+    tmpStr = '';
+    d = content.document;
+    s = d.getElementsByTagName('A');
+    la = new Array(s.length);
+    lc=0;
+    for(i = 0;i<s.length;i++)
+        if(s[i].innerText != '' && s[i].innerText!= ' ') {
+            lc++;
+            la[lc] = s[i];
+        }
+    for(i = 1; i<=lc; i++)
+        tmpStr += `<a href=${la[i].href}> ${la[i].href} </a><br>`;
+    d.body.insertAdjacentHTML(
+        'beforeEnd',
+        `<br style = clear:both;><div><hr>Link Footnotes:<hr>${tmpStr}</div><hr>`
+    );
+}
+
+function appendLinkUrls () {
+    tmpStr = '';
+    d = content.document;
+    s = d.getElementsByTagName('A');
+    la = new Array(s.length);
+    lc=0;
+    for(i = 0;i<s.length;i++)
+        if(s[i].innerText != '' && s[i].innerText!= ' ') {
+            lc++;
+            la[lc] = s[i];
+        }
+    for(i = 1; i<=lc; i++)
+        tmpStr += decodeURIComponent(la[i].href) + '<br>';
+    d.body.insertAdjacentHTML(
+        'beforeEnd',
+        `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${tmpStr}</div><hr>`
+    );
+}
+
+function appendLinkTextAndUrls (urlFirst=null, sort=null) {
+    var lines = [];
+    var linesStr = "";
+    var d = content.document;
+    var s = d.getElementsByTagName('A');
+    var la = new Array(s.length);
+    var lc=0;
+    for(i = 0;i<s.length;i++)
+        if(s[i].innerText != '' && s[i].innerText!= ' ') {
+            lc++;
+            la[lc] = s[i];
+        }
+    for(i = 1; i<=lc; i++)
+        if (urlFirst)
+            lines.push(decodeURIComponent(la[i].href) + " ⸻ " + la[i].innerText);
+        else
+            lines.push(la[i].innerText + " ⸻ " + decodeURIComponent(la[i].href));
+    if (sort)
+        linesStr = lines.sort().join("<br>");
+    else
+        linesStr = lines.join("<br>");
+    d.body.insertAdjacentHTML(
+        'beforeEnd',
+        `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${linesStr}</div><hr>`
+    );
+}
+
+function dlLinks(links, dir=null, subdir=null) {
+    home = homedir;
+    dir = dir || `${home}/Downloads`;
+    var newdir;
+    if (subdir) {
+        var title = subdir==true ? buffer.title : subdir;
+        newdir = `${dir}/${title}`;
+        dactyl.execute(`!mkdir -p "${newdir}"`);
+    } else {
+        newdir = dir;
+    }
+    s = '';
+    for (var l of links) {
+        var title = l.parentElement.parentElement.getAttribute('data-title');
+        s += l.href + " ";
+    }
+    dactyl.execute(`!zsh -c 'cd "${newdir}"; for x in ${s}; do wget $x; done;'`);
+}
+
+function dlChooseLinks(links, dir=null, title=null) {
+    home = homedir;
+    dir = dir || `${home}/Downloads`;
+    var title = title || "downloads";
+    var newdir = `${dir}/${title}`;
+    if (title)
+        dactyl.execute(`!mkdir -p "${newdir}"`);
+    if (links.length < 160) {
+        s = '';
+        for (var l of links) {
+            var title = l.parentElement.parentElement.getAttribute('data-title');
+            s += l.href + "\\\\n";
+        }
+        dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
+    } else {
+        var tempfile = io.system("mktemp").output;
+        for (var l of links) {
+            // var title = l.parentElement.parentElement.getAttribute('data-title');
+            dactyl.execute(`!echo "${l.href}\\\\n" >> ${tempfile}`)
+        }
+        dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; cat ${tempfile} | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
+    }
+}
+
+function dlChoosePageLinks(dir=null) { dlChooseLinks(content.document.links, dir, buffer.title) }
+
+function openCBLinks() {
+    var s = dactyl.clipboardRead();
+    var links = s.split("\n").filter(s=>s.trim());
+    openListLinks(links);
+}
+
+function openListLinks(links, opts={where: dactyl.NEW_TAB}) {
+    links.forEach(link=>dactyl.open(link, opts));
+}
+
+function getSelectionLinks() { return Array.from(getSelectionDOM().links); }
+
+function openSelectionLinks(where="adjacent") { getSelectionLinks().forEach(l=>openOrSelectTab(l, where)); }
+
+function dlSelectionLinks(dir=null, subdir=null) { return dlLinks(getSelectionLinks(), dir, subdir); }
+
+/*
+    findLinks(href, options)
+    matching options:
+        exact_match:  match href exactly (if false, the link's href must include HREF)
+    additional action options:
+        scroll_into_view
+        dactyl_search_link
+    return-value options:
+        first_only:   return only the first result (if any)
+        text_content: return the textContent of item(s) only
+ */
+function findLinks(href, options={}) {
+    var links = $$("a").filter(options.exact_match ? e=>e.href==href : e=>e.href.includes(href));
+    /* actions */
+    if (options.dactyl_search_link && links.length)
+        dactyl.execute(`feedkeys /${links[0].textContent}<CR>`);
+    if (options.scroll_into_view && links.length)
+        links[0].scrollIntoView();
+    /* return value */
+    if (options.text_content)
+        links = links.map(e=>e.textContent);
+    return options.first_only
+      ? links.length
+        ? links[0]
+        : (options.text_content ? "" : null)
+      : links;
+}
+EOF
 
 " ,-----------------------------, "
 " | <leader>m - Manipulate Page | "
@@ -2187,16 +2493,6 @@ map <leader>opw
 map <leader>ow
 \    -description "Open in new window"
 \    -count -b :winopen<Space>
-
-" ,------------------, "
-" | <leader>s - Save | "
-" '------------------' "
-map <leader>s -description "(show bindings: Save)" -js CommandExMode().open("showkeys <Leader>s")
-map <leader>si -description "Save image [HINTS]" -js hints.show("Ị");
-map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
-map <leader>sv
-\    -description "Save clipboard text to file. :savecbtext NAME DIR"
-\    -b :savecbtext<Space>
 
 " -------------------------------------------------------------------------------
 " ,-----------------------, "
@@ -2270,6 +2566,16 @@ map <leader>rwp
 \     -description "Goto Wikpedia article"
 \     -b :wikipediapage<SPACE>
 
+" ,------------------, "
+" | <leader>s - Save | "
+" '------------------' "
+map <leader>s -description "(show bindings: Save)" -js CommandExMode().open("showkeys <Leader>s")
+map <leader>si -description "Save image [HINTS]" -js hints.show("Ị");
+map <leader>sp -description "Save PDF" -b :dlpdf<Space>~/ebooks/
+map <leader>sv
+\    -description "Save clipboard text to file. :savecbtext NAME DIR"
+\    -b :savecbtext<Space>
+
 " ,---------------------, "
 " | <leader>t - toggles | "
 " '---------------------' "
@@ -2336,6 +2642,162 @@ map <leader>x
 
 map <leader>+ -b :sum<Space>
 map <leader>* -b :product<Space>
+
+" ,----------------------------------, "
+" | <leader>xe -- Misc/Text Encoding | "
+" '----------------------------------' "
+"command! encuni :execute "emenu View.Text Encoding.Unicode"
+"command! encjis :execute "emenu View.Text Encoding.Japanese (Shift_JIS)"
+command! encuni :emenu View.Text Encoding.Unicode
+command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
+command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
+
+map <leader>xe
+\    -description "(show bindings: Text Encodings)"
+\    -js CommandExMode().open("showkeys <leader>xe")
+map <leader>xeu -ex emenu View.Text Encoding.Unicode
+
+" ,--------------------------, "
+" | <leader>xt -- Misc/Table | "
+" '--------------------------' "
+map <leader>xt -description "(show bindings: Misc/Tables)" -js CommandExMode().open("showkeys <leader>x")
+map <leader>xtc
+\     -description "Copy table columns (omit rows with too few columns)"
+\     -b :copytablecols-strict<Space>
+map <leader>xtC
+\     -description "Copy table columns"
+\     -b :copytablecols<Space>
+map <leader>xti -description "Replace table images with alt text" -ex imagereplace td
+map <leader>xtn -description "Show number of rows in table (HINTS)" -js hints.show("τ");
+map <leader>xtd -description "Delete given columns from all tables." :tableDeleteColumns<Space>
+map <leader>xtw -description "Toggle table-widen style" -ex styletoggle -name table-widen
+map <leader>xtW
+\    -description "Toggle table-wrap style (wrap text in cells)" styletoggle -name table-wrap
+\    -ex tablewrap
+map <leader>xt, -description "Convert table data to CSV" -ex table2csv
+map <leader>xt/
+\     -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
+\     :filtertablerows<Space>
+
+" Table2CSV
+" table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
+command! table2csv
+\     -description "Convert table contents to CSV in box under table"
+\     :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
+command! yanktablecsvarea
+\     -description "Yank the contents of table N's CSV. Use after :table2csv"
+\     -nargs=1
+\     -js yankTableCSVArea(Number(args[0])-1);
+
+command! filtertablerows
+\     -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
+\     -complete javascript
+\     -nargs=1
+\     -js dactylArgsSet(args); hints.show('Ⓣ');
+
+command! copytablecols
+\     -description "Copy specified columns from table chosen by HINT"
+\     -nargs=*
+\     -js dactylArgsSet(args); hints.show('ŧ');
+
+command! copytablecols-strict
+\     -description "Copy specified columns from table chosen by HINT (omit rows with too few columns)"
+\     -nargs=*
+\     -js dactylArgsSet(args); hints.show('Ŧ');
+
+command! tableDeleteColumns
+    \ -description "Delete given columns from all tables."
+    \ -nargs=*
+    \ -js tableDeleteCols(args.map(parseInt));
+
+" Table styles "
+style -name=table-widen
+    \ file://*
+    \ body { max-width: 250em !important; }
+style -name=table-wrap
+    \ file://*
+    \ td:first-of-type { white-space: pre-wrap !important; }
+
+js <<EOF
+function yankTableCSVArea(n) {
+    var tareas = content.document.querySelectorAll('table+textarea');
+    var contents = tareas[n].textContent;
+    utils.cbWriteWithMessageLimit(contents);
+}
+
+function tableDeleteCols(cols) {
+    var tables = content.document.getElementsByTagName('table');
+    for (var t of Array.from(tables))
+        for (var r of Array.from(t.rows))
+            for (var i of cols) {
+                var cell = r.children[i];
+                if (cell) cell.remove();
+            }
+}
+
+function tableFilterRows(table, filter) {
+    /* first row is column headings */
+    /* filter takes one argument for each column */
+    var rows = Array.from(table.rows).slice(1);
+    for (var row of rows) {
+        var cells = Array.from(row.cells);
+        var cellsText = cells.map(c=>c.innerText);
+        if (!filter.apply(null, cellsText))
+            row.remove();
+    }
+}
+
+function tableToCSV(table) {
+    var output = "";
+    for (row of table.rows) {
+        var cells = Array.from(row.cells);
+        var cellstrs = cells.map(cell=>`"${cell.innerText}"`);
+        output += cellstrs.join(", ") + "\n";
+    }
+    return output;
+}
+
+function CopyTableAsCSV(table) {
+    var csv = tableToCSV(table);
+    utils.cbWriteWithMessageLimit(csv);
+}
+
+function CopyTableAsCSVbySelector(sel) {
+    var table = content.document.querySelector(sel);
+    var csv = tableToCSV(table);
+    utils.cbWriteWithMessageLimit(csv);
+}
+
+function extractTableColumns(table, columns, strict=false) {
+    var output = "";
+    var rows = Array.from(table.rows).slice(1);
+    var n = rows[0].cells.length;
+    for (var row of rows) {
+        var cells = Array.from(row.cells);
+        if (strict && cells.length < Math.max.apply(null, columns))
+            continue;
+        function processCols(i) {
+            if (i < 0) { i = n+1-i; }
+            var cellValue = cells[i-1] && cells[i-1].innerText.trim();
+            if ( typeof(cellValue)=="string" &&
+                 cellValue.startsWith('"') &&
+                 cellValue.endsWith('"') )
+                cellValue = cellValue.slice(1, -1).trim();
+            return cellValue;
+        }
+        var colstrs = Array.from(columns).map(processCols);
+        output += colstrs.join("\t") + "\n";
+    }
+    return output;
+}
+
+function copySpecifiedTableColumns(table, strict=false) {
+    var extracted = extractTableColumns(table, window._dactylargs, strict);
+    var result = extracted.replace(/\n\s*\n/mg, '\n');
+    utils.cbWriteWithMessageLimit(result);
+}
+
+EOF
 
 " ,--------------------------------,
 " | <leader> (associated commands) |
@@ -6098,476 +6560,6 @@ if (typeof gd12 != 'undefined') {
     gd12.prefs.myStyle = ".gDicClassPopup { background-color: #FFDDDD !important; border: 2px solid gray !important; }"
     gd12.prefs.applyUserStyle()
 }
-EOF
-
-" -----------------------------------------------------------------------------
-" ,-------, ,-----------,
-" | Links | | <leader>l |
-" '-------' '-----------'
-map <leader>l
-\    -description "(show bindings: Links)"
-\    -js CommandExMode().open("showkeys <leader>l")
-
-map <leader>la -description "Append links to end of page" -ex appendlinks
-map <leader>lc -description "Count links" -ex countlinks
-map <leader>ld -description "Choose links from page and download" -b :dlchooselinks<Space>
-map <leader>lD -description "Download selected links" -b :dlselectionlinks<Space>
-
-map <leader>lf -description "(show bindings: Links/Find)" -js CommandExMode().open("showkeys <leader>lf")
-map <leader>lf;
-\    -description "Find links matching href in clipboard"
-\    -js utils.message(findLinks(utils.cbRead({index: (count||0)}), {dactyl_search_link: true, text_content: true}).join("\n"));
-
-map <leader>ll -description "List all links in page" -ex listlinks
-map <leader>ls -description "Open links in selection" -js openSelectionLinks(count?"tab":"adjacent");
-map <leader>lt -description "Append link text & destinations to end of page" -ex appendlinktextandurls
-map <leader>lT -description "Append link destinations & text to end of page" -ex appendlinkurlsandtext
-map <leader>lu -description "Append link destinations to end of page" -ex appendlinkurls
-map <leader>lv -description "Open links in clipboard" -ex tabopencblinks
-
-command! appendlinks
-\     -description "Append links to end of page"
-\     -js appendLinks();
-command! appendlinkurls
-\     -description "Append link destinations to end of page"
-\     -js appendLinkUrls();
-command! appendlinktextandurls
-\     -description "Append link text & destinations to end of page"
-\     -js appendLinkTextAndUrls();
-command! appendlinkurlsandtext
-\     -description "Append sorted link destinations & text to end of page"
-\     -js appendLinkTextAndUrls(true, true);
-" trigger listlinks keyword bookmarklet
-command! listlinks
-\     -description "List all links in page"
-\     :open listalllinks
-command! countlinks
-\     -description "Count links"
-\     -js utils.messageWithLineLimit('Number of anchor elements: ' + countSelectors('a'));
-command! listlinktext
-\     -description "List the text of all links in page"
-\     -js dactyl.execute(`open javascript:var newtab = window.open('', '_blank', 'scrollbars, resizable'); var s = '<html>\n<base target=_blank>\n<body>\n<pre>\n${getSelectorContent(":-moz-any-link").join("\\n")}\n</pre>\n</body>\n</html>\n'; newtab.document.writeln(s); void(0);`)
-command! dlchooselinks
-\    -description "Select links from page and download"
-\    -nargs=?
-\    -complete=dir
-\    -js dlChoosePageLinks(args[0]);
-command! tabopencblinks
-\    -description "Open links in clipboard"
-\    -js openCBLinks();
-command! openselectionlinks
-\    -description "Open links in selection"
-\    -bang
-\    -js openSelectionLinks(bang?"here":"adjacent");
-command! dlselectionlinks
-\    -description "Download links in selection. With ! save links in subdirectory."
-\    -bang -nargs=?
-\    -complete=dir
-\    -js bang? dlSelectionLinks(null, true) : dlSelectionLinks();
-command! yankselectionlinks
-\    -description "Yank links in selection"
-\    -js utils.cbWriteWithMessageLimit(getSelectionLinks().join("\n"));
-
-js <<EOF
-function appendLinks () {
-    tmpStr = '';
-    d = content.document;
-    s = d.getElementsByTagName('A');
-    la = new Array(s.length);
-    lc=0;
-    for(i = 0;i<s.length;i++)
-        if(s[i].innerText != '' && s[i].innerText!= ' ') {
-            lc++;
-            la[lc] = s[i];
-        }
-    for(i = 1; i<=lc; i++)
-        tmpStr += `<a href=${la[i].href}> ${la[i].href} </a><br>`;
-    d.body.insertAdjacentHTML(
-        'beforeEnd',
-        `<br style = clear:both;><div><hr>Link Footnotes:<hr>${tmpStr}</div><hr>`
-    );
-}
-
-function appendLinkUrls () {
-    tmpStr = '';
-    d = content.document;
-    s = d.getElementsByTagName('A');
-    la = new Array(s.length);
-    lc=0;
-    for(i = 0;i<s.length;i++)
-        if(s[i].innerText != '' && s[i].innerText!= ' ') {
-            lc++;
-            la[lc] = s[i];
-        }
-    for(i = 1; i<=lc; i++)
-        tmpStr += decodeURIComponent(la[i].href) + '<br>';
-    d.body.insertAdjacentHTML(
-        'beforeEnd',
-        `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${tmpStr}</div><hr>`
-    );
-}
-
-function appendLinkTextAndUrls (urlFirst=null, sort=null) {
-    var lines = [];
-    var linesStr = "";
-    var d = content.document;
-    var s = d.getElementsByTagName('A');
-    var la = new Array(s.length);
-    var lc=0;
-    for(i = 0;i<s.length;i++)
-        if(s[i].innerText != '' && s[i].innerText!= ' ') {
-            lc++;
-            la[lc] = s[i];
-        }
-    for(i = 1; i<=lc; i++)
-        if (urlFirst)
-            lines.push(decodeURIComponent(la[i].href) + " ⸻ " + la[i].innerText);
-        else
-            lines.push(la[i].innerText + " ⸻ " + decodeURIComponent(la[i].href));
-    if (sort)
-        linesStr = lines.sort().join("<br>");
-    else
-        linesStr = lines.join("<br>");
-    d.body.insertAdjacentHTML(
-        'beforeEnd',
-        `<br style = clear:both;><div><hr>Link Footnotes:<hr><p>${linesStr}</div><hr>`
-    );
-}
-
-function dlLinks(links, dir=null, subdir=null) {
-    home = homedir;
-    dir = dir || `${home}/Downloads`;
-    var newdir;
-    if (subdir) {
-        var title = subdir==true ? buffer.title : subdir;
-        newdir = `${dir}/${title}`;
-        dactyl.execute(`!mkdir -p "${newdir}"`);
-    } else {
-        newdir = dir;
-    }
-    s = '';
-    for (var l of links) {
-        var title = l.parentElement.parentElement.getAttribute('data-title');
-        s += l.href + " ";
-    }
-    dactyl.execute(`!zsh -c 'cd "${newdir}"; for x in ${s}; do wget $x; done;'`);
-}
-
-function dlChooseLinks(links, dir=null, title=null) {
-    home = homedir;
-    dir = dir || `${home}/Downloads`;
-    var title = title || "downloads";
-    var newdir = `${dir}/${title}`;
-    if (title)
-        dactyl.execute(`!mkdir -p "${newdir}"`);
-    if (links.length < 160) {
-        s = '';
-        for (var l of links) {
-            var title = l.parentElement.parentElement.getAttribute('data-title');
-            s += l.href + "\\\\n";
-        }
-        dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; echo -e "${s}" | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
-    } else {
-        var tempfile = io.system("mktemp").output;
-        for (var l of links) {
-            // var title = l.parentElement.parentElement.getAttribute('data-title');
-            dactyl.execute(`!echo "${l.href}\\\\n" >> ${tempfile}`)
-        }
-        dactyl.execute(`!roxterm -e zsh -c 'cd "${newdir}"; cat ${tempfile} | iselect -ma -kj:KEY_DOWN -kk:KEY_UP | while read -r x || [[ -n $x ]]; do wget $x; done; $SHELL'`);
-    }
-}
-
-function dlChoosePageLinks(dir=null) { dlChooseLinks(content.document.links, dir, buffer.title) }
-
-function openCBLinks() {
-    var s = dactyl.clipboardRead();
-    var links = s.split("\n").filter(s=>s.trim());
-    openListLinks(links);
-}
-
-function openListLinks(links, opts={where: dactyl.NEW_TAB}) {
-    links.forEach(link=>dactyl.open(link, opts));
-}
-
-function getSelectionLinks() { return Array.from(getSelectionDOM().links); }
-
-function openSelectionLinks(where="adjacent") { getSelectionLinks().forEach(l=>openOrSelectTab(l, where)); }
-
-function dlSelectionLinks(dir=null, subdir=null) { return dlLinks(getSelectionLinks(), dir, subdir); }
-
-/*
-    findLinks(href, options)
-    matching options:
-        exact_match:  match href exactly (if false, the link's href must include HREF)
-    additional action options:
-        scroll_into_view
-        dactyl_search_link
-    return-value options:
-        first_only:   return only the first result (if any)
-        text_content: return the textContent of item(s) only
- */
-function findLinks(href, options={}) {
-    var links = $$("a").filter(options.exact_match ? e=>e.href==href : e=>e.href.includes(href));
-    /* actions */
-    if (options.dactyl_search_link && links.length)
-        dactyl.execute(`feedkeys /${links[0].textContent}<CR>`);
-    if (options.scroll_into_view && links.length)
-        links[0].scrollIntoView();
-    /* return value */
-    if (options.text_content)
-        links = links.map(e=>e.textContent);
-    return options.first_only
-      ? links.length
-        ? links[0]
-        : (options.text_content ? "" : null)
-      : links;
-}
-EOF
-
-" ------------------------------------------------------------------------------- "
-" ,----------------,                                                              "
-" | Image Commands |                                                              "
-" '----------------'                                                              "
-map <leader>i -description "(show bindings: Misc/Images)" -js CommandExMode().open("showkeys <leader>i");
-map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
-
-" ,------------------------------------, "
-" | <leader>id -- Misc/Images/Diagrams | "
-" '------------------------------------' "
-map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
-map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"adjacent");
-
-" ,--------------------------------, "
-" | <leader>i -- Misc/Images/Hints | "
-" '--------------------------------' "
-map <leader>ii -description "(show bindings: Misc/Images/Hints)" -js CommandExMode().open("showkeys <leader>ii");
-map <leader>iif -description "Flip image horizontally [HINTS]" -js hints.show("ῑ");
-map <leader>iiF -description "Flip image vertically [HINTS]" -js hints.show("ί");
-map <leader>iii -description "Restore image (cancel transform) [HINTS]" -js hints.show("ɩ");
-map <leader>iim -description "Transform image using matrix [HINTS]" -b :imagematrix<Space>
-map <leader>iir -description "Resize image [HINTS]" -b :imageresize<Space>
-
-command! imageresize -description "Resize image [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ῐ");
-command! imagematrix -description "Transform image using matrix [HINTS]" -nargs 1 -js window._dactylargs=args; hints.show("Ϊ");
-
-" ,-----------------------------------, "
-" | <leader>ir -- Misc/Images/Replace | "
-" '-----------------------------------' "
-map <leader>ira -description "Replace images with alt text" -b :imagereplace<Space>
-
-command! imagereplace
-\    -description "Replace images in SEL with alt text"
-\    -nargs *
-\    -js $$("img", $$(args.join(" "))).forEach(e=>{dactyl.rc.appendElement("p",e.parentElement,{ innerText: e.alt }); e.remove()});
-
-" ,----------------------------------, "
-" | <leader>is -- Misc/Images/Search | "
-" '----------------------------------' "
-map <leader>is -description "(show bindings: Misc/Images/Search)" -js CommandExMode().open("showkeys <leader>is");
-map <leader>isr
-\    -description "TinEye reverse image search"
-\    -js openOrSelectTab("https://tineye.com/search/?url="+encodeURIComponent(buffer.URL), count?"adjacent":"here");
-
-" ,-------------------------------------, "
-" | <leader>it -- Misc/Images/Transform | "
-" '-------------------------------------' "
-map <leader>it -description "(show bindings: Misc/Images/Transform)" -js CommandExMode().open("showkeys <leader>it");
-map <leader>ite -description "Edit image with pinta" -ex shellcommandonurlfile pinta
-map <leader>itf -description "Flip image (URL) horizontally" -js imageTransform("flop");
-map <leader>itF -description "Flip image (URL) vertically" -js imageTransform("flip");
-map <leader>ito -description "ImgOps (URL)" -js openOrSelectTab("https://imgops.com/" + buffer.URL, count?"adjacent":"here");
-map <leader>itt -description "Apply image transformation with mogrify" -b :imagetransform<Space>
-map <leader>itr -description "Rotate image (URL) by Θ degrees" -b :imagerotate<Space>
-
-command! imagerotate -description "Rotate image (URL) by Θ degrees" -nargs 1 -js imageTransform("rotate "+args[0]);
-command! imagetransform
-\    -description "transform image (URL) with mogrify"
-\    -nargs +
-\    -js imageTransform(...args)
-
-js <<EOF
-function imageTransform(...ops) {
-    var name = buffer.URL.split("/").pop();
-    var tempdir = io.system("mktemp -d").output;
-    var path = tempdir+"/"+name;
-    dactyl.execute(`saveas ${path.replace(" ", "\ ")}`);
-    " ops = arguments to mogrify, eg. 'flip' (V reflect), 'flop' (H reflect), 'rotate DEG' ";
-    io.system(`mogrify ${ops.map(s=>`-${s}`).join(" ")} '${path}'`);
-    dactyl.open("file://"+path);
-}
-EOF
-
-" ,--------------------------------, "
-" | <leader>iv -- Misc/Images/View | "
-" '--------------------------------' "
-map <leader>iv -description "(show bindings: Misc/Images/View)" -js CommandExMode().open("showkeys <leader>iv");
-map <leader>ivv
-\    -description "View all images"
-\    -ex open javascript:document.write("<center>"%20+%20Array.from(document.images).map(i=>`<img%20src=${i.src}%3E`).join("<br>")%20+%20"</center>");%20document.close();void(0);
-map <leader>ivV
-\    -description "View all images (compact)"
-\    -ex open javascript:document.write(Array.from(document.images).map(i=>`<img%20src=${i.src}%3E`).join(""));%20document.close();void(0);
-
-" ------------------------------------------------------------------------------- "
-" ,---------------,                                                               "
-" | Text Encoding |                                                               "
-" '---------------'                                                               "
-"command! encuni :execute "emenu View.Text Encoding.Unicode"
-"command! encjis :execute "emenu View.Text Encoding.Japanese (Shift_JIS)"
-command! encuni :emenu View.Text Encoding.Unicode
-command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
-command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
-
-map <leader>xe
-\    -description "(show bindings: Text Encodings)"
-\    -js CommandExMode().open("showkeys <leader>xe")
-map <leader>xeu -ex emenu View.Text Encoding.Unicode
-
-" ------------------------------------------------------------------------------- "
-" ,----------------,                                                              "
-" | Table Commands |                                                              "
-" '----------------'                                                              "
-map <leader>x
-\    -description "(show bindings: Misc/Tables)"
-\    -js CommandExMode().open("showkeys <leader>x")
-map <leader>xt      -js CommandExMode().open("showkeys <leader>xt")
-
-map <leader>xtc
-\     -description "Copy table columns (omit rows with too few columns)"
-\     -b :copytablecols-strict<Space>
-map <leader>xtC
-\     -description "Copy table columns"
-\     -b :copytablecols<Space>
-map <leader>xti -description "Replace table images with alt text" -ex imagereplace td
-map <leader>xtn -description "Show number of rows in table (HINTS)" -js hints.show("τ");
-map <leader>xtd -description "Delete given columns from all tables." :tableDeleteColumns<Space>
-map <leader>xtw -description "Toggle table-widen style" -ex styletoggle -name table-widen
-map <leader>xtW
-\    -description "Toggle table-wrap style (wrap text in cells)" styletoggle -name table-wrap
-\    -ex tablewrap
-map <leader>xt, -description "Convert table data to CSV" -ex table2csv
-map <leader>xt/
-\     -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
-\     :filtertablerows<Space>
-
-" Table2CSV
-" table2csv JS from https://snipt.net/whiskybar/ (via http://marklets.com/CSV from HTML tables.aspx)
-command! table2csv
-\     -description "Convert table contents to CSV in box under table"
-\     :open javascript:(function(){$('table').each(function(){var%20$table=$(this);$('<textarea>').css('width',$table.width()).css('height','400px').html($.map($table.find('tr'),function(tr){return%20$.map($(tr).find('th,%20td'),function(e){return'"'+$(e).text().replace('"','""').replace('\n','%20')+'"'}).join(',')}).join('&#13;&#10;')).insertAfter($table);})})()
-command! yanktablecsvarea
-\     -description "Yank the contents of table N's CSV. Use after :table2csv"
-\     -nargs=1
-\     -js yankTableCSVArea(Number(args[0])-1);
-
-command! filtertablerows
-\     -description "Filter Table Rows with function (arguments are the contents of each cell as strings)"
-\     -complete javascript
-\     -nargs=1
-\     -js dactylArgsSet(args); hints.show('Ⓣ');
-
-command! copytablecols
-\     -description "Copy specified columns from table chosen by HINT"
-\     -nargs=*
-\     -js dactylArgsSet(args); hints.show('ŧ');
-
-command! copytablecols-strict
-\     -description "Copy specified columns from table chosen by HINT (omit rows with too few columns)"
-\     -nargs=*
-\     -js dactylArgsSet(args); hints.show('Ŧ');
-
-command! tableDeleteColumns
-    \ -description "Delete given columns from all tables."
-    \ -nargs=*
-    \ -js tableDeleteCols(args.map(parseInt));
-
-" Table styles "
-style -name=table-widen
-    \ file://*
-    \ body { max-width: 250em !important; }
-style -name=table-wrap
-    \ file://*
-    \ td:first-of-type { white-space: pre-wrap !important; }
-
-js <<EOF
-function yankTableCSVArea(n) {
-    var tareas = content.document.querySelectorAll('table+textarea');
-    var contents = tareas[n].textContent;
-    utils.cbWriteWithMessageLimit(contents);
-}
-
-function tableDeleteCols(cols) {
-    var tables = content.document.getElementsByTagName('table');
-    for (var t of Array.from(tables))
-        for (var r of Array.from(t.rows))
-            for (var i of cols) {
-                var cell = r.children[i];
-                if (cell) cell.remove();
-            }
-}
-
-function tableFilterRows(table, filter) {
-    /* first row is column headings */
-    /* filter takes one argument for each column */
-    var rows = Array.from(table.rows).slice(1);
-    for (var row of rows) {
-        var cells = Array.from(row.cells);
-        var cellsText = cells.map(c=>c.innerText);
-        if (!filter.apply(null, cellsText))
-            row.remove();
-    }
-}
-
-function tableToCSV(table) {
-    var output = "";
-    for (row of table.rows) {
-        var cells = Array.from(row.cells);
-        var cellstrs = cells.map(cell=>`"${cell.innerText}"`);
-        output += cellstrs.join(", ") + "\n";
-    }
-    return output;
-}
-
-function CopyTableAsCSV(table) {
-    var csv = tableToCSV(table);
-    utils.cbWriteWithMessageLimit(csv);
-}
-
-function CopyTableAsCSVbySelector(sel) {
-    var table = content.document.querySelector(sel);
-    var csv = tableToCSV(table);
-    utils.cbWriteWithMessageLimit(csv);
-}
-
-function extractTableColumns(table, columns, strict=false) {
-    var output = "";
-    var rows = Array.from(table.rows).slice(1);
-    var n = rows[0].cells.length;
-    for (var row of rows) {
-        var cells = Array.from(row.cells);
-        if (strict && cells.length < Math.max.apply(null, columns))
-            continue;
-        function processCols(i) {
-            if (i < 0) { i = n+1-i; }
-            var cellValue = cells[i-1] && cells[i-1].innerText.trim();
-            if ( typeof(cellValue)=="string" &&
-                 cellValue.startsWith('"') &&
-                 cellValue.endsWith('"') )
-                cellValue = cellValue.slice(1, -1).trim();
-            return cellValue;
-        }
-        var colstrs = Array.from(columns).map(processCols);
-        output += colstrs.join("\t") + "\n";
-    }
-    return output;
-}
-
-function copySpecifiedTableColumns(table, strict=false) {
-    var extracted = extractTableColumns(table, window._dactylargs, strict);
-    var result = extracted.replace(/\n\s*\n/mg, '\n');
-    utils.cbWriteWithMessageLimit(result);
-}
-
 EOF
 
 
