@@ -4591,12 +4591,12 @@ command! tc
     \ -description "close tab range [START, END]"
     \ -nargs=+
     \ -complete buffer
-    \ -js utils.message(tabCloseOrdRangeInclusiveBidirectional(args[0], args[1]));
+    \ -js utils.tabsClosedMessage(tabCloseOrdRangeInclusiveBidirectional(args[0], args[1]));
 command! tcx
     \ -description "close tab range [START, END)"
     \ -nargs=+
     \ -complete buffer
-    \ -js utils.message(tabCloseOrdRangeExclusiveBidirectional(args[0], args[1]));
+    \ -js utils.tabsClosedMessage(tabCloseOrdRangeExclusiveBidirectional(args[0], args[1]));
 
 " filter tabs "
 command! tabfilter
@@ -4674,6 +4674,7 @@ function tabCloseNToLeft(n=null) {
     var numToClose = (n==null) ? tabIndex : n;
     tabs.select(-numToClose);
     tabs.remove(tabs.getTab(), numToClose);
+    return utils.tabsClosedMessage(numToClose);
 }
 function tabCloseNToRight(n=null) {
     var tabOrdinal = tabs.getTab().dactylOrdinal;
@@ -4681,6 +4682,7 @@ function tabCloseNToRight(n=null) {
     var N = tabs.allTabs.length;
     var numToClose = (n==null) ? N-tabOrdinal : n;
     tabs.remove(tabs.getTab(), numToClose);
+    return utils.tabsClosedMessage(numToClose);
 }
 
 function tabCloseOrdRange(firstOrd, endOrd) {
@@ -4696,7 +4698,7 @@ function tabCloseOrdRange(firstOrd, endOrd) {
     endOrd = tabNormalizeOrdinal(endOrd);
     endSpecInc = endOrd -1;        /* ord  -> idx */
     endSpecExc = endSpecInc +1;    /* incl -> excl */
-    utils.closeTabsFromTo(firstSpec, endSpecExc, spec='');
+    utils.closeTabsFromTo(firstSpec, endSpecExc, spec='', {'message':true});
     if (toEnd) tabs.remove(tabs.getTab());
 }
 
@@ -4728,7 +4730,7 @@ function tabCloseOrdRangeInclusiveBidirectional(ordA, ordB=".") {
     else
         tabs.select(initIdx);
 
-    return n;
+    return utils.tabsClosedMessage(n);
 }
 
 function tabCloseOrdRangeExclusiveBidirectional(ordA, ordB=".") {
@@ -4757,10 +4759,10 @@ function tabCloseOrdRangeExclusiveBidirectional(ordA, ordB=".") {
     else
         tabs.select(initIdx);
 
-    return n;
+    return utils.tabsClosedMessage(n);
 }
 function tabCloseFromHereToOrd(endOrd) {
-    tabCloseOrdRange(gBrowser.mCurrentTab.dactylOrdinal, parseInt(endOrd));
+    return tabCloseOrdRange(gBrowser.mCurrentTab.dactylOrdinal, parseInt(endOrd));
 }
 function tabIdxToOrd (idx) { return idx+1; }
 function tabOrdToIdx (ord) { return ord-1; }
@@ -4799,8 +4801,8 @@ function tabCloseRanges(...ss) {
     var initTab = tabs.getTab();
     var tabnums = parseRanges(tabRangePreprocess(ss.join(",")));
     tabnums.sort((a,b)=>a<b).forEach(i=>tabs.remove(tabs.getTab(i-1)));
-    utils.message(`${tabnums.length} tabs closed`);
     if (!isNaN(initTab.dactylOrdinal)) tabs.select(initTab);
+    return utils.tabsClosedMessage(tabnums.length);
 }
 
 function tabRemove(f) {
@@ -4819,7 +4821,7 @@ function tabRemove(f) {
     var N_closed = N_0 - tabCount();
     tabs.select(isNaN(currentTab.dactylOrdinal) ? currentOrd : currentTab);
     utils.message(`${N_closed} tabs closed`);
-    return N_closed;
+    return utils.tabsClosedMessage(N_closed);
 }
 
 function tabFilter(f) {
@@ -4869,8 +4871,7 @@ function tabRemoveWhile(f, directions=["forward", "reverse"]) {
     toRemove.forEach(t => tabs.remove(t));
 
     var N_closed = toRemove.length;
-    utils.message(`${N_closed} tabs closed`);
-    return N_closed;
+    return utils.tabsClosedMessage(N_closed);
 }
 
 function tabCloseDuplicates(exact=true) {
@@ -4904,7 +4905,7 @@ function tabCloseDuplicates(exact=true) {
         tabs.remove(tabs.getTab(currentIdx+1), n2);
         tabs.remove(tabs.getTab(firstIdx), n1);
         tabs.select(tabs.getTab(firstIdx));
-        utils.message(`${n} tabs closed`);
+        return utils.tabsClosedMessage(n);
     }
 }
 
@@ -4925,7 +4926,7 @@ function tabCloseAdjacentMatchingDomain(url=buffer.URL) {
     if (n > 0) {
         tabs.remove(tabs.getTab(firstIdx), n);
         tabs.select(tabs.getTab(firstIdx));
-        utils.message(`${n} tabs closed`);
+        return utils.tabsClosedMessage(n);
     }
 }
 
@@ -4949,6 +4950,7 @@ function tabsRemoveWithDMenu() {
         tabs.select(initTab);
     else
         tabs.select(initIdx);
+    return utils.tabsClosedMessage(tabnums.length);
 }
 
 function tabsFilterWithDMenu() {
@@ -4966,6 +4968,7 @@ function tabsFilterWithDMenu() {
         tabs.select(initTab);
     else
         tabs.select(initIdx);
+    return utils.tabsClosedMessage(tabnumsToRemove.length);
 }
 EOF
 

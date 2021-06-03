@@ -11,48 +11,63 @@ var utils = {
 
 // =============================================================================
 
+// ,------,
+// | tabs |
+// '------'
+
     tabNumber: function () { return tabs.getTab().dactylOrdinal; },
 
+    tabsClosedMessage: function (n) {
+        this.message(`${n} tabs closed`);
+        return n;
+    },
+
     // closes tab spec and all to left
-    closeTabsTo: function (spec='') {
+    closeTabsTo: function (spec='', options={}) {
         //spec = (typeof(spec)==="undefined") ? '' : tabs.getTab(spec);
         var targetIx = tabs.indexFromSpec(spec);
         var firstTab = tabs.getTab(0);
         var numToClose = targetIx + 1;
         tabs.remove(firstTab, numToClose);
+        if (options.message) return this.tabsClosedMessage(numToClose);
+        else return numToClose;
     },
 
     // closes tab spec and all to right
-    closeTabsFrom: function (spec='') {
+    closeTabsFrom: function (spec='', options={}) {
         //spec = (typeof(spec)==="undefined") ? '' : tabs.getTab(spec);
         var targetIx = tabs.indexFromSpec(spec);
         var target = tabs.getTab(targetIx);
         var N = tabs.allTabs.length;
         var numToClose = N - targetIx;
         tabs.remove(target, numToClose);
+        if (options.message) return this.tabsClosedMessage(numToClose);
+        else return numToClose;
     },
 
-    closeTabsFromTo: function (firstSpec, endSpecExc, spec='') {
+    closeTabsFromTo: function (firstSpec, endSpecExc, spec='', options={}) {
 	      var firstIx = tabs.indexFromSpec(firstSpec);
 	      var endIx = tabs.indexFromSpec(endSpecExc);
 	      var firstTab = tabs.getTab(firstIx);
 	      var N = endIx - firstIx;
 	      tabs.remove(firstTab, N);
-        return N;
+        if (options.message) return this.tabsClosedMessage(N);
+        else return N;
     },
 
-    closeTabsFromToInclusive: function (firstSpec, endSpecExc, spec='') {
+    closeTabsFromToInclusive: function (firstSpec, endSpecExc, spec='', options={}) {
 	      var firstIx = tabs.indexFromSpec(firstSpec);
 	      var endIx = tabs.indexFromSpec(endSpecExc);
 	      var firstTab = tabs.getTab(firstIx);
 	      var N = endIx - firstIx + 1;
 	      tabs.remove(firstTab, N);
-        return N;
+        if (options.message) return this.tabsClosedMessage(N);
+        else return N;
     },
 
     numberOfTabs: function () { return tabs.allTabs.length; },
 
-    removeTab: function (ord) {
+    removeTab: function (ord, options={}) {
         var currT = gBrowser.selectedTab;
         var altT = tabs.alternate;
         tabs.remove(tabs.getTab(ord-1));
@@ -60,9 +75,17 @@ var utils = {
         gBrowser.selectedTab = currT;
     },
 
-    removeNTabsByOrd: function (ord, n) { tabs.remove(tabs.getTab(ord-1), n); return n; },
+    removeNTabsByOrd: function (ord, n, options={}) {
+        tabs.remove(tabs.getTab(ord-1), n); return n;
+        if (options.message) return this.tabsClosedMessage(n);
+        else return n;
+    },
 
     moveTab: function (fromOrd, toOrd) { tabs.move(tabs.getTab(fromOrd-1), toOrd); },
+
+// ,------,
+// | misc |
+// '------'
 
     withOption: function (opt, val) { var origVal = options.get(opt); },
 
