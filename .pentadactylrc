@@ -10754,40 +10754,41 @@ EOF
 command! handprint
 \    -nargs=*
 \    -bang
-\    -js openOrSelectHandprintUrl(bang ? "here" : "tab", ...args);
+\    -js openOrSelectHandprintUrl(bang ? "here" : "adjacent", ...args);
 
 map <f9> <handprint>
-map <handprint>      -description "(show bindings)" -js CommandExMode().open("showkeys <handprint>")
+map <handprint> -description "(show bindings: Handprint)" -js CommandExMode().open("showkeys <handprint>")
+map <handprint>h -description "Open handprint page" -js CommandExMode().open("handprint"+(count?"! ":" "));
 map <handprint>m
-\    -description "Open handprint guide: magenta here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterc.html");
+\    -description "Open handprint guide: magenta in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/waterc.html", { where: count?"here":"adjacent" });
 map <handprint>r
-\    -description "Open handprint guide: red here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterr.html");
+\    -description "Open handprint guide: red in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/waterr.html", { where: count?"here":"adjacent" });
 map <handprint>o
-\    -description "Open handprint guide: orange here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/watero.html");
+\    -description "Open handprint guide: orange in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/watero.html", { where: count?"here":"adjacent" });
 map <handprint>e
-\    -description "Open handprint guide: earth here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/watere.html");
+\    -description "Open handprint guide: earth in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/watere.html", { where: count?"here":"adjacent" });
 map <handprint>y
-\    -description "Open handprint guide: yellow here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/watery.html");
+\    -description "Open handprint guide: yellow in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/watery.html", { where: count?"here":"adjacent" });
 map <handprint>g
-\    -description "Open handprint guide: green here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterg.html");
+\    -description "Open handprint guide: green in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/waterg.html", { where: count?"here":"adjacent" });
 map <handprint>b
-\    -description "Open handprint guide: blue here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterb.html");
+\    -description "Open handprint guide: blue in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/waterb.html", { where: count?"here":"adjacent" });
 map <handprint>v
-\    -description "Open handprint guide: violet here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterv.html");
+\    -description "Open handprint guide: violet in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/waterv.html", { where: count?"here":"adjacent" });
 map <handprint>k
-\    -description "Open handprint guide: white/black here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterw.html");
+\    -description "Open handprint guide: white/black in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/waterw.html", { where: count?"here":"adjacent" });
 map <handprint>w
-\    -description "Open handprint guide: white/black here"
-\    -js dactyl.open("https://www.handprint.com/HP/WCL/waterw.html");
+\    -description "Open handprint guide: white/black in adjacent tab (COUNT: current tab)"
+\    -js pageOpen("https://www.handprint.com/HP/WCL/waterw.html", { where: count?"here":"adjacent" });
 
 " =====GROUP START=====
 
