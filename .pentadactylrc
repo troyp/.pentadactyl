@@ -10887,13 +10887,17 @@ command! jacksonsartSearch
 \    -description "Search in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
-\    -js (bang ? tabOpenURLAdjacent : dactyl.open)( "https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" ") );
+\    -js pageOpen(
+\            "https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" "),
+\            { where: bang?"here":"adjacent" }
+\        );
 command! jacksonsartSearchWatercolour
 \    -description "Search for watercolour in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
-\    -js (bang ? tabOpenURLAdjacent : dactyl.open)(
-\            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" ")
+\    -js pageOpen(
+\            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" "),
+\            { where: bang?"here":"adjacent" }
 \        );
 command! jacksonsartCartSearch
 \    -description "Find items matching search term in cart"
@@ -10991,10 +10995,10 @@ map <site>c -description "Go (cart: checkout; orders page: view most recent)" -j
 map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
 map <site>N -description "Count matching items in cart" :jacksonsartCartCountMatching<Space>
 
-map <site>o      -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
+map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc
 \    -description "Goto cart"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", count?"here":"adjacent");
 map <site>h -description "Goto handprint page" -b :handprint<Space>
 
 map <site>m -description "(show bindings: Jacksons/Modify)" -js CommandExMode().open("showkeys <site>m");
@@ -11005,7 +11009,7 @@ map <site>mce
 
 map <site>oo
 \    -description "Goto orders"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sales/order/history/", count?"here":"adjacent");
 map <site>oO
 \    -description "View latest order"
 \    -js jacksonsGoToOrder(count||1, "here");
@@ -11014,13 +11018,13 @@ map <site>o<C-o>
 \    -js jacksonsGoToOrder(count||1, "adjacent");
 map <site>ol
 \    -description "Goto login"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"here":"adjacent");
 map <site>os
 \    -description "Goto shipping information"
-\    -js jacksonsartShowShippingInfo(count?"tab":"here");
+\    -js jacksonsartShowShippingInfo(count?"here":"adjacent");
 map <site>ow
 \    -description "Goto wishlist"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"here":"adjacent");
 map <site>o1 -description "Goto tab Info" -js clickSelectorByText("li>a", /^Info\|$/);
 map <site>o2 -description "Goto tab Q&A" -js clickSelectorByText("li>a", /^Q&A \(\d+\)\|$/);
 map <site>o3 -description "Goto tab Spec" -js clickSelectorByText("li>a", /^Spec\|$/);
@@ -11029,59 +11033,59 @@ map <site>o4 -description "Goto tab Reviews" -js clickSelectorByText("li>a", /^R
 map <site>p -description "(show bindings: Pencil Ranges)" -js CommandExMode().open("showkeys <site>p")
 map <site>pbd
 \    -description "Bruynzeel Design pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/bruynzeel-design-colour-pencils", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/bruynzeel-design-colour-pencils", count?"here":"adjacent");
 map <site>pcl
 \    -description "Caran d'Ache Luminance pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-luminance-colour-pencils", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-luminance-colour-pencils", count?"here":"adjacent");
 map <site>pcn
 \    -description "Caran d'Ache Neocolor I crayons"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-classic-neocolor-i", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-classic-neocolor-i", count?"here":"adjacent");
 map <site>pcp
 \    -description "Caran d'Ache Pablo pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-pablo-pencils", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-pablo-pencils", count?"here":"adjacent");
 map <site>pdc
 \    -description "Derwent Coloursoft pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-coloursoft-pencils-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-coloursoft-pencils-au", count?"here":"adjacent");
 map <site>pdl
 \    -description "Derwent Lightfast pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-lightfast-colour-pencil-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-lightfast-colour-pencil-au", count?"here":"adjacent");
 map <site>pdp
 \    -description "Derwent Procolour pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-procolour-colour-pencils-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-procolour-colour-pencils-au", count?"here":"adjacent");
 map <site>pds
 \    -description "Derwent Studio pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-studio-pencil-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-studio-pencil-au", count?"here":"adjacent");
 map <site>pha
 \    -description "Holbein Artists' pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/holbein-artists-pencil", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/holbein-artists-pencil", count?"here":"adjacent");
 map <site>ppc
 \    -description "Faber Castell Polychromos pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-polychromos-pencils", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-polychromos-pencils", count?"here":"adjacent");
 map <site>p; -description "(show bindings: Watersoluble Pencil Ranges)" -js CommandExMode().open("showkeys <site>p;")
 map <site>p;cn
 \    -description "Caran d'Ache Neocolor II crayons"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-neocolor-ii-artists-watercolour-crayons", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-dache-neocolor-ii-artists-watercolour-crayons", count?"here":"adjacent");
 map <site>p;cm
 \    -description "Caran d'Ache Museum Aquarelle pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-museum-aquarelle-pencils", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-museum-aquarelle-pencils", count?"here":"adjacent");
 map <site>p;cs
 \    -description "Caran d'Ache Supracolor Soft pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-supracolor-soft-watersoluble-artist-s-pencils", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/caran-d-ache-supracolor-soft-watersoluble-artist-s-pencils", count?"here":"adjacent");
 map <site>p;fa
 \    -description "Faber Castell Albrecht Dürer pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-albrecht-durer-watercolour-pencils-78151", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-albrecht-durer-watercolour-pencils-78151", count?"here":"adjacent");
 map <site>p;fA
 \    -description "Faber Castell Albrecht Dürer Magnus pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-albrecht-durer-magnus-watercolour-pencils", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/faber-castell-albrecht-durer-magnus-watercolour-pencils", count?"here":"adjacent");
 map <site>p;dw
 \    -description "Derwent Watercolour pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-watercolour-pencils-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-watercolour-pencils-au", count?"here":"adjacent");
 map <site>p;di
 \    -description "Derwent Inktense pencils"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-pencil-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-pencil-au", count?"here":"adjacent");
 map <site>p;dI
 \    -description "Derwent Inktense blocks"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-blocks-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-blocks-au", count?"here":"adjacent");
 
 map <site>s -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
 map <site>sc -description "Find items matching search term in cart" -b :jacksonsartCartSearch<Space>
@@ -11090,24 +11094,24 @@ map <site>ss
 \    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
 map <site>sS
 \    -description "Search (new tab)"
-\    -b :jacksonsartSearch<Space>
+\    -b :jacksonsartSearch!<Space>
 map <site>sw
 \    -description "Search Watercolour"
 \    -js CommandExMode().open("jacksonsartSearchWatercolour"+(count?"! ":" "));
 map <site>sW
 \    -description "Search Watercolour (new tab)"
-\    -b :jacksonsartSearchWatercolour<Space>
+\    -b :jacksonsartSearchWatercolour!<Space>
 map <site>s;w
 \    -description "Search watercolour for clipboard text (default: current tab)"
 \    -js dactyl.execute("jacksonsartSearchWatercolour"+(count?"! ":" ")+readFromClipboard());
 map <site>s;W
 \    -description "Search watercolour for clipboard text (new tab)"
-\    -b :jacksonsartSearchWatercolour<Space>
+\    -js dactyl.execute("jacksonsartSearchWatercolour! "+readFromClipboard());
 map <site>;s
 \    -description "Search for clipboard text (default: current tab)"
 \    -js openOrSelectTab(
 \            `https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`,
-\            count?"adjacent":"here"
+\            count?"here":"adjacent"
 \        );
 map <site>;S
 \    -description "Search for clipboard text (new tab)"
@@ -11137,17 +11141,17 @@ map <site>v
 map <site>w -description "(show bindings: Watercolour Ranges)" -js CommandExMode().open("showkeys <site>w")
 map <site>wds
 \    -description "Daniel Smith watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/daniel-smith-watercolour-paints", count?"here":"adjacent");
 map <site>wsc
 \    -description "Schmincke watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/schmincke-horadam-watercolour-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/schmincke-horadam-watercolour-au", count?"here":"adjacent");
 map <site>wse
 \    -description "Sennelier watercolours"
-\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sennelier-watercolour-au", count?"adjacent":"here");
+\    -js openOrSelectTab("https://www.jacksonsart.com/en-au/sennelier-watercolour-au", count?"here":"adjacent");
 map <site>wwn
 \    -description "Winsor & Newton watercolours"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/winsor-newton-professional-watercolour",
-\                         count?"adjacent":"here",
+\                         count?"here":"adjacent",
 \                         /^https:\/\/www.jacksonsart.com\/en-au\/winsor-newton-professional-watercolour$/);
 
 map <site>yc
