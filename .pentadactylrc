@@ -4366,9 +4366,12 @@ map <buffer>dt   -description "(show bindings: Delete tabs/delete to)"
 \    -js CommandExMode().open("showkeys <buffer>dt")
 map <buffer>dtt  -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dtx  -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
-map <buffer>du   -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
-map <buffer>dU   -description "Close all adjacent tabs with matching domain" -js tabCloseAdjacentMatchingDomain();
 map <buffer>dw   -description "Close window unless last"
+map <buffer>du -description "(show bindings: Tabs/Delete/Url)" -js CommandExMode().open("showkeys <buffer>du");
+map <buffer>du= -description "Close all duplicates of current tab" -js tabCloseMatchingURLs(buffer.URL, Infinity, true);
+map <buffer>du+ -description "Close all duplicates adjacent to current tab" -js tabCloseAdjacentMatchingURLs(buffer.URL, Infinity, true);
+map <buffer>dud -description "Close all tabs with matching domain" -js tabCloseMatchingURLs(buffer.URL, 1, true);
+map <buffer>duD -description "Close all adjacent tabs with matching domain" -js tabCloseAdjacentMatchingURLs(buffer.URL, 1, true);
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
 map <buffer>d<Space>  -description "Close tabs selected via popup menu" -js tabsRemoveWithDMenu();
 map <buffer>d;<Space> -description "Keep only tabs selected via popup menu" -js tabsFilterWithDMenu();
@@ -4527,6 +4530,23 @@ function tabPreviousMatchingDomain(n=1, ignoreSubdomains=true) {
         current = matching.find(t=>t._tPos<current._tPos) || matching[0];
     }
     tabs.select(current);
+}
+function tabFirstAdjacentMatchingDomain(dropSubdomains=0) {
+    var url = buffer.URL;
+    var domain = urlDomainOrProtocol(url, dropSubdomains);
+    var currentTab = tabs.getTab();
+    var currentIdx = currentTab.dactylOrdinal - 1;
+    for (var i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL.match(domain); --i);
+    tabs.select(i+1);
+}
+function tabLastAdjacentMatchingDomain(dropSubdomains=0) {
+    var url = buffer.URL;
+    var domain = urlDomainOrProtocol(url, dropSubdomains);
+    var N = tabs.allTabs.length - 1;
+    var currentTab = tabs.getTab();
+    var currentIdx = currentTab.dactylOrdinal - 1;
+    for (var i=currentIdx; i<N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL.match(domain); ++i);
+    tabs.select(i+1);
 }
 EOF
 
@@ -4874,7 +4894,15 @@ function tabRemoveWhile(f, directions=["forward", "reverse"]) {
     return utils.tabsClosedMessage(N_closed);
 }
 
-function tabCloseDuplicates(exact=true) {
+function tabCloseMatchingURLs(url=buffer.URL, levels=Infinity, excludeCurrent=false) {
+    if (excludeCurrent)
+        f = (t, n, n0)=> n!=n0 && urlGetNthFromRootPath(levels, t.URL)==urlGetNthFromRootPath(levels, url);
+    else
+        f = (t, n, n0)=> urlGetNthFromRootPath(levels, t.URL)==urlGetNthFromRootPath(levels, url);
+    return tabRemove(f);
+}
+
+function tabCloseAdjacentMatchingURLs(url=buffer.URL, levels=Infinity, excludeCurrent=false) {
     " if exact is false, treat adjacents with same domain as duplicates ";
     var url = buffer.URL;
     var N = tabs.allTabs.length - 1;
@@ -4882,19 +4910,20 @@ function tabCloseDuplicates(exact=true) {
     var currentIdx = currentTab.dactylOrdinal - 1;
     var i, firstIdx, lastIdx;
     try {
-        if (exact) {
-            for (i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL==url; --i);
-            firstIdx = i;
-            for (i=currentIdx; i<=N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL==url; ++i);
-            lastIdx = i;
-        } else {
-            for (i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); --i);
-            firstIdx = i;
-            for (i=currentIdx; i<=N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); ++i);
-            lastIdx = i;
-        }
+        for (
+            i=currentIdx;
+            i>=0 && urlsMatchToNthLevel(levels, tabs.getTab(i-1).linkedBrowser.contentDocument.URL, url);
+            --i
+        );
+        firstIdx = i;
+        for (
+            i=currentIdx;
+            i<=N && urlsMatchToNthLevel(levels, tabs.getTab(i+1).linkedBrowser.contentDocument.URL, url);
+            ++i
+        );
+        lastIdx = i;
     } catch(error) {
-        utils.message(`tabCloseDuplicates() ERROR: i=${i}, N=${N}`);
+        utils.message(`tabCloseAdjacentMatchingURLs() ERROR: i=${i}, N=${N}`);
         throw error;
     }
     var n1 = currentIdx - firstIdx;
@@ -4905,29 +4934,12 @@ function tabCloseDuplicates(exact=true) {
         tabs.remove(tabs.getTab(currentIdx+1), n2);
         tabs.remove(tabs.getTab(firstIdx), n1);
         tabs.select(tabs.getTab(firstIdx));
-        return utils.tabsClosedMessage(n);
     }
-}
-
-function tabCloseAdjacentMatchingDomain(url=buffer.URL) {
-    var N = tabs.allTabs.length - 1;
-    var currentTab = tabs.getTab();
-    var currentIdx = currentTab.dactylOrdinal - 1;
-    var i, firstIdx, lastIdx;
-    try {
-        for (i=currentIdx; i>=0 && tabs.getTab(i-1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); --i);
-        firstIdx = i;
-        for (i=currentIdx; i<=N && tabs.getTab(i+1).linkedBrowser.contentDocument.URL.match(urlDomainOrProtocol(url)); ++i);
-        lastIdx = i;
-    } catch(error) {
-        utils.message(`i=${i}, N=${N}`);
+    if (!excludeCurrent && urlsMatchToNthLevel(levels, currentTab.linkedBrowser.contentDocument.URL, url)) {
+        currentTab.remove();
+        ++n;
     }
-    var n = lastIdx - firstIdx +1;
-    if (n > 0) {
-        tabs.remove(tabs.getTab(firstIdx), n);
-        tabs.select(tabs.getTab(firstIdx));
-        return utils.tabsClosedMessage(n);
-    }
+    return utils.tabsClosedMessage(n);
 }
 
 function tabCloseAlternate() {
