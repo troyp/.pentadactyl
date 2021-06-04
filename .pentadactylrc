@@ -11630,11 +11630,11 @@ map <site>tsd -description "Toggle heavy/light kanji style (definitions)" -ex st
 map <site>tsl -description "Toggle large kanji style (definitions)" -ex styletoggle -name jisho-large-kanji-style
 map <site>tss -description "Toggle heavy/light kanji style (kanji details)" -ex styletoggle -name jisho-kanji-page-kanji-style
 
-map <site>te -description "Toggle between sentences page and regular results" -ex jishotogglesentences
-map <site>tk -description "Toggle between kanji page and regular results" -ex jishotogglekanji
-map <site>tl -description "Toggle all link lists" -ex jishotogglelinklists
-map <site>tr -description "Toggle kanji radical input dialog" -ex jishotoggleradicalinput
-map <site>tR -description "Toggle between kana and romaji" -ex jishotoggleromaji
+map <site>te -description "Toggle between sentences page and regular results" -js jishoToggleSentences()
+map <site>tk -description "Toggle between kanji page and regular results" -js jishoToggleKanji()
+map <site>tl -description "Toggle all link lists" -js jishoToggleAllLinkULs()
+map <site>tr -description "Toggle kanji radical input dialog" -js jishoToggleRadicalInput()
+map <site>tR -description "Toggle between kana and romaji" -js jishoToggleRomaji()
 
 " <site>y  --  Yank "
 map <site>y -description "(show bindings Jisho/Yank)" -js CommandExMode().open("showkeys <site>y")
@@ -11654,41 +11654,17 @@ map [[
 
 map -modes insert,command-line <A-k> <Space>#kanji
 
-" ----------------- "
-" jishotoggleromaji "
-" ----------------- "
 js <<EOF
-
-var jishoToggleRomaji = function() {
-    var url = buffer.URL;
-    var romtag = "%23romaji";
-    if (url.includes(romtag))
-        newurl = url.replace(romtag,"");
-    else
-        newurl = `${url}%23romaji`;
-    dactyl.open(newurl);
+function jishoToggleRomaji(where="here") {
+    pageOpen(toggleUrlSuffix(buffer.URL, "%23romaji"), {where: where});
 }
 
-var jishoToggleKanji = function() {
-    var url = buffer.URL;
-    var kanjitag = "%23kanji";
-    if (url.includes(kanjitag))
-        newurl = url.replace(kanjitag,"");
-    else
-        newurl = `${url} ${kanjitag}`;
-    dactyl.open(newurl);
+function jishoToggleKanji(where="here") {
+    pageOpen(toggleUrlSuffix(buffer.URL, "%23kanji"), {where: where});
 }
-
-var jishoToggleSentences = function() {
-    var url = buffer.URL;
-    sentencetag = "%23sentences";
-    if (url.includes(sentencetag))
-        newurl = url.replace(sentencetag,"");
-    else
-        newurl = `${url} ${sentencetag}`;
-    dactyl.open(newurl);
+function jishoToggleSentences(where="here") {
+    pageOpen(toggleUrlSuffix(buffer.URL, "%23sentences"), {where: where});
 }
-
 var jishoToggleRadicalInput = function() {
     var radicalButton = content.document.getElementById("radical_button");
     radicalButton.click();
@@ -11764,7 +11740,6 @@ function jishoUnsetUniversalLongRepresentation() {
 function jishoToggleUniversalLongRepresentation() {
     jishoUnsetUniversalLongRepresentation() || jishoSetUniversalLongRepresentation();
 }
-
 EOF
 
 " adds/removes #romaji tag to toggle between kana and romaji: "
@@ -11772,26 +11747,6 @@ EOF
 command! jishoyanksearchterm
     \ -description "Yank search term to clipboard"
     \ -js dactyl.utils.yankWithMsg(jishoGetCorrectedSearchText());
-
-command! jishotoggleromaji
-     \ -description "Toggle between kana and romaji"
-     \ -js jishoToggleRomaji();
-
-command! jishotoggleradicalinput
-     \ -description "Toggle kanji radical input dialog"
-     \ -js jishoToggleRadicalInput();
-
-command! jishotogglekanji
-     \ -description "Toggle between kanji page and regular results"
-     \ -js jishoToggleKanji();
-
-command! jishotogglelinklists
-     \ -description "Show all link lists"
-     \ -js jishoToggleAllLinkULs();
-
-command! jishotogglesentences
-     \ -description "Toggle between sentences page and regular results"
-     \ -js jishoToggleSentences();
 
 command! jishokanjiaddlink
     \ -description "args: HREF, TEXT. Add link to kanji. (%s is replaced by kanji)"
