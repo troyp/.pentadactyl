@@ -11590,7 +11590,18 @@ group jisho -locations=jisho.org
 autocmd! -group jisho
 autocmd PageLoad jisho.org jishodetailsenhancekanji
 
+" <site>f -- Hints "
+map <site>f -description "(show bindings: Jisho/Hints)" -js CommandExMode().open("showkeys <site>f");
+map <site>fe -description "open sentence examples (current tab)" -js hints.show("た");
+map <site>fk -description "open kanji details (current tab)" -js hints.show("か");
 map <site>fl -description "Toggle link drop down [HINTS]" -js hints.show("リ");
+map <site>fw -description "search entry in Weblio (current tab)" -js hints.show("ヱ");
+
+" <site>F -- Hints[New Tab] "
+map <site>F -description "(show bindings: Jisho/Hints[New Tab])" -js CommandExMode().open("showkeys <site>f");
+map <site>Fe -description "open sentence examples (new tab)" -js hints.show("だ");
+map <site>Fk -description "open kanji details (new tab)" -js hints.show("が");
+map <site>Fw -description "search entry in Weblio (new tab)" -js hints.show("ヹ");
 
 " <site>g  --  Adjust Page "
 map <site>g -description "(show bindings Jisho/Adjust Page)" -js CommandExMode().open("showkeys <site>g")
@@ -11603,17 +11614,11 @@ map <site>o -description "(show bindings: Jisho/Open)" -js CommandExMode().open(
 map <site>od
 \    -description "open documentation: Tags (current tab)"
 \    -js openAndRunCode("https://jisho.org/docs", ()=>getFirstSelectorByText("section", /^Tags/).scrollIntoView(), "here");
-map <site>oe -description "open sentence examples (current tab)" -js hints.show("た");
-map <site>ok -description "open kanji details (current tab)"     -js hints.show("か");
-map <site>ow -description "search entry in Weblio (current tab)" -js hints.show("ヱ");
 
 map <site>o; -description "(show bindings: Jisho/Open/New Tab)" -js CommandExMode().open("showkeys <site>o")
 map <site>o;d
 \    -description "open documentation: Tags (new tab)"
 \    -js openAndRunCode("https://jisho.org/docs", ()=>getFirstSelectorByText("section", /^Tags/).scrollIntoView(), "tab");
-map <site>o;e -description "open sentence examples (new tab)" -js hints.show("だ");
-map <site>o;k -description "open kanji details (new tab)"     -js hints.show("が");
-map <site>o;w -description "search entry in Weblio (new tab)" -js hints.show("ヹ");
 
 " <site>s -- Search "
 map <site>s -description "(show bindings: Jisho/Search)" -js CommandExMode().open("showkeys <site>s");
@@ -11801,16 +11806,6 @@ hints.addMode(
     'だ','open sentence examples in new tab',
     e => dactyl.open(dec(`http://jisho.org/search/${e.textContent.trim()}%2523sentences`), {where:dactyl.NEW_TAB}));
 EOF
-
-command! jishohintopenkanji           -js hints.show("か");
-command! jishohintopenkanjinewtab     -js hints.show("が");
-command! jishohintopensentences       -js hints.show("た");
-command! jishohintopensentencesnewtab -js hints.show("だ");
-command! jishohintopenweblio          -js hints.show("ヱ");
-command! jishohintopenweblionewtab    -js hints.show("ヹ");
-command! jishohintselectradical       -js hints.show("ぶ");
-command! jishohintyankentry           -js hints.show("ヤ");
-command! jishohintclicklinks          -js hints.show("リ");
 
 " ----------- "
 " Kanji style "
