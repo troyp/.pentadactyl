@@ -4439,7 +4439,7 @@ map <buffer>>
 \    -description "Close all (or count) tabs to the right of the current tab"
 \    -js tabCloseNToRight(count);
 " close adjacent duplicates "
-map <A-S-Space> -description "Close all duplicates adjacent to current tab" -js tabCloseDuplicates(!count);
+map <A-S-Space> -description "Close all duplicates adjacent to current tab" -js tabCloseAdjacentMatchingURLs(buffer.URL, Infinity, true);
 
 " move tabs "
 map gm     -b :tabmove!<SPACE>
