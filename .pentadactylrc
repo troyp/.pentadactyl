@@ -3352,9 +3352,17 @@ map <yank>tF
 map <yank>td -description "Yank page title with date & time" -ex yanktitleanddate
 
 " <yank>u -- Yank URL/filename "
-map <yank>u  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>u")
+map <yank>u  -description "(show bindings: Yank/URL)" -js CommandExMode().open("showkeys <yank>u")
 
-map <yank>ud  -description "(show bindings: yank URL/domain)" -js CommandExMode().open("showkeys <yank>ud")
+map <yank>ua -description "(show bindings: Yank/URL/All)" -js CommandExMode().open("showkeys <yank>ua");
+map <yank>uaa
+\    -description "Yank URLs for all tabs (newline separated)"
+\    -js utils.cbWriteWithMessageLimit(tabs.allTabs.map(t=>t.linkedBrowser.contentDocument.URL).join("\n"));
+map <yank>uat
+\    -description "Yank titles and URLs for all tabs (tab separated fields, newline separated entries)"
+\    -js utils.cbWriteWithMessageLimit(tabs.allTabs.map(t=>`${t._fullLabel}\t${t.linkedBrowser.contentDocument.URL}`).join("\n"));
+
+map <yank>ud  -description "(show bindings: Yank/URL/domain)" -js CommandExMode().open("showkeys <yank>ud")
 map <yank>udd
 \    -description "Yank page domain"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, false));
