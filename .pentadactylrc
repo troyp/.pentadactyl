@@ -4320,10 +4320,10 @@ map <buffer>b       -description "Switch to buffer matching PATTERN" -builtin b
 " ,--------------------------,
 " | <buffer>d -- delete tabs |
 " '--------------------------'
-map <buffer>d       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>d")
-map <buffer>da      -description "Close alternate tab" -js tabCloseAlternate();
-map <buffer>db      -description "Close tab from list" -b :bdelete<SPACE>
-map <buffer>dd      -description "Close tab range" -b :tc<SPACE>
+map <buffer>d -description "(show bindings: Tabs/Delete)" -js CommandExMode().open("showkeys <buffer>d")
+map <buffer>da -description "Close alternate tab" -js tabCloseAlternate();
+map <buffer>db -description "Close tab from list" -b :bdelete<SPACE>
+map <buffer>dd -description "Close tab range" -b :tc<SPACE>
 map <buffer>de
 \    -description "Close tabs satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
 \    -b :tabremove<Space>""<Left>
@@ -4342,40 +4342,40 @@ map <buffer>d<e
 map <buffer>d<;e
 \    -description "Close tabs to left not satisfying EXPR (t=tab doc, n0=init.ord, n=curr.ord, t.URL=url)"
 \    -b :tabfilter<Space>"n>=n0 || "<Left>
-map <buffer>dm   -description "Close tabs matching STRING" -b :tabremoveregex<Space>""<Left>
-map <buffer>d;m  -description "Close tabs not matching STRING" -b :tabfilterregex<Space>""<Left>
-map <buffer>dn   -description "Close tabs given by RANGES"
+map <buffer>dm  -description "Close tabs matching STRING" -b :tabremoveregex<Space>""<Left>
+map <buffer>d;m -description "Close tabs not matching STRING" -b :tabfilterregex<Space>""<Left>
+map <buffer>dn -description "Close tabs given by RANGES"
 \    -js if (count) tabCloseRanges(String(count)); else CommandExMode().open("tabcloseranges ");
-map <buffer>dr   -description "Close tabs matching REGEX (case-insensitive)"
+map <buffer>dr -description "Close tabs matching REGEX (case-insensitive)"
 \    -b :tabremoveregex<Space>"//i"<Left><Left><Left>
-map <buffer>d;r  -description "Close tabs not matching REGEX (case-insensitive)"
+map <buffer>d;r -description "Close tabs not matching REGEX (case-insensitive)"
 \    -b :tabfilterregex<Space>"//i"<Left><Left><Left>
-map <buffer>d<r  -description "Close tabs to right matching REGEX (case-insensitive)"
+map <buffer>d<r -description "Close tabs to right matching REGEX (case-insensitive)"
 \    -b :tabremoveByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
 map <buffer>d<;r -description "Close tabs to right not matching REGEX (case-insensitive)"
 \    -b :tabfilterByExprAndRegex<Space>"n0>n"<Space>"//i"<Left><Left><Left>
-map <buffer>d>r  -description "Close tabs to right matching REGEX (case-insensitive)"
+map <buffer>d>r -description "Close tabs to right matching REGEX (case-insensitive)"
 \    -b :tabremoveByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
 map <buffer>d>;r -description "Close tabs to right not matching REGEX (case-insensitive)"
 \    -b :tabfilterByExprAndRegex<Space>"n>n0"<Space>"//i"<Left><Left><Left>
-map <buffer>dR   -description "Close tabs matching REGEX (case-sensitive)"
+map <buffer>dR -description "Close tabs matching REGEX (case-sensitive)"
 \    -b :tabremoveregex<Space>"//"<Left><Left>
-map <buffer>d;R  -description "Close tabs not matching REGEX (case-sensitive)"
+map <buffer>d;R -description "Close tabs not matching REGEX (case-sensitive)"
 \    -b :tabfilterregex<Space>"//"<Left><Left>
-map <buffer>dt   -description "(show bindings: Delete tabs/delete to)"
+map <buffer>dt -description "(show bindings: Tabs/Delete/To)"
 \    -js CommandExMode().open("showkeys <buffer>dt")
-map <buffer>dtt  -description "Close from here to ARG" -b :tabclosefromhereto<Space>
-map <buffer>dtx  -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
-map <buffer>dw   -description "Close window unless last"
+map <buffer>dtt -description "Close from here to ARG" -b :tabclosefromhereto<Space>
+map <buffer>dtx -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du -description "(show bindings: Tabs/Delete/Url)" -js CommandExMode().open("showkeys <buffer>du");
 map <buffer>du= -description "Close all duplicates of current tab" -js tabCloseMatchingURLs(buffer.URL, Infinity, true);
 map <buffer>du+ -description "Close all duplicates adjacent to current tab" -js tabCloseAdjacentMatchingURLs(buffer.URL, Infinity, true);
 map <buffer>dud -description "Close all tabs with matching domain" -js tabCloseMatchingURLs(buffer.URL, 1, true);
 map <buffer>duD -description "Close all adjacent tabs with matching domain" -js tabCloseAdjacentMatchingURLs(buffer.URL, 1, true);
+map <buffer>dw -description "Close window unless last"
 \    -js if ([...browserWindows()].length > 1) dactyl.execute("winclose"); else utils.message("Last window");
 map <buffer>d<Space>  -description "Close tabs selected via popup menu" -js tabsRemoveWithDMenu();
 map <buffer>d;<Space> -description "Keep only tabs selected via popup menu" -js tabsFilterWithDMenu();
-map <buffer>d,   -description "Close a list tabs or tab ranges separated by spaces or commas" -b :tabcloseranges<Space>
+map <buffer>d, -description "Close a list tabs or tab ranges separated by spaces or commas" -b :tabcloseranges<Space>
 map <buffer><BS> -description "Close tab to left" -b gTd
 
 map <buffer>j  -description "Goto jump" -ex jumps
