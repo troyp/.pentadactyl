@@ -9215,8 +9215,6 @@ group user
 " | Fasttech.com |                                                              "
 " '--------------'                                                              "
 group fasttech -locations=fasttech.com
-map <site>o      -js CommandExMode().open("showkeys <site>o")
-map <site>t      -js CommandExMode().open("showkeys <site>t")
 
 " === hint modes === "
 set eht+=🅵:.dropit
@@ -9268,18 +9266,34 @@ map <site>ag -description "Apply Gift Certificate from clipboard"
     \        -js fasttechApplyGiftCertificate(dactyl.clipboardRead());
 map <site>c  -description "Toggle reviews" -js fasttechToggleReviews();
 map <site>h  -description "Toggle chat" -js fasttechToggleChat()
-map <site>oc  -description "View cart"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"tab":"here")
-map <site>oa  -description "View account/"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account", count?"tab":"here")
+
+map <site>o -js CommandExMode().open("showkeys <site>o")
+map <site>oc -description "View cart"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"here":"adjacent")
+map <site>oa -description "View account/"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account", count?"here":"adjacent")
 map <site>oo -description "View account/orders"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"tab":"here")
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"here":"adjacent")
 map <site>og -description "View account/giftcertificates"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"tab":"here")
-map <site>ot  -description "View tickets"
-\    -count -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"tab":"here")
-map <site>ow  -description "View account/wishlists"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"tab":"here")
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"here":"adjacent")
+map <site>ot -description "View tickets"
+\    -count -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"here":"adjacent")
+map <site>ow -description "View account/wishlists"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"here":"adjacent")
+
+map <site>O -js CommandExMode().open("showkeys <site>O")
+map <site>Oc -description "View cart (new tab)"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"adjacent":"here")
+map <site>Oa -description "View account/ (new tab)"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account", count?"adjacent":"here")
+map <site>Oo -description "View account/orders (new tab)"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"adjacent":"here")
+map <site>Og -description "View account/giftcertificates (new tab)"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"adjacent":"here")
+map <site>Ot -description "View tickets (new tab)"
+\    -count -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"adjacent":"here")
+map <site>Ow -description "View account/wishlists (new tab)"
+\    -count -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"adjacent":"here")
 
 style -name=fasttech-post-separator https://www.fasttech.com/*
     \ .ForumHeader { border-top: solid 1px #AAA !important; }
