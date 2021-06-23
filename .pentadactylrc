@@ -4999,22 +4999,21 @@ EOF
 command! tt -nargs=1 -bang -js dactyl.execute("tabmove" + (bang ? "! " : " ") + args[0]);
 
 command! movealltabsrightofn -nargs ? -js moveAllTabsRightOfN(null, args[0]||1);
-command! movetabstoend       -nargs ? -js moveNTabs(tabs.getTab().dactylOrdinal, args[0]||1, "$");
-command! movetabstostart     -nargs ? -js moveNTabs(tabs.getTab().dactylOrdinal, args[0]||1, "1");
+command! movetabstoend       -nargs ? -js moveNTabs(".", args[0]||1, "$");
+command! movetabstostart     -nargs ? -js moveNTabs(".", args[0]||1, "1");
 command! movelastntabs       -nargs + -js moveLastNTabs(args[0], args[1]||1);
-command! moventabs           -nargs + -js moveNTabs(tabs.getTab().dactylOrdinal, args[0], args[1]||1);
+command! moventabs           -nargs + -js moveNTabs(".", args[0], args[1]||1);
 
 js <<EOF
 function moveNTabs(start, n, toOrd=1, wrap=false) {
     // we don't know which way tabs will move, so we can't predict how tab
     // numbers may change - thus, have to get references to each tab first
-    if (toOrd == 0 || toOrd === "$") toOrd = tabCount();
-    var targets = [];
-    for (var i = 0; i < n; ++i)
-        targets.push(tabs.getTab(start-1+i));
-    if (toOrd < start) targets.reverse();
-    for (var target of targets)
-        tabs.move(target, toOrd, wrap);
+    if (!start || start==".") start = tabs.getTab().dactylOrdinal;
+    if (toOrd == 0 || toOrd === "$") toOrd = tabCount()-n+1;
+    if (toOrd == ".") toOrd = tabs.getTab().dactylOrdinal;
+    var targets = [...Array(n)].map((_,i)=>[tabs.getTab(start-1+i), toOrd+i]);
+    if (toOrd > start) targets.reverse();
+    targets.forEach(target=>tabs.move(target[0], target[1], wrap));
 }
 function moveLastNTabs(n, toOrd, wrap=false) {
     var N = tabs.allTabs.length;
