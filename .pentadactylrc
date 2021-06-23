@@ -4318,12 +4318,13 @@ map <A-p> -description "Open clipboard contents in new background tab"
 " ,-----------------------,
 " | <buffer>a -- all tabs |
 " '-----------------------'
-map <buffer>a       -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>a")
-map <buffer>aP      -description "Unpin all tabs" -ex unpinall
-map <buffer>ar      -description "Reload all tabs"                  -ex reloadall
-map <buffer>aR      -description "Reload all tabs (without cache)"  -ex reloadall!
+map <buffer>a  -description "(show bindings: Tabs/All)" -js CommandExMode().open("showkeys <buffer>a")
+map <buffer>aP -description "Unpin all tabs" -ex unpinall
+map <buffer>ar -description "Reload all tabs" -ex reloadall
+map <buffer>aR -description "Reload all tabs (without cache)" -ex reloadall!
+map <buffer>au -description "Close all duplicate tabs" -js tabsCloseAllDuplicateTabs();
 
-map <buffer>b       -description "Switch to buffer matching PATTERN" -builtin b
+map <buffer>b  -description "Switch to buffer matching PATTERN" -builtin b
 
 " ,--------------------------,
 " | <buffer>d -- delete tabs |
@@ -5690,7 +5691,7 @@ EOF
 
 command! mozrepltoggle -js mozReplToggle();
 
-map <ext>m      -description "(show bindings)" -js CommandExMode().open("showkeys <ext>m")
+map <ext>m -description "(show bindings)" -js CommandExMode().open("showkeys <ext>m")
 map <ext>mm -description "MozREPL toggle" -js mozReplToggle();
 map <ext>mp -description "MozREPL set port" -js mozrepl.changePort();
 map <ext>mr -description "MozREPL reload" -js mozrepl.server.reload();
