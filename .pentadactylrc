@@ -5005,7 +5005,7 @@ command! movelastntabs       -nargs + -js moveLastNTabs(args[0], args[1]||1);
 command! moventabs           -nargs + -js moveNTabs(tabs.getTab().dactylOrdinal, args[0], args[1]||1);
 
 js <<EOF
-moveNTabs = function (start, n, toOrd=1, wrap=false) {
+function moveNTabs(start, n, toOrd=1, wrap=false) {
     // we don't know which way tabs will move, so we can't predict how tab
     // numbers may change - thus, have to get references to each tab first
     if (toOrd == 0 || toOrd === "$") toOrd = tabCount();
@@ -5016,14 +5016,14 @@ moveNTabs = function (start, n, toOrd=1, wrap=false) {
     for (var target of targets)
         tabs.move(target, toOrd, wrap);
 }
-moveLastNTabs = function (n, toOrd, wrap=false) {
+function moveLastNTabs(n, toOrd, wrap=false) {
     var N = tabs.allTabs.length;
     for (var i = 1; i <= n; ++i) {
         var target = tabs.getTab(N-1);
         tabs.move(target, toOrd, wrap)
     }
 }
-moveAllTabsRightOfN = function (fromOrd, toOrd, wrap=false) {
+function moveAllTabsRightOfN(fromOrd, toOrd, wrap=false) {
     fromOrd = fromOrd || tabs.getTab().dactylOrdinal;
     var N = tabs.allTabs.length;
     moveLastNTabs(N-fromOrd+1, toOrd, wrap);
