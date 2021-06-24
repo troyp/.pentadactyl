@@ -5173,6 +5173,7 @@ map <goto>lh -description "(Show bindings: Goto/Local/Home)" -js CommandExMode()
 map <goto>lhe
 \    -description "~/.emacs.d/private"
 \    -js openOrSelectTab(`${homedir}/.emacs.d/private`, count?"here":"adjacent");
+map <goto>lhh -description "~" -js openOrSelectTab(`${homedir}`, count?"here":"adjacent");
 map <goto>lhp
 \    -description "~/.pentadactyl"
 \    -js openOrSelectTab(`${homedir}/.pentadactyl`, count?"here":"adjacent");
