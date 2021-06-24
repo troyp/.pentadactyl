@@ -9701,7 +9701,9 @@ map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
 map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
 
 map <site>s        -description "(show bindings:Github/Search)" -js CommandExMode().open("showkeys <site>s")
-map <site>ss       -description "Search commits" -js CommandExMode().open("ghsearchcommits" + (count?"! ":" "));
+map <site>sc
+\    -description "Search Github commits"
+\    -js CommandExMode().open("ghsearchcommits" + (count?"! ":" "));
 
 map <site>y        -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
