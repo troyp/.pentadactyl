@@ -9449,12 +9449,31 @@ function localToggleSimpleListing() {
 
 function localGetFileNames() { return $$("td>a").map(e=>e.textContent); }
 
+var localHighlightColor = "yellow";
 EOF
+
+command! localHighlightRows
+\    -description "Highlight rows"
+\    -nargs=1
+\    -js $$("body>table>tbody>tr").filter(r=>$1("table td>a", r).textContent.match(args[0])).forEach(r=>{r.style.backgroundColor=localHighlightColor})
+command! localHighlightRowsCancel
+\    -description "Remove highlighting from rows"
+\    -nargs=?
+\    -js $$("body>table>tbody>tr").filter(r=>$1("table td>a", r).textContent.match(args[0]||"")).forEach(r=>{r.style.backgroundColor=""})
+command! localSetHighlightColor
+\    -description "Set color for highlighting"
+\    -nargs=1
+\    -js localHighlightColor=args[0];
 
 map <site>e -description "Open in emacsclient"
 \           -count
 \           -js dactyl.execute(`!emacsclient${count?" -c":""} ${buffer.URL.replace("file://", "")}`);
 map <site>ip -description "Image directory previews" -js localImgDirPreviews();
+
+map <site>s -description "(show bindings: Local/Style)" -js CommandExMode().open("showkeys <site>s");
+map <site>sh -description "Highlight rows" -b :localHighlightRows<Space>
+map <site>sH -description "Remove highlighting from rows" -b :localHighlightRowsCancel<Space>
+map <site>s<C-h> -description "Set highlight color" -b :localSetHighlightColor<Space>
 
 map <site>t -description "(show bindings: Local/Toggle)" -js CommandExMode().open("showkeys <site>t");
 map <site>ts -description "Toggle simple listing" -js localToggleSimpleListing();
