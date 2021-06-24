@@ -10935,7 +10935,7 @@ group user
 " ,-----------------,                                                           "
 " | JacksonsArt.com |                                                           "
 " '-----------------'                                                           "
-command! jacksonsartSearch
+command! jacksonsSearch
 \    -description "Search in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
@@ -10943,7 +10943,7 @@ command! jacksonsartSearch
 \            "https://www.jacksonsart.com/en-au/search/?limit=60&q="+args.join(" "),
 \            { where: bang?"here":"adjacent" }
 \        );
-command! jacksonsartSearchWatercolour
+command! jacksonsSearchWatercolour
 \    -description "Search for watercolour in current tab (! = in new tab)"
 \    -nargs *
 \    -bang
@@ -10951,57 +10951,57 @@ command! jacksonsartSearchWatercolour
 \            "https://www.jacksonsart.com/en-au/search/?fq[x_application]=Watercolour&limit=60&q="+args.join(" "),
 \            { where: bang?"here":"adjacent" }
 \        );
-command! jacksonsartCartSearch
+command! jacksonsCartSearch
 \    -description "Find items matching search term in cart"
 \    -nargs *
-\    -js utils.cbWriteCollection(jacksonsartFilterCartItems(readStringOrRegex(args.join(" "))).map(r=>jacksonsartFormatCartRow(r)));
-command! jacksonsartCartCountMatching
+\    -js utils.cbWriteCollection(jacksonsFilterCartItems(readStringOrRegex(args.join(" "))).map(r=>jacksonsFormatCartRow(r)));
+command! jacksonsCartCountMatching
 \    -description "Count items matching search term in cart"
 \    -nargs *
-\    -js utils.message(jacksonsartFilterCartItems(readStringOrRegex(args.join(" "))).length);
+\    -js utils.message(jacksonsFilterCartItems(readStringOrRegex(args.join(" "))).length);
 
 " =====GROUP START=====
 
 group jacksons -locations=jacksonsart.com
 
 js <<EOF
-function jacksonsartCount() {
+function jacksonsCount() {
     var elts = getSelectorWithMatchingAttribute('input', 'title', 'Qty');
     if (elts.length) {
         return elts.map(e=>Number(e.value)).reduce((n,s)=>n+s);
     }
 }
-function jacksonsartGetCartItems() {
+function jacksonsGetCartItems() {
     return $$("#shopping-cart-table>tbody>tr");
 }
-function jacksonsartFilterCartItems(rx) {
+function jacksonsFilterCartItems(rx) {
     return $$("#shopping-cart-table>tbody>tr").filter(r=>$1("td.product-name-section",r).textContent.match(rx));
 }
-function jacksonsartFormatCartRow(r) {
+function jacksonsFormatCartRow(r) {
     var name = $1("h2.product-name", r).textContent.trim().replace(/\s+/g, " ");
     var unitPrice = $1("td.product-name-section+td>span.cart-price", r).textContent.trim();
     var qty = $1("input", r).value.trim();
     var price = $1("td.a-center+td>span.cart-price", r).textContent.trim();
     return `${name} - ${unitPrice} × ${qty} = ${price}`;
 }
-function jacksonsartItemNames() {
+function jacksonsItemNames() {
     return getSelectors(".cart .product-name").map(e=>e.innerText.replace("\n", "\t"));
 }
-function jacksonsartItemUrls() {
+function jacksonsItemUrls() {
     return getSelectors(".cart .product-name>a").map(e=>e.href);
 }
-function jacksonsartGetCartTotal() {
+function jacksonsGetCartTotal() {
     var s = getSelectorByText('td',/grand total/i)[0].nextElementSibling.textContent.trim();
     return Number(s.match(/\$(\d+\.\d\d)/)[1]);
 }
-function jacksonsartToggleAU() {
+function jacksonsToggleAU() {
     var url = buffer.URL;
     toggleUrl("www.jacksonsart.com/en-au/", "www.jacksonsart.com/");
 }
-function jacksonsartShowShippingInfo(where) {
+function jacksonsShowShippingInfo(where) {
     openAndRunCode("https://www.jacksonsart.com/en-au/shipping-info", ()=>getSelectorByText("h2",/international shipping/i)[0].scrollIntoView());
 }
-function jacksonsartToggleHairType(hair) {
+function jacksonsToggleHairType(hair) {
     /* Change hair type query component to HAIR if set to a different hair, or add it if missing.
        If already set to HAIR, remove the query component. */
     var url = buffer.URL;
@@ -11015,7 +11015,7 @@ function jacksonsartToggleHairType(hair) {
     dactyl.open(newurl);
 }
 
-function jacksonsartGo(count=undefined) {
+function jacksonsGo(count=undefined) {
     var url = buffer.URL;
     if (url=="https://www.jacksonsart.com/en-au/sales/order/history/") {
         var href = getFirstSelectorByText("#my-orders-table>tbody>tr.first a", "View Order").href;
@@ -11037,15 +11037,15 @@ function jacksonsyankDefault() {
     var url = buffer.URL;
     var s = "";
     if (url.match(/https:\/\/www\.jacksonsart\.com\/.*\/checkout\/cart\//))
-        utils.cbWriteCollection(jacksonsartItemNames());
+        utils.cbWriteCollection(jacksonsItemNames());
     else
         utils.yankWithMsg($1('.product-name>h1').textContent);
 }
 EOF
 
-map <site>c -description "Go (cart: checkout; orders page: view most recent)" -js jacksonsartGo(count);
-map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsartCount());
-map <site>N -description "Count matching items in cart" :jacksonsartCartCountMatching<Space>
+map <site>c -description "Go (cart: checkout; orders page: view most recent)" -js jacksonsGo(count);
+map <site>n -description "Count items" -js utils.message("Number of items: " + jacksonsCount());
+map <site>N -description "Count matching items in cart" :jacksonsCartCountMatching<Space>
 
 map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oc
@@ -11073,7 +11073,7 @@ map <site>ol
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/customer/account/login/?___SID=S", count?"here":"adjacent");
 map <site>os
 \    -description "Goto shipping information"
-\    -js jacksonsartShowShippingInfo(count?"here":"adjacent");
+\    -js jacksonsShowShippingInfo(count?"here":"adjacent");
 map <site>ow
 \    -description "Goto wishlist"
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/wishlist/", count?"here":"adjacent");
@@ -11140,25 +11140,25 @@ map <site>p;dI
 \    -js openOrSelectTab("https://www.jacksonsart.com/en-au/derwent-inktense-blocks-au", count?"here":"adjacent");
 
 map <site>s -description "(show bindings: Search)" -js CommandExMode().open("showkeys <site>s")
-map <site>sc -description "Find items matching search term in cart" -b :jacksonsartCartSearch<Space>
+map <site>sc -description "Find items matching search term in cart" -b :jacksonsCartSearch<Space>
 map <site>ss
 \    -description "Search"
-\    -js CommandExMode().open("jacksonsartSearch"+(count?"! ":" "));
+\    -js CommandExMode().open("jacksonsSearch"+(count?"! ":" "));
 map <site>sS
 \    -description "Search (new tab)"
-\    -b :jacksonsartSearch!<Space>
+\    -b :jacksonsSearch!<Space>
 map <site>sw
 \    -description "Search Watercolour"
-\    -js CommandExMode().open("jacksonsartSearchWatercolour"+(count?"! ":" "));
+\    -js CommandExMode().open("jacksonsSearchWatercolour"+(count?"! ":" "));
 map <site>sW
 \    -description "Search Watercolour (new tab)"
-\    -b :jacksonsartSearchWatercolour!<Space>
+\    -b :jacksonsSearchWatercolour!<Space>
 map <site>s;w
 \    -description "Search watercolour for clipboard text (default: current tab)"
-\    -js dactyl.execute("jacksonsartSearchWatercolour"+(count?"! ":" ")+readFromClipboard());
+\    -js dactyl.execute("jacksonsSearchWatercolour"+(count?"! ":" ")+readFromClipboard());
 map <site>s;W
 \    -description "Search watercolour for clipboard text (new tab)"
-\    -js dactyl.execute("jacksonsartSearchWatercolour! "+readFromClipboard());
+\    -js dactyl.execute("jacksonsSearchWatercolour! "+readFromClipboard());
 map <site>;s
 \    -description "Search for clipboard text (default: current tab)"
 \    -js openOrSelectTab(
@@ -11170,17 +11170,17 @@ map <site>;S
 \    -js tabOpenURLAdjacent(`https://www.jacksonsart.com/en-au/search/?limit=60&q=${readFromClipboard()}`);
 
 map <site>t  -description "(show bindings: Toggle)" -js CommandExMode().open("showkeys <site>t")
-map <site>ta  -description "Toggles Australian site" -js jacksonsartToggleAU();
+map <site>ta  -description "Toggles Australian site" -js jacksonsToggleAU();
 
 map <site>th  -description "(show bindings: Toggle hairtype)" -js CommandExMode().open("showkeys <site>t")
-map <site>thg -description "Toggle hairtype: Goat" -js jacksonsartToggleHairType("Goat");
-map <site>thh -description "Toggle hairtype: Hog" -js jacksonsartToggleHairType("Hog");
-map <site>thk -description "Toggle hairtype: Kolinsky Sable" -js jacksonsartToggleHairType("Kolinsky Sable");
-map <site>thm -description "Toggle hairtype: Natural Mix" -js jacksonsartToggleHairType("Natural Mix");
-map <site>thM -description "Toggle hairtype: Natural%2FSynthetic Mix" -js jacksonsartToggleHairType("Natural/Synthetic Mix");
-map <site>thr -description "Toggle hairtype: Red Sable" -js jacksonsartToggleHairType("Red Sable");
-map <site>thq -description "Toggle hairtype: Squirrel" -js jacksonsartToggleHairType("Squirrel");
-map <site>ths -description "Toggle hairtype: Synthetic" -js jacksonsartToggleHairType("Synthetic");
+map <site>thg -description "Toggle hairtype: Goat" -js jacksonsToggleHairType("Goat");
+map <site>thh -description "Toggle hairtype: Hog" -js jacksonsToggleHairType("Hog");
+map <site>thk -description "Toggle hairtype: Kolinsky Sable" -js jacksonsToggleHairType("Kolinsky Sable");
+map <site>thm -description "Toggle hairtype: Natural Mix" -js jacksonsToggleHairType("Natural Mix");
+map <site>thM -description "Toggle hairtype: Natural%2FSynthetic Mix" -js jacksonsToggleHairType("Natural/Synthetic Mix");
+map <site>thr -description "Toggle hairtype: Red Sable" -js jacksonsToggleHairType("Red Sable");
+map <site>thq -description "Toggle hairtype: Squirrel" -js jacksonsToggleHairType("Squirrel");
+map <site>ths -description "Toggle hairtype: Synthetic" -js jacksonsToggleHairType("Synthetic");
 
 map <site>tl  -description "Toggle limit=60" -js urlToggleQuery("limit=60");
 
@@ -11211,16 +11211,16 @@ map <site>yc
 \    -js utils.yankWithMsg($1('.product-name>p[itemprop*="sku"]').textContent);
 map <site>yu
 \    -description "Copy cart items URLs"
-\    -js var urls=jacksonsartItemUrls(); utils.cbWriteCollection(urls); window._dactylJacksonsartItems=_itemUrls=urls;
+\    -js var urls=jacksonsItemUrls(); utils.cbWriteCollection(urls); window._dactylJacksonsItems=_itemUrls=urls;
 map <site>yy
 \    -description "Copy cart items or item name"
 \    -js jacksonsyankDefault();
 map <site>4
 \    -description "Cart total"
-\    -js utils.message("Cart total: " + jacksonsartGetCartTotal());
+\    -js utils.message("Cart total: " + jacksonsGetCartTotal());
 
-command! jacksonsartOpenAllItemPages
-\    -js jacksonsartItemUrls().forEach(u=>dactyl.execute("background tabopen " + u));
+command! jacksonsOpenAllItemPages
+\    -js jacksonsItemUrls().forEach(u=>dactyl.execute("background tabopen " + u));
 
 group user
 
@@ -11232,7 +11232,7 @@ group user
 group jacksonsau -locations=jacksons.com.au
 
 js <<EOF
-function jacksonsAddToCart(n) {
+function jacksonsauAddToCart(n) {
     var inputs = content.document.querySelectorAll("input.quantity");
     if (inputs.length == 1) {
         var input = inputs[0];
@@ -11241,10 +11241,10 @@ function jacksonsAddToCart(n) {
     clickSelector("#addtocart");
 }
 
-function jacksonsGo(count) {
+function jacksonsauGo(count) {
     var url = buffer.URL;
     if (url.match("https://www.jacksons.com.au/product/")) {
-        jacksonsAddToCart(count);
+        jacksonsauAddToCart(count);
     } else if (url.match("https://www.jacksons.com.au/cart.php")) {
         if (count == "0") clickSelector("#continue");
         else clickSelector("#checkout");
@@ -11252,7 +11252,7 @@ function jacksonsGo(count) {
 }
 EOF
 
-map <site>c  -description "Go (add to cart/checkout[0 count=continue])" -js jacksonsGo(count);
+map <site>c  -description "Go (add to cart/checkout[0 count=continue])" -js jacksonsauGo(count);
 map <site>o  -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oa
 \    -description "Goto account"
