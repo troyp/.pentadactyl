@@ -9450,6 +9450,14 @@ function localToggleSimpleListing() {
 
 function localGetFileNames() { return $$("td>a").map(e=>e.textContent); }
 
+function localGetDir() {
+    var path = buffer.URL.replace("file://", "");
+    if (io.system(`[[ -d ${path} ]]`).returnValue)
+        return path.replace(/\/[^/]+$/, "");
+    else
+        return path;
+}
+
 var localHighlightColor = "yellow";
 EOF
 
@@ -9470,6 +9478,7 @@ map <site>o -description "(show bindings: Local/Open)" -js CommandExMode().open(
 map <site>oe
 \    -description "Open in emacsclient"
 \    -js dactyl.execute(`!emacsclient${count?" -c":""} ${buffer.URL.replace("file://", "")}`);
+map <site>ot -description "Open directory in roxterm" -js io.system(`roxterm -d ${localGetDir()}`);
 map <site>ov -description "Open in gvim" -js io.system(`gvim ${buffer.URL.replace("file://", "")}`);
 
 map <site>ip -description "Image directory previews" -js localImgDirPreviews();
