@@ -9707,6 +9707,7 @@ map <site>sc
 
 map <site>y        -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>yd       -description "Yank description" -ex yankselectorcontent '.BorderGrid-cell p'
 map <site>yg       -description "Yank git repo link" -js ghCopyRepoLinkGit();
 map <site>yh       -description "Yank https repo link" -js ghCopyRepoLinkHttps();
 map <site>yn       -description "Yank repo name" -js utils.yankWithMsg(ghGetUserAndRepo()[1]);
