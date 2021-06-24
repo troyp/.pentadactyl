@@ -9598,6 +9598,8 @@ command! githubgoto
 \    -nargs +
 \    -js openOrSelectTab(`https://github.com/${args[0]}/${args[1]||""}`, bang?"here":"adjacent");
 
+command! ghsearch -bang -nargs + -js ghSearch(args, bang?"here":"adjacent");
+
 command! ghsearchgo -description "Github search and goto first result"
 \    -nargs=1 -js ghSearchAndGo(args[0]);
 
@@ -9607,6 +9609,13 @@ js <<EOF
 var ghusername = 'troyp';
 
 function ghTabopenRepo (s) { dactyl.tabopen(`https://github.com/${s}`); }
+
+function ghSearch(terms, where="here") {
+    openOrSelectTab(
+        `https://github.com/search?utf8=✓&q=${terms.join(" ")}&type=Repositories&ref=searchresults`,
+        where
+    );
+}
 
 function ghSearchAndGo(s) {
     var cmd = `curl -G "https://api.github.com/search/repositories" --data-urlencode "q=${s}" 2>/dev/null | jq -r '.items | .[0] | {user: (.owner | .login), repo: .name}'`;
@@ -9704,6 +9713,10 @@ map <site>s        -description "(show bindings:Github/Search)" -js CommandExMod
 map <site>sc
 \    -description "Search Github commits"
 \    -js CommandExMode().open("ghsearchcommits" + (count?"! ":" "));
+map <site>ss
+\    -description "Search Github in adjacent (count:current) tab"
+\    -count
+\    -js CommandExMode().open("ghsearch"+(count?"! ":" "));
 
 map <site>y        -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
 map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
