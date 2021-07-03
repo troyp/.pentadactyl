@@ -2400,7 +2400,7 @@ function openListLinks(links, opts={where: dactyl.NEW_TAB}) {
 
 function getSelectionLinks() { return Array.from(getSelectionDOM().links); }
 
-function openSelectionLinks(where="adjacent") { getSelectionLinks().forEach(l=>openOrSelectTab(l, where)); }
+function openSelectionLinks(where="adjacent") { getSelectionLinks().forEach(l=>openOrSelectTab(l.href, where)); }
 
 function dlSelectionLinks(dir=null, subdir=null) { return dlLinks(getSelectionLinks(), dir, subdir); }
 
