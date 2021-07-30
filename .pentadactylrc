@@ -3916,22 +3916,21 @@ map -modes command-line,insert <C-S-s> -js alert("not implemented");
 " | insert-mode only | "
 " '------------------' "
 
-execute "map <C-m>   -modes insert -b " + user.myemail
-execute "map <C-S-m> -modes insert -b " + user.myemail2
-execute "map <C-S-I> -modes insert -b " + user.myname
-execute "map <C-S-T> -modes insert -b " + user.myfirstname
-execute "map <C-S-L> -modes insert -b " + user.mylastname
-execute "map <C-S-A> -modes insert -b " + user.mystreet
-execute "map <C-S-S> -modes insert -b " + user.mysuburb
-execute "map <C-S-D> -modes insert -b " + user.myaddress
-execute "map <C-S-P> -modes insert -b " + user.myphone
-execute "map <C-S-B> -modes insert -b " + user.mymobile
-execute "map <C-S-Z> -modes insert -b " + user.mypostcode
-execute "map <C-S-Q> -modes insert -b " + user.mymasterpw
-execute "map <C-S-C> -modes insert -b " + user.mycreditcard
-map <C-S-W> -modes insert <pwhashsite>
 
-
+execute 'map <C-m>   -modes insert -description "insert email" -b ' + user.myemail
+execute 'map <C-S-m> -modes insert -description "insert secondary email" -b ' + user.myemail2
+execute 'map <C-S-I> -modes insert -description "insert full name" -b ' + user.myname
+execute 'map <C-S-T> -modes insert -description "insert first name" -b ' + user.myfirstname
+execute 'map <C-S-L> -modes insert -description "insert last name" -b ' + user.mylastname
+execute 'map <C-S-A> -modes insert -description "insert street address" -b ' + user.mystreet
+execute 'map <C-S-S> -modes insert -description "insert suburb" -b ' + user.mysuburb
+execute 'map <C-S-D> -modes insert -description "insert address" -b ' + user.myaddress
+execute 'map <C-S-P> -modes insert -description "insert phone number" -b ' + user.myphone
+execute 'map <C-S-B> -modes insert -description "insert mobile phone number" -b ' + user.mymobile
+execute 'map <C-S-Z> -modes insert -description "insert post code" -b ' + user.mypostcode
+execute 'map <C-S-Q> -modes insert -description "insert master password" -b ' + user.mymasterpw
+execute 'map <C-S-C> -modes insert -description "insert credit card number" -b ' + user.mycreditcard
+map <C-S-W> -modes insert -description "hash site domain with password hasher" -ex pwhashsite
 " ,------------------------,
 " | command-line mode only |
 " '------------------------'
