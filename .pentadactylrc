@@ -3011,6 +3011,7 @@ function inoreaderSubscribe(url=buffer.URL){
 
 function wpEpList (s, where=dactyl.NEW_ADJACENT_TAB, options={}) {
     var sConv = S.toTitleCase(s).split(/\s+/).join("_");
+    sConv = sConv[0].toUpperCase() + sConv.slice(1);
     var url = `en.wikipedia.org/wiki/List_of_${sConv}_episodes`;
     if (options.force_new) dactyl.open(url, {where: where});
     else if (options.summon) {
