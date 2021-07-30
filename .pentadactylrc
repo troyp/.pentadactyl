@@ -14963,6 +14963,31 @@ function ytUp(count) {
 function ytDown(count) {
     clickSelectorByText("a", /Show fewer/) || ytAdjustSpeed(-0.25 * (count || 1));
 }
+
+function ytOpenTranscript() {
+    $1("button#button[aria-label*='More actions']").click();
+    window.setTimeout(
+        ()=> $1("tp-yt-paper-item:contains('Open transcript')").click(),
+        500
+    );
+}
+function ytCopyTranscript(transcript=getFirstSelectorByText("#header","Transcript")) {
+    utils.cbWrite(
+        transcript.nextElementSibling.textContent
+            .replace(/^      ([^ \n]+)$\n */mg, "$1\t")
+            .replace(/^ +/mg, "")
+            .replace(/\n+/g, "\n")
+        );
+}
+function ytOpenAndCopyTranscript() {
+    var transcript = getFirstSelectorByText("#header","Transcript");
+    if (transcript.nextElementSibling.textContent.match(/[a-z]/i))
+        ytCopyTranscript(transcript);
+    else {
+        ytOpenTranscript();
+        window.setTimeout(ytCopyTranscript, 5000);
+    }
+}
 EOF
 command! ytincrate -description "increase playback rate" -js ytAdjustSpeed(0.25);
 command! ytdecrate -description "decrease playback rate" -js ytAdjustSpeed(-0.25);
@@ -15041,6 +15066,11 @@ map <site>r -description "Set play rate" -b :ytrate<Space>
 map <site>R -description "Show play rate" -ex ytshowrate
 map <site>s -description "Screenshot (open in new tab)" -js ytScreenshot();
 map <site>u -description "Toggle user agent override" -ex actoggleuaoverride
+map <site>y -description "(show bindings: Youtube/Yank)" -js CommandExMode().open("showkeys <site>y");
+map <site>yt
+\    -description "Yank transcript"
+\    -js ytOpenAndCopyTranscript();
+
 map <site>\>
 \    -description "Increase play rate / Show more subscriptions"
 \    -count -js ytUp(count);
