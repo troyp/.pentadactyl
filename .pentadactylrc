@@ -2965,7 +2965,7 @@ function packtWriteTitleToListAndShowEndOfList(title=packtGetTodaysTitle()) {
     utils.message(io.system("tail ~/.pentadactyl/data/packt-library.txt").output);
 }
 
-function openOrSelectNetflix(where='tab') {
+function openOrSelectNetflix(where="adjacent") {
     var alltabs = Array.from(tabs.allTabs);
     var existingTab = alltabs.find(
     t=> t.linkedBrowser.contentDocument &&
@@ -2974,7 +2974,7 @@ function openOrSelectNetflix(where='tab') {
     if (existingTab)
         tabs.select(existingTab);
     else
-        dactyl.open('https://www.netflix.com/browse', {where: where});
+        pageOpen("https://www.netflix.com/browse", {where: where});
 }
 
 function kingJames(book=null, chSec=null) {
