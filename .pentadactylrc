@@ -4155,7 +4155,6 @@ command! pwhashsite
 \    -description "Generate short password from current site's URL using Password Hasher"
 \    -nargs=0
 \    -js pwHashDomain(buffer.URL, tabs.getTab());
-map -modes input <pwhashsite> -ex pwhashsite
 
 " ,-----------------------, "
 " | Page editing commands | "
