@@ -15546,25 +15546,14 @@ function tabOpenURLAdjacent(url, background=false) {
     if (!background) tabs.select(t);
 }
 
-function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
-    var search = `${searchEngine} ${searchTerm}`;
-    var origOrd = tabs.getTab().dactylOrdinal;
-    if (background)
-        dactyl.execute("background tabopen " + search);
-    else
-        dactyl.open(search, "tab");
-    var n1 = tabs.allTabs.length;
-    utils.moveTab(n1, origOrd+1);
+function tabOpenAdjacent(urlOrSearch, background=false) {
+    var url = dactyl.parseURLs(urlOrSearch)[0];
+    return tabOpenURLAdjacent(url, background);
 }
 
-function tabOpenAdjacent(urlOrSearch, background=false) {
-    var url = "https://www.google.com";
-    var t_orig = tabs.getTab();
-    var t = config.tabbrowser.loadOneTab(url, { "relatedToCurrent" : true });
-    tabs.select(t);
-    var tb = gBrowser.getBrowserForTab(t);
-    tb.addEventListener("DOMContentLoaded", ()=>dactyl.open(urlOrSearch), { once: true });
-    if (background) tabs.select(t_orig);
+function tabSearchAdjacent(searchEngine, searchTerm, background=false) {
+    var search = `${searchEngine} ${searchTerm}`;
+    return tabOpenAdjacent(search, background);
 }
 
 function openAndRunCode(url, f, where="adjacent") {
@@ -15592,15 +15581,13 @@ function pageOpen(url, params={}, force=false) {
     if (params.where == dactyl.NEW_BACKGROUND_TAB) {
         params.where = dactyl.NEW_TAB;
         params.background = true;
+    } else if (params.where == dactyl.NEW_ADJACENT_BACKGROUND_TAB) {
+        params.where = dactyl.NEW_ADJACENT_TAB;
+        params.background = true;
     }
 
     if (params.where == dactyl.NEW_ADJACENT_TAB) {
-        if (url.split(" ").length==1 && url.match(re_url))
-            tabOpenURLAdjacent(url, false, force);
-        else
-            tabOpenAdjacent(url);
-    } else if (params.where == dactyl.NEW_ADJACENT_BACKGROUND_TAB) {
-        tabOpenURLAdjacent(url, true, force);
+        tabOpenAdjacent(url, params.background);
     } else {
         dactyl.open(url, params, force);
     }
