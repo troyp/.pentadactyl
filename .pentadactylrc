@@ -3758,6 +3758,9 @@ map <search>;saa
 map <search>;saA
 \    -description "Clipboard Shopping search: art"
 \    -js multipleEngineSearch(searchEngineArtShops, readFromClipboard());
+map <search>;d
+\    -description "Clipboard wiktionary search"
+\    -js pageOpen("https://en.wiktionary.org/w/index.php?search=" + readFromClipboard(), count?"here":"adjacent");
 map <search>;ss
 \    -description "Clipboard Shopping search: ebay + amazon"
 \    -js multipleEngineSearch(["e", "amaz"], readFromClipboard());
