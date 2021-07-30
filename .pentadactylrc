@@ -14995,14 +14995,16 @@ command! ytgotochannel
 \    -js dactyl.open("https://www.youtube.com/channel/" + args[0], {where: bang?"tab":"here"});
 
 map <site>c           -description "Toggle cinema" -ex ytcinema
-map <site>d           -description "(show bindings)" -js CommandExMode().open("showkeys <site>d")
-map <site>ddd         -description "Download video to Downloads" -ex ytdl
-map <site>dd<Space>   -description "Download video" -b :ytdl<Space>
-map <site>daa         -description "Download audio to Music directory" -ex ytdlaudio
-map <site>da<Space>   -description "Download audio" -b :ytdlaudio<Space>
-map <site>ds          -description "Screenshot" -js count ? ytScreenshot() : ytScreenshot2();
-map <site>f           -description "Toggle fullscreen" -ex ytfullscreen
-map <site>m           -description "Toggle mute" -ex ytmute
+
+map <site>d         -description "(show bindings)" -js CommandExMode().open("showkeys <site>d")
+map <site>ddd       -description "Download video to Downloads" -ex ytdl
+map <site>dd<Space> -description "Download video" -b :ytdl<Space>
+map <site>daa       -description "Download audio to Music directory" -ex ytdlaudio
+map <site>da<Space> -description "Download audio" -b :ytdlaudio<Space>
+map <site>ds        -description "Screenshot" -js count ? ytScreenshot() : ytScreenshot2();
+
+map <site>f -description "Toggle fullscreen" -ex ytfullscreen
+map <site>m -description "Toggle mute" -ex ytmute
 
 map <site>o
 \    -description "(show bindings: Goto)"
@@ -15034,10 +15036,11 @@ map <site>osa
 map <site>oss
 \    -description "Goto Subscription"
 \    -js CommandExMode().open("ytgotochannel"+(count?"! ":" "));
-map <site>r  -description "Set play rate" -b :ytrate<Space>
-map <site>R  -description "Show play rate" -ex ytshowrate
-map <site>s  -description "Screenshot (open in new tab)" -js ytScreenshot();
-map <site>u  -description "Toggle user agent override" -ex actoggleuaoverride
+
+map <site>r -description "Set play rate" -b :ytrate<Space>
+map <site>R -description "Show play rate" -ex ytshowrate
+map <site>s -description "Screenshot (open in new tab)" -js ytScreenshot();
+map <site>u -description "Toggle user agent override" -ex actoggleuaoverride
 map <site>\>
 \    -description "Increase play rate / Show more subscriptions"
 \    -count -js ytUp(count);
