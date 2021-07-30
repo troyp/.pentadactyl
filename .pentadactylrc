@@ -15656,7 +15656,7 @@ function openOrSelectTab(url, where='tab', regex=null, reload=false, closeOldTab
     }
 }
 
-function openOrSelectTabAndRunCode(url, f, where='tab', regex=null, reload=false, closeOldTab=false) {
+function openOrSelectTabAndRunCode(url, f, where="adjacent", regex=null, reload=false, closeOldTab=false) {
     /* note: doesn't work when pending tabs are present                                       */
     /* Select tab matching regex (or url if regex is null). If none, open url in new tab.     */
     /* After loading, run f(), passing true if a new tab was opened, false if selecting a tab */
