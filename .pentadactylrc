@@ -13520,20 +13520,24 @@ function redditGetSub(url=buffer.URL) {
 function redditInsertUserNames() {
     /* Insert OP name */
     var opIcon = $1('a[href*="/user/"]+div i.icon-op');
-    var opLink = opIcon.parentElement.parentElement.previousElementSibling;
-    var op = opLink.href.split("/").slice(-2)[0];
-    var postedBySpan = $1('div.Post span:contains("Posted by")');
-    postedBySpan.innerHTML += ` <a href='${opLink.href}'>${op}</a>`;
-    /* Insert commenter names */
-    $$("a").filter(l=>l.href.match(/\/user\//)).forEach(l=>{
+    if (opIcon) {
+        var opLink = opIcon.parentElement.parentElement.previousElementSibling;
+        var op = opLink.href.split("/").slice(-2)[0];
+        var postedBySpan = $1('div.Post span:contains("Posted by")');
+        postedBySpan.innerHTML += ` <a href='${opLink.href}'>${op}</a>`;
+    }
+    /* insertName() function */
+    function insertName(name, newdivParent, insertBefore=null, color="green") {
         newDiv = content.document.createElement("div");
-        newDiv.textContent = l.href.split("/").slice(-2)[0];
+        newDiv.textContent = name;
         newDiv.setAttribute("class", "dactylrcInsertedUserName");
-        newDiv.style.color = "green";
-        nextDiv = l.nextElementSibling;
-        parent = l.parentElement;
-        nextDiv && parent.insertBefore(newDiv, nextDiv);
-    });
+        newDiv.style.color = color;
+        insertBefore = insertBefore || newdivParent.firstChild;
+        newdivParent.insertBefore(newDiv, insertBefore);
+    }
+    /* Insert commenter names */
+    $$("a").filter(l=>l.href.match(/\/user\//)).forEach(l=> insertName(l.href.split("/").slice(-2)[0], l.parentElement, l.nextElementSibling));
+    $$("div[to*='/user/[deleted]']").forEach(d=>insertName("[deleted]", d.parentElement, null, "red"));
 }
 
 function redditLoadMoreReplies() {
