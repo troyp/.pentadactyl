@@ -14359,7 +14359,7 @@ command! wikiasearchcrosswiki
 command! wikiapage
 \    -description "Open page in current wikia"
 \    -nargs +
-\    -js openOrSelectTab(wikiaGetURL(S.toTitleCase(args.join("_"))));
+\    -js openOrSelectTab(wikiaGetURL(S.toTitleCase(args.join(" ").replace(" ", "_"))));
 command! wikiasearchbar    -description "Search in search bar"      -js wikiaSearchbar();
 command! wikiaremoveads    -description "Remove ads"                -js wikiaRemoveAds();
 command! wikiaremovecruft  -description "Remove clutter"            -js wikiaRemoveCruft();
