@@ -15047,6 +15047,8 @@ map <site>\>
 map <site>\<
 \    -description "Decrease play rate / Show less subscriptions"
 \    -count -js ytDown(count);
+
+map <Space> -description "Pause/Play" -ex clickselector .ytp-play-button
 map <S-right> -js ytForward(3);
 map <S-left>  -js ytForward(-3);
 map <A-right> -js ytForward(10);
