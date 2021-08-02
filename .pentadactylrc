@@ -1593,7 +1593,7 @@ function renameLastDownload(n=1) {
     getLastDownload(n).then(f=> {
         utils.message(
             io.system(
-                `mv ${f} $(zenity --entry --text "Rename" --entry-text="${f}" 2>/dev/null)`
+                `mv "${f}" "$(zenity --entry --text "Rename" --entry-text="${f}" 2>/dev/null)"`
             ).output);
     })
 }
