@@ -1579,10 +1579,7 @@ function openLastDownloadDirInBrowser(n=1) {
 }
 
 function openLastDownloadDirInRanger(n=1) {
-    getLastDownload(n).then(f=>{
-        var dir = f.replace(/\/[^/]+$/, "");
-        shellCommandOnUrlFileinRoxterm(`ranger --selectfile "${f}" "${dir}"`);
-    });
+    getLastDownload(n).then(f=>io.system(`roxterm -e ranger --selectfile "${f}"`));
 }
 
 function openLastDownloadInBrowser(n=1) {
