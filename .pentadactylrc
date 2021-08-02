@@ -1337,10 +1337,12 @@ map <browser>tst -description "Toggle highlight active tab"        -ex styletogg
 map <browser>tS  -description "Toggle status bar"                  -ex set guioptions!=s
 map <browser>tt  -description "Toggle tab bar"                     -ex set showtabline!=always,never
 
-map <A-Up>   -description "Hide navigation & bookmarks toolbars and command line"
-\            -ex set guioptions-=mTB | set guioptions+=c | set showtabline=never | !windowtweaks -d `xprop -root _NET_ACTIVE_WINDOW|sed 's/.*# *//'`
-map <A-Down> -description "Show navigation & bookmarks toolbars and command line"
-\            -ex set guioptions+=mTB | set guioptions-=c | set showtabline=always | !windowtweaks -D `xprop -root _NET_ACTIVE_WINDOW|sed 's/.*# *//'`
+map <A-Up>
+\    -description "Hide navigation & bookmarks toolbars and command line"
+\    -ex set guioptions-=mTB | set guioptions+=c | set showtabline=never | !windowtweaks -d `xprop -root _NET_ACTIVE_WINDOW|sed 's/.*# *//'`
+map <A-Down>
+\    -description "Show navigation & bookmarks toolbars and command line"
+\    -ex set guioptions+=mTB | set guioptions-=c | set showtabline=always | !windowtweaks -D `xprop -root _NET_ACTIVE_WINDOW|sed 's/.*# *//'`
 
 " ------------------------------------------------------------------------------- "
 " ,--------------------------, "
