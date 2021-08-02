@@ -1571,7 +1571,7 @@ function openLastDownloadAsMaff(n=1) {
 }
 
 function openLastDownloadDir(n=1) {
-    getLastDownload(n).then(f=> io.system(`dolphin "$(dirname '${f}')"`));
+    getLastDownload(n).then(f=> io.system(`dolphin "${f.replace(/[^/]*$/, '')}"`));
 }
 
 function openLastDownloadDirInBrowser(n=1) {
