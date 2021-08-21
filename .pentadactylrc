@@ -7085,6 +7085,8 @@ js hints.addMode(' ', '', e=>utils.message(e));           "no-break space 00A0"
 " ======= "
 set eht+=[🄿]:div,section,ol,ul,table,frame,iframe,img,h1,h2,h3,h4,input,'xpath:div/p'
 js hints.addMode('🄿','lmnpop',elem => { lmnpop(elem); });
+set eht+=[μ]:a,':-moz-any-link',button
+js hints.addMode("μ", "Mark position and follow link", e=>{ marks.add("m") && hints.modes["o"].action(e); });
 
 " ===== "
 " Links "
