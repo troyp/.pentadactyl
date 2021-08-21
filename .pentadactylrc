@@ -13485,6 +13485,8 @@ group user
 " '------------'                                                                "
 group reddit -locations=reddit.com
 
+map f -description "Set mark and follow link" -js hints.show("μ");
+
 map <site>c -description "Passthrough-mode" -b <C-z>
 map <site>l -description "Load more replies" -js redditLoadMoreReplies();
 map <site>m -description "Remove cruft" -js redditTidy();
