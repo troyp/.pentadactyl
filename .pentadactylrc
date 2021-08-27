@@ -10608,21 +10608,31 @@ set hinttags+="div.ita-hwt-candidate"
 
 js <<EOF
 
-var gtrImeShowHandWriteInput = function() {
+function gtrImeCreateHandWriteInputBox() {
+    var hwboxlink = $1(".ita-kd-menuitem-inputtool-name:contains('Handwrite')");
+    hwboxlink && hwboxlink.click();
+    return hwboxlink;
+}
+function gtrImeShowHandWriteInput() {
     content.document.getElementsByClassName("ita-hwt-ime")[0].style = "left: 28px; top: 364px;"
 }
 
-var gtrImeHideHandWriteInput = function() {
+function gtrImeHideHandWriteInput() {
     content.document.getElementsByClassName("ita-hwt-ime")[0].style = "-moz-user-select: none; left: 28px; top: 364px; display: none;"
 }
 
-var gtrImeIsVisibleHandWriteInput = function() {
-    var hwBox = content.document.getElementsByClassName("ita-hwt-ime")[0];
-    return ! hwBox.style.cssText.includes('display: none');
+function gtrImeHWBox() {
+    return $1(".ita-hwt-ime")
+}
+function gtrImeHWBoxIsVisible() {
+    var hwBox = gtrImeHWBox();
+    return hwBox && !hwBox.style.cssText.includes('display: none');
 }
 
-var gtrImeToggleHandWriteInput = function() {
-    if (gtrImeIsVisibleHandWriteInput())
+function gtrImeToggleHandWriteInput() {
+    if (!gtrImeHWBox())
+        gtrImeCreateHandWriteInputBox();
+    if (gtrImeHWBoxIsVisible())
         gtrImeHideHandWriteInput();
     else
         gtrImeShowHandWriteInput();
