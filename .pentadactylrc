@@ -1384,19 +1384,22 @@ map <C-Space> -description "Show Albert launcher" -js io.system("albert show");
 " | <app>c -- Google Chrome | "
 " '-------------------------' "
 map <app>c -description "(show bindings: Open in Google Chrome)" -js CommandExMode().open("showkeys <app>c");
-map <app>cc
+map <app>cmm
 \    -description "Open in Google Chrome (minimal profile)"
 \    -ex ochromemin
-map <app>cp
+map <app>cmp
 \    -description "Open URL in clipboard with Google Chrome (minimal profile)"
 \    -js dactyl.execute("ochromeminurl " + dactyl.clipboardRead());
-map <app>cu
+map <app>cmu
 \    -description "Open URL in Google Chrome (minimal profile)"
 \    -b :ochromeminurl<Space>
-map <app>c;c
+map <app>cc
 \    -description "Open in Google Chrome (default profile)"
 \    -ex ochrome
-map <app>c;u
+map <app>cp
+\    -description "Open URL in clipboard with Google Chrome (default profile)"
+\    -js dactyl.execute("ochromeurl " + dactyl.clipboardRead());
+map <app>cu
 \    -description "Open URL in Google Chrome (default profile)"
 \    -b :ochromeurl<Space>
 
