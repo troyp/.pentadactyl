@@ -1023,6 +1023,7 @@ map g;H -description "Choose entry in tab's backwards history" -b :back<Space>
 map g;L -description "Choose entry in tab's forwards history" -b :forward<Space>
 
 map g; -description "(show bindings)" -js CommandExMode().open("showkeys g;")
+map g;; -description "Open multiple hints in extended hint mode" -b g;
 map g;i -description "Focus last used input field, move to start" gi<C-a>
 js <<EOF
 group.mappings.add(
