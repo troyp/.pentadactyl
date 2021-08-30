@@ -4290,16 +4290,16 @@ map <buffer>o -description "Open URL in adjacent tab" -b :tabopenadjacent<Space>
 " Paste and Search "
 " swap p and P "
 map P -modes normal -b p
-map p -description "Open (put) clipboard contents in a new tab"
+map p
+\    -description "Open (put) clipboard contents in a new adjacent tab"
+\    -js for (i=0; i<(count||1); ++i) pageOpen(utils.cbRead({index: i}), { where:"adjacent" });
+map gp -description "Open (put) clipboard contents in a new tab"
 \    -modes normal
 \    -js for (i=0; i<(count||1); ++i) dactyl.open(utils.cbRead({index: i}), { where: dactyl.NEW_TAB });
-map g;p -description "Open all links in current selection" -js openAllLinksInCB();
-map gp
-\    -description "Open (put) URL based on clipboard contents in adjacent tab"
-\    -js for (i=0; i<(count||1); ++i) pageOpen(utils.cbRead({index: i}), { where:"adjacent" });
 map <A-p> -description "Open (put) clipboard contents in new background tab"
 \    -modes normal
 \   -js for (i=0; i<(count||1); ++i) dactyl.execute(`background tabopen ${utils.cbRead({index: i})}`);
+map g;p -description "Open all links in current selection" -js openAllLinksInCB();
 
 " ,-----------------------,
 " | <buffer>a -- all tabs |
