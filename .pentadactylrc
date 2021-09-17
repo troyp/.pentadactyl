@@ -14817,6 +14817,42 @@ map <site>c -ex wolframresult
 
 group user
 
+" ----------------------------------------------------------------------------- "
+" ,------------,                                                                "
+" | Woolworths |                                                                "
+" '------------'                                                                "
+
+group Woolworths -locations=woolworths.com.au
+
+js <<EOF
+function woolSetNoSubs() {
+    $$("section.auto_product-cart-section .add-or-edit-button").forEach(e=>e.click());
+    $$("input[id^='shared-text-input-']").forEach(e=>e.value="no substitutions");
+    $$(".product-note-save-button>button").forEach(e=>e.click());
+}
+
+function woolSearch(terms, where="adjacent") {
+    openOrSelectTab("https://www.woolworths.com.au/shop/search/products?searchTerm="+terms.join(" "), where);
+}
+EOF
+
+command! woolsearch -bang -nargs + -js woolSearch(args, bang?"here":"adjacent");
+map <site>o -description "(show bindings: Woolworths/Goto)" -js CommandExMode().open("showkeys <site>o");
+map <site>oc -description "Goto cart" -js clickSelectorByText("button", /view cart/i);
+map <site>oC
+\    -description "Goto checkout"
+\    -js openOrSelectTab("https://www.woolworths.com.au/shop/checkout", count?"adjacent":"here");
+map <site>oo
+\    -description "Goto orders"
+\    -js openOrSelectTab("https://www.woolworths.com.au/shop/myaccount/myorders", count?"adjacent":"here");
+map <site>s
+\    -description "Search products in adjacent (count:current) tab"
+\    -count
+\    -js CommandExMode().open("woolsearch"+(count?"! ":" "));
+map <site>n -description "Set no substitutions message for each item" -js woolSetNoSubs();
+
+group user
+
 " ------------------------------------------------------------------------------- "
 " ,-----------,                                                                   "
 " | Wordpress |                                                                   "
