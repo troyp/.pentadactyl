@@ -1017,8 +1017,8 @@ map gn
 \    -description "Jump to a QuickMark in a new tab (focused if quickmark in 'activate'). See also M and :qmark"
 \    -b gn
 
-map gH  -description "Go to first entry in tab's history" -ex back!
-map gL  -description "Go to last entry in tab's history" -ex forward!
+map gH  -description "Go to first entry in tab's history" -js tabhistoryRestore((count||1)-1);
+map gL  -description "Go to last entry in tab's history" -js tabhistoryRestore(`$-${(count||1)-1}`);
 map g;H -description "Choose entry in tab's backwards history" -b :back<Space>
 map g;L -description "Choose entry in tab's forwards history" -b :forward<Space>
 
@@ -3388,16 +3388,16 @@ map <yank>ue
 map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>ugH
 \    -description "Yank first URL in tab history"
-\    -js utils.yankWithMsg(historyGetUrl(0));
+\    -js utils.yankWithMsg(tabhistoryGetUrl((count||1)-1));
 map <yank>ugL
 \    -description "Yank last URL in tab history"
-\    -js utils.yankWithMsg(historyGetUrl("$"));
+\    -js utils.yankWithMsg(tabhistoryGetUrl(`$-${(count||1)-1}`));
 map <yank>uH
 \    -description "Yank (nth) previous URL"
-\    -js utils.yankWithMsg(historyGetUrl(`-${count||1}`));
+\    -js utils.yankWithMsg(tabhistoryGetUrl(`-${count||1}`));
 map <yank>uL
 \    -description "Yank (nth) succeeding URL"
-\    -js utils.yankWithMsg(historyGetUrl(`+${count||1}`));
+\    -js utils.yankWithMsg(tabhistoryGetUrl(`+${count||1}`));
 map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(urlGetNthParent(count));
 map <yank>uq -description "Yank URL query (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
 map <yank>uQ -description "Yank URL query (encoded)" -js utils.yankWithMsg(buffer.URL.replace(/^[^?]*[?]?/,""));
@@ -3522,6 +3522,16 @@ function yankSelectorCompletions(...sels) {
 function yankSelectorAttributeCompletions(attr, ...sels) {
     return getSelectorsAttributeContent(attr, sels).map(e=>[e]);
 }
+
+function tabhistoryRestore(spec) {
+    var hist = window.getWebNavigation().sessionHistory;
+    var specstr = String(spec).replace("$", hist.count-1);
+    /* +n or -n indicates relative index */
+    if (/^-|^\+/.test(specstr)) specstr = hist.index + specstr;
+    hist.restoreToEntryAtIndex(math.evaluate(specstr));
+}
+
+function tabhistoryIndex() { return window.getWebNavigation().sessionHistory.index; }
 
 function tabhistoryGetUrl(spec) {
     var hist = window.getWebNavigation().sessionHistory;
