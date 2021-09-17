@@ -3523,7 +3523,7 @@ function yankSelectorAttributeCompletions(attr, ...sels) {
     return getSelectorsAttributeContent(attr, sels).map(e=>[e]);
 }
 
-function historyGetUrl(spec) {
+function tabhistoryGetUrl(spec) {
     var hist = window.getWebNavigation().sessionHistory;
     var specstr = String(spec).replace("$", hist.count-1);
     /* +n or -n indicates relative index */
