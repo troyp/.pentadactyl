@@ -14233,14 +14233,14 @@ var wikiaPrefsURL = "http://babylon5.wikia.com/wiki/Special:Preferences";
 var wikiaHelpURL = "http://community.wikia.com/wiki/Help:Contents";
 EOF
 
-" ,- - - - - - - - - - - - - - - - - - - - - - - - - , "
-" ' override f to work on Wikia collapsible sections ' "
-" '- - - - - - - - - - - - - - - - - - - - - - - - - ' "
+" .................................................... "
+" : override f to work on Wikia collapsible sections : "
+" :..................................................: "
 set eht+=🅆:'a',':-moz-any-link',area,button,iframe,'input:not([type=hidden]):not([disabled])','label[for]',select,textarea,'[onclick]','[onmouseover]','[onmousedown]','[onmouseup]','[oncommand]','[tabindex]','[role=link]','[role=button]','[contenteditable=true]',svg,'a[class^=vote]','a[class^=speed]',div.ita-hwt-candidate,.preference>li,section.pi-collapse
 js <<EOF
 hints.addMode(
     '🅆',
-    'Click link/button',
+    'wikia: Click link/button',
     function(elt) {
         ' handle normal links, buttons, etc. '
         dispatchClickEvent(elt);
@@ -14256,7 +14256,6 @@ EOF
 map f -js hints.show('🅆');
 
 js <<EOF
-
 function wikiaRemoveAds() {
     removeSelectors(
         '#WikiaTopAds', '.wikia-ad', '#WikiaArticleBottomAd',
@@ -14335,10 +14334,7 @@ function wikiaGetBaseURL(withProtocol=true) {
     return match && match[withProtocol ? 0 : 1];
 }
 
-function wikiaGetURL(pageName) {
-    return wikiaGetBaseURL() + '/wiki/' + pageName;
-}
-
+function wikiaGetURL(pageName) { return wikiaGetBaseURL() + '/wiki/' + pageName; }
 
 function wikiaGetUser() {
     return content.document.querySelector(".wds-avatar").getAttribute("title");
@@ -14372,64 +14368,76 @@ function wikiaGetTopic(url=buffer.URL) {
         }
     }
 }
-
 EOF
 
-command! wikiaremovefandomads
-    \ -description "Remove 'Trending Fandom' ads"
-    \ removeselector '#recirculation-rail' '.recirculation-rail'
 command! wikiasearch
 \    -description "Search current wikia"
 \    -bang -nargs +
-\    -js openOrSelectTab(wikiaGetSearchURL(args.join(" ")), bang?"adjacent":"here");
+\    -js openOrSelectTab(wikiaGetSearchURL(args.join(" ")), bang?"here":"adjacent");
 command! wikiasearchcrosswiki
 \    -description "Search all wikia"
 \    -bang -nargs +
-\    -js openOrSelectTab(wikiaGetSearchURL(args.join(" "), true), bang?"adjacent":"here");
+\    -js openOrSelectTab(wikiaGetSearchURL(args.join(" "), true), bang?"here":"adjacent");
 command! wikiapage
 \    -description "Open page in current wikia"
 \    -nargs +
 \    -js openOrSelectTab(wikiaGetURL(S.toTitleCase(args.join(" ").replace(" ", "_"))));
 command! wikiasearchbar    -description "Search in search bar"      -js wikiaSearchbar();
-command! wikiaremoveads    -description "Remove ads"                -js wikiaRemoveAds();
 command! wikiaremovecruft  -description "Remove clutter"            -js wikiaRemoveCruft();
 command! wikiasimplepage   -description "Remove clutter/decoration" -js wikiaSimplePage();
 command! wikiaremoveimages -description "Remove images"             -js wikiaRemoveImages();
 command! wikianext
     \ -description "Next page"
     \ -bang
-    \ -js dactyl.open(wikiaGetNext(), { where: bang?'tab':'here' });
+    \ -js pageOpen(wikiaGetNext(), { where: bang?"adjacent":"here" });
 command! wikiaprevious
     \ -description "Previous page"
     \ -bang
-    \ -js dactyl.open(wikiaGetPrevious(), { where: bang?'tab':'here' });
+    \ -js pageOpen(wikiaGetPrevious(), { where: bang?"adjacent":"here" });
 command! wikiacopylyrics -description "Copy lyrics (specialized for each site)" -js wikiaCopyLyrics();
 
-map <site>a   -description "(show bindings: Wikia/Ads)" -js CommandExMode().open("showkeys <site>a")
-map <site>aa  -ex wikiaremoveads
-map <site>af  -ex wikiaremovefandomads
-map <site>c   -ex wikiaremovecruft
-map <site>i   -ex wikiaremoveimages
-map <site>m   -description "(show bindings: Wikia/My)" -js CommandExMode().open("showkeys <site>m")
-map <site>mt  -description "My Talk"
-\             -count -js openOrSelectTab(wikiaGetURL("User_talk:"+wikiaGetUser()), count?"here":"adjacent");
-map <site>mu  -description "My Profile"
-\             -count -js openOrSelectTab(wikiaGetURL("User:"+wikiaGetUser()), count?"here":"adjacent");
+map <site>a -description "(show bindings: Wikia/Ads)" -js CommandExMode().open("showkeys <site>a")
+map <site>aa -description "Remove ads" -js wikiaRemoveAds();
+map <site>af
+\    -description "Remove 'Trending Fandom' ads"
+\    -ex removeselector '#recirculation-rail' '.recirculation-rail'
 
-map <site>o   -description "(show bindings:Wikia/Open)" -js CommandExMode().open("showkeys <site>o")
-map <site>oh  -description "Help"
-\             -count -js openOrSelectTab(wikiaHelpURL, count?"here":"adjacent");
+map <site>c -ex wikiaremovecruft
+map <site>i -ex wikiaremoveimages
 
-map <site>op  -description "(show bindings: Wikia/Open/Preferences)" -js CommandExMode().open("showkeys <site>op")
-map <site>ope -description "My Preferences: Editing"
-\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-editing", count?"here":"adjacent");
-map <site>opm -description "My Preferences: Email"
-\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-emailv2", count?"here":"adjacent");
-map <site>opp -description "My Preferences: My Info"
-\             -count -js openOrSelectTab(wikiaPrefsURL, count?"here":"adjacent");
-map <site>opu -description "My Preferences: Under the Hood"
-\             -count -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"adjacent");
+map <site>m -description "(show bindings: Wikia/My)" -js CommandExMode().open("showkeys <site>m")
+map <site>mt
+\    -description "My Talk"
+\    -count
+\    -js openOrSelectTab(wikiaGetURL("User_talk:"+wikiaGetUser()), count?"here":"adjacent");
+map <site>mu
+\    -description "My Profile"
+\    -count
+\    -js openOrSelectTab(wikiaGetURL("User:"+wikiaGetUser()), count?"here":"adjacent");
 
+map <site>o -description "(show bindings:Wikia/Open)" -js CommandExMode().open("showkeys <site>o")
+map <site>oh
+\    -description "Help"
+\    -count
+\    -js openOrSelectTab(wikiaHelpURL, count?"here":"adjacent");
+
+map <site>op -description "(show bindings: Wikia/Open/Preferences)" -js CommandExMode().open("showkeys <site>op")
+map <site>ope
+\    -description "My Preferences: Editing"
+\    -count
+\    -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-editing", count?"here":"adjacent");
+map <site>opm
+\    -description "My Preferences: Email"
+\    -count
+\    -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-emailv2", count?"here":"adjacent");
+map <site>opp
+\    -description "My Preferences: My Info"
+\    -count
+\    -js openOrSelectTab(wikiaPrefsURL, count?"here":"adjacent");
+map <site>opu
+\    -description "My Preferences: Under the Hood"
+\    -count
+\    -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"adjacent");
 map <site>p   -b :wikiapage<Space>
 map <site>r   -ex wikiasimplepage
 
