@@ -9862,6 +9862,9 @@ map <site>oP -description "Permanent link" -js openOrSelectTab(ghGetPermalink(),
 map <site>or
 \    -description "Open repositories"
 \    -js openOrSelectTab(`https://github.com/${ghGetUser()}?tab=repositories`, count?"adjacent":"here");
+map <site>os
+\    -description "Open settings"
+\    -js openOrSelectTab("https://github.com/settings", count?"adjacent":"here");
 map <site>ot
 \    -description "Open repo top level"
 \    -js ghGotoRepoRootLevel(count);
