@@ -3445,6 +3445,10 @@ map <yank>ugL
 \    -modes normal,visual,insert,command-line
 \    -description "Yank last URL in tab history"
 \    -js utils.yankWithMsg(tabhistoryGetUrl(`$-${(count||1)-1}`));
+map <yank>ugu
+\    -modes normal,visual,insert,command-line
+\    -description "Yank URL with last (n) components stripped"
+\    -js utils.yankWithMsg(urlUp(count||1));
 map <yank>uH
 \    -modes normal,visual,insert,command-line
 \    -description "Yank (nth) previous URL"
