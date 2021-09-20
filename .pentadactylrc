@@ -3269,172 +3269,266 @@ EOF
 " ,------,
 " | Yank |
 " '------'
-map <yank>a -description "Yank text area #N contents" -b :yanktextarea<Space>
+map <yank>a -modes normal,visual,insert,command-line -description "Yank text area #N contents" -b :yanktextarea<Space>
 
-map <yank>b  -description "(show bindings: yank tabs)" -js CommandExMode().open("showkeys <yank>b")
-map <yank>bb -description "Yank tabs list (index: label <URL>)" -js yankTabsList();
-map <yank>btn -description "Yank title of tab N" -b :yanktabtitle<Space>
-map <yank>bun -description "Yank URL of tab N" -b :yanktaburl<Space>
+map <yank>b  -modes normal,visual,insert,command-line -description "(show bindings: yank tabs)" -js CommandExMode().open("showkeys <yank>b")
+map <yank>bb -modes normal,visual,insert,command-line -description "Yank tabs list (index: label <URL>)" -js yankTabsList();
+map <yank>btn -modes normal,visual,insert,command-line -description "Yank title of tab N" -b :yanktabtitle<Space>
+map <yank>bun -modes normal,visual,insert,command-line -description "Yank URL of tab N" -b :yanktaburl<Space>
 
-map <yank>c -description "Yank a table's CSV contents (use after :table2csv)." -b :yanktablecsvarea<Space>
+map <yank>c
+\    -modes normal,visual,insert,command-line
+\    -description "Yank a table's CSV contents (use after :table2csv)."
+\    -b :yanktablecsvarea<Space>
 
 " <yank>d -- Yank datetime "
-map <yank>d  -description "(show bindings: Yank/Datetime)" -js CommandExMode().open("showkeys <yank>d")
+map <yank>d  -modes normal,visual,insert,command-line -description "(show bindings: Yank/Datetime)" -js CommandExMode().open("showkeys <yank>d")
 
-map <yank>da -description "(show bindings: Yank/Datetime/Append)" -js CommandExMode().open("showkeys <yank>da")
+map <yank>da
+\    -modes normal,visual,insert,command-line
+\    -description "(show bindings: Yank/Datetime/Append)"
+\    -js CommandExMode().open("showkeys <yank>da")
 map <yank>daa
+\    -modes normal,visual,insert,command-line
 \    -description "Append current datetime (-yyyy-mm-dd-HH-MM-SS)"
 \    -js utils.cbAppend("-"+(new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
 map <yank>dao
+\    -modes normal,visual,insert,command-line
 \    -description "Append current date only as suffix to clipboard (-yyyy-mm-dd)"
 \    -js utils.cbAppend("-"+(new Date).toISOString().replace(/T.*/, ""));
 
 map <yank>dd
+\    -modes normal,visual,insert,command-line
 \    -description "Yank current datetime to clipboard (yyyy-mm-dd-HH-MM-SS)"
 \    -js utils.cbWrite((new Date).toISOString().replace("T", "-").replace(/:[0-9.]+Z/, ""));
 map <yank>do
+\    -modes normal,visual,insert,command-line
 \    -description "Yank current date only to clipboard (yyyy-mm-dd)"
 \    -js utils.cbWrite((new Date).toISOString().replace(/T.*/, ""));
 
-map <yank>D -description "Yank current date and time" -js utils.yankWithMsg(getDate());
-map <yank>h -description "Yank page heading (choose with completion)" -b :yankheading<Space>
+map <yank>D -modes normal,visual,insert,command-line -description "Yank current date and time" -js utils.yankWithMsg(getDate());
+map <yank>h -modes normal,visual,insert,command-line -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 " <yank>i -- Yank input fields "
-map <yank>i  -description "(show bindings: yank input fields)" -js CommandExMode().open("showkeys <yank>i")
-map <yank>ii -description "Yank text input field (with completion)" -b :yanktextfield<Space>
-map <yank>if -description "Yank first text input field" -js yankInputFieldN(count || 1);
-map <yank>ia -description "Yank text input fields" -js yankInputFields();
+map <yank>i
+\    -modes normal,visual,insert,command-line
+\    -description "(show bindings: yank input fields)"
+\    -js CommandExMode().open("showkeys <yank>i")
+map <yank>ii -modes normal,visual,insert,command-line -description "Yank text input field (with completion)" -b :yanktextfield<Space>
+map <yank>if -modes normal,visual,insert,command-line -description "Yank first text input field" -js yankInputFieldN(count || 1);
+map <yank>ia -modes normal,visual,insert,command-line -description "Yank text input fields" -js yankInputFields();
 
 map <yank>I
+\    -modes normal,visual,insert,command-line
 \    -description "Yank all image locations"
 \    -js yankCollection(content.document.images, l=>l.src);
-map <yank>k -description "Yank kanji (HINTS)" -js hints.show("字");
-map <yank>K -description "Yank bookmark URL by keyword" -b :yankbmarkurlbykeyword<Space>
+map <yank>k -modes normal,visual,insert,command-line -description "Yank kanji (HINTS)" -js hints.show("字");
+map <yank>K -modes normal,visual,insert,command-line -description "Yank bookmark URL by keyword" -b :yankbmarkurlbykeyword<Space>
 map <yank>l
+\    -modes normal,visual,insert,command-line
 \    -description "Yank all links"
 \    -js yankCollection(content.document.links, l=>l.href);
-map <yank>L -description "Yank selection links" -ex yankselectionlinks
-map <yank>m -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
-map <yank>M -description "Yank markdown link (using H1 heading as title)"
+map <yank>L -modes normal,visual,insert,command-line -description "Yank selection links" -ex yankselectionlinks
+map <yank>m -modes normal,visual,insert,command-line -description "Yank markdown link" -js utils.yankWithMsg(`[${buffer.title}](${buffer.URL})`)
+map <yank>M -modes normal,visual,insert,command-line -description "Yank markdown link (using H1 heading as title)"
     \ -js utils.yankWithMsg(`[${content.document.querySelector('h1').innerText}](${buffer.URL})`)
-map <yank>o -description "Yank selection, join lines with dash, colon->dash" -js utils.yankWithMsg(content.document.getSelection().toString().replace(/ *:?\n *| *: */g, " - "));
-map <yank>O -description "Yank selection, join lines, colon->dash" -js utils.yankWithMsg(content.document.getSelection().toString().replace(/:?\n/g, "").replace(/ *: */g, " - "));
-map <yank>p -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
+map <yank>o
+\    -modes normal,visual,insert,command-line
+\    -description "Yank selection, join lines with dash, colon->dash"
+\    -js utils.yankWithMsg(content.document.getSelection().toString().replace(/ *:?\n *| *: */g, " - "));
+map <yank>O
+\    -modes normal,visual,insert,command-line
+\    -description "Yank selection, join lines, colon->dash"
+\    -js utils.yankWithMsg(content.document.getSelection().toString().replace(/:?\n/g, "").replace(/ *: */g, " - "));
+map <yank>p -modes normal,visual,insert,command-line -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
 " <yank>P -- yank from PDF "
-map <yank>P  -description "(show bindings: yank from PDF)" -js CommandExMode().open("showkeys <yank>P")
-map <yank>P1 -description "PDF: Yank first line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[0].textContent);
-map <yank>P2 -description "PDF: Yank second line" -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[1].textContent);
-map <yank>P3 -description "PDF: Yank third line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[2].textContent);
-map <yank>P4 -description "PDF: Yank fourth line" -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[3].textContent);
-map <yank>P5 -description "PDF: Yank fifth line"  -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[4].textContent);
-map <yank>PL -description "PDF: Yank specified text (eg. 2-5,11,19)" -b :pdfYankText<Space>
-map <yank>PP -description "PDF: Yank specified lines (eg. 2-5,11,19)" -b :pdfYankLines<Space>
+map <yank>P  -modes normal,visual,insert,command-line -description "(show bindings: yank from PDF)" -js CommandExMode().open("showkeys <yank>P")
+map <yank>P1
+\    -modes normal,visual,insert,command-line
+\    -description "PDF: Yank first line"
+\    -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[0].textContent);
+map <yank>P2
+\    -modes normal,visual,insert,command-line
+\    -description "PDF: Yank second line"
+\    -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[1].textContent);
+map <yank>P3
+\    -modes normal,visual,insert,command-line
+\    -description "PDF: Yank third line"
+\    -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[2].textContent);
+map <yank>P4
+\    -modes normal,visual,insert,command-line
+\    -description "PDF: Yank fourth line"
+\    -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[3].textContent);
+map <yank>P5
+\    -modes normal,visual,insert,command-line
+\    -description "PDF: Yank fifth line"
+\    -js utils.yankWithMsg(content.document.querySelectorAll(".textLayer>div")[4].textContent);
+map <yank>PL -modes normal,visual,insert,command-line -description "PDF: Yank specified text (eg. 2-5,11,19)" -b :pdfYankText<Space>
+map <yank>PP -modes normal,visual,insert,command-line -description "PDF: Yank specified lines (eg. 2-5,11,19)" -b :pdfYankLines<Space>
 
-map <yank>r -description "Yank link reference (page title and url)"
+map <yank>r -modes normal,visual,insert,command-line -description "Yank link reference (page title and url)"
     \ -js utils.yankWithMsg(`${buffer.title}: ${buffer.URL}`)
-map <yank>R -description "Yank link reference (page title and heading)"
+map <yank>R -modes normal,visual,insert,command-line -description "Yank link reference (page title and heading)"
     \ -js utils.yankWithMsg(`${content.document.querySelector('h1').innerText}: ${buffer.URL}`)
-map <yank>s -description "Yank element content by selector" -b :yankselectorcontent<Space>
+map <yank>s -modes normal,visual,insert,command-line -description "Yank element content by selector" -b :yankselectorcontent<Space>
 
 " <yank>t -- Yank page title "
-map <yank>t  -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>t")
-map <yank>tt -description "Yank page title" -js utils.yankWithMsg(buffer.title)
+map <yank>t  -modes normal,visual,insert,command-line -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>t")
+map <yank>tt -modes normal,visual,insert,command-line -description "Yank page title" -js utils.yankWithMsg(buffer.title)
 map <yank>tf
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page file name (Buffer.getDefaultNames)"
 \    -js utils.yankWithMsg(Buffer.getDefaultNames(doc).find(r=>r[1].match(/File Name/i))[0]);
 map <yank>tF
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page file name (remove queries/fragments)"
 \    -js utils.yankWithMsg(urlToFileName());
-map <yank>td -description "Yank page title with date & time" -ex yanktitleanddate
+map <yank>td -modes normal,visual,insert,command-line -description "Yank page title with date & time" -ex yanktitleanddate
 
 " <yank>u -- Yank URL/filename "
-map <yank>u  -description "(show bindings: Yank/URL)" -js CommandExMode().open("showkeys <yank>u")
+map <yank>u  -modes normal,visual,insert,command-line -description "(show bindings: Yank/URL)" -js CommandExMode().open("showkeys <yank>u")
 
-map <yank>ua -description "(show bindings: Yank/URL/All)" -js CommandExMode().open("showkeys <yank>ua");
+map <yank>ua -modes normal,visual,insert,command-line -description "(show bindings: Yank/URL/All)" -js CommandExMode().open("showkeys <yank>ua");
 map <yank>uaa
+\    -modes normal,visual,insert,command-line
 \    -description "Yank URLs for all tabs (newline separated)"
 \    -js utils.cbWriteWithMessageLimit(tabs.allTabs.map(t=>t.linkedBrowser.contentDocument.URL).join("\n"));
 map <yank>uat
+\    -modes normal,visual,insert,command-line
 \    -description "Yank titles and URLs for all tabs (tab separated fields, newline separated entries)"
 \    -js utils.cbWriteWithMessageLimit(tabs.allTabs.map(t=>`${t._fullLabel}\t${t.linkedBrowser.contentDocument.URL}`).join("\n"));
 
-map <yank>ud  -description "(show bindings: Yank/URL/domain)" -js CommandExMode().open("showkeys <yank>ud")
+map <yank>ud
+\    -modes normal,visual,insert,command-line
+\    -description "(show bindings: Yank/URL/domain)"
+\    -js CommandExMode().open("showkeys <yank>ud")
 map <yank>udd
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page domain"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, false));
 map <yank>udp
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page domain (with protocol)"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, true));
 map <yank>uds
+\    -modes normal,visual,insert,command-line
 \    -description "(show bindings: yank URL/domain/strip subdomains)"
 \    -js CommandExMode().open("showkeys <yank>uds")
 map <yank>udsd
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page domain, strip 1/count subdomains"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, false, count||1));
 map <yank>udsp
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page domain (with protocol, strip 1/count subdomains)"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, true, count||1));
 map <yank>udr
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page domain (with protocol) as regex source"
 \    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count)))
 map <yank>udR
+\    -modes normal,visual,insert,command-line
 \    -description "Yank page domain (with protocol) as regex (including /.../ delimiters)"
 \    -js utils.yankWithMsg(S.escapeRegexSymbols(urlDomain(buffer.URL, true, count),
 \                          { forwardSlashDelimiters: true }))
 
 map <yank>ue
+\    -modes normal,visual,insert,command-line
 \    -description "Yank final or n last components"
 \    -count
 \    -js utils.yankWithMsg(urlGetNthSuffix(buffer.URL, count||1));
-map <yank>uf -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
+map <yank>uf -modes normal,visual,insert,command-line -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>ugH
+\    -modes normal,visual,insert,command-line
 \    -description "Yank first URL in tab history"
 \    -js utils.yankWithMsg(tabhistoryGetUrl((count||1)-1));
 map <yank>ugL
+\    -modes normal,visual,insert,command-line
 \    -description "Yank last URL in tab history"
 \    -js utils.yankWithMsg(tabhistoryGetUrl(`$-${(count||1)-1}`));
 map <yank>uH
+\    -modes normal,visual,insert,command-line
 \    -description "Yank (nth) previous URL"
 \    -js utils.yankWithMsg(tabhistoryGetUrl(`-${count||1}`));
 map <yank>uL
+\    -modes normal,visual,insert,command-line
 \    -description "Yank (nth) succeeding URL"
 \    -js utils.yankWithMsg(tabhistoryGetUrl(`+${count||1}`));
-map <yank>up -description "Yank nth parent of URL" -count -js utils.yankWithMsg(urlGetNthParent(count));
-map <yank>uq -description "Yank URL query (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
-map <yank>uQ -description "Yank URL query (encoded)" -js utils.yankWithMsg(buffer.URL.replace(/^[^?]*[?]?/,""));
-map <yank>ur -description "Yank root path or nth level" -count -js utils.yankWithMsg(urlGetNthFromRootPath(count));
-map <yank>uu -description "Yank buffer URL (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL));
+map <yank>up
+\    -modes normal,visual,insert,command-line
+\    -description "Yank nth parent of URL"
+\    -count
+\    -js utils.yankWithMsg(urlGetNthParent(count));
+map <yank>uq
+\    -modes normal,visual,insert,command-line
+\    -description "Yank URL query (unencoded)"
+\    -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
+map <yank>uQ
+\    -modes normal,visual,insert,command-line
+\    -description "Yank URL query (encoded)"
+\    -js utils.yankWithMsg(buffer.URL.replace(/^[^?]*[?]?/,""));
+map <yank>ur
+\    -modes normal,visual,insert,command-line
+\    -description "Yank root path or nth level"
+\    -count
+\    -js utils.yankWithMsg(urlGetNthFromRootPath(count));
+map <yank>uu
+\    -modes normal,visual,insert,command-line
+\    -description "Yank buffer URL (unencoded)"
+\    -js utils.yankWithMsg(decodeURIComponent(buffer.URL));
 map <yank>uU
+\    -modes normal,visual,insert,command-line
 \    -description "Yank URL up one (or COUNT) levels (as per gu)"
 \    -count
 \    -js utils.yankWithMsg(urlUp(count||1));
 map <yank>uv
+\    -modes normal,visual,insert,command-line
 \    -description "Yank visible URL (unencoded)"
 \    -js utils.yankWithMsg(decodeURIComponent(document.querySelector("#urlbar").textValue));
-map <yank>uV -description "Yank visible URL (encoded)" -js utils.yankWithMsg(document.querySelector("#urlbar").textValue);
-map <yank>u# -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
-map <yank>u? -description "Yank URL query (unencoded)" -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
+map <yank>uV
+\    -modes normal,visual,insert,command-line
+\    -description "Yank visible URL (encoded)"
+\    -js utils.yankWithMsg(document.querySelector("#urlbar").textValue);
+map <yank>u# -modes normal,visual,insert,command-line -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
+map <yank>u?
+\    -modes normal,visual,insert,command-line
+\    -description "Yank URL query (unencoded)"
+\    -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
 
-map <yank>v -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
-map <yank>V -description "Yank browser name and version"
+map <yank>v -modes normal,visual,insert,command-line -description "Yank browser version" -js utils.yankWithMsg(xulAppInfo.version);
+map <yank>V -modes normal,visual,insert,command-line -description "Yank browser name and version"
 \           -js utils.yankWithMsg(`${xulAppInfo.name} ${xulAppInfo.version}`);
 
-map <yank>x  -description "(show bindings: yank text)" -js CommandExMode().open("showkeys <yank>x")
-map <yank>xx -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
-map <yank>xs -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
+map <yank>x  -modes normal,visual,insert,command-line -description "(show bindings: yank text)" -js CommandExMode().open("showkeys <yank>x")
+map <yank>xx -modes normal,visual,insert,command-line -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
+map <yank>xs -modes normal,visual,insert,command-line -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
 
-map <yank>y -description "Yank buffer URL" -js utils.cbWrite(getCurrentURL());
-map <yank>0 -description "Yank empty string to clipboard" -js utils.cbWrite("");
-map <yank>1 -description "Yank all <H1> headings" -js yankSelectorContent(count ? `h1:nth-of-type(${count})` : "h1");
-map <yank>2 -description "Yank all <H2> headings" -js yankSelectorContent(count ? `h2:nth-of-type(${count})` : "h2");
-map <yank>3 -description "Yank all <H3> headings" -js yankSelectorContent(count ? `h3:nth-of-type(${count})` : "h3");
-map <yank>4 -description "Yank all <H4> headings" -js yankSelectorContent(count ? `h4:nth-of-type(${count})` : "h4");
-map <yank>! -description "Yank <H1> heading (choose with completion)" -b :yankh1<Space>
-map <yank>@ -description "Yank <H2> heading (choose with completion)" -b :yankh2<Space>
-map <yank># -description "Yank <H3> heading (choose with completion)" -b :yankh3<Space>
-map <yank>$ -description "Yank <H4> heading (choose with completion)" -b :yankh4<Space>
-map <yank>,, -description "Append buffer URL to selection" -js utils.cbAppend(buffer.URL);
-map <yank>/ -description "Yank URL (unencoded) as escaped regex literal"
-\           -js S.escapeRegexSymbols(decodeURIComponent(buffer.URL), {forwardSlashDelimiters:true})
+map <yank>y -modes normal,visual,insert,command-line -description "Yank buffer URL" -js utils.cbWrite(getCurrentURL());
+map <yank>0 -modes normal,visual,insert,command-line -description "Yank empty string to clipboard" -js utils.cbWrite("");
+map <yank>1
+\    -modes normal,visual,insert,command-line
+\    -description "Yank all <H1> headings"
+\    -js yankSelectorContent(count ? `h1:nth-of-type(${count})` : "h1");
+map <yank>2
+\    -modes normal,visual,insert,command-line
+\    -description "Yank all <H2> headings"
+\    -js yankSelectorContent(count ? `h2:nth-of-type(${count})` : "h2");
+map <yank>3
+\    -modes normal,visual,insert,command-line
+\    -description "Yank all <H3> headings"
+\    -js yankSelectorContent(count ? `h3:nth-of-type(${count})` : "h3");
+map <yank>4
+\    -modes normal,visual,insert,command-line
+\    -description "Yank all <H4> headings"
+\    -js yankSelectorContent(count ? `h4:nth-of-type(${count})` : "h4");
+map <yank>! -modes normal,visual,insert,command-line -description "Yank <H1> heading (choose with completion)" -b :yankh1<Space>
+map <yank>@ -modes normal,visual,insert,command-line -description "Yank <H2> heading (choose with completion)" -b :yankh2<Space>
+map <yank># -modes normal,visual,insert,command-line -description "Yank <H3> heading (choose with completion)" -b :yankh3<Space>
+map <yank>$ -modes normal,visual,insert,command-line -description "Yank <H4> heading (choose with completion)" -b :yankh4<Space>
+map <yank>,, -modes normal,visual,insert,command-line -description "Append buffer URL to selection" -js utils.cbAppend(buffer.URL);
+map <yank>/
+\    -modes normal,visual,insert,command-line
+\    -description "Yank URL (unencoded) as escaped regex literal"
+\    -js S.escapeRegexSymbols(decodeURIComponent(buffer.URL), {forwardSlashDelimiters:true})
 
 " Yank commands "
 command! yankfilenameorURL
@@ -9695,115 +9789,115 @@ EOF
 " ===== GROUP START ===== "
 group github -locations=github.com,githubusercontent.com,rawgit.com,patch-diff.githubusercontent.com,github.io
 
-map <site>a        -description "(show bindings: Github/Alterations)" -js CommandExMode().open("showkeys <site>a")
-map <site>ag       -description "Cleanup Gist" -ex ghgistcleanup
-map <site>aG       -description "Cleanup Gist (keep comments)" -ex ghgistcleanup!
+map <site>a -description "(show bindings: Github/Alterations)" -js CommandExMode().open("showkeys <site>a")
+map <site>ag -description "Cleanup Gist" -ex ghgistcleanup
+map <site>aG -description "Cleanup Gist (keep comments)" -ex ghgistcleanup!
 
-map <site>c        -description "Click README.md" -js ghClickReadme();
+map <site>c -description "Click README.md" -js ghClickReadme();
 
-map <site>d        -description "(show bindings: Github/Download)" -js CommandExMode().open("showkeys <site>d")
-map <site>dd       -description "Download diff file" -b :ghdldiff<Space>
-map <site>dp       -description "Download patch file" -b :ghdlpatch<Space>
-map <site>dr       -description "Download raw file" -js savePageDialog(ghConvertUrlToRaw());
-map <site>d;r      -description "Download raw file (hints)" -js hints.show("ⓖ");
-map <site>dR       -description "Download this README to /opt/doc/" -ex ghsavethisreadmetodoc
+map <site>d -description "(show bindings: Github/Download)" -js CommandExMode().open("showkeys <site>d")
+map <site>dd  -description "Download diff file" -b :ghdldiff<Space>
+map <site>dp  -description "Download patch file" -b :ghdlpatch<Space>
+map <site>dr  -description "Download raw file" -js savePageDialog(ghConvertUrlToRaw());
+map <site>d;r -description "Download raw file (hints)" -js hints.show("ⓖ");
+map <site>dR  -description "Download this README to /opt/doc/" -ex ghsavethisreadmetodoc
 
-map <site>g        -description "(show bindings: Github/Git)" -js CommandExMode().open("showkeys <site>g")
-map <site>gc       -description "(show bindings: Github/Git/Clone)" -js CommandExMode().open("showkeys <site>gc")
-map <site>gch      -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
-map <site>gcc      -description "Clone repo to ~/source/git-repos or ~/repos" -js ghCloneRepoToMyDir();
-map <site>gcs      -description "Clone repo via SSH" -b :ghclonessh<Space>
+map <site>g -description "(show bindings: Github/Git)" -js CommandExMode().open("showkeys <site>g")
+map <site>gc -description "(show bindings: Github/Git/Clone)" -js CommandExMode().open("showkeys <site>gc")
+map <site>gch -description "Clone repo via HTTPS" -b :ghclonehttps<Space>
+map <site>gcc -description "Clone repo to ~/source/git-repos or ~/repos" -js ghCloneRepoToMyDir();
+map <site>gcs -description "Clone repo via SSH" -b :ghclonessh<Space>
 
-map <site>h        -description "Toggle HTML view" -ex ghtogglehtmlview
-map <site>ir       -description "List user's repos in mow" -ex ghlistrepos
-map <site>l        -description "Show line(s) in source file" -b :ghgotolines<Space>
+map <site>h  -description "Toggle HTML view" -ex ghtogglehtmlview
+map <site>ir -description "List user's repos in mow" -ex ghlistrepos
+map <site>l  -description "Show line(s) in source file" -b :ghgotolines<Space>
 
-map <site>m        -description "(show bindings:Github/My)" -js CommandExMode().open("showkeys <site>m")
-map <site>mg       -count -description "My gists"
-\                  -js openOrSelectTab('https://gist.github.com/'+ghusername, count?"tab":"here");
-map <site>mG       -count -description "My starred gists"
-\                  -count
-\                  -js openOrSelectTab(`https://gist.github.com/${ghusername}/starred`, count?"tab":"here");
-map <site>mm       -description "My comments"
-\                  -count
-\                  -js openOrSelectTab("https://github.com/search?utf8=✓&q=+is:issue+commenter:troyp",
-\                                      count?"tab":"here");
-map <site>mo       -description "My profile" -count -js dactyl.open('https://github.com/'+ghusername, 'here');
-map <site>mr       -description "My repositories"
-\                  -count
-\                  -js openOrSelectTab(`https://github.com/${ghusername}?tab=repositories`, count?"tab":"here");
-map <site>ms       -description "My stars"
-\                  -count
-\                  -js openOrSelectTab(`https://github.com/${ghusername}?tab=stars`, count?"tab":"here");
+map <site>m  -description "(show bindings:Github/My)" -js CommandExMode().open("showkeys <site>m")
+map <site>mg
+\    -description "My gists"
+\    -js openOrSelectTab('https://gist.github.com/'+ghusername, count?"adjacent":"here");
+map <site>mG
+\    -description "My starred gists"
+\    -js openOrSelectTab(`https://gist.github.com/${ghusername}/starred`, count?"adjacent":"here");
+map <site>mm -description "My comments"
+\    -js openOrSelectTab(
+\            "https://github.com/search?utf8=✓&q=+is:issue+commenter:troyp", count?"adjacent":"here"
+\        );
+map <site>mo -description "My profile" -count -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mr
+\    -description "My repositories"
+\    -js openOrSelectTab(`https://github.com/${ghusername}?tab=repositories`, count?"adjacent":"here");
+map <site>ms
+\    -description "My stars"
+\    -js openOrSelectTab(`https://github.com/${ghusername}?tab=stars`, count?"adjacent":"here");
 
-map <site>o        -description "(show bindings:Github/Open)" -js CommandExMode().open("showkeys <site>o")
-map <site>oc       -description "Open commits"
-\                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/commits`,
-\                                             count?"tab":"here");
-map <site>od       -description "Open PR patch"
-\                  -count -js openOrSelectTab(`${ghprGetPatchURL()}`, count?"tab":"here");
-map <site>oD       -description "Open PR diff"
-\                  -count -js openOrSelectTab(`${ghprGetDiffURL()}`, count?"tab":"here");
-map <site>og       -description "Open gists"
-\                  -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"adjacent");
-map <site>oh       -description "Open help" -count -js ghOpenHelp(count?"here":"tab");
-map <site>oi       -description "Open issues"
-\                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`,
-\                                             count?"tab":"here");
-map <site>oI       -description "Open issues.csv"
-\                  -count
-\                  -js openOrSelectTab(`https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`,
-\                                      count?"tab":"here");
-map <site>om       -description "User's comments"
-\                  -count
-\                  -js openOrSelectTab("https://github.com/search?utf8=✓&q=+is:issue+commenter:"+ghGetUser(),
-\                                      count?"tab":"here");
-map <site>oo       -description "Open profile (overview)"
-\                  -count
-\                  -js openOrSelectTab(`https://github.com/${ghGetUser()}`, count?"tab":"here");
-map <site>op       -description "Open PRs"
-\                  -count -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/pulls`,
-\                                             count?"tab":"here");
-map <site>oP       -description "Permanent link" -js openOrSelectTab(ghGetPermalink(), count?"tab":"here");
-map <site>or       -description "Open repositories"
-\                  -count -js openOrSelectTab(`https://github.com/${ghGetUser()}?tab=repositories`,
-\                                             count?"tab":"here");
-map <site>ot       -description "Open repo top level"
-\                  -count -js ghGotoRepoRootLevel(count);
-map <site>ow       -description "Open wiki" -js openOrSelectTab(ghGetWikiURL(), count?"tab":"here");
-map <site>o<       -description "Open pull request URL" -js openOrSelectTab(ghGetPRURL(), count?"tab":"here");
+map <site>o  -description "(show bindings:Github/Open)" -js CommandExMode().open("showkeys <site>o")
+map <site>oc
+\    -description "Open commits"
+\    -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/commits`, count?"adjacent":"here");
+map <site>od -description "Open PR patch"
+map <site>oD -description "Open PR diff"
+map <site>og -description "Open gists"
+\    -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"adjacent");
+map <site>oh -description "Open help" -count -js ghOpenHelp(count?"here":"adjacent");
+map <site>oi
+\    -description "Open issues"
+\    -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, count?"adjacent":"here");
+map <site>oI
+\    -description "Open issues.csv"
+\    -js openOrSelectTab(
+\            `https://api.github.com/repos/${ghGetUserAndRepo().join('/')}/issues`, count?"adjacent":"here"
+\        );
+map <site>om
+\    -description "User's comments"
+\    -js openOrSelectTab(
+\            "https://github.com/search?utf8=✓&q=+is:issue+commenter:"+ghGetUser(), count?"adjacent":"here"
+\        );
+map <site>oo
+\    -description "Open profile (overview)"
+\    -js openOrSelectTab(`https://github.com/${ghGetUser()}`, count?"adjacent":"here");
+map <site>op
+\    -description "Open PRs" count?"adjacent":"here");
+map <site>oP -description "Permanent link" -js openOrSelectTab(ghGetPermalink(), count?"adjacent":"here");
+map <site>or
+\    -description "Open repositories"
+\    -js openOrSelectTab(`https://github.com/${ghGetUser()}?tab=repositories`, count?"adjacent":"here");
+map <site>ot
+\    -description "Open repo top level"
+\    -js ghGotoRepoRootLevel(count);
+map <site>ow -description "Open wiki" -js openOrSelectTab(ghGetWikiURL(), count?"adjacent":"here");
+map <site>o< -description "Open pull request URL" -js openOrSelectTab(ghGetPRURL(), count?"adjacent":"here");
 
-map <site>r        -description "Open raw file (hints)" -js hints.show("🄶");
-map <site>R        -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
+map <site>r -description "Open raw file (hints)" -js hints.show("🄶");
+map <site>R -description "Open raw file (new tab) (hints)" -js hints.show("🅶");
 
-map <site>s        -description "(show bindings:Github/Search)" -js CommandExMode().open("showkeys <site>s")
+map <site>s -description "(show bindings:Github/Search)" -js CommandExMode().open("showkeys <site>s")
 map <site>sc
 \    -description "Search Github commits"
 \    -js CommandExMode().open("ghsearchcommits" + (count?"! ":" "));
 map <site>ss
 \    -description "Search Github in adjacent (count:current) tab"
-\    -count
 \    -js CommandExMode().open("ghsearch"+(count?"! ":" "));
 
-map <site>y        -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
-map <site>y        -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
-map <site>yd       -description "Yank description" -ex yankselectorcontent '.BorderGrid-cell p'
-map <site>yg       -description "Yank git repo link" -js ghCopyRepoLinkGit();
-map <site>yh       -description "Yank https repo link" -js ghCopyRepoLinkHttps();
-map <site>yn       -description "Yank repo name" -js utils.yankWithMsg(ghGetUserAndRepo()[1]);
-map <site>yr       -description "Yank raw file URL" -js hints.show("Ⓖ");
-map <site>ys       -description "Yank SHA" -js hints.show("🄪");
-map <site>yt       -description "Yank file contents" -ex yankselectorcontent div.Box>div.data
-map <site>yR       -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
-map <site>yu       -description "Yank user/repo name" -js ghCopyUserAndRepo();
-map <site>yU       -description "Yank user name" -js ghCopyUser();
-map <site>yw       -description "Yank wiki git URL" -js ghCopyWikiGitURL();
-map <site>yy       -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
-map <site>y<       -description "Yank pull request URL" -js utils.yankWithMsg(ghGetPRURL());
+map <site>y  -description "(show bindings:Github/Yank)" -js CommandExMode().open("showkeys <site>y")
+map <site>y  -description "(show bindings)" -js CommandExMode().open("showkeys <site>y")
+map <site>yd -description "Yank description" -ex yankselectorcontent '.BorderGrid-cell p'
+map <site>yg -description "Yank git repo link" -js ghCopyRepoLinkGit();
+map <site>yh -description "Yank https repo link" -js ghCopyRepoLinkHttps();
+map <site>yn -description "Yank repo name" -js utils.yankWithMsg(ghGetUserAndRepo()[1]);
+map <site>yr -description "Yank raw file URL" -js hints.show("Ⓖ");
+map <site>ys -description "Yank SHA" -js hints.show("🄪");
+map <site>yt -description "Yank file contents" -ex yankselectorcontent div.Box>div.data
+map <site>yR -description "Yank repo name with URL" -js ghCopyRepoNameWithURL();
+map <site>yu -description "Yank user/repo name" -js ghCopyUserAndRepo();
+map <site>yU -description "Yank user name" -js ghCopyUser();
+map <site>yw -description "Yank wiki git URL" -js ghCopyWikiGitURL();
+map <site>yy -description "Yank SSH repo link" -js ghCopyRepoLinkSSH();
+map <site>y< -description "Yank pull request URL" -js utils.yankWithMsg(ghGetPRURL());
 
-map <site>8        -description "Star/Unstar repo" -js ghStar();
-map <site>*        -description "Star/Unstar repo" -js ghStar();
-map <site>/        -ex ghfilefinder
+map <site>8 -description "Star/Unstar repo" -js ghStar();
+map <site>* -description "Star/Unstar repo" -js ghStar();
+map <site>/ -ex ghfilefinder
 
 command! ghtogglehtmlview
      \ -description "Toggle between HTML file and rendered view"
