@@ -910,7 +910,7 @@ map <C-h>gc  -description "List commands by group" -b :listcommandsbygroup<Space
 map <C-h>gC  -description "List commands by group (verbose)" -b :listcommandsbygroup!<Space>
 map <C-h>gm  -description "List bindings by group" -b :listmappingsbygroup<Space>
 map <C-h>h   -description "Open Help topic" :help<Space>
-map <C-h>i   -description "Pentadactyl help - index" -count -js openOrSelectTab("dactyl://help/index", count?"here":"adjacent");
+map <C-h>i   -description "Pentadactyl help - index" -js openOrSelectTab("dactyl://help/index", count?"here":"adjacent");
 map <C-h>k   -description "Search browser keybindings" -b :searchbrowserkeybindings<Space>
 map <C-h>K   -description "Search browser keybindings by name" -b :searchbrowserkeybindingsbyname<Space>
 map <C-h>m   -description "Search bindings by mode" -b :searchmappingsbymode<Space>
@@ -1048,18 +1048,18 @@ map l       -modes normal -b <C-n>
 map gu
 \    -description "Open page up one (or COUNT) URL level (remove fragments, then queries, then path components, then subdomains)"
 \    -modes normal
-\    -count -js dactyl.open(urlUp(count||1));
+\    -js dactyl.open(urlUp(count||1));
 " Let gU take a count "
 map gU -description "Open root path or nth level"
 \    -modes normal
-\    -count -js dactyl.open(urlGetNthFromRootPath(count));
+\    -js dactyl.open(urlGetNthFromRootPath(count));
 map g;uu
 \    -description "Open (new tab) page up one (or COUNT) URL lvl (rem frags->queries->path-comp's->subdomains)"
 \    -modes normal
-\    -count -js pageOpen(urlUp(count||1), "adjacent");
+\    -js pageOpen(urlUp(count||1), "adjacent");
 map g;uU -description "Open (new tab) root path or nth level"
 \    -modes normal
-\    -count -js pageOpen(urlGetNthFromRootPath(count), "adjacent");
+\    -js pageOpen(urlGetNthFromRootPath(count), "adjacent");
 map g;ud -description "Remove subdomain(s) from current URL" -js dactyl.open(urlDomain(buffer.URL, true, count||1));
 map g;u# -description "Remove fragment from current URL" -js dactyl.open(buffer.URL.replace(/#.*$/, ""));
 
@@ -1088,22 +1088,18 @@ map V -modes normal -description "Pseudo-visual-line mode" -ex feedkeys i<C-a>vj
 map <C-A-n>
 \   -description "Jump to next heading"
 \   -modes normal,visual
-\   -count
 \   -js buffer.findJump('h', count, false);
 map <C-A-p>
 \   -description "Jump to previous heading"
 \   -modes normal,visual
-\   -count
 \   -js buffer.findJump('h', count, true);
 map <A-S-n>
 \   -description "Jump to next paragraph"
 \   -modes normal,visual
-\   -count
 \   -js buffer.findJump('p', count, false);
 map <A-S-p>
 \   -description "Jump to previous paragraph"
 \   -modes normal,visual
-\   -count
 \   -js buffer.findJump('p', count, true);
 
 " bind gs as :viewpagesource, free gf for g;b
@@ -1420,78 +1416,62 @@ map <app>cvv
 " ,---------------------, "
 " | <app>d -- Downloads | "
 " '---------------------' "
-map <app>d -description "(show bindings: Downloads)" -count -js CommandExMode().open("showkeys <app>d");
+map <app>d -description "(show bindings: Downloads)" -js CommandExMode().open("showkeys <app>d");
 
 map <app>da -description "DownThemAll" -ex dta
 map <app>dA -description "DownThemAll Manager" -ex dtamanager
 
-map <app>dd -description "(show bindings: Downloads/Directory)" -count -js CommandExMode().open("showkeys <app>dd");
+map <app>dd -description "(show bindings: Downloads/Directory)" -js CommandExMode().open("showkeys <app>dd");
 map <app>ddb
 \    -description "Open last download directory in browser"
-\    -count
 \    -js openLastDownloadDirInBrowser(count||1);
 map <app>ddd
 \    -description "Open last download directory in Dolphin"
-\    -count
 \    -js openLastDownloadDir(count||1);
 map <app>ddr
 \    -description "Open last download directory in Ranger"
-\    -count
 \    -js openLastDownloadDirInRanger(count||1);
 map <app>ddx
-\    -count
 \    -description "Open last download directory (enter program)"
 \    -js CommandExMode().open(`shellcommandondownloaddir ${count||1} `);
 
-map <app>dl -description "(show bindings: Downloads/List)" -count -js CommandExMode().open("showkeys <app>dl");
+map <app>dl -description "(show bindings: Downloads/List)" -js CommandExMode().open("showkeys <app>dl");
 map <app>dll
-\    -count
 \    -description "List downloads"
 \    -js listDownloads();
 map <app>dlu
-\    -count
 \    -description "List download URLs"
 \    -js listDownloadUrls();
 
 map <app>dm
 \    -description "Open last download as MAFF file"
-\    -count
 \    -js openLastDownloadAsMaff(count||1);
 map <app>dr
 \    -description "Rename last download"
-\    -count
 \    -js renameLastDownload(count||1)
 map <app>dt
 \    -description "Trash last download"
-\    -count
 \    -js trashLastDownload(count||1)
 
 map <app>dx -description "(show bindings: Downloads/Open)" -js CommandExMode().open("showkeys <app>dx")
 map <app>dxa
 \    -description "Open last download (ask app)"
-\    -count
 \    -js mimeopenAskAppForLastDownload(count||1)
 map <app>dxd
 \    -description "Open last download with mimeopen"
-\    -count
 \    -js mimeopenLastDownload(count||1)
 map <app>dxx
 \    -description "Open last download (enter program)"
-\    -count
 \    -js CommandExMode().open(`shellcommandondownload ${count||1} `);
 map <app>dx=
 \    -description "Open last download and set default application for type"
-\    -count
-\    -count
 \    -js mimeopenAndSetAppForLastDownload(count||1)
 
 map <app>dv
 \    -description "Open last download in browser"
-\    -count
 \    -js openLastDownloadInBrowser(count||1)
 map <app>dy
 \    -description "Yank last download path"
-\    -count
 \    -js getLastDownload(count||1).then(function (dlPath) { dactyl.utils.cbWrite(dlPath); });
 
 command! shellcommandondownload
@@ -1631,7 +1611,6 @@ map <app>ed
 \    -ex openDirectoryInDired
 map <app>et
 \    -description "Open page text in Emacs"
-\    -count
 \    -js openPageTextInEmacs(!count)
 map <app>ew
 \    -description "Open page in Emacs w3m"
@@ -1750,7 +1729,6 @@ map <app>xx
 \    -js CommandExMode().open("shellcommandonurlfile ");
 map <app>x=
 \    -description "Open file/URL (ask app) and set default application for type"
-\    -count
 \    -js mimeopenAndSetAppUrlFile(count||1)
 
 command! openwithprogramurl
@@ -1856,7 +1834,7 @@ map <leader>aa
 \    -js CommandExMode().open("showkeys <leader>aa");
 map <leader>aai
     \ -description "Open Inoreader"
-    \ -count -js openOrSelectTab("https://www.inoreader.com/dashboard");
+    \ -js openOrSelectTab("https://www.inoreader.com/dashboard");
 
 "  <leader>aap - Packt "
 map <leader>aap
@@ -1867,13 +1845,13 @@ map <leader>aapa
     \ -js packtWriteTitleToListAndShowEndOfList();
 map <leader>aapf
     \ -description "Open Packt Free Learning"
-    \ -count -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1");
+    \ -js openOrSelectTab("https://www.packtpub.com//packt/offers/free-learning?login=1");
 map <leader>aapl
     \ -description "Open Packt Library"
-    \ -count -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
+    \ -js openOrSelectTab("https://www.packtpub.com/account/my-ebooks");
 map <leader>aapL
     \ -description "Open Packt Library local list"
-    \ -count -js openOrSelectTab(`file://${homedir}/.pentadactyl/data/packt-library.txt`);
+    \ -js openOrSelectTab(`file://${homedir}/.pentadactyl/data/packt-library.txt`);
 map <leader>aapn
     \ -description "Is today's Packt free title already in library?"
     \ -js utils.message(packtGetTodaysTitle() + ": " + (packtIsTodaysTitleInLibrary() ? "Already in library" : "NOT in library"));
@@ -1915,17 +1893,15 @@ map <leader>ag
 \    -js CommandExMode().open("showkeys <leader>ag");
 map <leader>agf
 \    -description "Follow Github link"
-\    -count
 \    -js openOrSelectTab(getFirstGithubLink(), count?"adjacent":"here");
 map <leader>agg -description "Github goto user/repo"
-\    -count
 \    -js CommandExMode().open(count ? "githubgoto! " : "githubgoto ");
 map <leader>agh
 \     -description "Open My Github: Repositories"
-\     -count -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"adjacent");
+\     -js openOrSelectTab('https://github.com/troyp?tab=repositories', count?"here":"adjacent");
 map <leader>agb
 \     -description "Open My Bitbucket"
-\     -count -js openOrSelectTab('https://bitbucket.org/', count?"here":"adjacent");
+\     -js openOrSelectTab('https://bitbucket.org/', count?"here":"adjacent");
 
 " <leader>am - Email "
 map <leader>am
@@ -1933,23 +1909,23 @@ map <leader>am
 \    -js CommandExMode().open("showkeys <leader>am");
 map <leader>amc
 \     -description "Open Google Contacts"
-\     -count -js openOrSelectTab("https://contacts.google.com/", count?"here":"adjacent");
+\     -js openOrSelectTab("https://contacts.google.com/", count?"here":"adjacent");
 map <leader>amC
 \     -description "Open Gmail Contacts (basic)"
-\     -count -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
+\     -js openOrSelectTab("https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&v=cl",
 \                                count?"here":"adjacent",
 \                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*v=cl/);
 map <leader>amm
 \     -description "Open Gmail Basic"
-\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
+\     -js openOrSelectTab('https://mail.google.com/mail/u/0/h/1f0xqcpo2pdl3/?&',
 \                                count?"here":"adjacent",
 \                                /https:\/\/mail.google.com\/mail\/u\/0\/h\/.*\?&/);
 map <leader>amg
 \     -description "Open Gmail"
-\     -count -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"adjacent");
+\     -js openOrSelectTab('https://mail.google.com/mail/u/0/#inbox', count?"here":"adjacent");
 map <leader>amy
 \     -description "Open Y7Mail"
-\     -count -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"adjacent");
+\     -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"adjacent");
 
 " <leader>as - Shopping & Schedules"
 map <leader>as
@@ -1957,19 +1933,18 @@ map <leader>as
 \    -js CommandExMode().open("showkeys <leader>as");
 map <leader>asa
 \     -description "open Amazon AU"
-\     -count -js selectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart") ||
+\     -js selectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart") ||
 \                    openOrSelectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart", null, /https:\/\/[^.]+\.amazon\.com\.au/);
 map <leader>ase
 \     -description "open eBay"
-\     -count -js selectTab("https://cart.ebay.com.au") ||
+\     -js selectTab("https://cart.ebay.com.au") ||
 \                    openOrSelectTab("https://cart.ebay.com.au", null, /https:\/\/[^.]+\.ebay\.com\.au/);
 map <leader>asj
 \     -description "open Jackson's Art"
-\     -count -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
+\     -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
 \                    openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
 map <leader>asl
 \    -description "Open liquor specials"
-\    -count
 \    -js [ "https://www.danmurphys.com.au/current-offers?filters=variety(spirits)",
 \          "https://www.liquorland.com.au/specials/spirit-specials",
 \          "https://www.vintagecellars.com.au/specialoffers/spirit-specials",
@@ -1978,7 +1953,7 @@ map <leader>asl
 \         ].forEach(u=>openOrSummonTab(u));
 map <leader>asp
 \     -description "Open Paypal"
-\     -count -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"adjacent");
+\     -js openOrSelectTab('https://www.paypal.com/myaccount/home', count?"here":"adjacent");
 
 map <leader>aq
 \    -description "Open Quix"
@@ -1986,26 +1961,25 @@ map <leader>aq
 " Time "
 map <leader>at
 \     -description "Open Time Server"
-\     -count -js openOrSelectTab('https://time.is/Sydney', count?"here":"adjacent", /^https:\/\/time\.is/);
+\     -js openOrSelectTab('https://time.is/Sydney', count?"here":"adjacent", /^https:\/\/time\.is/);
 " <leader>av - Video & Radio"
 map <leader>av
 \    -description "(show bindings: Web Sites/Video&Radio)"
 \    -js CommandExMode().open("showkeys <leader>av");
 map <leader>ava
 \     -description "AccuRadio Classical"
-\     -count -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
+\     -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
 map <leader>avd -description "Open Disney Plus"
-\    -count
 \    -js openOrSelectTab("https://www.disneyplus.com/en-gb/home", count?"here":"adjacent");
 :if isPalemoon
     map <leader>avn -description "Open Netflix (Chrome)" -ex ochromeurl "https://www.netflix.com/browse"
 :else
     map <leader>avn -description "Open Netflix"
-    \ -count -js openOrSelectNetflix(count?"here":"adjacent");
+    \ -js openOrSelectNetflix(count?"here":"adjacent");
 :endif
 map <leader>avp
 \    -description "Goto Amazon Prime Video"
-\    -count -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"adjacent");
+\    -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"adjacent");
 map <leader>avv
 \    -description "Open video webapps"
 \    -js openOrSelectTab("https://www.netflix.com/browse"); openOrSelectTab("https://www.disneyplus.com/en-gb/home"); openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo");
@@ -2034,25 +2008,25 @@ map <leader>aw
 \    -js CommandExMode().open("showkeys <leader>aw");
 map <leader>aww
 \     -description "Open Lismore Weather (BoM)"
-\     -count -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"adjacent");
+\     -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"adjacent");
 map <leader>aws
 \     -description "Show Goonellabah Sunrise and Sunset Times"
 \     -js showSunriseSunset();
 map <leader>awt
 \     -description "Open Goonellabah Weather (timeanddate.com)"
-\     -count -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"adjacent");
+\     -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"adjacent");
 " MyGov "
 map <leader>ay
 \     -description "Open MyGov"
-\     -count -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
+\     -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
 \                                count?"here":"adjacent");
 " Amazon "
 map <leader>azz
 \     -description "Open AU Amazon"
-\     -count -js openOrSelectTab("https://www.amazon.com");
+\     -js openOrSelectTab("https://www.amazon.com");
 map <leader>azu
 \     -description "Open US Amazon"
-\     -count -js openOrSelectTab("https://smile.amazon.com");
+\     -js openOrSelectTab("https://smile.amazon.com");
 
 " ,----------------------------------------------------, "
 " | <leader>c -- Normal mode bindings for Command-line | "
@@ -2102,7 +2076,7 @@ map <leader>ia -description "Add image ALT text to TITLE tag" -ex imgsalttotitle
 " | <leader>id -- Misc/Images/Diagrams | "
 " '------------------------------------' "
 map <leader>id -description "(show bindings: Misc/Images/Diagrams)" -js CommandExMode().open("showkeys <leader>id");
-map <leader>ida -description "Open AsciiFlow" -count -js openOrSelectTab('http://asciiflow.com/', count?"here":"adjacent");
+map <leader>ida -description "Open AsciiFlow" -js openOrSelectTab('http://asciiflow.com/', count?"here":"adjacent");
 
 " ,---------------------------------, "
 " | <leader>ii -- Misc/Images/Hints | "
@@ -2181,22 +2155,19 @@ map <leader>ivV
 map <leader>j -description "(show bindings: Japanese)" -js CommandExMode().open("showkeys <leader>j")
 map <leader>jf
     \ -description "Jisho kanji search (hints)"
-    \ -count
     \ -js window._dactylargs=[jishoKanjiSearch]; hints.show('カ');
 map <leader>jj
     \ -description "Jisho search (clipboard)"
-    \ -count
     \ -js jishoSearch(dactyl.clipboardRead(), count?'here':'tab');
 map <leader>jk  -description "(show bindings: Kanji)" -js CommandExMode().open("showkeys <leader>jk")
 map <leader>jkh -description "Google Translate handwritten input"
-    \ -count -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"adjacent", /https:\/\/translate\.google\.com\.au\/(#ja\/en\/|.*&sl=ja.*&tl=en).*/);
+    \ -js openOrSelectTab('https://translate.google.com.au/#ja/en/', count?"here":"adjacent", /https:\/\/translate\.google\.com\.au\/(#ja\/en\/|.*&sl=ja.*&tl=en).*/);
 map <leader>jkp
     \ -description "Jisho kanji search (clipboard)"
-    \ -count
     \ -js jishoKanjiSearch(dactyl.clipboardRead(), count?'here':'tab');
 map <leader>jkr -description "Jisho kanji radical search" -js openOrSelectTab("https://jisho.org/#radical", count?"here":"adjacent");
 map <leader>jkv -description "Visual Kanji Search (similar kanji)"
-    \ -count -js openOrSelectTab("https://thekanjimap.com/index.html?k="+dactyl.clipboardRead(),
+    \ -js openOrSelectTab("https://thekanjimap.com/index.html?k="+dactyl.clipboardRead(),
     \                            count?"here":"adjacent");
 map <leader>jm -description "Jisho multiword search" -b :jishomultisearch<Space>
 map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
@@ -2480,13 +2451,13 @@ map <leader>oL
 \    -b :tabopenf<Space>
 map <leader>opd
 \    -description "Open clipboard text in wiktionary"
-\    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
+\    -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
 map <leader>opw
 \    -description "Open clipboard text in wikipedia"
-\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
+\    -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
 map <leader>ow
 \    -description "Open in new window"
-\    -count -b :winopen<Space>
+\    -b :winopen<Space>
 
 " -------------------------------------------------------------------------------
 " ,-----------------------, "
@@ -2498,10 +2469,10 @@ map <leader>r
 \    -js CommandExMode().open("showkeys <leader>r");
 map <leader>ra
 \     -description "Ballina Airport: Arrivals and Departures"
-\     -count -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
+\     -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
 map <leader>rbib
 \     -description "King James Bible BOOK [CH:SEC]"
-\     -count -b :kingjames<SPACE>
+\     -b :kingjames<SPACE>
 
 map <leader>rd
 \    -description "(show bindings: Reference/Dictionaries+Language)"
@@ -2547,7 +2518,7 @@ map <leader>rw
 \    -js CommandExMode().open("showkeys <leader>rw");
 map <leader>rwc
 \     -description "Goto Wikpedia periodic table of elements"
-\     -count -js openOrSelectTabAndRunCode("https://en.wikipedia.org/wiki/Periodic_table",
+\     -js openOrSelectTabAndRunCode("https://en.wikipedia.org/wiki/Periodic_table",
 \                    ()=>getFirstSelectorByText('h2','Overview').scrollIntoView(),
 \                    count?"here":"adjacent");
 map <leader>rwe
@@ -3434,7 +3405,6 @@ map <yank>udR
 map <yank>ue
 \    -modes normal,visual,insert,command-line
 \    -description "Yank final or n last components"
-\    -count
 \    -js utils.yankWithMsg(urlGetNthSuffix(buffer.URL, count||1));
 map <yank>uf -modes normal,visual,insert,command-line -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>ugH
@@ -3460,7 +3430,6 @@ map <yank>uL
 map <yank>up
 \    -modes normal,visual,insert,command-line
 \    -description "Yank nth parent of URL"
-\    -count
 \    -js utils.yankWithMsg(urlGetNthParent(count));
 map <yank>uq
 \    -modes normal,visual,insert,command-line
@@ -3473,7 +3442,6 @@ map <yank>uQ
 map <yank>ur
 \    -modes normal,visual,insert,command-line
 \    -description "Yank root path or nth level"
-\    -count
 \    -js utils.yankWithMsg(urlGetNthFromRootPath(count));
 map <yank>uu
 \    -modes normal,visual,insert,command-line
@@ -3482,7 +3450,6 @@ map <yank>uu
 map <yank>uU
 \    -modes normal,visual,insert,command-line
 \    -description "Yank URL up one (or COUNT) levels (as per gu)"
-\    -count
 \    -js utils.yankWithMsg(urlUp(count||1));
 map <yank>uv
 \    -modes normal,visual,insert,command-line
@@ -7752,7 +7719,7 @@ command! altnetopen -description "Open application page"
 command! altnettabopen -description "Open (or switch to) application page in another tab"
 \   -nargs=1
 \   -complete custom,' (context) => {context.completions = altnetCompletions()}'
-\   -count -js openOrSelectTab(altnetGetOfficialWebsite(args[0].replace(/.*…+/, "")), count?"here":"adjacent");
+\   -js openOrSelectTab(altnetGetOfficialWebsite(args[0].replace(/.*…+/, "")), count?"here":"adjacent");
 command! altnetyankofficialwebsite -description "Yank URL of official website for application"
 \   -nargs=1
 \   -complete custom,' (context) => {context.completions = altnetCompletions()}'
@@ -8487,8 +8454,8 @@ command! bgnextpagebyurl -nargs=? -js bgNextPageByURL(args[0]||1);
 command! bgpreviouspagebyurl -nargs=? -js bgPreviousPageByURL(args[0]||1);
 command! bgselectproductphoto -nargs=1 -js bgSelectNthProductPhoto(args[0]);
 
-map ]] -count -ex bgnextpage <count>
-map [[ -count -ex bgpreviouspage <count>
+map ]] -ex bgnextpage <count>
+map [[ -ex bgpreviouspage <count>
 map <site><Space> -description "Toggle reviews" -js bgToggleReviews();
 map <site>c -description "Toggle photo zoom" -js bgTogglePhotoZoom();
 map <site>e -description "Maximum entries per page" -js bgNumEntries();
@@ -8496,11 +8463,11 @@ map <site>w -description "Add to wish list" -js bgAddToWishlist();
 map <site>x -description "Close modal" -js bgCloseModal();
 
 map <site>oa -description "View account"
-\    -count -ex openorselect https://www.banggood.com/index.php?com=account <count>
+\    -ex openorselect https://www.banggood.com/index.php?com=account <count>
 map <site>oc -description "View cart"
-\    -count -ex openorselect https://www.banggood.com/shopping_cart_new.php <count>
+\    -ex openorselect https://www.banggood.com/shopping_cart_new.php <count>
 map <site>og -description "View account/giftcards"
-\    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=giftcard <count>
+\    -ex openorselect https://www.banggood.com/index.php?com=account&t=giftcard <count>
 map <site>ok
 \    -description "(show bindings: Goto/Recommended Products)"
 \    -js CommandExMode().open("showkeys <site>ok")
@@ -8514,9 +8481,9 @@ map <site>okv
 \    -description "Goto Also Viewed Products"
 \    -js content.document.querySelector('.AlsoView').scrollIntoView();
 map <site>oo -description "View account/orders"
-\    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=ordersList&pageSize=90 <count>
+\    -ex openorselect https://www.banggood.com/index.php?com=account&t=ordersList&pageSize=90 <count>
 map <site>ow -description "View account/wishlist"
-\    -count -ex openorselect https://www.banggood.com/index.php?com=account&t=wishlist&pageSize=90 <count>
+\    -ex openorselect https://www.banggood.com/index.php?com=account&t=wishlist&pageSize=90 <count>
 
 map <site>1 -description "View first photo"   -js bgSelectNthProductPhoto(0);
 map <site>2 -description "View second photo"  -js bgSelectNthProductPhoto(1);
@@ -9196,7 +9163,6 @@ function ebayOpenResultPageNumber(n, where="here") {
     var newurl = match ? buffer.URL.replace(ebayResultPageRegex, pageQuery) : buffer.URL+pageQuery;
     dactyl.open(newurl, {where: where});
 }
-
 EOF
 
 command! ebayremovebytitle
@@ -9218,6 +9184,7 @@ command! ebayresultpageN
 map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>c -description "Click button (Add to cart/Go to checkout)" -js ebayGo();
 map <site>n -description "Count items" -js utils.message("Number of items: " + ebayCount());
+
 map <site>o -js CommandExMode().open("showkeys <site>o")
 map <site>oa -description "Goto Account Page"
 \    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"adjacent":"here", null, true);
@@ -9366,31 +9333,31 @@ map <site>h  -description "Toggle chat" -js fasttechToggleChat()
 
 map <site>o -js CommandExMode().open("showkeys <site>o")
 map <site>oc -description "View cart"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"here":"adjacent")
+\    -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"here":"adjacent")
 map <site>oa -description "View account/"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account", count?"here":"adjacent")
+\    -js openOrSelectTab(" https://www.fasttech.com/account", count?"here":"adjacent")
 map <site>oo -description "View account/orders"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"here":"adjacent")
+\    -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"here":"adjacent")
 map <site>og -description "View account/giftcertificates"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"here":"adjacent")
+\    -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"here":"adjacent")
 map <site>ot -description "View tickets"
-\    -count -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"here":"adjacent")
+\    -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"here":"adjacent")
 map <site>ow -description "View account/wishlists"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"here":"adjacent")
+\    -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"here":"adjacent")
 
 map <site>O -js CommandExMode().open("showkeys <site>O")
 map <site>Oc -description "View cart (new tab)"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"adjacent":"here")
+\    -js openOrSelectTab(" https://www.fasttech.com/shoppingcart", count?"adjacent":"here")
 map <site>Oa -description "View account/ (new tab)"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account", count?"adjacent":"here")
+\    -js openOrSelectTab(" https://www.fasttech.com/account", count?"adjacent":"here")
 map <site>Oo -description "View account/orders (new tab)"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"adjacent":"here")
+\    -js openOrSelectTab(" https://www.fasttech.com/account/orders", count?"adjacent":"here")
 map <site>Og -description "View account/giftcertificates (new tab)"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"adjacent":"here")
+\    -js openOrSelectTab(" https://www.fasttech.com/account/giftcertificates", count?"adjacent":"here")
 map <site>Ot -description "View tickets (new tab)"
-\    -count -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"adjacent":"here")
+\    -js openOrSelectTab(" https://support.fasttech.com/tickets", count?"adjacent":"here")
 map <site>Ow -description "View account/wishlists (new tab)"
-\    -count -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"adjacent":"here")
+\    -js openOrSelectTab(" https://www.fasttech.com/account/wishlists", count?"adjacent":"here")
 
 style -name=fasttech-post-separator https://www.fasttech.com/*
     \ .ForumHeader { border-top: solid 1px #AAA !important; }
@@ -9827,7 +9794,7 @@ map <site>mm -description "My comments"
 \    -js openOrSelectTab(
 \            "https://github.com/search?utf8=✓&q=+is:issue+commenter:troyp", count?"adjacent":"here"
 \        );
-map <site>mo -description "My profile" -count -js dactyl.open('https://github.com/'+ghusername, 'here');
+map <site>mo -description "My profile" -js dactyl.open('https://github.com/'+ghusername, 'here');
 map <site>mr
 \    -description "My repositories"
 \    -js openOrSelectTab(`https://github.com/${ghusername}?tab=repositories`, count?"adjacent":"here");
@@ -9843,7 +9810,7 @@ map <site>og -description "Open gists"
 map <site>od -description "Open PR patch" -js openOrSelectTab(`${ghprGetPatchURL()}`, count?"tab":"here");
 map <site>oD -description "Open PR diff" -js openOrSelectTab(`${ghprGetDiffURL()}`, count?"tab":"here");
 \    -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"adjacent");
-map <site>oh -description "Open help" -count -js ghOpenHelp(count?"here":"adjacent");
+map <site>oh -description "Open help" -js ghOpenHelp(count?"here":"adjacent");
 map <site>oi
 \    -description "Open issues"
 \    -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/issues`, count?"adjacent":"here");
@@ -12270,44 +12237,35 @@ command! kanshudokanjisearchbycomponent
 map <site>k -description "(show bindings: Kanshudo/Kanji)" -js CommandExMode().open("showkeys <site>k");
 map <site>kc
 \    -description "Kanji Component Picker"
-\    -count
 \    -js openOrSelectTab("https://www.kanshudo.com/search?cb=y", count?"tab":"here");
 
 map <site>s -description "(show bindings: Kanshudo/Search)" -js CommandExMode().open("showkeys <site>s");
 map <site>sg
 \    -description "Search grammar in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudosearchgrammar"+(count?"! ":" "));
 
 map <site>sk -description "(show bindings: Kanshudo/Search/Kanji)" -js CommandExMode().open("showkeys <site>sk");
 map <site>skc
 \    -description "Search Kanji with given kanji as a component in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudokanjisearchbycomponent"+(count?"! ":" "));
 map <site>skk
 \    -description "Open Kanji page in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudokanji"+(count?"! ":" "));
 map <site>sks
 \    -description "Search Kanji in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudokanjisearch"+(count?"! ":" "));
 
 map <site>sn
 \    -description "Search name in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudonamesearch"+(count?"! ":" "));
 map <site>ss
 \    -description "Search Kanshudo in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudosearch"+(count?"! ":" "));
 map <site>sw
 \    -description "Open page for word in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudoword"+(count?"! ":" "));
 map <site>sx
 \    -description "Search Examples in current (count:adjacent) tab"
-\    -count
 \    -js CommandExMode().open("kanshudoexamplesearch"+(count?"! ":" "));
 
 group user
@@ -12541,8 +12499,8 @@ EOF
 
 map <site>c -js genlibGo();
 map <yank>t -js utils.yankWithMsg(genlibGetTitle());
-map ]] -count -js genlibNextPage(count);
-map [[ -count -js genlibPreviousPage(count);
+map ]] -js genlibNextPage(count);
+map [[ -js genlibPreviousPage(count);
 
 group user
 
@@ -12739,18 +12697,18 @@ map <site>c  -description "Cleanup"               -js netflixCleanup();
 map <site>f  -description "Select Cell [HINTS]"   -b :netflixcard<Space>
 map <site>n  -description "Show Name"             -js netflixYankTitle();
 map <site>oa -description "Open Account Settings"
-\            -count -ex openorselect https://www.netflix.com/YourAccount <count>
+\            -ex openorselect https://www.netflix.com/YourAccount <count>
 map <site>og -description "Open Genre Page"
-\            -count -b :netflixgenre<Space>
+\            -b :netflixgenre<Space>
 map <site>oh -description "Open Browse"
-\            -count -ex openorselect https://www.netflix.com/browse <count>
+\            -ex openorselect https://www.netflix.com/browse <count>
 map <site>ol -description "Open My List"
-\            -count -ex openorselect https://www.netflix.com/browse/my-list <count>
+\            -ex openorselect https://www.netflix.com/browse/my-list <count>
 map <site>op -description "Open My Profile"       -js netflixMyProfile();
 map <site>os -description "Open My Subtitle Settings"
-\            -count -ex openorselect https://www.netflix.com/SubtitlePreferences <count>
+\            -ex openorselect https://www.netflix.com/SubtitlePreferences <count>
 map <site>ov -description "Open My Playback Settings"
-\            -count -ex openorselect https://www.netflix.com/HdToggle <count>
+\            -ex openorselect https://www.netflix.com/HdToggle <count>
 map <site>p  -description "Open link in Chrome"   -js hints.show("🄒");
 map <site>r  -description "Scroll to Row"         -b :netflixgotorow<Space>
 map <site>sh -description "Toggle header overlap" -js netflixToggleHeaderOverlap();
@@ -13128,20 +13086,16 @@ map <site>c  -description "Go (click Add to cart/Proceed to checkout)" -js newto
 map <site>o   -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
 map <site>oa
 \    -description "Go to account"
-\    -count
 \    -js openOrSelectTab("https://www.newtownartsupplies.com.au/account.php", count?"here":"adjacent",
 \                        /https:\/\/www\.newtownartsupplies\.com\.au\/account\.php$/);
 map <site>oc
 \    -description "Go to cart"
-\    -count
 \    -js openOrSelectTab("https://www.newtownartsupplies.com.au/cart.php", count?"here":"adjacent");
 map <site>ol
 \    -description "Go to login"
-\    -count
 \    -js openOrSelectTab("https://www.newtownartsupplies.com.au/login.php", count?"here":"adjacent");
 map <site>oo
 \    -description "Go to orders"
-\    -count
 \    -js openOrSelectTab("https://www.newtownartsupplies.com.au/account.php?action=order_status", count?"here":"adjacent");
 map <site>n  -description "Count items" -js utils.message("Number of items: " + newtownartCount());
 map <Space>  -description "Load more" -ex open javascript:ENV.Express_more()
@@ -13502,17 +13456,13 @@ group pencils4artists -locations=pencils4artists.co.uk
 
 map <site>o   -description "(show bindings)" -js CommandExMode().open("showkeys <site>o")
 map <site>oa  -description "Goto Account"
-\             -count
 \             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"adjacent");
 map <site>oc  -description "Goto Cart"
-\             -count
 \             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBShoppingCart.asp?PBMInit=1",
 \                                 count?"here":"adjacent");
 map <site>ol  -description "Goto Login"
-\             -count
 \             -js openOrSelectTab("http://www.pencils4artists.co.uk/PBUserLogin.asp?CCode=33", count?"here":"adjacent");
 map <site>oo  -description "Goto Orders"
-\             -count
 \             -js buffer.URL=="http://www.pencils4artists.co.uk/PBUserAccount.asp" ?
 \                     dactyl.open("javascript:SubmitAction(8,null,0,null,1);") :
 \                     openOrSelectTab("http://www.pencils4artists.co.uk/PBUserAccount.asp", count?"here":"adjacent");
@@ -14510,35 +14460,28 @@ map <site>i -ex wikiaremoveimages
 map <site>m -description "(show bindings: Wikia/My)" -js CommandExMode().open("showkeys <site>m")
 map <site>mt
 \    -description "My Talk"
-\    -count
 \    -js openOrSelectTab(wikiaGetURL("User_talk:"+wikiaGetUser()), count?"here":"adjacent");
 map <site>mu
 \    -description "My Profile"
-\    -count
 \    -js openOrSelectTab(wikiaGetURL("User:"+wikiaGetUser()), count?"here":"adjacent");
 
 map <site>o -description "(show bindings:Wikia/Open)" -js CommandExMode().open("showkeys <site>o")
 map <site>oh
 \    -description "Help"
-\    -count
 \    -js openOrSelectTab(wikiaHelpURL, count?"here":"adjacent");
 
 map <site>op -description "(show bindings: Wikia/Open/Preferences)" -js CommandExMode().open("showkeys <site>op")
 map <site>ope
 \    -description "My Preferences: Editing"
-\    -count
 \    -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-editing", count?"here":"adjacent");
 map <site>opm
 \    -description "My Preferences: Email"
-\    -count
 \    -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-emailv2", count?"here":"adjacent");
 map <site>opp
 \    -description "My Preferences: My Info"
-\    -count
 \    -js openOrSelectTab(wikiaPrefsURL, count?"here":"adjacent");
 map <site>opu
 \    -description "My Preferences: Under the Hood"
-\    -count
 \    -js openOrSelectTab(wikiaPrefsURL+"#mw-prefsection-under-the-hood", count?"here":"adjacent");
 map <site>p   -b :wikiapage<Space>
 map <site>r   -ex wikiasimplepage
@@ -14838,10 +14781,10 @@ map <site>ow
 \    -js openOrSelectTab(wpGetWikiwandPage(), count?"tab":"here");
 map <site>p
 \    -description "Open clipboard text in wikipedia"
-\    -count -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
+\    -js wikipediaGotoPage(dactyl.clipboardRead(), count?"here":"adjacent", true);
 map <site>P
 \    -description "Open clipboard text in wiktionary"
-\    -count -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
+\    -js wiktionaryGotoPage(dactyl.clipboardRead(), count?"here":"tab", true);
 map <site>s -description "(show bindings: wikipedia/search)" -js CommandExMode().open("showkeys <site>s")
 map <site>sd
 \    -description "Search Wiktionary"
@@ -14967,7 +14910,6 @@ map <site>oo
 \    -js openOrSelectTab("https://www.woolworths.com.au/shop/myaccount/myorders", count?"adjacent":"here");
 map <site>s
 \    -description "Search products in adjacent (count:current) tab"
-\    -count
 \    -js CommandExMode().open("woolsearch"+(count?"! ":" "));
 map <site>n -description "Set no substitutions message for each item" -js woolSetNoSubs();
 
@@ -15249,10 +15191,10 @@ map <site>yt
 
 map <site>\>
 \    -description "Increase play rate / Show more subscriptions"
-\    -count -js ytUp(count);
+\    -js ytUp(count);
 map <site>\<
 \    -description "Decrease play rate / Show less subscriptions"
-\    -count -js ytDown(count);
+\    -js ytDown(count);
 
 map <Space> -description "Pause/Play" -ex clickselector .ytp-play-button
 map <S-right> -js ytForward(3);
@@ -15261,11 +15203,11 @@ map <A-right> -js ytForward(10);
 map <A-left>  -js ytForward(-10);
 map <C-right> -js ytForward(60);
 map <C-left>  -js ytForward(-60);
-map <PageDown> -count -ex ytlowervolume <count>
-map <PageUp>   -count -ex ytraisevolume <count>
+map <PageDown> -ex ytlowervolume <count>
+map <PageUp>   -ex ytraisevolume <count>
 map <XF86AudioMute> -ex ytmute
-map <XF86AudioLowerVolume> -count -ex ytlowervolume <count>
-map <XF86AudioRaiseVolume> -count -ex ytraisevolume <count>
+map <XF86AudioLowerVolume> -ex ytlowervolume <count>
+map <XF86AudioRaiseVolume> -ex ytraisevolume <count>
 map <S-BS> -js ytCloseAd();
 
 command! ytdl
