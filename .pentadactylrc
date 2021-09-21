@@ -9839,9 +9839,9 @@ map <site>o  -description "(show bindings:Github/Open)" -js CommandExMode().open
 map <site>oc
 \    -description "Open commits"
 \    -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/commits`, count?"adjacent":"here");
-map <site>od -description "Open PR patch"
-map <site>oD -description "Open PR diff"
 map <site>og -description "Open gists"
+map <site>od -description "Open PR patch" -js openOrSelectTab(`${ghprGetPatchURL()}`, count?"tab":"here");
+map <site>oD -description "Open PR diff" -js openOrSelectTab(`${ghprGetDiffURL()}`, count?"tab":"here");
 \    -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"adjacent");
 map <site>oh -description "Open help" -count -js ghOpenHelp(count?"here":"adjacent");
 map <site>oi
@@ -9862,6 +9862,7 @@ map <site>oo
 \    -js openOrSelectTab(`https://github.com/${ghGetUser()}`, count?"adjacent":"here");
 map <site>op
 \    -description "Open PRs" count?"adjacent":"here");
+\    -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/pulls`, count?"tab":"here");
 map <site>oP -description "Permanent link" -js openOrSelectTab(ghGetPermalink(), count?"adjacent":"here");
 map <site>or
 \    -description "Open repositories"
