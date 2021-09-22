@@ -1197,8 +1197,7 @@ map <browser>y -description "Edit .pentadactylrc"        -ex rce
 " ,--------------------------, "
 " | <browser>a -- Annoyances | "
 " '--------------------------' "
-map <browser>a      -description "(show bindings: Annoyances)" -js CommandExMode().open("showkeys <browser>a")
-map <browser>a<C-h> -description "(show bindings: Annoyances)" -js CommandExMode().open("showkeys <browser>a")
+map <browser>a -description "(show bindings: Annoyances)" -js CommandExMode().open("showkeys <browser>a")
 map <browser>ar -description "Enable Right-click"
 \    -js content.document.onmousedown=null;content.document.onclick=null;content.document.oncontextmenu=null
 " https://gist.github.com/duzun/d66c775a39a5be9fb519#file-enableselect-bookmarklet-html "
@@ -1223,8 +1222,7 @@ map <browser>cc -description "Set about:config setting" -b :set!<SPACE>
 " ,------------------------, "
 " | <browser>d -- Download | "
 " '------------------------' "
-map <browser>d      -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
-map <browser>d<C-h> -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
+map <browser>d -description "(show bindings)" -js CommandExMode().open("showkeys <browser>d")
 map <browser>ddw -description "Download to ~/Downloads/" -ex dlto ~/Downloads
 map <browser>ddc -description "Download to ~/Documents/" -ex dlto ~/Documents
 map <browser>ddr -description "Download to ~/Documents/receipts" -ex dlto ~/Documents/receipts
@@ -1320,19 +1318,19 @@ EOF
 " ,--------------------------, "
 " | <browser>t - GUI toggles | "
 " '--------------------------' "
-map <browser>t   -description "(show bindings: GUI Toggles)"       -js CommandExMode().open("showkeys <browser>t")
-map <browser>ta  -description "Toggle nav & bookmarks toolbars"    -ex set guioptions!=TB | set showtabline!=always,never
-map <browser>tc  -description "Toggle command line"                -ex set guioptions!=c
-map <browser>tb  -description "Toggle bookmark bar"                -ex set guioptions!=B
-map <browser>td  -description "Toggle webdev toolbar"              -ex toolbartoggle Web Developer Toolbar
-map <browser>te  -description "Toggle navigation toolbar"          -ex set guioptions!=T
-map <browser>tm  -description "Toggle menu bar"                    -ex set guioptions!=m
-map <browser>to  -description "Toggle add-on bar"                  -ex toolbartoggle Add-on Bar
-map <browser>ts  -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <browser>tc")
-map <browser>tst -description "Toggle highlight active tab"        -ex styletoggle -name activetabhighlight
+map <browser>t -description "(show bindings: GUI Toggles)" -js CommandExMode().open("showkeys <browser>t")
+map <browser>ta -description "Toggle nav & bookmarks toolbars" -ex set guioptions!=TB | set showtabline!=always,never
+map <browser>tc -description "Toggle command line" -ex set guioptions!=c
+map <browser>tb -description "Toggle bookmark bar" -ex set guioptions!=B
+map <browser>td -description "Toggle webdev toolbar" -ex toolbartoggle Web Developer Toolbar
+map <browser>te -description "Toggle navigation toolbar" -ex set guioptions!=T
+map <browser>tm -description "Toggle menu bar" -ex set guioptions!=m
+map <browser>to -description "Toggle add-on bar" -ex toolbartoggle Add-on Bar
+map <browser>ts -description "(show bindings: GUI Style Toggles)" -js CommandExMode().open("showkeys <browser>tc")
+map <browser>tst -description "Toggle highlight active tab" -ex styletoggle -name activetabhighlight
 
-map <browser>tS  -description "Toggle status bar"                  -ex set guioptions!=s
-map <browser>tt  -description "Toggle tab bar"                     -ex set showtabline!=always,never
+map <browser>tS -description "Toggle status bar" -ex set guioptions!=s
+map <browser>tt -description "Toggle tab bar" -ex set showtabline!=always,never
 
 map <A-Up>
 \    -description "Hide navigation & bookmarks toolbars and command line"
@@ -1345,7 +1343,7 @@ map <A-Down>
 " ,--------------------------, "
 " | <browser>u -- User Agent | "
 " '--------------------------' "
-map <browser>u      -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
+map <browser>u -description "(Show bindings: User Agent)" -js CommandExMode().open("showkeys <browser>u")
 map <browser>uh -description "Show User Agent Override"   -ex actoggleuaoverride
 map <browser>ut -description "Toggle User Agent Override" -ex actoggleuaoverride
 map <browser>uu -description "Set User Agent Override"    -b :set! general.useragent.override=""<Left>
@@ -1825,21 +1823,11 @@ command! tabopenf
 " ,----------------------, ,-----------, "
 " | Web Sites & Web Apps | | <leader>a | "
 " '----------------------' '-----------' "
-map <leader>a
-\    -description "(show bindings: Web Sites)"
-\    -js CommandExMode().open("showkeys <leader>a")
-" <leader>aa - Misc Accounts"
-map <leader>aa
-\    -description "(show bindings: Web Sites/Misc Accts)"
-\    -js CommandExMode().open("showkeys <leader>aa");
-map <leader>aai
-    \ -description "Open Inoreader"
-    \ -js openOrSelectTab("https://www.inoreader.com/dashboard");
+map <leader>a -description "(show bindings: Web Sites)" -js CommandExMode().open("showkeys <leader>a")
+map <leader>aa -description "(show bindings: Web Sites/Misc Accts)" -js CommandExMode().open("showkeys <leader>aa");
+map <leader>aai \ -description "Open Inoreader" \ -js openOrSelectTab("https://www.inoreader.com/dashboard");
 
-"  <leader>aap - Packt "
-map <leader>aap
-\    -description "(show bindings: Web Sites/Packt)"
-\    -js CommandExMode().open("showkeys <leader>aap");
+map <leader>aap -description "(show bindings: Web Sites/Packt)" -js CommandExMode().open("showkeys <leader>aap");
 map <leader>aapa
     \ -description "Append today's Packt free title to library"
     \ -js packtWriteTitleToListAndShowEndOfList();
@@ -1859,18 +1847,10 @@ map <leader>aapt
     \ -description "Yank today's Packt free title to clipboard"
     \ -js utils.yankWithMsg(packtGetTodaysTitle());
 
-"<leader>ab - Banking "
-map <leader>ab
-    \ -description "Open Banking (Chrome)"
-    \ -ex ochromeurl ${user.mybankurl}
+map <leader>ab -description "Open Banking (Chrome)" -ex ochromeurl ${user.mybankurl}
 
-"  <leader>ad - Art "
-map <leader>ad
-\    -description "(show bindings: Web Sites/Art)"
-\    -js CommandExMode().open("showkeys <leader>ad");
-map <leader>adc
-\    -description "ArtIsCreation.com - watercolour pigment information"
-\    -b :artiscreation<Space>
+map <leader>ad -description "(show bindings: Web Sites/Art)" -js CommandExMode().open("showkeys <leader>ad");
+map <leader>adc -description "ArtIsCreation.com - watercolour pigment information" -b :artiscreation<Space>
 map <leader>adf
 \    -description "Figurosity"
 \    -js openOrSelectTab(
@@ -1887,10 +1867,7 @@ map <leader>adq
 \    -description "Quickposes"
 \    -js openOrSelectTab("https://www.quickposes.com/en", count?"here":"adjacent");
 
-" <leader>ag - Repos "
-map <leader>ag
-\    -description "(show bindings: Web Sites/Repos)"
-\    -js CommandExMode().open("showkeys <leader>ag");
+map <leader>ag -description "(show bindings: Web Sites/Repos)" -js CommandExMode().open("showkeys <leader>ag");
 map <leader>agf
 \    -description "Follow Github link"
 \    -js openOrSelectTab(getFirstGithubLink(), count?"adjacent":"here");
@@ -1903,10 +1880,7 @@ map <leader>agb
 \     -description "Open My Bitbucket"
 \     -js openOrSelectTab('https://bitbucket.org/', count?"here":"adjacent");
 
-" <leader>am - Email "
-map <leader>am
-\    -description "(show bindings: Web Sites/Email)"
-\    -js CommandExMode().open("showkeys <leader>am");
+map <leader>am -description "(show bindings: Web Sites/Email)" -js CommandExMode().open("showkeys <leader>am");
 map <leader>amc
 \     -description "Open Google Contacts"
 \     -js openOrSelectTab("https://contacts.google.com/", count?"here":"adjacent");
@@ -1927,14 +1901,15 @@ map <leader>amy
 \     -description "Open Y7Mail"
 \     -js openOrSelectTab('https://mg.mail.yahoo.com/', count?"here":"adjacent");
 
-" <leader>as - Shopping & Schedules"
-map <leader>as
-\    -description "(show bindings: Shopping)"
-\    -js CommandExMode().open("showkeys <leader>as");
+map <leader>as -description "(show bindings: Shopping)" -js CommandExMode().open("showkeys <leader>as");
 map <leader>asa
 \     -description "open Amazon AU"
 \     -js selectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart") ||
-\                    openOrSelectTab("https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart", null, /https:\/\/[^.]+\.amazon\.com\.au/);
+\             openOrSelectTab(
+\                 "https://www.amazon.com.au/gp/cart/view.html/ref=nav_cart",
+\                 null,
+\                 /https:\/\/[^.]+\.amazon\.com\.au/
+\             );
 map <leader>ase
 \     -description "open eBay"
 \     -js selectTab("https://cart.ebay.com.au") ||
@@ -1942,7 +1917,11 @@ map <leader>ase
 map <leader>asj
 \     -description "open Jackson's Art"
 \     -js selectTab("https://www.jacksonsart.com/en-au/checkout/cart/") ||
-\                    openOrSelectTab("https://www.jacksonsart.com/en-au/checkout/cart/", null, /https:\/\/[^.]+\.jacksonsart\.com/);
+\             openOrSelectTab(
+\                 "https://www.jacksonsart.com/en-au/checkout/cart/",
+\                 null,
+\                 /https:\/\/[^.]+\.jacksonsart\.com/
+\             );
 map <leader>asl
 \    -description "Open liquor specials"
 \    -js [ "https://www.danmurphys.com.au/current-offers?filters=variety(spirits)",
@@ -1958,14 +1937,11 @@ map <leader>asp
 map <leader>aq
 \    -description "Open Quix"
 \    -ex tabopen javascript:Quix();function%20Quix(){var%20e=encodeURIComponent;var%20t=window.getSelection?window.getSelection():(document.getSelection?document.getSelection():(document.selection?document.selection.createRange().text:''));var%20c=window.prompt('Quix:%20Type%20`help`%20for%20a%20list%20of%20commands:');if(t!=''){if(c){c+='%20'+t;}else{c=''+t;}}if(c){var%20u='https://www.quixapp.com/go/?c='+e(c)+'&t='+(document.title?e(document.title):'')+'&s='+'&v=090'+'&u='+(document.location?e(document.location):'');d=''+document.location;if(d.substr(0,4)!='http'){window.location=u+'&mode=direct';}else{heads=document.getElementsByTagName('head');if(c.substring(0,1)=='%20'){var%20w=window.open(u+'&mode=direct');w.focus();}else%20if(heads.length==0){window.location=u+'&mode=direct';}else{q=document.getElementById('quix');if(q){q.parentNode.removeChild(q);}sc=document.createElement('script');sc.src=u;sc.id='quix';sc.type='text/javascript';void(heads[0].appendChild(sc));}}}}
-" Time "
 map <leader>at
 \     -description "Open Time Server"
 \     -js openOrSelectTab('https://time.is/Sydney', count?"here":"adjacent", /^https:\/\/time\.is/);
-" <leader>av - Video & Radio"
-map <leader>av
-\    -description "(show bindings: Web Sites/Video&Radio)"
-\    -js CommandExMode().open("showkeys <leader>av");
+
+map <leader>av -description "(show bindings: Web Sites/AV)" -js CommandExMode().open("showkeys <leader>av");
 map <leader>ava
 \     -description "AccuRadio Classical"
 \     -js openOrSelectTab("https://www.accuradio.com/classical/?name=Chamber%20Music&b0=Classical");
@@ -1982,15 +1958,14 @@ map <leader>avp
 \    -js openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo", count?"here":"adjacent");
 map <leader>avv
 \    -description "Open video webapps"
-\    -js openOrSelectTab("https://www.netflix.com/browse"); openOrSelectTab("https://www.disneyplus.com/en-gb/home"); openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo");
+\    -js openOrSelectTab("https://www.netflix.com/browse");
+\        openOrSelectTab("https://www.disneyplus.com/en-gb/home");
+\        openOrSelectTab("https://www.primevideo.com/storefront/home/ref=atv_nb_logo");
 map <leader>avy
 \    -description "Goto Youtube"
 \    -js openOrSelectTab("https://www.youtube.com/", count?"here":"adjacent");
 
-" Utils "
-map <leader>au
-\    -description "(show bindings: Web Sites/Utils)"
-\    -js CommandExMode().open("showkeys <leader>au");
+map <leader>au -description "(show bindings: Web Sites/Utils)" -js CommandExMode().open("showkeys <leader>au");
 map <leader>aut
 \    -description "Track packages"
 \    -js CommandExMode().open("trackpackages"+(count?"! ":" "));
@@ -2002,10 +1977,7 @@ map <leader>auu
 \            "adjacent"
 \        );
 
-" Weather "
-map <leader>aw
-\    -description "(show bindings: Web Sites/Weather)"
-\    -js CommandExMode().open("showkeys <leader>aw");
+map <leader>aw -description "(show bindings: Web Sites/Weather)" -js CommandExMode().open("showkeys <leader>aw");
 map <leader>aww
 \     -description "Open Lismore Weather (BoM)"
 \     -js openOrSelectTab('http://www.bom.gov.au/nsw/forecasts/lismore.shtml', count?"here":"adjacent");
@@ -2015,12 +1987,13 @@ map <leader>aws
 map <leader>awt
 \     -description "Open Goonellabah Weather (timeanddate.com)"
 \     -js openOrSelectTab('https://www.timeanddate.com/weather/@2164966', count?"here":"adjacent");
-" MyGov "
+
 map <leader>ay
 \     -description "Open MyGov"
 \     -js openOrSelectTab('https://my.gov.au/LoginServices/main/login?execution=e1s1',
 \                                count?"here":"adjacent");
-" Amazon "
+
+map <leader>az -description "(show bindings: Web Sites/Amazon)" -js CommandExMode().open("showkeys <leader>az");
 map <leader>azz
 \     -description "Open AU Amazon"
 \     -js openOrSelectTab("https://www.amazon.com");
@@ -2175,9 +2148,7 @@ map <leader>jp -description "Popjisyo Japanese Hints" -ex popjisyo
 " ,--------------------,
 " | <leader>l -- Links |
 " '--------------------'
-map <leader>l
-\    -description "(show bindings: Links)"
-\    -js CommandExMode().open("showkeys <leader>l")
+map <leader>l -description "(show bindings: Links)" -js CommandExMode().open("showkeys <leader>l")
 
 map <leader>la -description "Append links to end of page" -ex appendlinks
 map <leader>lc -description "Count links" -ex countlinks
@@ -2398,15 +2369,15 @@ EOF
 " ,-----------------------------, "
 " | <leader>m - Manipulate Page | "
 " '-----------------------------' "
-map <leader>m   -description "(show bindings: Manipulate Page)" -js CommandExMode().open("showkeys <leader>m")
-map <leader>ms  -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"adjacent");
+map <leader>m -description "(show bindings: Manipulate Page)" -js CommandExMode().open("showkeys <leader>m")
+map <leader>ms -description "Open selection as HTML" -js openHTML(getSelectionHtml(), count?"here":"adjacent");
 map <leader>mcm -description "Add margins to page body" -b addmargin<SPACE>
 map <leader>mbp -description "Print What You Like" -ex prwul
 
 " ,--------------------------, "
 " | <leader>n - edit content | "
 " '--------------------------' "
-map <leader>n  -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
+map <leader>n -description "(show bindings: Edit Content)" -js CommandExMode().open("showkeys <leader>n")
 map <leader>na -description "Isolate Article" -js isolateArticle(count);
 map <leader>ni -description "Remove images" -ex removeimages
 map <leader>nI -description "Remove first image" -ex removeselector img:first-of-type
@@ -2464,9 +2435,7 @@ map <leader>ow
 " | <leader>r - Reference | "
 " '-----------------------' "
 
-map <leader>r
-\    -description "(show bindings: Reference)"
-\    -js CommandExMode().open("showkeys <leader>r");
+map <leader>r -description "(show bindings: Reference)" -js CommandExMode().open("showkeys <leader>r");
 map <leader>ra
 \     -description "Ballina Airport: Arrivals and Departures"
 \     -js openOrSelectTab("http://ballinabyronairport.com.au/arrivals-departures/");
@@ -2474,24 +2443,17 @@ map <leader>rbib
 \     -description "King James Bible BOOK [CH:SEC]"
 \     -b :kingjames<SPACE>
 
-map <leader>rd
-\    -description "(show bindings: Reference/Dictionaries+Language)"
-\    -js CommandExMode().open("showkeys <leader>rd");
-map <leader>rdd
-\    -description "(show bindings: Reference/Dictionaries+Language/Dictionary)"
-\    -js CommandExMode().open("showkeys <leader>rdd");
+map <leader>rd -description "(show bindings: Ref/Language)" -js CommandExMode().open("showkeys <leader>rd");
+map <leader>rdd -description "(show bindings: Ref/Lang/Dict)" -js CommandExMode().open("showkeys <leader>rdd");
 map <leader>rddd -description "Local Dictionary (dict)" -b :localdict<Space>
 
-map <leader>rdt
-\    -description "(show bindings: Reference/Dictionaries+Language/Thesaurus)"
-\    -js CommandExMode().open("showkeys <leader>rdt");
+map <leader>rdt -description "(show bindings: Ref/Lang/Thesaurus)" -js CommandExMode().open("showkeys <leader>rdt");
 map <leader>rdtt -description "Aiksaurus Thesaurus" -b :thesaurusaik<Space>
 map <leader>rdtp -description "Power Thesaurus" -b :thesauruspower<Space>
 map <leader>rdtw -description "Wiktionary Thesaurus" -b :thesauruswiktionary<Space>
+map <leader>rdtW -description "Wiktionary Thesaurus Search" -b :thesauruswiktionarysearch<Space>
 
-map <leader>rm
-\    -description "(show bindings: Reference/Maps)"
-\    -js CommandExMode().open("showkeys <leader>rm");
+map <leader>rm -description "(show bindings: Ref/Maps)" -js CommandExMode().open("showkeys <leader>rm");
 map <leader>rmm
 \    -description "World map (geology.com)"
 \    -js openOrSelectTab("https://geology.com/world/world-map.shtml", count?"here":"adjacent");
@@ -2500,9 +2462,7 @@ map <leader>rp
 \    -description "Periodic Table (ptable.com)"
 \    -js openOrSelectTab("ptable.com", count?"here":"adjacent");
 
-map <leader>ru
-\    -description "(show bindings: Reference/Unicode)"
-\    -js CommandExMode().open("showkeys <leader>ru");
+map <leader>ru -description "(show bindings: Ref/Unicode)" -js CommandExMode().open("showkeys <leader>ru");
 map <leader>rup
 \    -description "Lookup unicode (clipboard)"
 \    -js unicode(utils.cbRead());
@@ -2513,9 +2473,7 @@ map <leader>rux
 \    -description "Lookup unicode hex codes"
 \    -b :unicodepoint<Space>
 
-map <leader>rw
-\    -description "(show bindings: Web Sites/Reference/Wikipedia)"
-\    -js CommandExMode().open("showkeys <leader>rw");
+map <leader>rw -description "(show bindings: Ref/Wikipedia)" -js CommandExMode().open("showkeys <leader>rw");
 map <leader>rwc
 \     -description "Goto Wikpedia periodic table of elements"
 \     -js openOrSelectTabAndRunCode("https://en.wikipedia.org/wiki/Periodic_table",
@@ -2544,48 +2502,42 @@ map <leader>sv
 " ,---------------------, "
 " | <leader>t - toggles | "
 " '---------------------' "
-map <leader>t   -description "(show bindings: Toggles)"         -js CommandExMode().open("showkeys <Leader>t")
-map <leader>ta  -description "Toggle User Agent Override"         -ex actoggleuaoverride
-map <leader>tc  -description "(show bindings: Config toggles)"  -js CommandExMode().open("showkeys <Leader>tc")
-map <leader>tca -description "Toggle autoplay"                    -ex actoggleautoplay
-map <leader>tcb -description "Toggle popup blocking"              -ex actoggleenablepopupblocker
-map <leader>tcc -description "Cycle CSP/CSP strict dynamic"       -ex accyclecsp
-map <leader>tcj -description "Toggle javascript"                  -ex actogglejs
-map <leader>tco -description "Toggle strict origin"               -ex actogglestrictorigin
-map <leader>tcO -description "Toggle OCSP stapling"               -ex actoggleocspstapling
-map <leader>tcr
-\    -description "Toggle right-click (oncontextmenu) event access by non-chrome JS"
-\    -ex actoggleoncontextmenu
-map <leader>tct -description "Toggle related tabs after current"  -ex actogglerelatedtabaftercurrent
-map <leader>tcu -description "Toggle UA override"                 -ex actoggleuaoverride
-map <leader>tcw -description "Toggle open in new window"          -ex actoggleopennewwin
-map <leader>te  -description "Toggle designMode"                  -ex designmode
-map <leader>tE  -description "Toggle contentEditable"             -ex contenteditable
-map <leader>th
-\    -description "Toggle numeric hint keys"
-\    -ex cycleoption hintkeys jkl;fdsahgnvurieow 0123456789
-map <leader>tj  -description "Toggle Javascript"                  -ex actogglejs
-map <leader>to  -description "Toggle Online"                      -ex toggleoption online
-map <leader>tp  -description "Toggle Proxy"                       -ex actoggleuseproxy
-map <leader>ts  -description "Toggle HTTPS"                       -js toggleHTTPS()
-map <leader>tu  -description "Toggle User Mode (Minimal Styling)" -ex set usermode!
-map <leader>tv  -description "Toggle Visited Links Styling"       -ex styletoggle  -name visitedlinks
+map <leader>t -description "(show bindings: Toggles)" -js CommandExMode().open("showkeys <Leader>t")
+map <leader>ta -description "Toggle User Agent Override" -ex actoggleuaoverride
+map <leader>tc -description "(show bindings: Config toggles)" -js CommandExMode().open("showkeys <Leader>tc")
+map <leader>tca -description "Toggle autoplay"              -ex actoggleautoplay
+map <leader>tcb -description "Toggle popup blocking"        -ex actoggleenablepopupblocker
+map <leader>tcc -description "Cycle CSP/CSP strict dynamic" -ex accyclecsp
+map <leader>tcj -description "Toggle javascript"            -ex actogglejs
+map <leader>tco -description "Toggle strict origin"         -ex actogglestrictorigin
+map <leader>tcO -description "Toggle OCSP stapling"         -ex actoggleocspstapling
+map <leader>tcr -description "Toggle non-chrome access to right-click event" -ex actoggleoncontextmenu
+map <leader>tct -description "Toggle related tabs adjacent" -ex actogglerelatedtabaftercurrent
+map <leader>tcu -description "Toggle UA override"           -ex actoggleuaoverride
+map <leader>tcw -description "Toggle open in new window"    -ex actoggleopennewwin
+map <leader>te  -description "Toggle designMode"            -ex designmode
+map <leader>tE  -description "Toggle contentEditable"       -ex contenteditable
+map <leader>th -description "Toggle numeric hint keys" -ex cycleoption hintkeys jkl;fdsahgnvurieow 0123456789
+map <leader>tj  -description "Toggle Javascript"            -ex actogglejs
+map <leader>to  -description "Toggle Online"                -ex toggleoption online
+map <leader>tp  -description "Toggle Proxy"                 -ex actoggleuseproxy
+map <leader>ts  -description "Toggle HTTPS" -js toggleHTTPS()
+map <leader>tu  -description "Toggle User Mode (minimal styling)" -ex set usermode!
+map <leader>tv  -description "Toggle Visited Links Styling" -ex styletoggle -name visitedlinks
 
 map <leader>?c -description "Display config value" -b :acget
 
 " ,-------------------------, "
 " | <leader>u - userscripts | "
 " '-------------------------' "
-map <leader>u      -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
+map <leader>u -description "(show bindings: Extensions)" -js CommandExMode().open("showkeys <leader>u")
 map <leader>uh -description "word highlight" -ex emenu Tools.Greasemonkey.word highlight
 map <leader>ut -description "TeX The World" -ex emenu Tools.Greasemonkey.TeX the world
 
 " ,---------------------------------------, "
 " | <leader>v - Conversion and Arithmetic | "
 " '---------------------------------------' "
-map <leader>v
-\    -description "(show bindings: Misc/Conversion&Arithmetic)"
-\    -js CommandExMode().open("showkeys <leader>v")
+map <leader>v -description "(show bindings: Misc/Convert)" -js CommandExMode().open("showkeys <leader>v");
 map <leader>vv -description "Convert quantity into other units" -b :convertunits<Space>
 map <leader>vf;in  -description "Convert inches to centimeters (by hints)" -js hints.show("”");
 map <leader>v;usd  -description "Convert USD to AUD ($US->$AU)" -b :usd2aud<Space>
@@ -2601,9 +2553,7 @@ map <leader>vx -description "Convert value into other exchangr rate" -b :convert
 " ,---------------------------, "
 " | <leader>x - miscellaneous | "
 " '---------------------------' "
-map <leader>x
-\    -description "(show bindings: Misc)"
-\    -js CommandExMode().open("showkeys <leader>x")
+map <leader>x -description "(show bindings: Misc)" -js CommandExMode().open("showkeys <leader>x");
 
 map <leader>+ -b :sum<Space>
 map <leader>* -b :product<Space>
@@ -2617,15 +2567,13 @@ command! encuni :emenu View.Text Encoding.Unicode
 command! encjis :emenu View.Text Encoding.Japanese (Shift_JIS)
 command! enceuc :emenu View.Text Encoding.Japanese (EUC-JP)
 
-map <leader>xe
-\    -description "(show bindings: Text Encodings)"
-\    -js CommandExMode().open("showkeys <leader>xe")
+map <leader>xe -description "(show bindings: Text Encodings)" -js CommandExMode().open("showkeys <leader>xe");
 map <leader>xeu -ex emenu View.Text Encoding.Unicode
 
 " ,--------------------------, "
 " | <leader>xt -- Misc/Table | "
 " '--------------------------' "
-map <leader>xt -description "(show bindings: Misc/Tables)" -js CommandExMode().open("showkeys <leader>x")
+map <leader>xt -description "(show bindings: Misc/Tables)" -js CommandExMode().open("showkeys <leader>x");
 map <leader>xtc
 \     -description "Copy table columns (omit rows with too few columns)"
 \     -b :copytablecols-strict<Space>
@@ -3106,21 +3054,26 @@ EOF
 " ,-----------------------,
 " | <app>t -- Translation |
 " '-----------------------'
-map <app>t   -description "(show bindings: Translate)" -js CommandExMode().open("showkeys <app>t")
-map <app>tf  -description "(show bindings: Translate/Hints)" -js CommandExMode().open("showkeys <app>tf")
+map <app>t -description "(show bindings: Translate)" -js CommandExMode().open("showkeys <app>t");
+map <app>tf -description "(show bindings: Translate/Hints)" -js CommandExMode().open("showkeys <app>tf");
 map <app>tfa -description "Google append translation (HINTS)" -js hints.show("ʈ");
 map <app>tfA -description "Google append translation (div) (HINTS)" -js hints.show("Ʈ");
 map <app>tfe -description "Google translate element (HINTS)" -js hints.show("Ţ");
 map <app>tff -description "Google translate text (HINTS)" -js hints.show("ţ");
-map <app>tp  -description "(show bindings: Translate/Page)" -js CommandExMode().open("showkeys <app>tp")
+
+map <app>tp  -description "(show bindings: Translate/Page)" -js CommandExMode().open("showkeys <app>tp");
 map <app>tpp -description "Google translate page" -ex googletranslatepage
 map <app>tpb -description "Bing translate page" -ex bingtranslatepage
+
 map <app>tt  -description "Translate text in command line: [sl:tl] TEXT" -b :trans<Space>
-map <app>tv  -description "(show bindings: Translate/Selection)" -js CommandExMode().open("showkeys <app>tv")
+
+map <app>tv  -description "(show bindings: Translate/Selection)" -js CommandExMode().open("showkeys <app>tv");
 map <app>tvv -description "Google translate selection" -ex googletranslateselection
-map <app>tx  -description "(show bindings: Translate/Entered Text)" -js CommandExMode().open("showkeys <app>tv")
+
+map <app>tx  -description "(show bindings: Translate/Entered Text)" -js CommandExMode().open("showkeys <app>tv");
 map <app>txx -description "Google translate text" -b :gtrans<Space>
-map <app>ty  -description "(show bindings: Translate/Yank)" -js CommandExMode().open("showkeys <app>ty")
+
+map <app>ty  -description "(show bindings: Translate/Yank)" -js CommandExMode().open("showkeys <app>ty");
 map <app>tyy -description "Google translate text to clipboard" -b :googletranslatetextcb<Space>
 
 command! googletranslatetext
@@ -3242,7 +3195,7 @@ EOF
 " '------'
 map <yank>a -modes normal,visual,insert,command-line -description "Yank text area #N contents" -b :yanktextarea<Space>
 
-map <yank>b  -modes normal,visual,insert,command-line -description "(show bindings: yank tabs)" -js CommandExMode().open("showkeys <yank>b")
+map <yank>b  -description "(show bindings: yank tabs)" -js CommandExMode().open("showkeys <yank>b");
 map <yank>bb -modes normal,visual,insert,command-line -description "Yank tabs list (index: label <URL>)" -js yankTabsList();
 map <yank>btn -modes normal,visual,insert,command-line -description "Yank title of tab N" -b :yanktabtitle<Space>
 map <yank>bun -modes normal,visual,insert,command-line -description "Yank URL of tab N" -b :yanktaburl<Space>
@@ -3253,12 +3206,9 @@ map <yank>c
 \    -b :yanktablecsvarea<Space>
 
 " <yank>d -- Yank datetime "
-map <yank>d  -modes normal,visual,insert,command-line -description "(show bindings: Yank/Datetime)" -js CommandExMode().open("showkeys <yank>d")
+map <yank>d -description "(show bindings: Yank/Datetime)" -js CommandExMode().open("showkeys <yank>d");
 
-map <yank>da
-\    -modes normal,visual,insert,command-line
-\    -description "(show bindings: Yank/Datetime/Append)"
-\    -js CommandExMode().open("showkeys <yank>da")
+map <yank>da -description "(show bindings: Yank/Datetime/Append)" -js CommandExMode().open("showkeys <yank>da");
 map <yank>daa
 \    -modes normal,visual,insert,command-line
 \    -description "Append current datetime (-yyyy-mm-dd-HH-MM-SS)"
@@ -3280,10 +3230,7 @@ map <yank>do
 map <yank>D -modes normal,visual,insert,command-line -description "Yank current date and time" -js utils.yankWithMsg(getDate());
 map <yank>h -modes normal,visual,insert,command-line -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 " <yank>i -- Yank input fields "
-map <yank>i
-\    -modes normal,visual,insert,command-line
-\    -description "(show bindings: yank input fields)"
-\    -js CommandExMode().open("showkeys <yank>i")
+map <yank>i -description "(show bindings: yank input fields)" -js CommandExMode().open("showkeys <yank>i")
 map <yank>ii -modes normal,visual,insert,command-line -description "Yank text input field (with completion)" -b :yanktextfield<Space>
 map <yank>if -modes normal,visual,insert,command-line -description "Yank first text input field" -js yankInputFieldN(count || 1);
 map <yank>ia -modes normal,visual,insert,command-line -description "Yank text input fields" -js yankInputFields();
@@ -3312,7 +3259,7 @@ map <yank>O
 \    -js utils.yankWithMsg(content.document.getSelection().toString().replace(/:?\n/g, "").replace(/ *: */g, " - "));
 map <yank>p -modes normal,visual,insert,command-line -description "Yank paragraph/heading/item (HINTS)" -js hints.show("ÿ");
 " <yank>P -- yank from PDF "
-map <yank>P  -modes normal,visual,insert,command-line -description "(show bindings: yank from PDF)" -js CommandExMode().open("showkeys <yank>P")
+map <yank>P -description "(show bindings: yank from PDF)" -js CommandExMode().open("showkeys <yank>P");
 map <yank>P1
 \    -modes normal,visual,insert,command-line
 \    -description "PDF: Yank first line"
@@ -3343,7 +3290,7 @@ map <yank>R -modes normal,visual,insert,command-line -description "Yank link ref
 map <yank>s -modes normal,visual,insert,command-line -description "Yank element content by selector" -b :yankselectorcontent<Space>
 
 " <yank>t -- Yank page title "
-map <yank>t  -modes normal,visual,insert,command-line -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>t")
+map <yank>t -description "(show bindings: yank URL)" -js CommandExMode().open("showkeys <yank>t");
 map <yank>tt -modes normal,visual,insert,command-line -description "Yank page title" -js utils.yankWithMsg(buffer.title)
 map <yank>tf
 \    -modes normal,visual,insert,command-line
@@ -3356,9 +3303,9 @@ map <yank>tF
 map <yank>td -modes normal,visual,insert,command-line -description "Yank page title with date & time" -ex yanktitleanddate
 
 " <yank>u -- Yank URL/filename "
-map <yank>u  -modes normal,visual,insert,command-line -description "(show bindings: Yank/URL)" -js CommandExMode().open("showkeys <yank>u")
+map <yank>u -description "(show bindings: Yank/URL)" -js CommandExMode().open("showkeys <yank>u");
 
-map <yank>ua -modes normal,visual,insert,command-line -description "(show bindings: Yank/URL/All)" -js CommandExMode().open("showkeys <yank>ua");
+map <yank>ua -description "(show bindings: Yank/URL/All)" -js CommandExMode().open("showkeys <yank>ua");
 map <yank>uaa
 \    -modes normal,visual,insert,command-line
 \    -description "Yank URLs for all tabs (newline separated)"
@@ -3368,10 +3315,7 @@ map <yank>uat
 \    -description "Yank titles and URLs for all tabs (tab separated fields, newline separated entries)"
 \    -js utils.cbWriteWithMessageLimit(tabs.allTabs.map(t=>`${t._fullLabel}\t${t.linkedBrowser.contentDocument.URL}`).join("\n"));
 
-map <yank>ud
-\    -modes normal,visual,insert,command-line
-\    -description "(show bindings: Yank/URL/domain)"
-\    -js CommandExMode().open("showkeys <yank>ud")
+map <yank>ud -description "(show bindings: Yank/URL/domain)" -js CommandExMode().open("showkeys <yank>ud");
 map <yank>udd
 \    -modes normal,visual,insert,command-line
 \    -description "Yank page domain"
@@ -3469,7 +3413,7 @@ map <yank>v -modes normal,visual,insert,command-line -description "Yank browser 
 map <yank>V -modes normal,visual,insert,command-line -description "Yank browser name and version"
 \           -js utils.yankWithMsg(`${xulAppInfo.name} ${xulAppInfo.version}`);
 
-map <yank>x  -modes normal,visual,insert,command-line -description "(show bindings: yank text)" -js CommandExMode().open("showkeys <yank>x")
+map <yank>x -description "(show bindings: yank text)" -js CommandExMode().open("showkeys <yank>x")
 map <yank>xx -modes normal,visual,insert,command-line -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>xs -modes normal,visual,insert,command-line -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
 
@@ -3811,8 +3755,8 @@ command! tabopenhistory -nargs 1 -complete history tabopen <args>
 " ,------------------------------, "
 " | <search>s -- Shopping Search | "
 " '------------------------------' "
-map <search>s -description "(show bindings: Shopping Search)" -js CommandExMode().open("showkeys <search>s")
-map <search>sa -description "(show bindings: Shopping Search/Art)" -js CommandExMode().open("showkeys <search>sa")
+map <search>s -description "(show bindings: Search/Shopping)" -js CommandExMode().open("showkeys <search>s")
+map <search>sa -description "(show bindings: Search/Shop/Art)" -js CommandExMode().open("showkeys <search>sa")
 map <search>saa -description "Shopping search: art (quick)" -b :shopartquick<Space>
 map <search>sab
 \    -description "Shopping search: art (bunbougu, ebay, amazonAU)"
@@ -3822,11 +3766,15 @@ map <search>saj
 \    -js CommandExMode().open("shopJacksonsEbayAmazau"+(count?"! ":" "));
 map <search>saA -description "Shopping search: art" -b :shopart<Space>
 map <search>saz -description "Shopping search: art (ebay + amazon.au + amazon)" -b :shopartEbayAmaz<Space>
-map <search>sjj -description "Shopping search: Jacksons UK" -js CommandExMode().open(count?"jacksonsartSearch ":"jacksonsartSearch! ");
-map <search>sjw -description "Shopping search: Jacksons UK watercolour" -js CommandExMode().open(count?"jacksonsartSearchWatercolour ":"jacksonsartSearchWatercolour! ");
+map <search>sjj
+\    -description "Shopping search: Jacksons UK"
+\    -js CommandExMode().open(count?"jacksonsartSearch ":"jacksonsartSearch! ");
+map <search>sjw
+\    -description "Shopping search: Jacksons UK watercolour"
+\    -js CommandExMode().open(count?"jacksonsartSearchWatercolour ":"jacksonsartSearchWatercolour! ");
 map <search>ss  -description "Shopping search: ebay + amazon" -b :shop<Space>
-map <search>sv  -description "(show bindings: vaping search)" -js CommandExMode().open("showkeys <search>sv")
-map <search>svfm  -description "Shopping search/Vaping: fasttech mods" -b :shopvapeFtMod<Space>
+map <search>sv -description "(show bindings: Search/Shop/Vaping)" -js CommandExMode().open("showkeys <search>sv")
+map <search>svfm -description "Shopping search/Vaping: fasttech mods" -b :shopvapeFtMod<Space>
 map <search>sz
 \    -description "Shopping search: ebay + amazon.au"
 \    -js CommandExMode().open("shopEbayAmazau"+(count?"! ":" "));
@@ -4379,7 +4327,7 @@ map g;p -description "Open all links in current selection" -js openAllLinksInCB(
 " ,-----------------------,
 " | <buffer>a -- all tabs |
 " '-----------------------'
-map <buffer>a  -description "(show bindings: Tabs/All)" -js CommandExMode().open("showkeys <buffer>a")
+map <buffer>a -description "(show bindings: Tabs/All)" -js CommandExMode().open("showkeys <buffer>a");
 map <buffer>aP -description "Unpin all tabs" -ex unpinall
 map <buffer>ar -description "Reload all tabs" -ex reloadall
 map <buffer>aR -description "Reload all tabs (without cache)" -ex reloadall!
@@ -4390,7 +4338,7 @@ map <buffer>b  -description "Switch to buffer matching PATTERN" -builtin b
 " ,--------------------------,
 " | <buffer>d -- delete tabs |
 " '--------------------------'
-map <buffer>d -description "(show bindings: Tabs/Delete)" -js CommandExMode().open("showkeys <buffer>d")
+map <buffer>d -description "(show bindings: Tabs/Delete)" -js CommandExMode().open("showkeys <buffer>d");
 map <buffer>da -description "Close alternate tab" -js tabCloseAlternate();
 map <buffer>db -description "Close tab from list" -b :bdelete<SPACE>
 map <buffer>dd -description "Close tab range" -b :tc<SPACE>
@@ -4432,8 +4380,7 @@ map <buffer>dR -description "Close tabs matching REGEX (case-sensitive)"
 \    -b :tabremoveregex<Space>"//"<Left><Left>
 map <buffer>d;R -description "Close tabs not matching REGEX (case-sensitive)"
 \    -b :tabfilterregex<Space>"//"<Left><Left>
-map <buffer>dt -description "(show bindings: Tabs/Delete/To)"
-\    -js CommandExMode().open("showkeys <buffer>dt")
+map <buffer>dt -description "(show bindings: Tabs/Delete/To)" -js CommandExMode().open("showkeys <buffer>dt");
 map <buffer>dtt -description "Close from here to ARG" -b :tabclosefromhereto<Space>
 map <buffer>dtx -description "Close from here to ARG (exclusive)" -b :tabclosefromherebefore<Space>
 map <buffer>du -description "(show bindings: Tabs/Delete/Url)" -js CommandExMode().open("showkeys <buffer>du");
@@ -4456,7 +4403,7 @@ map <buffer>rh -description "Rename document to h1 heading" -js content.document
 " ,------------------------,
 " | <buffer>m -- move tabs |
 " '------------------------'
-map <buffer>m   -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m")
+map <buffer>m   -description "(show bindings)" -js CommandExMode().open("showkeys <buffer>m");
 map <buffer>mm  -description "Move tab to ordinal P" -b :tabmove<SPACE>
 map <buffer>mn  -description "Move N tabs to start or ordinal P" -b :moventabs<Space>
 map <buffer>mr  -description "Move tabs right of N to ordinal P" -b :movealltabsrightofn<Space>
@@ -4474,9 +4421,9 @@ map <buffer>v   -description "Toggle mute tab" -js tabs.getTab().toggleMuteAudio
 " ,----------------------,
 " | <buffer>w -- windows |
 " '----------------------'
-map <buffer>w  -description "(show bindings: Windows)" -js CommandExMode().open("showkeys <buffer>w")
+map <buffer>w  -description "(show bindings: Windows)" -js CommandExMode().open("showkeys <buffer>w");
 map <buffer>wu -description "Undo close window" -js undoCloseWindow((count||1)-1);
-map <buffer>ww -description "Show close windows" -js showClosedWindows();
+map <buffer>ww -description "Show closed windows" -js showClosedWindows();
 
 js <<EOF
 function showClosedWindows() {
@@ -4549,7 +4496,7 @@ map gf  -description "Open multiple links in background tabs (HINTS)"   -b g;b
 " | <buffer>. -- Current Buffer |
 " '-----------------------------'
 
-map <buffer>. -description "(show bindings: Current Tab)" -js CommandExMode().open("showkeys <buffer>.")
+map <buffer>. -description "(show bindings: Current Tab)" -js CommandExMode().open("showkeys <buffer>.");
 map <buffer>..
 \    -description "Switch to next buffer with same domain"
 \    -js tabNextMatchingDomain(count||1);
@@ -5185,9 +5132,9 @@ var newTabPage = function(where=dactyl.NEW_TAB) {
 }
 EOF
 
-map <goto>   -description "(Show bindings: Goto)" -js CommandExMode().open("showkeys <goto>")
+map <goto> -description "(Show bindings: Goto)" -js CommandExMode().open("showkeys <goto>");
 
-map <goto>a  -description "(Show bindings: Goto/Addons)" -js CommandExMode().open("showkeys <goto>a")
+map <goto>a -description "(Show bindings: Goto/Addons)" -js CommandExMode().open("showkeys <goto>a");
 map <goto>aa -description "Addons" -ex dialog addons
 map <goto>ac -description "Classic Addons" -js openOrSelectTab("caa:list", count?"here":"adjacent");
 map <goto>ap
@@ -5219,11 +5166,11 @@ map <goto>k
 map <goto>K
 \    -description "Bookmarks"
 \    -js openOrSelectTab("chrome://browser/content/bookmarks/bookmarksPanel.xul", count?"here":"adjacent");
-map <goto>l   -description "(Show bindings: Goto/Local)" -js CommandExMode().open("showkeys <goto>l")
+map <goto>l   -description "(Show bindings: Goto/Local)" -js CommandExMode().open("showkeys <goto>l");
 map <goto>ldw -description "~/Downloads/" -js openOrSelectTab(`${homedir}/Downloads`, count?"here":"adjacent");
 map <goto>ldc -description "~/Documents/" -js openOrSelectTab(`${homedir}/Documents`, count?"here":"adjacent");
 
-map <goto>le  -description "(Show bindings: Goto/Local/Ebooks)" -js CommandExMode().open("showkeys <goto>le")
+map <goto>le  -description "(Show bindings: Goto/Local/Ebooks)" -js CommandExMode().open("showkeys <goto>le");
 map <goto>le/ -description "~/ebooks/" -js openOrSelectTab(`${homedir}/ebooks`, count?"here":"adjacent");
 map <goto>lec
 \    -description "~/ebooks/coding"
@@ -5239,7 +5186,7 @@ map <goto>lea
 \    -description "~/ebooks/articles"
 \    -js openOrSelectTab(`${homedir}/ebooks/articles`, count?"here":"adjacent");
 
-map <goto>lh -description "(Show bindings: Goto/Local/Home)" -js CommandExMode().open("showkeys <goto>lh")
+map <goto>lh -description "(Show bindings: Goto/Local/Home)" -js CommandExMode().open("showkeys <goto>lh");
 map <goto>lhe
 \    -description "~/.emacs.d/private"
 \    -js openOrSelectTab(`${homedir}/.emacs.d/private`, count?"here":"adjacent");
@@ -5250,7 +5197,7 @@ map <goto>lhp
 map <goto>lhr -description "~/repos" -js openOrSelectTab(`${homedir}/repos`, count?"here":"adjacent");
 map <goto>lhs -description "~/source" -js openOrSelectTab(`${homedir}/source`, count?"here":"adjacent");
 
-map <goto>lo  -description "(Show bindings: Goto/Local/Opt)" -js CommandExMode().open("showkeys <goto>lo")
+map <goto>lo  -description "(Show bindings: Goto/Local/Opt)" -js CommandExMode().open("showkeys <goto>lo");
 map <goto>lo/ -description "/opt/" -js openOrSelectTab("/opt", count?"here":"adjacent");
 map <goto>loc
 \    -description "/opt/chrome-extensions"
@@ -5314,9 +5261,7 @@ map <goto>;u
 map <goto>w  -description "(Show bindings: Goto/Window)" -js CommandExMode().open("showkeys <goto>w");
 map <goto>wd -description "Downloads dialog" -ex dialog downloads
 map <goto>wh -description "History dialog" -js window.PlacesCommandHook.showPlacesOrganizer("History");
-map <goto>wk
-\    -description "(Show bindings: Goto/Window/Bookmarks)"
-\    -js CommandExMode().open("showkeys <goto>wk");
+map <goto>wk -description "(Show bindings: Goto/Window/Bookmarks)" -js CommandExMode().open("showkeys <goto>wk");
 map <goto>wkg -description "Bookmarks Tags dialog" -js window.PlacesCommandHook.showPlacesOrganizer("Tags");
 map <goto>wkk -description "Bookmarks dialog" -js window.PlacesCommandHook.showPlacesOrganizer("AllBookmarks");
 map <goto>wkm
@@ -5326,9 +5271,7 @@ map <goto>wkt
 \    -description "Bookmarks Toolbar dialog"
 \    -js window.PlacesCommandHook.showPlacesOrganizer("BookmarksToolbar");
 map <goto>wl -description "Library Dialog (sticky)" -ex librarysticky
-map <goto>wm
-\    -description "(Show bindings: Goto/Window/Mini)"
-\    -js CommandExMode().open("showkeys <goto>w");
+map <goto>wm -description "(Show bindings: Goto/Window/Mini)" -js CommandExMode().open("showkeys <goto>w");
 map <goto>wmh -description "History Dialog" -ex dialog history
 map <goto>wmk -description "Bookmarks Dialog" -ex dialog bookmarks
 map <goto>wi  -description "Page Info" -js BrowserPageInfo(); 
@@ -5342,9 +5285,7 @@ map <goto>xx
 \    -description "XPCOM Viewer"
 \    -js openOrSelectTab("chrome://xpcomviewer/content/xpcomviewer.xul", count?"here":"adjacent");
 
-map <goto>y
-\    -description "(Show bindings: Goto/Dactyl)"
-\    -js CommandExMode().open("showkeys <goto>y")
+map <goto>y -description "(Show bindings: Goto/Dactyl)" -js CommandExMode().open("showkeys <goto>y");
 map <goto>yc
 \    -description "~/.pentadactyl/config"
 \    -js openOrSelectTab(`file://${homedir}/.pentadactyl/config`, count?"here":"adjacent");
@@ -5418,7 +5359,7 @@ set passkeys+='chrome://passwordmgr/content/passwordManager.xul':'<Up><Down><Lef
 " | Bookmarks |
 " '-----------'
 
-map <search>k       -description "(Show bindings)" -js CommandExMode().open("showkeys <search>k")
+map <search>k -description "(Show bindings)" -js CommandExMode().open("showkeys <search>k");
 map <search>ka -description "Open selected bookmarks items" -b :bmarks!  -max 30<SPACE>
 map <search>kb -description "search bookmarks with buku"  -ex !buku_run
 map <search>ko -description "Open bookmarks item" -b :tabopenbookmark<SPACE>
@@ -5634,12 +5575,10 @@ map <leader>es -description "Show elements matching selector(s)" -b :getselector
 " ,---------------------------------, ,-----------,
 " | Mozilla DevTools & DOM Inspector| | <leader>d |
 " '---------------------------------' '-----------'
-map <leader>d
-\    -description "(show bindings: Devtools)"
-\    -js CommandExMode().open("showkeys <leader>d")
-map <leader>di      -js CommandExMode().open("showkeys <leader>di")
+map <leader>d -description "(show bindings: Dev)" -js CommandExMode().open("showkeys <leader>d");
 
 map <leader>db -ex browserconsole
+map <leader>di -description "show bindings: Dev/Inspector" -js CommandExMode().open("showkeys <leader>di");
 map <leader>dii -ex dominspector
 map <leader>dis -ex storageinspector
 map <leader>dss -js buffer.viewSelectionSource();
@@ -5753,7 +5692,7 @@ EOF
 
 command! mozrepltoggle -js mozReplToggle();
 
-map <ext>m -description "(show bindings)" -js CommandExMode().open("showkeys <ext>m")
+map <ext>m -description "(show bindings)" -js CommandExMode().open("showkeys <ext>m");
 map <ext>mm -description "MozREPL toggle" -js mozReplToggle();
 map <ext>mp -description "MozREPL set port" -js mozrepl.changePort();
 map <ext>mr -description "MozREPL reload" -js mozrepl.server.reload();
@@ -5766,7 +5705,7 @@ map <ext>ma -description "MozREPL toggle autostart" -ex toggleconfig extensions.
 " '-----------------'
 command! jash -js jashToggle();
 
-map <ext>j      -description "(show bindings)" -js CommandExMode().open("showkeys <ext>j")
+map <ext>j -description "(show bindings)" -js CommandExMode().open("showkeys <ext>j");
 map <ext>jj -ex jash
 map <ext>je -js jashEvalTab();
 map <ext>js -js jashCssTab();
@@ -6229,16 +6168,16 @@ command! listextensions
     \ -js getExtensions();
 
 
-map <ext>x      -js CommandExMode().open("showkeys <ext>x");
-map <ext>n      -js CommandExMode().open("showkeys <ext>n");
-map <ext>s      -js CommandExMode().open("showkeys <ext>s");
+map <ext>x -js CommandExMode().open("showkeys <ext>x");
+map <ext>n -js CommandExMode().open("showkeys <ext>n");
+map <ext>s -js CommandExMode().open("showkeys <ext>s");
 map <ext>st -ex dialog customizetoolbar
-map <ext>xe       -description "enable extension" :extenable<Space>
-map <ext>xd       -description "disable extension" :extdisable<Space>
-map <ext>xo       -description "extension options" :extoptions<Space>
-map <ext>xr       -description "rehash extension" :extrehash<Space>
+map <ext>xe -description "enable extension" :extenable<Space>
+map <ext>xd -description "disable extension" :extdisable<Space>
+map <ext>xo -description "extension options" :extoptions<Space>
+map <ext>xr -description "rehash extension" :extrehash<Space>
 map <ext>x<Space> -description "toggle extension" :exttoggle<Space>
-map <ext>t        -description "Tile Tabs: View Tiled" -js tileTabs.Tile();
+map <ext>t -description "Tile Tabs: View Tiled" -js tileTabs.Tile();
 
 " | Stay Open Menu | "
 map <ext>om -description "Reinstall Stay Open Menu"
@@ -6519,7 +6458,7 @@ map <ext>rss -description "Rikai: Text search" -b :riktextsearch<Space>
 map <ext>rsl -description "Rikai: Lookupbar search" -b :riklookupbarsearch<Space>
 map <ext>rsw -description "Rikai: Word search" -b :rikwordsearch<Space>
 
-map <ext>rtk  -description "(show bindings: Rikaisama Toggles/Kanji)" -js CommandExMode().open("showkeys <ext>rtk");
+map <ext>rtk -description "(show bindings: Rikaisama Toggles/Kanji)" -js CommandExMode().open("showkeys <ext>rtk");
 map <ext>rtkk -description "Rikai: Toggle large kanji" -ex styletoggle -name rikaisama-bigkanji
 map <ext>rtkh -description "Rikai: Toggle huge kanji"  -ex styletoggle -name rikaisama-hugekanji
 map <ext>rtks -description "Rikai: Toggle kanji style"  -ex styletoggle -name rikaisama-kanji-light
@@ -7345,7 +7284,7 @@ set hinttags+=a[class^='speed']
 " | extendedhinttags |                                                          "
 " '------------------'                                                          "
 
-" FIXME: can't activate context menu on 'body' hint
+" FIXME: can't activate context menu on 'body' hint "
 ":set eht+=[c]:body,'a',':-moz-any-link',area,button,iframe,input:not([type=hidden]),label[for],select,textarea,[onclick],[onmouseover],[onmousedown],[onmouseup],[oncommand],[tabindex],[role=link],[role=button],[contenteditable=true]
 
 " ----------------------------------------------------------------------------- "
@@ -7428,8 +7367,8 @@ group user
 " | places | "
 " '--------' "
 group places -locations=chrome://browser/content/places/places.xul
-map <site>f      -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
-map <site>s      -description "(show bindings)" -js CommandExMode().open("showkeys <site>s")
+map <site>f -description "(show bindings)" -js CommandExMode().open("showkeys <site>f")
+map <site>s -description "(show bindings)" -js CommandExMode().open("showkeys <site>s")
 
 map <site>b   -description "Open in background tab"  -js placesOpenInBackground();
 map <site>c   -description "Focus Left Panel"        <Escape>gi<Tab>
@@ -7942,8 +7881,8 @@ map <site>s -description "(show bindings: Amazon/Search)" -js CommandExMode().op
 map <site>se
 \    -description "Search ebay for item/search term"
 \    -js dactyl.execute("ebaysearch" + (count?" ":"! ") + amazonGetItemOrSearchTerm());
+map <site>so -description "Search Amazon AU order history" -b :amazonausearchorders<Space>
 map <site>ss -description "Search Amazon AU" -b :amazonausearch<Space>
-map <site>so -description "Search Amazon AU for Office Products" -b :amazonausearchstationery<Space>
 
 map <site>t -description "(show bindings: Amazon/Toggle)" -js CommandExMode().open("showkeys <site>t");
 map <site>ta
@@ -8468,9 +8407,7 @@ map <site>oc -description "View cart"
 \    -ex openorselect https://www.banggood.com/shopping_cart_new.php <count>
 map <site>og -description "View account/giftcards"
 \    -ex openorselect https://www.banggood.com/index.php?com=account&t=giftcard <count>
-map <site>ok
-\    -description "(show bindings: Goto/Recommended Products)"
-\    -js CommandExMode().open("showkeys <site>ok")
+map <site>ok -description "(show bindings: Goto/Recommended Products)" -js CommandExMode().open("showkeys <site>ok")
 map <site>okb
 \    -description "Goto Also Bought Products"
 \    -js content.document.querySelector('.AlsoBought').scrollIntoView();
@@ -8878,9 +8815,7 @@ function crGetTitle() {
 
 EOF
 
-map <site>d
-\    -description "(show bindings: [Crunchyroll] Download)"
-\    -js CommandExMode().open("showkeys <site>d");
+map <site>d -description "(show bindings: [Crunchyroll] Download)" -js CommandExMode().open("showkeys <site>d");
 map <site>da -description "Download all videos (with youtube-dl)" -js crDL();
 map <site>o -description "(show bindings: [Crunchyroll] Goto)" -js CommandExMode().open("showkeys <site>o");
 map <site>or
@@ -9042,7 +8977,7 @@ map [[ -description "Previous Page"
 \    -js clickSelector("div.paging-info>a>i.icon-chevron-left") && danmurphysScrollToReviews();
 map <site>c -description "(product) expand reviews, (wishlist) toggle pull-down" -js danmurphysGo();
 map <site>n -description "Show only products with >=N stars" -b :danmurphysnstars<Space>
-map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o")
+map <site>o -description "(show bindings: Goto)" -js CommandExMode().open("showkeys <site>o");
 map <site>oc -description "Go to cart" -js openOrSelectTab("https://www.danmurphys.com.au/dm/ecart/cart", count?"adjacent":"here", null, true);
 map <site>or -description "Scroll to reviews" -js danmurphysScrollToReviews();
 map <site>ow
@@ -9185,7 +9120,7 @@ map <site>a -description "Go to Australian site" -js ebayToAU();
 map <site>c -description "Click button (Add to cart/Go to checkout)" -js ebayGo();
 map <site>n -description "Count items" -js utils.message("Number of items: " + ebayCount());
 
-map <site>o -js CommandExMode().open("showkeys <site>o")
+map <site>o  -description "ebay/Goto" -js CommandExMode().open("showkeys <site>o");
 map <site>oa -description "Goto Account Page"
 \    -js openOrSelectTab("https://my.ebay.com.au/ws/eBayISAPI.dll?MyEbay&CurrentPage=MyeBayMyAccounts", count?"adjacent":"here", null, true);
 map <site>oc -description "Goto Cart" -js openOrSelectTab("https://cart.ebay.com.au", count?"adjacent":"here", null, true);
@@ -9806,9 +9741,10 @@ map <site>o  -description "(show bindings:Github/Open)" -js CommandExMode().open
 map <site>oc
 \    -description "Open commits"
 \    -js openOrSelectTab(`https://github.com/${ghGetUserAndRepo().join('/')}/commits`, count?"adjacent":"here");
-map <site>og -description "Open gists"
 map <site>od -description "Open PR patch" -js openOrSelectTab(`${ghprGetPatchURL()}`, count?"tab":"here");
 map <site>oD -description "Open PR diff" -js openOrSelectTab(`${ghprGetDiffURL()}`, count?"tab":"here");
+map <site>og
+\    -description "Open gists"
 \    -js openOrSelectTab('https://gist.github.com/'+ghGetUser(), count?"here":"adjacent");
 map <site>oh -description "Open help" -js ghOpenHelp(count?"here":"adjacent");
 map <site>oi
