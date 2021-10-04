@@ -3315,6 +3315,8 @@ map <yank>uat
 \    -description "Yank titles and URLs for all tabs (tab separated fields, newline separated entries)"
 \    -js utils.cbWriteWithMessageLimit(tabs.allTabs.map(t=>`${t._fullLabel}\t${t.linkedBrowser.contentDocument.URL}`).join("\n"));
 
+map <yank>ub -modes normal,visual,insert,command-line -description "Yank filename or buffer URL (unencoded, no queries/fragments)" -js utils.cbWrite(getAddressBarURL());
+
 map <yank>ud -description "(show bindings: Yank/URL/domain)" -js CommandExMode().open("showkeys <yank>ud");
 map <yank>udd
 \    -modes normal,visual,insert,command-line
@@ -3350,7 +3352,6 @@ map <yank>ue
 \    -modes normal,visual,insert,command-line
 \    -description "Yank final or n last components"
 \    -js utils.yankWithMsg(urlGetNthSuffix(buffer.URL, count||1));
-map <yank>uf -modes normal,visual,insert,command-line -description "Yank filename or buffer URL (unencoded)" -ex yankfilenameorURL
 map <yank>ugH
 \    -modes normal,visual,insert,command-line
 \    -description "Yank first URL in tab history"
@@ -3417,7 +3418,7 @@ map <yank>x -description "(show bindings: yank text)" -js CommandExMode().open("
 map <yank>xx -modes normal,visual,insert,command-line -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>xs -modes normal,visual,insert,command-line -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
 
-map <yank>y -modes normal,visual,insert,command-line -description "Yank buffer URL" -js utils.cbWrite(getAddressBarURL());
+map <yank>y -modes normal,visual,insert,command-line -description "Yank buffer URL"  -ex yankfilenameorURL
 map <yank>0 -modes normal,visual,insert,command-line -description "Yank empty string to clipboard" -js utils.cbWrite("");
 map <yank>1
 \    -modes normal,visual,insert,command-line
