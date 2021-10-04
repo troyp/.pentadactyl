@@ -157,7 +157,7 @@ function uri(spec) {
          newURI(spec, null, null);
 }
 var nsIBrowserHistory = nsIHistoryService.QueryInterface(Ci.nsIBrowserHistory);
-function historyRemoveURI(url=getCurrentURL()) { nsIBrowserHistory.removePage(uri(url)); }
+function historyRemoveURI(url=getAddressBarURL()) { nsIBrowserHistory.removePage(uri(url)); }
 
 "Application"
 var xulAppInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
@@ -1738,29 +1738,29 @@ command! pandocopen
 \    -description "Convert URL/file with pandoc and open"
 \    -bang
 \    -nargs +
-\    -js pandocConvertOpenUrlFile(args[0], args[1], getCurrentURL(), bang?"adjacent":"here");
+\    -js pandocConvertOpenUrlFile(args[0], args[1], getAddressBarURL(), bang?"adjacent":"here");
 
 command! shellprocessandopen
 \    -description "Process URL/file with shell command and open result as file"
 \    -bang
 \    -nargs 1
-\    -js shellProcessAndOpenUrlFile(args[0], getCurrentURL(), bang?"adjacent":"here");
+\    -js shellProcessAndOpenUrlFile(args[0], getAddressBarURL(), bang?"adjacent":"here");
 
 command! shellcommandonurlfile
 \    -description "Run shell command on URL/file (%f)"
 \    -bang
 \    -nargs 1
-\    -js shellCommandOnUrlFile(args[0], getCurrentURL());
+\    -js shellCommandOnUrlFile(args[0], getAddressBarURL());
 
 command! shellcommandonurlfileinroxterm
 \    -description "Run shell command on URL/file (%f) in terminal emulator"
 \    -bang
 \    -nargs 1
-\    -js shellCommandOnUrlFileinRoxterm(args[0], getCurrentURL());
+\    -js shellCommandOnUrlFileinRoxterm(args[0], getAddressBarURL());
 
 " Open MAFF in browser "
 command! openmafffile -nargs 1 -complete file -js openMaffFile(args[0]);
-command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || getCurrentURL()} | mpg123 -`)).output);
+command! aplay -nargs 1 -complete=url -js utils.message((io.system(`curl -s ${args[0] || getAddressBarURL()} | mpg123 -`)).output);
 
 " open file with mimeopen
 command! mimeopen
@@ -3417,7 +3417,7 @@ map <yank>x -description "(show bindings: yank text)" -js CommandExMode().open("
 map <yank>xx -modes normal,visual,insert,command-line -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>xs -modes normal,visual,insert,command-line -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
 
-map <yank>y -modes normal,visual,insert,command-line -description "Yank buffer URL" -js utils.cbWrite(getCurrentURL());
+map <yank>y -modes normal,visual,insert,command-line -description "Yank buffer URL" -js utils.cbWrite(getAddressBarURL());
 map <yank>0 -modes normal,visual,insert,command-line -description "Yank empty string to clipboard" -js utils.cbWrite("");
 map <yank>1
 \    -modes normal,visual,insert,command-line
@@ -15820,7 +15820,7 @@ var re_http_url_groups = ["whole URL", "scheme", "host", "port", "path", "query"
 
 var re_url = /^([a-zA-Z][a-zA-Z0-9+.-]*):(\/\/([^/:@?#]+@)?([^/:@?#]+)(:[^/:@?#]+)?)?(\/[^:@?#]*)([?][^/:@?#]+)?(#[^/:@?#]+)?/;
 
-function getCurrentURL() { return document.querySelector('#urlbar')._value; }
+function getAddressBarURL() { return document.querySelector('#urlbar')._value; }
 
 function urlLastComponent(url) {
     return url.replace(/^.*\//, '');
@@ -16142,7 +16142,7 @@ function numRangeListToString(rangelist) {
 /* | Loading | */
 /* '---------' */
 function getFilenameOrURL(url, escapeSpaces=false) {
-    url = decodeURIComponent(url || getCurrentURL());
+    url = decodeURIComponent(url || getAddressBarURL());
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch && escapeSpaces) {
@@ -16155,7 +16155,7 @@ function getFilenameOrURL(url, escapeSpaces=false) {
 }
 
 function getFilenameOrUrlAsFile(url, escapeSpaces=false) {
-    url = decodeURIComponent(url || getCurrentURL());
+    url = decodeURIComponent(url || getAddressBarURL());
     var file = getFilenameOrURL(url, escapeSpaces);
     var localFileMatch = file.match(/^\/|^~/);
     if (!localFileMatch) {
@@ -16165,7 +16165,7 @@ function getFilenameOrUrlAsFile(url, escapeSpaces=false) {
     return file;
 }
 
-function mimeopenUrlFile(url=getCurrentURL()) {
+function mimeopenUrlFile(url=getAddressBarURL()) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
@@ -16176,7 +16176,7 @@ function mimeopenUrlFile(url=getCurrentURL()) {
     }
 }
 
-function mimeopenAskAppUrlFile(url=getCurrentURL()) {
+function mimeopenAskAppUrlFile(url=getAddressBarURL()) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
@@ -16187,7 +16187,7 @@ function mimeopenAskAppUrlFile(url=getCurrentURL()) {
     }
 }
 
-function mimeopenAndSetAppUrlFile(url=getCurrentURL()) {
+function mimeopenAndSetAppUrlFile(url=getAddressBarURL()) {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     if (localFileMatch) {
@@ -16198,7 +16198,7 @@ function mimeopenAndSetAppUrlFile(url=getCurrentURL()) {
     }
 }
 
-function openWithProgramUrl(program, url=getCurrentURL()) {
+function openWithProgramUrl(program, url=getAddressBarURL()) {
     return io.system(`${program} '${url}'`);
 }
 
@@ -16235,14 +16235,14 @@ function shellCommandOnUrlFile(cmd, url=buffer.URL) {
     }
 }
 
-function shellCommandOnUrlFileinRoxterm(cmd, url=getCurrentURL(), roxtermOpts=null) {
+function shellCommandOnUrlFileinRoxterm(cmd, url=getAddressBarURL(), roxtermOpts=null) {
     roxtermOpts = roxtermOpts || "";
     if (!roxtermOpts.includes("--geometry")) roxtermOpts = `--geometry=80x40+182-90 ${roxtermOpts}`;
     var fullcmd = `roxterm ${roxtermOpts} -e "${cmd.replace('"', '\"')}"`;
     return shellCommandOnUrlFile(fullcmd, url);
 }
 
-function shellProcessAndOpenUrlFile(cmd, url=getCurrentURL(), where="here") {
+function shellProcessAndOpenUrlFile(cmd, url=getAddressBarURL(), where="here") {
     if (!cmd.includes("%f")) cmd += " %f";
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
@@ -16258,7 +16258,7 @@ function shellProcessAndOpenUrlFile(cmd, url=getCurrentURL(), where="here") {
     utils.message(converted);
 }
 
-function pandocConvertOpenUrlFile(from, to, url=getCurrentURL(), where="here") {
+function pandocConvertOpenUrlFile(from, to, url=getAddressBarURL(), where="here") {
     var localFileRegex = /^file:\/\/([^?#]*)/;
     var localFileMatch = url.match(localFileRegex);
     var converted;
@@ -16399,7 +16399,7 @@ function docToPageName(doc=content.document) {
     }
 }
 
-function urlToFileName(url=getCurrentURL()) {
+function urlToFileName(url=getAddressBarURL()) {
     var name = (new URL(url)).pathname.replace(/\/?([#?].*)?$/, "").split("/").pop();
     var extRe = /\.[a-zA-Z0-9]+$/;
     if (!name.match(extRe)) {
