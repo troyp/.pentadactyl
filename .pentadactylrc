@@ -3228,6 +3228,12 @@ map <yank>do
 \    -js utils.cbWrite((new Date).toISOString().replace(/T.*/, ""));
 
 map <yank>D -modes normal,visual,insert,command-line -description "Yank current date and time" -js utils.yankWithMsg(getDate());
+
+map <yank>f
+\    -modes normal,visual,insert,command-line
+\    -description "Yank buffer filename/URL path"
+\    -ex yankfilenameorURL
+
 map <yank>h -modes normal,visual,insert,command-line -description "Yank page heading (choose with completion)" -b :yankheading<Space>
 " <yank>i -- Yank input fields "
 map <yank>i -description "(show bindings: yank input fields)" -js CommandExMode().open("showkeys <yank>i")
@@ -3315,7 +3321,10 @@ map <yank>uat
 \    -description "Yank titles and URLs for all tabs (tab separated fields, newline separated entries)"
 \    -js utils.cbWriteWithMessageLimit(tabs.allTabs.map(t=>`${t._fullLabel}\t${t.linkedBrowser.contentDocument.URL}`).join("\n"));
 
-map <yank>ub -modes normal,visual,insert,command-line -description "Yank filename or buffer URL (unencoded, no queries/fragments)" -js utils.cbWrite(getAddressBarURL());
+map <yank>ub
+\    -modes normal,visual,insert,command-line
+\    -description "Yank visible URL (unencoded)"
+\    -js utils.yankWithMsg(getAddressBarURL());
 
 map <yank>ud -description "(show bindings: Yank/URL/domain)" -js CommandExMode().open("showkeys <yank>ud");
 map <yank>udd
@@ -3328,13 +3337,9 @@ map <yank>udp
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, true));
 map <yank>uds
 \    -modes normal,visual,insert,command-line
-\    -description "(show bindings: yank URL/domain/strip subdomains)"
-\    -js CommandExMode().open("showkeys <yank>uds")
-map <yank>udsd
-\    -modes normal,visual,insert,command-line
 \    -description "Yank page domain, strip 1/count subdomains"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, false, count||1));
-map <yank>udsp
+map <yank>udS
 \    -modes normal,visual,insert,command-line
 \    -description "Yank page domain (with protocol, strip 1/count subdomains)"
 \    -js utils.yankWithMsg(urlDomain(buffer.URL, true, count||1));
@@ -3380,10 +3385,6 @@ map <yank>uq
 \    -modes normal,visual,insert,command-line
 \    -description "Yank URL query (unencoded)"
 \    -js utils.yankWithMsg(decodeURIComponent(buffer.URL.replace(/^[^?]*[?]?/,"")));
-map <yank>uQ
-\    -modes normal,visual,insert,command-line
-\    -description "Yank URL query (encoded)"
-\    -js utils.yankWithMsg(buffer.URL.replace(/^[^?]*[?]?/,""));
 map <yank>ur
 \    -modes normal,visual,insert,command-line
 \    -description "Yank root path or nth level"
@@ -3392,18 +3393,6 @@ map <yank>uu
 \    -modes normal,visual,insert,command-line
 \    -description "Yank buffer URL (unencoded)"
 \    -js utils.yankWithMsg(decodeURIComponent(buffer.URL));
-map <yank>uU
-\    -modes normal,visual,insert,command-line
-\    -description "Yank URL up one (or COUNT) levels (as per gu)"
-\    -js utils.yankWithMsg(urlUp(count||1));
-map <yank>uv
-\    -modes normal,visual,insert,command-line
-\    -description "Yank visible URL (unencoded)"
-\    -js utils.yankWithMsg(decodeURIComponent(document.querySelector("#urlbar").textValue));
-map <yank>uV
-\    -modes normal,visual,insert,command-line
-\    -description "Yank visible URL (encoded)"
-\    -js utils.yankWithMsg(document.querySelector("#urlbar").textValue);
 map <yank>u# -modes normal,visual,insert,command-line -description "Yank URL fragment" -js utils.yankWithMsg(buffer.URL.replace(/^[^#]*#?/,""));
 map <yank>u?
 \    -modes normal,visual,insert,command-line
@@ -3418,7 +3407,11 @@ map <yank>x -description "(show bindings: yank text)" -js CommandExMode().open("
 map <yank>xx -modes normal,visual,insert,command-line -description "Yank page text" -js utils.yankWithMsg(content.document.body.innerText);
 map <yank>xs -modes normal,visual,insert,command-line -description "Yank <span> of text (or other inline elements)" -js hints.show('σ');
 
-map <yank>y -modes normal,visual,insert,command-line -description "Yank buffer URL"  -ex yankfilenameorURL
+map <yank>y
+\    -modes normal,visual,insert,command-line
+\    -description "Yank buffer URL (unencoded)"
+\    -js utils.yankWithMsg(decodeURIComponent(buffer.URL));
+
 map <yank>0 -modes normal,visual,insert,command-line -description "Yank empty string to clipboard" -js utils.cbWrite("");
 map <yank>1
 \    -modes normal,visual,insert,command-line
