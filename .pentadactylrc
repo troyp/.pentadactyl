@@ -14815,13 +14815,11 @@ group user
 " | Woolworths |                                                                "
 " '------------'                                                                "
 
-group Woolworths -locations=woolworths.com.au
+group woolworths -locations=woolworths.com.au
 
 js <<EOF
 function woolSetNoSubs() {
-    $$("section.auto_product-cart-section .add-or-edit-button").forEach(e=>e.click());
-    $$("input[id^='shared-text-input-']").forEach(e=>e.value="no substitutions");
-    $$(".product-note-save-button>button").forEach(e=>e.click());
+    $$("input[type=checkbox]", $1("wow-checkout-cart")).forEach(e => e.checked && e.click());
 }
 
 function woolSearch(terms, where="adjacent") {
@@ -14838,10 +14836,10 @@ map <site>oC
 map <site>oo
 \    -description "Goto orders"
 \    -js openOrSelectTab("https://www.woolworths.com.au/shop/myaccount/myorders", count?"adjacent":"here");
+map <site>n -description "Toggle no substitutions message for each item" -js woolSetNoSubs();
 map <site>s
 \    -description "Search products in adjacent (count:current) tab"
 \    -js CommandExMode().open("woolsearch"+(count?"! ":" "));
-map <site>n -description "Set no substitutions message for each item" -js woolSetNoSubs();
 
 group user
 
