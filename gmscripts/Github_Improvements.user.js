@@ -15,3 +15,10 @@ if (url.match(/https:\/\/github\.com\/[^/]+\/[^/]+/)) {
         }
     );
 }
+
+// Fix black issue labels: make grey
+if (url.match(/\/issues/)) {
+    var labels = [...document.getElementsByClassName("hx_IssueLabel")];
+    var blacklabels = labels.filter(e=>e.getAttribute("style").includes("--label-r:0;--label-g:0;--label-b:0;"));
+    blacklabels.forEach(e=>e.setAttribute("style", "--label-r:200;--label-g:200;--label-b:200;"));
+}
